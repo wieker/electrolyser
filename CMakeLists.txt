@@ -39,13 +39,7 @@ include_directories(include/pio)
 
 add_executable(samd11_mcu
         ../main.c
-        ../i2c_master.c
-        ../spi_master.c
         ../gpio.c
-        ../dac.c
-        ../adc.c
-        ../pwm.c
-        ../debug.c
         ../udc.c
         ../usb.c
         ../usb_descriptors.c

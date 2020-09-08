@@ -27,61 +27,20 @@
  */
 
 /*- Includes ----------------------------------------------------------------*/
-#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdalign.h>
-#include <string.h>
 #include "samd11.h"
 #include "hal_gpio.h"
 #include "nvm_data.h"
-#include "debug.h"
-#include "usb.h"
-#include "dac.h"
-#include "adc.h"
-#include "pwm.h"
 #include "gpio.h"
-#include "i2c_master.h"
-#include "spi_master.h"
-#include "uart.h"
+#include "usb.h"
 
 /*- Definitions -------------------------------------------------------------*/
-HAL_GPIO_PIN(LED,      B, 30)
+HAL_GPIO_PIN(LED,      A, 14)
 
 #define APP_EP_SEND    1
 #define APP_EP_RECV    2
-
-#define APP_MAGIC      0x78656c41
-#define APP_VERSION    1
-
-enum
-{
-  CMD_I2C_INIT     = 0x00,
-  CMD_I2C_START    = 0x01,
-  CMD_I2C_STOP     = 0x02,
-  CMD_I2C_READ     = 0x03,
-  CMD_I2C_WRITE    = 0x04,
-  CMD_I2C_PINS     = 0x05,
-
-  CMD_SPI_INIT     = 0x10,
-  CMD_SPI_SS       = 0x11,
-  CMD_SPI_TRANSFER = 0x12,
-
-  CMD_GPIO_CONFIG  = 0x50,
-  CMD_GPIO_READ    = 0x51,
-  CMD_GPIO_WRITE   = 0x52,
-
-  CMD_DAC_INIT     = 0x60,
-  CMD_DAC_WRITE    = 0x61,
-
-  CMD_ADC_INIT     = 0x70,
-  CMD_ADC_READ     = 0x71,
-
-  CMD_PWM_INIT     = 0x80,
-  CMD_PWM_WRITE    = 0x81,
-
-  CMD_GET_VERSION  = 0xf0,
-};
 
 /*- Variables ---------------------------------------------------------------*/
 static alignas(4) uint8_t app_usb_recv_buffer[64];
@@ -112,7 +71,7 @@ static void timer_init(void)
 
   TC1->COUNT16.COUNT.reg = 0;
 
-  TC1->COUNT16.CC[0].reg = (F_CPU / 1000ul / 1024) * 500;
+  TC1->COUNT16.CC[0].reg = (F_CPU / 1000ul / 1024) * 250;
   TC1->COUNT16.COUNT.reg = 0;
 
   TC1->COUNT16.CTRLA.reg |= TC_CTRLA_ENABLE;
@@ -194,156 +153,6 @@ void usb_recv_callback(void)
   app_response_buffer[0] = cmd;
   app_response_buffer[1] = true;
 
-  if (CMD_I2C_INIT == cmd)
-  {
-    int freq = get_uint32(&app_usb_recv_buffer[1]);
-    freq = i2c_init(freq);
-    set_uint32(&app_response_buffer[2], freq);
-  }
-  else if (CMD_I2C_START == cmd)
-  {
-    int addr = app_usb_recv_buffer[1];
-    app_response_buffer[1] = i2c_start(addr);
-  }
-  else if (CMD_I2C_STOP == cmd)
-  {
-    app_response_buffer[1] = i2c_stop();
-  }
-  else if (CMD_I2C_READ == cmd)
-  {
-    int i;
-
-    for (i = 0; i < app_usb_recv_buffer[1]; i++)
-    {
-      bool last = ((i == (app_usb_recv_buffer[1] - 1)) && app_usb_recv_buffer[2]);
-
-      if (!i2c_read_byte(&app_response_buffer[3 + i], last))
-      {
-        app_response_buffer[1] = false;
-        break;
-      }
-    }
-
-    app_response_buffer[2] = i;
-  }
-  else if (CMD_I2C_WRITE == cmd)
-  {
-    int i;
-
-    for (i = 0; i < app_usb_recv_buffer[1]; i++)
-    {
-      if (!i2c_write_byte(app_usb_recv_buffer[2 + i]))
-      {
-        app_response_buffer[1] = false;
-        break;
-      }
-    }
-
-    app_response_buffer[2] = i;
-  }
-  else if (CMD_I2C_PINS == cmd)
-  {
-    i2c_pins(app_usb_recv_buffer[1], app_usb_recv_buffer[2]);
-  }
-
-  else if (CMD_SPI_INIT == cmd)
-  {
-    int freq = get_uint32(&app_usb_recv_buffer[1]);
-    int mode = app_usb_recv_buffer[5];
-    freq = spi_init(freq, mode);
-    set_uint32(&app_response_buffer[2], freq);
-  }
-  else if (CMD_SPI_SS == cmd)
-  {
-    spi_ss(app_usb_recv_buffer[1]);
-  }
-  else if (CMD_SPI_TRANSFER == cmd)
-  {
-    for (int i = 0; i < app_usb_recv_buffer[1]; i++)
-    {
-      app_response_buffer[2 + i] = spi_write_byte(app_usb_recv_buffer[2 + i]);
-    }
-  }
-
-  else if (CMD_GPIO_CONFIG == cmd)
-  {
-    int cnt = app_usb_recv_buffer[1];
-
-    for (int i = 0; i < cnt; i++)
-    {
-      int index = app_usb_recv_buffer[2 + i*2];
-      int conf = app_usb_recv_buffer[3 + i*2];
-
-      gpio_configure(index, conf);
-    }
-  }
-  else if (CMD_GPIO_READ == cmd)
-  {
-    int cnt = app_usb_recv_buffer[1];
-
-    for (int i = 0; i < cnt; i++)
-    {
-      int index = app_usb_recv_buffer[2 + i];
-
-      app_response_buffer[2 + i] = gpio_read(index);
-    }
-  }
-  else if (CMD_GPIO_WRITE == cmd)
-  {
-    int cnt = app_usb_recv_buffer[1];
-
-    for (int i = 0; i < cnt; i++)
-    {
-      int index = app_usb_recv_buffer[2 + i*2];
-      int value = app_usb_recv_buffer[3 + i*2];
-
-      gpio_write(index, value);
-    }
-  }
-
-  else if (CMD_DAC_INIT == cmd)
-  {
-    dac_init();
-  }
-  else if (CMD_DAC_WRITE == cmd)
-  {
-    int value = get_uint16(&app_usb_recv_buffer[1]);
-    dac_write(value);
-  }
-
-  else if (CMD_ADC_INIT == cmd)
-  {
-    adc_init();
-  }
-  else if (CMD_ADC_READ == cmd)
-  {
-    set_uint16(&app_response_buffer[2], adc_read());
-  }
-
-  else if (CMD_PWM_INIT == cmd)
-  {
-    int prescaler = app_usb_recv_buffer[1];
-    int period = get_uint32(&app_usb_recv_buffer[2]);
-    pwm_init(prescaler, period);
-  }
-  else if (CMD_PWM_WRITE == cmd)
-  {
-    int channel = app_usb_recv_buffer[1];
-    int value = get_uint32(&app_usb_recv_buffer[2]);
-    pwm_write(channel, value);
-  }
-
-  else if (CMD_GET_VERSION == cmd)
-  {
-    set_uint32(&app_response_buffer[2], APP_MAGIC);
-    app_response_buffer[6] = APP_VERSION;
-  }
-
-  else
-  {
-    app_response_buffer[1] = false;
-  }
-
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer), usb_send_callback);
 
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer), usb_recv_callback);
@@ -362,8 +171,6 @@ int main(void)
 {
   sys_init();
   timer_init();
-
-  uart_init();
 
   usb_init();
   gpio_init();
