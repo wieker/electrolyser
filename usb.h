@@ -52,6 +52,16 @@ enum
 
 enum
 {
+    USB_DEVICE_EPCFG_EPTYPE_DISABLED    = 0,
+    USB_DEVICE_EPCFG_EPTYPE_CONTROL     = 1,
+    USB_DEVICE_EPCFG_EPTYPE_ISOCHRONOUS = 2,
+    USB_DEVICE_EPCFG_EPTYPE_BULK        = 3,
+    USB_DEVICE_EPCFG_EPTYPE_INTERRUPT   = 4,
+    USB_DEVICE_EPCFG_EPTYPE_DUAL_BANK   = 5,
+};
+
+enum
+{
   USB_DEVICE_DESCRIPTOR                    = 1,
   USB_CONFIGURATION_DESCRIPTOR             = 2,
   USB_STRING_DESCRIPTOR                    = 3,
@@ -198,11 +208,6 @@ typedef struct PACK
 
 /*- Prototypes --------------------------------------------------------------*/
 void usb_init(void);
-void usb_send(int ep, uint8_t *data, int size, void (*callback)(void));
-void usb_recv(int ep, uint8_t *data, int size, void (*callback)(void));
-void usb_handle_standard_request(usb_request_t *request);
-
-void usb_configuration_callback(int config);
 
 #endif // _USB_H_
 

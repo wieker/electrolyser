@@ -48,7 +48,6 @@ static alignas(4) uint8_t app_response_buffer[64];
 
 /*- Implementations ---------------------------------------------------------*/
 
-//-----------------------------------------------------------------------------
 void irq_handler_tc1(void)
 {
   if (TC1->COUNT16.INTFLAG.reg & TC_INTFLAG_MC(1))
@@ -58,7 +57,6 @@ void irq_handler_tc1(void)
   }
 }
 
-//-----------------------------------------------------------------------------
 static void timer_init(void)
 {
   PM->APBCMASK.reg |= PM_APBCMASK_TC1;
@@ -80,7 +78,6 @@ static void timer_init(void)
   NVIC_EnableIRQ(TC1_IRQn);
 }
 
-//-----------------------------------------------------------------------------
 static void sys_init(void)
 {
   uint32_t coarse, fine;
@@ -111,20 +108,17 @@ static void sys_init(void)
   while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY);
 }
 
-//-----------------------------------------------------------------------------
 static uint32_t get_uint32(uint8_t *data)
 {
   return ((uint32_t)data[0] << 0) | ((uint32_t)data[1] << 8) |
          ((uint32_t)data[2] << 16) | ((uint32_t)data[3] << 24);
 }
 
-//-----------------------------------------------------------------------------
 static uint32_t get_uint16(uint8_t *data)
 {
   return ((uint16_t)data[0] << 0) | ((uint16_t)data[1] << 8);
 }
 
-//-----------------------------------------------------------------------------
 static void set_uint32(uint8_t *data, uint32_t value)
 {
   data[0] = (value >> 0) & 0xff;
@@ -133,40 +127,12 @@ static void set_uint32(uint8_t *data, uint32_t value)
   data[3] = (value >> 24) & 0xff;
 }
 
-//-----------------------------------------------------------------------------
 static void set_uint16(uint8_t *data, uint16_t value)
 {
   data[0] = (value >> 0) & 0xff;
   data[1] = (value >> 8) & 0xff;
 }
 
-//-----------------------------------------------------------------------------
-void usb_send_callback(void)
-{
-}
-
-//-----------------------------------------------------------------------------
-void usb_recv_callback(void)
-{
-  int cmd = app_usb_recv_buffer[0];
-
-  app_response_buffer[0] = cmd;
-  app_response_buffer[1] = true;
-
-  usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer), usb_send_callback);
-
-  usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer), usb_recv_callback);
-}
-
-//-----------------------------------------------------------------------------
-void usb_configuration_callback(int config)
-{
-  usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer), usb_recv_callback);
-
-  (void)config;
-}
-
-//-----------------------------------------------------------------------------
 int main(void)
 {
   sys_init();

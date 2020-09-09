@@ -40,7 +40,6 @@ include_directories(include/pio)
 add_executable(samd11_mcu
         ../main.c
         ../gpio.c
-        ../udc.c
         ../usb.c
         ../usb_descriptors.c
         ../startup_samd11.c)
