@@ -133,6 +133,25 @@ static void set_uint16(uint8_t *data, uint16_t value)
   data[1] = (value >> 8) & 0xff;
 }
 
+static alignas(4) uint8_t app_recv_buffer[64];
+
+//-----------------------------------------------------------------------------
+void usb_recv_callback(void)
+{
+    int cmd = app_usb_recv_buffer[0];
+
+    app_response_buffer[0] = app_usb_recv_buffer[1];
+    app_response_buffer[1] = app_usb_recv_buffer[0];
+
+    usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
+
+    usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
+}
+
+void usb_configure_callback() {
+    usb_recv(APP_EP_RECV, app_recv_buffer, sizeof(app_recv_buffer));
+}
+
 int main(void)
 {
   sys_init();

@@ -208,6 +208,11 @@ typedef struct PACK
 
 /*- Prototypes --------------------------------------------------------------*/
 void usb_init(void);
+void usb_send(int ep, uint8_t *data, int size);
+void usb_recv(int ep, uint8_t *data, int size);
+
+void usb_configure_callback();
+void usb_recv_callback(void);
 
 #endif // _USB_H_
 

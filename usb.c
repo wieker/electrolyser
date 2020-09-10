@@ -330,7 +330,7 @@ static void usb_handle_standard_request(usb_request_t *request)
                     desc = (usb_descriptor_header_t *)((uint8_t *)desc + desc->bLength);
                 }
 
-                //usb_configuration_callback(usb_config);
+                usb_configure_callback();
             }
         } break;
 
@@ -533,7 +533,7 @@ void irq_handler_usb(void)
             USB->DEVICE.DeviceEndpoint[i].EPINTFLAG.bit.TRCPT0 = 1;
             USB->DEVICE.DeviceEndpoint[i].EPSTATUSSET.bit.BK0RDY = 1;
 
-            //udc_recv_callback(i);
+            usb_recv_callback();
         }
 
         if (flags & USB_DEVICE_EPINTFLAG_TRCPT1)
@@ -544,5 +544,25 @@ void irq_handler_usb(void)
             //udc_send_callback(i);
         }
     }
+}
+
+//-----------------------------------------------------------------------------
+void usb_send(int ep, uint8_t *data, int size)
+{
+    udc_mem[ep].in.ADDR.reg = (uint32_t)data;
+    udc_mem[ep].in.PCKSIZE.bit.BYTE_COUNT = size;
+    udc_mem[ep].in.PCKSIZE.bit.MULTI_PACKET_SIZE = 0;
+
+    USB->DEVICE.DeviceEndpoint[ep].EPSTATUSSET.bit.BK1RDY = 1;
+}
+
+//-----------------------------------------------------------------------------
+void usb_recv(int ep, uint8_t *data, int size)
+{
+    udc_mem[ep].out.ADDR.reg = (uint32_t)data;
+    udc_mem[ep].out.PCKSIZE.bit.MULTI_PACKET_SIZE = size;
+    udc_mem[ep].out.PCKSIZE.bit.BYTE_COUNT = 0;
+
+    USB->DEVICE.DeviceEndpoint[ep].EPSTATUSCLR.bit.BK0RDY = 1;
 }
 
