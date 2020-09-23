@@ -41,5 +41,7 @@ add_executable(samd11_mcu
         ../main.c
         ../gpio.c
         ../usb.c
+        ../pwm.c
+        ../adc.c
         ../usb_descriptors.c
         ../startup_samd11.c)

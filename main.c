@@ -35,6 +35,7 @@
 #include "nvm_data.h"
 #include "gpio.h"
 #include "usb.h"
+#include "pwm.h"
 
 /*- Definitions -------------------------------------------------------------*/
 HAL_GPIO_PIN(LED,      A, 14)
@@ -46,13 +47,16 @@ HAL_GPIO_PIN(LED,      A, 14)
 static alignas(4) uint8_t app_usb_recv_buffer[64];
 static alignas(4) uint8_t app_response_buffer[64];
 
+uint8_t v = 0;
+
 /*- Implementations ---------------------------------------------------------*/
 
 void irq_handler_tc1(void)
 {
   if (TC1->COUNT16.INTFLAG.reg & TC_INTFLAG_MC(1))
   {
-    HAL_GPIO_LED_toggle();
+    //HAL_GPIO_LED_toggle();
+    v = (v == 9) ? 0 : v + 1;
     TC1->COUNT16.INTFLAG.reg = TC_INTFLAG_MC(1);
   }
 }
@@ -158,13 +162,15 @@ int main(void)
   timer_init();
 
   usb_init();
-  gpio_init();
+  //gpio_init();
+  pwm_init(0, 10);
 
-  HAL_GPIO_LED_out();
-  HAL_GPIO_LED_clr();
+  //HAL_GPIO_LED_out();
+  //HAL_GPIO_LED_clr();
 
   while (1)
   {
+      pwm_write(0, v);
   }
 
   return 0;
