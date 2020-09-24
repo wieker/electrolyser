@@ -147,6 +147,8 @@ void usb_recv_callback(void)
     app_response_buffer[0] = app_usb_recv_buffer[1];
     app_response_buffer[1] = app_usb_recv_buffer[0];
 
+    pwm_write(0, app_usb_recv_buffer[0]);
+
     usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
 
     usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
@@ -164,13 +166,13 @@ int main(void)
   usb_init();
   //gpio_init();
   pwm_init(0, 10);
+  pwm_write(0, 7);
 
   //HAL_GPIO_LED_out();
   //HAL_GPIO_LED_clr();
 
   while (1)
   {
-      pwm_write(0, v);
   }
 
   return 0;
