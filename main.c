@@ -36,6 +36,7 @@
 #include "gpio.h"
 #include "usb.h"
 #include "pwm.h"
+#include "adc.h"
 
 /*- Definitions -------------------------------------------------------------*/
 HAL_GPIO_PIN(LED,      A, 14)
@@ -114,8 +115,8 @@ static void sys_init(void)
 
 static uint32_t get_uint32(uint8_t *data)
 {
-  return ((uint32_t)data[0] << 0) | ((uint32_t)data[1] << 8) |
-         ((uint32_t)data[2] << 16) | ((uint32_t)data[3] << 24);
+  return ((uint32_t)data[3] << 0) | ((uint32_t)data[2] << 8) |
+         ((uint32_t)data[1] << 16) | ((uint32_t)data[0] << 24);
 }
 
 static uint32_t get_uint16(uint8_t *data)
@@ -149,6 +150,9 @@ void usb_recv_callback(void)
 
     pwm_write(0, app_usb_recv_buffer[0]);
 
+    int voltage = adc_read();
+    set_uint32(&app_response_buffer[0], voltage);
+
     usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
 
     usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
@@ -164,6 +168,7 @@ int main(void)
   timer_init();
 
   usb_init();
+  adc_init();
   //gpio_init();
   pwm_init(0, 10);
   pwm_write(0, 7);
