@@ -38,6 +38,8 @@
 #include "pwm.h"
 #include "adc.h"
 
+#include "dma.h"
+
 /*- Definitions -------------------------------------------------------------*/
 HAL_GPIO_PIN(LED,      A, 14)
 
@@ -150,8 +152,11 @@ void usb_recv_callback(void)
 
     pwm_write(0, app_usb_recv_buffer[0]);
 
+    DMAC_ChannelTransfer(DMAC_CHANNEL_0, app_usb_recv_buffer, app_response_buffer, 64);
     int voltage = adc_read();
     set_uint32(&app_response_buffer[0], voltage);
+
+    while (DMAC->BUSYCH.reg != 0) {}
 
     usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
 
@@ -172,6 +177,8 @@ int main(void)
   //gpio_init();
   pwm_init(0, 10);
   pwm_write(0, 7);
+
+  DMAC_Initialize();
 
   //HAL_GPIO_LED_out();
   //HAL_GPIO_LED_clr();
