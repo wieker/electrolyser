@@ -224,5 +224,7 @@ void irq_handler_dmac( void )
 
     /* Restore channel ID */
     DMAC->CHID.reg = channelId;
+
+    dma_complete_cb();
 }
 

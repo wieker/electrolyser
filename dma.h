@@ -17,4 +17,6 @@ void DMAC_Initialize( void );
 
 bool DMAC_ChannelTransfer( DMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize );
 
+void dma_complete_cb();
+
 #endif //SAMD11_COM_DMA_H

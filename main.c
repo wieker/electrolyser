@@ -39,6 +39,7 @@
 #include "adc.h"
 
 #include "dma.h"
+#include "timer.h"
 
 /*- Definitions -------------------------------------------------------------*/
 HAL_GPIO_PIN(LED,      A, 14)
@@ -50,40 +51,7 @@ HAL_GPIO_PIN(LED,      A, 14)
 static alignas(4) uint8_t app_usb_recv_buffer[64];
 static alignas(4) uint8_t app_response_buffer[64];
 
-uint8_t v = 0;
-
 /*- Implementations ---------------------------------------------------------*/
-
-void irq_handler_tc1(void)
-{
-  if (TC1->COUNT16.INTFLAG.reg & TC_INTFLAG_MC(1))
-  {
-    //HAL_GPIO_LED_toggle();
-    v = (v == 9) ? 0 : v + 1;
-    TC1->COUNT16.INTFLAG.reg = TC_INTFLAG_MC(1);
-  }
-}
-
-static void timer_init(void)
-{
-  PM->APBCMASK.reg |= PM_APBCMASK_TC1;
-
-  GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(TC1_GCLK_ID) |
-      GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN(0);
-
-  TC1->COUNT16.CTRLA.reg = TC_CTRLA_MODE_COUNT16 | TC_CTRLA_WAVEGEN_MFRQ |
-      TC_CTRLA_PRESCALER_DIV1024 | TC_CTRLA_PRESCSYNC_RESYNC;
-
-  TC1->COUNT16.COUNT.reg = 0;
-
-  TC1->COUNT16.CC[0].reg = (F_CPU / 1000ul / 1024) * 250;
-  TC1->COUNT16.COUNT.reg = 0;
-
-  TC1->COUNT16.CTRLA.reg |= TC_CTRLA_ENABLE;
-
-  TC1->COUNT16.INTENSET.reg = TC_INTENSET_MC(1);
-  NVIC_EnableIRQ(TC1_IRQn);
-}
 
 static void sys_init(void)
 {
@@ -154,17 +122,20 @@ void usb_recv_callback(void)
 
     DMAC_ChannelTransfer(DMAC_CHANNEL_0, app_usb_recv_buffer, app_response_buffer, 64);
     int voltage = adc_read();
-    set_uint32(&app_response_buffer[0], voltage);
+    //set_uint32(&app_response_buffer[0], voltage);
+}
+
+void usb_configure_callback() {
+    usb_recv(APP_EP_RECV, app_recv_buffer, sizeof(app_recv_buffer));
+}
+
+void dma_complete_cb() {
 
     while (DMAC->BUSYCH.reg != 0) {}
 
     usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
 
     usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
-}
-
-void usb_configure_callback() {
-    usb_recv(APP_EP_RECV, app_recv_buffer, sizeof(app_recv_buffer));
 }
 
 int main(void)

@@ -44,4 +44,4 @@ add_executable(samd11_mcu
         ../pwm.c
         ../adc.c
         ../usb_descriptors.c
-        ../startup_samd11.c dma.c)
+        ../startup_samd11.c dma.c timer.c )
