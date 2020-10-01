@@ -120,7 +120,7 @@ void usb_recv_callback(void)
 
     pwm_write(0, app_usb_recv_buffer[0]);
 
-    DMAC_ChannelTransfer(DMAC_CHANNEL_0, app_usb_recv_buffer, app_response_buffer, 64);
+    DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 2);
     int voltage = adc_read();
     //set_uint32(&app_response_buffer[0], voltage);
 }
