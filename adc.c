@@ -40,6 +40,8 @@ HAL_GPIO_PIN(ADC,      A, 3)
 
 /*- Implementations ---------------------------------------------------------*/
 
+int n = 0;
+
 //-----------------------------------------------------------------------------
 void adc_init(void)
 {
@@ -62,7 +64,11 @@ void adc_init(void)
   ADC->CALIB.reg = ADC_CALIB_BIAS_CAL(NVM_READ_CAL(ADC_BIASCAL)) |
       ADC_CALIB_LINEARITY_CAL(NVM_READ_CAL(ADC_LINEARITY));
 
-  ADC->EVCTRL.reg = ADC_EVCTRL_STARTEI;
+  // TODo: implement EVSYS PWM => ADC
+//  ADC->EVCTRL.reg = ADC_EVCTRL_STARTEI;
+  ADC->INTENSET.reg = ADC_INTENSET_RESRDY;
+
+  NVIC_EnableIRQ(ADC_IRQn);
 
   ADC->CTRLA.reg = ADC_CTRLA_ENABLE;
 }
@@ -71,8 +77,16 @@ void adc_init(void)
 int adc_read(void)
 {
   ADC->SWTRIG.reg = ADC_SWTRIG_START;
-  while (0 == (ADC->INTFLAG.reg & ADC_INTFLAG_RESRDY));
+  return 0;
+}
 
-  return ADC->RESULT.reg;
+void irq_handler_adc(void)
+{
+  ADC->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+  n ++;
+}
+
+int getN() {
+  return n;
 }
 

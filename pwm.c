@@ -34,6 +34,8 @@
 #include "hal_gpio.h"
 #include "pwm.h"
 
+#include "adc.h"
+
 /*- Definitions -------------------------------------------------------------*/
 HAL_GPIO_PIN(PWM_0,   A, 14)
 HAL_GPIO_PIN(PWM_1,   A, 11)
@@ -59,12 +61,16 @@ void pwm_init(int prescaler, int period)
 
   TCC0->CTRLA.reg = TCC_CTRLA_PRESCALER_DIV1024 | TCC_CTRLA_PRESCSYNC_PRESC;
   TCC0->WAVE.reg = TCC_WAVE_WAVEGEN_NPWM;
-  TCC0->PER.reg = (F_CPU / 1000ul / 1024) * 750;
+  TCC0->PER.reg = (F_CPU / 1000ul / 1024) * 4000;
   TCC0->COUNT.reg = 0;
   TCC0->CC[0].reg = (F_CPU / 1000ul / 1024) * 250;
   TCC0->CC[1].reg = (F_CPU / 1000ul / 1024) * 500;
-  TCC0->EVCTRL.reg |= TCC_EVCTRL_MCEO1;
+  // TODo: implement EVSYS PWM => ADC
+//  TCC0->EVCTRL.reg = TCC_EVCTRL_MCEO1;
   TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
+
+  TCC0->INTENSET.reg = TCC_INTENSET_MC1;
+  NVIC_EnableIRQ(TCC0_IRQn);
 }
 
 //-----------------------------------------------------------------------------
@@ -74,5 +80,11 @@ void pwm_write(int channel, int value)
   TCC0->COUNT.reg = 0;
   TCC0->CC[channel].reg = value;
   TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
+}
+
+void irq_handler_tcc0(void)
+{
+  TCC0->INTFLAG.reg = TCC_INTFLAG_MC1;
+  adc_read();
 }
 
