@@ -147,7 +147,11 @@ int main(void)
   adc_init();
   //gpio_init();
   pwm_init(0, 10);
-  pwm_write(0, 7);
+  //pwm_write(0, 7);
+
+  EVSYS->USER.reg = EVSYS_USER_CHANNEL(1) | EVSYS_USER_USER(EVSYS_ID_USER_ADC_START);
+  EVSYS->CHANNEL.reg = EVSYS_CHANNEL_EVGEN(EVSYS_ID_GEN_TCC0_MCX_1) | EVSYS_CHANNEL_PATH_SYNCHRONOUS |
+          EVSYS_CHANNEL_CHANNEL(1);
 
   DMAC_Initialize();
 

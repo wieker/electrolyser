@@ -57,12 +57,13 @@ void pwm_init(int prescaler, int period)
   TCC0->CTRLA.reg = TCC_CTRLA_SWRST;
   while (TCC0->CTRLA.reg & TCC_CTRLA_SWRST);
 
-  TCC0->CTRLA.reg = TCC_CTRLA_PRESCALER(prescaler) | TCC_CTRLA_PRESCSYNC_PRESC;
+  TCC0->CTRLA.reg = TCC_CTRLA_PRESCALER_DIV1024 | TCC_CTRLA_PRESCSYNC_PRESC;
   TCC0->WAVE.reg = TCC_WAVE_WAVEGEN_NPWM;
-  TCC0->PER.reg = period;
+  TCC0->PER.reg = (F_CPU / 1000ul / 1024) * 750;
   TCC0->COUNT.reg = 0;
-  TCC0->CC[0].reg = 0;
-  TCC0->CC[3].reg = 0;
+  TCC0->CC[0].reg = (F_CPU / 1000ul / 1024) * 250;
+  TCC0->CC[1].reg = (F_CPU / 1000ul / 1024) * 500;
+  TCC0->EVCTRL.reg |= TCC_EVCTRL_MCEO1;
   TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
 }
 
