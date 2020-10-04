@@ -113,16 +113,20 @@ static alignas(4) uint8_t app_recv_buffer[64];
 //-----------------------------------------------------------------------------
 void usb_recv_callback(void)
 {
-    int cmd = app_usb_recv_buffer[0];
+  int cmd = app_usb_recv_buffer[0];
 
-    app_response_buffer[0] = app_usb_recv_buffer[1];
-    app_response_buffer[1] = app_usb_recv_buffer[0];
+  app_response_buffer[0] = app_usb_recv_buffer[1];
+  app_response_buffer[1] = app_usb_recv_buffer[0];
 
-    pwm_write(0, app_usb_recv_buffer[0]);
+  pwm_write((F_CPU / 1000ul / 1024) * 250 * app_usb_recv_buffer[0]);
 
-    DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 2);
-    int voltage = adc_read();
-    //set_uint32(&app_response_buffer[0], voltage);
+  //DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 2);
+  int voltage = getN();
+  set_uint16(app_response_buffer, voltage);
+
+  usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
+
+  usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
 }
 
 void usb_configure_callback() {
@@ -147,14 +151,13 @@ int main(void)
   adc_init();
   //gpio_init();
   pwm_init(0, 10);
-  //pwm_write(0, 7);
 
   // TODo: implement EVSYS PWM => ADC
 //  EVSYS->USER.reg = EVSYS_USER_CHANNEL(1) | EVSYS_USER_USER(EVSYS_ID_USER_ADC_START);
 //  EVSYS->CHANNEL.reg = EVSYS_CHANNEL_EVGEN(EVSYS_ID_GEN_TCC0_MCX_1) | EVSYS_CHANNEL_PATH_ASYNCHRONOUS |
 //          EVSYS_CHANNEL_CHANNEL(1);
 
-  DMAC_Initialize();
+  //DMAC_Initialize();
 
   //HAL_GPIO_LED_out();
   //HAL_GPIO_LED_clr();

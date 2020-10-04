@@ -31,7 +31,7 @@
 
 /*- Prototypes --------------------------------------------------------------*/
 void pwm_init(int prescaler, int period);
-void pwm_write(int channel, int value);
+void pwm_write(int value);
 
 #endif // _PWM_H_
 
