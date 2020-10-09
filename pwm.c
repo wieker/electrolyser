@@ -37,7 +37,7 @@
 #include "adc.h"
 
 /*- Definitions -------------------------------------------------------------*/
-HAL_GPIO_PIN(PWM_0,   A, 14)
+HAL_GPIO_PIN(PWM_0,   A, 4)
 HAL_GPIO_PIN(PWM_1,   A, 11)
 
 /*- Implementations ---------------------------------------------------------*/
@@ -47,9 +47,6 @@ void pwm_init(int prescaler, int period)
 {
   HAL_GPIO_PWM_0_out();
   HAL_GPIO_PWM_0_pmuxen(HAL_GPIO_PMUX_F);
-
-  HAL_GPIO_PWM_1_out();
-  HAL_GPIO_PWM_1_pmuxen(HAL_GPIO_PMUX_F);
 
   PM->APBCMASK.reg |= PM_APBCMASK_TCC0;
 

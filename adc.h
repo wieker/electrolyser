@@ -34,6 +34,7 @@ void adc_init(void);
 int adc_read(void);
 
 int getN();
+int getV();
 
 #endif // _ADC_H_
 

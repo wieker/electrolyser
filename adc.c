@@ -41,6 +41,7 @@ HAL_GPIO_PIN(ADC,      A, 3)
 /*- Implementations ---------------------------------------------------------*/
 
 int n = 0;
+int v = 0;
 
 //-----------------------------------------------------------------------------
 void adc_init(void)
@@ -83,10 +84,15 @@ int adc_read(void)
 void irq_handler_adc(void)
 {
   ADC->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+  v = ADC->RESULT.reg;
   n ++;
 }
 
 int getN() {
   return n;
+}
+
+int getV() {
+  return v;
 }
 
