@@ -28,20 +28,21 @@ set(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS} \
 set(CMAKE_EXE_LINKER_FLAGS " \
         -mcpu=cortex-m0plus -mthumb \
         -Wl,--gc-sections \
-        -Wl,--script=${PROJECT_SOURCE_DIR}/linker/samd11d14.ld \
+        -Wl,--script=${PROJECT_SOURCE_DIR}/../linker/samd11d14.ld \
 ")
 
-include_directories(.)
-include_directories(include)
-include_directories(include/component)
-include_directories(include/instance)
-include_directories(include/pio)
+include_directories(../include)
+include_directories(../include/component)
+include_directories(../include/instance)
+include_directories(../include/pio)
 
 add_executable(samd11_mcu
-        ../main.c
-        ../gpio.c
-        ../usb.c
-        ../pwm.c
-        ../adc.c
-        ../usb_descriptors.c
-        ../startup_samd11.c dma.c timer.c )
+        main.c
+        gpio.c
+        usb.c
+        pwm.c
+        adc.c
+        usb_descriptors.c
+        ../startup_samd11.c
+        dma.c
+        timer.c)
