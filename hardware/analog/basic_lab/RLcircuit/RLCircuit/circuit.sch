@@ -55,44 +55,11 @@ Wire Wire Line
 Wire Wire Line
 	3450 3500 3450 4050
 Wire Wire Line
-	3450 4050 3800 4050
-Wire Wire Line
-	4100 4050 4600 4050
-Wire Wire Line
 	4600 4050 4600 4300
-Text GLabel 4950 4050 2    50   Input ~ 0
-RLsense
 Wire Wire Line
 	4600 4050 4950 4050
-Connection ~ 4600 4050
-Text GLabel 6750 3000 0    50   Input ~ 0
-RLsense
-$Comp
-L Device:R R2
-U 1 1 5F14BDF1
-P 7550 3350
-F 0 "R2" H 7620 3396 50  0000 L CNN
-F 1 "R" H 7620 3305 50  0000 L CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 7480 3350 50  0001 C CNN
-F 3 "~" H 7550 3350 50  0001 C CNN
-	1    7550 3350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	6750 3000 7550 3000
-Wire Wire Line
-	7550 3000 7550 3200
-$Comp
-L Device:R R1
-U 1 1 5F13EBF2
-P 3950 4050
-F 0 "R1" V 3743 4050 50  0000 C CNN
-F 1 "R" V 3834 4050 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 3880 4050 50  0001 C CNN
-F 3 "~" H 3950 4050 50  0001 C CNN
-	1    3950 4050
-	0    1    1    0   
-$EndComp
+	5550 4050 6350 4050
 $Comp
 L Connector:Conn_01x04_Male J1
 U 1 1 5F150BE5
@@ -172,29 +139,122 @@ Wire Wire Line
 Wire Wire Line
 	3000 6350 3000 6250
 Connection ~ 2650 6350
-Text GLabel 4850 5400 2    50   Input ~ 0
-bias
-Wire Wire Line
-	4600 5400 4850 5400
-Wire Wire Line
-	4600 4600 4600 5400
-Text GLabel 7850 4250 2    50   Input ~ 0
-bias
-Wire Wire Line
-	7550 3750 7550 3500
-Wire Wire Line
-	7550 4250 7550 4050
-Wire Wire Line
-	7850 4250 7550 4250
 $Comp
-L Analog_Switch:MAX40200AUK U?
-U 1 1 5F146940
-P 6800 4000
-F 0 "U?" H 6800 4367 50  0000 C CNN
-F 1 "MAX40200AUK" H 6800 4276 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5" H 6800 4500 50  0001 C CNN
-F 3 "https://datasheets.maximintegrated.com/en/ds/MAX40200.pdf" H 6800 4500 50  0001 C CNN
-	1    6800 4000
+L Device:D D1
+U 1 1 5F8383AE
+P 6350 4950
+F 0 "D1" V 6304 5030 50  0000 L CNN
+F 1 "CDBU0520" V 6395 5030 50  0000 L CNN
+F 2 "Diode_SMD:D_0603_1608Metric" H 6350 4950 50  0001 C CNN
+F 3 "~" H 6350 4950 50  0001 C CNN
+	1    6350 4950
+	0    1    1    0   
+$EndComp
+Connection ~ 4600 4050
+Wire Wire Line
+	3450 4050 4600 4050
+Wire Wire Line
+	6350 4050 6350 4800
+Text GLabel 8550 4750 2    50   Input ~ 0
+bias
+$Comp
+L power:GND #PWR07
+U 1 1 5F841CE5
+P 7400 5400
+F 0 "#PWR07" H 7400 5150 50  0001 C CNN
+F 1 "GND" H 7405 5227 50  0000 C CNN
+F 2 "" H 7400 5400 50  0001 C CNN
+F 3 "" H 7400 5400 50  0001 C CNN
+	1    7400 5400
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:+3V3 #PWR06
+U 1 1 5F843572
+P 7400 4250
+F 0 "#PWR06" H 7400 4100 50  0001 C CNN
+F 1 "+3V3" H 7415 4423 50  0000 C CNN
+F 2 "" H 7400 4250 50  0001 C CNN
+F 3 "" H 7400 4250 50  0001 C CNN
+	1    7400 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5F8443D2
+P 7400 4450
+F 0 "R1" H 7470 4496 50  0000 L CNN
+F 1 "1000 Ohm" H 7470 4405 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 7330 4450 50  0001 C CNN
+F 3 "~" H 7400 4450 50  0001 C CNN
+	1    7400 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5F844541
+P 7400 5000
+F 0 "R2" H 7470 5046 50  0000 L CNN
+F 1 "1000 Ohm" H 7470 4955 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 7330 5000 50  0001 C CNN
+F 3 "~" H 7400 5000 50  0001 C CNN
+	1    7400 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7400 4250 7400 4300
+Wire Wire Line
+	7400 4600 7400 4750
+Wire Wire Line
+	7400 4750 7400 4850
+Connection ~ 7400 4750
+Wire Wire Line
+	7400 5150 7400 5400
+Text GLabel 4950 4050 2    50   Input ~ 0
+bias
+Text GLabel 5550 4050 0    50   Input ~ 0
+bias
+$Comp
+L power:GND #PWR02
+U 1 1 5F84A30C
+P 4600 5350
+F 0 "#PWR02" H 4600 5100 50  0001 C CNN
+F 1 "GND" H 4605 5177 50  0000 C CNN
+F 2 "" H 4600 5350 50  0001 C CNN
+F 3 "" H 4600 5350 50  0001 C CNN
+	1    4600 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 5F84AF0C
+P 6350 5350
+F 0 "#PWR03" H 6350 5100 50  0001 C CNN
+F 1 "GND" H 6355 5177 50  0000 C CNN
+F 2 "" H 6350 5350 50  0001 C CNN
+F 3 "" H 6350 5350 50  0001 C CNN
+	1    6350 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 5100 6350 5350
+$Comp
+L Device:R R3
+U 1 1 5F84FA5A
+P 8100 4750
+F 0 "R3" V 7893 4750 50  0000 C CNN
+F 1 "1000 Ohm" V 7984 4750 50  0000 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 8030 4750 50  0001 C CNN
+F 3 "~" H 8100 4750 50  0001 C CNN
+	1    8100 4750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8550 4750 8250 4750
+Wire Wire Line
+	7400 4750 7950 4750
+Wire Wire Line
+	4600 4600 4600 5350
+Text GLabel 7400 4750 0    50   Input ~ 0
+RLsense
 $EndSCHEMATC
