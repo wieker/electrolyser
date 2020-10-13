@@ -1,0 +1,171 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Conn_01x20_Female J?
+U 1 1 5F86602B
+P 2000 3050
+F 0 "J?" H 1892 1825 50  0000 C CNN
+F 1 "Conn_01x20_Female" H 1892 1916 50  0000 C CNN
+F 2 "" H 2000 3050 50  0001 C CNN
+F 3 "~" H 2000 3050 50  0001 C CNN
+	1    2000 3050
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F8686EA
+P 3750 4350
+F 0 "#PWR?" H 3750 4100 50  0001 C CNN
+F 1 "GND" H 3755 4177 50  0000 C CNN
+F 2 "" H 3750 4350 50  0001 C CNN
+F 3 "" H 3750 4350 50  0001 C CNN
+	1    3750 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2200 2050 3750 2050
+Wire Wire Line
+	3750 2050 3750 2250
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5F8693E8
+P 3300 1600
+F 0 "#PWR?" H 3300 1450 50  0001 C CNN
+F 1 "+3V3" H 3315 1773 50  0000 C CNN
+F 2 "" H 3300 1600 50  0001 C CNN
+F 3 "" H 3300 1600 50  0001 C CNN
+	1    3300 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2200 2150 3300 2150
+Wire Wire Line
+	3300 2150 3300 1600
+Wire Wire Line
+	2200 2250 3750 2250
+Connection ~ 3750 2250
+Wire Wire Line
+	3750 2250 3750 4350
+Text GLabel 2200 2850 2    50   Input ~ 0
+pwm
+Text GLabel 2200 2750 2    50   Input ~ 0
+adc
+Text GLabel 5200 2650 0    50   Input ~ 0
+pwm
+$Comp
+L pilib:2N7002 Q?
+U 1 1 5F86AFE3
+P 5600 2700
+F 0 "Q?" H 5790 2746 50  0000 L CNN
+F 1 "2N7002" H 5790 2655 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23" H 5800 2625 50  0001 L CIN
+F 3 "" H 5600 2700 50  0001 L CNN
+	1    5600 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5200 2650 5400 2650
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5F86CF52
+P 5700 2150
+F 0 "#PWR?" H 5700 2000 50  0001 C CNN
+F 1 "+3V3" H 5715 2323 50  0000 C CNN
+F 2 "" H 5700 2150 50  0001 C CNN
+F 3 "" H 5700 2150 50  0001 C CNN
+	1    5700 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5700 2500 5700 2150
+$Comp
+L Device:R R?
+U 1 1 5F86DC81
+P 6600 3150
+F 0 "R?" V 6393 3150 50  0000 C CNN
+F 1 "R" V 6484 3150 50  0000 C CNN
+F 2 "" V 6530 3150 50  0001 C CNN
+F 3 "~" H 6600 3150 50  0001 C CNN
+	1    6600 3150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5700 2900 5700 3150
+Wire Wire Line
+	5700 3150 6450 3150
+$Comp
+L Device:C C?
+U 1 1 5F86ED73
+P 7300 3600
+F 0 "C?" H 7415 3646 50  0000 L CNN
+F 1 "C" H 7415 3555 50  0000 L CNN
+F 2 "" H 7338 3450 50  0001 C CNN
+F 3 "~" H 7300 3600 50  0001 C CNN
+	1    7300 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F87044C
+P 7300 4000
+F 0 "#PWR?" H 7300 3750 50  0001 C CNN
+F 1 "GND" H 7305 3827 50  0000 C CNN
+F 2 "" H 7300 4000 50  0001 C CNN
+F 3 "" H 7300 4000 50  0001 C CNN
+	1    7300 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 3750 7300 4000
+Wire Wire Line
+	6750 3150 7300 3150
+Wire Wire Line
+	7300 3150 7300 3450
+$Comp
+L Device:R R?
+U 1 1 5F870E5F
+P 8050 3600
+F 0 "R?" H 8120 3646 50  0000 L CNN
+F 1 "R" H 8120 3555 50  0000 L CNN
+F 2 "" V 7980 3600 50  0001 C CNN
+F 3 "~" H 8050 3600 50  0001 C CNN
+	1    8050 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 3150 8050 3150
+Wire Wire Line
+	8050 3150 8050 3450
+Connection ~ 7300 3150
+$Comp
+L power:GND #PWR?
+U 1 1 5F87233A
+P 8050 4000
+F 0 "#PWR?" H 8050 3750 50  0001 C CNN
+F 1 "GND" H 8055 3827 50  0000 C CNN
+F 2 "" H 8050 4000 50  0001 C CNN
+F 3 "" H 8050 4000 50  0001 C CNN
+	1    8050 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 3750 8050 4000
+Text GLabel 8750 3150 2    50   Input ~ 0
+adc
+Wire Wire Line
+	8050 3150 8750 3150
+Connection ~ 8050 3150
+$EndSCHEMATC
