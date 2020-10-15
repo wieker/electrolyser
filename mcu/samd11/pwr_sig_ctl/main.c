@@ -114,20 +114,15 @@ static alignas(4) uint8_t app_recv_buffer[64];
 //-----------------------------------------------------------------------------
 void usb_recv_callback(void)
 {
-  int cmd = app_usb_recv_buffer[0];
+  //pwm_write((F_CPU / 1000ul / 1024) * 250 * app_usb_recv_buffer[0]);
 
-  app_response_buffer[0] = app_usb_recv_buffer[1];
-  app_response_buffer[1] = app_usb_recv_buffer[0];
+  DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 16);
+  //int voltage = getV();
+  //set_uint16(app_response_buffer, voltage);
 
-  pwm_write((F_CPU / 1000ul / 1024) * 250 * app_usb_recv_buffer[0]);
+  //usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
 
-  //DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 2);
-  int voltage = getV();
-  set_uint16(app_response_buffer, voltage);
-
-  usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
-
-  usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
+  //usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
 }
 
 void usb_configure_callback() {
@@ -135,11 +130,7 @@ void usb_configure_callback() {
 }
 
 void dma_complete_cb() {
-
-    while (DMAC->BUSYCH.reg != 0) {}
-
     usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
-
     usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
 }
 
@@ -154,7 +145,7 @@ int main(void)
   //gpio_init();
   pwm_init(0, 10);
 
-  //DMAC_Initialize();
+  DMAC_Initialize();
 
   //HAL_GPIO_LED_out();
   //HAL_GPIO_LED_clr();
