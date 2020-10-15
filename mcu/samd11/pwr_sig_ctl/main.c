@@ -116,7 +116,7 @@ void usb_recv_callback(void)
 {
   //pwm_write((F_CPU / 1000ul / 1024) * 250 * app_usb_recv_buffer[0]);
 
-  DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 16);
+  DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 64);
   //int voltage = getV();
   //set_uint16(app_response_buffer, voltage);
 

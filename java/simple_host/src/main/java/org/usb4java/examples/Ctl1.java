@@ -156,7 +156,7 @@ public class Ctl1
 
         for (int i = 0; i < 32; i ++) {
             int aShort = (Byte.toUnsignedInt(buffer.get(i * 2 + 1)) << 8) + Byte.toUnsignedInt(buffer.get(i * 2));
-            System.out.println(aShort);
+            System.out.println(((float) aShort) / 65535 * 3.3);
         }
     }
 
