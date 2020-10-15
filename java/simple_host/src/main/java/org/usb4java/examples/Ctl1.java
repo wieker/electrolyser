@@ -145,18 +145,27 @@ public class Ctl1
         message[7] = 0;
         sendMessage(handle, message);
 
-        ByteBuffer buffer = ByteBuffer.allocateDirect(64);
-        IntBuffer transferred = IntBuffer.allocate(1);
-        int transfered = LibUsb.interruptTransfer(handle, (byte) 0x81, buffer,
-                transferred, TIMEOUT);
-        if (transfered < 0)
-            throw new LibUsbException("Control transfer failed", transfered);
-        if (transferred.get() != 64)
-            throw new RuntimeException("Not all data was received from device");
+        receiveData(handle);
+    }
 
-        for (int i = 0; i < 32; i ++) {
-            int aShort = (Byte.toUnsignedInt(buffer.get(i * 2 + 1)) << 8) + Byte.toUnsignedInt(buffer.get(i * 2));
-            System.out.println(((float) aShort) / 65535 * 3.3);
+    private static void receiveData(DeviceHandle handle) {
+        for (;;) {
+            ByteBuffer buffer = ByteBuffer.allocateDirect(64);
+            IntBuffer transferred = IntBuffer.allocate(1);
+            int transfered = LibUsb.interruptTransfer(handle, (byte) 0x81, buffer,
+                    transferred, TIMEOUT);
+            if (transfered < 0)
+                throw new LibUsbException("Control transfer failed", transfered);
+            if (transferred.get() != 64)
+                throw new RuntimeException("Not all data was received from device");
+
+            for (int i = 0; i < 32; i++) {
+                int aShort = (Byte.toUnsignedInt(buffer.get(i * 2 + 1)) << 8) + Byte.toUnsignedInt(buffer.get(i * 2));
+                double voltage = ((float) aShort) / 65535 * 3.3;
+                //if (voltage < 3 && voltage > 0.1) {
+                    System.out.println(voltage);
+                //}
+            }
         }
     }
 
