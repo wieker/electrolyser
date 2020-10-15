@@ -45,4 +45,4 @@ add_executable(samd11_mcu
         usb_descriptors.c
         ../startup_samd11.c
         dma.c
-        timer.c evsys.c )
+        timer.c evsys.c usb_std_chapter6.c)
