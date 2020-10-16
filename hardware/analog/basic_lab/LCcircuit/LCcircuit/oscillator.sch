@@ -1,0 +1,149 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Transistor_FET:IRF9540N Q?
+U 1 1 5F8A11B0
+P 4000 2350
+F 0 "Q?" H 4204 2396 50  0000 L CNN
+F 1 "IRF9540N" H 4204 2305 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 4200 2275 50  0001 L CIN
+F 3 "http://www.irf.com/product-info/datasheets/data/irf9540n.pdf" H 4000 2350 50  0001 L CNN
+	1    4000 2350
+	1    0    0    -1  
+$EndComp
+Text GLabel 2750 2350 0    50   Input ~ 0
+ctl
+Wire Wire Line
+	2750 2350 3800 2350
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5F8A22A1
+P 4100 1550
+F 0 "#PWR?" H 4100 1400 50  0001 C CNN
+F 1 "+3V3" H 4115 1723 50  0000 C CNN
+F 2 "" H 4100 1550 50  0001 C CNN
+F 3 "" H 4100 1550 50  0001 C CNN
+	1    4100 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F8A29EB
+P 7850 3050
+F 0 "#PWR?" H 7850 2800 50  0001 C CNN
+F 1 "GND" H 7855 2877 50  0000 C CNN
+F 2 "" H 7850 3050 50  0001 C CNN
+F 3 "" H 7850 3050 50  0001 C CNN
+	1    7850 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5F8A2D65
+P 7850 2750
+F 0 "R?" H 7920 2796 50  0000 L CNN
+F 1 "R" H 7920 2705 50  0000 L CNN
+F 2 "" V 7780 2750 50  0001 C CNN
+F 3 "~" H 7850 2750 50  0001 C CNN
+	1    7850 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L L?
+U 1 1 5F8A2FFD
+P 5600 3500
+F 0 "L?" H 5653 3546 50  0000 L CNN
+F 1 "L" H 5653 3455 50  0000 L CNN
+F 2 "" H 5600 3500 50  0001 C CNN
+F 3 "~" H 5600 3500 50  0001 C CNN
+	1    5600 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5F8A32E7
+P 6100 3500
+F 0 "C?" H 6215 3546 50  0000 L CNN
+F 1 "C" H 6215 3455 50  0000 L CNN
+F 2 "" H 6138 3350 50  0001 C CNN
+F 3 "~" H 6100 3500 50  0001 C CNN
+	1    6100 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5F8A574A
+P 7850 1600
+F 0 "#PWR?" H 7850 1450 50  0001 C CNN
+F 1 "+3V3" H 7865 1773 50  0000 C CNN
+F 2 "" H 7850 1600 50  0001 C CNN
+F 3 "" H 7850 1600 50  0001 C CNN
+	1    7850 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5F8A5F60
+P 7850 1950
+F 0 "R?" H 7920 1996 50  0000 L CNN
+F 1 "R" H 7920 1905 50  0000 L CNN
+F 2 "" V 7780 1950 50  0001 C CNN
+F 3 "~" H 7850 1950 50  0001 C CNN
+	1    7850 1950
+	1    0    0    -1  
+$EndComp
+Text GLabel 8300 2350 2    50   Input ~ 0
+bias
+Wire Wire Line
+	7850 1600 7850 1800
+Wire Wire Line
+	7850 2100 7850 2350
+Wire Wire Line
+	7850 2350 8300 2350
+Wire Wire Line
+	7850 2600 7850 2350
+Connection ~ 7850 2350
+Wire Wire Line
+	7850 2900 7850 3050
+Text GLabel 6250 4150 2    50   Input ~ 0
+bias
+Wire Wire Line
+	5600 3650 5600 3850
+Wire Wire Line
+	5600 3850 5850 3850
+Wire Wire Line
+	6100 3850 6100 3650
+Wire Wire Line
+	5850 3850 5850 4150
+Wire Wire Line
+	5850 4150 6250 4150
+Connection ~ 5850 3850
+Wire Wire Line
+	5850 3850 6100 3850
+Wire Wire Line
+	5600 3350 5600 3150
+Wire Wire Line
+	5600 3150 6100 3150
+Wire Wire Line
+	6100 3150 6100 3350
+Wire Wire Line
+	4100 1550 4100 2150
+Wire Wire Line
+	4100 2550 4100 3150
+Wire Wire Line
+	4100 3150 5600 3150
+Connection ~ 5600 3150
+$EndSCHEMATC

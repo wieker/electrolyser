@@ -166,6 +166,7 @@ public class Ctl1
                     System.out.println(voltage);
                 //}
             }
+            System.out.println("====");
         }
     }
 
