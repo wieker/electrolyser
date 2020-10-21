@@ -58,10 +58,10 @@ void pwm_init(int prescaler, int period)
 
   TCC0->CTRLA.reg = TCC_CTRLA_PRESCALER_DIV1024 | TCC_CTRLA_PRESCSYNC_PRESC;
   TCC0->WAVE.reg = TCC_WAVE_WAVEGEN_NPWM;
-  TCC0->PER.reg = (F_CPU >> 20) * 4000;
+  TCC0->PER.reg = F_CPU >> 11;
   TCC0->COUNT.reg = 0;
-  TCC0->CC[0].reg = (F_CPU >> 20) * 2000;
-  TCC0->CC[1].reg = (F_CPU >> 20) * 2000 - 100;
+  TCC0->CC[0].reg = F_CPU >> 12;
+  TCC0->CC[1].reg = F_CPU >> 13;
   // TODo: implement EVSYS PWM => ADC
   TCC0->EVCTRL.reg = TCC_EVCTRL_MCEO1;
   TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
