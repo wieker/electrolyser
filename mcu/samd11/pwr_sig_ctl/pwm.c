@@ -58,15 +58,16 @@ void pwm_init(int prescaler, int period)
 
   TCC0->CTRLA.reg = TCC_CTRLA_PRESCALER_DIV1024 | TCC_CTRLA_PRESCSYNC_PRESC;
   TCC0->WAVE.reg = TCC_WAVE_WAVEGEN_NPWM;
-  TCC0->PER.reg = F_CPU >> 9;
+  TCC0->PER.reg = (F_CPU >> 10) * 4;
   TCC0->COUNT.reg = 0;
-  TCC0->CC[0].reg = F_CPU >> 10;
-  TCC0->CC[1].reg = F_CPU >> 11;
+  TCC0->CC[0].reg = (F_CPU >> 10) * 2;
+  TCC0->CC[1].reg = (F_CPU >> 10) * 3;
+  TCC0->CC[2].reg = (F_CPU >> 10);
   // TODo: implement EVSYS PWM => ADC
   TCC0->EVCTRL.reg = TCC_EVCTRL_MCEO1;
   TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
 
-  TCC0->INTENSET.reg = TCC_INTENSET_CNT;
+  TCC0->INTENSET.reg = TCC_INTENSET_MC2;
   NVIC_EnableIRQ(TCC0_IRQn);
 }
 
@@ -81,7 +82,7 @@ void pwm_write(int value)
 
 void irq_handler_tcc0(void)
 {
-  TCC0->INTFLAG.reg = TCC_INTFLAG_CNT;
+  TCC0->INTFLAG.reg = TCC_INTFLAG_MC2;
   DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 64);
 }
 

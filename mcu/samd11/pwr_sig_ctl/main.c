@@ -143,9 +143,10 @@ int main(void)
   usb_init();
   adc_init();
   //gpio_init();
-  pwm_init(0, 10);
 
   DMAC_Initialize();
+  DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 64);
+  pwm_init(0, 10);
 
   //HAL_GPIO_LED_out();
   //HAL_GPIO_LED_clr();
