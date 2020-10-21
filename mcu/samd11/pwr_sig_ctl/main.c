@@ -50,7 +50,7 @@ HAL_GPIO_PIN(LED,      A, 14)
 
 /*- Variables ---------------------------------------------------------------*/
 static alignas(4) uint8_t app_usb_recv_buffer[64];
-static alignas(4) uint8_t app_response_buffer[64];
+alignas(4) uint8_t app_response_buffer[64];
 
 /*- Implementations ---------------------------------------------------------*/
 
@@ -132,7 +132,6 @@ void usb_configure_callback() {
 void dma_complete_cb() {
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
-  DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 4);
 }
 
 int main(void)
@@ -147,8 +146,6 @@ int main(void)
   pwm_init(0, 10);
 
   DMAC_Initialize();
-
-  DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 4);
 
   //HAL_GPIO_LED_out();
   //HAL_GPIO_LED_clr();

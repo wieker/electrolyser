@@ -34,7 +34,7 @@
 #include "hal_gpio.h"
 #include "pwm.h"
 
-#include "adc.h"
+#include "dma.h"
 
 /*- Definitions -------------------------------------------------------------*/
 HAL_GPIO_PIN(PWM_0,   A, 4)
@@ -66,8 +66,8 @@ void pwm_init(int prescaler, int period)
   TCC0->EVCTRL.reg = TCC_EVCTRL_MCEO1;
   TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
 
-  //TCC0->INTENSET.reg = TCC_INTENSET_MC1;
-  //NVIC_EnableIRQ(TCC0_IRQn);
+  TCC0->INTENSET.reg = TCC_INTENSET_CNT;
+  NVIC_EnableIRQ(TCC0_IRQn);
 }
 
 //-----------------------------------------------------------------------------
@@ -81,7 +81,7 @@ void pwm_write(int value)
 
 void irq_handler_tcc0(void)
 {
-  TCC0->INTFLAG.reg = TCC_INTFLAG_MC1;
-  adc_read();
+  TCC0->INTFLAG.reg = TCC_INTFLAG_CNT;
+  DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 4);
 }
 
