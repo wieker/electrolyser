@@ -114,7 +114,6 @@ static alignas(4) uint8_t app_recv_buffer[64];
 //-----------------------------------------------------------------------------
 void usb_recv_callback(void)
 {
-  adc_read();
   //pwm_write((F_CPU / 1000ul / 1024) * 250 * app_usb_recv_buffer[0]);
 
   //DMAC_ChannelTransfer(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 64);
