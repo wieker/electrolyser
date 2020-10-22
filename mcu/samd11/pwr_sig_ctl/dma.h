@@ -18,7 +18,7 @@ extern uint8_t app_response_buffer[64];
 
 void DMAC_Initialize( void );
 
-bool DMAC_ChannelTransfer( DMAC_CHANNEL channel, const void *srcAddr, const void *destAddr, size_t blockSize );
+void DMAC_ChannelTransfer();
 
 void dma_complete_cb();
 
