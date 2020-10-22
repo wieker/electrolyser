@@ -55,6 +55,10 @@ static  dmac_descriptor_registers_t _write_back_section[DMAC_CHANNELS_NUMBER]   
 /* Descriptor section for DMAC */
 static  dmac_descriptor_registers_t  descriptor_section[DMAC_CHANNELS_NUMBER]    __attribute__ ((aligned (16)));
 
+/* Descriptor section for DMAC */
+static  dmac_descriptor_registers_t  fini   __attribute__ ((aligned (16)));
+static int fake = 0;
+
 /* DMAC Channels object information structure */
 DMAC_CH_OBJECT dmacChannelObj[DMAC_CHANNELS_NUMBER];
 
@@ -89,7 +93,7 @@ void DMAC_Initialize( void )
     DMAC->CHCTRLB.reg = DMAC_CHCTRLB_TRIGACT(2) | DMAC_CHCTRLB_TRIGSRC(ADC_DMAC_ID_RESRDY) | DMAC_CHCTRLB_LVL(0) |
             DMAC_CHCTRLB_EVOE;
 
-    descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID |
+    descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID |
             DMAC_BTCTRL_DSTINC | DMAC_BTCTRL_EVOSEL_BEAT;
 
     dmacChannelObj[0].inUse = 1;
@@ -121,6 +125,13 @@ bool DMAC_ChannelTransfer( DMAC_CHANNEL channel, const void *srcAddr, const void
         dmac_descriptor_registers_t *const dmacDescReg = &descriptor_section[channel];
 
         dmacChannelObj[channel].busyStatus = true;
+      dmacDescReg->DMAC_DESCADDR = (uint32_t) &fini;
+      fini.DMAC_DESCADDR = 0;
+      fini.DMAC_DSTADDR = (uint32_t) &fake;
+      fini.DMAC_SRCADDR = (uint32_t) &fake;
+      fini.DMAC_BTCNT = 1;
+      fini.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID;
+
 
         /* Set source address */
         if (dmacDescReg->DMAC_BTCTRL & DMAC_BTCTRL_SRCINC)
