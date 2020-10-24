@@ -132,7 +132,6 @@ void usb_configure_callback() {
 void dma_complete_cb() {
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
-  dma_start();
 }
 
 int main(void)

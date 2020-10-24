@@ -58,7 +58,7 @@ void dma_init()
   descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID | DMAC_BTCTRL_EVOSEL_BEAT;
   descriptor_chain_1.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID | DMAC_BTCTRL_EVOSEL_BEAT;
   descriptor_chain_2.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID | DMAC_BTCTRL_EVOSEL_BEAT;
-  descriptor_chain_3.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID;
+  descriptor_chain_3.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID;
 
   DMAC->CHINTENSET.reg = (DMAC_CHINTENSET_TERR | DMAC_CHINTENSET_TCMPL);
 
@@ -103,7 +103,7 @@ void dma_descrs() {
   descriptor_chain_2.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
   descriptor_chain_2.DMAC_BTCNT = 1;
 
-  descriptor_chain_3.DMAC_DESCADDR = 0;
+  descriptor_chain_3.DMAC_DESCADDR = (uint32_t) descriptor_section;
   descriptor_chain_3.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[6]);
   descriptor_chain_3.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
   descriptor_chain_3.DMAC_BTCNT = 1;
