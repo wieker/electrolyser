@@ -69,6 +69,8 @@ void dma_init()
   NVIC_SetPriority(DMAC_IRQn, 3);
   NVIC_EnableIRQ(DMAC_IRQn);
 
+  dma_descrs();
+
 }
 
 /*******************************************************************************
@@ -79,8 +81,6 @@ void dma_start()
 {
   if (busyStatus == false) {
     busyStatus = true;
-
-    dma_descrs();
 
     DMAC->CHID.reg = 0;
     DMAC->CHCTRLA.reg |= DMAC_CHCTRLA_ENABLE;
