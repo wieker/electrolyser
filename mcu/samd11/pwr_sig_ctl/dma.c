@@ -37,7 +37,7 @@ static  dmac_descriptor_registers_t  descriptor_chain_3   __attribute__ ((aligne
 static int fake = 0;
 static int ok = 0;
 
-void DMAC_Initialize( void )
+void dma_init()
 {
   busyStatus = false;
 
@@ -75,34 +75,38 @@ void DMAC_Initialize( void )
     This function schedules a DMA transfer on the specified DMA channel.
 ********************************************************************************/
 
-void DMAC_ChannelTransfer()
+void dma_start()
 {
   if (busyStatus == false) {
     busyStatus = true;
 
-    descriptor_section[0].DMAC_DESCADDR = (uint32_t) &descriptor_chain_1;
-    descriptor_section[0].DMAC_DSTADDR = (uint32_t) ((intptr_t) &app_response_buffer[0]);
-    descriptor_section[0].DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-    descriptor_section[0].DMAC_BTCNT = 1;
-
-    descriptor_chain_1.DMAC_DESCADDR = (uint32_t) &descriptor_chain_2;
-    descriptor_chain_1.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[2]);
-    descriptor_chain_1.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-    descriptor_chain_1.DMAC_BTCNT = 1;
-
-    descriptor_chain_2.DMAC_DESCADDR = (uint32_t) &descriptor_chain_3;
-    descriptor_chain_2.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[4]);
-    descriptor_chain_2.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-    descriptor_chain_2.DMAC_BTCNT = 1;
-
-    descriptor_chain_3.DMAC_DESCADDR = 0;
-    descriptor_chain_3.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[6]);
-    descriptor_chain_3.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-    descriptor_chain_3.DMAC_BTCNT = 1;
+    dma_descrs();
 
     DMAC->CHID.reg = 0;
     DMAC->CHCTRLA.reg |= DMAC_CHCTRLA_ENABLE;
   }
+}
+
+void dma_descrs() {
+  descriptor_section[0].DMAC_DESCADDR = (uint32_t) &descriptor_chain_1;
+  descriptor_section[0].DMAC_DSTADDR = (uint32_t) ((intptr_t) &app_response_buffer[0]);
+  descriptor_section[0].DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
+  descriptor_section[0].DMAC_BTCNT = 1;
+
+  descriptor_chain_1.DMAC_DESCADDR = (uint32_t) &descriptor_chain_2;
+  descriptor_chain_1.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[2]);
+  descriptor_chain_1.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
+  descriptor_chain_1.DMAC_BTCNT = 1;
+
+  descriptor_chain_2.DMAC_DESCADDR = (uint32_t) &descriptor_chain_3;
+  descriptor_chain_2.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[4]);
+  descriptor_chain_2.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
+  descriptor_chain_2.DMAC_BTCNT = 1;
+
+  descriptor_chain_3.DMAC_DESCADDR = 0;
+  descriptor_chain_3.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[6]);
+  descriptor_chain_3.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
+  descriptor_chain_3.DMAC_BTCNT = 1;
 }
 
 void irq_handler_dmac( void )

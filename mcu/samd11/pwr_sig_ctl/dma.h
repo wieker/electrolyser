@@ -16,10 +16,12 @@ typedef enum
 
 extern uint8_t app_response_buffer[64];
 
-void DMAC_Initialize( void );
+void dma_init(void );
 
-void DMAC_ChannelTransfer();
+void dma_start();
 
 void dma_complete_cb();
+
+void dma_descrs();
 
 #endif //SAMD11_COM_DMA_H
