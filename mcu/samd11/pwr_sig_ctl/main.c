@@ -147,6 +147,7 @@ int main(void)
   dma_init();
   dma_start();
   pwm_init(0, 10);
+  adc_read();
 
   //HAL_GPIO_LED_out();
   //HAL_GPIO_LED_clr();

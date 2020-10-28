@@ -1,0 +1,177 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Conn_01x04_Female J?
+U 1 1 5F99D5F7
+P 3150 3000
+F 0 "J?" H 3042 2575 50  0000 C CNN
+F 1 "Conn_01x04_Female" H 3042 2666 50  0000 C CNN
+F 2 "" H 3150 3000 50  0001 C CNN
+F 3 "~" H 3150 3000 50  0001 C CNN
+	1    3150 3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5F99DB7F
+P 3950 2200
+F 0 "#PWR?" H 3950 2050 50  0001 C CNN
+F 1 "+3V3" H 3965 2373 50  0000 C CNN
+F 2 "" H 3950 2200 50  0001 C CNN
+F 3 "" H 3950 2200 50  0001 C CNN
+	1    3950 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F99E063
+P 4000 3650
+F 0 "#PWR?" H 4000 3400 50  0001 C CNN
+F 1 "GND" H 4005 3477 50  0000 C CNN
+F 2 "" H 4000 3650 50  0001 C CNN
+F 3 "" H 4000 3650 50  0001 C CNN
+	1    4000 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 3100 4000 3100
+Wire Wire Line
+	4000 3100 4000 3650
+Wire Wire Line
+	3350 2800 3950 2800
+Wire Wire Line
+	3950 2800 3950 2200
+Text GLabel 3350 2900 2    50   Input ~ 0
+adc
+Text GLabel 3350 3000 2    50   Input ~ 0
+pwm
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5F99EB4D
+P 5200 2150
+F 0 "#PWR?" H 5200 2000 50  0001 C CNN
+F 1 "+3V3" H 5215 2323 50  0000 C CNN
+F 2 "" H 5200 2150 50  0001 C CNN
+F 3 "" H 5200 2150 50  0001 C CNN
+	1    5200 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5F99F0DA
+P 5600 2750
+F 0 "R?" V 5393 2750 50  0000 C CNN
+F 1 "R" V 5484 2750 50  0000 C CNN
+F 2 "" V 5530 2750 50  0001 C CNN
+F 3 "~" H 5600 2750 50  0001 C CNN
+	1    5600 2750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:L L?
+U 1 1 5F99F39A
+P 6350 2750
+F 0 "L?" V 6169 2750 50  0000 C CNN
+F 1 "L" V 6260 2750 50  0000 C CNN
+F 2 "" H 6350 2750 50  0001 C CNN
+F 3 "~" H 6350 2750 50  0001 C CNN
+	1    6350 2750
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_FET:FQP27P06 Q?
+U 1 1 5F99FA0E
+P 7050 3450
+F 0 "Q?" H 7254 3496 50  0000 L CNN
+F 1 "FQP27P06" H 7254 3405 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 7250 3375 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/FQP27P06-D.PDF" H 7050 3450 50  0001 L CNN
+	1    7050 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F9A03BB
+P 7150 4150
+F 0 "#PWR?" H 7150 3900 50  0001 C CNN
+F 1 "GND" H 7155 3977 50  0000 C CNN
+F 2 "" H 7150 4150 50  0001 C CNN
+F 3 "" H 7150 4150 50  0001 C CNN
+	1    7150 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5200 2150 5200 2750
+Wire Wire Line
+	5200 2750 5450 2750
+Wire Wire Line
+	5750 2750 6200 2750
+Wire Wire Line
+	6500 2750 7150 2750
+Wire Wire Line
+	7150 2750 7150 3250
+Wire Wire Line
+	7150 3650 7150 4150
+Text GLabel 6850 3450 0    50   Input ~ 0
+pwm
+$Comp
+L Device:D D?
+U 1 1 5F9A15C5
+P 7850 2750
+F 0 "D?" H 7850 2533 50  0000 C CNN
+F 1 "D" H 7850 2624 50  0000 C CNN
+F 2 "" H 7850 2750 50  0001 C CNN
+F 3 "~" H 7850 2750 50  0001 C CNN
+	1    7850 2750
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5F9A19F7
+P 8550 3100
+F 0 "C?" H 8665 3146 50  0000 L CNN
+F 1 "C" H 8665 3055 50  0000 L CNN
+F 2 "" H 8588 2950 50  0001 C CNN
+F 3 "~" H 8550 3100 50  0001 C CNN
+	1    8550 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7150 2750 7700 2750
+Connection ~ 7150 2750
+Wire Wire Line
+	8000 2750 8550 2750
+Wire Wire Line
+	8550 2750 8550 2950
+$Comp
+L power:GND #PWR?
+U 1 1 5F9A246D
+P 8550 4150
+F 0 "#PWR?" H 8550 3900 50  0001 C CNN
+F 1 "GND" H 8555 3977 50  0000 C CNN
+F 2 "" H 8550 4150 50  0001 C CNN
+F 3 "" H 8550 4150 50  0001 C CNN
+	1    8550 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8550 3250 8550 4150
+Text GLabel 9150 2750 2    50   Input ~ 0
+adc
+Wire Wire Line
+	8550 2750 9150 2750
+Connection ~ 8550 2750
+$EndSCHEMATC
