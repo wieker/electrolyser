@@ -65,6 +65,9 @@ static bool app_dap_event = false;
 static bool app_vcp_event = false;
 static bool app_vcp_open = false;
 
+
+HAL_GPIO_PIN(0,   A, 14);
+
 /*- Implementations ---------------------------------------------------------*/
 
 //-----------------------------------------------------------------------------
@@ -325,6 +328,7 @@ int main(void)
   app_status_timeout = STATUS_TIMEOUT;
   int i = 0;
   gpio_configure(0, 20);
+  //DAP_CONFIG_CONNECT_SWD();
 
   while (1)
   {
@@ -334,7 +338,8 @@ int main(void)
     rx_task();
     uart_timer_task();
     status_timer_task();
-    gpio_write(0, i >> 16 == 0);
+    HAL_GPIO_0_write(i >> 16 == 0);
+    //HAL_GPIO_nRESET_write(0);
     i = i == 1 << 17 ? 0 : i + 1;
   }
 
