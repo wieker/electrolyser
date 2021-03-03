@@ -165,7 +165,7 @@ static inline void DAP_CONFIG_SETUP(void)
 {
   HAL_GPIO_SWCLK_TCK_in();
   HAL_GPIO_SWDIO_TMS_in();
-  HAL_GPIO_nRESET_in();
+  //HAL_GPIO_nRESET_in();
 
   HAL_GPIO_SWDIO_TMS_pullup();
 }
@@ -175,7 +175,7 @@ static inline void DAP_CONFIG_DISCONNECT(void)
 {
   HAL_GPIO_SWCLK_TCK_in();
   HAL_GPIO_SWDIO_TMS_in();
-  HAL_GPIO_nRESET_in();
+  //HAL_GPIO_nRESET_in();
 }
 
 //-----------------------------------------------------------------------------
@@ -188,7 +188,7 @@ static inline void DAP_CONFIG_CONNECT_SWD(void)
   HAL_GPIO_SWCLK_TCK_set();
 
   HAL_GPIO_nRESET_out();
-  HAL_GPIO_nRESET_set();
+  HAL_GPIO_nRESET_clr();
 }
 
 //-----------------------------------------------------------------------------

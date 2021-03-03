@@ -30,7 +30,7 @@ public class Ctl1
     private static final short VENDOR_ID = 0x6666;
 
     /** The product ID of the missile launcher. */
-    private static final short PRODUCT_ID = 0x6666;
+    private static final short PRODUCT_ID = 0x6600;
 
     /** The USB communication timeout. */
     private static final int TIMEOUT = 0;
@@ -116,7 +116,7 @@ public class Ctl1
         buffer.put(message);
         buffer.rewind();
         IntBuffer transferred = IntBuffer.allocate(19);
-        int transfered = LibUsb.interruptTransfer(handle, (byte) 2, buffer,
+        int transfered = LibUsb.interruptTransfer(handle, (byte) 4, buffer,
                 transferred, TIMEOUT);
         if (transfered < 0)
             throw new LibUsbException("Control transfer failed", transfered);

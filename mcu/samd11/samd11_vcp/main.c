@@ -320,7 +320,7 @@ int main(void)
 {
   sys_init();
   sys_time_init();
-  dap_init();
+  //dap_init();
   usb_init();
   usb_cdc_init();
   usb_hid_init();
