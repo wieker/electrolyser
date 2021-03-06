@@ -116,7 +116,7 @@ public class Ctl1
         buffer.put(message);
         buffer.rewind();
         IntBuffer transferred = IntBuffer.allocate(19);
-        int transfered = LibUsb.interruptTransfer(handle, (byte) 4, buffer,
+        int transfered = LibUsb.interruptTransfer(handle, (byte) 2, buffer,
                 transferred, TIMEOUT);
         if (transfered < 0)
             throw new LibUsbException("Control transfer failed", transfered);
