@@ -26,7 +26,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*- Includes ----------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdalign.h>
@@ -37,17 +36,12 @@
 #include "usb.h"
 
 
-/*- Definitions -------------------------------------------------------------*/
 HAL_GPIO_PIN(LED,      A, 14)
-
 #define APP_EP_SEND    1
 #define APP_EP_RECV    2
 
-/*- Variables ---------------------------------------------------------------*/
 static alignas(4) uint8_t app_usb_recv_buffer[64];
 alignas(4) uint8_t app_response_buffer[64];
-
-/*- Implementations ---------------------------------------------------------*/
 
 static void sys_init(void)
 {
@@ -104,28 +98,15 @@ static void set_uint16(uint8_t *data, uint16_t value)
   data[1] = (value >> 8) & 0xff;
 }
 
-static alignas(4) uint8_t app_recv_buffer[64];
-
-//-----------------------------------------------------------------------------
 void usb_recv_callback(void)
 {
-  //pwm_write((F_CPU / 1000ul / 1024) * 250 * app_usb_recv_buffer[0]);
+  set_uint16(app_response_buffer, 0xf5f4);
 
-  //dma_start(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 64);
-  //int voltage = getV();
-  //set_uint16(app_response_buffer, voltage);
-
-  //usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
-
-  //usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
+  usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
+  usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
 }
 
 void usb_configure_callback() {
-  usb_recv(APP_EP_RECV, app_recv_buffer, sizeof(app_recv_buffer));
-}
-
-void dma_complete_cb() {
-  usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
 }
 

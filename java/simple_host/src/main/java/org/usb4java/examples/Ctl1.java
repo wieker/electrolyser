@@ -30,7 +30,7 @@ public class Ctl1
     private static final short VENDOR_ID = 0x6666;
 
     /** The product ID of the missile launcher. */
-    private static final short PRODUCT_ID = 0x6600;
+    private static final short PRODUCT_ID = 0x6666;
 
     /** The USB communication timeout. */
     private static final int TIMEOUT = 0;
@@ -160,11 +160,8 @@ public class Ctl1
                 throw new RuntimeException("Not all data was received from device");
 
             for (int i = 0; i < 32; i++) {
-                int aShort = (Byte.toUnsignedInt(buffer.get(i * 2 + 1)) << 8) + Byte.toUnsignedInt(buffer.get(i * 2));
-                double voltage = ((float) aShort) / 65535 * 3.3;
-                //if (voltage < 3 && voltage > 0.1) {
-                    System.out.println(voltage);
-                //}
+                System.out.println(String.format("%x", buffer.get(i)));
+                System.out.println(String.format("%x", buffer.getShort()));
             }
             System.out.println("====");
         }
