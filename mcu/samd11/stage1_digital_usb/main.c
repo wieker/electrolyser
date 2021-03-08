@@ -40,6 +40,8 @@ HAL_GPIO_PIN(LED,      A, 14)
 #define APP_EP_SEND    1
 #define APP_EP_RECV    2
 
+int counter = 0;
+
 static alignas(4) uint8_t app_usb_recv_buffer[64];
 alignas(4) uint8_t app_response_buffer[64];
 
@@ -101,6 +103,9 @@ static void set_uint16(uint8_t *data, uint16_t value)
 void usb_recv_callback(void)
 {
   set_uint16(app_response_buffer, 0xf5f4);
+  set_uint32(app_response_buffer + 4, counter);
+
+  counter ++;
 
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
