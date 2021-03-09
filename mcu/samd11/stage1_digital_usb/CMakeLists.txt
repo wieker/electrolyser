@@ -31,7 +31,9 @@ set(CMAKE_EXE_LINKER_FLAGS " \
         -Wl,--script=${PROJECT_SOURCE_DIR}/../linker/samd11d14.ld \
 ")
 
+include_directories(.)
 include_directories(../include)
+include_directories(./fpga_ifc)
 include_directories(../include/component)
 include_directories(../include/instance)
 include_directories(../include/pio)
@@ -39,8 +41,11 @@ include_directories(../include/pio)
 add_executable(samd11_stage1_usb
         ../startup_samd11.c
         main.c
-        gpio.c
 
         usb.c
         usb_descriptors.c
-        usb_std_chapter6.c)
+        usb_std_chapter6.c
+
+        fpga_ifc/spi_master.c
+        fpga_ifc/gpio.c
+        )
