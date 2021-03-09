@@ -142,6 +142,9 @@ public class SimplePing
         System.out.println(String.format("%x", buffer.getShort()));
         int a = 0;
         System.out.println(String.format("%x", a = buffer.getInt(4)));
+        for (int i = 0; i < 32; i ++) {
+            System.out.println(String.format("%x", buffer.get(i)));
+        }
         System.out.println("====");
         if (a == 0) {
             throw new RuntimeException("a = 0");
@@ -223,6 +226,9 @@ public class SimplePing
                         break;
                     case 'f':
                         sendCommand(handle, 1);
+                        break;
+                    case 's':
+                        sendCommand(handle, 3);
                         break;
 
                     case 'q':

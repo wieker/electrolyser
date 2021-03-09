@@ -35,6 +35,8 @@
 #include "gpio.h"
 #include "usb.h"
 
+#include "spi_master.h"
+
 
 HAL_GPIO_PIN(LED,      A, 14)
 #define APP_EP_SEND    1
@@ -106,6 +108,9 @@ int rst_state = 0;
 #define GPIO_LED      0
 #define GPIO_RST      1
 
+uint8_t data_wake[] = { 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 };
+uint8_t data[] = { 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
 void usb_recv_callback(void)
 {
   set_uint16(app_response_buffer, 0xf5f4);
@@ -119,6 +124,23 @@ void usb_recv_callback(void)
   if (app_usb_recv_buffer[0] == 1) {
     rst_state = !rst_state;
     gpio_write(GPIO_RST, rst_state);
+  }
+  if (app_usb_recv_buffer[0] == 3) {
+    spi_ss(0);
+    for (int i = 0; i < 6; i ++) {
+      app_response_buffer[8 + i] = spi_write_byte(data_wake[i]);
+    }
+    spi_ss(1);
+
+    for (int i = 0; i < 100; i ++) {
+
+    }
+
+    spi_ss(0);
+    for (int i = 0; i < 6; i ++) {
+      app_response_buffer[14 + i] = spi_write_byte(data[i]);
+    }
+    spi_ss(1);
   }
 
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
@@ -150,6 +172,8 @@ int main(void)
   gpio_configure(GPIO_RST, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
   gpio_write(GPIO_RST, rst_state);
   gpio_write(GPIO_LED, led_state);
+
+  spi_init(8000000, 0);
 
   while (1)
   {
