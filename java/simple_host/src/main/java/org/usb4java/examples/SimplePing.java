@@ -18,6 +18,8 @@ import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+import static org.usb4java.examples.Ctl1.readKey;
+
 /**
  * Controls a USB missile launcher (Only compatible with Vendor/Product
  * 1130:0202).
@@ -112,7 +114,7 @@ public class SimplePing
     public static void sendCommand(DeviceHandle handle, int command)
     {
         byte[] message = new byte[64];
-        message[0] = 8;
+        message[0] = (byte) command;
         message[1] = 0;
         message[2] = 0;
         message[3] = 1;
@@ -205,10 +207,30 @@ public class SimplePing
                 throw new LibUsbException("Unable to claim interface", result);
             }
 
-            while (true)
-            {
 
+            // Read commands and execute them
+            System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
+            boolean exit = false;
+            while (!exit)
+            {
+                System.out.print("> ");
+                char key = readKey();
+                switch (key)
+                {
+
+                    case 'l':
                         sendCommand(handle, 0);
+                        break;
+                    case 'f':
+                        sendCommand(handle, 1);
+                        break;
+
+                    case 'q':
+                        exit = true;
+                        break;
+
+                    default:
+                }
             }
         }
         finally

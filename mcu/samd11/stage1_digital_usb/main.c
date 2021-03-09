@@ -100,12 +100,26 @@ static void set_uint16(uint8_t *data, uint16_t value)
   data[1] = (value >> 8) & 0xff;
 }
 
+int led_state = 1;
+int rst_state = 0;
+
+#define GPIO_LED      0
+#define GPIO_RST      1
+
 void usb_recv_callback(void)
 {
   set_uint16(app_response_buffer, 0xf5f4);
   set_uint32(app_response_buffer + 4, counter);
 
   counter ++;
+  if (app_usb_recv_buffer[0] == 0) {
+    led_state = !led_state;
+    gpio_write(GPIO_LED, led_state);
+  }
+  if (app_usb_recv_buffer[0] == 1) {
+    rst_state = !rst_state;
+    gpio_write(GPIO_RST, rst_state);
+  }
 
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
@@ -115,10 +129,27 @@ void usb_configure_callback() {
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
 }
 
+enum
+{
+    GPIO_CONF_DISABLE  = 1 << 0,
+    GPIO_CONF_INPUT    = 1 << 1,
+    GPIO_CONF_OUTPUT   = 1 << 2,
+    GPIO_CONF_PULLUP   = 1 << 3,
+    GPIO_CONF_PULLDOWN = 1 << 4,
+    GPIO_CONF_SET      = 1 << 3, // Intentional overlap with PULLUP / PULLDOWN
+    GPIO_CONF_CLR      = 1 << 4,
+};
+
 int main(void)
 {
   sys_init();
   usb_init();
+
+  gpio_init();
+  gpio_configure(GPIO_LED, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
+  gpio_configure(GPIO_RST, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
+  gpio_write(GPIO_RST, rst_state);
+  gpio_write(GPIO_LED, led_state);
 
   while (1)
   {
