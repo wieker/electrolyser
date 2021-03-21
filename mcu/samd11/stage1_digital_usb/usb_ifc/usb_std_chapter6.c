@@ -347,16 +347,6 @@ void usb_handle_standard_request(usb_request_t *request)
       }
     } break;
 
-      // TODO: This actually belongs to HID implementation
-    case USB_CMD(IN, INTERFACE, STANDARD, GET_DESCRIPTOR):
-    {
-      uint16_t length = request->wLength;
-
-      length = LIMIT(length, sizeof(usb_hid_report_descriptor));
-
-      udc_control_send(usb_hid_report_descriptor, length);
-    } break;
-
     default:
     {
       udc_control_stall();
