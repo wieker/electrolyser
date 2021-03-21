@@ -27,11 +27,9 @@
  */
 
 /*- Includes ----------------------------------------------------------------*/
-#include <stdlib.h>
 #include <stdint.h>
-#include <stdbool.h>
 #include "samd11.h"
-#include "hal_gpio.h"
+#include "std_hal/hal_gpio.h"
 #include "spi_master.h"
 
 /*- Definitions -------------------------------------------------------------*/

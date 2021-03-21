@@ -27,13 +27,12 @@
  */
 
 #include <stdint.h>
-#include <stdbool.h>
 #include <stdalign.h>
 #include "samd11.h"
-#include "hal_gpio.h"
-#include "nvm_data.h"
+#include "std_hal/hal_gpio.h"
+#include "std_hal/nvm_data.h"
 #include "gpio.h"
-#include "usb.h"
+#include "usb_ifc/usb.h"
 
 #include "spi_master.h"
 

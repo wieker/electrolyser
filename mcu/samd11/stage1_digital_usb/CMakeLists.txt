@@ -42,9 +42,9 @@ add_executable(samd11_stage1_usb
         ../startup_samd11.c
         main.c
 
-        usb.c
-        usb_descriptors.c
-        usb_std_chapter6.c
+        usb_ifc/usb.c
+        usb_ifc/usb_descriptors.c
+        usb_ifc/usb_std_chapter6.c
 
         fpga_ifc/spi_master.c
         fpga_ifc/gpio.c
