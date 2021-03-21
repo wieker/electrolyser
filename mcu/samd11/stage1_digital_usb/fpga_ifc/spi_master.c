@@ -35,10 +35,10 @@
 #include "spi_master.h"
 
 /*- Definitions -------------------------------------------------------------*/
-HAL_GPIO_PIN(MISO,            A, 4);
-HAL_GPIO_PIN(MOSI,            A, 6);
-HAL_GPIO_PIN(SCLK,            A, 7);
-HAL_GPIO_PIN(SS,              A, 5);
+HAL_GPIO_PIN(MOSI,            A, 4);
+HAL_GPIO_PIN(MISO,            A, 6);
+HAL_GPIO_PIN(SS,            A, 7);
+HAL_GPIO_PIN(SCLK,              A, 5);
 #define SPI_SERCOM            SERCOM0
 #define SPI_SERCOM_PMUX       PORT_PMUX_PMUXE_D_Val
 #define SPI_SERCOM_GCLK_ID    SERCOM0_GCLK_ID_CORE
@@ -85,7 +85,7 @@ int spi_init(int freq, int mode)
   SPI_SERCOM->SPI.BAUD.reg = baud;
 
   SPI_SERCOM->SPI.CTRLA.reg = SERCOM_SPI_CTRLA_ENABLE |
-      SERCOM_SPI_CTRLA_DIPO(0) | SERCOM_SPI_CTRLA_DOPO(1) |
+      SERCOM_SPI_CTRLA_DIPO(2) | SERCOM_SPI_CTRLA_DOPO(0) |
       ((mode & 1) ? SERCOM_SPI_CTRLA_CPHA : 0) |
       ((mode & 2) ? SERCOM_SPI_CTRLA_CPOL : 0) |
       SERCOM_SPI_CTRLA_MODE_SPI_MASTER;
