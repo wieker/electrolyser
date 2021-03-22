@@ -12,9 +12,6 @@ import org.usb4java.DeviceList;
 import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -36,6 +33,10 @@ public class SimplePing
 
     /** The USB communication timeout. */
     private static final int TIMEOUT = 0;
+
+
+    byte data_wake[] = { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    byte data[] = { (byte) 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
     /**
      * Searches for the missile launcher device and returns it. If there are
@@ -110,14 +111,15 @@ public class SimplePing
      *            The USB device handle.
      * @param command
      *            The command to send.
+     * @param cmd
      */
-    public static void sendCommand(DeviceHandle handle, int command)
+    public static void sendCommand(DeviceHandle handle, int command, int cmd)
     {
         byte[] message = new byte[64];
         message[0] = (byte) command;
-        message[1] = 0;
-        message[2] = 0;
-        message[3] = 1;
+        message[1] = 6;
+        message[2] = (byte) cmd;
+        message[3] = 0;
         message[4] = 0;
         message[5] = 0;
         message[6] = 0;
@@ -222,13 +224,18 @@ public class SimplePing
                 {
 
                     case 'l':
-                        sendCommand(handle, 0);
+                        sendCommand(handle, 0, 0x9F);
                         break;
                     case 'f':
-                        sendCommand(handle, 1);
+                        sendCommand(handle, 1, 0x9F);
                         break;
                     case 's':
-                        sendCommand(handle, 3);
+                        sendCommand(handle, 3, 0x9F);
+                        sendCommand(handle, 4, 0xAB);
+                        sendCommand(handle, 5, 0x9F);
+                        sendCommand(handle, 3, 0x9F);
+                        sendCommand(handle, 4, 0x9F);
+                        sendCommand(handle, 5, 0x9F);
                         break;
 
                     case 'q':

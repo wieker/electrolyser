@@ -70,19 +70,13 @@ void usb_recv_callback(void)
   }
   if (app_usb_recv_buffer[0] == 3) {
     spi_ss(0);
-    for (int i = 0; i < 6; i ++) {
-      app_response_buffer[8 + i] = spi_write_byte(data_wake[i]);
+  }
+  if (app_usb_recv_buffer[0] == 4) {
+    for (int i = 0; i < app_usb_recv_buffer[1]; i ++) {
+      app_response_buffer[8 + i] = spi_write_byte(app_usb_recv_buffer[2 + i]);
     }
-    spi_ss(1);
-
-    for (int i = 0; i < 100; i ++) {
-
-    }
-
-    spi_ss(0);
-    for (int i = 0; i < 6; i ++) {
-      app_response_buffer[14 + i] = spi_write_byte(data[i]);
-    }
+  }
+  if (app_usb_recv_buffer[0] == 5) {
     spi_ss(1);
   }
 
