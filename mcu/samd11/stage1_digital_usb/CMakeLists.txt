@@ -33,7 +33,8 @@ set(CMAKE_EXE_LINKER_FLAGS " \
 
 include_directories(.)
 include_directories(../include)
-include_directories(./fpga_ifc)
+include_directories(fpga_ifc)
+include_directories(logic)
 include_directories(../include/component)
 include_directories(../include/instance)
 include_directories(../include/pio)
@@ -48,4 +49,4 @@ add_executable(samd11_stage1_usb
 
         fpga_ifc/spi_master.c
         fpga_ifc/gpio.c
-        )
+        logic/special.c)
