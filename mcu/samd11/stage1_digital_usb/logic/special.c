@@ -21,8 +21,6 @@ HAL_GPIO_PIN(LED,      A, 14)
 int led_state = 1;
 int rst_state = 0;
 
-int counter = 0;
-
 static alignas(4) uint8_t app_usb_recv_buffer[64];
 alignas(4) uint8_t app_response_buffer[64];
 
@@ -56,10 +54,6 @@ static void set_uint16(uint8_t *data, uint16_t value)
 
 void usb_recv_callback(void)
 {
-  set_uint16(app_response_buffer, 0xf5f4);
-  set_uint32(app_response_buffer + 4, counter);
-
-  counter ++;
   if (app_usb_recv_buffer[0] == 0) {
     led_state = !led_state;
     gpio_write(GPIO_LED, led_state);
@@ -73,7 +67,7 @@ void usb_recv_callback(void)
   }
   if (app_usb_recv_buffer[0] == 4) {
     for (int i = 0; i < app_usb_recv_buffer[1]; i ++) {
-      app_response_buffer[8 + i] = spi_write_byte(app_usb_recv_buffer[2 + i]);
+      app_response_buffer[i] = spi_write_byte(app_usb_recv_buffer[2 + i]);
     }
   }
   if (app_usb_recv_buffer[0] == 5) {

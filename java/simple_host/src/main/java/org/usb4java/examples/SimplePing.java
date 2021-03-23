@@ -63,7 +63,7 @@ public class SimplePing
         }
     }
 
-    private static void recv(DeviceHandle handle) {
+    private static void recv(DeviceHandle handle, int length) {
         ByteBuffer buffer = ByteBuffer.allocateDirect(64);
         IntBuffer transferred = IntBuffer.allocate(1);
         int transfered = LibUsb.interruptTransfer(handle, (byte) 0x81, buffer, transferred, TIMEOUT);
@@ -74,48 +74,35 @@ public class SimplePing
             throw new RuntimeException("Not all data was received from device");
         }
 
-        System.out.println(String.format("%x", buffer.get(0)));
-        System.out.println(String.format("%x", buffer.get(1)));
-        System.out.println(String.format("%x", buffer.getShort()));
-        int a = 0;
-        System.out.println(String.format("%x", a = buffer.getInt(4)));
-        for (int i = 0; i < 32; i ++) {
-            System.out.println(String.format("%x", buffer.get(i)));
+        for (int i = 0; i < length; i ++) {
+            System.out.print(String.format("%02x ", buffer.get(i)));
         }
-        System.out.println("====");
-        if (a == 0) {
-            throw new RuntimeException("a = 0");
+        if (length != 0) {
+            System.out.println();
         }
     }
 
-    public static void we(DeviceHandle handle, int command, int cmd) {
-        byte[] message = new byte[64];
-        message[0] = (byte) command;
-        message[1] = 6;
-        message[2] = (byte) cmd;
-        message[3] = 0;
-        message[4] = 0;
-        message[5] = 0;
-        message[6] = 0;
-        message[7] = 0;
-        send(handle, message);
-
-        recv(handle);
+    public static void flash_we(DeviceHandle handle) {
+        byte data_we[] = { 0x06 };
+        spi_select(handle);
+        sendCommand(handle, 4, data_we);
+        spi_desel(handle);
     }
 
-    public static void sendCommand(DeviceHandle handle, int command, int cmd) {
+    public static void flash_wait(DeviceHandle handle) {
+        byte data_wait[] = { 0x05, 0x00 };
+        spi_select(handle);
+        sendCommand(handle, 4, data_wait);
+        spi_desel(handle);
+    }
+
+    public static void sendCommand(DeviceHandle handle, int command, byte[] cmd) {
         byte[] message = new byte[64];
         message[0] = (byte) command;
-        message[1] = 6;
-        message[2] = (byte) cmd;
-        message[3] = 0;
-        message[4] = 0;
-        message[5] = 0;
-        message[6] = 0;
-        message[7] = 0;
+        message[1] = (byte) cmd.length;
+        System.arraycopy(cmd, 0, message, 2, cmd.length);
         send(handle, message);
-
-        recv(handle);
+        recv(handle, cmd.length);
     }
 
     public static void main(String[] args) {
@@ -159,18 +146,16 @@ public class SimplePing
                 switch (key) {
 
                     case 'l':
-                        sendCommand(handle, 0, 0x9F);
+                        sendCommand(handle, 0, new byte[] { });
                         break;
                     case 'f':
-                        sendCommand(handle, 1, 0x9F);
+                        sendCommand(handle, 1, new byte[] { });
                         break;
                     case 's':
-                        spi_select(handle);
                         flash_wakeup(handle);
-                        spi_desel(handle);
-                        spi_select(handle);
                         flash_id(handle);
-                        spi_desel(handle);
+                        flash_we(handle);
+                        flash_wait(handle);
                         break;
 
                     case 'q':
@@ -189,18 +174,22 @@ public class SimplePing
     }
 
     private static void flash_id(DeviceHandle handle) {
-        sendCommand(handle, 4, 0x9F);
+        spi_select(handle);
+        sendCommand(handle, 4, new byte[] { (byte) 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 });
+        spi_desel(handle);
     }
 
     private static void flash_wakeup(DeviceHandle handle) {
-        sendCommand(handle, 4, 0xAB);
+        spi_select(handle);
+        sendCommand(handle, 4, new byte[] { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 });
+        spi_desel(handle);
     }
 
     private static void spi_desel(DeviceHandle handle) {
-        sendCommand(handle, 5, 0x9F);
+        sendCommand(handle, 5, new byte[] { });
     }
 
     private static void spi_select(DeviceHandle handle) {
-        sendCommand(handle, 3, 0x9F);
+        sendCommand(handle, 3, new byte[] { });
     }
 }
