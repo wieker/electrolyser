@@ -1,8 +1,3 @@
-/*
- * Copyright (C) 2014 Klaus Reimer <k@ailis.de>
- * See LICENSE.txt for licensing information.
- */
-
 package org.usb4java.examples;
 
 import org.usb4java.Device;
@@ -17,127 +12,67 @@ import java.nio.IntBuffer;
 
 import static org.usb4java.examples.Ctl1.readKey;
 
-/**
- * Controls a USB missile launcher (Only compatible with Vendor/Product
- * 1130:0202).
- * 
- * @author Klaus Reimer <k@ailis.de>
- */
 public class SimplePing
 {
-    /** The vendor ID of the missile launcher. */
     private static final short VENDOR_ID = 0x6666;
 
-    /** The product ID of the missile launcher. */
     private static final short PRODUCT_ID = 0x6666;
 
-    /** The USB communication timeout. */
     private static final int TIMEOUT = 0;
 
 
     byte data_wake[] = { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 };
     byte data[] = { (byte) 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-    /**
-     * Searches for the missile launcher device and returns it. If there are
-     * multiple missile launchers attached then this simple demo only returns
-     * the first one.
-     * 
-     * @return The missile launcher USB device or null if not found.
-     */
-    public static Device findMissileLauncher()
-    {
-        // Read the USB device list
+    public static Device findDevice() {
         DeviceList list = new DeviceList();
         int result = LibUsb.getDeviceList(null, list);
-        if (result < 0)
-        {
-            throw new RuntimeException(
-                "Unable to get device list. Result=" + result);
+        if (result < 0) {
+            throw new RuntimeException("Unable to get device list. Result=" + result);
         }
 
-        try
-        {
-            // Iterate over all devices and scan for the missile launcher
-            for (Device device: list)
-            {
+        try {
+            for (Device device: list) {
                 DeviceDescriptor descriptor = new DeviceDescriptor();
                 result = LibUsb.getDeviceDescriptor(device, descriptor);
-                if (result < 0)
-                {
-                    throw new RuntimeException(
-                        "Unable to read device descriptor. Result=" + result);
+                if (result < 0) {
+                    throw new RuntimeException("Unable to read device descriptor. Result=" + result);
                 }
-                if (descriptor.idVendor() == VENDOR_ID
-                    && descriptor.idProduct() == PRODUCT_ID) return device;
+                if (descriptor.idVendor() == VENDOR_ID && descriptor.idProduct() == PRODUCT_ID) {
+                    return device;
+                }
             }
-        }
-        finally
-        {
-            // Ensure the allocated device list is freed
+        } finally {
             LibUsb.freeDeviceList(list, true);
         }
 
-        // No missile launcher found
         return null;
     }
 
-    /**
-     * Sends a message to the missile launcher.
-     * 
-     * @param handle
-     *            The USB device handle.
-     * @param message
-     *            The message to send.
-     */
-    public static void sendMessage(DeviceHandle handle, byte[] message)
-    {
+    public static void send(DeviceHandle handle, byte[] message) {
         ByteBuffer buffer = ByteBuffer.allocateDirect(message.length);
         buffer.put(message);
         buffer.rewind();
-        IntBuffer transferred = IntBuffer.allocate(19);
-        int transfered = LibUsb.interruptTransfer(handle, (byte) 2, buffer,
-                transferred, TIMEOUT);
-        if (transfered < 0)
-            throw new LibUsbException("Control transfer failed", transfered);
-        if (transferred.get() != message.length)
+        IntBuffer transferred = IntBuffer.allocate(1);
+        int err = LibUsb.interruptTransfer(handle, (byte) 2, buffer, transferred, TIMEOUT);
+        if (err < 0) {
+            throw new LibUsbException("Control transfer failed", err);
+        }
+        if (transferred.get() != message.length) {
             throw new RuntimeException("Not all data was sent to device");
+        }
     }
 
-    /**
-     * Sends a command to the missile launcher.
-     * 
-     * @param handle
-     *            The USB device handle.
-     * @param command
-     *            The command to send.
-     * @param cmd
-     */
-    public static void sendCommand(DeviceHandle handle, int command, int cmd)
-    {
-        byte[] message = new byte[64];
-        message[0] = (byte) command;
-        message[1] = 6;
-        message[2] = (byte) cmd;
-        message[3] = 0;
-        message[4] = 0;
-        message[5] = 0;
-        message[6] = 0;
-        message[7] = 0;
-        sendMessage(handle, message);
-
-        receiveData(handle);
-    }
-
-    private static void receiveData(DeviceHandle handle) {
-            ByteBuffer buffer = ByteBuffer.allocateDirect(64);
-            IntBuffer transferred = IntBuffer.allocate(1);
-            int transfered = LibUsb.interruptTransfer(handle, (byte) 0x81, buffer,
-                    transferred, TIMEOUT);
-            if (transfered < 0)
-                throw new LibUsbException("Control transfer failed", transfered);
-            if (transferred.get() != 64)
-                throw new RuntimeException("Not all data was received from device");
+    private static void recv(DeviceHandle handle) {
+        ByteBuffer buffer = ByteBuffer.allocateDirect(64);
+        IntBuffer transferred = IntBuffer.allocate(1);
+        int transfered = LibUsb.interruptTransfer(handle, (byte) 0x81, buffer, transferred, TIMEOUT);
+        if (transfered < 0) {
+            throw new LibUsbException("Control transfer failed", transfered);
+        }
+        if (transferred.get() != 64) {
+            throw new RuntimeException("Not all data was received from device");
+        }
 
         System.out.println(String.format("%x", buffer.get(0)));
         System.out.println(String.format("%x", buffer.get(1)));
@@ -153,75 +88,75 @@ public class SimplePing
         }
     }
 
-    /**
-     * Main method.
-     * 
-     * @param args
-     *            Command-line arguments (Ignored)
-     */
-    public static void main(String[] args)
-    {
-        // Initialize the libusb context
+    public static void we(DeviceHandle handle, int command, int cmd) {
+        byte[] message = new byte[64];
+        message[0] = (byte) command;
+        message[1] = 6;
+        message[2] = (byte) cmd;
+        message[3] = 0;
+        message[4] = 0;
+        message[5] = 0;
+        message[6] = 0;
+        message[7] = 0;
+        send(handle, message);
+
+        recv(handle);
+    }
+
+    public static void sendCommand(DeviceHandle handle, int command, int cmd) {
+        byte[] message = new byte[64];
+        message[0] = (byte) command;
+        message[1] = 6;
+        message[2] = (byte) cmd;
+        message[3] = 0;
+        message[4] = 0;
+        message[5] = 0;
+        message[6] = 0;
+        message[7] = 0;
+        send(handle, message);
+
+        recv(handle);
+    }
+
+    public static void main(String[] args) {
         int result = LibUsb.init(null);
-        if (result != LibUsb.SUCCESS)
-        {
+        if (result != LibUsb.SUCCESS) {
             throw new LibUsbException("Unable to initialize libusb", result);
         }
 
-        // Search for the missile launcher USB device and stop when not found
-        Device device = findMissileLauncher();
-        if (device == null)
-        {
+        Device device = findDevice();
+        if (device == null) {
             System.err.println("Missile launcher not found.");
             System.exit(1);
         }
 
-        // Open the device
         DeviceHandle handle = new DeviceHandle();
         result = LibUsb.open(device, handle);
-        if (result != LibUsb.SUCCESS)
-        {
+        if (result != LibUsb.SUCCESS) {
             throw new LibUsbException("Unable to open USB device", result);
-        }
-        try
-        {
-            // Check if kernel driver is attached to the interface
+        } try {
             int attached = LibUsb.kernelDriverActive(handle, 1);
-            if (attached < 0)
-            {
-                throw new LibUsbException(
-                    "Unable to check kernel driver active", result);
+            if (attached < 0) {
+                throw new LibUsbException( "Unable to check kernel driver active", result);
             }
 
-            // Detach kernel driver from interface 0 and 1. This can fail if
-            // kernel is not attached to the device or operating system
-            // doesn't support this operation. These cases are ignored here.
             result = LibUsb.detachKernelDriver(handle, 0);
-            if (result != LibUsb.SUCCESS &&
-                result != LibUsb.ERROR_NOT_SUPPORTED &&
-                result != LibUsb.ERROR_NOT_FOUND)
-            {
-                throw new LibUsbException("Unable to detach kernel driver",
-                    result);
+            if (result != LibUsb.SUCCESS && result != LibUsb.ERROR_NOT_SUPPORTED && result != LibUsb.ERROR_NOT_FOUND) {
+                throw new LibUsbException("Unable to detach kernel driver", result);
             }
 
-            // Claim interface
             result = LibUsb.claimInterface(handle, 0);
-            if (result != LibUsb.SUCCESS)
-            {
+            if (result != LibUsb.SUCCESS) {
                 throw new LibUsbException("Unable to claim interface", result);
             }
 
 
-            // Read commands and execute them
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
             boolean exit = false;
-            while (!exit)
-            {
+            while (!exit) {
                 System.out.print("> ");
                 char key = readKey();
-                switch (key)
-                {
+                switch (key) {
 
                     case 'l':
                         sendCommand(handle, 0, 0x9F);
@@ -230,12 +165,12 @@ public class SimplePing
                         sendCommand(handle, 1, 0x9F);
                         break;
                     case 's':
-                        sendCommand(handle, 3, 0x9F);
-                        sendCommand(handle, 4, 0xAB);
-                        sendCommand(handle, 5, 0x9F);
-                        sendCommand(handle, 3, 0x9F);
-                        sendCommand(handle, 4, 0x9F);
-                        sendCommand(handle, 5, 0x9F);
+                        spi_select(handle);
+                        flash_wakeup(handle);
+                        spi_desel(handle);
+                        spi_select(handle);
+                        flash_id(handle);
+                        spi_desel(handle);
                         break;
 
                     case 'q':
@@ -251,5 +186,21 @@ public class SimplePing
             LibUsb.close(handle);
             LibUsb.exit(null);
         }
+    }
+
+    private static void flash_id(DeviceHandle handle) {
+        sendCommand(handle, 4, 0x9F);
+    }
+
+    private static void flash_wakeup(DeviceHandle handle) {
+        sendCommand(handle, 4, 0xAB);
+    }
+
+    private static void spi_desel(DeviceHandle handle) {
+        sendCommand(handle, 5, 0x9F);
+    }
+
+    private static void spi_select(DeviceHandle handle) {
+        sendCommand(handle, 3, 0x9F);
     }
 }
