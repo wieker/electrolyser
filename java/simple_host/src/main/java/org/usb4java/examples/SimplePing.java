@@ -7,6 +7,8 @@ import org.usb4java.DeviceList;
 import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -93,6 +95,18 @@ public class SimplePing
         spi_desel(handle);
     }
 
+    public static void flash_write(DeviceHandle handle, int addr, byte[] data) {
+        byte buffer[] = new byte[4 + data.length];
+        buffer[0] = 0x02;
+        buffer[1] = (byte) ((addr >> 16) & 0xFF);
+        buffer[2] = (byte) ((addr >> 8) & 0xFF);
+        buffer[3] = (byte) ((addr >> 0) & 0xFF);
+        System.arraycopy(data, 0, buffer, 4, data.length);
+        spi_select(handle);
+        sendCommand(handle, 4, buffer);
+        spi_desel(handle);
+    }
+
     public static void flash_erase(DeviceHandle handle) {
         byte data[] = { (byte) 0xC7 };
         spi_select(handle);
@@ -119,7 +133,7 @@ public class SimplePing
         return recv(handle, cmd.length);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         int result = LibUsb.init(null);
         if (result != LibUsb.SUCCESS) {
             throw new LibUsbException("Unable to initialize libusb", result);
@@ -172,6 +186,21 @@ public class SimplePing
                         flash_wait(handle, 0x02);
                         flash_erase(handle);
                         flash_wait(handle, 0x00);
+
+                        InputStream inputStream = new FileInputStream("/home/wieker/Projects/linux/hackrf/hackrf/firmware/ice40/hx1k-6502/icestorm/icestick_6502_top.bin");
+                        int addr = 0;
+                        byte[] buf = new byte[20];
+                        for (;;) {
+                            flash_we(handle);
+                            flash_wait(handle, 0x02);
+                            int size = inputStream.read(buf);
+                            if (size == -1) {
+                                break;
+                            }
+                            flash_write(handle, addr, buf);
+                            flash_wait(handle, 0x00);
+                            addr += buf.length;
+                        }
                         break;
 
                     case 'q':
