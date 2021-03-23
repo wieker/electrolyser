@@ -63,7 +63,7 @@ public class SimplePing
         }
     }
 
-    private static void recv(DeviceHandle handle, int length) {
+    private static byte[] recv(DeviceHandle handle, int length) {
         ByteBuffer buffer = ByteBuffer.allocateDirect(64);
         IntBuffer transferred = IntBuffer.allocate(1);
         int transfered = LibUsb.interruptTransfer(handle, (byte) 0x81, buffer, transferred, TIMEOUT);
@@ -74,12 +74,16 @@ public class SimplePing
             throw new RuntimeException("Not all data was received from device");
         }
 
+        byte[] bytes = new byte[length];
         for (int i = 0; i < length; i ++) {
             System.out.print(String.format("%02x ", buffer.get(i)));
+            bytes[i] = buffer.get(i);
         }
         if (length != 0) {
             System.out.println();
         }
+
+        return bytes;
     }
 
     public static void flash_we(DeviceHandle handle) {
@@ -89,20 +93,30 @@ public class SimplePing
         spi_desel(handle);
     }
 
-    public static void flash_wait(DeviceHandle handle) {
-        byte data_wait[] = { 0x05, 0x00 };
+    public static void flash_erase(DeviceHandle handle) {
+        byte data[] = { (byte) 0xC7 };
         spi_select(handle);
-        sendCommand(handle, 4, data_wait);
+        sendCommand(handle, 4, data);
         spi_desel(handle);
     }
 
-    public static void sendCommand(DeviceHandle handle, int command, byte[] cmd) {
+    public static void flash_wait(DeviceHandle handle, int cond) {
+        byte data_wait[] = { 0x05, 0x00 };
+        byte[] result;
+        do {
+            spi_select(handle);
+            result = sendCommand(handle, 4, data_wait);
+            spi_desel(handle);
+        } while (result[1] != cond);
+    }
+
+    public static byte[] sendCommand(DeviceHandle handle, int command, byte[] cmd) {
         byte[] message = new byte[64];
         message[0] = (byte) command;
         message[1] = (byte) cmd.length;
         System.arraycopy(cmd, 0, message, 2, cmd.length);
         send(handle, message);
-        recv(handle, cmd.length);
+        return recv(handle, cmd.length);
     }
 
     public static void main(String[] args) {
@@ -155,7 +169,9 @@ public class SimplePing
                         flash_wakeup(handle);
                         flash_id(handle);
                         flash_we(handle);
-                        flash_wait(handle);
+                        flash_wait(handle, 0x02);
+                        flash_erase(handle);
+                        flash_wait(handle, 0x00);
                         break;
 
                     case 'q':
