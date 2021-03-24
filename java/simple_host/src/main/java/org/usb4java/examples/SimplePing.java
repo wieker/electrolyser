@@ -224,6 +224,14 @@ public class SimplePing
                             addr += buf.length;
                         }
                         break;
+                    case 'r':
+                        flash_wakeup(handle);
+                        flash_id(handle);
+
+                        for (addr = 0; addr < 32220; addr += 16) {
+                            flash_read(handle, addr);
+                        }
+                        break;
 
                     case 'q':
                         exit = true;
