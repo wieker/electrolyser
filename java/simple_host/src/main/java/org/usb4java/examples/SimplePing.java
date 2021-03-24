@@ -107,6 +107,18 @@ public class SimplePing
         spi_desel(handle);
     }
 
+    public static void flash_read(DeviceHandle handle, int addr, byte[] data) {
+        byte buffer[] = new byte[4 + data.length];
+        buffer[0] = 0x0B;
+        buffer[1] = (byte) ((addr >> 16) & 0xFF);
+        buffer[2] = (byte) ((addr >> 8) & 0xFF);
+        buffer[3] = (byte) ((addr >> 0) & 0xFF);
+        System.arraycopy(data, 0, buffer, 4, data.length);
+        spi_select(handle);
+        sendCommand(handle, 4, buffer);
+        spi_desel(handle);
+    }
+
     public static void flash_erase(DeviceHandle handle) {
         byte data[] = { (byte) 0xC7 };
         spi_select(handle);
@@ -187,18 +199,22 @@ public class SimplePing
                         flash_erase(handle);
                         flash_wait(handle, 0x00);
 
-                        InputStream inputStream = new FileInputStream("/home/wieker/Projects/linux/hackrf/hackrf/firmware/ice40/hx1k-6502/icestorm/icestick_6502_top.bin");
+                        InputStream inputStream = new FileInputStream(
+                                "/home/wieker/Projects/linux/samd11/electrolyser/fpga/test_proj/top.bin");
                         int addr = 0;
-                        byte[] buf = new byte[20];
+                        byte[] buf = new byte[16];
                         for (;;) {
-                            flash_we(handle);
-                            flash_wait(handle, 0x02);
                             int size = inputStream.read(buf);
                             if (size == -1) {
                                 break;
                             }
+
+                            flash_we(handle);
+                            flash_wait(handle, 0x02);
                             flash_write(handle, addr, buf);
                             flash_wait(handle, 0x00);
+
+                            flash_read(handle, addr, buf);
                             addr += buf.length;
                         }
                         break;
