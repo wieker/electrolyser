@@ -56,6 +56,7 @@ public class SimplePing
         buffer.put(message);
         buffer.rewind();
         IntBuffer transferred = IntBuffer.allocate(1);
+        printBytes(message);
         int err = LibUsb.interruptTransfer(handle, (byte) 2, buffer, transferred, TIMEOUT);
         if (err < 0) {
             throw new LibUsbException("Control transfer failed", err);
@@ -78,14 +79,20 @@ public class SimplePing
 
         byte[] bytes = new byte[length];
         for (int i = 0; i < length; i ++) {
-            System.out.print(String.format("%02x ", buffer.get(i)));
             bytes[i] = buffer.get(i);
         }
-        if (length != 0) {
-            System.out.println();
-        }
+        printBytes(bytes);
 
         return bytes;
+    }
+
+    private static void printBytes(byte[] bytes) {
+        for (int i = 0; i < bytes.length; i ++) {
+            System.out.print(String.format("%02x ", bytes[i]));
+        }
+        if (bytes.length != 0) {
+            System.out.println();
+        }
     }
 
     public static void flash_we(DeviceHandle handle) {
@@ -107,13 +114,12 @@ public class SimplePing
         spi_desel(handle);
     }
 
-    public static void flash_read(DeviceHandle handle, int addr, byte[] data) {
-        byte buffer[] = new byte[4 + data.length];
+    public static void flash_read(DeviceHandle handle, int addr) {
+        byte buffer[] = new byte[4 + 32];
         buffer[0] = 0x0B;
         buffer[1] = (byte) ((addr >> 16) & 0xFF);
         buffer[2] = (byte) ((addr >> 8) & 0xFF);
         buffer[3] = (byte) ((addr >> 0) & 0xFF);
-        System.arraycopy(data, 0, buffer, 4, data.length);
         spi_select(handle);
         sendCommand(handle, 4, buffer);
         spi_desel(handle);
@@ -214,7 +220,7 @@ public class SimplePing
                             flash_write(handle, addr, buf);
                             flash_wait(handle, 0x00);
 
-                            flash_read(handle, addr, buf);
+                            flash_read(handle, addr);
                             addr += buf.length;
                         }
                         break;
