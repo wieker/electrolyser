@@ -206,7 +206,7 @@ public class SimplePing
                         flash_wait(handle, 0x00);
 
                         InputStream inputStream = new FileInputStream(
-                                "/home/wieker/Projects/linux/samd11/electrolyser/fpga/test_proj/top.bin");
+                                "/home/wieker/Projects/linux/hackrf/hackrf/firmware/ice40/hx1k-6502/icestorm/icestick_6502_top.bin");
                         int addr = 0;
                         byte[] buf = new byte[16];
                         for (;;) {
