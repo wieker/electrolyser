@@ -76,7 +76,9 @@ void usb_recv_callback(void)
   }
   if (app_usb_recv_buffer[0] == 6) {
     int i = 0;
-    while (i < app_usb_recv_buffer[1] - 1 && uart_read_byte(app_response_buffer + 1 + i ++));
+    while (i < app_usb_recv_buffer[1] - 1 && uart_read_byte(app_response_buffer + 1 + i)) {
+      i ++;
+    }
     app_response_buffer[0] = i;
   }
 

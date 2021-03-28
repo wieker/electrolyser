@@ -42,11 +42,11 @@ int main()
       }
 
         if (s == 0) {
-            acia_tx_str("hello\n");
+            acia_tx_str("hello\no");
             GPIO_DATA = 0xAA;
             s = 1;
         } else {
-            acia_tx_str("world\n");
+            acia_tx_str("world\nd");
             GPIO_DATA = 0x55;
             s = 0;
         }

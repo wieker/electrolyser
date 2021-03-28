@@ -144,6 +144,9 @@ bool uart_read_byte(uint8_t *byte)
     *byte = uart_rx_fifo.data[uart_rx_fifo.rd];
     uart_rx_fifo.rd = (uart_rx_fifo.rd + 1) % UART_BUF_SIZE;
     res = true;
+
+    NVIC_EnableIRQ(UART_SERCOM_IRQ_INDEX);
+    return res;
   }
 
   NVIC_EnableIRQ(UART_SERCOM_IRQ_INDEX);
