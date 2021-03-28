@@ -133,7 +133,7 @@ bool uart_write_byte(int byte)
 }
 
 //-----------------------------------------------------------------------------
-bool uart_read_byte(int *byte)
+bool uart_read_byte(uint8_t *byte)
 {
   bool res = false;
 

@@ -36,7 +36,7 @@
 /*- Prototypes --------------------------------------------------------------*/
 void uart_init();
 bool uart_write_byte(int byte);
-bool uart_read_byte(int *byte);
+bool uart_read_byte(uint8_t *byte);
 
 void uart_serial_state_update(int state);
 

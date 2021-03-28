@@ -51,12 +51,14 @@ public class SimplePing
         return null;
     }
 
-    public static void send(DeviceHandle handle, byte[] message) {
+    public static void send(DeviceHandle handle, byte[] message, boolean print) {
         ByteBuffer buffer = ByteBuffer.allocateDirect(message.length);
         buffer.put(message);
         buffer.rewind();
         IntBuffer transferred = IntBuffer.allocate(1);
-        printBytes(message);
+        if (print) {
+            printBytes(message);
+        }
         int err = LibUsb.interruptTransfer(handle, (byte) 2, buffer, transferred, TIMEOUT);
         if (err < 0) {
             throw new LibUsbException("Control transfer failed", err);
@@ -66,7 +68,7 @@ public class SimplePing
         }
     }
 
-    private static byte[] recv(DeviceHandle handle, int length) {
+    private static byte[] recv(DeviceHandle handle, int length, boolean print) {
         ByteBuffer buffer = ByteBuffer.allocateDirect(64);
         IntBuffer transferred = IntBuffer.allocate(1);
         int transfered = LibUsb.interruptTransfer(handle, (byte) 0x81, buffer, transferred, TIMEOUT);
@@ -81,7 +83,9 @@ public class SimplePing
         for (int i = 0; i < length; i ++) {
             bytes[i] = buffer.get(i);
         }
-        printBytes(bytes);
+        if (print) {
+            printBytes(bytes);
+        }
 
         return bytes;
     }
@@ -98,7 +102,7 @@ public class SimplePing
     public static void flash_we(DeviceHandle handle) {
         byte data_we[] = { 0x06 };
         spi_select(handle);
-        sendCommand(handle, 4, data_we);
+        sendCommand(handle, 4, data_we, true);
         spi_desel(handle);
     }
 
@@ -110,7 +114,7 @@ public class SimplePing
         buffer[3] = (byte) ((addr >> 0) & 0xFF);
         System.arraycopy(data, 0, buffer, 4, data.length);
         spi_select(handle);
-        sendCommand(handle, 4, buffer);
+        sendCommand(handle, 4, buffer, true);
         spi_desel(handle);
     }
 
@@ -121,14 +125,14 @@ public class SimplePing
         buffer[2] = (byte) ((addr >> 8) & 0xFF);
         buffer[3] = (byte) ((addr >> 0) & 0xFF);
         spi_select(handle);
-        sendCommand(handle, 4, buffer);
+        sendCommand(handle, 4, buffer, true);
         spi_desel(handle);
     }
 
     public static void flash_erase(DeviceHandle handle) {
         byte data[] = { (byte) 0xC7 };
         spi_select(handle);
-        sendCommand(handle, 4, data);
+        sendCommand(handle, 4, data, true);
         spi_desel(handle);
     }
 
@@ -137,18 +141,18 @@ public class SimplePing
         byte[] result;
         do {
             spi_select(handle);
-            result = sendCommand(handle, 4, data_wait);
+            result = sendCommand(handle, 4, data_wait, true);
             spi_desel(handle);
         } while (result[1] != cond);
     }
 
-    public static byte[] sendCommand(DeviceHandle handle, int command, byte[] cmd) {
+    public static byte[] sendCommand(DeviceHandle handle, int command, byte[] cmd, boolean print) {
         byte[] message = new byte[64];
         message[0] = (byte) command;
         message[1] = (byte) cmd.length;
         System.arraycopy(cmd, 0, message, 2, cmd.length);
-        send(handle, message);
-        return recv(handle, cmd.length);
+        send(handle, message, print);
+        return recv(handle, cmd.length, print);
     }
 
     public static void main(String[] args) throws Exception {
@@ -183,6 +187,22 @@ public class SimplePing
                 throw new LibUsbException("Unable to claim interface", result);
             }
 
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (;;) {
+                        try {
+                            Thread.sleep(10l);
+                            byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, false);
+                            if (ch[0] > 0 && ch[1] != 0) {
+                                System.out.print((char) ch[1]);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
 
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
             boolean exit = false;
@@ -192,10 +212,10 @@ public class SimplePing
                 switch (key) {
 
                     case 'l':
-                        sendCommand(handle, 0, new byte[] { });
+                        sendCommand(handle, 0, new byte[] { }, true);
                         break;
                     case 'f':
-                        sendCommand(handle, 1, new byte[] { });
+                        sendCommand(handle, 1, new byte[] { }, true);
                         break;
                     case 's':
                         flash_wakeup(handle);
@@ -233,7 +253,7 @@ public class SimplePing
                         }
                         break;
                     case 'u':
-                        byte[] ch = sendCommand(handle, 6, new byte[]{1});
+                        byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, true);
                         System.out.println((char) ch[0]);
                         break;
 
@@ -254,21 +274,21 @@ public class SimplePing
 
     private static void flash_id(DeviceHandle handle) {
         spi_select(handle);
-        sendCommand(handle, 4, new byte[] { (byte) 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 });
+        sendCommand(handle, 4, new byte[] { (byte) 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 }, true);
         spi_desel(handle);
     }
 
     private static void flash_wakeup(DeviceHandle handle) {
         spi_select(handle);
-        sendCommand(handle, 4, new byte[] { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 });
+        sendCommand(handle, 4, new byte[] { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 }, true);
         spi_desel(handle);
     }
 
     private static void spi_desel(DeviceHandle handle) {
-        sendCommand(handle, 5, new byte[] { });
+        sendCommand(handle, 5, new byte[] { }, true);
     }
 
     private static void spi_select(DeviceHandle handle) {
-        sendCommand(handle, 3, new byte[] { });
+        sendCommand(handle, 3, new byte[] { }, true);
     }
 }
