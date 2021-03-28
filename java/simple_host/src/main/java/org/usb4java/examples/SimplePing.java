@@ -146,7 +146,7 @@ public class SimplePing
         } while (result[1] != cond);
     }
 
-    public static byte[] sendCommand(DeviceHandle handle, int command, byte[] cmd, boolean print) {
+    public static synchronized byte[] sendCommand(DeviceHandle handle, int command, byte[] cmd, boolean print) {
         byte[] message = new byte[64];
         message[0] = (byte) command;
         message[1] = (byte) cmd.length;
@@ -187,23 +187,6 @@ public class SimplePing
                 throw new LibUsbException("Unable to claim interface", result);
             }
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (;;) {
-                        try {
-                            Thread.sleep(10l);
-                            byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, false);
-                            if (ch[0] > 0 && ch[1] != 0) {
-                                System.out.print((char) ch[1]);
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }).start();
-
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
             boolean exit = false;
             while (!exit) {
@@ -226,7 +209,7 @@ public class SimplePing
                         flash_wait(handle, 0x00);
 
                         InputStream inputStream = new FileInputStream(
-                                "/home/wieker/Projects/linux/hackrf/hackrf/firmware/ice40/hx1k-6502/icestorm/icestick_6502_top.bin");
+                                "../../fpga/based6502/hx1k-6502/icestorm/icestick_6502_top.bin");
                         int addr = 0;
                         byte[] buf = new byte[16];
                         for (;;) {
@@ -253,8 +236,23 @@ public class SimplePing
                         }
                         break;
                     case 'u':
-                        byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, true);
-                        System.out.println((char) ch[0]);
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (;;) {
+                                    try {
+                                        Thread.sleep(10l);
+                                        byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, false);
+                                        if (ch[0] > 0 && ch[1] != 0) {
+                                            System.out.append((char) ch[1]);
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }).start();
                         break;
 
                     case 'q':

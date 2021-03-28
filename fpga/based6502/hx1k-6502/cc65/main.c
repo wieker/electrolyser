@@ -31,14 +31,23 @@ int main()
         for (i = 0; i < 1000; i ++) {
 
         }
+      for (i = 0; i < 1000; i ++) {
+
+      }
+      for (i = 0; i < 1000; i ++) {
+
+      }
+      for (i = 0; i < 1000; i ++) {
+
+      }
 
         if (s == 0) {
             acia_tx_str("hello\n");
-            GPIO_DATA = 0xFF;
+            GPIO_DATA = 0xAA;
             s = 1;
         } else {
-            acia_tx_str("world\r");
-            GPIO_DATA = 0x00;
+            acia_tx_str("world\n");
+            GPIO_DATA = 0x55;
             s = 0;
         }
     }
