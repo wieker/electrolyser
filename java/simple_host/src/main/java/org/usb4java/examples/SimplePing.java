@@ -233,7 +233,8 @@ public class SimplePing
                         }
                         break;
                     case 'u':
-                        sendCommand(handle, 6, new byte[] { 1 });
+                        byte[] ch = sendCommand(handle, 6, new byte[]{1});
+                        System.out.println((char) ch[0]);
                         break;
 
                     case 'q':
