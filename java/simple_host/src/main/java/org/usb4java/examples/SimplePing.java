@@ -232,6 +232,9 @@ public class SimplePing
                             flash_read(handle, addr);
                         }
                         break;
+                    case 'u':
+                        sendCommand(handle, 6, new byte[] { 1 });
+                        break;
 
                     case 'q':
                         exit = true;

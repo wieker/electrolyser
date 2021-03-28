@@ -33,6 +33,7 @@
 #include "usb_ifc/usb.h"
 
 #include "spi_master.h"
+#include "uart.h"
 
 #include "special.h"
 
@@ -89,6 +90,7 @@ int main(void)
   gpio_write(GPIO_LED, led_state);
 
   spi_init(8000000, 0);
+  uart_init();
 
   while (1)
   {

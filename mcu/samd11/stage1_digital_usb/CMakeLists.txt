@@ -49,4 +49,6 @@ add_executable(samd11_stage1_usb
 
         fpga_ifc/spi_master.c
         fpga_ifc/gpio.c
+        fpga_ifc/uart.c
+
         logic/special.c)

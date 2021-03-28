@@ -12,6 +12,7 @@
 #include "usb_ifc/usb.h"
 
 #include "spi_master.h"
+#include "uart.h"
 
 
 HAL_GPIO_PIN(LED,      A, 14)
@@ -72,6 +73,9 @@ void usb_recv_callback(void)
   }
   if (app_usb_recv_buffer[0] == 5) {
     spi_ss(1);
+  }
+  if (app_usb_recv_buffer[0] == 6) {
+    uart_read_byte(app_response_buffer);
   }
 
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
