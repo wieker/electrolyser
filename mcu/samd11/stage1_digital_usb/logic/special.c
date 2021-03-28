@@ -75,7 +75,9 @@ void usb_recv_callback(void)
     spi_ss(1);
   }
   if (app_usb_recv_buffer[0] == 6) {
-    uart_read_byte(app_response_buffer);
+    int i = 0;
+    while (i < app_usb_recv_buffer[1] - 1 && uart_read_byte(app_response_buffer + 1 + i ++));
+    app_response_buffer[0] = i;
   }
 
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
