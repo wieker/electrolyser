@@ -254,6 +254,9 @@ public class SimplePing
                             }
                         }).start();
                         break;
+                    case 'c':
+                        sendCommand(handle, 7, "cde".getBytes(), true);
+                        break;
 
                     case 'q':
                         exit = true;

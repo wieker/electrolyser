@@ -81,6 +81,11 @@ void usb_recv_callback(void)
     }
     app_response_buffer[0] = i;
   }
+  if (app_usb_recv_buffer[0] == 7) {
+    for (int i = 0; i < app_usb_recv_buffer[1]; i ++) {
+      uart_write_byte(app_usb_recv_buffer[2 + i]);
+    }
+  }
 
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
