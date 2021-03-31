@@ -14,7 +14,7 @@ module acia(
 	output irq				// high-true interrupt request
 );
 	// hard-coded bit-rate
-	localparam sym_rate = 2400;
+	localparam sym_rate = 1200;
     localparam clk_freq = 32768;
     localparam sym_cnt = clk_freq / sym_rate;
 	localparam SCW = $clog2(sym_cnt);
