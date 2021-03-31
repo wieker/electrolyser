@@ -11,11 +11,14 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.usb4java.examples.Ctl1.readKey;
 
 public class SimplePing
 {
+    private static final ReentrantLock lock = new ReentrantLock();
+
     private static final short VENDOR_ID = 0x6666;
 
     private static final short PRODUCT_ID = 0x6666;
@@ -146,13 +149,16 @@ public class SimplePing
         } while (result[1] != cond);
     }
 
-    public static synchronized byte[] sendCommand(DeviceHandle handle, int command, byte[] cmd, boolean print) {
+    public static byte[] sendCommand(DeviceHandle handle, int command, byte[] cmd, boolean print) {
+        lock.lock();
         byte[] message = new byte[64];
         message[0] = (byte) command;
         message[1] = (byte) cmd.length;
         System.arraycopy(cmd, 0, message, 2, cmd.length);
         send(handle, message, print);
-        return recv(handle, cmd.length, print);
+        byte[] recv = recv(handle, cmd.length, print);
+        lock.unlock();
+        return recv;
     }
 
     public static void main(String[] args) throws Exception {
@@ -259,6 +265,14 @@ public class SimplePing
                         break;
                     case 'a':
                         sendCommand(handle, 7, "l\0\0".getBytes(), true);
+                        break;
+                    case 't':
+                        lock.lock();
+                        sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
+                        sendCommand(handle, 7, "l\0\0".getBytes(), true);
+                        byte[] ch = sendCommand(handle, 6, new byte[14], true);
+                        System.out.println(new String(ch, 1, ch[0]));
+                        lock.unlock();
                         break;
 
                     case 'q':
