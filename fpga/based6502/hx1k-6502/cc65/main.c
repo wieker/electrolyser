@@ -62,14 +62,19 @@ int main()
 void execute() {
   int len = 0;
   int i;
-  while (*(cmd + len) != 0) {
-    len ++;
+  switch (*cmd) {
+    case 's':
+      while (*(cmd + len) != 0) {
+        len ++;
+      }
+      buf[len - 1] = 0;
+      for (i = 0; i < len - 1; i ++) {
+        buf[i] = cmd[len - i - 1];
+      }
+      break;
+    case 'l':
+      acia_tx_str(buf);
   }
-  buf[len] = 0;
-  for (i = 0; i < len; i ++) {
-    buf[i] = cmd[len - i - 1];
-  }
-  acia_tx_str(buf);
 }
 
 void run_cmd() {

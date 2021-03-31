@@ -255,7 +255,10 @@ public class SimplePing
                         }).start();
                         break;
                     case 'c':
-                        sendCommand(handle, 7, "cde\0".getBytes(), true);
+                        sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
+                        break;
+                    case 'a':
+                        sendCommand(handle, 7, "l\0\0".getBytes(), true);
                         break;
 
                     case 'q':
