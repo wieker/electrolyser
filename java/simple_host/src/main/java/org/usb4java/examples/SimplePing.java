@@ -268,8 +268,8 @@ public class SimplePing
                         break;
                     case 't':
                         lock.lock();
-                        sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
-                        sendCommand(handle, 7, "l\0\0".getBytes(), true);
+                        //sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
+                        //sendCommand(handle, 7, "l\0\0".getBytes(), true);
                         byte[] ch = sendCommand(handle, 6, new byte[14], true);
                         System.out.println(new String(ch, 1, ch[0]));
                         lock.unlock();

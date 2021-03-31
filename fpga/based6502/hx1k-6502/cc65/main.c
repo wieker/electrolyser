@@ -16,6 +16,7 @@ unsigned long i;
 
 unsigned char *cmd = &SRAM_DATA;
 unsigned char *buf = (&SRAM_DATA) + 50;
+char st = 0;
 
 int main()
 {
@@ -46,11 +47,11 @@ int main()
 
         if (s == 0) {
             acia_tx_str("hello\no");
-            GPIO_DATA = 0xAA;
+            GPIO_DATA = st = 0xAA;
             s = 1;
         } else {
             acia_tx_str("world\nd");
-            GPIO_DATA = 0x55;
+            GPIO_DATA = st = 0x55;
             s = 0;
         }
     }
@@ -78,6 +79,7 @@ void execute() {
 }
 
 void run_cmd() {
+  GPIO_DATA = st = 0xff - st;
     if (ACIA_SRAM_STORE != 0) {
       (*cmd) = ACIA_SRAM_STORE;
       cmd++;
@@ -86,6 +88,7 @@ void run_cmd() {
       cmd = &SRAM_DATA;
       execute();
     }
-    //acia_tx_str(&SRAM_DATA);
+  GPIO_DATA = st = 0xff - st;
+  //acia_tx_str(&SRAM_DATA);
     //acia_tx_str("\n\n\rIcestick 6502 cc65 serial test\n\n\r");
 }
