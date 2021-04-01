@@ -285,7 +285,7 @@ public class SimplePing
                         sendCommand(handle, 7, "0\0\0".getBytes(), true);
                         break;
                     case '3':
-                        sendCommand(handle, 7, "r\0\0\0".getBytes(), true);
+                        sendCommand(handle, 7, new byte[] {'r', 0x30, 0x00, 0x00}, true);
                         break;
 
                     default:
