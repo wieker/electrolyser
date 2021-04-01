@@ -284,6 +284,9 @@ public class SimplePing
                     case '2':
                         sendCommand(handle, 7, "0\0\0".getBytes(), true);
                         break;
+                    case '3':
+                        sendCommand(handle, 7, "r\0\0\0".getBytes(), true);
+                        break;
 
                     default:
                 }

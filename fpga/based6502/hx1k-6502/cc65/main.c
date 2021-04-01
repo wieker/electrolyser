@@ -65,6 +65,7 @@ int main()
 void execute() {
   int len = 0;
   int i;
+  unsigned char *addr;
   switch (*cmd) {
     case 's':
       while (*(cmd + len) != 0) {
@@ -83,6 +84,10 @@ void execute() {
       break;
     case '0':
       await = 0;
+      break;
+    case 'r':
+      addr = (unsigned char *) (((int)(*(cmd+1))) << 8 + ((int)(*(cmd+1))));
+      acia_tx_chr(*addr);
       break;
   }
 }
