@@ -17,6 +17,7 @@ unsigned long i;
 unsigned char *cmd = &SRAM_DATA;
 unsigned char *buf = (&SRAM_DATA) + 50;
 char st = 0;
+int await = 0;
 
 int main()
 {
@@ -32,6 +33,7 @@ int main()
 
     // Run forever with GPIO blink
     while(1) {
+      while (await);
         for (i = 0; i < 1000; i ++) {
 
         }
@@ -75,6 +77,13 @@ void execute() {
       break;
     case 'l':
       acia_tx_str(buf);
+      break;
+    case 'a':
+      await = 1;
+      break;
+    case '0':
+      await = 0;
+      break;
   }
 }
 

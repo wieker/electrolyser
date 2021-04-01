@@ -278,6 +278,12 @@ public class SimplePing
                     case 'q':
                         exit = true;
                         break;
+                    case '1':
+                        sendCommand(handle, 7, "a\0\0".getBytes(), true);
+                        break;
+                    case '2':
+                        sendCommand(handle, 7, "0\0\0".getBytes(), true);
+                        break;
 
                     default:
                 }
