@@ -34,10 +34,10 @@ module tst_6502(
     );
     
 	// address decode - not fully decoded for 512-byte memories
-	wire p3 = (CPU_AB[15:12] == 4'h0) || (CPU_AB[15:12] == 4'h3) ? 1 : 0;
-	wire p1 = (CPU_AB[15:0] == 16'h1000) ? 1 : 0;
-	wire p2 = (CPU_AB[15:0] == 16'h2002) || (CPU_AB[15:0] == 16'h2003) ? 1 : 0;
-	wire pf = (CPU_AB[15:12] == 4'hf) ? 1 : 0;
+	wire cs_gpio = (CPU_AB[15:0] == 16'h1000) ? 1 : 0;
+	wire cs_acia = (CPU_AB[15:0] == 16'h2002) || (CPU_AB[15:0] == 16'h2003) ? 1 : 0;
+	wire cs_flash = (CPU_AB[15:12] == 4'hf) ? 1 : 0;
+	wire cs_sram = (cs_gpio == 0) && (cs_acia == 0) && (cs_flash == 0) ? 1 : 0;
 
     reg [15:0] sram_addr_reg;
     reg [15:0] sram_dout_reg;
@@ -47,14 +47,14 @@ module tst_6502(
 	assign sram_dout = sram_dout_reg;
 	always @(posedge clk) begin
         addr <= CPU_AB;
-        sram_oe <= (CPU_WE == 1'b1) && (p3 == 1'b1);
+        sram_oe <= (CPU_WE == 1'b1) && (cs_sram == 1'b1);
         sram_dout <= CPU_DO;
 	end
 	
 	// GPIO @ page 10-1f
 	reg [7:0] gpio_do;
 	always @(posedge clk)
-		if((CPU_WE == 1'b1) && (p1 == 1'b1))
+		if((CPU_WE == 1'b1) && (cs_gpio == 1'b1))
 			gpio_o <= CPU_DO;
 	always @(posedge clk)
 		gpio_do <= gpio_i;
@@ -64,7 +64,7 @@ module tst_6502(
 	acia uacia(
 		.clk(clk),				// system clock
 		.rst(reset),			// system reset
-		.cs(p2),				// chip select
+		.cs(cs_acia),				// chip select
 		.we(CPU_WE),			// write enable
 		.rs(CPU_AB[0]),			// register select
 		.rx(RX),				// serial receive
