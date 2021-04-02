@@ -285,8 +285,21 @@ public class SimplePing
                         sendCommand(handle, 7, "0\0\0".getBytes(), true);
                         break;
                     case '3':
-                        sendCommand(handle, 7, new byte[] {'r', 0x30, 0x00, 0x00}, true);
+                        sendCommand(handle, 7, new byte[] {'r', 0x00, 0x00, 0x00}, true);
                         break;
+                    case '4':
+                        sendCommand(handle, 7, new byte[] {'r', 0x00, 0x30, 0x00}, true);
+                        break;
+                    case '5':
+                        sendCommand(handle, 7, new byte[] {'w', 0x30, 0x00, 0x01, 0x00}, true);
+                        break;
+                    case '6':
+                        for (int i = 0; i < 50; i ++) {
+                            sendCommand(handle, 7, new byte[]{'r', (byte) 0x30, (byte) i, 0x00}, false);
+                            Thread.sleep(1000);
+                            ch = sendCommand(handle, 6, new byte[14], false);
+                            System.out.println(String.format("%02x", ch[1]));
+                        }
 
                     default:
                 }
