@@ -35,7 +35,7 @@ module tst_6502(
     
 	// address decode - not fully decoded for 512-byte memories
 	wire cs_gpio = (CPU_AB[15:0] == 16'h1000) ? 1 : 0;
-	wire cs_acia = (CPU_AB[15:0] == 16'h2002) || (CPU_AB[15:0] == 16'h2003) ? 1 : 0;
+	wire cs_acia = (CPU_AB[15:0] == 16'h1002) || (CPU_AB[15:0] == 16'h1003) ? 1 : 0;
 	wire cs_flash = (CPU_AB[15:12] == 4'hf) ? 1 : 0;
 	wire cs_sram = (cs_gpio == 0) && (cs_acia == 0) && (cs_flash == 0) ? 1 : 0;
 
