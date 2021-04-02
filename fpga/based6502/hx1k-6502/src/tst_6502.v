@@ -35,8 +35,8 @@ module tst_6502(
     
 	// address decode - not fully decoded for 512-byte memories
 	wire p3 = (CPU_AB[15:12] == 4'h0) || (CPU_AB[15:12] == 4'h3) ? 1 : 0;
-	wire p1 = (CPU_AB[15:12] == 4'h1) ? 1 : 0;
-	wire p2 = (CPU_AB[15:12] == 4'h2) ? 1 : 0;
+	wire p1 = (CPU_AB[15:0] == 16'h1000) ? 1 : 0;
+	wire p2 = (CPU_AB[15:0] == 16'h2002) || (CPU_AB[15:0] == 16'h2003) ? 1 : 0;
 	wire pf = (CPU_AB[15:12] == 4'hf) ? 1 : 0;
 
     reg [15:0] sram_addr_reg;

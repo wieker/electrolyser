@@ -7,8 +7,8 @@
 #define __FPGA__
 
 #define GPIO_DATA (*(unsigned char *) 0x1000)
-#define ACIA_CTRL (*(unsigned char *) 0x2000)
-#define ACIA_DATA (*(unsigned char *) 0x2001)
+#define ACIA_CTRL (*(unsigned char *) 0x2002)
+#define ACIA_DATA (*(unsigned char *) 0x2003)
 #define SRAM_DATA (*(unsigned char *) 0x3000)
 #define ADC_DATA (*(unsigned char *) 0x4000)
 #define ACIA_SRAM_STORE (*(unsigned char *) 0x3100)
