@@ -85,14 +85,13 @@ module tst_6502(
 	// data mux
 	reg [3:0] mux_sel;
 	always @(posedge clk)
-		mux_sel <= CPU_AB[15:12];
+		mux_sel <= {cs_flash, cs_acia, cs_gpio, cs_sram};
 	always @(*)
 		casez(mux_sel)
-			4'h0: CPU_DI = sram_din;
-			4'h1: CPU_DI = gpio_do;
-			4'h2: CPU_DI = acia_do;
-			4'h3: CPU_DI = sram_din;
-			4'hf: CPU_DI = rom_do;
+			4'h1: CPU_DI = sram_din;
+			4'h2: CPU_DI = gpio_do;
+			4'h4: CPU_DI = acia_do;
+			4'h8: CPU_DI = rom_do;
 			default: CPU_DI = rom_do;
 		endcase
 endmodule
