@@ -243,19 +243,16 @@ public class SimplePing
                         break;
                     case 'u':
 
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                for (;;) {
-                                    try {
-                                        Thread.sleep(10l);
-                                        byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, false);
-                                        if (ch[0] > 0 && ch[1] != 0) {
-                                            System.out.append((char) ch[1]);
-                                        }
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
+                        new Thread(() -> {
+                            for (;;) {
+                                try {
+                                    Thread.sleep(10l);
+                                    byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, false);
+                                    if (ch[0] > 0 && ch[1] != 0) {
+                                        System.out.append((char) ch[1]);
                                     }
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
                                 }
                             }
                         }).start();

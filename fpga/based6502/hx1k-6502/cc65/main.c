@@ -91,8 +91,9 @@ void execute() {
       acia_tx_chr(*addr);
       break;
     case 'w':
-      addr = (unsigned char *) (((int)(*(cmd+1))) << 8 + ((int)(*(cmd+2))));
-      *addr = *(cmd+3);
+      addr = cmd[1] << 8;
+      addr += cmd[2];
+      *addr = cmd[3];
       break;
   }
 }
