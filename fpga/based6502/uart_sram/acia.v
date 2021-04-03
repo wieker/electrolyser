@@ -35,7 +35,7 @@ module acia(
 			counter_divide_select <= 2'b00;
 			word_select <= 3'b000;
 			tx_start_control <= 2'b00;
-			receive_interrupt_enable <= 1'b0;
+			receive_interrupt_enable <= 1'b1;
 		end
 		else if(cs & ~rs & we)
 			{

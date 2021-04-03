@@ -297,6 +297,9 @@ public class SimplePing
                             ch = sendCommand(handle, 6, new byte[14], false);
                             System.out.println(String.format("%02x", ch[1]));
                         }
+                    case '7':
+                        sendCommand(handle, 7, "ab".getBytes(), true);
+                        break;
 
                     default:
                 }

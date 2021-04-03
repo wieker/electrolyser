@@ -17,21 +17,34 @@ module logic(
     output [15:0] addr,
 );
 
-    wire acia_cs = 1;
-    wire acia_we = 1;
-    wire acia_reg_sel = 1;
+    reg acia_cs = 0;
+    reg acia_we = 0;
+    reg acia_reg_sel = 0;
     wire irq;
-    wire [7:0] acia_din = 8'h56;
+    reg [7:0] acia_din;
     wire [7:0] acia_do;
 
-    reg [4:0] counter;
+    reg [14:0] counter;
+    initial
+        acia_din <= 8'h56;
 
-    always @(posedge CLK)
+    always @(posedge clk)
         begin
             counter <= counter + 1;
+            if (irq) begin
+                acia_din <= 8'h55;
+            end
+            if (counter == 15'h7fff) begin
+                acia_cs <= 1;
+                acia_we <= 1;
+                acia_reg_sel <= 1;
+            end else begin
+                acia_cs <= 0;
+                acia_we <= 0;
+                acia_reg_sel <= 0;
+            end
         end
 
-	wire [7:0] acia_do;
 	acia uacia(
 		.clk(clk),				// system clock
 		.rst(reset),			// system reset
