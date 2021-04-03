@@ -19,15 +19,17 @@ module logic(
 
     wire acia_cs = 1;
     wire acia_we = 1;
-    wire reg_sel = 1;
+    wire acia_reg_sel = 1;
     wire irq;
     wire [7:0] acia_din = 8'h56;
     wire [7:0] acia_do;
 
-    always @(posedge clk)
-    begin
+    reg [4:0] counter;
 
-    end
+    always @(posedge CLK)
+        begin
+            counter <= counter + 1;
+        end
 
 	wire [7:0] acia_do;
 	acia uacia(
