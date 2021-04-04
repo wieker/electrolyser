@@ -25,6 +25,8 @@ module logic(
     wire [7:0] acia_do;
 
     reg [14:0] counter;
+    reg [7:0] data;
+    reg stb;
     initial
         acia_din <= 8'h56;
 
@@ -32,16 +34,23 @@ module logic(
         begin
             counter <= counter + 1;
             if (irq) begin
-                acia_din <= 8'h55;
-            end
-            if (counter == 15'h7fff) begin
+                data <= acia_do;
                 acia_cs <= 1;
-                acia_we <= 1;
                 acia_reg_sel <= 1;
-            end else begin
-                acia_cs <= 0;
                 acia_we <= 0;
-                acia_reg_sel <= 0;
+                stb <= 1;
+            end else begin
+                if (stb) begin
+                    acia_cs <= 1;
+                    acia_we <= 1;
+                    acia_reg_sel <= 1;
+                    acia_din <= data;
+                    stb <= 0;
+                end else begin
+                    acia_cs <= 0;
+                    acia_we <= 0;
+                    acia_reg_sel <= 0;
+                end
             end
         end
 
