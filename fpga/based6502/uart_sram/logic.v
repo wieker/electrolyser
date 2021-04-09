@@ -30,6 +30,10 @@ module logic(
     initial
         acia_din <= 8'h56;
 
+    reg [15:0] sram_addr_reg;
+    reg [15:0] sram_dout_reg;
+    reg sram_oe_reg;
+
     always @(posedge clk)
         begin
             counter <= counter + 1;

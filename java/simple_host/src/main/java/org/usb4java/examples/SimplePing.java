@@ -21,7 +21,7 @@ public class SimplePing
 
     private static final short VENDOR_ID = 0x6666;
 
-    private static final short PRODUCT_ID = 0x6666;
+    private static final short PRODUCT_ID = 0x6667;
 
     private static final int TIMEOUT = 0;
 
@@ -240,6 +240,10 @@ public class SimplePing
                         for (addr = 0; addr < 32220; addr += 16) {
                             flash_read(handle, addr);
                         }
+                        break;
+                    case 'i':
+                        flash_wakeup(handle);
+                        flash_id(handle);
                         break;
                     case 'u':
 
