@@ -302,7 +302,7 @@ public class SimplePing
                             System.out.println(String.format("%02x", ch[1]));
                         }
                     case '7':
-                        sendCommand(handle, 7, "ab".getBytes(), true);
+                        sendCommand(handle, 7, "123".getBytes(), true);
                         break;
 
                     default:
