@@ -21,7 +21,7 @@ public class SimplePing
 
     private static final short VENDOR_ID = 0x6666;
 
-    private static final short PRODUCT_ID = 0x6667;
+    private static final short PRODUCT_ID = 0x6666;
 
     private static final int TIMEOUT = 0;
 
@@ -215,7 +215,7 @@ public class SimplePing
                         flash_wait(handle, 0x00);
 
                         InputStream inputStream = new FileInputStream(
-                                "../../fpga/test_proj/top.bin");
+                                "../../fpga/based6502/uart_sram/top.bin");
                         int addr = 0;
                         byte[] buf = new byte[16];
                         for (;;) {

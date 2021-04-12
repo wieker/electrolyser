@@ -30,31 +30,43 @@ module logic(
     initial
         acia_din <= 8'h56;
 
-    reg [15:0] sram_addr_reg;
+    reg [3:0] sram_addr_reg;
+    assign addr = { 4'b000, sram_addr_reg };
     reg [15:0] sram_dout_reg;
+    assign sram_dout = sram_dout_reg;
     reg sram_oe_reg;
+    assign sram_oe = sram_oe_reg;
 
     always @(posedge clk)
         begin
             counter <= counter + 1;
-            if (irq) begin
-                data <= acia_do;
-                acia_cs <= 1;
-                acia_reg_sel <= 1;
+            if (stb) begin
+                sram_oe_reg <= 0;
+
+                acia_cs <= 0;
                 acia_we <= 0;
+                acia_reg_sel <= 0;
+
+                stb <= 0;
+            end else if (irq) begin
+                 sram_dout_reg <= acia_do;
+                 sram_oe_reg <= 1;
+                 sram_addr_reg <= sram_addr_reg + 1;
+
+                 acia_cs <= 1;
+                 acia_reg_sel <= 1;
+                 acia_we <= 0;
+
+                 stb <= 1;
+             end else if  (counter == 0) begin
+                sram_addr_reg <= sram_addr_reg + 1;
+                acia_din <= sram_din;
+
+                acia_cs <= 1;
+                acia_we <= 1;
+                acia_reg_sel <= 1;
+
                 stb <= 1;
-            end else begin
-                if (stb) begin
-                    acia_cs <= 1;
-                    acia_we <= 1;
-                    acia_reg_sel <= 1;
-                    acia_din <= data;
-                    stb <= 0;
-                end else begin
-                    acia_cs <= 0;
-                    acia_we <= 0;
-                    acia_reg_sel <= 0;
-                end
             end
         end
 
