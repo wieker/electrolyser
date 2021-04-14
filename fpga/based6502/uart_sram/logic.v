@@ -17,18 +17,13 @@ module logic(
     output [15:0] addr,
 );
 
-    reg acia_cs = 0;
-    reg acia_we = 0;
-    reg acia_reg_sel = 0;
-    wire irq;
-    reg [7:0] acia_din;
-    wire [7:0] acia_do;
+	// hard-coded bit-rate
+	localparam sym_rate = 1200;
+    localparam clk_freq = 32768;
+    localparam sym_cnt = clk_freq / sym_rate;
+	localparam SCW = $clog2(sym_cnt);
 
     reg [14:0] counter;
-    reg [7:0] data;
-    reg stb;
-    initial
-        acia_din <= 8'h56;
 
     reg [3:0] sram_addr_reg;
     assign addr = { 4'b000, sram_addr_reg };
@@ -37,62 +32,54 @@ module logic(
     reg sram_oe_reg;
     assign sram_oe = sram_oe_reg;
 
-    assign TX = RX;
+    wire rx_stb;
+    wire [7:0] rx_dat;
 
     always @(posedge clk)
         begin
             counter <= counter + 1;
-            if (irq && !stb) begin
-                sram_dout_reg <= 8'h50;
+            if (rx_stb) begin
+                sram_dout_reg <= rx_dat;
                 sram_oe_reg <= 1;
                 sram_addr_reg <= sram_addr_reg + 1;
-
-                acia_cs <= 1;
-                acia_reg_sel <= 1;
-                acia_we <= 0;
-
-                stb <= 1;
-            end else if (irq && stb) begin
-                sram_dout_reg <= acia_do;
-                sram_oe_reg <= 1;
-                sram_addr_reg <= sram_addr_reg + 1;
-
-                acia_cs <= 0;
-                acia_we <= 0;
-                acia_reg_sel <= 0;
-
-                stb <= 1;
-            end else if (stb) begin
+            end else if  (counter != 0) begin
                 sram_oe_reg <= 0;
-
-                acia_cs <= 0;
-                acia_we <= 0;
-                acia_reg_sel <= 0;
-
-                stb <= 0;
             end else if  (counter == 0) begin
+                sram_oe_reg <= 0;
                 sram_addr_reg <= sram_addr_reg + 1;
-                acia_din <= sram_din;
-
-                acia_cs <= 1;
-                acia_we <= 1;
-                acia_reg_sel <= 1;
-
-                stb <= 1;
             end
         end
 
-	acia uacia(
+	acia_rx #(
+		.SCW(SCW),				// rate counter width
+		.sym_cnt(sym_cnt)		// rate count value
+	)
+	my_rx(
 		.clk(clk),				// system clock
 		.rst(reset),			// system reset
-		.cs(acia_cs),				// chip select
-		.we(acia_we),			// write enable
-		.rs(acia_reg_sel),			// register select
-		.rx(1),				// serial receive
-		.din(acia_din),			// data bus input
-		.dout(acia_do),			// data bus output
-		.tx(ee),				// serial transmit
-		.irq(irq)			// interrupt request
+		.rx_serial(RX),		    // raw serial input
+		.rx_dat(rx_dat),        // received byte
+		.rx_stb(rx_stb),        // received data available
+		.rx_err(rx_err)         // received data error
 	);
+
+	wire [7:0] din;
+	wire tx_start;
+
+	assign din = sram_din;
+	assign tx_start = counter == 0;
+
+	acia_tx #(
+        .SCW(SCW),              // rate counter width
+        .sym_cnt(sym_cnt)       // rate count value
+    )
+    my_tx(
+        .clk(clk),				// system clock
+        .rst(reset),			// system reset
+        .tx_dat(din),           // transmit data byte
+        .tx_start(tx_start),    // trigger transmission
+        .tx_serial(TX),         // tx serial output
+        .tx_busy(tx_busy)       // tx is active (not ready)
+    );
 	
 endmodule
