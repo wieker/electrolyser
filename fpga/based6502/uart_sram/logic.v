@@ -106,7 +106,7 @@ module logic(
 	wire tx_start;
 
 	assign din = 8'h57 + stage;
-	assign tx_start = stage != prev_stage;
+	assign tx_start = stage != 0;
 
 	acia_tx #(
         .SCW(SCW),              // rate counter width
