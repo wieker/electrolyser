@@ -14,7 +14,7 @@ module logic(
     output sram_oe,
     input [7:0] sram_din,
     output [7:0] sram_dout,
-    output [15:0] addr,
+    output [18:0] addr,
 );
 
 	// hard-coded bit-rate
@@ -23,10 +23,8 @@ module logic(
     localparam sym_cnt = clk_freq / sym_rate;
 	localparam SCW = $clog2(sym_cnt);
 
-    reg [14:0] counter;
-
-    reg [3:0] sram_addr_reg;
-    assign addr = { 4'b000, sram_addr_reg };
+    reg [15:0] sram_addr_reg;
+    assign addr = { 3'b000, sram_addr_reg };
     reg [15:0] sram_dout_reg;
     assign sram_dout = sram_dout_reg;
     reg sram_oe_reg;
@@ -35,18 +33,59 @@ module logic(
     wire rx_stb;
     wire [7:0] rx_dat;
 
+    reg [7:0] command;
+    reg [7:0] stage;
+    reg [7:0] len;
+    reg [7:0] prev_stage;
+
     always @(posedge clk)
         begin
-            counter <= counter + 1;
-            if (rx_stb) begin
-                sram_dout_reg <= rx_dat;
-                sram_oe_reg <= 1;
-                sram_addr_reg <= sram_addr_reg + 1;
-            end else if  (counter != 0) begin
+            prev_stage <= stage;
+            if (stage == 0) begin
                 sram_oe_reg <= 0;
-            end else if  (counter == 0) begin
-                sram_oe_reg <= 0;
-                sram_addr_reg <= sram_addr_reg + 1;
+                if (rx_stb) begin
+                    command <= rx_dat;
+                    stage <= 1;
+                end
+            end
+            if (stage == 1) begin
+                if (rx_stb) begin
+                    sram_addr_reg <= { rx_dat , sram_addr_reg[7:0] };
+                    stage <= 2;
+                end
+            end
+            if (stage == 2) begin
+                if (rx_stb) begin
+                    sram_addr_reg <= { sram_addr_reg[7:0] , rx_dat };
+                    stage <= 3;
+                end
+            end
+            if (stage == 3) begin
+                if (rx_stb) begin
+                    len <= rx_dat;
+                    stage <= 4;
+                end
+            end
+            if (stage == 4) begin
+                if (command == 8'h57 && rx_stb) begin
+                    len <= len - 1;
+                    if (len == 1) begin
+                        stage <= 0;
+                    end
+                    sram_dout_reg <= rx_dat;
+                    sram_oe_reg <= 1;
+                    sram_addr_reg <= sram_addr_reg + 1;
+                end
+                if (command == 8'h57 && !rx_stb) begin
+                    sram_oe_reg <= 0;
+                end
+                if (command == 8'h52 && !tx_busy) begin
+                    len <= len - 1;
+                    if (len == 1) begin
+                        stage <= 0;
+                    end
+                    sram_addr_reg <= sram_addr_reg + 1;
+                end
             end
         end
 
@@ -66,8 +105,8 @@ module logic(
 	wire [7:0] din;
 	wire tx_start;
 
-	assign din = sram_din;
-	assign tx_start = counter == 0;
+	assign din = 8'h57 + stage;
+	assign tx_start = stage != prev_stage;
 
 	acia_tx #(
         .SCW(SCW),              // rate counter width

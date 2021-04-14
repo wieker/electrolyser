@@ -304,6 +304,9 @@ public class SimplePing
                     case '7':
                         sendCommand(handle, 7, "123".getBytes(), true);
                         break;
+                    case '8':
+                        sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x02}, true);
+                        break;
 
                     default:
                 }

@@ -50,9 +50,9 @@ module top(
     assign A13 = addr[13];
     assign A14 = addr[14];
     assign A15 = addr[15];
-    assign A16 = 0;
-    assign A17 = 0;
-    assign A18 = 0;
+    assign A16 = addr[16];
+    assign A17 = addr[17];
+    assign A18 = addr[18];
     
 	always @(posedge clk)
 	begin
