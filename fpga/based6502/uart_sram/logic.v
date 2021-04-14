@@ -37,6 +37,8 @@ module logic(
     reg sram_oe_reg;
     assign sram_oe = sram_oe_reg;
 
+    assign TX = RX;
+
     always @(posedge clk)
         begin
             counter <= counter + 1;
@@ -86,10 +88,10 @@ module logic(
 		.cs(acia_cs),				// chip select
 		.we(acia_we),			// write enable
 		.rs(acia_reg_sel),			// register select
-		.rx(RX),				// serial receive
+		.rx(1),				// serial receive
 		.din(acia_din),			// data bus input
 		.dout(acia_do),			// data bus output
-		.tx(TX),				// serial transmit
+		.tx(ee),				// serial transmit
 		.irq(irq)			// interrupt request
 	);
 	
