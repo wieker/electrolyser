@@ -38,6 +38,12 @@ module logic(
     reg [7:0] len;
     reg [7:0] prev_stage;
 
+	initial begin
+        stage <= 8'h00;
+        sram_addr_reg <= 16'h0000;
+        sram_oe_reg <= 0;
+    end
+
     always @(posedge clk)
         begin
             prev_stage <= stage;
@@ -107,7 +113,7 @@ module logic(
 	wire tx_busy;
 
 	assign din = sram_din;
-	assign tx_start = (stage != 0);
+	assign tx_start = (stage > 3);
 
 	acia_tx #(
         .SCW(SCW),              // rate counter width
