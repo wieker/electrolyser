@@ -38,8 +38,6 @@ module logic(
     reg [7:0] stage;
     reg [7:0] len;
     reg [7:0] prev_stage;
-    reg await;
-    reg [7:0] val;
 
 	initial begin
         stage <= 8'h00;
@@ -55,8 +53,6 @@ module logic(
                 sram_oe_reg <= 0;
                 sram_addr_reg <= 16'h0000;
                 sram_addr_next <= 16'h0000;
-                await <= 0;
-                tx_start <= 0;
                 if (rx_stb) begin
                     command <= rx_dat;
                     stage <= 1;
@@ -94,19 +90,12 @@ module logic(
                 if (command == 8'h57 && !rx_stb) begin
                     sram_oe_reg <= 0;
                 end
-                if (command == 8'h52 && !await && !tx_busy) begin
+                if (command == 8'h52 && !tx_busy) begin
                     len <= len - 1;
                     if (len == 1) begin
                         stage <= 0;
                     end
                     sram_addr_reg <= sram_addr_reg + 1;
-                    await <= 1;
-                    tx_start <= 1;
-                    val <= sram_din;
-                end
-                if (await) begin
-                    await <= 0;
-                    tx_start <= 0;
                 end
             end
         end
@@ -125,10 +114,11 @@ module logic(
 	);
 
 	wire [7:0] din;
-	reg tx_start;
+	wire tx_start;
 	wire tx_busy;
 
-	assign din = val;
+	assign din = sram_din;
+	assign tx_start = (stage == 4) && (command == 8'h52);
 
 	acia_tx #(
         .SCW(SCW),              // rate counter width

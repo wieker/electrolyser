@@ -309,7 +309,7 @@ public class SimplePing
                         break;
                     case '9':
                         sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x05, 'a', 'b',
-                                'c', 'd', 'e'},true);
+                                'c', 'd', 'Y'},true);
                         break;
 
                     default:
