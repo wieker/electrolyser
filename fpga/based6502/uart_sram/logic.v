@@ -24,12 +24,9 @@ module logic(
 	localparam SCW = $clog2(sym_cnt);
 
     reg [18:0] sram_addr_reg;
-    reg [18:0] sram_addr_next;
     assign addr = sram_addr_reg;
-    reg [15:0] sram_dout_reg;
-    assign sram_dout = sram_dout_reg;
-    reg sram_oe_reg;
-    assign sram_oe = sram_oe_reg;
+    assign sram_dout = rx_dat;
+    assign sram_oe = (stage == 5) && (command == 8'h57) && rx_stb;
 
     wire rx_stb;
     wire [7:0] rx_dat;
@@ -42,17 +39,13 @@ module logic(
 	initial begin
         stage <= 8'h00;
         sram_addr_reg <= 16'h0000;
-        sram_addr_next <= 16'h0000;
-        sram_oe_reg <= 0;
     end
 
     always @(posedge clk)
         begin
             prev_stage <= stage;
             if (stage == 0) begin
-                sram_oe_reg <= 0;
                 sram_addr_reg <= 16'h0000;
-                sram_addr_next <= 16'h0000;
                 if (rx_stb) begin
                     command <= rx_dat;
                     stage <= 1;
@@ -88,13 +81,7 @@ module logic(
                     if (len == 1) begin
                         stage <= 0;
                     end
-                    sram_dout_reg <= rx_dat;
-                    sram_oe_reg <= 1;
-                    sram_addr_reg <= sram_addr_next;
-                    sram_addr_next <= sram_addr_next + 1;
-                end
-                if (command == 8'h57 && !rx_stb) begin
-                    sram_oe_reg <= 0;
+                    sram_addr_reg <= sram_addr_reg + 1;
                 end
                 if (command == 8'h52 && !tx_busy) begin
                     len <= len - 1;
