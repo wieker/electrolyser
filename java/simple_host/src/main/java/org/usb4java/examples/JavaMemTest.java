@@ -57,17 +57,19 @@ public class JavaMemTest {
                     }
                 }
             }).start();
-            Thread.sleep(5000l);
+            sendCommand(handle, 0, new byte[] { }, true);
+            sendCommand(handle, 1, new byte[] { }, true);
+            Thread.sleep(1000l);
             sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x05, 'a', 'b',
                     'c', 'd', 'Y'},true);
-            Thread.sleep(10000l);
             sendCommand(handle, 7, new byte[] {'W', 0x00, 0x04, 0x00, 0x05, '1', '3',
                     '8', 'D', 'f'},true);
-            Thread.sleep(10000l);
             sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x00, 0x05}, true);
-            Thread.sleep(10000l);
+            Thread.sleep(1000l);
             sendCommand(handle, 7, new byte[] {'R', 0x00, 0x04, 0x00, 0x05}, true);
-            Thread.sleep(10000l);
+            Thread.sleep(1000l);
+            sendCommand(handle, 1, new byte[] { }, true);
+            sendCommand(handle, 0, new byte[] { }, true);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally
