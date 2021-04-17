@@ -110,8 +110,8 @@ module logic(
 	wire tx_start;
 	wire tx_busy;
 
-	assign din = sram_din;
-	assign tx_start = (stage == 5) && (command == 8'h52);
+	assign din = (command == 8'h52) ? sram_din : 8'h53;
+	assign tx_start = (stage == 5) && ((command == 8'h52) || (command == 8'h53));
 
 	acia_tx #(
         .SCW(SCW),              // rate counter width

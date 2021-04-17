@@ -60,7 +60,7 @@ public class JavaMemTest {
             sendCommand(handle, 0, new byte[] { }, true);
             sendCommand(handle, 1, new byte[] { }, true);
             Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x00, 0x05}, true);
+            sendCommand(handle, 7, new byte[] {'S', 0x00, 0x00, 0x00, 0x05}, true);
             Thread.sleep(1000l);
             sendCommand(handle, 7, new byte[] {'R', 0x00, 0x04, 0x00, 0x05}, true);
             Thread.sleep(1000l);
