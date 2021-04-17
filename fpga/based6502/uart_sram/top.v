@@ -28,7 +28,13 @@ module top(
 	initial
         reset_cnt <= 8'h00;
 
-    assign clk = CLK;
+    reg [1:0] clk_cnt;
+    assign clk = clk_cnt[1];
+
+	always @(posedge CLK)
+	begin
+        clk_cnt <= clk_cnt + 1;
+	end
 
     assign CEn = 0;
     assign OEn = 0;
