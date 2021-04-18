@@ -41,24 +41,24 @@ module top(
     assign WEn = !sram_oe;
 
     assign A0 = addr[0];
-    assign A1 = addr[1];
-    assign A2 = addr[2];
-    assign A3 = addr[3];
-    assign A4 = addr[4];
-    assign A5 = addr[5];
-    assign A6 = addr[6];
-    assign A7 = addr[7];
-    assign A8 = addr[8];
-    assign A9 = addr[9];
-    assign A10 = addr[10];
-    assign A11 = addr[11];
-    assign A12 = addr[12];
-    assign A13 = addr[13];
-    assign A14 = addr[14];
-    assign A15 = addr[15];
-    assign A16 = addr[16];
-    assign A17 = addr[17];
-    assign A18 = addr[18];
+    assign A1 = addr[0];
+    assign A2 = addr[1];
+    assign A3 = addr[2];
+    assign A4 = addr[3];
+    assign A5 = addr[4];
+    assign A6 = addr[5];
+    assign A7 = addr[6];
+    assign A8 = addr[7];
+    assign A9 = addr[8];
+    assign A10 = addr[8];
+    assign A11 = addr[9];
+    assign A12 = addr[10];
+    assign A13 = addr[11];
+    assign A14 = addr[12];
+    assign A15 = addr[13];
+    assign A16 = addr[14];
+    assign A17 = addr[15];
+    assign A18 = addr[16];
     
 	always @(posedge clk)
 	begin

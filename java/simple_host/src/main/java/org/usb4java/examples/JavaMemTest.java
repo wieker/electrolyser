@@ -41,14 +41,37 @@ public class JavaMemTest {
                 throw new LibUsbException("Unable to claim interface", result);
             }
 
-            sendCommand(handle, 0, new byte[] { }, false);
-            //sendCommand(handle, 1, new byte[] { }, false);
+            new Thread(() -> {
+                for (;;) {
+                    try {
+                        Thread.sleep(10l);
+                        byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, false);
+                        if (ch[0] > 0 && ch[1] != 0) {
+                            System.out.append((char) ch[1]);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+            sendCommand(handle, 0, new byte[] { }, true);
+            sendCommand(handle, 1, new byte[] { }, true);
             Thread.sleep(1000l);
-
-            sendCommand(handle, 7, new byte[]{0x00, 0x00, 0x00, (byte) 0x00, (byte) 0xff}, false);
-
-            //sendCommand(handle, 1, new byte[] { }, false);
-            sendCommand(handle, 0, new byte[] { }, false);
+            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x00, 0x05}, true);
+            Thread.sleep(1000l);
+            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x04, 0x00, 0x05}, true);
+            Thread.sleep(1000l);
+            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x05, 'a', 'b',
+                    'c', 'd', 'Y'},true);
+            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x04, 0x00, 0x05, '1', '3',
+                    '8', 'D', 'f'},true);
+            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x00, 0x05}, true);
+            Thread.sleep(1000l);
+            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x04, 0x00, 0x05}, true);
+            Thread.sleep(1000l);
+            sendCommand(handle, 1, new byte[] { }, true);
+            sendCommand(handle, 0, new byte[] { }, true);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally
