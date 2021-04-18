@@ -5,10 +5,6 @@ import org.usb4java.DeviceHandle;
 import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import static org.usb4java.examples.Ctl1.readKey;
 import static org.usb4java.examples.SimplePing.findDevice;
 import static org.usb4java.examples.SimplePing.sendCommand;
 
@@ -45,29 +41,20 @@ public class JavaMemTest {
                 throw new LibUsbException("Unable to claim interface", result);
             }
 
-            sendCommand(handle, 0, new byte[] { }, true);
-            sendCommand(handle, 1, new byte[] { }, true);
+            sendCommand(handle, 0, new byte[] { }, false);
+            sendCommand(handle, 1, new byte[] { }, false);
             Thread.sleep(1000l);
 
-            readLine(handle, 0x00);
-            readLine(handle, 0x04);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x05,
-                    0x00, 0x01, 0x02, 0x04, 0x08},true);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x04, 0x00, 0x05,
-                    0x10, 0x20, 0x40, (byte) 0x80, 0x00},true);
-            readLine(handle, 0x00);
-            readLine(handle, 0x04);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x05,
-                    0x00, 0x01, 0x02, 0x04, 0x08},true);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x04, 0x00, 0x05,
-                    0x10, 0x20, 0x40, (byte) 0x80, 0x00},true);
-            readLine(handle, 0x00);
-            readLine(handle, 0x04);
-            readLine(handle, 0x00);
-            readLine(handle, 0x04);
+            readLine(handle);
+            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x01,
+                    0x00},false);
+            readLine(handle);
+            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x01,
+                    (byte) 0xff},false);
+            readLine(handle);
 
-            sendCommand(handle, 1, new byte[] { }, true);
-            sendCommand(handle, 0, new byte[] { }, true);
+            sendCommand(handle, 1, new byte[] { }, false);
+            sendCommand(handle, 0, new byte[] { }, false);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally
@@ -77,8 +64,8 @@ public class JavaMemTest {
         }
     }
 
-    private static void readLine(DeviceHandle handle, int i) throws InterruptedException {
-        sendCommand(handle, 7, new byte[]{'R', 0x00, (byte) i, 0x00, 0x05}, true);
+    private static void readLine(DeviceHandle handle) throws InterruptedException {
+        sendCommand(handle, 7, new byte[]{'R', 0x00, 0x00, 0x00, 0x01}, false);
         Thread.sleep(1000l);
         sendCommand(handle, 6, new byte[5], true);
     }
