@@ -46,12 +46,16 @@ public class JavaMemTest {
             Thread.sleep(1000l);
 
             readLine(handle);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x01,
-                    0x00},false);
-            readLine(handle);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x01,
-                    (byte) 0xff},false);
-            readLine(handle);
+            for (int j = 0; j < 7; j ++) {
+                for (int i = 0; i < 10; i++) {
+                    sendCommand(handle, 7, new byte[]{'W', 0x00, 0x00, (byte) (0x01 << j), 0x01,
+                            0x00}, false);
+                    readLine(handle);
+                    sendCommand(handle, 7, new byte[]{'W', 0x00, 0x00, (byte) (0x01 << j), 0x01,
+                            (byte) 0xff}, false);
+                    readLine(handle);
+                }
+            }
 
             sendCommand(handle, 1, new byte[] { }, false);
             sendCommand(handle, 0, new byte[] { }, false);
