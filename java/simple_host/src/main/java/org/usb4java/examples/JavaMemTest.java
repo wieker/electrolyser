@@ -44,46 +44,28 @@ public class JavaMemTest {
             if (result != LibUsb.SUCCESS) {
                 throw new LibUsbException("Unable to claim interface", result);
             }
-            new Thread(() -> {
-                for (;;) {
-                    try {
-                        Thread.sleep(10l);
-                        byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, false);
-                        if (ch[0] > 0 && ch[1] != 0) {
-                            System.out.append((char) ch[1]);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+
             sendCommand(handle, 0, new byte[] { }, true);
             sendCommand(handle, 1, new byte[] { }, true);
             Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x00, 0x05}, true);
-            Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x04, 0x00, 0x05}, true);
-            Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x05, 'a', 'b',
-                    'c', 'd', 'Y'},true);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x04, 0x00, 0x05, '1', '3',
-                    '8', 'D', 'f'},true);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x00, 0x05}, true);
-            Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x04, 0x00, 0x05}, true);
-            Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x05, 'z', 'b',
-                    'c', 'd', 'Y'},true);
-            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x04, 0x00, 0x05, '4', '3',
-                    '8', 'D', 'f'},true);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x00, 0x05}, true);
-            Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x04, 0x00, 0x05}, true);
-            Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x00, 0x05}, true);
-            Thread.sleep(1000l);
-            sendCommand(handle, 7, new byte[] {'R', 0x00, 0x04, 0x00, 0x05}, true);
-            Thread.sleep(1000l);
+
+            readLine(handle, 0x00);
+            readLine(handle, 0x04);
+            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x05,
+                    0x00, 0x01, 0x02, 0x04, 0x08},true);
+            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x04, 0x00, 0x05,
+                    0x10, 0x20, 0x40, (byte) 0x80, 0x00},true);
+            readLine(handle, 0x00);
+            readLine(handle, 0x04);
+            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x00, 0x05,
+                    0x00, 0x01, 0x02, 0x04, 0x08},true);
+            sendCommand(handle, 7, new byte[] {'W', 0x00, 0x04, 0x00, 0x05,
+                    0x10, 0x20, 0x40, (byte) 0x80, 0x00},true);
+            readLine(handle, 0x00);
+            readLine(handle, 0x04);
+            readLine(handle, 0x00);
+            readLine(handle, 0x04);
+
             sendCommand(handle, 1, new byte[] { }, true);
             sendCommand(handle, 0, new byte[] { }, true);
         } catch (InterruptedException e) {
@@ -93,5 +75,11 @@ public class JavaMemTest {
             LibUsb.close(handle);
             LibUsb.exit(null);
         }
+    }
+
+    private static void readLine(DeviceHandle handle, int i) throws InterruptedException {
+        sendCommand(handle, 7, new byte[]{'R', 0x00, (byte) i, 0x00, 0x05}, true);
+        Thread.sleep(1000l);
+        sendCommand(handle, 6, new byte[5], true);
     }
 }
