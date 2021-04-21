@@ -47,14 +47,15 @@ module logic(
                 if (cfg_addr == 8'h06) begin
                     command <= rx_dat;
                 end
-                if (cfg_addr != 8'h06 && command == 8'h52 && !tx_busy) begin
+            end else begin
+                if (command == 8'h52 && !tx_busy) begin
                     len <= len - 1;
                     if (len == 1) begin
                         command <= 0;
                     end
                     sram_addr_reg <= sram_addr_reg + 1;
                 end
-                if (cfg_addr != 8'h06 && command == 8'h53 && !tx_busy) begin
+                if (command == 8'h53 && !tx_busy) begin
                     len <= len - 1;
                     if (len == 1) begin
                         command <= 0;

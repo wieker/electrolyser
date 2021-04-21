@@ -319,13 +319,23 @@ public class SimplePing
                         break;
                     case 'M':
                         sendCommand(handle, 7, new byte[] {
-                            0x01, (byte) 0x00,
-                            0x02, (byte) 0x00,
-                            0x03, (byte) 0x00,
-                            0x04, (byte) 0x05,
-                            0x05, (byte) 0x80,
-                            0x06, (byte) 'S',
-                                }, true);
+                                0x01, (byte) 0x00,
+                                0x02, (byte) 0x00,
+                                0x03, (byte) 0x00,
+                                0x04, (byte) 0x05,
+                                0x05, (byte) 0x80,
+                                0x06, (byte) 'S',
+                        }, true);
+                        break;
+                    case 'U':
+                        sendCommand(handle, 7, new byte[] {
+                                0x01, (byte) 0x00,
+                                0x02, (byte) 0x00,
+                                0x03, (byte) 0x00,
+                                0x04, (byte) 0x05,
+                                0x05, (byte) 0x80,
+                                0x06, (byte) 'R',
+                        }, true);
                         break;
 
                     default:
