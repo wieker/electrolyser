@@ -34,9 +34,20 @@
 #include "hal_gpio.h"
 
 /*- Definitions -------------------------------------------------------------*/
-HAL_GPIO_PIN(SWCLK_TCK,    A, 15)
-HAL_GPIO_PIN(SWDIO_TMS,    A, 16)
-HAL_GPIO_PIN(nRESET,       A, 22)
+//#define BOARD_SWD_USB_MINI
+#define BOARD_SWD_USB_STD
+
+#if defined(BOARD_SWD_USB_MINI)
+  HAL_GPIO_PIN(SWCLK_TCK,    A, 8)
+  HAL_GPIO_PIN(SWDIO_TMS,    A, 5)
+  HAL_GPIO_PIN(nRESET,       A, 9)
+#elif defined(BOARD_SWD_USB_STD)
+  HAL_GPIO_PIN(SWCLK_TCK,    A, 14)
+  HAL_GPIO_PIN(SWDIO_TMS,    A, 15)
+  HAL_GPIO_PIN(SWO_DTO,      A, 9)
+  HAL_GPIO_PIN(TDI,          A, 8)
+  HAL_GPIO_PIN(nRESET,       A, 5)
+#endif
 
 #define DAP_CONFIG_ENABLE_SWD
 //#define DAP_CONFIG_ENABLE_JTAG
@@ -52,20 +63,21 @@ HAL_GPIO_PIN(nRESET,       A, 22)
 #define DAP_CONFIG_VENDOR_STR          "Alex Taradov"
 #define DAP_CONFIG_PRODUCT_STR         "Generic CMSIS-DAP Adapter"
 #define DAP_CONFIG_SER_NUM_STR         usb_serial_number
-#define DAP_CONFIG_FW_VER_STR          "v1.0"
+#define DAP_CONFIG_FW_VER_STR          "v0.3"
 #define DAP_CONFIG_DEVICE_VENDOR_STR   NULL
 #define DAP_CONFIG_DEVICE_NAME_STR     NULL
 
 //#define DAP_CONFIG_RESET_TARGET_FN     target_specific_reset_function
 
 // A value at which dap_clock_test() produces 1 kHz output on the SWCLK pin
-#define DAP_CONFIG_DELAY_CONSTANT      3400
+#define DAP_CONFIG_DELAY_CONSTANT      4700
 
 // A threshold for switching to fast clock (no added delays)
-// This is the frequency produced by dap_clock_test(1) on the SWCLK pin 
-#define DAP_CONFIG_FAST_CLOCK          2200000 // Hz
+// This is the frequency produced by dap_clock_test(1) on the SWCLK pin
+#define DAP_CONFIG_FAST_CLOCK          3600000 // Hz
 
 /*- Prototypes --------------------------------------------------------------*/
+extern void app_led_set_state(int state);
 extern char usb_serial_number[16];
 
 /*- Implementations ---------------------------------------------------------*/
@@ -165,7 +177,7 @@ static inline void DAP_CONFIG_SETUP(void)
 {
   HAL_GPIO_SWCLK_TCK_in();
   HAL_GPIO_SWDIO_TMS_in();
-  //HAL_GPIO_nRESET_in();
+  HAL_GPIO_nRESET_in();
 
   HAL_GPIO_SWDIO_TMS_pullup();
 }
@@ -175,7 +187,7 @@ static inline void DAP_CONFIG_DISCONNECT(void)
 {
   HAL_GPIO_SWCLK_TCK_in();
   HAL_GPIO_SWDIO_TMS_in();
-  //HAL_GPIO_nRESET_in();
+  HAL_GPIO_nRESET_in();
 }
 
 //-----------------------------------------------------------------------------
@@ -188,7 +200,7 @@ static inline void DAP_CONFIG_CONNECT_SWD(void)
   HAL_GPIO_SWCLK_TCK_set();
 
   HAL_GPIO_nRESET_out();
-  HAL_GPIO_nRESET_clr();
+  HAL_GPIO_nRESET_set();
 }
 
 //-----------------------------------------------------------------------------
@@ -207,8 +219,8 @@ static inline void DAP_CONFIG_CONNECT_JTAG(void)
 //-----------------------------------------------------------------------------
 static inline void DAP_CONFIG_LED(int index, int state)
 {
-  (void)index;
-  (void)state;
+  if (0 == index)
+    app_led_set_state(state);
 }
 
 #endif // _DAP_CONFIG_H_
