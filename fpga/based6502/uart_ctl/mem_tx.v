@@ -1,4 +1,4 @@
-module uart_ctl(
+module mem_tx(
     input clk,              // 4..0MHz CPU clock
     input reset,            // Low-true reset
 
@@ -26,7 +26,6 @@ module uart_ctl(
         begin
             if (stage == 0 && rx_dat == 8'h00 && rx_stb) begin
                 stage <= 0;
-                cfg_addr <= 0;
             end
             if (stage == 0 && rx_dat != 8'h00 && rx_stb && !rx_busy) begin
                 cfg_addr <= rx_dat;
@@ -35,7 +34,6 @@ module uart_ctl(
             if (stage) begin
                 if (rx_stb) begin
                     stage <= 0;
-                    cfg_addr <= 0;
                 end
             end
         end

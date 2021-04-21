@@ -14,8 +14,13 @@ module logic(
     output sram_oe,
     input [7:0] sram_din,
     output [7:0] sram_dout,
-    output [18:0] addr,
+    output [18:0] sram_addr,
 );
+
+
+    reg [18:0] sram_addr_reg;
+    reg [7:0] command;
+    reg [7:0] len;
 
     wire cfg_we;
     wire [7:0] rx_dat;
@@ -26,6 +31,34 @@ module logic(
             if (cfg_we) begin
                 if (cfg_addr == 8'h01) begin
                     gpio_o <= rx_dat;
+                end
+                if (cfg_addr == 8'h02) begin
+                    sram_addr_reg <= { rx_dat[2:0] , sram_addr_reg[15:8] , sram_addr_reg[7:0] };
+                end
+                if (cfg_addr == 8'h03) begin
+                    sram_addr_reg <= { sram_addr_reg[18:16] , rx_dat , sram_addr_reg[7:0] };
+                end
+                if (cfg_addr == 8'h04) begin
+                    sram_addr_reg <= { sram_addr_reg[18:16] , sram_addr_reg[15:8] , rx_dat };
+                end
+                if (cfg_addr == 8'h05) begin
+                    len <= rx_dat;
+                end
+                if (cfg_addr == 8'h06) begin
+                    command <= rx_dat;
+                end
+                if (cfg_addr != 8'h06 && command == 8'h52 && !tx_busy) begin
+                    len <= len - 1;
+                    if (len == 1) begin
+                        command <= 0;
+                    end
+                    sram_addr_reg <= sram_addr_reg + 1;
+                end
+                if (cfg_addr != 8'h06 && command == 8'h53 && !tx_busy) begin
+                    len <= len - 1;
+                    if (len == 1) begin
+                        command <= 0;
+                    end
                 end
             end
         end
@@ -38,8 +71,38 @@ module logic(
         .rx_dat(rx_dat),        // received byte
         .cfg_we(cfg_we),        // received data available
 
-        .rx_busy(0),         // received data error
+        .rx_busy((command == 8'h57) || (command == 8'h52) || (command == 8'h53)),         // received data error
         .cfg_addr(cfg_addr)         // received data error
+    );
+
+    // TX
+    assign sram_addr = sram_addr_reg;
+    assign sram_dout = rx_dat;
+    assign sram_oe = 0;
+
+	wire [7:0] din;
+	wire tx_start;
+	wire tx_busy;
+
+	assign din = (command == 8'h52) ? sram_din : 8'h53;
+	assign tx_start = ((command == 8'h52) || (command == 8'h53));
+
+	localparam sym_rate = 1200;
+    localparam clk_freq = 3000000;
+    localparam sym_cnt = clk_freq / sym_rate;
+	localparam SCW = $clog2(sym_cnt);
+
+	acia_tx #(
+        .SCW(SCW),              // rate counter width
+        .sym_cnt(sym_cnt)       // rate count value
+    )
+    my_tx(
+        .clk(clk),				// system clock
+        .rst(reset),			// system reset
+        .tx_dat(din),           // transmit data byte
+        .tx_start(tx_start),    // trigger transmission
+        .tx_serial(TX),         // tx serial output
+        .tx_busy(tx_busy)       // tx is active (not ready)
     );
 	
 endmodule
