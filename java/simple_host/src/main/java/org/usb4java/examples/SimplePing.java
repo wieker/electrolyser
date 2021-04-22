@@ -337,6 +337,26 @@ public class SimplePing
                                 0x06, (byte) 'R',
                         }, true);
                         break;
+                    case 'e':
+                        sendCommand(handle, 7, new byte[] {
+                                0x01, (byte) 0x00,
+                                0x02, (byte) 0x00,
+                                0x03, (byte) 0x00,
+                                0x04, (byte) 0x05,
+                                0x05, (byte) 0x05,
+                                0x06, (byte) 'W',
+                                'u', 'v', '5', '6', '4',
+                        }, true);
+                        sendCommand(handle, 7, new byte[] {
+                                0x01, (byte) 0x00,
+                                0x02, (byte) 0x00,
+                                0x03, (byte) 0x00,
+                                0x04, (byte) 0x15,
+                                0x05, (byte) 0x05,
+                                0x06, (byte) 'W',
+                                'q', 'r', 'B', 'C', '+',
+                        }, true);
+                        break;
 
                     default:
                 }

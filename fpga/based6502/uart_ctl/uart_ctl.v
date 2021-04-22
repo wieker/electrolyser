@@ -9,6 +9,8 @@ module uart_ctl(
 
     input rx_busy,
     output reg [7:0] cfg_addr,
+
+    output rx_stb,
 );
 
 	// hard-coded bit-rate
@@ -16,8 +18,6 @@ module uart_ctl(
     localparam clk_freq = 3000000;
     localparam sym_cnt = clk_freq / sym_rate;
 	localparam SCW = $clog2(sym_cnt);
-
-    wire rx_stb;
 
     reg stage;
     assign cfg_we = stage && rx_stb && !rx_busy;

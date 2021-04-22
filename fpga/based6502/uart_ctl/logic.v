@@ -25,6 +25,8 @@ module logic(
     wire cfg_we;
     wire [7:0] rx_dat;
     wire [7:0] cfg_addr;
+    wire rx_stb;
+    reg sram_oe_stage;
 
     always @(posedge clk)
         begin
@@ -61,6 +63,17 @@ module logic(
                         command <= 0;
                     end
                 end
+                if (command == 8'h57 && rx_stb) begin
+                    sram_oe_stage <= 1;
+                end
+                if (command == 8'h57 && sram_oe_stage) begin
+                    len <= len - 1;
+                    if (len == 1) begin
+                        command <= 0;
+                    end
+                    sram_addr_reg <= sram_addr_reg + 1;
+                    sram_oe_stage <= 0;
+                end
             end
         end
 
@@ -73,13 +86,17 @@ module logic(
         .cfg_we(cfg_we),        // received data available
 
         .rx_busy((command == 8'h57) || (command == 8'h52) || (command == 8'h53)),         // received data error
-        .cfg_addr(cfg_addr)         // received data error
+        .cfg_addr(cfg_addr),         // received data error
+
+        .rx_stb(rx_stb)
     );
+
+    // RX
+    assign sram_oe = (command == 8'h57) && rx_stb;
 
     // TX
     assign sram_addr = sram_addr_reg;
     assign sram_dout = rx_dat;
-    assign sram_oe = 0;
 
 	wire [7:0] din;
 	wire tx_start;
