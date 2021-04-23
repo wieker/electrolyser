@@ -359,6 +359,11 @@ public class SimplePing
                         break;
                     case 'E':
                         sendCommand(handle, 7, new byte[] {
+                                0x01, (byte) 0x00,
+                                0x02, (byte) 0x00,
+                                0x03, (byte) 0x00,
+                                0x04, (byte) 0x05,
+                                0x05, (byte) 0x08,
                                 0x06, (byte) 'C',
                         }, true);
                         break;

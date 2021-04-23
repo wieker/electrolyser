@@ -30,9 +30,10 @@ module logic(
 
     always @(posedge clk)
         begin
+            gpio_o[7] <= (command == 8'h57) || (command == 8'h52) || (command == 8'h53) || (command == 8'h43);
             if (cfg_we) begin
                 if (cfg_addr == 8'h01) begin
-                    gpio_o <= rx_dat;
+                    //gpio_o <= rx_dat;
                 end
                 if (cfg_addr == 8'h02) begin
                     sram_addr_reg <= { rx_dat[2:0] , sram_addr_reg[15:8] , sram_addr_reg[7:0] };
@@ -74,8 +75,16 @@ module logic(
                     sram_addr_reg <= sram_addr_reg + 1;
                     sram_oe_stage <= 0;
                 end
-                if (command == 8'h43 && !tx_busy) begin
-                    command <= 0;
+                if (command == 8'h43 && rdy_swd) begin
+                    sram_oe_stage <= 1;
+                end
+                if (command == 8'h43 && sram_oe_stage) begin
+                    len <= len - 1;
+                    if (len == 1) begin
+                        command <= 0;
+                    end
+                    sram_addr_reg <= sram_addr_reg + 1;
+                    sram_oe_stage <= 0;
                 end
             end
         end
@@ -88,25 +97,25 @@ module logic(
         .rx_dat(rx_dat),        // received byte
         .cfg_we(cfg_we),        // received data available
 
-        .rx_busy((command == 8'h57) || (command == 8'h52) || (command == 8'h53)),         // received data error
+        .rx_busy((command == 8'h57) || (command == 8'h52) || (command == 8'h53) || (command == 8'h43)),         // received data error
         .cfg_addr(cfg_addr),         // received data error
 
         .rx_stb(rx_stb)
     );
 
     // RX
-    assign sram_oe = (command == 8'h57) && rx_stb;
+    assign sram_oe = ((command == 8'h57) && rx_stb) || ((command == 8'h43) && sram_oe_stage);
 
     // TX
     assign sram_addr = sram_addr_reg;
-    assign sram_dout = rx_dat;
+    assign sram_dout = (command == 8'h57) ? rx_dat : cnt;
 
 	wire [7:0] din;
 	wire tx_start;
 	wire tx_busy;
 
-	assign din = (command == 8'h52) ? sram_din : (command == 8'h43) ? cnt : 8'h53;
-	assign tx_start = ((command == 8'h52) || (command == 8'h53) || (command == 8'h43));
+	assign din = (command == 8'h52) ? sram_din : 8'h53;
+	assign tx_start = ((command == 8'h52) || (command == 8'h53));
 
 	localparam sym_rate = 1200;
     localparam clk_freq = 3000000;
@@ -129,6 +138,7 @@ module logic(
     // SWD
 
     wire [7:0] cnt;
+    wire rdy_swd;
 
     capture capture(
         .clk(clk),				// system clock
@@ -138,7 +148,8 @@ module logic(
         .SWDIO(gpio_i[1]),    // trigger transmission
         .SWDRST(gpio_i[0]),         // tx serial output
 
-        .counter(cnt)       // tx is active (not ready)
+        .dt(cnt),       // tx is active (not ready)
+        .rdy_swd(rdy_swd),       // tx is active (not ready)
     );
 	
 endmodule
