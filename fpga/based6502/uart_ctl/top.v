@@ -13,6 +13,8 @@ module top(
     inout D4, D5, D6, D7,
 
     input CLK,
+
+    input swdio, swdclk, swdrst,
 );
 	// reset generator waits > 10us
 	reg [7:0] reset_cnt;
@@ -73,7 +75,7 @@ module top(
     
 	// test unit
 	wire [7:0] gpio_o, gpio_i;
-	assign gpio_i = 8'h00;
+	assign gpio_i = { 5'h00, swdclk, swdio, swdrst };
 	logic logic(
 		.clk(clk),
 		.reset(reset),

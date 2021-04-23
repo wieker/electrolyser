@@ -74,6 +74,9 @@ module logic(
                     sram_addr_reg <= sram_addr_reg + 1;
                     sram_oe_stage <= 0;
                 end
+                if (command == 8'h43 && !tx_busy) begin
+                    command <= 0;
+                end
             end
         end
 
@@ -102,8 +105,8 @@ module logic(
 	wire tx_start;
 	wire tx_busy;
 
-	assign din = (command == 8'h52) ? sram_din : 8'h53;
-	assign tx_start = ((command == 8'h52) || (command == 8'h53));
+	assign din = (command == 8'h52) ? sram_din : (command == 8'h43) ? cnt : 8'h53;
+	assign tx_start = ((command == 8'h52) || (command == 8'h53) || (command == 8'h43));
 
 	localparam sym_rate = 1200;
     localparam clk_freq = 3000000;
@@ -121,6 +124,21 @@ module logic(
         .tx_start(tx_start),    // trigger transmission
         .tx_serial(TX),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
+    );
+
+    // SWD
+
+    wire [7:0] cnt;
+
+    capture capture(
+        .clk(clk),				// system clock
+        .reset(reset),			// system reset
+
+        .SWDCLK(gpio_i[2]),           // transmit data byte
+        .SWDIO(gpio_i[1]),    // trigger transmission
+        .SWDRST(gpio_i[0]),         // tx serial output
+
+        .counter(cnt)       // tx is active (not ready)
     );
 	
 endmodule
