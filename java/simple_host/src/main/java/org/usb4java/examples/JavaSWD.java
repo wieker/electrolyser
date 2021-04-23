@@ -50,7 +50,7 @@ public class JavaSWD {
                     0x02, (byte) 0x00,
                     0x03, (byte) 0x00,
                     0x04, (byte) 0x05,
-                    0x05, (byte) 0x80,
+                    0x05, (byte) 0x10,
                     0x06, (byte) 'C',
             }, false);
             Thread.sleep(10000l);
