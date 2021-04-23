@@ -41,8 +41,8 @@ public class JavaSWD {
                 throw new LibUsbException("Unable to claim interface", result);
             }
 
-            sendCommand(handle, 0, new byte[] { }, true);
-            sendCommand(handle, 1, new byte[] { }, true);
+            sendCommand(handle, 0, new byte[] { }, false);
+            sendCommand(handle, 1, new byte[] { }, false);
             Thread.sleep(1000l);
 
             sendCommand(handle, 7, new byte[] {
@@ -52,7 +52,7 @@ public class JavaSWD {
                     0x04, (byte) 0x05,
                     0x05, (byte) 0x80,
                     0x06, (byte) 'C',
-            }, true);
+            }, false);
             Thread.sleep(10000l);
 
             for (int i = 0; i < 5; i ++) {
@@ -63,13 +63,13 @@ public class JavaSWD {
                         0x04, (byte) (0x05 + 20 * i),
                         0x05, (byte) 0x20,
                         0x06, (byte) 'R',
-                }, true);
+                }, false);
                 Thread.sleep(1000l);
                 sendCommand(handle, 6, new byte[40], true);
             }
 
-            sendCommand(handle, 1, new byte[] { }, true);
-            sendCommand(handle, 0, new byte[] { }, true);
+            sendCommand(handle, 1, new byte[] { }, false);
+            sendCommand(handle, 0, new byte[] { }, false);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally
