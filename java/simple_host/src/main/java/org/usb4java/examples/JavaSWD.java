@@ -55,17 +55,17 @@ public class JavaSWD {
             }, false);
             Thread.sleep(10000l);
 
-            for (int i = 0; i < 5; i ++) {
+            for (int i = 0; i < 2; i ++) {
                 sendCommand(handle, 7, new byte[]{
                         0x01, (byte) 0x00,
                         0x02, (byte) 0x00,
                         0x03, (byte) 0x00,
-                        0x04, (byte) (0x05 + 20 * i),
-                        0x05, (byte) 0x20,
+                        0x04, (byte) (0x05 + 0x10 * i),
+                        0x05, (byte) 0x10,
                         0x06, (byte) 'R',
                 }, false);
                 Thread.sleep(1000l);
-                sendCommand(handle, 6, new byte[40], true);
+                sendCommand(handle, 6, new byte[30], true);
             }
 
             sendCommand(handle, 1, new byte[] { }, false);
