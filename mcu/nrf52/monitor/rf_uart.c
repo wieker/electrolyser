@@ -9,7 +9,7 @@
 #include <proprietary_rf/esb/nrf_esb.h>
 #include <sdk_macros.h>
 #include <string.h>
-#include "i2cfunc.h"
+//#include "i2cfunc.h"
 
 
 void clocks_start( void )
@@ -53,8 +53,8 @@ void nrf_esb_event_handler(nrf_esb_evt_t const * p_event)
         case NRF_ESB_EVENT_RX_RECEIVED:
             if (nrf_esb_read_rx_payload(&rx_payload) == NRF_SUCCESS)
             {
-                nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "rx", 2);
-                nrfx_uart_tx(&m_uart.uart, (uint8_t  *) rx_payload.data, rx_payload.length);
+                //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "rx", 2);
+                //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) rx_payload.data, rx_payload.length);
                 int rcvr = rx_payload.data[0] - '0';
                 int new_c = rx_payload.data[2] - '0';
                 count = new_c > count ? new_c : count;
@@ -133,7 +133,7 @@ bool radio_packet_send(uint8_t *packet, uint32_t packet_length)
 
 int main() {
     NRF_P0->DIRSET = 1 << 22 | 1 << 18 | 1 << 19 | 1 << 20;
-    uart_init();
+    //uart_init();
 
     clocks_start();
 
@@ -184,7 +184,7 @@ void advertise() {
     data[3] = '\r';
     data[4] = '\n';
     radio_packet_send((uint8_t *) data, sizeof(data));
-    nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "tx", 2);
-    nrfx_uart_tx(&m_uart.uart, (uint8_t  *) data, sizeof(data));
+    //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "tx", 2);
+    //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) data, sizeof(data));
 }
 
