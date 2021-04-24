@@ -16,6 +16,7 @@ module capture(
     reg [2:0] len;
 	wire all_zero = ~|clk_shift;
 	wire all_one = &clk_shift;
+	reg inst;
 
     initial begin
         clk_shift <= 8'hff;
@@ -28,16 +29,19 @@ module capture(
             if ((clk_state == 0) && (all_one == 1)) begin
                 clk_state <= 1;
                 len ++;
-                shift <= { shift[6:0], SWDIO };
-                if (len == 0) begin
-                    dt <= shift;
-                    rdy_swd <= 1;
-                end
-            end else begin
-                rdy_swd <= 0;
+                shift <= { SWDIO, shift[7:1] };
+                inst <= 1;
             end
             if ((clk_state == 1) && (all_zero == 1)) begin
                 clk_state <= 0;
+            end
+            if ((len == 0) && inst) begin
+                dt <= shift;
+                rdy_swd <= 1;
+                inst <= 0;
+            end
+            if (rdy_swd == 1) begin
+                rdy_swd <= 0;
             end
         end
 
