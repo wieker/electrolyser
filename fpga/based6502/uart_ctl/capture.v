@@ -13,7 +13,7 @@ module capture(
     reg clk_state;
     reg [3:0] clk_shift;
     reg [7:0] shift;
-    reg [3:0] len;
+    reg [2:0] len;
 	wire all_zero = ~|clk_shift;
 	wire all_one = &clk_shift;
 

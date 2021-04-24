@@ -50,12 +50,12 @@ public class JavaSWD {
                     0x02, (byte) 0x00,
                     0x03, (byte) 0x00,
                     0x04, (byte) 0x05,
-                    0x05, (byte) 0x10,
+                    0x05, (byte) 0x20,
                     0x06, (byte) 'C',
             }, false);
             Thread.sleep(10000l);
 
-            for (int i = 0; i < 2; i ++) {
+            for (int i = 0; i < 4; i ++) {
                 sendCommand(handle, 7, new byte[]{
                         0x01, (byte) 0x00,
                         0x02, (byte) 0x00,
