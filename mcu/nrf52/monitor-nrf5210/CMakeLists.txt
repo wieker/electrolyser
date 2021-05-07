@@ -48,6 +48,15 @@ include_directories(
         ${NRF52_SDK}/integration/nrfx
         ${NRF52_SDK}/components/libraries/util
         ${NRF52_SDK}/components/drivers_nrf/nrf_soc_nosd  # nrf_error.h (alternative: components/softdevice/s132/headers)
+
+        ${NRF52_SDK}/modules/nrfx/drivers/include
+        ${NRF52_SDK}/modules/nrfx/hal
+        ble_config
+        ${NRF52_SDK}/components/libraries/log
+        ${NRF52_SDK}/components/libraries/experimental_section_vars
+        ${NRF52_SDK}/components/libraries/strerror
+        ${NRF52_SDK}/components/libraries/log/src
+        ${NRF52_SDK}/components/proprietary_rf/esb
 )
 
 set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
@@ -66,4 +75,10 @@ add_executable(${CMAKE_PROJECT_NAME}
         rf_uart.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52810.S
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52810.c
+
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uart.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/prs/nrfx_prs.c
+        ${NRF52_SDK}/components/libraries/util/app_util_platform.c
+
+        ${NRF52_SDK}/components/proprietary_rf/esb/nrf_esb.c
         )
