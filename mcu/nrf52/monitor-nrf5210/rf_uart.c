@@ -4,6 +4,21 @@
 #include "local_nrf_uart.h"
 #include "local_nrf_esb.h"
 
+void advertise() {
+  char data[5];
+  data[0] = 'T';
+  data[1] = 'E';
+  data[2] = 'S';
+  data[3] = 'T';
+  data[4] = '\n';
+  radio_packet_send((uint8_t *) data, sizeof(data));
+  nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txt\n", 4);
+}
+
+void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
+  nrfx_uart_tx(&m_uart.uart, packet, packet_length);
+}
+
 int main() {
   NRF_P0->DIRSET = 1 << 17 | 1 << 18 | 1 << 19 | 1 << 20;
   uart_init();

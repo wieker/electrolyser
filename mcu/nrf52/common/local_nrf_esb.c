@@ -4,7 +4,7 @@
 
 #include <sdk_common.h>
 #include "local_nrf_esb.h"
-#include "local_nrf_uart.h"
+//#include "local_nrf_uart.h"
 
 static nrf_esb_config_t nrf_esb_config = NRF_ESB_DEFAULT_CONFIG;
 static nrf_esb_payload_t tx_payload, rx_payload;
@@ -29,16 +29,17 @@ void nrf_esb_event_handler(nrf_esb_evt_t const * p_event)
       nrf_esb_config.mode = NRF_ESB_MODE_PRX;
       nrf_esb_init(&nrf_esb_config);
       nrf_esb_start_rx();
-      nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txok\n", 5);
+      //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txok\n", 5);
       break;
     case NRF_ESB_EVENT_TX_FAILED:
       radio_tx_busy = false;
-      nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txf\n", 4);
+      //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txf\n", 4);
       break;
     case NRF_ESB_EVENT_RX_RECEIVED:
       if (nrf_esb_read_rx_payload(&rx_payload) == NRF_SUCCESS)
       {
-        nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "rx\n", 3);
+        radio_packet_recv((uint8_t  *) rx_payload.data, rx_payload.length);
+        //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "rx\n", 3);
         //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) rx_payload.data, rx_payload.length);
       }
       break;
@@ -106,15 +107,4 @@ bool radio_packet_send(uint8_t *packet, uint32_t packet_length)
     return true;
   }
   return false;
-}
-
-void advertise() {
-  char data[5];
-  data[0] = 'T';
-  data[1] = 'E';
-  data[2] = 'S';
-  data[3] = 'T';
-  data[4] = '\n';
-  radio_packet_send((uint8_t *) data, sizeof(data));
-  nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txt\n", 4);
 }
