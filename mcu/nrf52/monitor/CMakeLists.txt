@@ -61,6 +61,8 @@ include_directories(
         ${NRF52_SDK}/components/libraries/strerror
         ${NRF52_SDK}/components/libraries/log/src
         ${NRF52_SDK}/components/proprietary_rf/esb
+
+        ../common
 )
 
 set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
@@ -85,4 +87,6 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/components/libraries/util/app_util_platform.c
 
         ${NRF52_SDK}/components/proprietary_rf/esb/nrf_esb.c
+        ../common/local_nrf_uart.c
+        ../common/local_nrf_esb.c
         )
