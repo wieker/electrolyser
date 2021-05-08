@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 8
+Sheet 1 9
 Title ""
 Date ""
 Rev ""
@@ -13,17 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Connector:Conn_01x20_Male J?
-U 1 1 6096BA3A
-P 4000 3750
-F 0 "J?" H 4108 4831 50  0000 C CNN
-F 1 "Conn_01x20_Male" H 4108 4740 50  0000 C CNN
-F 2 "" H 4000 3750 50  0001 C CNN
-F 3 "~" H 4000 3750 50  0001 C CNN
-	1    4000 3750
-	1    0    0    -1  
-$EndComp
 $Sheet
 S 5600 2150 2200 350 
 U 6096C745
