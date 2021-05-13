@@ -24,4 +24,23 @@ F 3 "http://www.ti.com/lit/ds/symlink/ina181.pdf" H 4900 3500 50  0001 C CNN
 	1    4750 3350
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:R R?
+U 1 1 609D8FAA
+P 4000 2700
+F 0 "R?" V 3793 2700 50  0000 C CNN
+F 1 "R" V 3884 2700 50  0000 C CNN
+F 2 "" V 3930 2700 50  0001 C CNN
+F 3 "~" H 4000 2700 50  0001 C CNN
+	1    4000 2700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4150 2700 4150 3450
+Wire Wire Line
+	4150 3450 4450 3450
+Wire Wire Line
+	4450 3250 3850 3250
+Wire Wire Line
+	3850 3250 3850 2700
 $EndSCHEMATC
