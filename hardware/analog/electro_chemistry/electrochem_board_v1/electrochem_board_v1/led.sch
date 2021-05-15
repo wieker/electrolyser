@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 9
+Sheet 9 9
 Title ""
 Date ""
 Rev ""
@@ -13,4 +13,47 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text GLabel 5000 3700 0    50   Input ~ 0
+led
+$Comp
+L power:GND #PWR010
+U 1 1 60A0CD3F
+P 5500 4700
+F 0 "#PWR010" H 5500 4450 50  0001 C CNN
+F 1 "GND" H 5505 4527 50  0000 C CNN
+F 2 "" H 5500 4700 50  0001 C CNN
+F 3 "" H 5500 4700 50  0001 C CNN
+	1    5500 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D1
+U 1 1 60A0D0DD
+P 5500 4050
+F 0 "D1" V 5539 3932 50  0000 R CNN
+F 1 "LED" V 5448 3932 50  0000 R CNN
+F 2 "LED_SMD:LED_1206_3216Metric" H 5500 4050 50  0001 C CNN
+F 3 "~" H 5500 4050 50  0001 C CNN
+	1    5500 4050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 60A0E1B6
+P 5500 4450
+F 0 "R4" H 5570 4496 50  0000 L CNN
+F 1 "1kOhm" H 5570 4405 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 5430 4450 50  0001 C CNN
+F 3 "~" H 5500 4450 50  0001 C CNN
+	1    5500 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5000 3700 5500 3700
+Wire Wire Line
+	5500 3700 5500 3900
+Wire Wire Line
+	5500 4200 5500 4300
+Wire Wire Line
+	5500 4600 5500 4700
 $EndSCHEMATC
