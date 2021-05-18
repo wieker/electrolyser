@@ -309,4 +309,15 @@ Wire Wire Line
 	5200 6050 6400 6050
 Wire Wire Line
 	5350 5700 6400 5700
+$Comp
+L digital:MT29F1G08ABAEAWP U?
+U 1 1 60A46341
+P 4450 3850
+F 0 "U?" H 4450 5431 50  0000 C CNN
+F 1 "MT29F1G08ABAEAWP" H 4450 5340 50  0000 C CNN
+F 2 "Package_SO:TSOP-I-48_18.4x12mm_P0.5mm" H 5500 2500 50  0001 C CNN
+F 3 "https://www.mouser.ee/datasheet/2/671/micron_technology_mict-s-a0000866752-1-1759126.pdf" H 4150 4300 50  0001 C CNN
+	1    4450 3850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
