@@ -109,132 +109,6 @@ Connection ~ 7600 2500
 Wire Wire Line
 	7600 2500 7850 2500
 $Comp
-L Device:LED D1
-U 1 1 5EA65302
-P 6550 4950
-F 0 "D1" H 6543 4695 50  0000 C CNN
-F 1 "LED" H 6543 4786 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 6550 4950 50  0001 C CNN
-F 3 "~" H 6550 4950 50  0001 C CNN
-	1    6550 4950
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D2
-U 1 1 5EA6591F
-P 6550 5350
-F 0 "D2" H 6543 5095 50  0000 C CNN
-F 1 "LED" H 6543 5186 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 6550 5350 50  0001 C CNN
-F 3 "~" H 6550 5350 50  0001 C CNN
-	1    6550 5350
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D3
-U 1 1 5EA65D83
-P 6550 5700
-F 0 "D3" H 6543 5445 50  0000 C CNN
-F 1 "LED" H 6543 5536 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 6550 5700 50  0001 C CNN
-F 3 "~" H 6550 5700 50  0001 C CNN
-	1    6550 5700
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D4
-U 1 1 5EA66132
-P 6550 6050
-F 0 "D4" H 6543 5795 50  0000 C CNN
-F 1 "LED" H 6543 5886 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 6550 6050 50  0001 C CNN
-F 3 "~" H 6550 6050 50  0001 C CNN
-	1    6550 6050
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R R1
-U 1 1 5EA6657F
-P 7250 4950
-F 0 "R1" V 7043 4950 50  0000 C CNN
-F 1 "10kOhm" V 7134 4950 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 7180 4950 50  0001 C CNN
-F 3 "~" H 7250 4950 50  0001 C CNN
-	1    7250 4950
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R2
-U 1 1 5EA668DA
-P 7250 5350
-F 0 "R2" V 7043 5350 50  0000 C CNN
-F 1 "10kOhm" V 7134 5350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 7180 5350 50  0001 C CNN
-F 3 "~" H 7250 5350 50  0001 C CNN
-	1    7250 5350
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R3
-U 1 1 5EA66C12
-P 7250 5700
-F 0 "R3" V 7043 5700 50  0000 C CNN
-F 1 "10kOhm" V 7134 5700 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 7180 5700 50  0001 C CNN
-F 3 "~" H 7250 5700 50  0001 C CNN
-	1    7250 5700
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R4
-U 1 1 5EA66FFE
-P 7250 6050
-F 0 "R4" V 7043 6050 50  0000 C CNN
-F 1 "10kOhm" V 7134 6050 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 7180 6050 50  0001 C CNN
-F 3 "~" H 7250 6050 50  0001 C CNN
-	1    7250 6050
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR07
-U 1 1 5EA67C19
-P 7750 6250
-F 0 "#PWR07" H 7750 6000 50  0001 C CNN
-F 1 "GND" H 7755 6077 50  0000 C CNN
-F 2 "" H 7750 6250 50  0001 C CNN
-F 3 "" H 7750 6250 50  0001 C CNN
-	1    7750 6250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7400 4950 7750 4950
-Wire Wire Line
-	7400 6050 7750 6050
-Wire Wire Line
-	7750 4950 7750 5350
-Connection ~ 7750 6050
-Wire Wire Line
-	7750 6050 7750 6250
-Wire Wire Line
-	7400 5700 7750 5700
-Connection ~ 7750 5700
-Wire Wire Line
-	7750 5700 7750 6050
-Wire Wire Line
-	7400 5350 7750 5350
-Connection ~ 7750 5350
-Wire Wire Line
-	7750 5350 7750 5700
-Wire Wire Line
-	6700 4950 7100 4950
-Wire Wire Line
-	6700 5350 7100 5350
-Wire Wire Line
-	6700 5700 7100 5700
-Wire Wire Line
-	6700 6050 7100 6050
-$Comp
 L Connector:Conn_01x20_Male J2
 U 1 1 5EA6E6FC
 P 1700 4600
@@ -256,10 +130,6 @@ F 3 "" H 2350 3300 50  0001 C CNN
 	1    2350 3300
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1900 5500 2350 5500
-Wire Wire Line
-	2350 3300 2350 5500
 $Comp
 L power:GND #PWR03
 U 1 1 5EA84AA8
@@ -272,24 +142,7 @@ F 3 "" H 2200 5950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2200 5950 2200 5600
-Wire Wire Line
-	1900 5600 2200 5600
-Wire Wire Line
-	2200 5600 2200 5400
-Wire Wire Line
 	2200 3700 1900 3700
-Connection ~ 2200 5600
-Wire Wire Line
-	1900 5400 2200 5400
-Connection ~ 2200 5400
-Wire Wire Line
-	2200 5400 2200 5100
-Wire Wire Line
-	1900 4400 2200 4400
-Connection ~ 2200 4400
-Wire Wire Line
-	2200 4400 2200 4000
 Wire Wire Line
 	1900 4000 2200 4000
 Connection ~ 2200 4000
@@ -299,25 +152,140 @@ Wire Wire Line
 	1900 5100 2200 5100
 Connection ~ 2200 5100
 Wire Wire Line
-	2200 5100 2200 4400
-NoConn ~ 1900 4300
-NoConn ~ 1900 4200
-NoConn ~ 1900 4100
-NoConn ~ 1900 3900
-NoConn ~ 1900 3800
-Wire Wire Line
-	5200 6050 6400 6050
-Wire Wire Line
-	5350 5700 6400 5700
+	2200 5100 2200 4900
 $Comp
-L digital:MT29F1G08ABAEAWP U?
+L digital:MT29F1G08ABAEAWP U1
 U 1 1 60A46341
 P 4450 3850
-F 0 "U?" H 4450 5431 50  0000 C CNN
+F 0 "U1" H 4450 5431 50  0000 C CNN
 F 1 "MT29F1G08ABAEAWP" H 4450 5340 50  0000 C CNN
 F 2 "Package_SO:TSOP-I-48_18.4x12mm_P0.5mm" H 5500 2500 50  0001 C CNN
 F 3 "https://www.mouser.ee/datasheet/2/671/micron_technology_mict-s-a0000866752-1-1759126.pdf" H 4150 4300 50  0001 C CNN
 	1    4450 3850
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:GND #PWR01
+U 1 1 60A607CF
+P 4400 5650
+F 0 "#PWR01" H 4400 5400 50  0001 C CNN
+F 1 "GND" H 4405 5477 50  0000 C CNN
+F 2 "" H 4400 5650 50  0001 C CNN
+F 3 "" H 4400 5650 50  0001 C CNN
+	1    4400 5650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 5500 4400 5500
+Wire Wire Line
+	4400 5500 4400 5650
+Wire Wire Line
+	4400 5500 4450 5500
+Wire Wire Line
+	4450 5500 4450 5250
+Connection ~ 4400 5500
+Wire Wire Line
+	4350 5250 4350 5500
+$Comp
+L power:+3V3 #PWR02
+U 1 1 60A63A01
+P 4550 1850
+F 0 "#PWR02" H 4550 1700 50  0001 C CNN
+F 1 "+3V3" H 4565 2023 50  0000 C CNN
+F 2 "" H 4550 1850 50  0001 C CNN
+F 3 "" H 4550 1850 50  0001 C CNN
+	1    4550 1850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 2450 4450 2150
+Wire Wire Line
+	4450 2150 4550 2150
+Wire Wire Line
+	4550 2150 4550 1850
+Wire Wire Line
+	4550 2150 4600 2150
+Wire Wire Line
+	4600 2150 4600 2450
+Connection ~ 4550 2150
+Text GLabel 3850 4950 0    50   Input ~ 0
+D0
+Text GLabel 3850 4850 0    50   Input ~ 0
+D1
+Text GLabel 3850 4750 0    50   Input ~ 0
+D2
+Text GLabel 3850 4650 0    50   Input ~ 0
+D3
+Text GLabel 3850 4550 0    50   Input ~ 0
+D4
+Text GLabel 3850 4450 0    50   Input ~ 0
+D5
+Text GLabel 3850 4350 0    50   Input ~ 0
+D6
+Text GLabel 3850 4250 0    50   Input ~ 0
+D7
+Text GLabel 5050 4400 2    50   Input ~ 0
+WP
+Text GLabel 5050 4500 2    50   Input ~ 0
+CLE
+Text GLabel 5050 4600 2    50   Input ~ 0
+ALE
+Text GLabel 5050 4700 2    50   Input ~ 0
+CE
+Text GLabel 5050 4800 2    50   Input ~ 0
+WE
+Text GLabel 5050 4900 2    50   Input ~ 0
+RE
+Wire Wire Line
+	2200 5100 2200 5950
+Wire Wire Line
+	1900 5600 2350 5600
+Wire Wire Line
+	2350 3300 2350 5600
+Wire Wire Line
+	1900 4900 2200 4900
+Connection ~ 2200 4900
+Wire Wire Line
+	2200 4900 2200 4600
+Wire Wire Line
+	1900 4600 2200 4600
+Connection ~ 2200 4600
+Wire Wire Line
+	2200 4000 2200 4300
+Wire Wire Line
+	1900 4300 2200 4300
+Connection ~ 2200 4300
+Wire Wire Line
+	2200 4300 2200 4600
+Text GLabel 1900 5200 2    50   Input ~ 0
+CLE
+Text GLabel 1900 5000 2    50   Input ~ 0
+CE
+Text GLabel 1900 5300 2    50   Input ~ 0
+WE
+Text GLabel 1900 5400 2    50   Input ~ 0
+RE
+Text GLabel 1900 5500 2    50   Input ~ 0
+ALE
+Text GLabel 1900 4800 2    50   Input ~ 0
+D0
+Text GLabel 1900 4700 2    50   Input ~ 0
+D1
+Text GLabel 1900 4500 2    50   Input ~ 0
+D2
+Text GLabel 1900 4400 2    50   Input ~ 0
+D3
+Text GLabel 1900 4200 2    50   Input ~ 0
+D4
+Text GLabel 1900 4100 2    50   Input ~ 0
+D5
+Text GLabel 1900 3900 2    50   Input ~ 0
+D6
+Text GLabel 1900 3800 2    50   Input ~ 0
+D7
+Text GLabel 7000 2500 0    50   Input ~ 0
+WP
+Wire Wire Line
+	7000 2500 7500 2500
+Connection ~ 7500 2500
 $EndSCHEMATC
