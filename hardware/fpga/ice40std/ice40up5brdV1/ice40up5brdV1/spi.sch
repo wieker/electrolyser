@@ -37,4 +37,230 @@ F 3 "https://www.adestotech.com/wp-content/uploads/DS-AT25SF081_045.pdf" H 7200 
 	1    7200 3150
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 60AA3929
+P 10100 1250
+F 0 "#PWR?" H 10100 1100 50  0001 C CNN
+F 1 "+3V3" H 10115 1423 50  0000 C CNN
+F 2 "" H 10100 1250 50  0001 C CNN
+F 3 "" H 10100 1250 50  0001 C CNN
+	1    10100 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 60AA3C40
+P 1300 1450
+F 0 "#PWR?" H 1300 1300 50  0001 C CNN
+F 1 "+3V3" H 1315 1623 50  0000 C CNN
+F 2 "" H 1300 1450 50  0001 C CNN
+F 3 "" H 1300 1450 50  0001 C CNN
+	1    1300 1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 60AA3F29
+P 10150 4200
+F 0 "#PWR?" H 10150 4050 50  0001 C CNN
+F 1 "+3V3" H 10165 4373 50  0000 C CNN
+F 2 "" H 10150 4200 50  0001 C CNN
+F 3 "" H 10150 4200 50  0001 C CNN
+	1    10150 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 60AA4975
+P 10100 1500
+F 0 "C?" H 10215 1546 50  0000 L CNN
+F 1 "C" H 10215 1455 50  0000 L CNN
+F 2 "" H 10138 1350 50  0001 C CNN
+F 3 "~" H 10100 1500 50  0001 C CNN
+	1    10100 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60AA4D1D
+P 10100 1850
+F 0 "#PWR?" H 10100 1600 50  0001 C CNN
+F 1 "GND" H 10105 1677 50  0000 C CNN
+F 2 "" H 10100 1850 50  0001 C CNN
+F 3 "" H 10100 1850 50  0001 C CNN
+	1    10100 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 60AA5675
+P 1300 1750
+F 0 "C?" H 1415 1796 50  0000 L CNN
+F 1 "C" H 1415 1705 50  0000 L CNN
+F 2 "" H 1338 1600 50  0001 C CNN
+F 3 "~" H 1300 1750 50  0001 C CNN
+	1    1300 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60AA595C
+P 1300 2150
+F 0 "#PWR?" H 1300 1900 50  0001 C CNN
+F 1 "GND" H 1305 1977 50  0000 C CNN
+F 2 "" H 1300 2150 50  0001 C CNN
+F 3 "" H 1300 2150 50  0001 C CNN
+	1    1300 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 1450 1300 1600
+Wire Wire Line
+	1300 1900 1300 2150
+Wire Wire Line
+	10100 1250 10100 1350
+Wire Wire Line
+	10100 1650 10100 1850
+$Comp
+L power:+3V3 #PWR?
+U 1 1 60AA701E
+P 7200 2350
+F 0 "#PWR?" H 7200 2200 50  0001 C CNN
+F 1 "+3V3" H 7215 2523 50  0000 C CNN
+F 2 "" H 7200 2350 50  0001 C CNN
+F 3 "" H 7200 2350 50  0001 C CNN
+	1    7200 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7200 2350 7200 2650
+$Comp
+L power:GND #PWR?
+U 1 1 60AA79DE
+P 7200 4000
+F 0 "#PWR?" H 7200 3750 50  0001 C CNN
+F 1 "GND" H 7205 3827 50  0000 C CNN
+F 2 "" H 7200 4000 50  0001 C CNN
+F 3 "" H 7200 4000 50  0001 C CNN
+	1    7200 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7200 3650 7200 4000
+$Comp
+L Device:R R?
+U 1 1 60AA881F
+P 9750 4450
+F 0 "R?" V 9543 4450 50  0000 C CNN
+F 1 "100kOhm" V 9634 4450 50  0000 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 9680 4450 50  0001 C CNN
+F 3 "~" H 9750 4450 50  0001 C CNN
+	1    9750 4450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60AA8F76
+P 9750 4600
+F 0 "R?" V 9543 4600 50  0000 C CNN
+F 1 "R" V 9634 4600 50  0000 C CNN
+F 2 "" V 9680 4600 50  0001 C CNN
+F 3 "~" H 9750 4600 50  0001 C CNN
+	1    9750 4600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60AA960D
+P 9750 4750
+F 0 "R?" V 9543 4750 50  0000 C CNN
+F 1 "R" V 9634 4750 50  0000 C CNN
+F 2 "" V 9680 4750 50  0001 C CNN
+F 3 "~" H 9750 4750 50  0001 C CNN
+	1    9750 4750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60AA9613
+P 9750 4900
+F 0 "R?" V 9543 4900 50  0000 C CNN
+F 1 "R" V 9634 4900 50  0000 C CNN
+F 2 "" V 9680 4900 50  0001 C CNN
+F 3 "~" H 9750 4900 50  0001 C CNN
+	1    9750 4900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60AA9B48
+P 9750 5050
+F 0 "R?" V 9543 5050 50  0000 C CNN
+F 1 "R" V 9634 5050 50  0000 C CNN
+F 2 "" V 9680 5050 50  0001 C CNN
+F 3 "~" H 9750 5050 50  0001 C CNN
+	1    9750 5050
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60AA9B4E
+P 9750 5200
+F 0 "R?" V 9543 5200 50  0000 C CNN
+F 1 "R" V 9634 5200 50  0000 C CNN
+F 2 "" V 9680 5200 50  0001 C CNN
+F 3 "~" H 9750 5200 50  0001 C CNN
+	1    9750 5200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9900 5200 10150 5200
+Wire Wire Line
+	10150 5200 10150 5050
+Wire Wire Line
+	9900 5050 10150 5050
+Connection ~ 10150 5050
+Wire Wire Line
+	10150 5050 10150 4900
+Wire Wire Line
+	9900 4900 10150 4900
+Connection ~ 10150 4900
+Wire Wire Line
+	10150 4900 10150 4750
+Wire Wire Line
+	9900 4750 10150 4750
+Connection ~ 10150 4750
+Wire Wire Line
+	10150 4750 10150 4600
+Wire Wire Line
+	9900 4600 10150 4600
+Connection ~ 10150 4600
+Wire Wire Line
+	10150 4600 10150 4450
+Wire Wire Line
+	9900 4450 10150 4450
+Connection ~ 10150 4450
+Wire Wire Line
+	10150 4450 10150 4200
+Text GLabel 4450 2500 2    50   Input ~ 0
+cdone
+Text GLabel 3450 2500 0    50   Input ~ 0
+creset
+Text GLabel 3450 3800 0    50   Input ~ 0
+mosi
+Text GLabel 3450 3900 0    50   Input ~ 0
+miso
+Text GLabel 3450 4000 0    50   Input ~ 0
+sck
+Text GLabel 3450 4100 0    50   Input ~ 0
+ss
+Text GLabel 6600 2950 0    50   Input ~ 0
+mosi
+Text GLabel 7800 2950 2    50   Input ~ 0
+miso
+Text GLabel 6600 3050 0    50   Input ~ 0
+sck
+Text GLabel 6600 3150 0    50   Input ~ 0
+ss
 $EndSCHEMATC
