@@ -247,9 +247,9 @@ Text GLabel 4450 2500 2    50   Input ~ 0
 cdone
 Text GLabel 3450 2500 0    50   Input ~ 0
 creset
-Text GLabel 3450 3800 0    50   Input ~ 0
-mosi
 Text GLabel 3450 3900 0    50   Input ~ 0
+mosi
+Text GLabel 3450 3800 0    50   Input ~ 0
 miso
 Text GLabel 3450 4000 0    50   Input ~ 0
 sck
@@ -275,4 +275,19 @@ Text GLabel 9600 5050 0    50   Input ~ 0
 sck
 Text GLabel 9600 5200 0    50   Input ~ 0
 ss
+NoConn ~ 6600 3250
+NoConn ~ 6600 3350
+$Comp
+L power:+3V3 #PWR?
+U 1 1 60ACA152
+P 3950 1800
+F 0 "#PWR?" H 3950 1650 50  0001 C CNN
+F 1 "+3V3" H 3965 1973 50  0000 C CNN
+F 2 "" H 3950 1800 50  0001 C CNN
+F 3 "" H 3950 1800 50  0001 C CNN
+	1    3950 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3950 1800 3950 2100
 $EndSCHEMATC
