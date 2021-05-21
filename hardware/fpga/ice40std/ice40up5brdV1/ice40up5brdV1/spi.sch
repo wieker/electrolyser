@@ -263,4 +263,16 @@ Text GLabel 6600 3050 0    50   Input ~ 0
 sck
 Text GLabel 6600 3150 0    50   Input ~ 0
 ss
+Text GLabel 9600 4450 0    50   Input ~ 0
+cdone
+Text GLabel 9600 4600 0    50   Input ~ 0
+creset
+Text GLabel 9600 4750 0    50   Input ~ 0
+mosi
+Text GLabel 9600 4900 0    50   Input ~ 0
+miso
+Text GLabel 9600 5050 0    50   Input ~ 0
+sck
+Text GLabel 9600 5200 0    50   Input ~ 0
+ss
 $EndSCHEMATC
