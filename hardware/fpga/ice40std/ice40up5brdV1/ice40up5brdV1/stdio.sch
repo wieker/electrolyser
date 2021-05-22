@@ -293,4 +293,8 @@ Wire Wire Line
 Connection ~ 5000 3300
 Wire Wire Line
 	5000 3300 5000 3700
+Text GLabel 5300 2400 0    50   Input ~ 0
+fpga_tx
+Text GLabel 5300 2500 0    50   Input ~ 0
+fpga_rx
 $EndSCHEMATC
