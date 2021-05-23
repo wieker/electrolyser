@@ -275,8 +275,6 @@ Wire Wire Line
 	5500 2550 5200 2550
 Connection ~ 5200 2550
 Wire Wire Line
-	5200 2550 5200 2750
-Wire Wire Line
 	5200 3950 5500 3950
 Connection ~ 5200 3950
 Wire Wire Line
@@ -386,29 +384,10 @@ Wire Wire Line
 Connection ~ 3150 2150
 Wire Wire Line
 	3150 2150 3200 2150
-$Comp
-L Device:C C12
-U 1 1 60B4D9A1
-P 5050 2400
-F 0 "C12" H 5165 2446 50  0000 L CNN
-F 1 "0.1uF" H 5165 2355 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 5088 2250 50  0001 C CNN
-F 3 "~" H 5050 2400 50  0001 C CNN
-	1    5050 2400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5050 2150 5050 2250
-Connection ~ 5050 2150
-Wire Wire Line
-	5050 2550 5050 2750
-Wire Wire Line
-	5050 2750 5200 2750
-Connection ~ 5200 2750
-Wire Wire Line
-	5200 2750 5200 3250
 Text GLabel 5500 2450 0    50   Input ~ 0
 fpga_rx
 Text GLabel 5500 2350 0    50   Input ~ 0
 fpga_tx
+Wire Wire Line
+	5200 2550 5200 3250
 $EndSCHEMATC
