@@ -246,12 +246,6 @@ F 3 "" H 3950 1800 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3950 1800 3950 2100
-Text GLabel 3450 2900 0    50   Input ~ 0
-l1
-Text GLabel 3450 3000 0    50   Input ~ 0
-l2
-Text GLabel 3450 2800 0    50   Input ~ 0
-l3
 Text GLabel 3450 3500 0    50   Input ~ 0
 clk
 NoConn ~ 3450 3600
@@ -304,4 +298,7 @@ F 3 "~" H 9750 5200 50  0001 C CNN
 	1    9750 5200
 	0    1    1    0   
 $EndComp
+NoConn ~ 3450 2800
+NoConn ~ 3450 2900
+NoConn ~ 3450 3000
 $EndSCHEMATC

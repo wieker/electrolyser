@@ -16,23 +16,23 @@ $EndDescr
 $Comp
 L Connector:Conn_01x20_Male J1
 U 1 1 60ACEE5C
-P 2700 3050
-F 0 "J1" H 2808 4131 50  0000 C CNN
-F 1 "Conn_01x20_Male" H 2808 4040 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Horizontal" H 2700 3050 50  0001 C CNN
-F 3 "~" H 2700 3050 50  0001 C CNN
-	1    2700 3050
-	1    0    0    -1  
+P 2450 3150
+F 0 "J1" H 2558 4231 50  0000 C CNN
+F 1 "Conn_01x20_Male" H 2558 4140 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Horizontal" H 2450 3150 50  0001 C CNN
+F 3 "~" H 2450 3150 50  0001 C CNN
+	1    2450 3150
+	1    0    0    1   
 $EndComp
 $Comp
 L Connector:Conn_01x20_Female J2
 U 1 1 60ACFB05
-P 5500 3000
-F 0 "J2" H 5528 2976 50  0000 L CNN
-F 1 "Conn_01x20_Female" H 5528 2885 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Horizontal" H 5500 3000 50  0001 C CNN
-F 3 "~" H 5500 3000 50  0001 C CNN
-	1    5500 3000
+P 5700 2950
+F 0 "J2" H 5728 2926 50  0000 L CNN
+F 1 "Conn_01x20_Female" H 5728 2835 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Horizontal" H 5700 2950 50  0001 C CNN
+F 3 "~" H 5700 2950 50  0001 C CNN
+	1    5700 2950
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -184,138 +184,134 @@ Wire Wire Line
 $Comp
 L power:+3V3 #PWR023
 U 1 1 60AE4EC6
-P 3450 1850
-F 0 "#PWR023" H 3450 1700 50  0001 C CNN
-F 1 "+3V3" H 3465 2023 50  0000 C CNN
-F 2 "" H 3450 1850 50  0001 C CNN
-F 3 "" H 3450 1850 50  0001 C CNN
-	1    3450 1850
+P 3200 1850
+F 0 "#PWR023" H 3200 1700 50  0001 C CNN
+F 1 "+3V3" H 3215 2023 50  0000 C CNN
+F 2 "" H 3200 1850 50  0001 C CNN
+F 3 "" H 3200 1850 50  0001 C CNN
+	1    3200 1850
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR022
 U 1 1 60AE559B
-P 3150 4350
-F 0 "#PWR022" H 3150 4100 50  0001 C CNN
-F 1 "GND" H 3155 4177 50  0000 C CNN
-F 2 "" H 3150 4350 50  0001 C CNN
-F 3 "" H 3150 4350 50  0001 C CNN
-	1    3150 4350
+P 2900 4350
+F 0 "#PWR022" H 2900 4100 50  0001 C CNN
+F 1 "GND" H 2905 4177 50  0000 C CNN
+F 2 "" H 2900 4350 50  0001 C CNN
+F 3 "" H 2900 4350 50  0001 C CNN
+	1    2900 4350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2900 2150 3400 2150
+	2650 2150 3150 2150
 Wire Wire Line
-	3450 2150 3450 1850
+	3200 2150 3200 1850
 Wire Wire Line
-	2900 4050 3150 4050
+	2650 4050 2900 4050
 Wire Wire Line
-	3150 4050 3150 4350
+	2900 4050 2900 4350
 Wire Wire Line
-	2900 3750 3150 3750
+	2650 3750 2900 3750
 Wire Wire Line
-	3150 3750 3150 4050
-Connection ~ 3150 4050
+	2900 3750 2900 4050
+Connection ~ 2900 4050
 Wire Wire Line
-	3150 3750 3150 3450
+	2900 3750 2900 3450
 Wire Wire Line
-	3150 3450 2900 3450
-Connection ~ 3150 3750
+	2900 3450 2650 3450
+Connection ~ 2900 3750
 Wire Wire Line
-	2900 3150 3150 3150
+	2650 3150 2900 3150
 Wire Wire Line
-	3150 3150 3150 3450
-Connection ~ 3150 3450
+	2900 3150 2900 3450
+Connection ~ 2900 3450
 Wire Wire Line
-	2900 2850 3150 2850
+	2650 2850 2900 2850
 Wire Wire Line
-	3150 2850 3150 3150
-Connection ~ 3150 3150
+	2900 2850 2900 3150
+Connection ~ 2900 3150
 Wire Wire Line
-	2900 2650 3150 2650
+	2650 2650 2900 2650
 Wire Wire Line
-	3150 2650 3150 2850
-Connection ~ 3150 2850
+	2900 2650 2900 2850
+Connection ~ 2900 2850
 $Comp
 L power:+3V3 #PWR024
 U 1 1 60AEA8C4
-P 4850 1900
-F 0 "#PWR024" H 4850 1750 50  0001 C CNN
-F 1 "+3V3" H 4865 2073 50  0000 C CNN
-F 2 "" H 4850 1900 50  0001 C CNN
-F 3 "" H 4850 1900 50  0001 C CNN
-	1    4850 1900
+P 5050 1850
+F 0 "#PWR024" H 5050 1700 50  0001 C CNN
+F 1 "+3V3" H 5065 2023 50  0000 C CNN
+F 2 "" H 5050 1850 50  0001 C CNN
+F 3 "" H 5050 1850 50  0001 C CNN
+	1    5050 1850
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4850 2200 4850 1900
+	5050 2150 5050 1850
 Wire Wire Line
-	4850 2200 5300 2200
+	5050 2150 5500 2150
 $Comp
 L power:GND #PWR025
 U 1 1 60AEC960
-P 5000 4550
-F 0 "#PWR025" H 5000 4300 50  0001 C CNN
-F 1 "GND" H 5005 4377 50  0000 C CNN
-F 2 "" H 5000 4550 50  0001 C CNN
-F 3 "" H 5000 4550 50  0001 C CNN
-	1    5000 4550
+P 5200 4500
+F 0 "#PWR025" H 5200 4250 50  0001 C CNN
+F 1 "GND" H 5205 4327 50  0000 C CNN
+F 2 "" H 5200 4500 50  0001 C CNN
+F 3 "" H 5200 4500 50  0001 C CNN
+	1    5200 4500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5300 2100 5000 2100
+	5500 2050 5200 2050
 Wire Wire Line
-	5000 2100 5000 2300
+	5200 2050 5200 2250
 Wire Wire Line
-	5300 2300 5000 2300
-Connection ~ 5000 2300
+	5500 2250 5200 2250
+Connection ~ 5200 2250
 Wire Wire Line
-	5000 2300 5000 2600
+	5200 2250 5200 2550
 Wire Wire Line
-	5300 2600 5000 2600
-Connection ~ 5000 2600
+	5500 2550 5200 2550
+Connection ~ 5200 2550
 Wire Wire Line
-	5000 2600 5000 2800
+	5200 2550 5200 2750
 Wire Wire Line
-	5000 4000 5300 4000
-Connection ~ 5000 4000
+	5200 3950 5500 3950
+Connection ~ 5200 3950
 Wire Wire Line
-	5000 4000 5000 4550
+	5200 3950 5200 4500
 Wire Wire Line
-	5300 3700 5000 3700
-Connection ~ 5000 3700
+	5500 3650 5200 3650
+Connection ~ 5200 3650
 Wire Wire Line
-	5000 3700 5000 4000
+	5200 3650 5200 3950
 Wire Wire Line
-	5300 3300 5000 3300
-Connection ~ 5000 3300
+	5500 3250 5200 3250
+Connection ~ 5200 3250
 Wire Wire Line
-	5000 3300 5000 3700
-Text GLabel 5300 2400 0    50   Input ~ 0
-fpga_tx
-Text GLabel 5300 2500 0    50   Input ~ 0
-fpga_rx
-Text GLabel 5300 2700 0    50   Input ~ 0
+	5200 3250 5200 3650
+Text GLabel 5500 2650 0    50   Input ~ 0
 cdone
-Text GLabel 5300 2800 0    50   Input ~ 0
+Text GLabel 5500 2750 0    50   Input ~ 0
 creset
-Text GLabel 5300 2900 0    50   Input ~ 0
+Text GLabel 5500 2850 0    50   Input ~ 0
 mosi
-Text GLabel 5300 3000 0    50   Input ~ 0
+Text GLabel 5500 2950 0    50   Input ~ 0
 sck
-Text GLabel 5300 3100 0    50   Input ~ 0
+Text GLabel 5500 3050 0    50   Input ~ 0
 miso
-Text GLabel 5300 3200 0    50   Input ~ 0
+Text GLabel 5500 3150 0    50   Input ~ 0
 ss
-Text GLabel 5300 3400 0    50   Input ~ 0
+Text GLabel 5500 3350 0    50   Input ~ 0
 a1
-Text GLabel 5300 3500 0    50   Input ~ 0
+Text GLabel 5500 3450 0    50   Input ~ 0
 b1
-Text GLabel 5300 3800 0    50   Input ~ 0
+Text GLabel 5500 3750 0    50   Input ~ 0
 a2
-Text GLabel 5300 3900 0    50   Input ~ 0
+Text GLabel 5500 3850 0    50   Input ~ 0
 b2
-Text GLabel 5300 3600 0    50   Input ~ 0
+Text GLabel 5500 3550 0    50   Input ~ 0
 c0
 Text GLabel 7950 2550 0    50   Input ~ 0
 cdone
@@ -341,74 +337,78 @@ Wire Wire Line
 	7700 1850 8800 1850
 Wire Wire Line
 	8800 1850 8800 2800
-Text GLabel 2900 2250 2    50   Input ~ 0
+Text GLabel 2650 2250 2    50   Input ~ 0
 ale
-Text GLabel 2900 2350 2    50   Input ~ 0
+Text GLabel 2650 2350 2    50   Input ~ 0
 re
-Text GLabel 2900 2450 2    50   Input ~ 0
+Text GLabel 2650 2450 2    50   Input ~ 0
 we
-Text GLabel 2900 2550 2    50   Input ~ 0
+Text GLabel 2650 2550 2    50   Input ~ 0
 cle
-Text GLabel 2900 2750 2    50   Input ~ 0
+Text GLabel 2650 2750 2    50   Input ~ 0
 ce
-Text GLabel 2900 2950 2    50   Input ~ 0
+Text GLabel 2650 2950 2    50   Input ~ 0
 d0
-Text GLabel 2900 3050 2    50   Input ~ 0
+Text GLabel 2650 3050 2    50   Input ~ 0
 d1
-Text GLabel 2900 3250 2    50   Input ~ 0
+Text GLabel 2650 3250 2    50   Input ~ 0
 d2
-Text GLabel 2900 3350 2    50   Input ~ 0
+Text GLabel 2650 3350 2    50   Input ~ 0
 d3
-Text GLabel 2900 3550 2    50   Input ~ 0
+Text GLabel 2650 3550 2    50   Input ~ 0
 d4
-Text GLabel 2900 3650 2    50   Input ~ 0
+Text GLabel 2650 3650 2    50   Input ~ 0
 d5
-Text GLabel 2900 3850 2    50   Input ~ 0
+Text GLabel 2650 3850 2    50   Input ~ 0
 d6
-Text GLabel 2900 3950 2    50   Input ~ 0
+Text GLabel 2650 3950 2    50   Input ~ 0
 d7
 Wire Wire Line
 	8800 3100 8800 3250
 $Comp
 L Device:C C11
 U 1 1 60B49FA0
-P 3400 2350
-F 0 "C11" H 3515 2396 50  0000 L CNN
-F 1 "0.1uF" H 3515 2305 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 3438 2200 50  0001 C CNN
-F 3 "~" H 3400 2350 50  0001 C CNN
-	1    3400 2350
+P 3150 2350
+F 0 "C11" H 3265 2396 50  0000 L CNN
+F 1 "0.1uF" H 3265 2305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 3188 2200 50  0001 C CNN
+F 3 "~" H 3150 2350 50  0001 C CNN
+	1    3150 2350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3150 2650 3400 2650
+	2900 2650 3150 2650
 Wire Wire Line
-	3400 2650 3400 2500
-Connection ~ 3150 2650
+	3150 2650 3150 2500
+Connection ~ 2900 2650
 Wire Wire Line
-	3400 2150 3400 2200
-Connection ~ 3400 2150
+	3150 2150 3150 2200
+Connection ~ 3150 2150
 Wire Wire Line
-	3400 2150 3450 2150
+	3150 2150 3200 2150
 $Comp
 L Device:C C12
 U 1 1 60B4D9A1
-P 4850 2450
-F 0 "C12" H 4965 2496 50  0000 L CNN
-F 1 "0.1uF" H 4965 2405 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 4888 2300 50  0001 C CNN
-F 3 "~" H 4850 2450 50  0001 C CNN
-	1    4850 2450
+P 5050 2400
+F 0 "C12" H 5165 2446 50  0000 L CNN
+F 1 "0.1uF" H 5165 2355 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5088 2250 50  0001 C CNN
+F 3 "~" H 5050 2400 50  0001 C CNN
+	1    5050 2400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4850 2200 4850 2300
-Connection ~ 4850 2200
+	5050 2150 5050 2250
+Connection ~ 5050 2150
 Wire Wire Line
-	4850 2600 4850 2800
+	5050 2550 5050 2750
 Wire Wire Line
-	4850 2800 5000 2800
-Connection ~ 5000 2800
+	5050 2750 5200 2750
+Connection ~ 5200 2750
 Wire Wire Line
-	5000 2800 5000 3300
+	5200 2750 5200 3250
+Text GLabel 5500 2450 0    50   Input ~ 0
+fpga_rx
+Text GLabel 5500 2350 0    50   Input ~ 0
+fpga_tx
 $EndSCHEMATC
