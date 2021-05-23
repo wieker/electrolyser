@@ -14,120 +14,120 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Connector:Conn_01x20_Male J?
+L Connector:Conn_01x20_Male J1
 U 1 1 60ACEE5C
 P 2700 3050
-F 0 "J?" H 2808 4131 50  0000 C CNN
+F 0 "J1" H 2808 4131 50  0000 C CNN
 F 1 "Conn_01x20_Male" H 2808 4040 50  0000 C CNN
-F 2 "" H 2700 3050 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Horizontal" H 2700 3050 50  0001 C CNN
 F 3 "~" H 2700 3050 50  0001 C CNN
 	1    2700 3050
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x20_Female J?
+L Connector:Conn_01x20_Female J2
 U 1 1 60ACFB05
 P 5500 3000
-F 0 "J?" H 5528 2976 50  0000 L CNN
+F 0 "J2" H 5528 2976 50  0000 L CNN
 F 1 "Conn_01x20_Female" H 5528 2885 50  0000 L CNN
-F 2 "" H 5500 3000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Horizontal" H 5500 3000 50  0001 C CNN
 F 3 "~" H 5500 3000 50  0001 C CNN
 	1    5500 3000
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:LED D?
+L Device:LED D5
 U 1 1 60AD1B43
 P 8800 2950
-F 0 "D?" V 8839 2832 50  0000 R CNN
+F 0 "D5" V 8839 2832 50  0000 R CNN
 F 1 "LED" V 8748 2832 50  0000 R CNN
-F 2 "" H 8800 2950 50  0001 C CNN
+F 2 "LED_SMD:LED_1206_3216Metric" H 8800 2950 50  0001 C CNN
 F 3 "~" H 8800 2950 50  0001 C CNN
 	1    8800 2950
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:LED D?
+L Device:LED D4
 U 1 1 60AD2CEC
 P 8600 2950
-F 0 "D?" V 8639 2832 50  0000 R CNN
+F 0 "D4" V 8639 2832 50  0000 R CNN
 F 1 "LED" V 8548 2832 50  0000 R CNN
-F 2 "" H 8600 2950 50  0001 C CNN
+F 2 "LED_SMD:LED_1206_3216Metric" H 8600 2950 50  0001 C CNN
 F 3 "~" H 8600 2950 50  0001 C CNN
 	1    8600 2950
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:LED D?
+L Device:LED D3
 U 1 1 60AD3BEA
 P 8400 2950
-F 0 "D?" V 8439 2832 50  0000 R CNN
+F 0 "D3" V 8439 2832 50  0000 R CNN
 F 1 "LED" V 8348 2832 50  0000 R CNN
-F 2 "" H 8400 2950 50  0001 C CNN
+F 2 "LED_SMD:LED_1206_3216Metric" H 8400 2950 50  0001 C CNN
 F 3 "~" H 8400 2950 50  0001 C CNN
 	1    8400 2950
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:LED D?
+L Device:LED D2
 U 1 1 60AD3BF0
 P 8200 2950
-F 0 "D?" V 8239 2832 50  0000 R CNN
+F 0 "D2" V 8239 2832 50  0000 R CNN
 F 1 "LED" V 8148 2832 50  0000 R CNN
-F 2 "" H 8200 2950 50  0001 C CNN
+F 2 "LED_SMD:LED_1206_3216Metric" H 8200 2950 50  0001 C CNN
 F 3 "~" H 8200 2950 50  0001 C CNN
 	1    8200 2950
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R12
 U 1 1 60AD45BB
 P 8800 3400
-F 0 "R?" H 8870 3446 50  0000 L CNN
+F 0 "R12" H 8870 3446 50  0000 L CNN
 F 1 "R" H 8870 3355 50  0000 L CNN
-F 2 "" V 8730 3400 50  0001 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 8730 3400 50  0001 C CNN
 F 3 "~" H 8800 3400 50  0001 C CNN
 	1    8800 3400
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R11
 U 1 1 60AD5A62
 P 8600 3400
-F 0 "R?" H 8670 3446 50  0000 L CNN
+F 0 "R11" H 8670 3446 50  0000 L CNN
 F 1 "R" H 8670 3355 50  0000 L CNN
-F 2 "" V 8530 3400 50  0001 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 8530 3400 50  0001 C CNN
 F 3 "~" H 8600 3400 50  0001 C CNN
 	1    8600 3400
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R10
 U 1 1 60AD6E02
 P 8400 3400
-F 0 "R?" H 8470 3446 50  0000 L CNN
+F 0 "R10" H 8470 3446 50  0000 L CNN
 F 1 "R" H 8470 3355 50  0000 L CNN
-F 2 "" V 8330 3400 50  0001 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 8330 3400 50  0001 C CNN
 F 3 "~" H 8400 3400 50  0001 C CNN
 	1    8400 3400
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R9
 U 1 1 60AD6E08
 P 8200 3400
-F 0 "R?" H 8270 3446 50  0000 L CNN
+F 0 "R9" H 8270 3446 50  0000 L CNN
 F 1 "R" H 8270 3355 50  0000 L CNN
-F 2 "" V 8130 3400 50  0001 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 8130 3400 50  0001 C CNN
 F 3 "~" H 8200 3400 50  0001 C CNN
 	1    8200 3400
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR029
 U 1 1 60AD7638
 P 8800 3800
-F 0 "#PWR?" H 8800 3550 50  0001 C CNN
+F 0 "#PWR029" H 8800 3550 50  0001 C CNN
 F 1 "GND" H 8805 3627 50  0000 C CNN
 F 2 "" H 8800 3800 50  0001 C CNN
 F 3 "" H 8800 3800 50  0001 C CNN
@@ -135,10 +135,10 @@ F 3 "" H 8800 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR028
 U 1 1 60AD82EE
 P 8600 3800
-F 0 "#PWR?" H 8600 3550 50  0001 C CNN
+F 0 "#PWR028" H 8600 3550 50  0001 C CNN
 F 1 "GND" H 8605 3627 50  0000 C CNN
 F 2 "" H 8600 3800 50  0001 C CNN
 F 3 "" H 8600 3800 50  0001 C CNN
@@ -146,10 +146,10 @@ F 3 "" H 8600 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR027
 U 1 1 60AD8718
 P 8400 3800
-F 0 "#PWR?" H 8400 3550 50  0001 C CNN
+F 0 "#PWR027" H 8400 3550 50  0001 C CNN
 F 1 "GND" H 8405 3627 50  0000 C CNN
 F 2 "" H 8400 3800 50  0001 C CNN
 F 3 "" H 8400 3800 50  0001 C CNN
@@ -157,10 +157,10 @@ F 3 "" H 8400 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR026
 U 1 1 60AD8BBD
 P 8200 3800
-F 0 "#PWR?" H 8200 3550 50  0001 C CNN
+F 0 "#PWR026" H 8200 3550 50  0001 C CNN
 F 1 "GND" H 8205 3627 50  0000 C CNN
 F 2 "" H 8200 3800 50  0001 C CNN
 F 3 "" H 8200 3800 50  0001 C CNN
@@ -181,13 +181,11 @@ Wire Wire Line
 	8400 3100 8400 3250
 Wire Wire Line
 	8600 3100 8600 3250
-Wire Wire Line
-	8800 3150 8800 3250
 $Comp
-L power:+3V3 #PWR?
+L power:+3V3 #PWR023
 U 1 1 60AE4EC6
 P 3450 1850
-F 0 "#PWR?" H 3450 1700 50  0001 C CNN
+F 0 "#PWR023" H 3450 1700 50  0001 C CNN
 F 1 "+3V3" H 3465 2023 50  0000 C CNN
 F 2 "" H 3450 1850 50  0001 C CNN
 F 3 "" H 3450 1850 50  0001 C CNN
@@ -195,10 +193,10 @@ F 3 "" H 3450 1850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR022
 U 1 1 60AE559B
 P 3150 4350
-F 0 "#PWR?" H 3150 4100 50  0001 C CNN
+F 0 "#PWR022" H 3150 4100 50  0001 C CNN
 F 1 "GND" H 3155 4177 50  0000 C CNN
 F 2 "" H 3150 4350 50  0001 C CNN
 F 3 "" H 3150 4350 50  0001 C CNN
@@ -206,7 +204,7 @@ F 3 "" H 3150 4350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2900 2150 3450 2150
+	2900 2150 3400 2150
 Wire Wire Line
 	3450 2150 3450 1850
 Wire Wire Line
@@ -239,10 +237,10 @@ Wire Wire Line
 	3150 2650 3150 2850
 Connection ~ 3150 2850
 $Comp
-L power:+3V3 #PWR?
+L power:+3V3 #PWR024
 U 1 1 60AEA8C4
 P 4850 1900
-F 0 "#PWR?" H 4850 1750 50  0001 C CNN
+F 0 "#PWR024" H 4850 1750 50  0001 C CNN
 F 1 "+3V3" H 4865 2073 50  0000 C CNN
 F 2 "" H 4850 1900 50  0001 C CNN
 F 3 "" H 4850 1900 50  0001 C CNN
@@ -254,10 +252,10 @@ Wire Wire Line
 Wire Wire Line
 	4850 2200 5300 2200
 $Comp
-L power:GND #PWR?
+L power:GND #PWR025
 U 1 1 60AEC960
 P 5000 4550
-F 0 "#PWR?" H 5000 4300 50  0001 C CNN
+F 0 "#PWR025" H 5000 4300 50  0001 C CNN
 F 1 "GND" H 5005 4377 50  0000 C CNN
 F 2 "" H 5000 4550 50  0001 C CNN
 F 3 "" H 5000 4550 50  0001 C CNN
@@ -277,7 +275,7 @@ Wire Wire Line
 	5300 2600 5000 2600
 Connection ~ 5000 2600
 Wire Wire Line
-	5000 2600 5000 3300
+	5000 2600 5000 2800
 Wire Wire Line
 	5000 4000 5300 4000
 Connection ~ 5000 4000
@@ -297,4 +295,120 @@ Text GLabel 5300 2400 0    50   Input ~ 0
 fpga_tx
 Text GLabel 5300 2500 0    50   Input ~ 0
 fpga_rx
+Text GLabel 5300 2700 0    50   Input ~ 0
+cdone
+Text GLabel 5300 2800 0    50   Input ~ 0
+creset
+Text GLabel 5300 2900 0    50   Input ~ 0
+mosi
+Text GLabel 5300 3000 0    50   Input ~ 0
+sck
+Text GLabel 5300 3100 0    50   Input ~ 0
+miso
+Text GLabel 5300 3200 0    50   Input ~ 0
+ss
+Text GLabel 5300 3400 0    50   Input ~ 0
+a1
+Text GLabel 5300 3500 0    50   Input ~ 0
+b1
+Text GLabel 5300 3800 0    50   Input ~ 0
+a2
+Text GLabel 5300 3900 0    50   Input ~ 0
+b2
+Text GLabel 5300 3600 0    50   Input ~ 0
+c0
+Text GLabel 7950 2550 0    50   Input ~ 0
+cdone
+Wire Wire Line
+	7950 2550 8200 2550
+Wire Wire Line
+	8200 2550 8200 2800
+Text GLabel 7700 1850 0    50   Input ~ 0
+l1
+Text GLabel 7700 2050 0    50   Input ~ 0
+l2
+Text GLabel 7700 2300 0    50   Input ~ 0
+l3
+Wire Wire Line
+	7700 2300 8400 2300
+Wire Wire Line
+	8400 2300 8400 2800
+Wire Wire Line
+	7700 2050 8600 2050
+Wire Wire Line
+	8600 2050 8600 2800
+Wire Wire Line
+	7700 1850 8800 1850
+Wire Wire Line
+	8800 1850 8800 2800
+Text GLabel 2900 2250 2    50   Input ~ 0
+ale
+Text GLabel 2900 2350 2    50   Input ~ 0
+re
+Text GLabel 2900 2450 2    50   Input ~ 0
+we
+Text GLabel 2900 2550 2    50   Input ~ 0
+cle
+Text GLabel 2900 2750 2    50   Input ~ 0
+ce
+Text GLabel 2900 2950 2    50   Input ~ 0
+d0
+Text GLabel 2900 3050 2    50   Input ~ 0
+d1
+Text GLabel 2900 3250 2    50   Input ~ 0
+d2
+Text GLabel 2900 3350 2    50   Input ~ 0
+d3
+Text GLabel 2900 3550 2    50   Input ~ 0
+d4
+Text GLabel 2900 3650 2    50   Input ~ 0
+d5
+Text GLabel 2900 3850 2    50   Input ~ 0
+d6
+Text GLabel 2900 3950 2    50   Input ~ 0
+d7
+Wire Wire Line
+	8800 3100 8800 3250
+$Comp
+L Device:C C11
+U 1 1 60B49FA0
+P 3400 2350
+F 0 "C11" H 3515 2396 50  0000 L CNN
+F 1 "0.1uF" H 3515 2305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 3438 2200 50  0001 C CNN
+F 3 "~" H 3400 2350 50  0001 C CNN
+	1    3400 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3150 2650 3400 2650
+Wire Wire Line
+	3400 2650 3400 2500
+Connection ~ 3150 2650
+Wire Wire Line
+	3400 2150 3400 2200
+Connection ~ 3400 2150
+Wire Wire Line
+	3400 2150 3450 2150
+$Comp
+L Device:C C12
+U 1 1 60B4D9A1
+P 4850 2450
+F 0 "C12" H 4965 2496 50  0000 L CNN
+F 1 "0.1uF" H 4965 2405 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 4888 2300 50  0001 C CNN
+F 3 "~" H 4850 2450 50  0001 C CNN
+	1    4850 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 2200 4850 2300
+Connection ~ 4850 2200
+Wire Wire Line
+	4850 2600 4850 2800
+Wire Wire Line
+	4850 2800 5000 2800
+Connection ~ 5000 2800
+Wire Wire Line
+	5000 2800 5000 3300
 $EndSCHEMATC

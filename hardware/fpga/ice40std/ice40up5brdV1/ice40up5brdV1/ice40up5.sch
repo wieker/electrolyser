@@ -14,10 +14,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L FPGA_Lattice:ICE40UP5K-SG48ITR U?
+L FPGA_Lattice:ICE40UP5K-SG48ITR U1
 U 1 1 60A6AE69
 P 3150 3800
-F 0 "U?" H 3480 3853 50  0000 L CNN
+F 0 "U1" H 3480 3853 50  0000 L CNN
 F 1 "ICE40UP5K-SG48ITR" H 3480 3762 50  0000 L CNN
 F 2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" H 3150 2450 50  0001 C CNN
 F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 2750 4800 50  0001 C CNN
@@ -25,14 +25,151 @@ F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 2750 4800 50 
 	1    0    0    -1  
 $EndComp
 $Comp
-L FPGA_Lattice:ICE40UP5K-SG48ITR U?
+L FPGA_Lattice:ICE40UP5K-SG48ITR U1
 U 3 1 60A6E562
 P 7450 3500
-F 0 "U?" H 7780 3603 50  0000 L CNN
+F 0 "U1" H 7780 3603 50  0000 L CNN
 F 1 "ICE40UP5K-SG48ITR" H 7780 3512 50  0000 L CNN
 F 2 "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm" H 7450 2150 50  0001 C CNN
 F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 7050 4500 50  0001 C CNN
 	3    7450 3500
 	1    0    0    -1  
 $EndComp
+Text GLabel 2750 3500 0    50   Input ~ 0
+ale
+Text GLabel 2750 3400 0    50   Input ~ 0
+re
+Text GLabel 2750 3300 0    50   Input ~ 0
+we
+Text GLabel 2750 3200 0    50   Input ~ 0
+cle
+Text GLabel 2750 3600 0    50   Input ~ 0
+ce
+Text GLabel 2750 4400 0    50   Input ~ 0
+d0
+Text GLabel 2750 4300 0    50   Input ~ 0
+d1
+Text GLabel 2750 4200 0    50   Input ~ 0
+d2
+Text GLabel 2750 4100 0    50   Input ~ 0
+d3
+Text GLabel 2750 4000 0    50   Input ~ 0
+d4
+Text GLabel 2750 3900 0    50   Input ~ 0
+d5
+Text GLabel 2750 3800 0    50   Input ~ 0
+d6
+Text GLabel 2750 3700 0    50   Input ~ 0
+d7
+Text GLabel 7050 3300 0    50   Input ~ 0
+a1
+Text GLabel 7050 3400 0    50   Input ~ 0
+b1
+Text GLabel 7050 3600 0    50   Input ~ 0
+a2
+Text GLabel 7050 3700 0    50   Input ~ 0
+b2
+Text GLabel 7050 3800 0    50   Input ~ 0
+c0
+NoConn ~ 7050 3500
+NoConn ~ 2750 4500
+NoConn ~ 2750 4600
+NoConn ~ 2750 4700
+NoConn ~ 2750 4800
+$Comp
+L power:+3V3 #PWR0101
+U 1 1 60B33280
+P 3150 2500
+F 0 "#PWR0101" H 3150 2350 50  0001 C CNN
+F 1 "+3V3" H 3165 2673 50  0000 C CNN
+F 2 "" H 3150 2500 50  0001 C CNN
+F 3 "" H 3150 2500 50  0001 C CNN
+	1    3150 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0102
+U 1 1 60B336AB
+P 7450 2600
+F 0 "#PWR0102" H 7450 2450 50  0001 C CNN
+F 1 "+3V3" H 7465 2773 50  0000 C CNN
+F 2 "" H 7450 2600 50  0001 C CNN
+F 3 "" H 7450 2600 50  0001 C CNN
+	1    7450 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7450 2600 7450 2800
+Wire Wire Line
+	3150 2500 3150 2700
+Text GLabel 7050 3900 0    50   Input ~ 0
+fpga_tx
+Text GLabel 7050 4000 0    50   Input ~ 0
+fpga_rx
+$Comp
+L Device:C C9
+U 1 1 60B44B94
+P 5000 1950
+F 0 "C9" H 5115 1996 50  0000 L CNN
+F 1 "0.1uF" H 5115 1905 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5038 1800 50  0001 C CNN
+F 3 "~" H 5000 1950 50  0001 C CNN
+	1    5000 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C10
+U 1 1 60B45B6D
+P 5600 1950
+F 0 "C10" H 5715 1996 50  0000 L CNN
+F 1 "0.1uF" H 5715 1905 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5638 1800 50  0001 C CNN
+F 3 "~" H 5600 1950 50  0001 C CNN
+	1    5600 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0104
+U 1 1 60B45F7E
+P 5300 1350
+F 0 "#PWR0104" H 5300 1200 50  0001 C CNN
+F 1 "+3V3" H 5315 1523 50  0000 C CNN
+F 2 "" H 5300 1350 50  0001 C CNN
+F 3 "" H 5300 1350 50  0001 C CNN
+	1    5300 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0105
+U 1 1 60B462D1
+P 5250 2600
+F 0 "#PWR0105" H 5250 2350 50  0001 C CNN
+F 1 "GND" H 5255 2427 50  0000 C CNN
+F 2 "" H 5250 2600 50  0001 C CNN
+F 3 "" H 5250 2600 50  0001 C CNN
+	1    5250 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5000 1800 5000 1600
+Wire Wire Line
+	5000 1600 5300 1600
+Wire Wire Line
+	5600 1600 5600 1800
+Wire Wire Line
+	5300 1350 5300 1600
+Connection ~ 5300 1600
+Wire Wire Line
+	5300 1600 5600 1600
+Wire Wire Line
+	5000 2100 5000 2400
+Wire Wire Line
+	5000 2400 5250 2400
+Wire Wire Line
+	5600 2400 5600 2100
+Wire Wire Line
+	5250 2400 5250 2600
+Connection ~ 5250 2400
+Wire Wire Line
+	5250 2400 5600 2400
 $EndSCHEMATC
