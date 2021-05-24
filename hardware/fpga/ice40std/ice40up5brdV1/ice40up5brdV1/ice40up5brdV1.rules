@@ -1,0 +1,100 @@
+
+(rules PCB ice40up5brdV1
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 581)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.8)
+      (against_preferred_direction_trace_costs 3.0)
+    )
+    (layer_rule In1.Cu
+      (active off)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.8)
+    )
+    (layer_rule In2.Cu
+      (active off)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.2)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.8)
+      (against_preferred_direction_trace_costs 2.6)
+    )
+  )
+  (rule
+    (width 150.0)
+    (clear 150.2)
+    (clear 75.0 (type smd_to_turn_gap))
+    (clear 37.6 (type smd_smd))
+  )
+  (padstack "Via[0-3]_500:250_um"
+    (shape
+      (circle F.Cu 500.0 0.0 0.0)
+    )
+    (shape
+      (circle In1.Cu 500.0 0.0 0.0)
+    )
+    (shape
+      (circle In2.Cu 500.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 500.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-3]_500:250_um" "Via[0-3]_500:250_um" default
+  )
+  (via 
+    "Via[0-3]_500:250_um-kicad_default" "Via[0-3]_500:250_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-3]_500:250_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-3]_500:250_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 150.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    GND +3V3 +1V2 "Net-(D1-Pad1)" cdone "Net-(D2-Pad1)" l3 "Net-(D3-Pad1)"
+    l2 "Net-(D4-Pad1)" l1 "Net-(D5-Pad1)" d7 d6 d5 d4
+    d3 d2 d1 d0 ce cle we re
+    ale b2 a2 c0 b1 a1 ss miso
+    sck mosi creset "fpga_rx" "fpga_tx" "Net-(L1-Pad2)" "Net-(R1-Pad2)" "Net-(U1-Pad44)"
+    "Net-(U1-Pad21)" clk "Net-(U1-Pad19)" "Net-(U1-Pad18)" "Net-(U1-Pad13)" "Net-(U1-Pad12)" "Net-(U1-Pad11)" "Net-(U3-Pad7)"
+    "Net-(U3-Pad3)" "Net-(U1-Pad23)" "Net-(U1-Pad10)" "Net-(U1-Pad9)" "Net-(U1-Pad6)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 150.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+)
