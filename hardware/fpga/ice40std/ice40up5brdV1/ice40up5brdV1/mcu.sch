@@ -16,12 +16,12 @@ $EndDescr
 $Comp
 L cyUsb:USBFCI_10103594_MILL X2
 U 1 1 5E5FC52E
-P 4900 2700
-F 0 "X2" H 4472 2660 42  0000 R CNN
-F 1 "USBFCI_10103594_MILL" H 4472 2739 42  0000 R CNN
-F 2 "kifootp:FCI_10103594_MILL" H 4900 2700 50  0001 C CNN
-F 3 "" H 4900 2700 50  0001 C CNN
-	1    4900 2700
+P 4900 3000
+F 0 "X2" H 4472 2960 42  0000 R CNN
+F 1 "USBFCI_10103594_MILL" H 4472 3039 42  0000 R CNN
+F 2 "kifootp:FCI_10103594_MILL" H 4900 3000 50  0001 C CNN
+F 3 "" H 4900 3000 50  0001 C CNN
+	1    4900 3000
 	-1   0    0    1   
 $EndComp
 Text GLabel 2500 2300 0    50   Input ~ 0
@@ -97,12 +97,12 @@ Wire Wire Line
 $Comp
 L power:GND #PWR048
 U 1 1 5E6043F3
-P 4350 3200
-F 0 "#PWR048" H 4350 2950 50  0001 C CNN
-F 1 "GND" H 4355 3027 50  0000 C CNN
-F 2 "" H 4350 3200 50  0001 C CNN
-F 3 "" H 4350 3200 50  0001 C CNN
-	1    4350 3200
+P 4350 3500
+F 0 "#PWR048" H 4350 3250 50  0001 C CNN
+F 1 "GND" H 4355 3327 50  0000 C CNN
+F 2 "" H 4350 3500 50  0001 C CNN
+F 3 "" H 4350 3500 50  0001 C CNN
+	1    4350 3500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -119,65 +119,49 @@ $EndComp
 $Comp
 L power:+5V #PWR047
 U 1 1 5E604F6F
-P 4200 1850
-F 0 "#PWR047" H 4200 1700 50  0001 C CNN
-F 1 "+5V" H 4215 2023 50  0000 C CNN
-F 2 "" H 4200 1850 50  0001 C CNN
-F 3 "" H 4200 1850 50  0001 C CNN
-	1    4200 1850
+P 4200 2150
+F 0 "#PWR047" H 4200 2000 50  0001 C CNN
+F 1 "+5V" H 4215 2323 50  0000 C CNN
+F 2 "" H 4200 2150 50  0001 C CNN
+F 3 "" H 4200 2150 50  0001 C CNN
+	1    4200 2150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4200 1850 4200 2900
+	4200 2150 4200 3200
 Wire Wire Line
-	4200 2900 4500 2900
+	4200 3200 4500 3200
 Wire Wire Line
 	3000 1100 3000 1400
 Wire Wire Line
-	4500 2500 4350 2500
+	4500 2800 4350 2800
 Wire Wire Line
-	4350 2500 4350 3200
-NoConn ~ 4500 2600
+	4350 2800 4350 3500
+NoConn ~ 4500 2900
 Text GLabel 2500 1800 0    50   Input ~ 0
 swd_rst
 Text GLabel 2500 2000 0    50   Input ~ 0
 swd_clk
 Text GLabel 2500 2100 0    50   Input ~ 0
 swd_io
-Text GLabel 3500 2200 2    50   Input ~ 0
+Text GLabel 3500 2400 2    50   Input ~ 0
 led_mcu
 Wire Wire Line
-	3500 2700 4500 2700
+	3500 3000 4500 3000
 Wire Wire Line
-	4500 2800 3500 2800
-$Comp
-L power:GND #PWR046
-U 1 1 5E603984
-P 3000 3250
-F 0 "#PWR046" H 3000 3000 50  0001 C CNN
-F 1 "GND" H 3005 3077 50  0000 C CNN
-F 2 "" H 3000 3250 50  0001 C CNN
-F 3 "" H 3000 3250 50  0001 C CNN
-	1    3000 3250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3000 3000 3000 2800
-Wire Wire Line
-	3000 3250 3000 3000
-Connection ~ 3000 3000
+	4500 3100 3500 3100
 Text GLabel 3500 1700 2    50   Input ~ 0
 creset
 Text GLabel 3500 1600 2    50   Input ~ 0
 cdone
-Text GLabel 3500 2300 2    50   Input ~ 0
-uart_fpga_tx_2
-Text GLabel 3500 2400 2    50   Input ~ 0
-uart_fpga_rx_2
 Text GLabel 3500 2500 2    50   Input ~ 0
-nrf_rx
+a1
 Text GLabel 3500 2600 2    50   Input ~ 0
-nrf_tx
+b1
+Text GLabel 3500 2800 2    50   Input ~ 0
+a2
+Text GLabel 3500 2900 2    50   Input ~ 0
+b2
 $Comp
 L power:GND #PWR?
 U 1 1 5E6748AE
@@ -373,14 +357,43 @@ ss
 Text GLabel 3500 2000 2    50   Input ~ 0
 miso
 $Comp
-L GitRep_SAMD:ATSAMD11D14A-M U?
+L GitRep_SAMD:ATSAMD11D14A-M U5
 U 1 1 60B09C8F
 P 3000 2400
-F 0 "U?" H 3000 3581 50  0000 C CNN
+F 0 "U5" H 3000 3581 50  0000 C CNN
 F 1 "ATSAMD11D14A-M" H 3000 3490 50  0000 C CNN
 F 2 "Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm" H 3000 1050 50  0001 C CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42363-SAM-D11_Datasheet.pdf" H 3000 1400 50  0001 C CNN
 	1    3000 2400
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:GND #PWR0101
+U 1 1 60B184DC
+P 3000 3600
+F 0 "#PWR0101" H 3000 3350 50  0001 C CNN
+F 1 "GND" H 3005 3427 50  0000 C CNN
+F 2 "" H 3000 3600 50  0001 C CNN
+F 3 "" H 3000 3600 50  0001 C CNN
+	1    3000 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3000 3400 3000 3600
+NoConn ~ 3500 2200
+NoConn ~ 3500 2300
+NoConn ~ 3500 2700
+NoConn ~ 3500 3200
+Text GLabel 1100 1200 0    50   Input ~ 0
+uart_tx
+Text GLabel 1100 1300 0    50   Input ~ 0
+uart_rx
+Text GLabel 1150 1300 2    50   Input ~ 0
+fpga_tx
+Text GLabel 1150 1200 2    50   Input ~ 0
+fpga_rx
+Wire Wire Line
+	1100 1200 1150 1200
+Wire Wire Line
+	1100 1300 1150 1300
 $EndSCHEMATC

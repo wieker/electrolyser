@@ -60,8 +60,6 @@ $EndComp
 Wire Wire Line
 	7500 2800 7500 2500
 Wire Wire Line
-	7500 2500 7600 2500
-Wire Wire Line
 	8200 2500 8200 2800
 Wire Wire Line
 	7850 2150 7850 2500
@@ -80,17 +78,6 @@ Connection ~ 7850 3500
 Wire Wire Line
 	7850 3500 8200 3500
 $Comp
-L power:PWR_FLAG #FLG05
-U 1 1 5EA619BD
-P 7600 2350
-F 0 "#FLG05" H 7600 2425 50  0001 C CNN
-F 1 "PWR_FLAG" H 7600 2523 50  0000 C CNN
-F 2 "" H 7600 2350 50  0001 C CNN
-F 3 "~" H 7600 2350 50  0001 C CNN
-	1    7600 2350
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:PWR_FLAG #FLG06
 U 1 1 5EA61D74
 P 7850 3250
@@ -103,56 +90,6 @@ F 3 "~" H 7850 3250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7850 3500 7850 3250
-Wire Wire Line
-	7600 2350 7600 2500
-Connection ~ 7600 2500
-Wire Wire Line
-	7600 2500 7850 2500
-$Comp
-L Connector:Conn_01x20_Male J4
-U 1 1 5EA6E6FC
-P 1700 4600
-F 0 "J4" H 1808 5681 50  0000 C CNN
-F 1 "Conn_01x20_Male" H 1808 5590 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x20_P2.54mm_Horizontal" H 1700 4600 50  0001 C CNN
-F 3 "~" H 1700 4600 50  0001 C CNN
-	1    1700 4600
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR053
-U 1 1 5EA812AE
-P 2350 3300
-F 0 "#PWR053" H 2350 3150 50  0001 C CNN
-F 1 "+3V3" H 2365 3473 50  0000 C CNN
-F 2 "" H 2350 3300 50  0001 C CNN
-F 3 "" H 2350 3300 50  0001 C CNN
-	1    2350 3300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR052
-U 1 1 5EA84AA8
-P 2200 5950
-F 0 "#PWR052" H 2200 5700 50  0001 C CNN
-F 1 "GND" H 2205 5777 50  0000 C CNN
-F 2 "" H 2200 5950 50  0001 C CNN
-F 3 "" H 2200 5950 50  0001 C CNN
-	1    2200 5950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2200 3700 1900 3700
-Wire Wire Line
-	1900 4000 2200 4000
-Connection ~ 2200 4000
-Wire Wire Line
-	2200 4000 2200 3700
-Wire Wire Line
-	1900 5100 2200 5100
-Connection ~ 2200 5100
-Wire Wire Line
-	2200 5100 2200 4900
 $Comp
 L digital:MT29F1G08ABAEAWP U6
 U 1 1 60A46341
@@ -209,83 +146,38 @@ Wire Wire Line
 	4600 2150 4600 2450
 Connection ~ 4550 2150
 Text GLabel 3850 4950 0    50   Input ~ 0
-D0
+d0
 Text GLabel 3850 4850 0    50   Input ~ 0
-D1
+d1
 Text GLabel 3850 4750 0    50   Input ~ 0
-D2
+d2
 Text GLabel 3850 4650 0    50   Input ~ 0
-D3
+d3
 Text GLabel 3850 4550 0    50   Input ~ 0
-D4
+d4
 Text GLabel 3850 4450 0    50   Input ~ 0
-D5
+d5
 Text GLabel 3850 4350 0    50   Input ~ 0
-D6
+d6
 Text GLabel 3850 4250 0    50   Input ~ 0
-D7
+d7
 Text GLabel 5050 4400 2    50   Input ~ 0
 WP
-Text GLabel 5050 4500 2    50   Input ~ 0
-CLE
 Text GLabel 5050 4600 2    50   Input ~ 0
-ALE
+ale
 Text GLabel 5050 4700 2    50   Input ~ 0
-CE
+ce
 Text GLabel 5050 4800 2    50   Input ~ 0
-WE
+we
 Text GLabel 5050 4900 2    50   Input ~ 0
-RE
-Wire Wire Line
-	2200 5100 2200 5950
-Wire Wire Line
-	1900 5600 2350 5600
-Wire Wire Line
-	2350 3300 2350 5600
-Wire Wire Line
-	1900 4900 2200 4900
-Connection ~ 2200 4900
-Wire Wire Line
-	2200 4900 2200 4600
-Wire Wire Line
-	1900 4600 2200 4600
-Connection ~ 2200 4600
-Wire Wire Line
-	2200 4000 2200 4300
-Wire Wire Line
-	1900 4300 2200 4300
-Connection ~ 2200 4300
-Wire Wire Line
-	2200 4300 2200 4600
-Text GLabel 1900 5200 2    50   Input ~ 0
-CLE
-Text GLabel 1900 5000 2    50   Input ~ 0
-CE
-Text GLabel 1900 5300 2    50   Input ~ 0
-WE
-Text GLabel 1900 5400 2    50   Input ~ 0
-RE
-Text GLabel 1900 5500 2    50   Input ~ 0
-ALE
-Text GLabel 1900 4800 2    50   Input ~ 0
-D0
-Text GLabel 1900 4700 2    50   Input ~ 0
-D1
-Text GLabel 1900 4500 2    50   Input ~ 0
-D2
-Text GLabel 1900 4400 2    50   Input ~ 0
-D3
-Text GLabel 1900 4200 2    50   Input ~ 0
-D4
-Text GLabel 1900 4100 2    50   Input ~ 0
-D5
-Text GLabel 1900 3900 2    50   Input ~ 0
-D6
-Text GLabel 1900 3800 2    50   Input ~ 0
-D7
+re
 Text GLabel 7000 2500 0    50   Input ~ 0
 WP
 Wire Wire Line
 	7000 2500 7500 2500
 Connection ~ 7500 2500
+Wire Wire Line
+	7500 2500 7850 2500
+Text GLabel 5050 4500 2    50   Input ~ 0
+cle
 $EndSCHEMATC
