@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 8
+Sheet 1 9
 Title ""
 Date ""
 Rev ""
@@ -54,5 +54,11 @@ S 3300 6300 1850 300
 U 60AD4BFE
 F0 "nand" 50
 F1 "nand.sch" 50
+$EndSheet
+$Sheet
+S 5550 1900 1750 550 
+U 60C6E5C1
+F0 "secctl" 50
+F1 "secctl.sch" 50
 $EndSheet
 $EndSCHEMATC
