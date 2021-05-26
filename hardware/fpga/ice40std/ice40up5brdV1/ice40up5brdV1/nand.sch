@@ -171,13 +171,26 @@ Text GLabel 5050 4800 2    50   Input ~ 0
 we
 Text GLabel 5050 4900 2    50   Input ~ 0
 re
-Text GLabel 7000 2500 0    50   Input ~ 0
-WP
-Wire Wire Line
-	7000 2500 7500 2500
-Connection ~ 7500 2500
 Wire Wire Line
 	7500 2500 7850 2500
 Text GLabel 5050 4500 2    50   Input ~ 0
 cle
+Wire Wire Line
+	6450 2500 6950 2500
+Text GLabel 6450 2500 0    50   Input ~ 0
+WP
+$Comp
+L Device:R R17
+U 1 1 60AF5A78
+P 7100 2500
+F 0 "R17" V 6893 2500 50  0000 C CNN
+F 1 "R" V 6984 2500 50  0000 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 7030 2500 50  0001 C CNN
+F 3 "~" H 7100 2500 50  0001 C CNN
+	1    7100 2500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7250 2500 7500 2500
+Connection ~ 7500 2500
 $EndSCHEMATC
