@@ -248,8 +248,6 @@ Wire Wire Line
 	3950 1800 3950 2100
 Text GLabel 3450 3500 0    50   Input ~ 0
 clk
-NoConn ~ 3450 3600
-NoConn ~ 3450 3700
 NoConn ~ 3450 3400
 NoConn ~ 3450 3300
 NoConn ~ 3450 3200
@@ -301,4 +299,8 @@ $EndComp
 NoConn ~ 3450 2800
 NoConn ~ 3450 2900
 NoConn ~ 3450 3000
+Text GLabel 3450 3600 0    50   Input ~ 0
+fpga_tx
+Text GLabel 3450 3700 0    50   Input ~ 0
+fpga_rx
 $EndSCHEMATC

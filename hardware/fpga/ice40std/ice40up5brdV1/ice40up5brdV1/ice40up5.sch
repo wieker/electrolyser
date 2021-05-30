@@ -98,10 +98,6 @@ Wire Wire Line
 	7450 2600 7450 2800
 Wire Wire Line
 	3150 2500 3150 2700
-Text GLabel 7050 3900 0    50   Input ~ 0
-fpga_tx
-Text GLabel 7050 4000 0    50   Input ~ 0
-fpga_rx
 $Comp
 L Device:C C1
 U 1 1 60B44B94
