@@ -309,8 +309,6 @@ Text GLabel 5500 3750 0    50   Input ~ 0
 a2
 Text GLabel 5500 3850 0    50   Input ~ 0
 b2
-Text GLabel 5500 3550 0    50   Input ~ 0
-c0
 Text GLabel 7950 2550 0    50   Input ~ 0
 cdone
 Wire Wire Line
@@ -561,4 +559,5 @@ Wire Wire Line
 Connection ~ 5050 6150
 Wire Wire Line
 	5050 6150 5050 6350
+NoConn ~ 5500 3550
 $EndSCHEMATC

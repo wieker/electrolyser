@@ -61,17 +61,14 @@ Text GLabel 2750 4600 0    50   Input ~ 0
 d6
 Text GLabel 2750 4700 0    50   Input ~ 0
 d7
-Text GLabel 7050 3800 0    50   Input ~ 0
+Text GLabel 7050 3900 0    50   Input ~ 0
 a1
-Text GLabel 7050 3600 0    50   Input ~ 0
+Text GLabel 7050 4000 0    50   Input ~ 0
 b1
-Text GLabel 7050 3300 0    50   Input ~ 0
+Text GLabel 7050 3800 0    50   Input ~ 0
 a2
-Text GLabel 7050 3700 0    50   Input ~ 0
+Text GLabel 7050 3600 0    50   Input ~ 0
 b2
-Text GLabel 7050 3400 0    50   Input ~ 0
-c0
-NoConn ~ 7050 3500
 $Comp
 L power:+3V3 #PWR01
 U 1 1 60B33280
@@ -171,4 +168,17 @@ Text GLabel 2750 4500 0    50   Input ~ 0
 l2
 Text GLabel 2750 4300 0    50   Input ~ 0
 l3
+Text GLabel 6950 3300 0    50   Input ~ 0
+btn1
+Wire Wire Line
+	6950 3300 7050 3300
+Text GLabel 6950 3700 0    50   Input ~ 0
+btn2
+Wire Wire Line
+	6950 3700 7050 3700
+Text GLabel 6950 3500 0    50   Input ~ 0
+btn3
+Wire Wire Line
+	6950 3500 7050 3500
+NoConn ~ 7050 3400
 $EndSCHEMATC
