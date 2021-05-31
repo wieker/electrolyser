@@ -11,28 +11,56 @@ module top(
 );
 
     reg [21:0] counter;
+	reg [7:0] reset_cnt;
+	reg reset;
+	always @(posedge CLK)
+	begin
+		if(reset_cnt != 8'hff)
+        begin
+            reset_cnt <= reset_cnt + 8'h01;
+            reset <= 1'b1;
+        end
+        else
+            reset <= 1'b0;
+	end
+
 
     always @(posedge CLK)
         begin
             counter <= counter + 1;
         end
-    assign LED1 = counter[19];
-    assign LED2 = counter[20];
+    assign LED1 = TX;
+    assign LED2 = 0;
     assign LED3 = counter[21];
+
+    reg en;
+    always @(posedge CLK)
+        begin
+            en <= LED3;
+        end
 
     wire nand_oe;
     wire [7:0] nand_din;
     wire [7:0] nand_dout;
 
 	logic logic(
-		.clk(clk),
+		.clk(CLK),
+		.reset(reset),
 
 		.RX(RX),
 		.TX(TX),
 
 		.nand_oe(nand_oe),
 		.nand_din(nand_din),
-		.nand_dout(nand_dout)
+		.nand_dout(nand_dout),
+
+        .ce(ce),
+        .cle(cle),
+        .we(we),
+        .re(re),
+        .ale(ale),
+
+        .en(!en && LED3),
 	);
 
 	SB_IO #(
