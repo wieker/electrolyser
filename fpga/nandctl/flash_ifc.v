@@ -21,7 +21,8 @@ module flash_ifc(
 
     reg [7:0] dtr;
     assign din = dtr;
-    assign tx_start = (state == 10);
+    reg [1:0] en;
+    assign tx_start = (state == 10) && (en < 3);
 
     always @(posedge clk)
         begin
@@ -31,6 +32,7 @@ module flash_ifc(
                 waveform <= {1, 1, 1, 0, 0};
                 nand_oe <= 0;
                 nand_dout <= 8'hff;
+                en <= 0;
             end else if (state == 1) begin
                 waveform <= {1, 0, 1, 0, 0};
                 nand_oe <= 0;
@@ -72,6 +74,9 @@ module flash_ifc(
                 nand_oe <= 0;
                 nand_dout <= 8'h70;
                 dtr <= 8'hff - nand_din;
+                if (en < 3) begin
+                    en <= en + 1;
+                end
             end else if (state == 11) begin
                 waveform <= {1, 1, 1, 0, 0};
                 nand_oe <= 0;
