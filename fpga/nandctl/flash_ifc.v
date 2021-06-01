@@ -23,7 +23,7 @@ module flash_ifc(
     assign din = dtr;
     assign tx_start = (state == 10);
 
-    always @(posedge CLK)
+    always @(posedge clk)
         begin
             counter <= counter + 1;
 
