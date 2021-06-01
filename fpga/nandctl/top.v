@@ -10,6 +10,8 @@ module top(
     output TX,
 );
 
+    wire led;
+
     reg [21:0] counter;
 	reg [7:0] reset_cnt;
 	reg reset;
@@ -31,7 +33,7 @@ module top(
         end
     assign LED1 = TX;
     assign LED2 = 0;
-    assign LED3 = counter[21];
+    assign LED3 = led;
 
     reg en;
     always @(posedge CLK)
@@ -60,7 +62,7 @@ module top(
         .re(re),
         .ale(ale),
 
-        .en(!en && LED3),
+        .led(led),
 	);
 
 	SB_IO #(

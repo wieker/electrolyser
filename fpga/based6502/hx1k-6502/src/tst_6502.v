@@ -80,7 +80,9 @@ module tst_6502(
 	initial
         $readmemh("rom.hex",rom_mem);
 	always @(posedge clk)
-		rom_do <= rom_mem[CPU_AB[11:0]];
+		rom_do <= rom_mem
+
+		[CPU_AB[11:0]];
 
 	// data mux
 	reg [3:0] mux_sel;
