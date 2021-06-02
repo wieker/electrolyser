@@ -215,7 +215,7 @@ public class SimplePing
                         flash_wait(handle, 0x00);
 
                         InputStream inputStream = new FileInputStream(
-                                "../../fpga/nandctl/top.bin");
+                                "../../fpga/based6502/hx1k-6502/icestorm/icestick_6502_top.bin");
                         int addr = 0;
                         byte[] buf = new byte[16];
                         for (;;) {

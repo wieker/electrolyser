@@ -13,11 +13,13 @@ module flash_ifc(
 	output tx_start,
 );
 
-    reg [25:0] counter;
+    reg [26:0] counter;
     reg [4:0] waveform;
-    wire [4:0] state;
-    assign {ce, we, re, cle, ale} = waveform;
-    assign state = counter[25:21];
+    wire [5:0] state;
+    wire fake;
+    assign {fake, we, re, cle, ale} = waveform;
+    assign ce = 0;
+    assign state = counter[26:21];
 
     reg [7:0] dtr;
     assign din = dtr;
@@ -73,7 +75,7 @@ module flash_ifc(
                 waveform <= {0, 1, 1, 0, 0};
                 nand_oe <= 0;
                 nand_dout <= 8'h70;
-                dtr <= 8'hff - nand_din;
+                dtr <= nand_din;
                 if (en < 3) begin
                     en <= en + 1;
                 end
@@ -81,6 +83,8 @@ module flash_ifc(
                 waveform <= {1, 1, 1, 0, 0};
                 nand_oe <= 0;
                 nand_dout <= 8'h70;
+
+            // READ ID 20
             end else if (state == 12) begin
                 waveform <= {1, 0, 1, 0, 0};
                 nand_oe <= 0;
@@ -161,6 +165,91 @@ module flash_ifc(
                     en <= en + 1;
                 end
             end else if (state == 28) begin
+                waveform <= {1, 1, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'h70;
+
+            // READ ID 00
+            end else if (state == 29) begin
+                waveform <= {1, 0, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'hff;
+            end else if (state == 30) begin
+                waveform <= {0, 0, 1, 1, 0};
+                nand_oe <= 1;
+                nand_dout <= 8'h90;
+            end else if (state == 31) begin
+                waveform <= {0, 1, 1, 1, 0};
+                nand_oe <= 1;
+                nand_dout <= 8'h90;
+            end else if (state == 32) begin
+                waveform <= {1, 1, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'hff;
+            end else if (state == 33) begin
+                waveform <= {1, 0, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'hff;
+            end else if (state == 34) begin
+                waveform <= {0, 0, 1, 0, 1};
+                nand_oe <= 1;
+                nand_dout <= 8'h00;
+            end else if (state == 35) begin
+                waveform <= {0, 1, 1, 0, 1};
+                nand_oe <= 1;
+                nand_dout <= 8'h00;
+            end else if (state == 36) begin
+                waveform <= {1, 1, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'hff;
+            end else if (state == 37) begin
+                waveform <= {0, 1, 0, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'hff;
+                en <= 0;
+            end else if (state == 38) begin
+                waveform <= {0, 1, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'h70;
+                dtr <= nand_din;
+                if (en < 3) begin
+                    en <= en + 1;
+                end
+            end else if (state == 39) begin
+                waveform <= {1, 1, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'h70;
+            end else if (state == 40) begin
+                waveform <= {0, 1, 0, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'hff;
+                en <= 0;
+            end else if (state == 41) begin
+                waveform <= {0, 1, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'h70;
+                dtr <= nand_din;
+                if (en < 3) begin
+                    en <= en + 1;
+                end
+            end else if (state == 42) begin
+                waveform <= {1, 1, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'h70;
+            end else if (state == 43) begin
+                waveform <= {0, 1, 0, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'hff;
+                en <= 0;
+            end else if (state == 44) begin
+                waveform <= {0, 1, 1, 0, 0};
+                nand_oe <= 0;
+                nand_dout <= 8'h70;
+                dtr <= nand_din;
+                if (en < 3) begin
+                    en <= en + 1;
+                end
+            end else if (state == 45) begin
                 waveform <= {1, 1, 1, 0, 0};
                 nand_oe <= 0;
                 nand_dout <= 8'h70;
