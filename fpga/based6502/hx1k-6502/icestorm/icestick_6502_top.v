@@ -15,6 +15,10 @@ module icestick_6502_top(
                    inout D0, D1, D2, D3,
                    inout D4, D5, D6, D7,
                    input CLK,
+
+        inout nd0, nd1, nd2, nd3,
+        inout nd4, nd5, nd6, nd7,
+        output nce, ncle, nwe, nre, nale,
 );
 	// reset generator waits > 10us
 	reg [7:0] reset_cnt;
@@ -26,6 +30,10 @@ module icestick_6502_top(
     wire [7:0] sram_dout;
     wire [15:0] addr;
     reg [7:0] adc_reg;
+
+    wire nand_oe;
+    wire [7:0] nand_din;
+    wire [7:0] nand_dout;
 
 	initial
         reset_cnt <= 8'h00;
@@ -98,4 +106,17 @@ module icestick_6502_top(
 		.D_IN_0({sram_din[0], sram_din[1], sram_din[2], sram_din[3], sram_din[4], sram_din[5], sram_din[6], sram_din[7]}),
 		.D_OUT_0({sram_dout[0], sram_dout[1], sram_dout[2], sram_dout[3], sram_dout[4], sram_dout[5], sram_dout[6], sram_dout[7]})
 	);
+
+
+
+	SB_IO #(
+		.PIN_TYPE(6'b 1010_01),
+		.PULLUP(1'b 0)
+	) io_buf [15:8] (
+		.PACKAGE_PIN({nd0, nd1, nd2, nd3, nd4, nd5, nd6, nd7}),
+		.OUTPUT_ENABLE({nand_oe, nand_oe, nand_oe, nand_oe, nand_oe, nand_oe, nand_oe, nand_oe}),
+		.D_IN_0({nand_din[0], nand_din[1], nand_din[2], nand_din[3], nand_din[4], nand_din[5], nand_din[6], nand_din[7]}),
+		.D_OUT_0({nand_dout[0], nand_dout[1], nand_dout[2], nand_dout[3], nand_dout[4], nand_dout[5], nand_dout[6], nand_dout[7]})
+	);
+
 endmodule

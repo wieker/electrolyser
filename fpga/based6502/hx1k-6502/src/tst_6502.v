@@ -15,6 +15,11 @@ module tst_6502(
                  input [7:0] sram_din,
                  output [7:0] sram_dout,
                  output [15:0] addr,
+
+    output nand_oe,
+    input [7:0] nand_din,
+    output [7:0] nand_dout,
+    output nce, ncle, nwe, nre, nale,
 );
     // The 6502
     wire [15:0] CPU_AB;
