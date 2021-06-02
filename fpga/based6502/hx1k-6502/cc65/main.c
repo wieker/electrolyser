@@ -19,6 +19,45 @@ unsigned char *buf = (&SRAM_DATA) + 50;
 char st = 0;
 int await = 0;
 
+#define NAND_R  4 // Read Enable
+#define NAND_E  1 // Chip Enable
+#define NAND_CL 8 // Command latch
+#define NAND_AL 16 // Address latch
+#define NAND_W  2 // Write
+#define NAND_OE 32 // Read busy
+
+void idle() {
+  NAND_CTL = NAND_E + NAND_W + NAND_R;
+}
+
+void enable() {
+  NAND_CTL = NAND_W + NAND_R;
+}
+
+void cmd_nand() {
+  NAND_CTL = NAND_W + NAND_R + NAND_OE;
+  NAND_CTL = NAND_W + NAND_R + NAND_CL + NAND_OE;
+  NAND_CTL = NAND_R + NAND_CL + NAND_OE;
+  NAND_OUT = 0x70;
+  NAND_CTL = NAND_W + NAND_R + NAND_CL + NAND_OE;
+  NAND_CTL = NAND_W + NAND_R + NAND_OE;
+  NAND_CTL = NAND_W + NAND_R;
+}
+
+void status() {
+  unsigned char v;
+  cmd_nand();
+
+  NAND_CTL = NAND_W;
+  v = NAND_OUT;
+  NAND_CTL = NAND_W + NAND_R;
+
+  acia_tx_str("val: ");
+  acia_tx_chr((v / 16) < 10 ? (v / 16) + '0' : (v / 16) + '7');
+  acia_tx_chr((v % 16) < 10 ? (v % 16) + '0' : (v % 16) + '7');
+  acia_tx_str("\n");
+}
+
 int main()
 {
     int s = 0;
@@ -50,6 +89,11 @@ int main()
             GPIO_DATA = st = 0x55;
             s = 0;
         }
+
+        idle();
+        enable();
+        status();
+        idle();
     }
 
     //  We should never get here!
