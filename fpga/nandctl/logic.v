@@ -29,7 +29,7 @@ module logic(
         .re(re),
         .ale(ale),
 
-        .din(din),
+        .uart_out(din),
         .tx_start(tx_start),
     );
 
