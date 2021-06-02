@@ -30,6 +30,8 @@ int main()
 	// enable ACIA IRQ for serial echo in background
 	ACIA_CTRL = 0x80;
   NAND_CTL = 0x07;
+  NAND_OUT = 0xAA;
+  NAND_CTL = 0x27;
 	asm("CLI");
 
     // Run forever with GPIO blink
