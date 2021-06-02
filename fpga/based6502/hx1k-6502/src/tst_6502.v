@@ -18,7 +18,7 @@ module tst_6502(
 
     output nand_oe,
     input [7:0] nand_din,
-    output [7:0] nand_dout,
+    output reg [7:0] nand_dout,
     output nce, ncle, nwe, nre, nale,
 );
     // The 6502
@@ -37,12 +37,16 @@ module tst_6502(
         .NMI(1'b0),
         .RDY(1'b1)
     );
+
+    reg [7:0] nand_ctl;
+    assign {nand_oe, nale, ncle, nre, nwe, nce} = nand_ctl[5:0];
     
 	// address decode - not fully decoded for 512-byte memories
 	wire cs_gpio = (CPU_AB[15:0] == 16'h1000) ? 1 : 0;
 	wire cs_acia = (CPU_AB[15:0] == 16'h1002) || (CPU_AB[15:0] == 16'h1003) ? 1 : 0;
 	wire cs_flash = (CPU_AB[15:12] == 4'hf) ? 1 : 0;
-	wire cs_sram = (cs_gpio == 0) && (cs_acia == 0) && (cs_flash == 0) ? 1 : 0;
+	wire cs_sram = (cs_gpio == 0) && (cs_acia == 0) && (cs_flash == 0) && (cs_nand == 0) ? 1 : 0;
+	wire cs_nand = (CPU_AB[15:0] == 16'h1004) || (CPU_AB[15:0] == 16'h1005) ? 1 : 0;
 
     reg [15:0] sram_addr_reg;
     reg [15:0] sram_dout_reg;
@@ -58,9 +62,14 @@ module tst_6502(
 	
 	// GPIO @ page 10-1f
 	reg [7:0] gpio_do;
-	always @(posedge clk)
+	always @(posedge clk) begin
 		if((CPU_WE == 1'b1) && (cs_gpio == 1'b1))
 			gpio_o <= CPU_DO;
+		if((CPU_WE == 1'b1) && (cs_nand == 1'b1) && (CPU_AB[0] == 0))
+			nand_ctl <= CPU_DO;
+		if((CPU_WE == 1'b1) && (cs_nand == 1'b1) && (CPU_AB[0] == 1))
+			nand_dout <= CPU_DO;
+	end
 	always @(posedge clk)
 		gpio_do <= gpio_i;
 	
@@ -90,15 +99,16 @@ module tst_6502(
 		[CPU_AB[11:0]];
 
 	// data mux
-	reg [3:0] mux_sel;
+	reg [4:0] mux_sel;
 	always @(posedge clk)
-		mux_sel <= {cs_flash, cs_acia, cs_gpio, cs_sram};
+		mux_sel <= {cs_nand, cs_flash, cs_acia, cs_gpio, cs_sram};
 	always @(*)
 		casez(mux_sel)
-			4'h1: CPU_DI = sram_din;
-			4'h2: CPU_DI = gpio_do;
-			4'h4: CPU_DI = acia_do;
-			4'h8: CPU_DI = rom_do;
+			5'h01: CPU_DI = sram_din;
+			5'h02: CPU_DI = gpio_do;
+			5'h04: CPU_DI = acia_do;
+			5'h08: CPU_DI = rom_do;
+			5'h10: CPU_DI = nand_din;
 			default: CPU_DI = rom_do;
 		endcase
 endmodule

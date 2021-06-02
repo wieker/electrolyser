@@ -11,6 +11,8 @@
 #define ACIA_DATA (*(unsigned char *) 0x1003)
 #define SRAM_DATA (*(unsigned char *) 0x3000)
 #define ADC_DATA (*(unsigned char *) 0x4000)
+#define NAND_CTL (*(unsigned char *) 0x1004)
+#define NAND_OUT (*(unsigned char *) 0x1005)
 #define ACIA_SRAM_STORE (*(unsigned char *) 0x3100)
 
 #endif

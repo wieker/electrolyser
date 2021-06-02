@@ -29,23 +29,15 @@ int main()
 	
 	// enable ACIA IRQ for serial echo in background
 	ACIA_CTRL = 0x80;
+  NAND_CTL = 0x07;
 	asm("CLI");
 
     // Run forever with GPIO blink
     while(1) {
       while (await);
-        for (i = 0; i < 1000; i ++) {
+        for (i = 0; i < 10000; i ++) {
 
         }
-      for (i = 0; i < 1000; i ++) {
-
-      }
-      for (i = 0; i < 1000; i ++) {
-
-      }
-      for (i = 0; i < 1000; i ++) {
-
-      }
 
         if (s == 0) {
             acia_tx_str("hello\no");
