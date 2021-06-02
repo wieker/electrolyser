@@ -16,9 +16,7 @@ module flash_ifc(
     reg [26:0] counter;
     reg [4:0] waveform;
     wire [5:0] state;
-    wire fake;
-    assign {fake, we, re, cle, ale} = waveform;
-    assign ce = 0;
+    assign {ce, we, re, cle, ale} = waveform;
     assign state = counter[26:21];
 
     reg [7:0] dtr;
