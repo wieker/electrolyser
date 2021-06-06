@@ -203,9 +203,9 @@ Text GLabel 4450 2500 2    50   Input ~ 0
 cdone
 Text GLabel 3450 2500 0    50   Input ~ 0
 creset
-Text GLabel 3450 3900 0    50   Input ~ 0
-mosi
 Text GLabel 3450 3800 0    50   Input ~ 0
+mosi
+Text GLabel 3450 3900 0    50   Input ~ 0
 miso
 Text GLabel 3450 4000 0    50   Input ~ 0
 sck
