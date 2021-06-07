@@ -1,6 +1,8 @@
 #include <nrf_delay.h>
 #include <nrf_esb.h>
 
+#include <nrf_local_adc.h>
+
 #include "local_nrf_uart.h"
 #include "local_nrf_esb.h"
 
@@ -24,6 +26,11 @@ int main() {
   uart_init();
 
   radio_init(1);
+
+
+  saadc_init();
+  saadc_sampling_event_init();
+  saadc_sampling_event_enable();
 
   while (1) {
     NRF_P0->OUTSET = 1 << 17 | 1 << 20;
