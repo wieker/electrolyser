@@ -93,16 +93,24 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 
 void saadc_init(void)
 {
-  nrf_saadc_channel_config_t channel_config =
-          NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN4);
+  nrf_saadc_channel_config_t channel_config_V =
+          NRFX_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN4);
+  channel_config_V.gain = SAADC_CH_CONFIG_GAIN_Gain1_4;
+  channel_config_V.reference = SAADC_CH_CONFIG_REFSEL_VDD1_4;
+  //nrf_saadc_channel_config_t channel_config_I =
+          //NRFX_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN5);
 
   nrf_drv_saadc_init(NULL, saadc_callback);
 
-  nrf_drv_saadc_channel_init(0, &channel_config);
+  nrf_saadc_resolution_set(NRF_SAADC_RESOLUTION_8BIT);
 
-  nrf_drv_saadc_buffer_convert(m_buffer_pool[0], SAMPLES_IN_BUFFER);
+  nrfx_saadc_channel_init(0, &channel_config_V);
 
-  nrf_drv_saadc_buffer_convert(m_buffer_pool[1], SAMPLES_IN_BUFFER);
+  //nrfx_saadc_channel_init(1, &channel_config_I);
+
+  nrfx_saadc_buffer_convert(m_buffer_pool[0], SAMPLES_IN_BUFFER);
+
+  nrfx_saadc_buffer_convert(m_buffer_pool[1], SAMPLES_IN_BUFFER);
 
 }
 

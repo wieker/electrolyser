@@ -10,7 +10,7 @@ void advertise() {
   char data[5];
   data[0] = 'T';
   data[1] = m_buffer_pool[0][0] > 100 ? '1' : '0';
-  data[2] = 'S';
+  data[2] = m_buffer_pool[0][1] > 100 ? '1' : '0';
   data[3] = 'T';
   data[4] = '\n';
   radio_packet_send((uint8_t *) data, sizeof(data));
