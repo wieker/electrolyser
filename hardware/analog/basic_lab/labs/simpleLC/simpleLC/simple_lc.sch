@@ -1,0 +1,214 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text GLabel 2250 2900 0    50   Input ~ 0
+din
+$Comp
+L power:+3.3V #PWR?
+U 1 1 60C11C18
+P 3250 2000
+F 0 "#PWR?" H 3250 1850 50  0001 C CNN
+F 1 "+3.3V" H 3265 2173 50  0000 C CNN
+F 2 "" H 3250 2000 50  0001 C CNN
+F 3 "" H 3250 2000 50  0001 C CNN
+	1    3250 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60C11E84
+P 3250 3650
+F 0 "#PWR?" H 3250 3400 50  0001 C CNN
+F 1 "GND" H 3255 3477 50  0000 C CNN
+F 2 "" H 3250 3650 50  0001 C CNN
+F 3 "" H 3250 3650 50  0001 C CNN
+	1    3250 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:FQP27P06 Q?
+U 1 1 60C127AE
+P 3150 2900
+F 0 "Q?" H 3354 2946 50  0000 L CNN
+F 1 "FQP27P06" H 3354 2855 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 3350 2825 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/FQP27P06-D.PDF" H 3150 2900 50  0001 L CNN
+	1    3150 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60C12C69
+P 3250 3350
+F 0 "R?" H 3320 3396 50  0000 L CNN
+F 1 "R" H 3320 3305 50  0000 L CNN
+F 2 "" V 3180 3350 50  0001 C CNN
+F 3 "~" H 3250 3350 50  0001 C CNN
+	1    3250 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60C12EAB
+P 3250 2300
+F 0 "R?" H 3320 2346 50  0000 L CNN
+F 1 "R" H 3320 2255 50  0000 L CNN
+F 2 "" V 3180 2300 50  0001 C CNN
+F 3 "~" H 3250 2300 50  0001 C CNN
+	1    3250 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 2000 3250 2150
+Wire Wire Line
+	3250 2450 3250 2700
+Wire Wire Line
+	3250 3100 3250 3200
+Wire Wire Line
+	2250 2900 2950 2900
+Wire Wire Line
+	3250 3500 3250 3650
+$Comp
+L Device:L L?
+U 1 1 60C1394D
+P 4050 3350
+F 0 "L?" H 4103 3396 50  0000 L CNN
+F 1 "L" H 4103 3305 50  0000 L CNN
+F 2 "" H 4050 3350 50  0001 C CNN
+F 3 "~" H 4050 3350 50  0001 C CNN
+	1    4050 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60C13B88
+P 4050 3650
+F 0 "#PWR?" H 4050 3400 50  0001 C CNN
+F 1 "GND" H 4055 3477 50  0000 C CNN
+F 2 "" H 4050 3650 50  0001 C CNN
+F 3 "" H 4050 3650 50  0001 C CNN
+	1    4050 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4050 3500 4050 3650
+Wire Wire Line
+	3250 3100 4050 3100
+Wire Wire Line
+	4050 3100 4050 3200
+Connection ~ 3250 3100
+$Comp
+L Device:C C?
+U 1 1 60C143B1
+P 4750 3350
+F 0 "C?" H 4865 3396 50  0000 L CNN
+F 1 "C" H 4865 3305 50  0000 L CNN
+F 2 "" H 4788 3200 50  0001 C CNN
+F 3 "~" H 4750 3350 50  0001 C CNN
+	1    4750 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4050 3100 4750 3100
+Wire Wire Line
+	4750 3100 4750 3200
+Connection ~ 4050 3100
+$Comp
+L power:GND #PWR?
+U 1 1 60C14856
+P 4750 3700
+F 0 "#PWR?" H 4750 3450 50  0001 C CNN
+F 1 "GND" H 4755 3527 50  0000 C CNN
+F 2 "" H 4750 3700 50  0001 C CNN
+F 3 "" H 4750 3700 50  0001 C CNN
+	1    4750 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4750 3500 4750 3700
+$Comp
+L Device:R R?
+U 1 1 60C14E91
+P 5300 3100
+F 0 "R?" V 5093 3100 50  0000 C CNN
+F 1 "R" V 5184 3100 50  0000 C CNN
+F 2 "" V 5230 3100 50  0001 C CNN
+F 3 "~" H 5300 3100 50  0001 C CNN
+	1    5300 3100
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60C152A8
+P 5750 2750
+F 0 "R?" H 5820 2796 50  0000 L CNN
+F 1 "R" H 5820 2705 50  0000 L CNN
+F 2 "" V 5680 2750 50  0001 C CNN
+F 3 "~" H 5750 2750 50  0001 C CNN
+	1    5750 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60C15660
+P 5750 3450
+F 0 "R?" H 5820 3496 50  0000 L CNN
+F 1 "R" H 5820 3405 50  0000 L CNN
+F 2 "" V 5680 3450 50  0001 C CNN
+F 3 "~" H 5750 3450 50  0001 C CNN
+	1    5750 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60C15961
+P 5750 3750
+F 0 "#PWR?" H 5750 3500 50  0001 C CNN
+F 1 "GND" H 5755 3577 50  0000 C CNN
+F 2 "" H 5750 3750 50  0001 C CNN
+F 3 "" H 5750 3750 50  0001 C CNN
+	1    5750 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 3600 5750 3750
+Wire Wire Line
+	4750 3100 5150 3100
+Connection ~ 4750 3100
+Wire Wire Line
+	5450 3100 5750 3100
+Wire Wire Line
+	5750 3100 5750 3300
+Wire Wire Line
+	5750 3100 5750 2900
+Connection ~ 5750 3100
+$Comp
+L power:+3.3V #PWR?
+U 1 1 60C168F1
+P 5750 2200
+F 0 "#PWR?" H 5750 2050 50  0001 C CNN
+F 1 "+3.3V" H 5765 2373 50  0000 C CNN
+F 2 "" H 5750 2200 50  0001 C CNN
+F 3 "" H 5750 2200 50  0001 C CNN
+	1    5750 2200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 2200 5750 2600
+Text GLabel 6300 3100 2    50   Input ~ 0
+aout
+Wire Wire Line
+	5750 3100 6300 3100
+$EndSCHEMATC
