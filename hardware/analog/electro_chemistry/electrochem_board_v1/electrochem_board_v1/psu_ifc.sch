@@ -26,7 +26,6 @@ F 3 "https://www.intel.com/content/dam/www/public/us/en/documents/guides/power-s
 $EndComp
 NoConn ~ 4400 3700
 NoConn ~ 4400 3100
-NoConn ~ 4400 3300
 NoConn ~ 4400 3400
 NoConn ~ 4400 2900
 Text GLabel 3400 2900 0    50   Input ~ 0
@@ -46,4 +45,6 @@ F 3 "" H 3900 4200 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3900 3900 3900 4200
+Text GLabel 4400 3300 2    50   Input ~ 0
+5VSB
 $EndSCHEMATC
