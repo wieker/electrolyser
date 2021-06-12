@@ -49,17 +49,6 @@ F 3 "https://www.onsemi.com/pub/Collateral/FQP27P06-D.PDF" H 3150 2900 50  0001 
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R2
-U 1 1 60C12C69
-P 3250 3350
-F 0 "R2" H 3320 3396 50  0000 L CNN
-F 1 "R" H 3320 3305 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 3180 3350 50  0001 C CNN
-F 3 "~" H 3250 3350 50  0001 C CNN
-	1    3250 3350
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R1
 U 1 1 60C12EAB
 P 3250 2300
@@ -288,4 +277,15 @@ Wire Wire Line
 	5950 3400 5950 3750
 Wire Wire Line
 	5450 3100 5650 3100
+$Comp
+L Device:R R2
+U 1 1 60C12C69
+P 3250 3350
+F 0 "R2" H 3320 3396 50  0000 L CNN
+F 1 "R" H 3320 3305 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 3180 3350 50  0001 C CNN
+F 3 "~" H 3250 3350 50  0001 C CNN
+	1    3250 3350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
