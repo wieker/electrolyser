@@ -13,88 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text GLabel 2250 2900 0    50   Input ~ 0
-din
-$Comp
-L power:+3.3V #PWR0101
-U 1 1 60C11C18
-P 3250 2000
-F 0 "#PWR0101" H 3250 1850 50  0001 C CNN
-F 1 "+3.3V" H 3265 2173 50  0000 C CNN
-F 2 "" H 3250 2000 50  0001 C CNN
-F 3 "" H 3250 2000 50  0001 C CNN
-	1    3250 2000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0102
-U 1 1 60C11E84
-P 3250 3650
-F 0 "#PWR0102" H 3250 3400 50  0001 C CNN
-F 1 "GND" H 3255 3477 50  0000 C CNN
-F 2 "" H 3250 3650 50  0001 C CNN
-F 3 "" H 3250 3650 50  0001 C CNN
-	1    3250 3650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_FET:FQP27P06 Q1
-U 1 1 60C127AE
-P 3150 2900
-F 0 "Q1" H 3354 2946 50  0000 L CNN
-F 1 "FQP27P06" H 3354 2855 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 3350 2825 50  0001 L CIN
-F 3 "https://www.onsemi.com/pub/Collateral/FQP27P06-D.PDF" H 3150 2900 50  0001 L CNN
-	1    3150 2900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R1
-U 1 1 60C12EAB
-P 3250 2300
-F 0 "R1" H 3320 2346 50  0000 L CNN
-F 1 "R" H 3320 2255 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 3180 2300 50  0001 C CNN
-F 3 "~" H 3250 2300 50  0001 C CNN
-	1    3250 2300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3250 2000 3250 2150
-Wire Wire Line
-	3250 2450 3250 2550
-Wire Wire Line
-	3250 3100 3250 3200
-Wire Wire Line
-	2250 2900 2950 2900
-Wire Wire Line
-	3250 3500 3250 3650
-$Comp
-L Device:L L1
-U 1 1 60C1394D
-P 4400 2800
-F 0 "L1" H 4453 2846 50  0000 L CNN
-F 1 "L" H 4453 2755 50  0000 L CNN
-F 2 "Inductor_THT:L_Axial_L5.3mm_D2.2mm_P2.54mm_Vertical_Vishay_IM-1" H 4400 2800 50  0001 C CNN
-F 3 "~" H 4400 2800 50  0001 C CNN
-	1    4400 2800
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0103
-U 1 1 60C13B88
-P 4400 3100
-F 0 "#PWR0103" H 4400 2850 50  0001 C CNN
-F 1 "GND" H 4405 2927 50  0000 C CNN
-F 2 "" H 4400 3100 50  0001 C CNN
-F 3 "" H 4400 3100 50  0001 C CNN
-	1    4400 3100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4400 2950 4400 3100
-Wire Wire Line
-	4400 2550 4400 2650
 $Comp
 L Device:C C1
 U 1 1 60C143B1
@@ -106,8 +24,6 @@ F 3 "~" H 5100 2800 50  0001 C CNN
 	1    5100 2800
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4400 2550 5100 2550
 Wire Wire Line
 	5100 2550 5100 2650
 $Comp
@@ -123,17 +39,6 @@ F 3 "" H 5100 3150 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5100 2950 5100 3150
-$Comp
-L Device:R R3
-U 1 1 60C14E91
-P 5650 2550
-F 0 "R3" V 5443 2550 50  0000 C CNN
-F 1 "R" V 5534 2550 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 5580 2550 50  0001 C CNN
-F 3 "~" H 5650 2550 50  0001 C CNN
-	1    5650 2550
-	0    1    1    0   
-$EndComp
 $Comp
 L Device:R R5
 U 1 1 60C15660
@@ -158,9 +63,6 @@ F 3 "" H 6300 3650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6300 3500 6300 3650
-Wire Wire Line
-	5100 2550 5500 2550
-Connection ~ 5100 2550
 $Comp
 L power:+3.3V #PWR0106
 U 1 1 60C168F1
@@ -215,8 +117,6 @@ Wire Wire Line
 	9350 1650 10000 1650
 Wire Wire Line
 	10000 1650 10000 1450
-Text GLabel 9350 1750 2    50   Input ~ 0
-din
 Text GLabel 9350 1850 2    50   Input ~ 0
 aout
 $Comp
@@ -271,36 +171,36 @@ Wire Wire Line
 Connection ~ 6300 2850
 Wire Wire Line
 	6300 2850 6300 3200
-Wire Wire Line
-	5800 2550 6000 2550
 $Comp
-L Device:R R2
-U 1 1 60C12C69
-P 3250 3350
-F 0 "R2" H 3320 3396 50  0000 L CNN
-F 1 "R" H 3320 3305 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 3180 3350 50  0001 C CNN
-F 3 "~" H 3250 3350 50  0001 C CNN
-	1    3250 3350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C2
-U 1 1 60C95A6B
+L Connector:Conn_01x02_Male J2
+U 1 1 60CB004D
 P 3850 2550
-F 0 "C2" V 3598 2550 50  0000 C CNN
-F 1 "C" V 3689 2550 50  0000 C CNN
-F 2 "Capacitor_THT:C_Axial_L12.0mm_D6.5mm_P15.00mm_Horizontal" H 3888 2400 50  0001 C CNN
+F 0 "J2" H 3958 2731 50  0000 C CNN
+F 1 "Conn_01x02_Male" H 3958 2640 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3850 2550 50  0001 C CNN
 F 3 "~" H 3850 2550 50  0001 C CNN
 	1    3850 2550
-	0    1    1    0   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3250 2550 3700 2550
-Connection ~ 3250 2550
+	4050 2550 5100 2550
+Connection ~ 5100 2550
 Wire Wire Line
-	3250 2550 3250 2700
+	5100 2550 6000 2550
+$Comp
+L power:GND #PWR03
+U 1 1 60CB1E67
+P 4400 3150
+F 0 "#PWR03" H 4400 2900 50  0001 C CNN
+F 1 "GND" H 4405 2977 50  0000 C CNN
+F 2 "" H 4400 3150 50  0001 C CNN
+F 3 "" H 4400 3150 50  0001 C CNN
+	1    4400 3150
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	4000 2550 4400 2550
-Connection ~ 4400 2550
+	4050 2650 4400 2650
+Wire Wire Line
+	4400 2650 4400 3150
+NoConn ~ 9350 1750
 $EndSCHEMATC
