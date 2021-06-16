@@ -215,7 +215,7 @@ public class SimplePing
                         flash_wait(handle, 0x00);
 
                         InputStream inputStream = new FileInputStream(
-                                "../../fpga/dsp/dsp_rf/top.bin");
+                                "../../fpga/test_proj/top.bin");
                                 // "../../fpga/nandctl/top.bin");
                         int addr = 0;
                         byte[] buf = new byte[16];
