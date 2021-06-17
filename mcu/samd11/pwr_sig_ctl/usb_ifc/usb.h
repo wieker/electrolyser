@@ -32,7 +32,7 @@
 /*- Includes ----------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
-#include "utils.h"
+#include "../unused/utils.h"
 
 /*- Definitions -------------------------------------------------------------*/
 enum

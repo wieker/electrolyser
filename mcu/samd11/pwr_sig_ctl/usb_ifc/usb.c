@@ -31,9 +31,9 @@
 #include <string.h>
 #include "samd11.h"
 #include "usb.h"
-#include "utils.h"
-#include "hal_gpio.h"
-#include "nvm_data.h"
+#include "../unused/utils.h"
+#include "../unused/hal_gpio.h"
+#include "../unused/nvm_data.h"
 #include "usb_std_chapter6.h"
 
 HAL_GPIO_PIN(USB_DM,   A, 24);

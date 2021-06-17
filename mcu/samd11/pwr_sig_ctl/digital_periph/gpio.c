@@ -31,7 +31,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "samd11.h"
-#include "hal_gpio.h"
+#include "../unused/hal_gpio.h"
 #include "gpio.h"
 
 /*- Definitions -------------------------------------------------------------*/

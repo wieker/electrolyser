@@ -37,12 +37,20 @@ include_directories(../include/instance)
 include_directories(../include/pio)
 
 add_executable(samd11_mcu
-        main.c
-        gpio.c
-        usb.c
-        pwm.c
-        adc.c
-        usb_descriptors.c
         ../startup_samd11.c
-        dma.c
-        timer.c evsys.c usb_std_chapter6.c)
+
+        main.c
+
+        digital_periph/gpio.c
+
+        analog_periph/pwm.c
+        analog_periph/adc.c
+
+        usb_ifc/usb.c
+        usb_ifc/usb_descriptors.c
+        usb_ifc/usb_std_chapter6.c
+
+        glue_periph/dma.c
+        glue_periph/timer.c
+        glue_periph/evsys.c
+        )

@@ -31,57 +31,68 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "samd11.h"
-#include "hal_gpio.h"
-#include "pwm.h"
-
-#include "dma.h"
+#include "../unused/hal_gpio.h"
+#include "../unused/nvm_data.h"
+#include "../unused/dac.h"
 
 /*- Definitions -------------------------------------------------------------*/
-HAL_GPIO_PIN(PWM_0,   A, 4)
-HAL_GPIO_PIN(PWM_1,   A, 11)
+HAL_GPIO_PIN(ADC,      A, 3)
 
 /*- Implementations ---------------------------------------------------------*/
 
+int n = 0;
+int v = 0;
+
 //-----------------------------------------------------------------------------
-void pwm_init(int prescaler, int period)
+void adc_init(void)
 {
-  HAL_GPIO_PWM_0_out();
-  HAL_GPIO_PWM_0_pmuxen(HAL_GPIO_PMUX_F);
+  HAL_GPIO_ADC_in();
+  HAL_GPIO_ADC_pmuxen(HAL_GPIO_PMUX_B);
 
-  PM->APBCMASK.reg |= PM_APBCMASK_TCC0;
+  PM->APBCMASK.reg |= PM_APBCMASK_ADC;
 
-  GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(TCC0_GCLK_ID) |
+  GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID(ADC_GCLK_ID) |
       GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN(0);
 
-  TCC0->CTRLA.reg = TCC_CTRLA_SWRST;
-  while (TCC0->CTRLA.reg & TCC_CTRLA_SWRST);
+  ADC->CTRLA.reg = ADC_CTRLA_SWRST;
+  while (ADC->CTRLA.reg & ADC_CTRLA_SWRST);
 
-  TCC0->CTRLA.reg = TCC_CTRLA_PRESCALER_DIV1024 | TCC_CTRLA_PRESCSYNC_PRESC;
-  TCC0->WAVE.reg = TCC_WAVE_WAVEGEN_NPWM;
-  TCC0->PER.reg = 4;
-  TCC0->COUNT.reg = 0;
-  TCC0->CC[0].reg = 2;
-  //TCC0->CC[1].reg = (F_CPU >> 10) * 2 - 20000;
-  //TCC0->CC[2].reg = (F_CPU >> 10) * 3;
+  ADC->REFCTRL.reg = ADC_REFCTRL_REFSEL_INTVCC1 | ADC_REFCTRL_REFCOMP;
+  ADC->CTRLB.reg = ADC_CTRLB_RESSEL_16BIT | ADC_CTRLB_PRESCALER_DIV512;
+  ADC->AVGCTRL.reg = ADC_AVGCTRL_SAMPLENUM_512;
+  ADC->INPUTCTRL.reg = ADC_INPUTCTRL_MUXPOS_PIN1 | ADC_INPUTCTRL_MUXNEG_GND |
+      ADC_INPUTCTRL_GAIN_DIV2;
+  ADC->CALIB.reg = ADC_CALIB_BIAS_CAL(NVM_READ_CAL(ADC_BIASCAL)) |
+      ADC_CALIB_LINEARITY_CAL(NVM_READ_CAL(ADC_LINEARITY));
+
   // TODo: implement EVSYS PWM => ADC
-  //TCC0->EVCTRL.reg = TCC_EVCTRL_MCEO1;
-  TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
+  ADC->EVCTRL.reg = ADC_EVCTRL_STARTEI | ADC_EVCTRL_SYNCEI;
+  //ADC->INTENSET.reg = ADC_INTENSET_RESRDY;
 
-  //TCC0->INTENSET.reg = TCC_INTENSET_MC2;
-  //NVIC_EnableIRQ(TCC0_IRQn);
+  //NVIC_EnableIRQ(ADC_IRQn);
+
+  ADC->CTRLA.reg = ADC_CTRLA_ENABLE;
 }
 
 //-----------------------------------------------------------------------------
-void pwm_write(int value)
+int adc_read(void)
 {
-  //TCC0->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
-  //TCC0->COUNT.reg = 0;
-  TCC0->CC[0].reg = value;
-  //TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
+  ADC->SWTRIG.reg = ADC_SWTRIG_START;
+  return 0;
 }
 
-void irq_handler_tcc0(void)
+void irq_handler_adc(void)
 {
-  TCC0->INTFLAG.reg = TCC_INTFLAG_MC2;
+  ADC->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+  v = ADC->RESULT.reg;
+  n ++;
+}
+
+int getN() {
+  return n;
+}
+
+int getV() {
+  return v;
 }
 

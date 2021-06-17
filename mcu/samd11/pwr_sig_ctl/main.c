@@ -28,19 +28,17 @@
 
 /*- Includes ----------------------------------------------------------------*/
 #include <stdint.h>
-#include <stdbool.h>
 #include <stdalign.h>
 #include "samd11.h"
-#include "hal_gpio.h"
-#include "nvm_data.h"
-#include "gpio.h"
-#include "usb.h"
-#include "pwm.h"
-#include "adc.h"
+#include "unused/hal_gpio.h"
+#include "unused/nvm_data.h"
+#include "usb_ifc/usb.h"
+#include "analog_periph/pwm.h"
+#include "analog_periph/adc.h"
 
-#include "dma.h"
-#include "timer.h"
-#include "evsys.h"
+#include "glue_periph/dma.h"
+#include "glue_periph/timer.h"
+#include "glue_periph/evsys.h"
 
 /*- Definitions -------------------------------------------------------------*/
 HAL_GPIO_PIN(LED,      A, 14)
