@@ -268,23 +268,16 @@ Wire Wire Line
 	6950 2350 7900 2350
 Connection ~ 6950 2350
 Wire Wire Line
-	3250 2850 3250 3600
-Connection ~ 3250 3600
-Wire Wire Line
 	2700 2850 2700 3600
 $Comp
-L Device:C C3
-U 1 1 60CDE979
-P 4400 2850
-F 0 "C3" V 4652 2850 50  0000 C CNN
-F 1 "C" V 4561 2850 50  0000 C CNN
-F 2 "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm" H 4438 2700 50  0001 C CNN
-F 3 "~" H 4400 2850 50  0001 C CNN
-	1    4400 2850
-	0    -1   -1   0   
+L Connector:Conn_01x01_Male J2
+U 1 1 60CE421D
+P 5000 2850
+F 0 "J2" H 5108 3031 50  0000 C CNN
+F 1 "Conn_01x01_Male" H 5108 2940 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical" H 5000 2850 50  0001 C CNN
+F 3 "~" H 5000 2850 50  0001 C CNN
+	1    5000 2850
+	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3250 2850 4250 2850
-Wire Wire Line
-	4550 2850 5200 2850
 $EndSCHEMATC
