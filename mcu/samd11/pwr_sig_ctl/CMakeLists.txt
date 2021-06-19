@@ -37,6 +37,7 @@ include_directories(../include/instance)
 include_directories(../include/pio)
 include_directories(.)
 include_directories(./digital_periph)
+include_directories(../stage1_digital_usb/)
 
 add_executable(samd11_mcu
         ../startup_samd11.c
@@ -50,9 +51,9 @@ add_executable(samd11_mcu
         analog_periph/pwm.c
         analog_periph/adc.c
 
-        usb_ifc/usb.c
-        usb_ifc/usb_descriptors.c
-        usb_ifc/usb_std_chapter6.c
+        ../stage1_digital_usb/usb_ifc/usb.c
+        ../stage1_digital_usb/usb_ifc/usb_descriptors.c
+        ../stage1_digital_usb/usb_ifc/usb_std_chapter6.c
 
         glue_periph/dma.c
         glue_periph/timer.c
