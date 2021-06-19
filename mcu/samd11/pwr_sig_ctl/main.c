@@ -29,6 +29,7 @@
 /*- Includes ----------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdalign.h>
+#include <digital_periph/gpio.h>
 #include "samd11.h"
 #include "unused/hal_gpio.h"
 #include "unused/nvm_data.h"
@@ -88,13 +89,13 @@ int main(void)
   //timer_init();
   //evsys_init();
 
+  gpio_init();
   usb_init();
   adc_init();
-  //gpio_init();
+  pwm_init(0, 10);
 
   //dma_init();
   //dma_start();
-  pwm_init(0, 10);
   //adc_read();
 
   //HAL_GPIO_LED_out();
