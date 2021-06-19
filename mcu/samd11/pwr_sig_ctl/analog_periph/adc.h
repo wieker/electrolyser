@@ -32,6 +32,7 @@
 /*- Prototypes --------------------------------------------------------------*/
 void adc_init(void);
 int adc_read(void);
+int adc_read_polling(void);
 
 int getN();
 int getV();

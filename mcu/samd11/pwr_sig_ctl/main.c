@@ -92,7 +92,7 @@ int main(void)
   gpio_init();
   usb_init();
   adc_init();
-  pwm_init(0, 10);
+  //pwm_init(0, 10);
 
   //dma_init();
   //dma_start();

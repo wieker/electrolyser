@@ -36,7 +36,7 @@
 #include "../unused/dac.h"
 
 /*- Definitions -------------------------------------------------------------*/
-HAL_GPIO_PIN(ADC,      A, 3)
+HAL_GPIO_PIN(ADC,      A, 4)
 
 /*- Implementations ---------------------------------------------------------*/
 
@@ -58,20 +58,29 @@ void adc_init(void)
   while (ADC->CTRLA.reg & ADC_CTRLA_SWRST);
 
   ADC->REFCTRL.reg = ADC_REFCTRL_REFSEL_INTVCC1 | ADC_REFCTRL_REFCOMP;
-  ADC->CTRLB.reg = ADC_CTRLB_RESSEL_16BIT | ADC_CTRLB_PRESCALER_DIV512;
+  ADC->CTRLB.reg = ADC_CTRLB_RESSEL_8BIT | ADC_CTRLB_PRESCALER_DIV512;
   ADC->AVGCTRL.reg = ADC_AVGCTRL_SAMPLENUM_512;
-  ADC->INPUTCTRL.reg = ADC_INPUTCTRL_MUXPOS_PIN1 | ADC_INPUTCTRL_MUXNEG_GND |
+  ADC->INPUTCTRL.reg = ADC_INPUTCTRL_MUXPOS_PIN2 | ADC_INPUTCTRL_MUXNEG_GND |
       ADC_INPUTCTRL_GAIN_DIV2;
   ADC->CALIB.reg = ADC_CALIB_BIAS_CAL(NVM_READ_CAL(ADC_BIASCAL)) |
       ADC_CALIB_LINEARITY_CAL(NVM_READ_CAL(ADC_LINEARITY));
 
   // TODo: implement EVSYS PWM => ADC
-  ADC->EVCTRL.reg = ADC_EVCTRL_STARTEI | ADC_EVCTRL_SYNCEI;
+  //ADC->EVCTRL.reg = ADC_EVCTRL_STARTEI | ADC_EVCTRL_SYNCEI;
   //ADC->INTENSET.reg = ADC_INTENSET_RESRDY;
 
   //NVIC_EnableIRQ(ADC_IRQn);
 
   ADC->CTRLA.reg = ADC_CTRLA_ENABLE;
+}
+
+//-----------------------------------------------------------------------------
+int adc_read_polling(void)
+{
+  ADC->SWTRIG.reg = ADC_SWTRIG_START;
+  while (0 == (ADC->INTFLAG.reg & ADC_INTFLAG_RESRDY));
+
+  return ADC->RESULT.reg;
 }
 
 //-----------------------------------------------------------------------------
