@@ -35,11 +35,15 @@ include_directories(../include)
 include_directories(../include/component)
 include_directories(../include/instance)
 include_directories(../include/pio)
+include_directories(.)
+include_directories(./digital_periph)
 
 add_executable(samd11_mcu
         ../startup_samd11.c
 
         main.c
+
+        logic/special.c
 
         digital_periph/gpio.c
 

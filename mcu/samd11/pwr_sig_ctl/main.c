@@ -82,70 +82,20 @@ static void sys_init(void)
   while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY);
 }
 
-static uint32_t get_uint32(uint8_t *data)
-{
-  return ((uint32_t)data[3] << 0) | ((uint32_t)data[2] << 8) |
-         ((uint32_t)data[1] << 16) | ((uint32_t)data[0] << 24);
-}
-
-static uint32_t get_uint16(uint8_t *data)
-{
-  return ((uint16_t)data[0] << 0) | ((uint16_t)data[1] << 8);
-}
-
-static void set_uint32(uint8_t *data, uint32_t value)
-{
-  data[3] = (value >> 0) & 0xff;
-  data[2] = (value >> 8) & 0xff;
-  data[1] = (value >> 16) & 0xff;
-  data[0] = (value >> 24) & 0xff;
-}
-
-static void set_uint16(uint8_t *data, uint16_t value)
-{
-  data[0] = (value >> 0) & 0xff;
-  data[1] = (value >> 8) & 0xff;
-}
-
-static alignas(4) uint8_t app_recv_buffer[64];
-
-//-----------------------------------------------------------------------------
-void usb_recv_callback(void)
-{
-  //pwm_write((F_CPU / 1000ul / 1024) * 250 * app_usb_recv_buffer[0]);
-
-  //dma_start(DMAC_CHANNEL_0, (const void *) &ADC->RESULT.reg, app_response_buffer, 64);
-  //int voltage = getV();
-  //set_uint16(app_response_buffer, voltage);
-
-  //usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
-
-  //usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
-}
-
-void usb_configure_callback() {
-  usb_recv(APP_EP_RECV, app_recv_buffer, sizeof(app_recv_buffer));
-}
-
-void dma_complete_cb() {
-  usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
-  usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
-}
-
 int main(void)
 {
   sys_init();
-  timer_init();
-  evsys_init();
+  //timer_init();
+  //evsys_init();
 
   usb_init();
   adc_init();
   //gpio_init();
 
-  dma_init();
-  dma_start();
+  //dma_init();
+  //dma_start();
   pwm_init(0, 10);
-  adc_read();
+  //adc_read();
 
   //HAL_GPIO_LED_out();
   //HAL_GPIO_LED_clr();
