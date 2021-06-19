@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <stdalign.h>
 #include <analog_periph/adc.h>
+#include <analog_periph/pwm.h>
 #include "samd11.h"
 #include "unused/hal_gpio.h"
 #include "gpio.h"
@@ -61,6 +62,11 @@ void usb_recv_callback(void)
     led_state = !led_state;
     gpio_write(GPIO_LED, led_state);
     app_response_buffer[0] = adc_read_polling();
+  }
+  if (app_usb_recv_buffer[0] == 2) {
+    led_state = !led_state;
+    gpio_write(GPIO_LED, led_state);
+    pwm_write(app_usb_recv_buffer[2]);
   }
 
 

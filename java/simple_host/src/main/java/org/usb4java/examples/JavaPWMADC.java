@@ -53,6 +53,21 @@ public class JavaPWMADC {
                     case 'a':
                         sendCommand(handle, 1, new byte[]{ 0x00 }, true);
                         break;
+                    case '1':
+                        sendCommand(handle, 2, new byte[]{ 0x00 }, true);
+                        break;
+                    case '2':
+                        sendCommand(handle, 2, new byte[]{ 0x01 }, true);
+                        break;
+                    case '3':
+                        sendCommand(handle, 2, new byte[]{ 0x02 }, true);
+                        break;
+                    case '4':
+                        sendCommand(handle, 2, new byte[]{ 0x03 }, true);
+                        break;
+                    case '5':
+                        sendCommand(handle, 2, new byte[]{ 0x04 }, true);
+                        break;
                 }
             }
         } catch (Exception e) {

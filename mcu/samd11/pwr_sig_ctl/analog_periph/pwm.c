@@ -37,8 +37,7 @@
 #include "../glue_periph/dma.h"
 
 /*- Definitions -------------------------------------------------------------*/
-HAL_GPIO_PIN(PWM_0,   A, 4)
-HAL_GPIO_PIN(PWM_1,   A, 11)
+HAL_GPIO_PIN(PWM_0,   A, 5)
 
 /*- Implementations ---------------------------------------------------------*/
 
@@ -60,7 +59,7 @@ void pwm_init(int prescaler, int period)
   TCC0->WAVE.reg = TCC_WAVE_WAVEGEN_NPWM;
   TCC0->PER.reg = 4;
   TCC0->COUNT.reg = 0;
-  TCC0->CC[0].reg = 2;
+  TCC0->CC[1].reg = 2;
   //TCC0->CC[1].reg = (F_CPU >> 10) * 2 - 20000;
   //TCC0->CC[2].reg = (F_CPU >> 10) * 3;
   // TODo: implement EVSYS PWM => ADC
@@ -74,10 +73,10 @@ void pwm_init(int prescaler, int period)
 //-----------------------------------------------------------------------------
 void pwm_write(int value)
 {
-  //TCC0->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
-  //TCC0->COUNT.reg = 0;
-  TCC0->CC[0].reg = value;
-  //TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
+  TCC0->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
+  TCC0->COUNT.reg = 0;
+  TCC0->CC[1].reg = value;
+  TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
 }
 
 void irq_handler_tcc0(void)
