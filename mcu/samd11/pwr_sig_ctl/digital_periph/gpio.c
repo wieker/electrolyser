@@ -58,17 +58,6 @@ enum
   GPIO_7_MSK   = (1 << 7),
 };
 
-enum
-{
-  GPIO_CONF_DISABLE  = 1 << 0,
-  GPIO_CONF_INPUT    = 1 << 1,
-  GPIO_CONF_OUTPUT   = 1 << 2,
-  GPIO_CONF_PULLUP   = 1 << 3,
-  GPIO_CONF_PULLDOWN = 1 << 4,
-  GPIO_CONF_SET      = 1 << 3, // Intentional overlap with PULLUP / PULLDOWN
-  GPIO_CONF_CLR      = 1 << 4,
-};
-
 /*- Variables ---------------------------------------------------------------*/
 static int gpio_config[GPIO_COUNT];
 

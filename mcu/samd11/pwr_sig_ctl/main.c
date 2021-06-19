@@ -30,6 +30,7 @@
 #include <stdint.h>
 #include <stdalign.h>
 #include <digital_periph/gpio.h>
+#include <logic/special.h>
 #include "samd11.h"
 #include "unused/hal_gpio.h"
 #include "unused/nvm_data.h"
@@ -90,6 +91,7 @@ int main(void)
   //evsys_init();
 
   gpio_init();
+  gpio_configure(GPIO_LED, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
   usb_init();
   adc_init();
   //pwm_init(0, 10);
