@@ -74,8 +74,9 @@ void pwm_init(int prescaler, int period)
 void pwm_write(int value)
 {
   TCC0->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
+  TCC0->PER.reg = value;
   TCC0->COUNT.reg = 0;
-  TCC0->CC[1].reg = value;
+  TCC0->CC[1].reg = value / 2;
   TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
 }
 

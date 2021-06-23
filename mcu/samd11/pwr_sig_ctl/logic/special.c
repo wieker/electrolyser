@@ -66,7 +66,7 @@ void usb_recv_callback(void)
   if (app_usb_recv_buffer[0] == 2) {
     led_state = !led_state;
     gpio_write(GPIO_LED, led_state);
-    pwm_write(app_usb_recv_buffer[2]);
+    pwm_write((app_usb_recv_buffer[2] << 8) + (app_usb_recv_buffer[3]));
   }
 
 
