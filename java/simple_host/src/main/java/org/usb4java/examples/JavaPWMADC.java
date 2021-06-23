@@ -54,7 +54,7 @@ public class JavaPWMADC {
                         sendCommand(handle, 1, new byte[]{ 0x00 }, true);
                         break;
                     case '1':
-                        sendCommand(handle, 2, new byte[]{ 0x10, 0x00 }, true);
+                        sendCommand(handle, 2, new byte[]{ 0x00, (byte) 0x02 }, true);
                         break;
                 }
             }
