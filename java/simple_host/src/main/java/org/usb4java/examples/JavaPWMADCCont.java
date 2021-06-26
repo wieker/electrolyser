@@ -53,7 +53,7 @@ public class JavaPWMADCCont {
                 b = sendCommand(handle, 1, new byte[]{0x00}, false)[0];
                 System.out.println("ADC: " + b);
                 Thread.sleep(1000l);
-                sendCommand(handle, 2, new byte[]{ 0x04, (byte) 0x00 }, false);
+                sendCommand(handle, 2, new byte[]{ 0x10, (byte) 0x00 }, false);
                 System.out.println("PWM: normal");
                 Thread.sleep(1000l);
                 b = sendCommand(handle, 1, new byte[]{ 0x00 }, false)[0];
