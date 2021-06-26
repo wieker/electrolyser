@@ -43,26 +43,13 @@ public class JavaPWMADCCont {
             }
 
 
+            sendCommand(handle, 2, new byte[]{ 0x04, (byte) 0x00 }, true);
+            Thread.sleep(1000l);
             while (true) {
                 System.out.print("> ");
-//                sendCommand(handle, 2, new byte[]{ 0x00, (byte) 0x08 }, true);
-//                Thread.sleep(1000l);
-//                sendCommand(handle, 2, new byte[]{ 0x00, (byte) 0x10 }, true);
-//                Thread.sleep(1000l);
-//                sendCommand(handle, 2, new byte[]{ 0x00, (byte) 0x20 }, true);
-//                Thread.sleep(1000l);
-//                sendCommand(handle, 2, new byte[]{ 0x00, (byte) 0x40 }, true);
-//                Thread.sleep(1000l);
-//                sendCommand(handle, 2, new byte[]{ 0x00, (byte) 0x80 }, true);
-//                Thread.sleep(1000l);
-//                sendCommand(handle, 2, new byte[]{ 0x01, (byte) 0x00 }, true);
-//                Thread.sleep(1000l);
-//                sendCommand(handle, 2, new byte[]{ 0x02, (byte) 0x00 }, true);
-//                Thread.sleep(1000l);
-                sendCommand(handle, 2, new byte[]{ 0x04, (byte) 0x00 }, true);
+                sendCommand(handle, 1, new byte[]{ 0x00 }, true);
                 Thread.sleep(1000l);
-                Thread.sleep(1000l);
-                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally
