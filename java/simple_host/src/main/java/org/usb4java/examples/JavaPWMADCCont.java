@@ -62,7 +62,7 @@ public class JavaPWMADCCont {
                 b = sendCommand(handle, 1, new byte[]{0x00}, false)[0];
                 System.out.println("ADC: " + b);
                 Thread.sleep(1000l);
-                sendCommand(handle, 2, new byte[]{0x00, (byte) 0x02}, false);
+                sendCommand(handle, 2, new byte[]{0x00, (byte) 0x04}, false);
                 System.out.println("PWM: MAX");
                 Thread.sleep(1000l);
             }
