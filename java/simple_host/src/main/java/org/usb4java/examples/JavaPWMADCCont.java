@@ -47,7 +47,23 @@ public class JavaPWMADCCont {
             Thread.sleep(1000l);
             while (true) {
                 System.out.print("> ");
-                sendCommand(handle, 1, new byte[]{ 0x00 }, true);
+                byte b = sendCommand(handle, 1, new byte[]{0x00}, false)[0];
+                System.out.println("ADC: " + b);
+                Thread.sleep(1000l);
+                b = sendCommand(handle, 1, new byte[]{0x00}, false)[0];
+                System.out.println("ADC: " + b);
+                Thread.sleep(1000l);
+                sendCommand(handle, 2, new byte[]{ 0x04, (byte) 0x00 }, false);
+                System.out.println("PWM: normal");
+                Thread.sleep(1000l);
+                b = sendCommand(handle, 1, new byte[]{ 0x00 }, false)[0];
+                System.out.println("ADC: " + b);
+                Thread.sleep(1000l);
+                b = sendCommand(handle, 1, new byte[]{0x00}, false)[0];
+                System.out.println("ADC: " + b);
+                Thread.sleep(1000l);
+                sendCommand(handle, 2, new byte[]{0x00, (byte) 0x02}, false);
+                System.out.println("PWM: MAX");
                 Thread.sleep(1000l);
             }
         } catch (Exception e) {
