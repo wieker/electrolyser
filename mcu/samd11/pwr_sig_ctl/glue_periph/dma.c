@@ -31,11 +31,8 @@ static  dmac_descriptor_registers_t _write_back_section[DMAC_CHANNELS_NUMBER]   
 static  dmac_descriptor_registers_t  descriptor_section[DMAC_CHANNELS_NUMBER]    __attribute__ ((aligned (16)));
 
 /* Descriptor section for DMAC */
-static  dmac_descriptor_registers_t  descriptor_chain_1   __attribute__ ((aligned (16)));
-static  dmac_descriptor_registers_t  descriptor_chain_2   __attribute__ ((aligned (16)));
 static  dmac_descriptor_registers_t  descriptor_chain_3   __attribute__ ((aligned (16)));
 static int fake = 0;
-static int ok = 0;
 
 void dma_init()
 {
@@ -55,11 +52,9 @@ void dma_init()
   DMAC->CHCTRLB.reg = DMAC_CHCTRLB_TRIGACT(2) | DMAC_CHCTRLB_TRIGSRC(ADC_DMAC_ID_RESRDY) | DMAC_CHCTRLB_LVL(0) |
           DMAC_CHCTRLB_EVOE;
 
-  descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID |
+  descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID |
           DMAC_BTCTRL_DSTINC | DMAC_BTCTRL_EVOSEL_BEAT;
-  descriptor_chain_1.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID | DMAC_BTCTRL_EVOSEL_BEAT;
-  descriptor_chain_2.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID | DMAC_BTCTRL_EVOSEL_BEAT;
-  descriptor_chain_3.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_HWORD | DMAC_BTCTRL_VALID | DMAC_BTCTRL_EVOSEL_BEAT;
+  descriptor_chain_3.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID;
 
   DMAC->CHINTENSET.reg = (DMAC_CHINTENSET_TERR | DMAC_CHINTENSET_TCMPL);
 
@@ -90,19 +85,9 @@ void dma_start()
 
 void dma_descrs() {
   descriptor_section[0].DMAC_DESCADDR = (uint32_t) &descriptor_chain_3;
-  descriptor_section[0].DMAC_DSTADDR = (uint32_t) ((intptr_t) (app_response_buffer + 64));
+  descriptor_section[0].DMAC_DSTADDR = (uint32_t) ((intptr_t) (app_response_buffer + 32));
   descriptor_section[0].DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
   descriptor_section[0].DMAC_BTCNT = 32;
-
-  descriptor_chain_1.DMAC_DESCADDR = (uint32_t) &descriptor_chain_2;
-  descriptor_chain_1.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[2]);
-  descriptor_chain_1.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-  descriptor_chain_1.DMAC_BTCNT = 1;
-
-  descriptor_chain_2.DMAC_DESCADDR = (uint32_t) &descriptor_chain_3;
-  descriptor_chain_2.DMAC_DSTADDR = ((intptr_t) &app_response_buffer[4]);
-  descriptor_chain_2.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-  descriptor_chain_2.DMAC_BTCNT = 1;
 
   descriptor_chain_3.DMAC_DESCADDR = (uint32_t) descriptor_section;
   descriptor_chain_3.DMAC_DSTADDR = ((intptr_t) &fake);
@@ -149,6 +134,6 @@ void irq_handler_dmac( void )
     /* Restore channel ID */
     DMAC->CHID.reg = channelId;
 
-    dma_complete_cb();
+    //dma_complete_cb();
 }
 

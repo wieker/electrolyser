@@ -93,7 +93,7 @@ public class SimplePing
         return bytes;
     }
 
-    private static void printBytes(byte[] bytes) {
+    public static void printBytes(byte[] bytes) {
         for (int i = 0; i < bytes.length; i ++) {
             System.out.print(String.format("%02x ", bytes[i]));
         }

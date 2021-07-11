@@ -63,7 +63,7 @@ void pwm_init(int prescaler, int period)
   //TCC0->CC[1].reg = (F_CPU >> 10) * 2 - 20000;
   //TCC0->CC[2].reg = (F_CPU >> 10) * 3;
   // TODo: implement EVSYS PWM => ADC
-  //TCC0->EVCTRL.reg = TCC_EVCTRL_MCEO1;
+  TCC0->EVCTRL.reg = TCC_EVCTRL_MCEO1;
   TCC0->CTRLA.reg |= TCC_CTRLA_ENABLE;
 
   //TCC0->INTENSET.reg = TCC_INTENSET_MC2;

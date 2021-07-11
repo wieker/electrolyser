@@ -68,6 +68,12 @@ void usb_recv_callback(void)
     gpio_write(GPIO_LED, led_state);
     pwm_write((app_usb_recv_buffer[2] << 8) + (app_usb_recv_buffer[3]));
   }
+  if (app_usb_recv_buffer[0] == 3) {
+    pwm_write(F_CPU);
+  }
+  if (app_usb_recv_buffer[0] == 4) {
+    pwm_write(F_CPU);
+  }
 
 
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
