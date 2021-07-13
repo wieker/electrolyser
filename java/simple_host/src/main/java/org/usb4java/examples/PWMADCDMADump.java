@@ -50,19 +50,12 @@ public class PWMADCDMADump {
                     (byte) 0x00, (byte) 0x00,
             }, true);
             Thread.sleep(1000l);
-            byte[] adc = sendCommand(handle, 3, new byte[32], false);
+            byte[] adc;
             while (true) {
-                System.out.print("> ");
                 adc = sendCommand(handle, 4, new byte[32], false);
-                System.out.println("ADC:");
+                System.out.print("ADC:");
                 printBytes(adc);
-                Thread.sleep(100l);
-                adc = sendCommand(handle, 4, new byte[32], false);
-                printBytes(adc);
-                Thread.sleep(100l);
-                adc = sendCommand(handle, 4, new byte[32], false);
-                printBytes(adc);
-                Thread.sleep(1000l);
+                Thread.sleep(50l);
             }
         } catch (Exception e) {
             e.printStackTrace();
