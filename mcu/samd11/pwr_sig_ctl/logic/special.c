@@ -69,9 +69,9 @@ void usb_recv_callback(void)
   if (app_usb_recv_buffer[0] == 3) {
   }
   if (app_usb_recv_buffer[0] == 4) {
-    for (int i = 0; i < app_usb_recv_buffer[1]; i ++) {
+    /*for (int i = 0; i < app_usb_recv_buffer[1]; i ++) {
       app_response_buffer[i] = adc_read_polling();
-    }
+    }*/
   }
 
 

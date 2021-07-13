@@ -88,7 +88,7 @@ int main(void)
 {
   sys_init();
   //timer_init();
-  //evsys_init();
+  evsys_init();
 
   gpio_init();
   gpio_configure(GPIO_LED, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
@@ -96,8 +96,8 @@ int main(void)
   adc_init();
   pwm_init(0, 10);
 
-  //dma_init();
-  //dma_start();
+  dma_init();
+  dma_start();
   //adc_read();
 
   //HAL_GPIO_LED_out();
