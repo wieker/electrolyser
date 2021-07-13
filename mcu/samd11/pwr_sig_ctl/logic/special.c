@@ -64,15 +64,11 @@ void usb_recv_callback(void)
     app_response_buffer[0] = adc_read_polling();
   }
   if (app_usb_recv_buffer[0] == 2) {
-    led_state = !led_state;
-    gpio_write(GPIO_LED, led_state);
-    pwm_write((app_usb_recv_buffer[2] << 8) + (app_usb_recv_buffer[3]));
+    pwm_write(get_uint32(app_usb_recv_buffer + 2), get_uint32(app_usb_recv_buffer + 6));
   }
   if (app_usb_recv_buffer[0] == 3) {
-    pwm_write(F_CPU);
   }
   if (app_usb_recv_buffer[0] == 4) {
-    pwm_write(F_CPU);
   }
 
 
