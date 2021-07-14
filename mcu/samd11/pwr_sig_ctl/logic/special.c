@@ -52,6 +52,8 @@ static void set_uint16(uint8_t *data, uint16_t value)
   data[1] = (value >> 8) & 0xff;
 }
 
+volatile int lock = 1;
+
 void usb_recv_callback(void)
 {
   if (app_usb_recv_buffer[0] == 0) {
@@ -67,6 +69,10 @@ void usb_recv_callback(void)
     pwm_write(get_uint32(app_usb_recv_buffer + 2), get_uint32(app_usb_recv_buffer + 6));
   }
   if (app_usb_recv_buffer[0] == 3) {
+    if (lock == 1) {
+      return;
+    }
+    lock = 1;
   }
   if (app_usb_recv_buffer[0] == 4) {
     /*for (int i = 0; i < app_usb_recv_buffer[1]; i ++) {
@@ -84,6 +90,7 @@ void usb_configure_callback() {
 }
 
 void dma_complete_cb() {
+  lock = 0;
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
 }

@@ -52,7 +52,7 @@ public class PWMADCDMADump {
             Thread.sleep(1000l);
             byte[] adc;
             while (true) {
-                adc = sendCommand(handle, 4, new byte[32], false);
+                adc = sendCommand(handle, 3, new byte[32], false);
                 System.out.print("ADC:");
                 printBytes(adc);
                 Thread.sleep(50l);
