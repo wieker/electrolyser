@@ -79,7 +79,7 @@ public class PWMADCDMADump {
                 printBytes(adc);
                 Thread.sleep(50l);
 
-                i = (4 == i) ? 0 : i + 1;
+                i = (7 == i) ? 0 : i + 1;
             }
         } catch (Exception e) {
             e.printStackTrace();
