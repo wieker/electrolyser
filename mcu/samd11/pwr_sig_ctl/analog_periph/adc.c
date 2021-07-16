@@ -58,7 +58,7 @@ void adc_init(void)
   while (ADC->CTRLA.reg & ADC_CTRLA_SWRST);
 
   ADC->REFCTRL.reg = ADC_REFCTRL_REFSEL_INTVCC1 | ADC_REFCTRL_REFCOMP;
-  ADC->CTRLB.reg = ADC_CTRLB_RESSEL_8BIT | ADC_CTRLB_PRESCALER_DIV8;
+  ADC->CTRLB.reg = ADC_CTRLB_RESSEL_8BIT | ADC_CTRLB_PRESCALER_DIV16;
   ADC->AVGCTRL.reg = ADC_AVGCTRL_SAMPLENUM_1 | ADC_AVGCTRL_ADJRES(0);
   ADC->INPUTCTRL.reg = ADC_INPUTCTRL_MUXPOS_PIN2 | ADC_INPUTCTRL_MUXNEG_GND |
       ADC_INPUTCTRL_GAIN_DIV2;
@@ -71,6 +71,13 @@ void adc_init(void)
 
   //NVIC_EnableIRQ(ADC_IRQn);
 
+  ADC->CTRLA.reg = ADC_CTRLA_ENABLE;
+}
+
+void adc_configure(uint32_t prescaler, uint32_t samplenum, uint32_t adjres) {
+  ADC->CTRLA.reg = 0;
+  ADC->CTRLB.reg = ADC_CTRLB_RESSEL_8BIT | prescaler;
+  ADC->AVGCTRL.reg = samplenum | adjres;
   ADC->CTRLA.reg = ADC_CTRLA_ENABLE;
 }
 

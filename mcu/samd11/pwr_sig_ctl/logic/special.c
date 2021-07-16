@@ -79,6 +79,9 @@ void usb_recv_callback(void)
       app_response_buffer[i] = adc_read_polling();
     }*/
   }
+  if (app_usb_recv_buffer[0] == 5) {
+    adc_configure(get_uint32(app_usb_recv_buffer + 2), get_uint32(app_usb_recv_buffer + 6), get_uint32(app_usb_recv_buffer + 10));
+  }
 
 
   usb_send(APP_EP_SEND, app_response_buffer, sizeof(app_response_buffer));

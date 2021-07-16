@@ -34,6 +34,8 @@ void adc_init(void);
 int adc_read(void);
 int adc_read_polling(void);
 
+void adc_configure(uint32_t prescaler, uint32_t samplenum, uint32_t adjres);
+
 int getN();
 int getV();
 
