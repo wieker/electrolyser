@@ -44,42 +44,43 @@ public class PWMADCDMADump {
 
 
             sendCommand(handle, 2, new byte[]{
-                    (byte) 0x00, (byte) 0x80,
                     (byte) 0x00, (byte) 0x00,
                     (byte) 0x00, (byte) 0x40,
                     (byte) 0x00, (byte) 0x00,
+                    (byte) 0x00, (byte) 0x20,
             }, true);
             Thread.sleep(1000l);
             byte[] adc;
-            int i = 2;
+            int i = 3;
 
+            sendCommand(handle, 5, new byte[]{
+                    (byte) 0x00, (byte) 0x00,
+                    (byte) i, (byte) 0x00,
+                    (byte) 0x00, (byte) 0x00,
+                    (byte) 0x00, (byte) 0x00,
+                    (byte) 0x00, (byte) 0x00,
+                    (byte) 0x00, (byte) 0x00,
+            }, false);
+            Thread.sleep(50l);
             adc = sendCommand(handle, 3, new byte[32], false);
             System.out.print("ADC: " + i + " ");
             printBytes(adc);
             Thread.sleep(50l);
 
             while (true) {
-                sendCommand(handle, 5, new byte[]{
-                        (byte) 0x00, (byte) 0x00,
-                        (byte) i, (byte) 0x00,
-                        (byte) 0x00, (byte) 0x00,
-                        (byte) 0x00, (byte) 0x00,
-                        (byte) 0x00, (byte) 0x00,
-                        (byte) 0x00, (byte) 0x00,
-                }, false);
-                Thread.sleep(50l);
+                /*
+
+                adc = sendCommand(handle, 3, new byte[32], false);
+                System.out.print("ADC: " + i + " ");
+                printBytes(adc);
+                Thread.sleep(50l);*/
 
                 adc = sendCommand(handle, 3, new byte[32], false);
                 System.out.print("ADC: " + i + " ");
                 printBytes(adc);
                 Thread.sleep(50l);
 
-                adc = sendCommand(handle, 3, new byte[32], false);
-                System.out.print("ADC: " + i + " ");
-                printBytes(adc);
-                Thread.sleep(50l);
-
-                i = (7 == i) ? 0 : i + 1;
+                //i = (7 == i) ? 0 : i + 1;
             }
         } catch (Exception e) {
             e.printStackTrace();
