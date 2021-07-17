@@ -45,9 +45,9 @@ public class PWMADCDMADump {
 
             sendCommand(handle, 2, new byte[]{
                     (byte) 0x00, (byte) 0x00,
-                    (byte) 0x00, (byte) 0x40,
-                    (byte) 0x00, (byte) 0x00,
                     (byte) 0x00, (byte) 0x20,
+                    (byte) 0x00, (byte) 0x00,
+                    (byte) 0x00, (byte) 0x10,
             }, true);
             Thread.sleep(1000l);
             byte[] adc;
