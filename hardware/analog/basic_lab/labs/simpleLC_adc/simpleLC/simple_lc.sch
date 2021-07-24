@@ -138,8 +138,6 @@ F 3 "~" H 6300 2000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6300 2350 6300 2250
-Wire Wire Line
 	6300 1850 6300 1700
 $Comp
 L Device:R R1
@@ -163,13 +161,10 @@ Wire Wire Line
 	5550 2150 5550 2550
 Wire Wire Line
 	5550 2550 6000 2550
-Text GLabel 6750 2250 2    50   Input ~ 0
+Text GLabel 4900 5450 2    50   Input ~ 0
 adc
 Wire Wire Line
-	6300 2250 6750 2250
-Connection ~ 6300 2250
-Wire Wire Line
-	6300 2250 6300 2150
+	4450 5450 4900 5450
 $Comp
 L Device:C C1
 U 1 1 60F96109
@@ -186,4 +181,192 @@ Wire Wire Line
 Connection ~ 5550 2550
 Wire Wire Line
 	4050 2550 4650 2550
+Wire Wire Line
+	6300 2150 6300 2300
+$Comp
+L Device:C C3
+U 1 1 60FBF41C
+P 7250 2300
+F 0 "C3" V 6998 2300 50  0000 C CNN
+F 1 "C" V 7089 2300 50  0000 C CNN
+F 2 "Capacitor_THT:C_Axial_L12.0mm_D6.5mm_P15.00mm_Horizontal" H 7288 2150 50  0001 C CNN
+F 3 "~" H 7250 2300 50  0001 C CNN
+	1    7250 2300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6300 2300 7100 2300
+Connection ~ 6300 2300
+Wire Wire Line
+	6300 2300 6300 2350
+Text GLabel 7950 2300 2    50   Input ~ 0
+det
+Wire Wire Line
+	7400 2300 7950 2300
+Text GLabel 2000 5450 0    50   Input ~ 0
+det
+$Comp
+L Diode:1N4148 D1
+U 1 1 60FC0E20
+P 2350 5900
+F 0 "D1" V 2304 5980 50  0000 L CNN
+F 1 "1N4148" V 2395 5980 50  0000 L CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2350 5725 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2350 5900 50  0001 C CNN
+	1    2350 5900
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N4148 D2
+U 1 1 60FC14E5
+P 2900 5450
+F 0 "D2" H 2900 5233 50  0000 C CNN
+F 1 "1N4148" H 2900 5324 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2900 5275 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 2900 5450 50  0001 C CNN
+	1    2900 5450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C2
+U 1 1 60FC1C5C
+P 3800 5900
+F 0 "C2" H 3915 5946 50  0000 L CNN
+F 1 "C" H 3915 5855 50  0000 L CNN
+F 2 "Capacitor_THT:C_Axial_L12.0mm_D6.5mm_P15.00mm_Horizontal" H 3838 5750 50  0001 C CNN
+F 3 "~" H 3800 5900 50  0001 C CNN
+	1    3800 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 60FC20D4
+P 4450 5900
+F 0 "R3" H 4520 5946 50  0000 L CNN
+F 1 "R" H 4520 5855 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 4380 5900 50  0001 C CNN
+F 3 "~" H 4450 5900 50  0001 C CNN
+	1    4450 5900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2000 5450 2350 5450
+Wire Wire Line
+	2350 5750 2350 5450
+Connection ~ 2350 5450
+Wire Wire Line
+	2350 5450 2750 5450
+Wire Wire Line
+	3050 5450 3800 5450
+Wire Wire Line
+	4450 5450 4450 5750
+Wire Wire Line
+	3800 5750 3800 5450
+Connection ~ 3800 5450
+Wire Wire Line
+	3800 5450 4450 5450
+$Comp
+L power:GND #PWR04
+U 1 1 60FC6783
+P 2350 6300
+F 0 "#PWR04" H 2350 6050 50  0001 C CNN
+F 1 "GND" H 2355 6127 50  0000 C CNN
+F 2 "" H 2350 6300 50  0001 C CNN
+F 3 "" H 2350 6300 50  0001 C CNN
+	1    2350 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 6050 2350 6300
+$Comp
+L power:GND #PWR05
+U 1 1 60FC9E23
+P 3800 6300
+F 0 "#PWR05" H 3800 6050 50  0001 C CNN
+F 1 "GND" H 3805 6127 50  0000 C CNN
+F 2 "" H 3800 6300 50  0001 C CNN
+F 3 "" H 3800 6300 50  0001 C CNN
+	1    3800 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 6050 3800 6300
+$Comp
+L power:GND #PWR06
+U 1 1 60FCA625
+P 4450 6300
+F 0 "#PWR06" H 4450 6050 50  0001 C CNN
+F 1 "GND" H 4455 6127 50  0000 C CNN
+F 2 "" H 4450 6300 50  0001 C CNN
+F 3 "" H 4450 6300 50  0001 C CNN
+	1    4450 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 6050 4450 6300
+Connection ~ 4450 5450
+$Comp
+L power:+3V3 #PWR07
+U 1 1 60FD5413
+P 8050 3350
+F 0 "#PWR07" H 8050 3200 50  0001 C CNN
+F 1 "+3V3" H 8065 3523 50  0000 C CNN
+F 2 "" H 8050 3350 50  0001 C CNN
+F 3 "" H 8050 3350 50  0001 C CNN
+	1    8050 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 60FD5BF2
+P 9150 4250
+F 0 "#PWR08" H 9150 4000 50  0001 C CNN
+F 1 "GND" H 9155 4077 50  0000 C CNN
+F 2 "" H 9150 4250 50  0001 C CNN
+F 3 "" H 9150 4250 50  0001 C CNN
+	1    9150 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C4
+U 1 1 60FD612F
+P 8250 3800
+F 0 "C4" H 8365 3846 50  0000 L CNN
+F 1 "C" H 8365 3755 50  0000 L CNN
+F 2 "Capacitor_THT:C_Axial_L12.0mm_D6.5mm_P15.00mm_Horizontal" H 8288 3650 50  0001 C CNN
+F 3 "~" H 8250 3800 50  0001 C CNN
+	1    8250 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C5
+U 1 1 60FD67A1
+P 8800 3800
+F 0 "C5" H 8915 3846 50  0000 L CNN
+F 1 "C" H 8915 3755 50  0000 L CNN
+F 2 "Capacitor_THT:C_Axial_L12.0mm_D6.5mm_P15.00mm_Horizontal" H 8838 3650 50  0001 C CNN
+F 3 "~" H 8800 3800 50  0001 C CNN
+	1    8800 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 3350 8050 3550
+Wire Wire Line
+	8050 3550 8250 3550
+Wire Wire Line
+	8800 3550 8800 3650
+Wire Wire Line
+	8250 3550 8250 3650
+Connection ~ 8250 3550
+Wire Wire Line
+	8250 3550 8800 3550
+Wire Wire Line
+	8250 3950 8250 4250
+Wire Wire Line
+	8250 4250 8800 4250
+Wire Wire Line
+	8800 3950 8800 4250
+Connection ~ 8800 4250
+Wire Wire Line
+	8800 4250 9150 4250
 $EndSCHEMATC
