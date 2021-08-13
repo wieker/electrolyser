@@ -1,26 +1,19 @@
 module top(
-    output LED1, led2, led3, rf,
-    input CLK1, CLK2
+    output LED1, LED2,
+    input btn1, btn2, lvds_in,
 );
 
-    reg [21:0] counter1;
+    wire comp_in;
 
-    always @(posedge CLK1)
-        begin
-            counter1 <= counter1 + 1;
-        end
+	SB_IO #(
+		.PIN_TYPE(6'b000001),
+		.IO_STANDARD("SB_LVDS_INPUT")
+	) lp_compare (
+		.PACKAGE_PIN(lvds_in),
+		.D_IN_0(comp_in)
+    );
 
-    reg [21:0] counter2;
+    assign LED1 = comp_in;
 
-    always @(posedge CLK2)
-        begin
-            counter2 <= counter2 + 1;
-        end
-
-    assign LED1 = counter2[21];
-    assign led2 = counter1[21];
-    assign led3 = counter1[19];
-
-    assign rf = ((counter1[21] == 1) && CLK1) && ((counter1[21] == 1) && CLK2);
 
 endmodule
