@@ -15,5 +15,24 @@ module top(
 
     assign LED1 = comp_in;
 
+    wire clk;
+
+    SB_HFOSC inthosc (
+      .CLKHFPU(1'b1),
+      .CLKHFEN(1'b1),
+      .CLKHF(clk)
+    );
+
+    localparam  counter_width = 32;
+
+    reg [counter_width-1:0] ctr;
+
+    always@(posedge clk)
+    begin
+      ctr <= ctr + 1;
+    end
+
+    assign LED2 = ctr[25];
+
 
 endmodule
