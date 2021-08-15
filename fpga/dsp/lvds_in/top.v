@@ -1,5 +1,5 @@
 module top(
-    output LED1, LED2,
+    output LED1, LED2, fpga_tx,
     input btn1, btn2, lvds_in,
 );
 
@@ -33,6 +33,24 @@ module top(
     end
 
     assign LED2 = ctr[25];
+
+    localparam sym_rate = 1200;
+    localparam clk_freq = 48000000;
+    localparam sym_cnt = clk_freq / sym_rate;
+    localparam SCW = $clog2(sym_cnt);
+
+    acia_tx #(
+        .SCW(SCW),              // rate counter width
+        .sym_cnt(sym_cnt)       // rate count value
+    )
+    my_tx(
+        .clk(clk),				// system clock
+        .rst(ctr[27:0] == 28'h0001000),			// system reset
+        .tx_dat(8'h53),           // transmit data byte
+        .tx_start(ctr[27:0] == 28'h4000000),    // trigger transmission
+        .tx_serial(fpga_tx),         // tx serial output
+        .tx_busy(tx_busy)       // tx is active (not ready)
+    );
 
 
 endmodule
