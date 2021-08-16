@@ -4,6 +4,7 @@ module top(
 );
 
     wire comp_in;
+    integer i;
 
 	SB_IO #(
 		.PIN_TYPE(6'b000001),
@@ -28,12 +29,15 @@ module top(
     reg [counter_width-1:0] ctr;
     reg [1:0] digitizer;
     reg [counter_width-1:0] counter[12];
+    reg [11:0] code;
 
     always@(posedge clk)
     begin
       ctr <= ctr + 1;
       digitizer <= { digitizer[0], comp_in };
-      counter[digitizer[1]] ++;
+      for(i = 0; i < 12; i = i + 1)
+        counter[i] = counter[i] + (code[i] == digitizer[1]);
+      code <= { code[10:0], code[11] };
     end
 
     assign LED2 = ctr[25];
@@ -55,6 +59,12 @@ module top(
         .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
+
+
+
+  initial begin
+    code = 12'b111111000000;
+  end
 
 
 endmodule
