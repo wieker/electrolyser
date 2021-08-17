@@ -32,19 +32,26 @@ module top(
     reg [11:0] code;
 
     wire [7:0] temp[12];
-    assign temp[0] = (counter[0][27:0] == 28'h4000000) ? 1 : 0;
+    assign temp[0] = (counter[0][27:0] == 28'h0400000) ? 1 : 0;
     genvar j;
     for (j=1; j < 12; j++) begin
-        assign temp[j] = (counter[j][27:0] == 28'h4000000) ? j + 1 : temp[j - 1];
+        assign temp[j] = (counter[j][27:0] == 28'h0400000) ? j + 1 : temp[j - 1];
     end
+
+    reg [7:0] result;
 
     always@(posedge clk)
     begin
       ctr <= ctr + 1;
       digitizer <= { digitizer[0], comp_in };
       for(i = 0; i < 12; i = i + 1)
-        counter[i] = counter[i] + (code[i] == digitizer[1]);
+        if (result == 0)
+          counter[i] <= counter[i] + (code[i] == digitizer[1]);
+        else
+          counter[i] <= 0;
       code <= { code[10:0], code[11] };
+
+      result <= temp[11];
     end
 
     assign LED2 = ctr[25];
@@ -61,8 +68,8 @@ module top(
     my_tx(
         .clk(clk),				// system clock
         .rst(ctr[27:0] == 28'h0001000),			// system reset
-        .tx_dat(8'h30 + temp[11]),           // transmit data byte
-        .tx_start(temp[11] != 0),    // trigger transmission
+        .tx_dat(8'h30 + result),           // transmit data byte
+        .tx_start(result != 0),    // trigger transmission
         .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
