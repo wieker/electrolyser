@@ -31,6 +31,13 @@ module top(
     reg [counter_width-1:0] counter[12];
     reg [11:0] code;
 
+    wire [7:0] temp[12];
+    assign temp[0] = (counter[0][27:0] == 28'h4000000) ? 1 : 0;
+    genvar j;
+    for (j=1; j < 12; j++) begin
+        assign temp[j] = (counter[j][27:0] == 28'h4000000) ? j + 1 : temp[j - 1];
+    end
+
     always@(posedge clk)
     begin
       ctr <= ctr + 1;
@@ -54,8 +61,8 @@ module top(
     my_tx(
         .clk(clk),				// system clock
         .rst(ctr[27:0] == 28'h0001000),			// system reset
-        .tx_dat(counter[0][27:0] == 28'h4000000 ? 8'h53 : 8'h54),           // transmit data byte
-        .tx_start((counter[0][27:0] == 28'h4000000) || (counter[1][27:0] == 28'h4000000)),    // trigger transmission
+        .tx_dat(8'h30 + temp[11]),           // transmit data byte
+        .tx_start(temp[11] != 0),    // trigger transmission
         .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
