@@ -14,7 +14,7 @@ module top(
 		.D_IN_0(comp_in)
     );
 
-    assign LED1 = comp_in;
+    assign LED1 = digitizer[1];
 
     wire clk;
 
@@ -49,7 +49,10 @@ module top(
           counter[i] <= counter[i] + (code[i] == digitizer[1]);
         else
           counter[i] <= 0;
-      code <= { code[10:0], code[11] };
+      if (result == 0)
+        code <= { code[10:0], code[11] };
+      else
+        code <= 12'b111111000000;
 
       result <= temp[11];
     end
