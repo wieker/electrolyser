@@ -10,7 +10,7 @@ module top(
             counter1 <= counter1 + 1;
         end
 
-    reg [21:0] counter2;
+    reg [24:0] counter2;
 
     always @(posedge CLK2)
         begin
@@ -21,6 +21,6 @@ module top(
     assign led2 = counter1[21];
     assign led3 = counter1[19];
 
-    assign rf = CLK2;
+    assign rf = counter2[24] && CLK2;
 
 endmodule
