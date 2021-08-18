@@ -1,5 +1,5 @@
 module top(
-    output LED1, LED2, fpga_tx,
+    output LED1, LED2, fpga_tx, pwm_out,
     input btn1, btn2, lvds_in,
 );
 
@@ -82,6 +82,8 @@ module top(
   initial begin
     code = 12'b111111000000;
   end
+
+  assign pwm_out = code[0];
 
 
 endmodule
