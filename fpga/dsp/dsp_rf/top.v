@@ -17,7 +17,7 @@ module top(
             counter2 <= counter2 + 1;
         end
 
-    assign LED1 = counter2[21];
+    assign LED1 = counter2[24];
     assign led2 = counter1[21];
     assign led3 = counter1[19];
 
