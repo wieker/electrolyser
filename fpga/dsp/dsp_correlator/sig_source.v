@@ -1,6 +1,6 @@
-module correlator(
-    input clk, rst, sig, code,
-    output reg rdy, output reg [7:0] result,
+module sig_source(
+    input clk, rst, start, input [7:0] period0, input [7:0] period1, input [7:0] phase,
+    output code,
 );
 
     reg [31:0] miss_counter;
