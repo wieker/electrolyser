@@ -3,31 +3,17 @@ module top(
     input btn1, btn2, lvds_in,
 );
 
-    wire comp_in;
-    integer i;
-
-	SB_IO #(
-		.PIN_TYPE(6'b000001),
-		.IO_STANDARD("SB_LVDS_INPUT")
-	) lp_compare (
-		.PACKAGE_PIN(lvds_in),
-		.D_IN_0(comp_in)
-    );
-
-    assign LED1 = digitizer[1];
-
     wire clk;
+    wire rst;
+    osc osc(.clk(clk), .rst(rst));
 
-    SB_HFOSC inthosc (
-      .CLKHFPU(1'b1),
-      .CLKHFEN(1'b1),
-      .CLKHF(clk)
-    );
+    wire sig_in;
+	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in));
+    assign LED1 = sig_in;
 
     localparam  counter_width = 32;
 
     reg [counter_width-1:0] ctr;
-    reg [1:0] digitizer;
     reg [counter_width-1:0] counter[12];
     reg [11:0] code;
 
@@ -39,10 +25,10 @@ module top(
 
     reg [7:0] result;
 
+    integer i;
     always@(posedge clk)
     begin
       ctr <= ctr + 1;
-      digitizer <= { digitizer[0], comp_in };
       for(i = 0; i < 2; i = i + 1)
         if (temp[i] == 0)
           counter[i] <= counter[i] + (code[i] == digitizer[1]);
