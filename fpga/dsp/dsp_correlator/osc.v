@@ -3,8 +3,8 @@ module osc(
 );
 
 
-    reg [3:0] initial;
-    assign rst = !initial[3];
+    reg [3:0] startup;
+    assign rst = !startup[3];
 
     SB_HFOSC inthosc (
       .CLKHFPU(1'b1),
@@ -15,7 +15,7 @@ module osc(
     always@(posedge clk)
     begin
       if (rst)
-        initial <= initial + 1;
+        startup <= startup + 1;
     end
 
 endmodule
