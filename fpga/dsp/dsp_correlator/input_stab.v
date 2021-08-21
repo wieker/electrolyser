@@ -3,6 +3,6 @@ module input_stab(
     output sig,
 );
 
-    sig_source sig_source(.clk(clk), .rst(rst), .period0(16), .period1(16), .phase(j * 4), .code(codes[j]), .start_code(0));
+    sig_source sig_source(.clk(clk), .rst(rst), .period0(16), .period1(16), .phase(0), .code(sig), .start_code(0));
 
 endmodule

@@ -29,7 +29,6 @@ module top(
     assign LED2 = ctr[25];
     assign LED1 = sig_in;
 
-    assign pwm_out = 0;
-
+    input_stab input_stab(.clk(clk), .rst(rst), .sig(pwm_out));
 
 endmodule
