@@ -16,13 +16,9 @@ module correlator(
 		    result <= 0;
 		    rdy <= 0;
 		end else if ((match_counter[26] == 1) && rdy == 0) begin
-		    result <= miss_counter[13:6];
+		    result <= miss_counter[29:22];
 		    rdy <= 1;
 		end else if (rdy == 1) begin
-		    miss_counter <= 0;
-		    match_counter <= 0;
-		    result <= 0;
-		    rdy <= 0;
 		end else begin
 		    match_counter <= match_counter + (code == sig);
 		    miss_counter <= miss_counter + (code != sig);
