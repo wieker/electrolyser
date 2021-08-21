@@ -29,6 +29,14 @@ module top(
     assign LED2 = ctr[25];
     assign LED1 = sig_in;
 
-    input_stab input_stab(.clk(clk), .rst(rst), .sig(pwm_out));
+    genvar j;
+    wire rdy_tmp[8];
+    for (j=0; j < 8; j++) begin
+        if (j == 0)
+            assign rdy_tmp[j] = rdy[0];
+        else
+            assign rdy_tmp[j] = rdy[j] | rdy_tmp[j - 1];
+    end
+    input_stab input_stab(.clk(clk), .rst(rst | rdy), .sig(pwm_out));
 
 endmodule
