@@ -29,6 +29,20 @@ module top(
     assign LED2 = ctr[25];
     assign LED1 = sig_in;
 
+    reg [11:0] phase;
+    always@(posedge clk)
+    begin
+      if (rdy_tmp[7])
+        phase <= phase + 1;
+    end
+    genvar j;
+    wire rdy_tmp[8];
+    for (j=0; j < 8; j++) begin
+        if (j == 0)
+            assign rdy_tmp[j] = rdy[0];
+        else
+            assign rdy_tmp[j] = rdy[j] | rdy_tmp[j - 1];
+    end
     assign pwm_out = 0;
 
 endmodule
