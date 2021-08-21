@@ -10,15 +10,7 @@ module top(
     wire sig_in;
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in));
 
-    wire codes[8];
-    wire [7:0] rdy;
-    genvar j;
-    for (j=0; j < 8; j++) begin
-	    sig_source sig_source(.clk(clk), .rst(rst | rdy_tmp[7]), .period0(48 * 1024), .period1(48*1024), .phase(j * 6 * 1024), .start_code(0), .code(codes[j]));
-        correlator correlator(.clk(clk), .rst(rst | rdy_tmp[7]), .sig(sig_in), .code(codes[j]), .rdy(rdy[j]));
-    end
-
-    hex_dump hex_dump(.clk(clk), .rst(rst), .rdy(rdy), .fpga_tx(fpga_tx));
+    dispatcher dispatcher(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in));
 
     reg [32:0] ctr;
     always@(posedge clk)
@@ -29,20 +21,6 @@ module top(
     assign LED2 = ctr[25];
     assign LED1 = sig_in;
 
-    reg [11:0] phase;
-    always@(posedge clk)
-    begin
-      if (rdy_tmp[7])
-        phase <= phase + 1;
-    end
-    genvar j;
-    wire rdy_tmp[8];
-    for (j=0; j < 8; j++) begin
-        if (j == 0)
-            assign rdy_tmp[j] = rdy[0];
-        else
-            assign rdy_tmp[j] = rdy[j] | rdy_tmp[j - 1];
-    end
     assign pwm_out = 0;
 
 endmodule
