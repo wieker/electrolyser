@@ -9,16 +9,29 @@ module dispatcher(
     wire ready = rdy_tmp[7];
     genvar j;
     for (j=0; j < 8; j++) begin
-	    sig_source sig_source(.clk(clk), .rst(rst | rdy_tmp[7]), .period0(48 * 1024), .period1(48*1024), .phase(j * 6 * 1024), .start_code(0), .code(codes[j]));
-        correlator correlator(.clk(clk), .rst(rst | rdy_tmp[7]), .sig(sig_in), .code(codes[j]), .rdy(rdy[j]), .result(results[j]));
+	    sig_source sig_source(.clk(clk), .rst(rst | restart), .period0(48 * 1024), .period1(48*1024), .phase(j * 6 * 1024), .start_code(0), .code(codes[j]));
+        correlator correlator(.clk(clk), .rst(rst | restart), .sig(sig_in), .code(codes[j]), .rdy(rdy[j]), .result(results[j]));
     end
 
     reg [2:0] state;
-    wire [2:0] next_state;
-    for (j=0; j < 8; j++) begin
-	    if ((state == j) && ready && !tx_busy) begin
-	        assign next_state == j + 1;
-	    end
+    reg tx_start;
+    reg [7:0] symb;
+    reg restart;
+
+    always@(posedge clk)
+    begin
+        if (rst) begin
+            state <= 0;
+        end else if ((tx_start == 1) && (state == 0)) begin
+            restart <= 1;
+        end else if (tx_start == 1) begin
+            tx_start <= 0;
+            restart <= 0;
+        end else if (((ready == 1) || (state != 0)) && (tx_busy == 0)) begin
+            tx_start <= 1;
+            symb <= results[state];
+            state <= next_state;
+        end
     end
 
     wire tx_busy;
@@ -34,8 +47,8 @@ module dispatcher(
     my_tx(
         .clk(clk),				// system clock
         .rst(rst),			// system reset
-        .tx_dat(sym_tmp[7]),           // transmit data byte
-        .tx_start(rdy_tmp[7]),    // trigger transmission
+        .tx_dat(symb),           // transmit data byte
+        .tx_start(tx_start),    // trigger transmission
         .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
