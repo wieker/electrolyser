@@ -24,13 +24,15 @@ module dispatcher(
             state <= 0;
         end else if ((tx_start == 1) && (state == 0)) begin
             restart <= 1;
+            tx_start <= 0;
         end else if (tx_start == 1) begin
             tx_start <= 0;
+        end else if ((restart == 1) && (state == 0)) begin
             restart <= 0;
-        end else if (((ready == 1) || (state != 0)) && (tx_busy == 0)) begin
+        end else if (((ready == 1) || (state != 0)) && (tx_busy == 0) && (restart == 0)) begin
             tx_start <= 1;
             symb <= results[state];
-            state <= next_state;
+            state <= state + 1;
         end
     end
 
