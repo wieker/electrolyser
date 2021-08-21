@@ -1,5 +1,5 @@
 module sig_source(
-    input clk, rst, start, input [7:0] period0, input [7:0] period1, input [7:0] phase, input start_code,
+    input clk, rst, start, input [31:0] period0, input [31:0] period1, input [31:0] phase, input start_code,
     output reg code,
 );
 

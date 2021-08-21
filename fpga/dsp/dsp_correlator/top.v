@@ -14,7 +14,7 @@ module top(
     wire [7:0] rdy;
     genvar j;
     for (j=0; j < 8; j++) begin
-	    sig_source sig_source(.clk(clk), .rst(rst), .period0(16), .period1(16), .phase(j * 4), .start_code(0), .code(codes[j]));
+	    sig_source sig_source(.clk(clk), .rst(rst), .period0(48 * 1024), .period1(48*1024), .phase(j * 6 * 1024), .start_code(0), .code(codes[j]));
         correlator correlator(.clk(clk), .rst(rst), .sig(sig_in), .code(codes[j]), .rdy(rdy[j]));
     end
 
