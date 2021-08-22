@@ -6,7 +6,7 @@ module dispatcher(
     wire codes[10];
     wire rdy[10];
     wire [7:0] results[10];
-    wire ready = rdy_tmp[9];
+
     genvar j;
 
     for (j=0; j < 8; j++) begin
@@ -22,15 +22,16 @@ module dispatcher(
     reg [3:0] state;
     reg tx_start;
     reg [7:0] symb;
-    reg started;
+    reg [26:0] counter;
 
     always@(posedge clk)
     begin
-        started <= ready | started;
-        if (rst || !started) begin
+        counter <= counter + 1;
+        if (rst) begin
             state <= 0;
         end else if (state == 10) begin
-        end else if (tx_busy == 0) begin
+            state <= 0;
+        end else if (counter[25:0] == 0) begin
             tx_start <= 1;
             symb <= results[state];
             state <= state + 1;
@@ -60,6 +61,7 @@ module dispatcher(
 
     genvar j;
     wire rdy_tmp[10];
+    wire ready = rdy_tmp[9];
     for (j=0; j < 10; j++) begin
         if (j == 0)
             assign rdy_tmp[j] = rdy[0];
