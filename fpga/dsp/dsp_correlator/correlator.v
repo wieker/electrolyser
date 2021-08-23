@@ -16,13 +16,14 @@ module correlator(
 		    match_counter <= 0;
 		    result_miss <= 0;
 		    result_match <= 0;
+		end else if (capture == 1) begin
+            result_miss <= miss_counter;
+            result_match <= match_counter;
+		    miss_counter <= 0;
+		    match_counter <= 0;
 		end else begin
 		    match_counter <= match_counter + (code == sig);
 		    miss_counter <= miss_counter + (code != sig);
-		    if (capture == 1) begin
-		        result_miss <= miss_counter;
-		        result_match <= match_counter;
-		    end
 		end
 	end
 
