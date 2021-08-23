@@ -1,5 +1,9 @@
 module dispatcher(
     input clk, rst, sig,
+    input [7:0] addr_in,
+    input [7:0] data_in,
+    input cs, we, oe,
+    output [7:0] data_out,
     output fpga_tx,
 );
 
@@ -21,19 +25,19 @@ module dispatcher(
                 .result_miss(results[j]), .result_match(resultsB[j]));
     end
 
-    reg [3:0] state;
+    reg [7:0] state;
     reg tx_start;
     reg [7:0] symb;
-    reg [26:0] counter;
 
     always@(posedge clk)
     begin
-        counter <= counter + 1;
         if (rst) begin
+            state <= 50;
+        end else if ((state == 50) && ready) begin
             state <= 0;
         end else if (state == 10) begin
-            state <= 0;
-        end else if (tx_busy == 0) begin
+            state <= 50;
+        end else if ((state < 50) && (tx_busy == 0) && (tx_start == 0)) begin
             tx_start <= 1;
             symb <= state;
             state <= state + 1;

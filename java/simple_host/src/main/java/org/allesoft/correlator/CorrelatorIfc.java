@@ -197,13 +197,18 @@ public class CorrelatorIfc
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
             //sendCommand(handle, 0, new byte[] { }, true);
             sendCommand(handle, 1, new byte[] { }, true);
-            Thread.sleep(10000);
-            lock.lock();
-            //sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
-            //sendCommand(handle, 7, "l\0\0".getBytes(), true);
-            byte[] ch = sendCommand(handle, 6, new byte[14], true);
-            System.out.println(new String(ch, 1, ch[0]));
-            lock.unlock();
+            for (int i = 0; i < 100; i ++) {
+                Thread.sleep(100);
+                lock.lock();
+                //sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
+                //sendCommand(handle, 7, "l\0\0".getBytes(), true);
+                byte[] ch = sendCommand(handle, 6, new byte[14], false);
+                if (ch[0] > 0) {
+                    printBytes(ch);
+                    System.out.println(new String(ch, 1, ch[0]));
+                }
+                lock.unlock();
+            }
             sendCommand(handle, 1, new byte[] { }, true);
         }
         finally
