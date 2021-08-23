@@ -10,7 +10,7 @@ module top(
     wire sig_in;
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in));
 
-    dispatcher dispatcher(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in));
 
     reg [32:0] ctr;
     always@(posedge clk)
