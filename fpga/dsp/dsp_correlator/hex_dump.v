@@ -4,15 +4,20 @@ module hex_dump(
 );
 
     wire [7:0] data;
-    dispatcher dispatcher(.clk(clk), .rst(rst), .sig(sig_in), .addr_in(state), .data_out(data));
+    dispatcher dispatcher(.clk(clk), .rst(rst), .sig(sig_in), .addr_in(state), .data_out(data), .rdy(rdy));
 
     reg [7:0] state;
     reg tx_start;
     reg [7:0] symb;
+    wire rdy;
+    reg started;
 
     always@(posedge clk)
     begin
+        started <= (started && (state != 8'hff)) | rdy;
         if (rst) begin
+            state <= 0;
+        end else if (!started) begin
             state <= 0;
         end else if ((tx_busy == 0) && (tx_start == 0)) begin
             tx_start <= 1;

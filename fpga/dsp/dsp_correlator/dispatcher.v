@@ -4,6 +4,7 @@ module dispatcher(
     input [7:0] data_in,
     input cs, we, oe,
     output [7:0] data_out,
+    output rdy,
 );
 
     wire codes[10];
@@ -24,7 +25,8 @@ module dispatcher(
                 .result_miss(results[j]), .result_match(resultsB[j]));
     end
 
-    assign capture = ctr == 32'h02000000;
+    assign capture = ctr == 32'h04000000;
+    assign rdy = ctr == 32'h04000001;
 
     reg [32:0] ctr;
     always@(posedge clk)
