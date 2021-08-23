@@ -35,7 +35,7 @@ module dispatcher(
     end
 
     wire [31:0] prepare = addr_in[7] ? results[addr_in[6:4]] : resultsB[addr_in[6:4]];
-    assign data_out = (prepare[31:24] & (addr_in[1:0] == 3)) | (prepare[23:16] & (addr_in[1:0] == 2)) |
-            (prepare[15:8] & (addr_in[1:0] == 1)) | (prepare[7:0] & (addr_in[1:0] == 0));
+    assign data_out = addr_in[1:0] == 0 ? prepare[7:0] : addr_in[1:0] == 1 ? prepare[15:8] : addr_in[1:0] == 2 ? prepare[23:16] :
+                addr_in[1:0] == 3 ? prepare[31:24] : 0;
 
 endmodule
