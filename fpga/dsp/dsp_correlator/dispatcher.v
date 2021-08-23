@@ -24,7 +24,7 @@ module dispatcher(
                 .result_miss(results[j]), .result_match(resultsB[j]));
     end
 
-    assign capture = ctr[25];
+    assign capture = ctr == 32'h02000000;
 
     reg [32:0] ctr;
     always@(posedge clk)
