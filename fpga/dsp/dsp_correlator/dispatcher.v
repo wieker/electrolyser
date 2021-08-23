@@ -6,17 +6,19 @@ module dispatcher(
     wire codes[10];
     wire rdy[10];
     wire [7:0] results[10];
+    wire [7:0] resultsB[10];
 
     genvar j;
 
     for (j=0; j < 8; j++) begin
-	    sig_source sig_source(.clk(clk), .rst(rst), .period0(48 * 1024), .period1(48*1024), .phase(j * 6 * 1024), .start_code(0), .code(codes[j]));
+	    sig_source sig_source(.clk(clk), .rst(rst), .period(48 * 1024), .phase(j * 6 * 1024), .start_code(0), .code(codes[j]));
     end
-    sig_source sig_source0(.clk(clk), .rst(rst), .period0(48 * 1024), .period1(1), .phase(0), .start_code(0), .code(codes[8]));
-    sig_source sig_source1(.clk(clk), .rst(rst), .period0(1), .period1(48 * 1024), .phase(0), .start_code(1), .code(codes[9]));
+    assign codes[8] = 1;
+    assign codes[9] = 0;
 
     for (j=0; j < 10; j++) begin
-        correlator correlator(.clk(clk), .rst(rst), .sig(sig_in), .code(codes[j]), .rdy(rdy[j]), .result(results[j]));
+        correlator correlator(.clk(clk), .rst(rst), .sig(sig_in), .code(codes[j]), .rdy(rdy[j]),
+                .result_miss(results[j]), .result_match(resultsB[j]));
     end
 
     reg [3:0] state;
@@ -31,9 +33,9 @@ module dispatcher(
             state <= 0;
         end else if (state == 10) begin
             state <= 0;
-        end else if (counter[25:0] == 0) begin
+        end else if (tx_busy == 0) begin
             tx_start <= 1;
-            symb <= results[state];
+            symb <= state;
             state <= state + 1;
         end else begin
             tx_start <= 0;
