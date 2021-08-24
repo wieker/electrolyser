@@ -191,30 +191,29 @@ public class CorrelatorIfc
             }
 
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
-            sendCommand(handle, 1, new byte[] { }, true);
+            for (;;) {
+                sendCommand(handle, 1, new byte[]{}, false);
 
-            Thread.sleep(500);
-            lock.lock();
-            int zeros = 0;
-            int ones = 0;
-            byte[] ch = sendCommand(handle, 6, new byte[14], false);
+                Thread.sleep(500);
+                lock.lock();
+                int zeros = 0;
+                int ones = 0;
+                sendCommand(handle, 6, new byte[14], false);
 
-            byte[] payload = {0x01, 0x00, 0x03, 0x02};
-            for (byte one : payload) {
-                sendCommand(handle, 7, new byte[]{one}, false);
-                Thread.sleep(100);
+                byte[] payload = {0x01, 0x00, 0x03, 0x02};
+                for (byte one : payload) {
+                    sendCommand(handle, 7, new byte[]{one}, false);
+                    Thread.sleep(100);
+                }
+                byte[] ch = sendCommand(handle, 6, new byte[14], false);
+                System.out.println(String.format("%02x%02x%02x%02x", ch[1], ch[2], ch[3], ch[4]));
+
+                sendCommand(handle, 6, new byte[14], false);
+                lock.unlock();
+
+                sendCommand(handle, 1, new byte[]{}, false);
+                Thread.sleep(500);
             }
-            sendCommand(handle, 6, new byte[14], true);
-
-            sendCommand(handle, 6, new byte[14], false);
-            lock.unlock();
-
-            sendCommand(handle, 1, new byte[] { }, true);
-
-            System.out.println("===");
-            System.out.println("Zeros: " + zeros);
-            System.out.println("Ones: " + ones);
-            System.out.println(String.format("Sum: %x", ones + zeros));
         }
         finally
         {

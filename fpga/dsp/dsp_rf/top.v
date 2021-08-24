@@ -21,6 +21,6 @@ module top(
     assign led2 = counter1[21];
     assign led3 = counter1[19];
 
-    assign rf = CLK2;
+    assign rf = CLK2 && counter2[24];
 
 endmodule
