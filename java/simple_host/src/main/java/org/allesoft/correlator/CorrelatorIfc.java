@@ -7,13 +7,9 @@ import org.usb4java.DeviceList;
 import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.concurrent.locks.ReentrantLock;
-
-import static org.usb4java.examples.Ctl1.readKey;
 
 public class CorrelatorIfc
 {
@@ -197,26 +193,49 @@ public class CorrelatorIfc
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
             //sendCommand(handle, 0, new byte[] { }, true);
             sendCommand(handle, 1, new byte[] { }, true);
-            for (int i = 0; i < 100; i ++) {
-                Thread.sleep(100);
-                lock.lock();
-                //sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
-                //sendCommand(handle, 7, "l\0\0".getBytes(), true);
-                sendCommand(handle, 7, new byte[] {'a', 'b'}, true);
-                byte[] ch = sendCommand(handle, 6, new byte[14], false);
-                if (ch[0] > 0) {
-                    printBytes(ch);
-                    System.out.println(new String(ch, 1, ch[0]));
-                }
-                lock.unlock();
+
+            Thread.sleep(5000);
+            lock.lock();
+            int zeros = 0;
+            int ones = 0;
+            byte[] ch = sendCommand(handle, 6, new byte[14], false);
+            //sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
+            //sendCommand(handle, 7, "l\0\0".getBytes(), true);
+            sendCommand(handle, 7, new byte[] {0x01, 0x00}, false);
+            Thread.sleep(100);
+            sendCommand(handle, 6, new byte[14], false);
+            if (ch[0] > 0) {
+                printBytes(ch);
+                System.out.println(new String(ch, 1, ch[0]));
             }
+            zeros = unsigned(ch[1]) * 256 + unsigned(ch[2]);
+            sendCommand(handle, 7, new byte[] {0x03, 0x02}, false);
+            Thread.sleep(100);
+            ch = sendCommand(handle, 6, new byte[14], false);
+            if (ch[0] > 0) {
+                printBytes(ch);
+                System.out.println(new String(ch, 1, ch[0]));
+            }
+            ones = unsigned(ch[1]) * 256 + unsigned(ch[2]);
+            sendCommand(handle, 6, new byte[14], false);
+            lock.unlock();
+
             sendCommand(handle, 1, new byte[] { }, true);
+
+            System.out.println("===");
+            System.out.println("Zeros: " + zeros);
+            System.out.println("Ones: " + ones);
+            System.out.println(String.format("Sum: %x", ones + zeros));
         }
         finally
         {
             LibUsb.close(handle);
             LibUsb.exit(null);
         }
+    }
+
+    private static int unsigned(byte signed) {
+        return signed < 0 ? 256 - signed : signed;
     }
 
     private static void flash_id(DeviceHandle handle) {

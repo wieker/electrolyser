@@ -23,7 +23,7 @@ module hex_dump(
             tx_start <= 1;
             symb <= data;
             state <= 2;
-        end else begin
+        end else if (state == 2) begin
             tx_start <= 0;
             state <= 0;
         end
@@ -44,11 +44,9 @@ module hex_dump(
         .rst(rst),			// system reset
         .tx_dat(symb),           // transmit data byte
         .tx_start(tx_start),    // trigger transmission
-        //.tx_serial(fpga_tx),         // tx serial output
+        .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
-
-    assign fpga_tx = fpga_rx;
 
     wire rx_stb;
     wire [7:0] rx_dat;
