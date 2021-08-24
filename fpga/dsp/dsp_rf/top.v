@@ -21,6 +21,6 @@ module top(
     assign led2 = counter1[21];
     assign led3 = counter1[19];
 
-    sig_source sig_source(.clk(clk), .rst(rst), .period0(4 * 1024), .period1(4 * 1024), .phase(0), .code(rf), .start_code(0));
+    assign rf = CLK2;
 
 endmodule

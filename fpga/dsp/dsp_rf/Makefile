@@ -2,7 +2,7 @@ filename = top
 pcf_file = io.pcf
 
 build:
-	yosys -p "synth_ice40 -blif $(filename).blif" $(filename).v ../dsp_correlator/sig_source.v
+	yosys -p "synth_ice40 -blif $(filename).blif" $(filename).v
 	arachne-pnr -d 1k -P vq100 -p $(pcf_file) $(filename).blif -o $(filename).asc
 	icepack $(filename).asc $(filename).bin
 
