@@ -19,12 +19,17 @@ module dispatcher(
 
 
     wire capture;
-    assign capture = ctr == 32'h00001000;
+    wire [32:0] next_ctr;
+    assign capture = next_ctr == 32'h00001000;
+    assign next_ctr = ctr + 1;
 
-    reg [20:0] ctr;
+    reg [32:0] ctr;
     always@(posedge clk)
     begin
-      ctr <= ctr + 1;
+        if (!capture)
+            ctr <= next_ctr;
+        else
+            ctr <= 0;
     end
 
 
