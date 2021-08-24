@@ -191,32 +191,21 @@ public class CorrelatorIfc
             }
 
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
-            //sendCommand(handle, 0, new byte[] { }, true);
             sendCommand(handle, 1, new byte[] { }, true);
 
-            Thread.sleep(5000);
+            Thread.sleep(500);
             lock.lock();
             int zeros = 0;
             int ones = 0;
             byte[] ch = sendCommand(handle, 6, new byte[14], false);
-            //sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
-            //sendCommand(handle, 7, "l\0\0".getBytes(), true);
-            sendCommand(handle, 7, new byte[] {0x01, 0x00}, false);
-            Thread.sleep(100);
-            sendCommand(handle, 6, new byte[14], false);
-            if (ch[0] > 0) {
-                printBytes(ch);
-                System.out.println(new String(ch, 1, ch[0]));
+
+            byte[] payload = {0x01, 0x00, 0x03, 0x02};
+            for (byte one : payload) {
+                sendCommand(handle, 7, new byte[]{one}, false);
+                Thread.sleep(100);
             }
-            zeros = unsigned(ch[1]) * 256 + unsigned(ch[2]);
-            sendCommand(handle, 7, new byte[] {0x03, 0x02}, false);
-            Thread.sleep(100);
-            ch = sendCommand(handle, 6, new byte[14], false);
-            if (ch[0] > 0) {
-                printBytes(ch);
-                System.out.println(new String(ch, 1, ch[0]));
-            }
-            ones = unsigned(ch[1]) * 256 + unsigned(ch[2]);
+            sendCommand(handle, 6, new byte[14], true);
+
             sendCommand(handle, 6, new byte[14], false);
             lock.unlock();
 
