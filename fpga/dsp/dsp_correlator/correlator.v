@@ -1,19 +1,28 @@
 module correlator(
     input clk, rst, sig, code,
-    output [7:0] result_miss,
-    output [7:0] result_match,
+    input capture,
+    input select,
+    output [7:0] result,
 );
 
-    reg [7:0] miss_counter;
-    reg [7:0] match_counter;
+    reg [15:0] miss_counter;
+    reg [15:0] match_counter;
+    reg [15:0] result_miss;
+    reg [15:0] result_match;
 
-    assign result_miss = miss_counter;
-    assign result_match = match_counter;
+    assign result = select ? result_match[15:8] : result_match[7:0];
 
 	always @(posedge clk)
 	begin
 		if(rst)
 		begin
+		    miss_counter <= 0;
+		    match_counter <= 0;
+		    result_miss <= 0;
+		    result_match <= 0;
+		end else if (capture == 1) begin
+            result_miss <= miss_counter;
+            result_match <= match_counter;
 		    miss_counter <= 0;
 		    match_counter <= 0;
 		end else begin

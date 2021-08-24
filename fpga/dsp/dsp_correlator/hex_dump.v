@@ -6,7 +6,7 @@ module hex_dump(
     wire [7:0] data;
     dispatcher dispatcher(.clk(clk), .rst(rst), .sig(sig), .addr_in(state), .data_out(data));
 
-    reg state;
+    reg [1:0] state;
     reg tx_start;
     reg [7:0] symb;
     wire rdy;
