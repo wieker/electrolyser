@@ -28,8 +28,6 @@ module dispatcher(
     begin
         if (!capture)
             ctr <= next_ctr;
-        else
-            ctr <= 0;
     end
 
 

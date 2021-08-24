@@ -202,6 +202,7 @@ public class CorrelatorIfc
                 lock.lock();
                 //sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
                 //sendCommand(handle, 7, "l\0\0".getBytes(), true);
+                sendCommand(handle, 7, new byte[] {'a', 'b'}, true);
                 byte[] ch = sendCommand(handle, 6, new byte[14], false);
                 if (ch[0] > 0) {
                     printBytes(ch);

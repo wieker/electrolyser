@@ -23,8 +23,6 @@ module correlator(
 		end else if (capture == 1) begin
             result_miss <= miss_counter;
             result_match <= match_counter;
-		    miss_counter <= 0;
-		    match_counter <= 0;
 		end else begin
 		    match_counter <= match_counter + (code == sig);
 		    miss_counter <= miss_counter + (code != sig);
