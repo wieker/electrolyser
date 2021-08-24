@@ -26,7 +26,9 @@ module dispatcher(
     reg [32:0] ctr;
     always@(posedge clk)
     begin
-        if (!capture)
+        if (rst)
+            ctr <= 0;
+        else if (!capture)
             ctr <= next_ctr;
     end
 
