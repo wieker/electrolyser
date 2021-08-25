@@ -21,8 +21,8 @@ public class SimplePing
 
     private static final short VENDOR_ID = 0x6666;
 
-    private static final short PRODUCT_ID = 0x6671;
-    //private static final short PRODUCT_ID = 0x6668;
+    //private static final short PRODUCT_ID = 0x6671;
+    private static final short PRODUCT_ID = 0x6668;
 
     private static final int TIMEOUT = 0;
 
@@ -284,7 +284,7 @@ public class SimplePing
                         exit = true;
                         break;
                     case '1':
-                        sendCommand(handle, 7, "a\0\0".getBytes(), true);
+                        sendCommand(handle, 7, "0".getBytes(), true);
                         break;
                     case '2':
                         sendCommand(handle, 7, "0\0\0".getBytes(), true);
