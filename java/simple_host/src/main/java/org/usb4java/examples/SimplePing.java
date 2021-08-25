@@ -217,8 +217,8 @@ public class SimplePing
 
                         InputStream inputStream = new FileInputStream(
                              //   "../../fpga/dsp/lvds_in/top.bin");
-                        "../../fpga/dsp/dsp_correlator/top.bin");
-                        //"../../fpga/dsp/dsp_rf/top.bin");
+                        //"../../fpga/dsp/dsp_correlator/top.bin");
+                        "../../fpga/dsp/dsp_rf/top.bin");
                                 // "../../fpga/nandctl/top.bin");
                         int addr = 0;
                         byte[] buf = new byte[16];

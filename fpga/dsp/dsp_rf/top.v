@@ -45,7 +45,7 @@ module top(
         .sym_cnt(sym_cnt)		// rate count value
     )
     my_rx(
-        .clk(clk),				// system clock
+        .clk(CLK2),				// system clock
         .rst(counter2[24:2] == 0),			// system reset
         .rx_serial(fpga_rx),		    // raw serial input
         .rx_dat(rx_dat),        // received byte
