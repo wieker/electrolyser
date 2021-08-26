@@ -243,13 +243,19 @@ public class CorrelatorIfc
                 lock.lock();
                 sendCommand(handle, 6, new byte[14], false);
 
-                byte[] payload = {0x01, 0x00, 0x03, 0x02, (byte) 0xff};
+                byte[] payload = {
+                        0x01, 0x00, 0x03, 0x02,
+                        0x01, 0x00, 0x03, 0x02,
+                        (byte) 0xff, 0x00};
                 for (byte one : payload) {
                     sendCommand(handle, 7, new byte[]{one}, false);
                     Thread.sleep(100);
                 }
                 byte[] ch = sendCommand(handle, 6, new byte[14], false);
-                System.out.println(String.format("%02x%02x%02x%02x", ch[1], ch[2], ch[3], ch[4]));
+                System.out.println(String.format("%02x%02x %02x%02x %02x%02x %02x%02x",
+                        ch[1], ch[2], ch[3], ch[4],
+                        ch[5], ch[6], ch[7], ch[8]
+                ));
 
                 sendCommand(handle, 6, new byte[14], false);
                 lock.unlock();
