@@ -14,6 +14,8 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static org.usb4java.examples.Ctl1.readKey;
+
 public class CorrelatorIfc
 {
     private static final ReentrantLock lock = new ReentrantLock();
@@ -161,6 +163,8 @@ public class CorrelatorIfc
         return recv;
     }
 
+    static volatile boolean running;
+
     public static void main(String[] args) throws Exception {
         int result = LibUsb.init(null);
         if (result != LibUsb.SUCCESS) {
@@ -194,10 +198,46 @@ public class CorrelatorIfc
             }
 
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
-            flash(handle);
+            boolean exit = false;
+            while (!exit) {
+                System.out.print("> ");
+                char key = readKey();
+                switch (key) {
 
+                    case 'l':
+                        sendCommand(handle, 0, new byte[]{}, true);
+                        break;
+                    case 'f':
+                        sendCommand(handle, 1, new byte[]{}, true);
+                        break;
+                    case 's':
+                        flash(handle);
+                        break;
+                    case 't':
+                        running = true;
+                        new Thread(() -> start_loop(handle)).start();
+                        break;
+                    case 'k':
+                        running = false;
+                        break;
+                    case 'q':
+                        exit = true;
+                        break;
+                }
+            }
+
+        }
+        finally
+        {
+            LibUsb.close(handle);
+            LibUsb.exit(null);
+        }
+    }
+
+    private static void start_loop(DeviceHandle handle) {
+        try {
             sendCommand(handle, 1, new byte[]{}, false);
-            for (;;) {
+            for (; running; ) {
 
                 Thread.sleep(500);
                 lock.lock();
@@ -216,11 +256,9 @@ public class CorrelatorIfc
 
                 Thread.sleep(500);
             }
-        }
-        finally
-        {
-            LibUsb.close(handle);
-            LibUsb.exit(null);
+            sendCommand(handle, 1, new byte[]{}, false);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
