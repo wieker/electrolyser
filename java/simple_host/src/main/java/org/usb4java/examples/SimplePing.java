@@ -8,6 +8,7 @@ import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -208,34 +209,8 @@ public class SimplePing
                         sendCommand(handle, 1, new byte[] { }, true);
                         break;
                     case 's':
-                        flash_wakeup(handle);
-                        flash_id(handle);
-                        flash_we(handle);
-                        flash_wait(handle, 0x02);
-                        flash_erase(handle);
-                        flash_wait(handle, 0x00);
-
-                        InputStream inputStream = new FileInputStream(
-                             //   "../../fpga/dsp/lvds_in/top.bin");
-                        //"../../fpga/dsp/dsp_correlator/top.bin");
-                        "../../fpga/dsp/dsp_rf/top.bin");
-                                // "../../fpga/nandctl/top.bin");
-                        int addr = 0;
-                        byte[] buf = new byte[16];
-                        for (;;) {
-                            int size = inputStream.read(buf);
-                            if (size == -1) {
-                                break;
-                            }
-
-                            flash_we(handle);
-                            flash_wait(handle, 0x02);
-                            flash_write(handle, addr, buf);
-                            flash_wait(handle, 0x00);
-
-                            flash_read(handle, addr);
-                            addr += buf.length;
-                        }
+                        flash(handle);
+                        int addr;
                         break;
                     case 'r':
                         flash_wakeup(handle);
@@ -380,6 +355,37 @@ public class SimplePing
         {
             LibUsb.close(handle);
             LibUsb.exit(null);
+        }
+    }
+
+    private static void flash(DeviceHandle handle) throws IOException {
+        flash_wakeup(handle);
+        flash_id(handle);
+        flash_we(handle);
+        flash_wait(handle, 0x02);
+        flash_erase(handle);
+        flash_wait(handle, 0x00);
+
+        InputStream inputStream = new FileInputStream(
+             //   "../../fpga/dsp/lvds_in/top.bin");
+        //"../../fpga/dsp/dsp_correlator/top.bin");
+        "../../fpga/dsp/dsp_rf/top.bin");
+        // "../../fpga/nandctl/top.bin");
+        int addr = 0;
+        byte[] buf = new byte[16];
+        for (;;) {
+            int size = inputStream.read(buf);
+            if (size == -1) {
+                break;
+            }
+
+            flash_we(handle);
+            flash_wait(handle, 0x02);
+            flash_write(handle, addr, buf);
+            flash_wait(handle, 0x00);
+
+            flash_read(handle, addr);
+            addr += buf.length;
         }
     }
 

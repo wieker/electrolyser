@@ -1,11 +1,13 @@
 module dispatcher(
-    input clk, rst, sig,
+    input clk, rst_in, sig,
     input [7:0] addr_in,
     input [7:0] data_in,
     input cs, we, oe,
     output [7:0] data_out,
     output rdy,
 );
+
+    wire rst = rst_in || (addr_in == 8'hff);
 
     wire codes[2];
     wire [7:0] results[2];

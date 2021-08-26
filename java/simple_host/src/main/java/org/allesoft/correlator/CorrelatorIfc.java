@@ -7,6 +7,9 @@ import org.usb4java.DeviceList;
 import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.concurrent.locks.ReentrantLock;
@@ -191,16 +194,16 @@ public class CorrelatorIfc
             }
 
             System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
+            flash(handle);
+
+            sendCommand(handle, 1, new byte[]{}, false);
             for (;;) {
-                sendCommand(handle, 1, new byte[]{}, false);
 
                 Thread.sleep(500);
                 lock.lock();
-                int zeros = 0;
-                int ones = 0;
                 sendCommand(handle, 6, new byte[14], false);
 
-                byte[] payload = {0x01, 0x00, 0x03, 0x02};
+                byte[] payload = {0x01, 0x00, 0x03, 0x02, (byte) 0xff};
                 for (byte one : payload) {
                     sendCommand(handle, 7, new byte[]{one}, false);
                     Thread.sleep(100);
@@ -211,7 +214,6 @@ public class CorrelatorIfc
                 sendCommand(handle, 6, new byte[14], false);
                 lock.unlock();
 
-                sendCommand(handle, 1, new byte[]{}, false);
                 Thread.sleep(500);
             }
         }
@@ -244,5 +246,33 @@ public class CorrelatorIfc
 
     private static void spi_select(DeviceHandle handle) {
         sendCommand(handle, 3, new byte[] { }, true);
+    }
+
+    private static void flash(DeviceHandle handle) throws IOException {
+        flash_wakeup(handle);
+        flash_id(handle);
+        flash_we(handle);
+        flash_wait(handle, 0x02);
+        flash_erase(handle);
+        flash_wait(handle, 0x00);
+
+        InputStream inputStream = new FileInputStream(
+                "../../fpga/dsp/dsp_correlator/top.bin");
+        int addr = 0;
+        byte[] buf = new byte[16];
+        for (;;) {
+            int size = inputStream.read(buf);
+            if (size == -1) {
+                break;
+            }
+
+            flash_we(handle);
+            flash_wait(handle, 0x02);
+            flash_write(handle, addr, buf);
+            flash_wait(handle, 0x00);
+
+            flash_read(handle, addr);
+            addr += buf.length;
+        }
     }
 }
