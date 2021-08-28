@@ -15,22 +15,19 @@ module dispatcher(
     assign codes[1] = 1;
 
     sig_source sig_source(.clk(clk), .rst(rst), .period(8), .phase(0), .start_code(0), .code(codes[2]));
-    correlator correlatorP(.clk(clk), .rst(rst), .sig(sig), .code(codes[2]), .capture(capture), .select(addr_in[0]), .result(results[2]));
-
     sig_source sig_sourceB(.clk(clk), .rst(rst), .period(6), .phase(0), .start_code(0), .code(codes[3]));
-    correlator correlatorB(.clk(clk), .rst(rst), .sig(sig), .code(codes[3]), .capture(capture), .select(addr_in[0]), .result(results[3]));
-
-    correlator correlator0(.clk(clk), .rst(rst), .sig(sig), .code(codes[0]), .capture(capture), .select(addr_in[0]), .result(results[0]));
-    correlator correlator1(.clk(clk), .rst(rst), .sig(sig), .code(codes[1]), .capture(capture), .select(addr_in[0]), .result(results[1]));
 
     genvar j;
     for (j=4; j < 8; j++) begin
         sig_source sig_source(.clk(clk), .rst(rst), .period(6), .phase(2 + j % 2), .start_code(j < 6), .code(codes[j]));
+    end
+
+    for (j=0; j < 8; j++) begin
         correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .capture(capture), .select(addr_in[0]), .result(results[j]));
     end
 
-    assign data_out1 = addr_in[2] ? addr_in[1] ? results[3] : results[2] : addr_in[1] ? results[1] : results[0];
-    assign data_out2 = addr_in[2] ? addr_in[1] ? results[7] : results[6] : addr_in[1] ? results[5] : results[4];
+    wire [7:0] data_out1 = addr_in[2] ? addr_in[1] ? results[3] : results[2] : addr_in[1] ? results[1] : results[0];
+    wire [7:0] data_out2 = addr_in[2] ? addr_in[1] ? results[7] : results[6] : addr_in[1] ? results[5] : results[4];
     assign data_out = addr_in[3] ? data_out2 : data_out1;
 
 
