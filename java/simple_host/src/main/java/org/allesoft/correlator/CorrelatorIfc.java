@@ -258,7 +258,7 @@ public class CorrelatorIfc
                 ));
 
                 payload = new byte[] {
-                        0x09, 0x08, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+                        0x09, 0x08, 0x0b, 0x0a, 0x0d, 0x0c, 0x0f, 0x0e,
                         };
                 for (byte one : payload) {
                     sendCommand(handle, 7, new byte[]{one}, false);
