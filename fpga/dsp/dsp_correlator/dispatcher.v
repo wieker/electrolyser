@@ -3,32 +3,28 @@ module dispatcher(
     input [7:0] addr_in,
     input [7:0] data_in,
     input cs, we, oe,
-    output [7:0] data_out,
+    output reg [7:0] data_out,
     output rdy,
 );
 
     wire rst = rst_in || (addr_in == 8'hff);
 
-    wire codes[8];
-    wire [7:0] results[8];
+    wire codes[16];
+    wire [7:0] results[16];
+
     assign codes[0] = 0;
     assign codes[1] = 1;
-
-    sig_source sig_source(.clk(clk), .rst(rst), .period(8), .phase(0), .start_code(0), .code(codes[2]));
-    sig_source sig_sourceB(.clk(clk), .rst(rst), .period(6), .phase(0), .start_code(0), .code(codes[3]));
-
     genvar j;
-    for (j=4; j < 8; j++) begin
-        sig_source sig_source(.clk(clk), .rst(rst), .period(6), .phase(2 + j % 2), .start_code(j < 6), .code(codes[j]));
+    for (j=0; j < 6; j++) begin
+        sig_source sig_source(.clk(clk), .rst(rst), .period(6), .phase((j % 3) * 2), .start_code(j < 3), .code(codes[2 + j]));
+    end
+    for (j=0; j < 8; j++) begin
+        sig_source sig_source(.clk(clk), .rst(rst), .period(8), .phase((j % 4) * 2), .start_code(j < 4), .code(codes[8 + j]));
     end
 
-    for (j=0; j < 8; j++) begin
+    for (j=0; j < 16; j++) begin
         correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .capture(capture), .select(addr_in[0]), .result(results[j]));
     end
-
-    wire [7:0] data_out1 = addr_in[2] ? addr_in[1] ? results[3] : results[2] : addr_in[1] ? results[1] : results[0];
-    wire [7:0] data_out2 = addr_in[2] ? addr_in[1] ? results[7] : results[6] : addr_in[1] ? results[5] : results[4];
-    assign data_out = addr_in[3] ? data_out2 : data_out1;
 
 
     wire capture;
@@ -43,6 +39,7 @@ module dispatcher(
             ctr <= 0;
         else if (!capture)
             ctr <= next_ctr;
+        data_out <= results[addr_in[7:1]];
     end
 
 
