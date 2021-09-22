@@ -1,6 +1,9 @@
 module dispatcher(
     input clk, rst_in, sig,
-    output reg [7:0] data_out,
+    input addr_latch,
+    input [7:0] data_in,
+    output [7:0] data_out,
+    output rdy,
 );
 
     wire codes[16];
@@ -20,18 +23,8 @@ module dispatcher(
         correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .threshold(16'h0450), .matched(results[j]));
     end
 
-    wire mhz3[16];
-    wire mhz4[16];
-    assign mhz3[0] = results[2];
-    assign mhz4[0] = results[8];
-    for (j=1; j < 6; j++) begin
-        assign mhz3[j] = results[2 + j] | mhz3[j - 1];
-    end
-    for (j=1; j < 8; j++) begin
-        assign mhz4[j] = results[8 + j] | mhz4[j - 1];
-    end
+    assign data_out = addr_reg[0] ? results[15:8] : results[7:0];
 
-    wire [7:0] pre_data_out = {6'h00, mhz3[5], mhz4[7]};
 
     reg [32:0] ctr;
     wire [32:0] next_ctr;
@@ -40,12 +33,18 @@ module dispatcher(
 
     always@(posedge clk)
     begin
-        if (rst) begin
+        if (rst)
             ctr <= 0;
-            data_out <= pre_data_out;
-        end
         else
             ctr <= next_ctr;
+    end
+
+    reg [7:0] addr_reg;
+    always@(posedge clk)
+    begin
+        if (addr_latch)
+            addr_reg <= data_in;
+        end
     end
 
 
