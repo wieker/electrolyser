@@ -1,10 +1,13 @@
 module dispatcher(
     input clk, rst_in, sig,
-    input addr_latch,
+    input [7:0] addr_in,
     input [7:0] data_in,
+    input cs, we, oe,
     output [7:0] data_out,
     output rdy,
 );
+
+    wire rst = rst_in || (addr_in == 8'hff);
 
     wire codes[8];
     wire [7:0] results[8];
@@ -20,12 +23,12 @@ module dispatcher(
     end
 
     for (j=0; j < 8; j++) begin
-        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .capture(capture), .select(addr_reg[0]), .result(results[j]));
+        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .capture(capture), .select(addr_in[0]), .result(results[j]));
     end
 
-    wire [7:0] data_out1 = addr_reg[2] ? addr_reg[1] ? results[3] : results[2] : addr_reg[1] ? results[1] : results[0];
-    wire [7:0] data_out2 = addr_reg[2] ? addr_reg[1] ? results[7] : results[6] : addr_reg[1] ? results[5] : results[4];
-    assign data_out = addr_reg[3] ? data_out2 : data_out1;
+    wire [7:0] data_out1 = addr_in[2] ? addr_in[1] ? results[3] : results[2] : addr_in[1] ? results[1] : results[0];
+    wire [7:0] data_out2 = addr_in[2] ? addr_in[1] ? results[7] : results[6] : addr_in[1] ? results[5] : results[4];
+    assign data_out = addr_in[3] ? data_out2 : data_out1;
 
 
     wire capture;
@@ -40,17 +43,6 @@ module dispatcher(
             ctr <= 0;
         else if (!capture)
             ctr <= next_ctr;
-    end
-    always@(posedge clk)
-    begin
-        if (addr_latch)
-            addr_reg <= data_in;
-        else if (data_rdy)
-            data_rdy <= 0;
-        else if (data_out_latch) begin
-            data_out <= correlator_out;
-            data_rdy <= 1;
-        end
     end
 
 
