@@ -7,7 +7,7 @@ module dispatcher(
 );
 
     wire codes[16];
-    wire results[16];
+    wire [7:0] results[16];
 
     assign codes[0] = 0;
     assign codes[1] = 1;
@@ -20,22 +20,23 @@ module dispatcher(
     end
 
     for (j=0; j < 16; j++) begin
-        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .threshold(16'h0450), .matched(results[j]));
+        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .capture(capture), .select(addr_reg[0]), .result(results[j]));
     end
 
-    assign data_out = addr_reg[0] ? results[15:8] : results[7:0];
+    assign data_out = results[addr_reg[4:1]];
 
 
-    reg [32:0] ctr;
+    wire capture;
     wire [32:0] next_ctr;
-    wire rst = rst_in || (next_ctr == 32'h00000800);
+    assign capture = next_ctr == 32'h00000800;
     assign next_ctr = ctr + 1;
 
+    reg [32:0] ctr;
     always@(posedge clk)
     begin
         if (rst)
             ctr <= 0;
-        else
+        else if (!capture)
             ctr <= next_ctr;
     end
 
