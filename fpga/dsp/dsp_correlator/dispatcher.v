@@ -17,7 +17,7 @@ module dispatcher(
     end
 
     for (j=0; j < 16; j++) begin
-        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .threshold(16'h0450), .matched(results[j]));
+        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .threshold(16'h0400), .matched(results[j]));
     end
 
     wire mhz3[16];

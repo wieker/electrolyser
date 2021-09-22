@@ -4,7 +4,7 @@ module hex_dump(
 );
 
     wire [7:0] data;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .addr_in(cmd), .data_out(data));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .data_out(data));
 
     reg [1:0] state;
     reg tx_start;
