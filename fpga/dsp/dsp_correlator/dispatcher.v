@@ -3,7 +3,7 @@ module dispatcher(
     input [7:0] addr_in,
     input [7:0] data_in,
     input cs, we, oe,
-    output reg [7:0] data_out,
+    output [7:0] data_out,
     output rdy,
 );
 
@@ -23,9 +23,10 @@ module dispatcher(
     end
 
     for (j=0; j < 16; j++) begin
-        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .capture(capture), .select(addr_in[0]), .result(results[j]));
+        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .capture(capture), .result(results[j]));
     end
 
+    assign data_out = results[addr_in];
 
     wire capture;
     wire [32:0] next_ctr;
@@ -39,7 +40,6 @@ module dispatcher(
             ctr <= 0;
         else if (!capture)
             ctr <= next_ctr;
-        data_out <= results[addr_in[7:1]];
     end
 
 
