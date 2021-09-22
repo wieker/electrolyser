@@ -10,7 +10,8 @@ module top(
     wire sig_in;
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in));
 
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(fpga_rx));
+    wire [7:0] data;
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .data_out(data));
 
     reg [32:0] ctr;
     always@(posedge clk)
@@ -18,8 +19,8 @@ module top(
       ctr <= ctr + 1;
     end
 
-    assign LED2 = ctr[25];
-    assign LED1 = sig_in;
+    assign LED2 = data[0];
+    assign LED1 = data[1];
 
     assign pwm_out = 0;
 
