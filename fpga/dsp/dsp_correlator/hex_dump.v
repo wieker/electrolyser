@@ -19,13 +19,11 @@ module hex_dump(
         end else if ((rx_stb == 1) && (state == 0)) begin
             cmd <= rx_dat;
             state <= 1;
-        end else if (state == 1) begin
-            state <= 2;
-        end else if ((tx_busy == 0) && (tx_start == 0) && (state == 2)) begin
+        end else if ((tx_busy == 0) && (tx_start == 0) && (state == 1)) begin
             tx_start <= 1;
             symb <= data;
-            state <= 3;
-        end else if (state == 3) begin
+            state <= 2;
+        end else if (state == 2) begin
             tx_start <= 0;
             state <= 0;
         end

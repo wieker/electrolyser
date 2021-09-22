@@ -1,7 +1,6 @@
 module correlator(
     input clk, rst, sig, code,
     input capture,
-    input select,
     output [7:0] result,
 );
 
@@ -10,7 +9,7 @@ module correlator(
     reg [15:0] result_miss;
     reg [15:0] result_match;
 
-    assign result = select ? result_match[15:8] : result_match[7:0];
+    assign result = result_match[11:4];
 
 	always @(posedge clk)
 	begin
