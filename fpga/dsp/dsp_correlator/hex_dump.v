@@ -1,10 +1,10 @@
 module hex_dump(
     input clk, rst, sig, fpga_rx,
-    output fpga_tx,
+    output fpga_tx, rdy3, rdy4,
 );
 
     wire [7:0] data;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .addr_in(cmd), .data_out(data));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .addr_in(cmd), .data_out(data), .rdy3(rdy3), .rdy4(rdy4));
 
     reg [1:0] state;
     reg tx_start;
