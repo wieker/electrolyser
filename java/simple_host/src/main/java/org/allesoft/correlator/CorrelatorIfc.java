@@ -237,43 +237,14 @@ public class CorrelatorIfc
     private static void start_loop(DeviceHandle handle) {
         try {
             sendCommand(handle, 1, new byte[]{}, false);
+            lock.lock();
             for (; running; ) {
-
-                Thread.sleep(500);
-                lock.lock();
-                sendCommand(handle, 6, new byte[14], false);
-
-                byte[] ch;
-
-                for (byte one = 0x00; one <= 0x07; one ++) {
-                    sendCommand(handle, 7, new byte[]{one}, false);
-                    Thread.sleep(100);
-                }
-                ch = sendCommand(handle, 6, new byte[22], false);
+                byte[] ch = sendCommand(handle, 6, new byte[22], false);
                 System.out.println(String.format("%02x%02x\n%02x%02x %02x%02x %02x%02x",
                         ch[1], ch[2], ch[3], ch[4], ch[5], ch[6], ch[7], ch[8]
                 ));
-
-                for (byte one = 0x08; one <= 0x0f; one ++) {
-                    sendCommand(handle, 7, new byte[]{one}, false);
-                    Thread.sleep(100);
-                }
-                ch = sendCommand(handle, 6, new byte[22], false);
-                System.out.println(String.format("%02x%02x %02x%02x %02x%02x %02x%02x",
-                        ch[1], ch[2], ch[3], ch[4], ch[5], ch[6], ch[7], ch[8]
-                ));
-                System.out.println("=======");
-
-                sendCommand(handle, 7, new byte[]{(byte) 0xff}, false);
-                Thread.sleep(100);
-                sendCommand(handle, 7, new byte[]{0x00}, false);
-                Thread.sleep(100);
-
-                sendCommand(handle, 6, new byte[14], false);
-                lock.unlock();
-
-                Thread.sleep(500);
             }
+            lock.unlock();
             sendCommand(handle, 1, new byte[]{}, false);
         } catch (Exception e) {
             System.out.println(e);

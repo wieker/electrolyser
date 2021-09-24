@@ -4,7 +4,7 @@ module hex_dump(
 );
 
     wire [7:0] data;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .addr_in(cmd), .data_out(data), .rdy3(rdy3), .rdy4(rdy4));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy3(rdy3), .rdy4(rdy4), .stb(stb));
 
     reg [1:0] state;
     reg tx_start;
@@ -14,19 +14,8 @@ module hex_dump(
 
     always@(posedge clk)
     begin
-        if (rst) begin
-            state <= 0;
-        end else if ((rx_stb == 1) && (state == 0)) begin
-            cmd <= rx_dat;
-            state <= 1;
-        end else if ((tx_busy == 0) && (tx_start == 0) && (state == 1)) begin
-            tx_start <= 1;
-            symb <= data;
-            state <= 2;
-        end else if (state == 2) begin
-            tx_start <= 0;
-            state <= 0;
-        end
+        tx_start <= stb;
+        symb <= {6'h0, rdy3, rdy4};
     end
 
     wire tx_busy;

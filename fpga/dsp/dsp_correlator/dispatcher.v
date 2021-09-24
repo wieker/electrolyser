@@ -1,14 +1,11 @@
 module dispatcher(
     input clk, rst_in, sig,
-    input [7:0] addr_in,
-    input [7:0] data_in,
-    input cs, we, oe,
-    output [7:0] data_out,
     output reg rdy3,
     output reg rdy4,
+    output reg stb,
 );
 
-    wire rst = rst_in || (addr_in == 8'hff);
+    wire rst = rst_in | capture;
 
     wire codes[16];
     wire [7:0] results[16];
@@ -25,10 +22,9 @@ module dispatcher(
     end
 
     for (j=0; j < 16; j++) begin
-        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .capture(capture), .result(results[j]), .match(rdys[j]));
+        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .trigger(8'h50), .result(results[j]), .match(rdys[j]));
     end
 
-    assign data_out = results[addr_in];
     wire rdys4[6];
     wire rdys3[8];
     assign rdys4[0] = rdys[2];
@@ -48,24 +44,20 @@ module dispatcher(
     reg [32:0] ctr;
     reg prerdy4;
     reg prerdy3;
-    reg commit;
     always@(posedge clk)
     begin
         if (rst) begin
             ctr <= 0;
-            commit <= 0;
+            rdy3 <= prerdy3;
+            rdy4 <= prerdy4;
+            prerdy4 <= 0;
+            prerdy3 <= 0;
+            stb <= 1;
         end else begin
+            ctr <= next_ctr;
             prerdy4 <= prerdy4 | rdys4[5];
             prerdy3 <= prerdy3 | rdys3[7];
-            if (!capture)
-                ctr <= next_ctr;
-            else if (commit == 0) begin
-                rdy3 <= prerdy3;
-                rdy4 <= prerdy4;
-                prerdy4 <= 0;
-                prerdy3 <= 0;
-                commit <= 1;
-            end
+            stb <= 0;
         end
     end
 
