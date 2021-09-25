@@ -30,42 +30,23 @@ module dispatcher(
         .stb(stb),
     );
 
-    wire rdyf3, rdyf4;
-    mass_or #(
-        .WIDTH(6),
-    )
-    orf4(
-        .inp({rdys[2], rdys[3], rdys[4], rdys[5], rdys[6], rdys[7]}),
-        .val(rdyf4),
-    );
-    mass_or #(
-        .WIDTH(8),
-    )
-    orf3(
-        .inp({rdys[8], rdys[9], rdys[10], rdys[11], rdys[12], rdys[13], rdys[14], rdys[15]}),
-        .val(rdyf3),
-    );
-
-    reg prerdy3;
-    always@(posedge clk)
-    begin
-        if (rst) begin
-            prerdy3 <= 0;
-        end else begin
-            prerdy3 <= prerdy3 | rdyf3;
-        end
-    end
+    reg temp1, temp2;
+	always @(posedge clk)
+	begin
+	    temp1 <= rdys[8] | rdys[9] | rdys[10] | rdys[11];
+	    temp2 <= rdys[12] | rdys[13] | rdys[14] | rdys[15];
+	end
 
     flag_holder fh4(
         .clk(clk),
         .set(rst),
-        .inp(rdyf4),
+        .inp(rdys[2] | rdys[3] | rdys[4] | rdys[5] | rdys[6] | rdys[7]),
         .val(rdy4),
     );
     flag_holder fh3(
         .clk(clk),
         .set(rst),
-        .inp(rdyf3),
+        .inp(temp1 | temp2),
         .val(rdy3),
     );
 
