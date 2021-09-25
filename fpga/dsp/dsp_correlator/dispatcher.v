@@ -46,6 +46,16 @@ module dispatcher(
         .val(rdyf3),
     );
 
+    reg prerdy3;
+    always@(posedge clk)
+    begin
+        if (rst) begin
+            prerdy3 <= 0;
+        end else begin
+            prerdy3 <= prerdy3 | rdyf3;
+        end
+    end
+
     flag_holder fh4(
         .clk(clk),
         .set(rst),
