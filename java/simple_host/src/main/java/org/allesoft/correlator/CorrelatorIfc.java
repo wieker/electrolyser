@@ -245,7 +245,9 @@ public class CorrelatorIfc
                             ch[i + 1]
                     ));
                 }
-                System.out.println(" === ");
+                if (ch[0] != 0) {
+                    System.out.println(" === ");
+                }
             }
             lock.unlock();
             sendCommand(handle, 1, new byte[]{}, false);
