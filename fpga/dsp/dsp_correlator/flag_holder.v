@@ -9,7 +9,7 @@ module flag_holder(
 
     always@(posedge clk)
     begin
-        if (rst) begin
+        if (set) begin
             val <= temp;
             temp <= 0;
         end else begin

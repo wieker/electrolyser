@@ -24,6 +24,7 @@ module dispatcher(
 
     wire rst;
     dispatcher_ctl ctl(
+        .clk(clk),
         .rst_in(rst_in),
         .rst_out(rst),
         .stb(stb),

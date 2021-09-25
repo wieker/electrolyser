@@ -1,4 +1,5 @@
 module dispatcher_ctl(
+    input clk,
     input rst_in,
     output rst_out,
     output reg stb,
@@ -15,7 +16,7 @@ module dispatcher_ctl(
     reg [32:0] ctr;
     always@(posedge clk)
     begin
-        if (rst) begin
+        if (rst_out) begin
             ctr <= 0;
             stb <= 1;
         end else begin
