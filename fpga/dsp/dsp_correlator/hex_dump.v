@@ -12,21 +12,17 @@ module hex_dump(
     wire rdy;
     reg [7:0] cmd;
 
-    reg [7:0] cnt1;
-    reg [7:0] cnt2;
-
     always@(posedge clk)
     begin
-        if (stb) begin
-            if (rdy3 == 1) begin
-                cnt1 <= cnt1 + 1;
-            end
-            if (rdy4 == 1) begin
-                cnt2 <= cnt2 + 1;
-            end
+        if (state == 0) begin
+            tx_start <= stb;
+        end else begin
+            tx_start <= 0;
         end
-        tx_start <= stb && ((cnt1 == 8'hff) || (cnt2 == 8'hff));
-        symb <= {6'h0, cnt1 == 8'hff, cnt2 == 8'hff};
+        if (stb) begin
+            state <= state + 1;
+            symb <= {symb[5:0], rdy3, rdy4};
+        end
     end
 
     wire tx_busy;
