@@ -39,13 +39,13 @@ module dispatcher(
     flag_holder fh4(
         .clk(clk),
         .set(rst),
-        .inp(rdys[2] | rdys[3] | rdys[4] | rdys[5] | rdys[6] | rdys[7]),
+        .inp(temp2),
         .val(rdy4),
     );
     flag_holder fh3(
         .clk(clk),
         .set(rst),
-        .inp(temp1 | temp2),
+        .inp(temp1),
         .val(rdy3),
     );
 
