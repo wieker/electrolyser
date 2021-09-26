@@ -8,15 +8,19 @@ module hex_dump(
 
     reg tx_start;
     reg [7:0] symb;
+    reg [7:0] stbcounter;
 
     always@(posedge clk)
     begin
-        state <= stb;
+        tx_start <= stb && (stbcounter[4] == 0);
         symb <= data;
+        if (stb && (stbcounter[4] == 0)) begin
+            stbcounter <= stbcounter + 1;
+        end
     end
 
     wire tx_busy;
-    localparam sym_rate = 115200;
+    localparam sym_rate = 1000000;
     localparam clk_freq = 48000000;
     localparam sym_cnt = clk_freq / sym_rate;
     localparam SCW = $clog2(sym_cnt);
