@@ -5,7 +5,6 @@ module dispatcher(
     output stb,
 );
     wire codes[16];
-    wire [7:0] results[16];
     wire rdys[16];
 
     assign codes[0] = 0;
@@ -19,7 +18,7 @@ module dispatcher(
     end
 
     for (j=0; j < 16; j++) begin
-        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .trigger(8'h50), .result(results[j]), .match(rdys[j]));
+        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(codes[j]), .match(rdys[j]));
     end
 
     wire rst;
