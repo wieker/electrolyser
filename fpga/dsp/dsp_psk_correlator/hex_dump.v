@@ -4,25 +4,15 @@ module hex_dump(
 );
 
     wire [7:0] data;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy3(rdy3), .rdy4(rdy4), .stb(stb));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .phases(data), .stb(stb));
 
-    reg [1:0] state;
     reg tx_start;
     reg [7:0] symb;
-    wire rdy;
-    reg [7:0] cmd;
 
     always@(posedge clk)
     begin
-        if (state == 0) begin
-            tx_start <= stb;
-        end else begin
-            tx_start <= 0;
-        end
-        if (stb) begin
-            state <= state + 1;
-            symb <= {symb[5:0], rdy3, rdy4};
-        end
+        state <= stb;
+        symb <= data;
     end
 
     wire tx_busy;
@@ -43,21 +33,5 @@ module hex_dump(
         .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
-
-    wire rx_stb;
-    wire [7:0] rx_dat;
-
-	acia_rx #(
-		.SCW(SCW),				// rate counter width
-		.sym_cnt(sym_cnt)		// rate count value
-	)
-	my_rx(
-		.clk(clk),				// system clock
-		.rst(rst),			// system reset
-		.rx_serial(fpga_rx),		    // raw serial input
-		.rx_dat(rx_dat),        // received byte
-		.rx_stb(rx_stb),        // received data available
-		.rx_err(rx_err)         // received data error
-	);
 
 endmodule

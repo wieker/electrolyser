@@ -240,7 +240,7 @@ public class PSKModemIfc
             lock.lock();
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[16], false);
-                for (int i = 0; i < ch[0]; i += 2) {
+                for (int i = 0; i < ch[0]; i ++) {
                     System.out.print(String.format("%02x ",
                             ch[i + 1]
                     ));
