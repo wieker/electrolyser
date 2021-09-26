@@ -25,7 +25,7 @@ module top(
     reg enable;
     reg [15:0] rfcounter;
 
-    assign rf = enable ? select ? CLK2 : counter1[1] : 0;
+    assign rf = 1 ? select ? CLK2 : counter1[1] : 0;
 
     always @(posedge CLK1)
     begin

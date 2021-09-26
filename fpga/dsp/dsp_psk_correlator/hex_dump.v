@@ -6,29 +6,22 @@ module hex_dump(
     wire [7:0] data;
     dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy3(rdy3), .rdy4(rdy4), .stb(stb));
 
-    reg [7:0] state;
+    reg [1:0] state;
     reg tx_start;
     reg [7:0] symb;
     wire rdy;
     reg [7:0] cmd;
-    reg curr;
-    reg saved;
 
     always@(posedge clk)
     begin
-        if (state == 8) begin
-            tx_start <= 1;
-            state <= 0;
+        if (state == 0) begin
+            tx_start <= stb;
         end else begin
             tx_start <= 0;
-            if ((curr == 1) && (rdy4 == 0) && (rdy3 == 0)) begin
-                state <= state + 1;
-                symb <= {symb[6:0], saved};
-                curr <= 0;
-            end else if ((curr == 0) && (rdy4 != rdy3)) begin
-                saved <= rdy4;
-                curr <= 1;
-            end
+        end
+        if (stb) begin
+            state <= state + 1;
+            symb <= {symb[5:0], rdy3, rdy4};
         end
     end
 
