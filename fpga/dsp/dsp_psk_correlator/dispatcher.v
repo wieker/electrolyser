@@ -3,7 +3,7 @@ module dispatcher(
     output lock,
     output stb,
 );
-    reg [15:0] base_sig;
+    reg [0:15] base_sig;
     wire left, right, center;
     wire left_flag, right_flag, center_flag;
     always@(posedge clk)
@@ -12,19 +12,19 @@ module dispatcher(
             base_sig <= 16'h00ff;
         end else if (rst) begin
             if ((left == 0) || (center == 0)) begin
+                base_sig <= {base_sig[2:15], base_sig[0], base_sig[1]};
             end else if (right == 0) begin
-                base_sig <= {base_sig[13:0], base_sig[15], base_sig[14]};
             end else begin
-                base_sig <= {base_sig[14:0], base_sig[15]};
+                base_sig <= {base_sig[1:15], base_sig[0]};
             end
         end else begin
-            base_sig <= {base_sig[14:0], base_sig[15]};
+            base_sig <= {base_sig[1:15], base_sig[0]};
         end
     end
 
-    correlator correlator_left(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[0]), .match(left_flag));
-    correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[2]), .match(center_flag));
-    correlator correlator_right(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[4]), .match(right_flag));
+    correlator correlator_left(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[6]), .match(left_flag));
+    correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[8]), .match(center_flag));
+    correlator correlator_right(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[10]), .match(right_flag));
 
     wire rst;
     dispatcher_ctl ctl(
