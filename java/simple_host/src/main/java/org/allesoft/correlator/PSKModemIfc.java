@@ -238,15 +238,25 @@ public class PSKModemIfc
         try {
             sendCommand(handle, 1, new byte[]{}, false);
             lock.lock();
+            long total = 0;
+            long locked = 0;
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
                     System.out.print(String.format("%02x ",
                             ch[i + 1]
                     ));
+                    total ++;
+                    if (ch[i + 1] > 0x50) {
+                        locked ++;
+                    }
                 }
                 if (ch[0] != 0) {
-                    System.out.println(" === ");
+                    System.out.println(String.format(" ===  %f", ((float) 100 * locked) / total));
+                }
+                if (total == 1000) {
+                    total = 0;
+                    locked = 0;
                 }
             }
             lock.unlock();
