@@ -11,11 +11,12 @@ module dispatcher(
         if (rst_in) begin
             base_sig <= 16'h00ff;
         end else if (rst) begin
-            if ((left == 0) || (center == 0)) begin
+            if (!left) begin
                 base_sig <= {base_sig[2:15], base_sig[0], base_sig[1]};
-            end else if (right == 0) begin
-            end else begin
+            end else if (right) begin
                 base_sig <= {base_sig[1:15], base_sig[0]};
+            end else if (!right) begin
+                base_sig <= base_sig;
             end
         end else begin
             base_sig <= {base_sig[1:15], base_sig[0]};
