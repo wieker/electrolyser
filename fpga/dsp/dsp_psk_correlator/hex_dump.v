@@ -3,19 +3,24 @@ module hex_dump(
     output fpga_tx, rdy3, rdy4,
 );
 
-    wire [7:0] data;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .phases(data), .stb(stb));
+    wire lock;
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .lock(lock), .stb(stb));
 
     reg tx_start;
     reg [7:0] symb;
-    reg [7:0] stbcounter;
+    reg [7:0] state;
 
     always@(posedge clk)
     begin
-        tx_start <= stb && (stbcounter[4] == 0);
-        symb <= data;
-        if (stb && (stbcounter[4] == 0)) begin
-            stbcounter <= stbcounter + 1;
+        if (state == 8) begin
+            tx_start <= 1;
+            state <= 0;
+        end else begin
+            tx_start <= 0;
+            if (stb) begin
+                state <= state + 1;
+                symb <= {symb[6:0], lock};
+            end
         end
     end
 
