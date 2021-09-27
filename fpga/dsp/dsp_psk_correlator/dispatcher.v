@@ -1,5 +1,6 @@
 module dispatcher(
     input clk, rst_in, sig,
+    output [7:0] value,
     output lock,
     output stb,
 );
@@ -24,7 +25,7 @@ module dispatcher(
     end
 
     correlator correlator_left(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[6]), .match(left_flag));
-    correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[8]), .match(center_flag));
+    correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[8]), .match(center_flag), .value(value));
     correlator correlator_right(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[10]), .match(right_flag));
 
     wire rst;
