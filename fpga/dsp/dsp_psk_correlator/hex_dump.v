@@ -5,6 +5,7 @@ module hex_dump(
 
     wire lock;
     assign rdy4 = lock;
+    assign rdy3 = sig;
     wire [7:0] value;
     dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .lock(lock), .stb(stb), .value(value));
 
