@@ -1,6 +1,6 @@
 
 
-module cq(input wire clk, reset, wr, rd, input wire[7:0] din, output wire empty, full, output wire[7:0] dout);
+module fifo(input wire clk, reset, wr, rd, input wire[7:0] din, output wire empty, full, output wire[7:0] dout);
     wire [2:0] rd_addr, wr_addr;
     wire [2:0] rd_inc, wr_inc;
     wire [15:0] fakeDout;
@@ -33,7 +33,6 @@ module cq(input wire clk, reset, wr, rd, input wire[7:0] din, output wire empty,
 
     reg [7:0] regs[8];
     assign dout = regs[rd_addr];
-    reg_file rf1 (clk, reset, wr_load, rd_addr[2:0], wr_addr[2:0], din[15:0], dout[15:0]);
     integer i;
     always@(posedge clk)
     begin

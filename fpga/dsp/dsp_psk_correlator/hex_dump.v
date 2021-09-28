@@ -10,20 +10,17 @@ module hex_dump(
     dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .lock(lock), .stb(stb), .value(value));
 
     reg tx_start;
-    reg [7:0] symb;
-    reg [7:0] state;
+    wire empty;
+    wire full;
+    wire [7:0] touart;
+    fifo fifo(.clk(clk), .reset(rst), .wr(stb), .rd(tx_start), .din(value), .empty(empty), .full(full), .dout(touart));
 
     always@(posedge clk)
     begin
-        if (state == 100) begin
+        if ((!empty) && (!tx_busy)) begin
             tx_start <= 1;
-            state <= 0;
         end else begin
             tx_start <= 0;
-            if (stb) begin
-                state <= state + 1;
-                symb <= value;
-            end
         end
     end
 
@@ -40,7 +37,7 @@ module hex_dump(
     my_tx(
         .clk(clk),				// system clock
         .rst(rst),			// system reset
-        .tx_dat(symb),           // transmit data byte
+        .tx_dat(touart),           // transmit data byte
         .tx_start(tx_start),    // trigger transmission
         .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
