@@ -12,7 +12,7 @@ module correlator(
 	always @(posedge clk)
 	begin
 	    match_stage <= match_counter;
-	    match <= (match_stage[10] == 1) && ((match_stage[8] == 1) || (match_stage[9] == 1));
+	    match <= (match_stage[10] == 1) && (match_stage[8] == 1);
 	    sig_buf <= sig;
 	    code_buf <= code;
 		if(rst) begin
