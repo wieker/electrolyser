@@ -4,21 +4,23 @@ module hex_dump(
 );
 
     wire lock;
-    assign rdy4 = lock;
+    assign rdy4 = value[3];
     assign rdy3 = sig;
     wire [7:0] value;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .lock(lock), .stb(stb), .value(value));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .stb(stb), .value(value));
 
     reg tx_start;
     wire empty;
     wire full;
     wire [7:0] touart;
     fifo fifo(.clk(clk), .reset(rst), .wr(stb), .rd(tx_start), .din(value), .empty(empty), .full(full), .dout(touart));
+    reg [7:0] counter;
 
     always@(posedge clk)
     begin
-        if ((!empty) && (!tx_busy)) begin
+        if ((!empty) && (!tx_busy) && (counter < 80)) begin
             tx_start <= 1;
+            counter <= counter + 1;
         end else begin
             tx_start <= 0;
         end
