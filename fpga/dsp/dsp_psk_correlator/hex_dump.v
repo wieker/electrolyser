@@ -21,13 +21,11 @@ module hex_dump(
     always@(posedge clk)
     begin
         counter <= counter + 1;
-        if (rst)
-            phase <= 1;
         if (full) begin
             phase <= 0;
         end
         if (empty) begin
-            //phase <= 1;
+            phase <= 1;
         end
         if ((!empty) && (!tx_busy) && !phase && !bugfix001) begin
             bugfix001 <= 1;
