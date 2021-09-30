@@ -4,37 +4,18 @@ module dispatcher(
     output stb,
 );
     reg [0:15] base_sig;
+    wire code;
     always@(posedge clk)
     begin
         if (rst_in) begin
             base_sig <= 16'h00ff;
-        end else if (wait) begin
         end else begin
-            base_sig <= {base_sig[1:15], base_sig[0]};
+            base_sig <= {base_sig[1:15], code};
         end
     end
 
-    reg wait;
-    reg [3:0] timer;
-    always@(posedge clk)
-    begin
-        if (stb) begin
-            if (!left) begin
-                wait <= 1;
-                timer <= 14;
-            end else if (!right) begin
-                wait <= 1;
-                timer <= 0;
-            end
-        end else if (timer == 0) begin
-            wait <= 0;
-        end else begin
-            timer <= timer - 1;
-        end
-    end
+    sigsv2 sigsv2(.clk(clk), .rst(rst_in), .left(stb && !value[3]), .right(stb && !value[5]), .code(code));
 
-    wire left = value[2];
-    wire right = value[4];
     wire [7:0] rdys;
     genvar j;
     for (j=0; j < 8; j++) begin
