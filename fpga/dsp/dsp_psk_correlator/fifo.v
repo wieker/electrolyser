@@ -1,8 +1,8 @@
 
 
 module fifo(input wire clk, reset, wr, rd, input wire[7:0] din, output wire empty, full, output wire[7:0] dout);
-    wire [2:0] rd_addr, wr_addr;
-    wire [2:0] rd_inc, wr_inc;
+    wire [3:0] rd_addr, wr_addr;
+    wire [3:0] rd_inc, wr_inc;
     wire [15:0] fakeDout;
     wire wr_load, rd_load;
 
@@ -14,8 +14,8 @@ module fifo(input wire clk, reset, wr, rd, input wire[7:0] din, output wire empt
     assign rd_load = rd && !empty;
     assign wr_load = wr && !full;
 
-    reg [2:0] rd_addr;
-    reg [2:0] wr_addr;
+    reg [3:0] rd_addr;
+    reg [3:0] wr_addr;
     always@(posedge clk)
     begin
         if (reset) begin
@@ -31,13 +31,13 @@ module fifo(input wire clk, reset, wr, rd, input wire[7:0] din, output wire empt
         end
     end
 
-    reg [7:0] regs[8];
+    reg [7:0] regs[16];
     assign dout = regs[rd_addr];
     integer i;
     always@(posedge clk)
     begin
         if (wr_load) begin
-            for (i = 0; i < 8; i ++) begin
+            for (i = 0; i < 16; i ++) begin
                 if (wr_addr == i) begin
                     regs[i] <= din;
                 end
