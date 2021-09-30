@@ -8,16 +8,28 @@ module dispatcher(
     begin
         if (rst_in) begin
             base_sig <= 16'h00ff;
-        end else if (stb) begin
-            if (!left) begin
-                base_sig <= {base_sig[2:15], base_sig[0], base_sig[1]};
-            end else if (right) begin
-                base_sig <= {base_sig[1:15], base_sig[0]};
-            end else if (!right) begin
-                base_sig <= base_sig;
-            end
+        end else if (wait) begin
         end else begin
             base_sig <= {base_sig[1:15], base_sig[0]};
+        end
+    end
+
+    reg wait;
+    reg [3:0] timer;
+    always@(posedge clk)
+    begin
+        if (stb) begin
+            if (!left) begin
+                wait <= 1;
+                timer <= 14;
+            end else if (!right) begin
+                wait <= 1;
+                timer <= 0;
+            end
+        end else if (timer == 0) begin
+            wait <= 0;
+        end else begin
+            timer <= timer - 1;
         end
     end
 
