@@ -3,15 +3,15 @@ module correlator(
     output reg match,
 );
 
-    reg [11:0] match_counter;
-    reg [11:0] match_stage;
+    reg [13:0] match_counter;
+    reg [13:0] match_stage;
     reg sig_buf;
     reg code_buf;
 
 	always @(posedge clk)
 	begin
 	    match_stage <= match_counter;
-	    match <= (match_stage[10] == 1) && (match_stage[8] == 1);
+	    match <= (match_stage[13] == 1) && (match_stage[8] == 1);
 	    sig_buf <= sig;
 	    code_buf <= code;
 		if(rst) begin
