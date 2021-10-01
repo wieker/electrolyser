@@ -3,13 +3,13 @@ module dispatcher(
     output [7:0] value,
     output stb,
 );
-    reg [0:15] base_sig;
+    reg [0:5] base_sig;
     always@(posedge clk)
     begin
         if (rst_in) begin
-            base_sig <= 16'h00ff;
+            base_sig <= 6'b000111;
         end else begin
-            base_sig <= {base_sig[1:15], base_sig[0]};
+            base_sig <= {base_sig[1:5], base_sig[0]};
         end
     end
 

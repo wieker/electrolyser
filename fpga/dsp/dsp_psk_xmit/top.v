@@ -3,6 +3,9 @@ module top(
     input CLK1, CLK2, fpga_rx,
 );
 
+
+    hex_dump hex_dump(.clk(CLK1), .rst(rst), .fpga_tx(fpga_tx), .sig(counter2[0]), .fpga_rx(fpga_rx), .rdy3(rdy3), .rdy4(rdy4));
+
     reg [21:0] counter1;
 
     always @(posedge CLK1)
