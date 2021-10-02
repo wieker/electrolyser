@@ -13,7 +13,11 @@ module dispatcher(
         end
     end
 
-    correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[3]), .value(value));
+    wire [7:0] rdys;
+    genvar j;
+    for (j=0; j < 6; j++) begin
+        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[j]), .match(rdys[j]));
+    end
 
     wire rst;
     dispatcher_ctl ctl(
@@ -22,6 +26,18 @@ module dispatcher(
         .rst_out(rst),
         .stb(stb),
     );
+
+    reg [7:0] temp;
+
+    always@(posedge clk)
+    begin
+        if (rst) begin
+            value <= temp;
+            temp <= 0;
+        end else begin
+            temp <= temp | rdys;
+        end
+    end
 
 
 endmodule

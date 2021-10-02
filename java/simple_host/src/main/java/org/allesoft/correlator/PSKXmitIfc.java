@@ -163,6 +163,8 @@ public class PSKXmitIfc
         return recv;
     }
 
+    static volatile boolean running;
+
     public static void main(String[] args) throws Exception {
         int result = LibUsb.init(null);
         if (result != LibUsb.SUCCESS) {
@@ -203,151 +205,24 @@ public class PSKXmitIfc
                 switch (key) {
 
                     case 'l':
-                        sendCommand(handle, 0, new byte[] { }, true);
+                        sendCommand(handle, 0, new byte[]{}, true);
                         break;
                     case 'f':
-                        sendCommand(handle, 1, new byte[] { }, true);
+                        sendCommand(handle, 1, new byte[]{}, true);
                         break;
                     case 's':
                         flash(handle);
-                        int addr;
-                        break;
-                    case 'r':
-                        flash_wakeup(handle);
-                        flash_id(handle);
-
-                        for (addr = 0; addr < 32220; addr += 16) {
-                            flash_read(handle, addr);
-                        }
-                        break;
-                    case 'i':
-                        flash_wakeup(handle);
-                        flash_id(handle);
-                        break;
-                    case 'u':
-
-                        new Thread(() -> {
-                            for (;;) {
-                                try {
-                                    Thread.sleep(10l);
-                                    byte[] ch = sendCommand(handle, 6, new byte[]{1, 1}, false);
-                                    if (ch[0] > 0 && ch[1] != 0) {
-                                        System.out.append((char) ch[1]);
-                                    }
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
-                        break;
-                    case 'c':
-                        sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
-                        break;
-                    case 'a':
-                        sendCommand(handle, 7, "l\0\0".getBytes(), true);
                         break;
                     case 't':
-                        lock.lock();
-                        //sendCommand(handle, 7, "scdeeeeeee3eea2a\0".getBytes(), true);
-                        //sendCommand(handle, 7, "l\0\0".getBytes(), true);
-                        byte[] ch = sendCommand(handle, 6, new byte[14], true);
-                        System.out.println(new String(ch, 1, ch[0]));
-                        lock.unlock();
+                        running = true;
+                        new Thread(() -> start_loop(handle)).start();
                         break;
-
+                    case 'k':
+                        running = false;
+                        break;
                     case 'q':
                         exit = true;
                         break;
-                    case '1':
-                        sendCommand(handle, 7, "0".getBytes(), true);
-                        break;
-                    case '2':
-                        sendCommand(handle, 7, "0\0\0".getBytes(), true);
-                        break;
-                    case '3':
-                        sendCommand(handle, 7, new byte[] {'r', 0x00, 0x00, 0x00}, true);
-                        break;
-                    case '4':
-                        sendCommand(handle, 7, new byte[] {'r', 0x00, 0x30, 0x00}, true);
-                        break;
-                    case '5':
-                        sendCommand(handle, 7, new byte[] {'w', 0x30, 0x00, 0x01, 0x00}, true);
-                        break;
-                    case '6':
-                        for (int i = 0; i < 50; i ++) {
-                            sendCommand(handle, 7, new byte[]{'r', (byte) 0x30, (byte) i, 0x00}, false);
-                            Thread.sleep(1000);
-                            ch = sendCommand(handle, 6, new byte[14], false);
-                            System.out.println(String.format("%02x", ch[1]));
-                        }
-                    case '7':
-                        sendCommand(handle, 7, "123".getBytes(), true);
-                        break;
-                    case '8':
-                        sendCommand(handle, 7, new byte[] {'R', 0x00, 0x00, 0x05}, true);
-                        break;
-                    case '9':
-                        sendCommand(handle, 7, new byte[] {'W', 0x00, 0x00, 0x05, 'a', 'b',
-                                'c', 'd', 'Y'},true);
-                        break;
-                    case '0':
-                        sendCommand(handle, 7, new byte[] {0x01, (byte) 0xff},true);
-                        break;
-                    case 'm':
-                        sendCommand(handle, 7, new byte[] {0x01, (byte) 0x80},true);
-                        break;
-                    case 'M':
-                        sendCommand(handle, 7, new byte[] {
-                                0x01, (byte) 0x00,
-                                0x02, (byte) 0x00,
-                                0x03, (byte) 0x00,
-                                0x04, (byte) 0x05,
-                                0x05, (byte) 0x80,
-                                0x06, (byte) 'S',
-                        }, true);
-                        break;
-                    case 'U':
-                        sendCommand(handle, 7, new byte[] {
-                                0x01, (byte) 0x00,
-                                0x02, (byte) 0x00,
-                                0x03, (byte) 0x00,
-                                0x04, (byte) 0x05,
-                                0x05, (byte) 0x80,
-                                0x06, (byte) 'R',
-                        }, true);
-                        break;
-                    case 'e':
-                        sendCommand(handle, 7, new byte[] {
-                                0x01, (byte) 0x00,
-                                0x02, (byte) 0x00,
-                                0x03, (byte) 0x00,
-                                0x04, (byte) 0x05,
-                                0x05, (byte) 0x05,
-                                0x06, (byte) 'W',
-                                'u', 'v', '5', '6', '4',
-                        }, true);
-                        sendCommand(handle, 7, new byte[] {
-                                0x01, (byte) 0x00,
-                                0x02, (byte) 0x00,
-                                0x03, (byte) 0x00,
-                                0x04, (byte) 0x15,
-                                0x05, (byte) 0x05,
-                                0x06, (byte) 'W',
-                                'q', 'r', 'B', 'C', '+',
-                        }, true);
-                        break;
-                    case 'E':
-                        sendCommand(handle, 7, new byte[] {
-                                0x01, (byte) 0x00,
-                                0x02, (byte) 0x00,
-                                0x03, (byte) 0x00,
-                                0x04, (byte) 0x05,
-                                0x05, (byte) 0x08,
-                                0x06, (byte) 'C',
-                        }, true);
-                        break;
-
-                    default:
                 }
             }
         }
@@ -386,6 +261,38 @@ public class PSKXmitIfc
 
             flash_read(handle, addr);
             addr += buf.length;
+        }
+    }
+
+    private static void start_loop(DeviceHandle handle) {
+        try {
+            sendCommand(handle, 1, new byte[]{}, false);
+            lock.lock();
+            long total = 0;
+            long locked = 0;
+            for (; running; ) {
+                byte[] ch = sendCommand(handle, 6, new byte[32], false);
+                for (int i = 0; i < ch[0]; i ++) {
+                    System.out.print(String.format("%02x ",
+                            ch[i + 1]
+                    ));
+                    total ++;
+                    if (ch[i + 1] > 0x50) {
+                        locked ++;
+                    }
+                }
+                if (ch[0] != 0) {
+                    System.out.println(String.format(" ===  %f", ((float) 100 * locked) / total));
+                }
+                if (total == 1000) {
+                    total = 0;
+                    locked = 0;
+                }
+            }
+            lock.unlock();
+            sendCommand(handle, 1, new byte[]{}, false);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
