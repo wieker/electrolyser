@@ -2,7 +2,7 @@ module dispatcher_ctl(
     input clk,
     input rst_in,
     output rst_out,
-    output reg stb,
+    output reg stb
 );
 
 

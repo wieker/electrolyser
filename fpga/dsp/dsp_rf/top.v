@@ -1,6 +1,6 @@
 module top(
     output LED1, led2, led3, rf,
-    input CLK1, CLK2, fpga_rx,
+    input CLK1, CLK2, fpga_rx
 );
 
     reg [21:0] counter1;
@@ -25,7 +25,7 @@ module top(
     reg enable;
     reg [15:0] rfcounter;
 
-    assign rf = enable ? select ? CLK2 : counter1[1] : 0;
+    assign rf = 1 ? select ? CLK2 : counter1[1] : 0;
 
     always @(posedge CLK1)
     begin

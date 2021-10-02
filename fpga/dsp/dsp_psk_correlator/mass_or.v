@@ -1,6 +1,6 @@
 module mass_or(
     output val,
-    input [WIDTH:0] inp,
+    input [WIDTH:0] inp
 );
 
     parameter WIDTH = 8;

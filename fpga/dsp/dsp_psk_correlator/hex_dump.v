@@ -1,6 +1,6 @@
 module hex_dump(
     input clk, rst, sig, fpga_rx,
-    output fpga_tx, rdy3, rdy4,
+    output fpga_tx, rdy3, rdy4
 );
 
     wire lock;

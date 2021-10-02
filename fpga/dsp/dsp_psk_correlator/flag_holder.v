@@ -2,7 +2,7 @@ module flag_holder(
     input clk,
     input set,
     input inp,
-    output reg val,
+    output reg val
 );
 
     reg temp;

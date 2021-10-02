@@ -1,6 +1,6 @@
 module digitizer(
     input clk, rst, lvds_in,
-    output sig,
+    output sig
 );
 
     wire comp_in;

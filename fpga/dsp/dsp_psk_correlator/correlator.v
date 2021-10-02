@@ -1,6 +1,6 @@
 module correlator(
     input clk, rst, sig, code,
-    output reg match,
+    output reg match
 );
 
     reg [13:0] match_counter;

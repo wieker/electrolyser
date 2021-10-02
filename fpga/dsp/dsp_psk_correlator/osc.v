@@ -1,5 +1,5 @@
 module osc(
-    output clk, rst,
+    output clk, rst
 );
 
 

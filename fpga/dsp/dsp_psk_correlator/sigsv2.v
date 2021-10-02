@@ -1,6 +1,6 @@
 module sigsv2(
     input clk, rst, left, right,
-    output reg code,
+    output reg code
 );
 
     reg [0:15] base_sig;

@@ -1,7 +1,7 @@
 module dispatcher(
     input clk, rst_in, sig,
     output reg [7:0] value,
-    output stb,
+    output stb
 );
     reg [0:15] base_sig;
     wire code;
@@ -27,7 +27,7 @@ module dispatcher(
         .clk(clk),
         .rst_in(rst_in),
         .rst_out(rst),
-        .stb(stb),
+        .stb(stb)
     );
 
     reg [7:0] temp;

@@ -1,6 +1,6 @@
 module sig_source(
     input clk, rst, input [31:0] period, input [31:0] phase, input start_code,
-    output reg code,
+    output reg code
 );
 
     reg [31:0] phase_counter;
