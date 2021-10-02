@@ -1,6 +1,6 @@
 module dispatcher(
     input clk, rst_in, sig,
-    output [7:0] value,
+    output reg [7:0] value,
     output stb,
 );
     reg [0:5] base_sig;
