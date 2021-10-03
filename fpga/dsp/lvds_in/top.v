@@ -1,10 +1,9 @@
 module top(
-    output LED1, LED2, fpga_tx, pwm_out,
-    input btn1, btn2, lvds_in,
+    output LED1, LED2, fpga_tx,
+    input lvds_in
 );
 
     wire comp_in;
-    integer i;
 
 	SB_IO #(
 		.PIN_TYPE(6'b000001),
@@ -14,8 +13,6 @@ module top(
 		.D_IN_0(comp_in)
     );
 
-    assign LED1 = digitizer[1];
-
     wire clk;
 
     SB_HFOSC inthosc (
@@ -23,67 +20,66 @@ module top(
       .CLKHFEN(1'b1),
       .CLKHF(clk)
     );
-
-    localparam  counter_width = 32;
-
-    reg [counter_width-1:0] ctr;
     reg [1:0] digitizer;
-    reg [counter_width-1:0] counter[12];
-    reg [11:0] code;
-
-    wire [7:0] temp[12];
-    assign temp[0] = (counter[0][27:0] == 28'h0400000) ? 1 : 0;
-    genvar j;
-    for (j=1; j < 12; j++) begin
-        assign temp[j] = (counter[j][27:0] == 28'h0400000) ? j + 1 : temp[j - 1];
-    end
-
-    reg [7:0] result;
 
     always@(posedge clk)
     begin
-      ctr <= ctr + 1;
       digitizer <= { digitizer[0], comp_in };
-      for(i = 0; i < 12; i = i + 1)
-        if (result == 0)
-          counter[i] <= counter[i] + (code[i] == digitizer[1]);
-        else
-          counter[i] <= 0;
-      if (result == 0)
-        code <= { code[10:0], code[11] };
-      else
-        code <= 12'b111111000000;
-
-      result <= temp[11];
     end
 
-    assign LED2 = ctr[25];
+    wire sig = digitizer[1];
+    assign LED1 = sig;
 
-    localparam sym_rate = 1200;
-    localparam clk_freq = 48000000;
-    localparam sym_cnt = clk_freq / sym_rate;
-    localparam SCW = $clog2(sym_cnt);
+    reg [15:0] shift;
 
-    acia_tx #(
-        .SCW(SCW),              // rate counter width
-        .sym_cnt(sym_cnt)       // rate count value
-    )
-    my_tx(
-        .clk(clk),				// system clock
-        .rst(ctr[27:0] == 28'h0001000),			// system reset
-        .tx_dat(8'h30 + result),           // transmit data byte
-        .tx_start(result != 0),    // trigger transmission
-        .tx_serial(fpga_tx),         // tx serial output
-        .tx_busy(tx_busy)       // tx is active (not ready)
-    );
+    initial begin
+        shift = 16'h00ff;
+    end
 
+    always@(posedge clk)
+    begin
+        shift <= { shift[14:0], shift[15] };
+    end
 
+    wire code = shift[15];
 
-  initial begin
-    code = 12'b111111000000;
-  end
+    reg [13:0] match_counter;
+    reg [13:0] match_stage;
+    reg sig_buf;
+    reg code_buf;
+    reg match;
+    reg [15:0] counter;
+    wire [15:0] next = counter + 1;
 
-  assign pwm_out = 0;
+    always @(posedge clk)
+    begin
+        match_stage <= match_counter;
+        match <= (match_stage[10] == 1) && (match_stage[8] == 1);
+        sig_buf <= sig;
+        code_buf <= code;
+        if (next[11] == 1) begin
+            match_counter <= (code_buf == sig_buf);
+            counter <= 0;
+        end else begin
+            match_counter <= match_counter + (code_buf == sig_buf);
+            counter <= next;
+        end
+    end
+
+    reg temp;
+    reg value;
+
+    always@(posedge clk)
+    begin
+        if (next[11] == 1) begin
+            value <= temp;
+            temp <= 0;
+        end else begin
+            temp <= temp | match;
+        end
+    end
+
+    assign LED2 = value;
 
 
 endmodule
