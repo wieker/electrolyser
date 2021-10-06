@@ -3,19 +3,8 @@ module dispatcher(
     output reg [7:0] value,
     output stb
 );
-    reg [0:15] base_sig;
-    wire code;
-    always@(posedge clk)
-    begin
-        if (rst_in) begin
-            base_sig <= 16'h00ff;
-        end else begin
-            base_sig <= {base_sig[1:15], code};
-        end
-    end
-
     wire i_code, q_code;
-    nco nco(.clk(clk), .rst(rst_in), .control_word(13'b0001000000000), .i_code(i_code), .q_code(q_code));
+    nco nco(.clk(clk), .rst(rst_in), .control_word(13'b0001010100000), .i_code(i_code), .q_code(q_code));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
