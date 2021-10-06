@@ -30,15 +30,10 @@ module dispatcher(
         .stb(stb)
     );
 
-    reg [7:0] temp;
-
     always@(posedge clk)
     begin
         if (rst) begin
-            value <= temp;
-            temp <= 0;
-        end else begin
-            temp <= temp | rdys;
+            value <= i_value;
         end
     end
 

@@ -13,7 +13,7 @@ module nco(
         latched_word <= control_word;
         if (rst) begin
             base_sig <= 0;
-        end else
+        end else begin
             base_sig <= base_sig + latched_word;
         end
         i_code <= base_sig_pipeline[12];
