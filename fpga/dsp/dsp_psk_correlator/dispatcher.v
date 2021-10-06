@@ -14,13 +14,13 @@ module dispatcher(
         end
     end
 
-    sigsv2 sigsv2(.clk(clk), .rst(rst_in), .left(stb && !value[3]), .right(stb && !value[5]), .code(code));
+    wire i_code, q_code;
+    nco nco(.clk(clk), .rst(rst_in), .control_word(13'b0001000000000), .i_code(i_code), .q_code(q_code));
 
-    wire [7:0] rdys;
-    genvar j;
-    for (j=0; j < 8; j++) begin
-        correlator correlator(.clk(clk), .rst(rst), .sig(sig), .code(base_sig[2 * j]), .match(rdys[j]));
-    end
+    wire [7:0] i_value;
+    wire [7:0] q_value;
+    correlator i_correlator(.clk(clk), .rst(rst), .sig(sig), .code(i_code), .value(i_value));
+    correlator q_correlator(.clk(clk), .rst(rst), .sig(sig), .code(q_code), .value(q_value));
 
     wire rst;
     dispatcher_ctl ctl(
