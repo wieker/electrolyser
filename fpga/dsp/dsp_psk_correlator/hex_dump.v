@@ -7,7 +7,8 @@ module hex_dump(
     assign rdy4 = rx_stb;
     assign rdy3 = sig;
     wire [7:0] value;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .stb(stb), .value(value));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .stb(stb), .value(value),
+        .data_in(dt), .addr(dt[2:1]), .we(reg_we));
 
     reg tx_start;
     wire empty;
@@ -38,9 +39,9 @@ module hex_dump(
             tx_start <= 0;
         end
         if (rx_stb && (rx_stage == 0)) begin
-            //rx_stage <= 1;
+            rx_stage <= 1;
             dt <= {dt[7:0], rx_dat};
-            phase <= 1;
+            //phase <= 1;
         end else if (rx_stb && (rx_stage == 1)) begin
             rx_stage <= 2;
             dt <= {dt[7:0], rx_dat};
