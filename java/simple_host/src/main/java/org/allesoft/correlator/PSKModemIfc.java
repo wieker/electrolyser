@@ -220,6 +220,12 @@ public class PSKModemIfc
                     case 'k':
                         running = false;
                         break;
+                    case '8':
+                        lock.lock();
+                        sendCommand(handle, 7, new byte[] {0x10, 0x00}, true);
+                        sendCommand(handle, 7, new byte[] {0x00, 0x04}, true);
+                        lock.unlock();
+                        break;
                     case 'q':
                         exit = true;
                         break;
@@ -237,7 +243,6 @@ public class PSKModemIfc
     private static void start_loop(DeviceHandle handle) {
         try {
             sendCommand(handle, 1, new byte[]{}, false);
-            lock.lock();
             long total = 0;
             long locked = 0;
             for (; running; ) {
@@ -259,7 +264,6 @@ public class PSKModemIfc
                     locked = 0;
                 }
             }
-            lock.unlock();
             sendCommand(handle, 1, new byte[]{}, false);
         } catch (Exception e) {
             System.out.println(e);
