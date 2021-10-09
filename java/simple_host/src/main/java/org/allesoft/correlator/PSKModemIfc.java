@@ -230,6 +230,12 @@ public class PSKModemIfc
                         sendCommand(handle, 7, new byte[] {0x00, 0x04}, true);
                         lock.unlock();
                         break;
+                    case '9':
+                        lock.lock();
+                        sendCommand(handle, 7, new byte[] {0x15, 0x40}, true);
+                        sendCommand(handle, 7, new byte[] {0x00, 0x04}, true);
+                        lock.unlock();
+                        break;
                     case 'q':
                         exit = true;
                         break;
