@@ -7,14 +7,15 @@ module hex_dump(
     assign rdy4 = rx_stb;
     assign rdy3 = sig;
     wire [7:0] value;
+    reg select;
     dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .stb(stb), .value(value),
-        .data_in(dt), .addr(dt[2:1]), .we(reg_we));
+        .data_in(dt), .addr(dt[2:1]), .we(reg_we), .select(select));
 
     reg tx_start;
     wire empty;
     wire full;
     wire [7:0] touart;
-    fifo fifo(.clk(clk), .reset(rst), .wr(stb && phase), .rd(tx_start), .din(value), .empty(empty), .full(full), .dout(touart));
+    fifo fifo(.clk(clk), .reset(rst), .wr(fill && phase), .rd(tx_start), .din(zero ? value : 0), .empty(empty), .full(full), .dout(touart));
     reg [24:0] counter;
     reg phase;
     reg bugfix001;
@@ -23,8 +24,33 @@ module hex_dump(
     reg [15:0] dt;
     reg reg_we;
 
+    reg [1:0] rd_state;
+    reg fill;
+    reg zero;
+
     always@(posedge clk)
     begin
+        if (stb && (rd_state == 0)) begin
+            rd_state <= 1;
+            select <= 0;
+            fill <= 1;
+            zero <= 1;
+        end else if (rd_state == 1) begin
+            rd_state <= 2;
+            select <= 1;
+            fill <= 1;
+            zero <= 1;
+        end else if (rd_state == 2) begin
+            rd_state <= 3;
+            select <= 0;
+            fill <= 1;
+            zero <= 0;
+        end else if (rd_state == 3) begin
+            rd_state <= 0;
+            select <= 0;
+            fill <= 0;
+            zero <= 0;
+        end
         counter <= counter + 1;
         if (full) begin
             phase <= 0;

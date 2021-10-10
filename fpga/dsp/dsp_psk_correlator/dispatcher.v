@@ -1,10 +1,11 @@
 module dispatcher(
     input clk, rst_in, sig,
-    output reg [7:0] value,
+    output [7:0] value,
     output stb,
     input [15:0] data_in,
     input [1:0] addr,
-    input we
+    input we,
+    output select
 );
     wire i_code, q_code;
     reg [12:0] fcw;
@@ -24,11 +25,10 @@ module dispatcher(
         .stb(stb)
     );
 
+    assign value = select ? i_value : q_value;
+
     always@(posedge clk)
     begin
-        if (rst) begin
-            value <= i_value;
-        end
         if (we) begin
             if (addr == 0) begin
                 fcw <= data_in[15:3];
