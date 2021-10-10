@@ -10,7 +10,7 @@ module dispatcher_ctl(
 
     wire capture;
     wire [32:0] next_ctr;
-    assign capture = next_ctr == 32'h00000800;
+    assign capture = next_ctr == 32'h00000010;
     assign next_ctr = ctr + 1;
 
     reg [32:0] ctr;

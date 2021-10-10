@@ -6,7 +6,9 @@ module nco(
     reg [12:0] base_sig;
     reg [12:0] base_sig_pipeline;
     reg [12:0] latched_word;
-    wire [1:0] quad = base_sig_pipeline[12:11] + {0, 1};
+    reg pipe0;
+    reg [1:0] quad;
+    wire [1:0] shifted = quad + 3;
     always@(posedge clk)
     begin
         base_sig_pipeline <= base_sig;
@@ -16,8 +18,10 @@ module nco(
         end else begin
             base_sig <= base_sig + latched_word;
         end
-        i_code <= base_sig_pipeline[12];
-        q_code <=  quad[1];
+        pipe0 <= base_sig_pipeline[12];
+        quad <= base_sig_pipeline[12:11];
+        i_code <= pipe0;
+        q_code <=  shifted[1];
     end
 
 endmodule
