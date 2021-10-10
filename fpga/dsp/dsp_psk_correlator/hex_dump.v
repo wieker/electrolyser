@@ -15,7 +15,7 @@ module hex_dump(
     wire empty;
     wire full;
     wire [7:0] touart;
-    fifo fifo(.clk(clk), .reset(rst), .wr(fill && phase), .rd(tx_start), .din(zero ? value : 0), .empty(empty), .full(full), .dout(touart));
+    fifo fifo(.clk(clk), .reset(rst), .wr(fill && phase), .rd(tx_start), .din(value_save), .empty(empty), .full(full), .dout(touart));
     reg [24:0] counter;
     reg phase;
     reg bugfix001;
@@ -24,32 +24,50 @@ module hex_dump(
     reg [15:0] dt;
     reg reg_we;
 
-    reg [1:0] rd_state;
+    reg [3:0] rd_state;
     reg fill;
-    reg zero;
+    reg [7:0] value_save;
 
     always@(posedge clk)
     begin
         if (stb && (rd_state == 0)) begin
             rd_state <= 1;
             select <= 0;
-            fill <= 1;
-            zero <= 1;
+            fill <= 0;
         end else if (rd_state == 1) begin
             rd_state <= 2;
-            select <= 1;
-            fill <= 1;
-            zero <= 1;
         end else if (rd_state == 2) begin
             rd_state <= 3;
             select <= 0;
-            fill <= 1;
-            zero <= 0;
+            value_save <= value;
         end else if (rd_state == 3) begin
+            rd_state <= 4;
+            select <= 1;
+            fill <= 1;
+        end else if (rd_state == 4) begin
+            rd_state <= 5;
+            fill <= 0;
+        end else if (rd_state == 5) begin
+            rd_state <= 6;
+            select <= 1;
+            value_save <= value;
+        end else if (rd_state == 6) begin
+            rd_state <= 7;
+            select <= 0;
+            fill <= 1;
+        end else if (rd_state == 7) begin
+            rd_state <= 8;
+            select <= 1;
+            value_save <= 0;
+            fill <= 0;
+        end else if (rd_state == 8) begin
+            rd_state <= 9;
+            select <= 1;
+            fill <= 1;
+        end else if (rd_state == 9) begin
             rd_state <= 0;
             select <= 0;
             fill <= 0;
-            zero <= 0;
         end
         counter <= counter + 1;
         if (full) begin
