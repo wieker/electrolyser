@@ -226,7 +226,7 @@ public class PSKModemIfc
                         break;
                     case '8':
                         lock.lock();
-                        sendCommand(handle, 7, new byte[] {0x10, 0x00}, true);
+                        sendCommand(handle, 7, new byte[] {0x0f, 0x00}, true);
                         sendCommand(handle, 7, new byte[] {0x00, 0x04}, true);
                         lock.unlock();
                         break;
@@ -301,6 +301,23 @@ public class PSKModemIfc
                 if (total == 1000) {
                     total = 0;
                     locked = 0;
+                }
+                for (int i = 0; i < ch[0]; i += 3) {
+                    System.out.print(String.format("%d ",
+                            (((int) ch[i + 1]) - 0x20) * (((int) ch[i + 2]) - 0x20)
+                    ));
+                }
+                if (ch[0] != 0) {
+                    System.out.println(String.format(" === "));
+                }
+                for (int i = 0; i < ch[0]; i += 3) {
+                    System.out.print(String.format("%d ",
+                            (((int) ch[i + 1]) - 0x20) * (((int) ch[i + 1]) - 0x20) +
+                                    (((int) ch[i + 2]) - 0x20) * (((int) ch[i + 2]) - 0x20)
+                    ));
+                }
+                if (ch[0] != 0) {
+                    System.out.println(String.format(" === "));
                 }
             }
         } catch (Exception e) {
