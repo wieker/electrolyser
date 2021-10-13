@@ -37,14 +37,11 @@ module dispatcher(
             i_save <= 0;
             if (i_value[7] == 0) begin
                 pcw <= pcw + 13'b1000000000000;
-            end else if (i_save && b_save) begin
-                pcw <= pcw + 13'b0000001000000;
-            end else if (i_save && q_save) begin
-                pcw <= pcw + 13'b1111111000000;
-            end else if (b_save) begin
-                pcw <= pcw + 13'b0000010000000;
+            end else if (i_save) begin
             end else if (q_save) begin
-                pcw <= pcw + 13'b1111110000000;
+                pcw <= pcw + 13'b0010000000000;
+            end else if (b_save) begin
+                pcw <= pcw + 13'b1110000000000;
             end
         end else begin
             q_save <= q_save | q_match;
