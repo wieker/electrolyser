@@ -31,14 +31,20 @@ module dispatcher(
             fcw <= 13'b0001000000000;
             pcw <= 13'b0000000000000;
         end else if (rst) begin
-            value <= {1, 0, 0, i_save, 0, 0, q_save, b_save};
+            value <= {3'b100, i_save, 2'b00, q_save, b_save};
             q_save <= 0;
             b_save <= 0;
             i_save <= 0;
-            if (q_save) begin
-                pcw <= pcw + 13'b0000000100000;
+            if (i_value[7] == 0) begin
+                pcw <= pcw + 13'b1000000000000;
+            end else if (i_save && b_save) begin
+                pcw <= pcw + 13'b0000001000000;
+            end else if (i_save && q_save) begin
+                pcw <= pcw + 13'b1111111000000;
             end else if (b_save) begin
-                pcw <= pcw + 13'b1111111100000;
+                pcw <= pcw + 13'b0000010000000;
+            end else if (q_save) begin
+                pcw <= pcw + 13'b1111110000000;
             end
         end else begin
             q_save <= q_save | q_match;
