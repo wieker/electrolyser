@@ -32,7 +32,7 @@ module dispatcher(
             fcw <= 13'b0001000000000;
             pcw <= 13'b0000000000000;
         end else if (stb) begin
-            value <= i_value;
+            value <= {q1, 2'b00, pcw[12:8]};
             if (q1 && q2) begin
                 pcw <= pcw + 13'b0000100000000;
             end else if (q1 && q4) begin
