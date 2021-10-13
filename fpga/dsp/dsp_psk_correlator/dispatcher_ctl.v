@@ -2,7 +2,7 @@ module dispatcher_ctl(
     input clk,
     input rst_in,
     output rst_out,
-    output reg stb
+    output reg stb,
 );
 
 
@@ -10,7 +10,7 @@ module dispatcher_ctl(
 
     wire capture;
     wire [32:0] next_ctr;
-    assign capture = next_ctr == 32'h00000040;
+    assign capture = next_ctr == 32'h00000100;
     assign next_ctr = ctr + 1;
 
     reg [32:0] ctr;
