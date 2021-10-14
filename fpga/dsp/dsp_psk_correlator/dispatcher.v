@@ -35,26 +35,20 @@ module dispatcher(
             pcw <= 13'b0000000000000;
         end else if (stb) begin
             value <= {q1, 2'b00, control};
-            if (q1 && q2) begin
-                pcw <= pcw + 13'b0000100000000;
+            if (i_value[7] && q2) begin
+                pcw <= pcw + 13'b0001000000000;
                 control <= 1;
-            end else if (q1 && q4) begin
-                pcw <= pcw + 13'b1111100000000;
+            end else if (i_value[7] && q4) begin
+                pcw <= pcw + 13'b1111000000000;
                 control <= 2;
-            end else if (q3 && q2) begin
-                pcw <= pcw + 13'b1111100000000;
+            end else if (!i_value[7] && q2) begin
+                pcw <= pcw + 13'b1111000000000;
                 control <= 3;
-            end else if (q3 && q4) begin
-                pcw <= pcw + 13'b0000100000000;
+            end else if (!i_value[7] && q4) begin
+                pcw <= pcw + 13'b0001000000000;
                 control <= 4;
             end else if (q1) begin
                 control <= 5;
-            end else if (q2) begin
-                pcw <= pcw + 13'b0100000000000;
-                control <= 6;
-            end else if (q4) begin
-                pcw <= pcw + 13'b1100000000000;
-                control <= 7;
             end else if (q3) begin
                 control <= 8;
             end else begin
