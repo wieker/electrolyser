@@ -27,30 +27,26 @@ module dispatcher(
     wire q2 = (q_value[7] == 1) && ((q_value[6] == 1) || (q_value[5] == 1));
     wire q4 = (q_value[7] == 0) && ((q_value[6] == 0) || (q_value[5] == 0));
 
-    reg [4:0] control;
+    reg [3:0] control;
     always@(posedge clk)
     begin
         if (rst_in) begin
             fcw <= 13'b0001000000000;
             pcw <= 13'b0000000000000;
         end else if (stb) begin
-            value <= {q1, 2'b00, control};
-            if (i_value[7] && q2) begin
+            value <= {q1, q2, q3, q4, control};
+            if (i_value[7] && q_value[7]) begin
                 pcw <= pcw + 13'b0001000000000;
                 control <= 1;
-            end else if (i_value[7] && q4) begin
+            end else if (i_value[7] && !q_value[7]) begin
                 pcw <= pcw + 13'b1111000000000;
                 control <= 2;
-            end else if (!i_value[7] && q2) begin
+            end else if (!i_value[7] && q_value[7]) begin
                 pcw <= pcw + 13'b1111000000000;
                 control <= 3;
-            end else if (!i_value[7] && q4) begin
+            end else if (!i_value[7] && !q_value[7]) begin
                 pcw <= pcw + 13'b0001000000000;
                 control <= 4;
-            end else if (q1) begin
-                control <= 5;
-            end else if (q3) begin
-                control <= 8;
             end else begin
                 control <= 0;
             end
