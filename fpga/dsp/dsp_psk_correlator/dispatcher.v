@@ -41,17 +41,22 @@ module dispatcher(
             end else if (q1 && q4) begin
                 pcw <= pcw + 13'b1111100000000;
                 control <= 2;
-            end else if (q1) begin
+            end else if (q3 && q2) begin
+                pcw <= pcw + 13'b1111100000000;
                 control <= 3;
+            end else if (q3 && q4) begin
+                pcw <= pcw + 13'b0000100000000;
+                control <= 4;
+            end else if (q1) begin
+                control <= 5;
             end else if (q2) begin
                 pcw <= pcw + 13'b0100000000000;
-                control <= 4;
+                control <= 6;
             end else if (q4) begin
                 pcw <= pcw + 13'b1100000000000;
-                control <= 5;
+                control <= 7;
             end else if (q3) begin
-                pcw <= pcw + 13'b1000000000000;
-                control <= 6;
+                control <= 8;
             end else begin
                 control <= 0;
             end
