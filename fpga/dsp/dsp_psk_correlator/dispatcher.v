@@ -3,16 +3,17 @@ module dispatcher(
     output reg [7:0] value,
     output stb,
 );
-    wire i_code, q_code;
+    wire i_code, q_code, ref;
     reg [12:0] fcw;
     reg [12:0] pcw;
+    nco ref_nco(.clk(clk), .rst(rst_in), .control_word(12'h102), .i_code(ref), .phase_control_word(12'b000000000000));
     nco i_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(i_code), .phase_control_word(pcw));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(q_code), .phase_control_word(pcw + 13'b0100000000000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(q_code), .phase_control_word(pcw + 12'b010000000000));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
-    correlator i_correlator(.clk(clk), .rst(rst), .sig(sig), .code(i_code), .value(i_value));
-    correlator q_correlator(.clk(clk), .rst(rst), .sig(sig), .code(q_code), .value(q_value));
+    correlator i_correlator(.clk(clk), .rst(rst), .sig(ref), .code(i_code), .value(i_value));
+    correlator q_correlator(.clk(clk), .rst(rst), .sig(ref), .code(q_code), .value(q_value));
 
     wire rst;
     dispatcher_ctl ctl(
@@ -31,21 +32,21 @@ module dispatcher(
     always@(posedge clk)
     begin
         if (rst_in) begin
-            fcw <= 13'b0001000000000;
-            pcw <= 13'b0000000000000;
+            fcw <= 12'b000100000000;
+            pcw <= 12'b000000000000;
         end else if (stb) begin
-            value <= {q1, q2, q3, q4, control};
+            value <= i_value;
             if (i_value[7] && q_value[7]) begin
-                pcw <= pcw + 13'b0001000000000;
+                //pcw <= pcw + 12'b000100000000;
                 control <= 1;
             end else if (i_value[7] && !q_value[7]) begin
-                pcw <= pcw + 13'b1111000000000;
+                //pcw <= pcw + 12'b111100000000;
                 control <= 2;
             end else if (!i_value[7] && q_value[7]) begin
-                pcw <= pcw + 13'b1111000000000;
+                //pcw <= pcw + 12'b111100000000;
                 control <= 3;
             end else if (!i_value[7] && !q_value[7]) begin
-                pcw <= pcw + 13'b0001000000000;
+                //pcw <= pcw + 12'b000100000000;
                 control <= 4;
             end else begin
                 control <= 0;

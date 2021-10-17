@@ -1,6 +1,6 @@
 module nco(
-    input clk, rst, input [12:0] control_word,
-    input [12:0] phase_control_word,
+    input clk, rst, input [11:0] control_word,
+    input [11:0] phase_control_word,
     output reg i_code,
 );
 
