@@ -29,13 +29,14 @@ module dispatcher(
     wire q4 = (q_value[7] == 0) && ((q_value[6] == 0) || (q_value[5] == 0));
 
     reg [3:0] control;
+    wire [15:0] mult = i_value * i_value;// + q_value * q_value;
     always@(posedge clk)
     begin
         if (rst_in) begin
             fcw <= 12'b000100000000;
             pcw <= 12'b000000000000;
-        end else if (stb) begin
-            value <= i_value;
+        end else if (rst) begin
+            value <= mult[15:8];
             if (i_value[7] && q_value[7]) begin
                 //pcw <= pcw + 12'b000100000000;
                 control <= 1;
