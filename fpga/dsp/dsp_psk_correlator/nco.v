@@ -4,11 +4,11 @@ module nco(
     output reg i_code,
 );
 
-    reg [12:0] base_sig;
-    reg [12:0] base_sig_pipeline0;
-    reg [12:0] base_sig_pipeline1;
-    reg [12:0] latched_word;
-    reg [12:0] latched_pcw;
+    reg [11:0] base_sig;
+    reg [11:0] base_sig_pipeline0;
+    reg [11:0] base_sig_pipeline1;
+    reg [11:0] latched_word;
+    reg [11:0] latched_pcw;
     always@(posedge clk)
     begin
         base_sig_pipeline0 <= base_sig;
@@ -20,7 +20,7 @@ module nco(
         end else begin
             base_sig <= base_sig + latched_word;
         end
-        i_code <= base_sig_pipeline1[12];
+        i_code <= base_sig_pipeline1[11];
     end
 
 endmodule
