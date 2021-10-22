@@ -23,11 +23,6 @@ module dispatcher(
         .stb(stb)
     );
 
-    wire q1 = (i_value[7] == 1) && ((i_value[6] == 1) || (i_value[5] == 1));
-    wire q3 = (i_value[7] == 0) && ((i_value[6] == 0) || (i_value[5] == 0));
-    wire q2 = (q_value[7] == 1) && ((q_value[6] == 1) || (q_value[5] == 1));
-    wire q4 = (q_value[7] == 0) && ((q_value[6] == 0) || (q_value[5] == 0));
-
     reg [3:0] control;
     wire [15:0] mult = //i_value * i_value;
             q_value * q_value;
@@ -37,22 +32,7 @@ module dispatcher(
             fcw <= 12'b000100000000;
             pcw <= 12'b000000000000;
         end else if (rst) begin
-            value <= q_value;
-            if (i_value[7] && q_value[7]) begin
-                //pcw <= pcw + 12'b000100000000;
-                control <= 1;
-            end else if (i_value[7] && !q_value[7]) begin
-                //pcw <= pcw + 12'b111100000000;
-                control <= 2;
-            end else if (!i_value[7] && q_value[7]) begin
-                //pcw <= pcw + 12'b111100000000;
-                control <= 3;
-            end else if (!i_value[7] && !q_value[7]) begin
-                //pcw <= pcw + 12'b000100000000;
-                control <= 4;
-            end else begin
-                control <= 0;
-            end
+            value <= q_value; //mult[15:8];
         end
     end
 

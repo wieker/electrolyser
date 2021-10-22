@@ -21,13 +21,11 @@ module hex_dump(
     always@(posedge clk)
     begin
         counter <= counter + 1;
-        if (rst)
+        if (rst) begin
             phase <= 1;
-        if (full) begin
+        end else if (full) begin
             phase <= 0;
-        end
-        if (empty) begin
-            //phase <= 1;
+        end else if (empty) begin
             phase <= 1;
         end
         if ((!empty) && (!tx_busy) && !phase && !bugfix001) begin
@@ -42,8 +40,8 @@ module hex_dump(
     end
 
     wire tx_busy;
-    localparam sym_rate = 1000000;
-    localparam clk_freq = 48000000;
+    localparam sym_rate = 1200;
+    localparam clk_freq = 48000;
     localparam sym_cnt = clk_freq / sym_rate;
     localparam SCW = $clog2(sym_cnt);
 
