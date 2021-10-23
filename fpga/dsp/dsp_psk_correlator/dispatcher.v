@@ -38,7 +38,7 @@ module dispatcher(
         end else if (rst) begin
             tmp_i <= mult_i[15:8];
             tmp_q <= mult_q[15:8];
-            value <= tmp_i + tmp_q;
+            value <= i_value;
         end
     end
 
