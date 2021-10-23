@@ -24,15 +24,21 @@ module dispatcher(
     );
 
     reg [3:0] control;
-    wire [15:0] mult = //i_value * i_value;
-            q_value * q_value;
+    wire [15:0] mult_i = i_value * i_value;
+    wire [15:0] mult_q = q_value * q_value;
+
+    reg [7:0] tmp_i;
+    reg [7:0] tmp_q;
+
     always@(posedge clk)
     begin
         if (rst_in) begin
             fcw <= 12'b000100000000;
             pcw <= 12'b000000000000;
         end else if (rst) begin
-            value <= q_value; //mult[15:8];
+            tmp_i <= mult_i[15:8];
+            tmp_q <= mult_q[15:8];
+            value <= tmp_i + tmp_q;
         end
     end
 
