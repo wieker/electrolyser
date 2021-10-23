@@ -6,9 +6,9 @@ module dispatcher(
     wire i_code, q_code, ref;
     reg [12:0] fcw;
     reg [12:0] pcw;
-    nco ref_nco(.clk(clk), .rst(rst_in), .control_word(12'h102), .i_code(ref), .phase_control_word(12'b000000000000));
+    nco ref_nco(.clk(clk), .rst(rst_in), .control_word(12'h100), .i_code(ref), .phase_control_word(12'h100));
     nco i_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(i_code), .phase_control_word(pcw));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(q_code), .phase_control_word(pcw + 12'b010000000000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(q_code), .phase_control_word(pcw + 12'h400));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
@@ -38,7 +38,7 @@ module dispatcher(
         end else if (rst) begin
             tmp_i <= mult_i[15:8];
             tmp_q <= mult_q[15:8];
-            value <= i_value;
+            value <= tmp_i + tmp_q;
         end
     end
 
