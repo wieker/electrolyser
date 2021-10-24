@@ -1,7 +1,7 @@
 module dispatcher(
     input clk, rst_in, sig,
     output reg [7:0] value,
-    output stb,
+    output reg rdy,
 );
     wire i_code, q_code, ref;
     reg [12:0] fcw;
@@ -23,22 +23,23 @@ module dispatcher(
         .stb(stb)
     );
 
-    reg [3:0] control;
-    wire [15:0] mult_i = i_value * i_value;
-    wire [15:0] mult_q = q_value * q_value;
-
-    reg [7:0] tmp_i;
-    reg [7:0] tmp_q;
+    wire stb;
+    reg st1;
+    reg [7:0] tmp;
 
     always@(posedge clk)
     begin
         if (rst_in) begin
             fcw <= 12'b000100000000;
             pcw <= 12'b000000000000;
-        end else if (rst) begin
-            tmp_i <= mult_i[15:8];
-            tmp_q <= mult_q[15:8];
-            value <= i_value;
+            rdy <= 0;
+        end else if (stb) begin
+            rdy <= 1;
+            tmp <= q_value;
+            value <= st1 ? i_value : tmp;
+            st1 <= !st1;
+        end else begin
+            rdy <= 0;
         end
     end
 

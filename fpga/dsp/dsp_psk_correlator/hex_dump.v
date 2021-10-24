@@ -7,7 +7,7 @@ module hex_dump(
     assign rdy4 = value[3];
     assign rdy3 = sig;
     wire [7:0] value;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .stb(stb), .value(value));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy(stb), .value(value));
 
     reg tx_start;
     wire empty;

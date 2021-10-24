@@ -1,7 +1,7 @@
 package org.allesoft.correlator;
 
 public class Mlt {
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         show(0x10);
         show(0x50);
         show(0x8f);
@@ -26,7 +26,7 @@ public class Mlt {
     }
 
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         show2(0x10, 0x0f);
         show2(0x50, 0x4e);
         show2(0x8f, 0x8e);
@@ -38,6 +38,7 @@ public class Mlt {
     }
 
     private static void show2(int value, int qv) {
-        System.out.println(String.format("%x", value * value + qv * qv));
+        System.out.println(String.format("%x", (0x80 - value) * (0x80 - value) +
+                (0x80 - qv) * (0x80 - qv)));
     }
 }
