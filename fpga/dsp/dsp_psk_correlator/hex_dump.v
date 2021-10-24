@@ -13,26 +13,18 @@ module hex_dump(
     wire empty;
     wire full;
     wire [7:0] touart;
-    fifo fifo(.clk(clk), .reset(rst), .wr(stb && phase), .rd(tx_start), .din(value), .empty(empty), .full(full), .dout(touart));
+    fifo fifo(.clk(clk), .reset(rst), .wr(stb), .rd(tx_start), .din(value), .empty(empty), .full(full), .dout(touart));
     reg [24:0] counter;
-    reg phase;
     reg bugfix001;
 
     always@(posedge clk)
     begin
         counter <= counter + 1;
-        if (rst) begin
-            phase <= 1;
-        end else if (full) begin
-            phase <= 0;
-        end else if (empty) begin
-            phase <= 1;
-        end
-        if ((!empty) && (!tx_busy) && !phase && !bugfix001) begin
+        if ((!empty) && (!tx_busy) && !bugfix001) begin
             bugfix001 <= 1;
             tx_start <= 1;
         end else begin
-            if ((!empty) && (!tx_busy) && !phase && bugfix001) begin
+            if ((!empty) && (!tx_busy) && bugfix001) begin
                 bugfix001 <= 0;
             end
             tx_start <= 0;
@@ -40,7 +32,7 @@ module hex_dump(
     end
 
     wire tx_busy;
-    localparam sym_rate = 1200;
+    localparam sym_rate = 3600;
     localparam clk_freq = 48000;
     localparam sym_cnt = clk_freq / sym_rate;
     localparam SCW = $clog2(sym_cnt);
