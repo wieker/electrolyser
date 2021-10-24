@@ -13,7 +13,7 @@ module correlator(
 	    code_buf <= code;
 		if(rst) begin
 		    value <= match_counter[7:0];
-		    match_counter <= (code_buf == sig_buf);
+		    match_counter <= 0;
 		end else begin
 		    match_counter <= match_counter + (code_buf == sig_buf);
 		end
