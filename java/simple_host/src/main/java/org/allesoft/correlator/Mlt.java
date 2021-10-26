@@ -27,18 +27,18 @@ public class Mlt {
 
 
     public static void main(String[] args) {
-        show2(0x01, 0xbf);
-        show2(0x3f, 0xff);
-        show2(0x7f, 0xc0);
-        show2(0xbe, 0x80);
-        show2(0xfe, 0x40);
-        show2(0xc0, 0x00);
-        show2(0x80, 0x3f);
-        show2(0x41, 0x7f);
+        show2(0x01, 0x80);
+        show2(0x3f, 0x40);
+        show2(0x7f, 0x00);
+        show2(0xbe, 0x3f);
+        show2(0xfe, 0x7f);
+        show2(0xc0, 0xbf);
+        show2(0x80, 0xff);
+        show2(0x41, 0xc0);
     }
 
     private static void show2(int value, int qv) {
-        System.out.println(String.format("%04x", (0x80 - value) * (0x80 - value) +
+        System.out.println(String.format("%d", (0x80 - value) * (0x80 - value) +
                 (0x80 - qv) * (0x80 - qv)));
     }
 }

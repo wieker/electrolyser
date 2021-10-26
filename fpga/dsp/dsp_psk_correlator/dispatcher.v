@@ -8,7 +8,7 @@ module dispatcher(
     reg [12:0] pcw;
     nco ref_nco(.clk(clk), .rst(rst_in), .control_word(12'h101), .i_code(ref), .phase_control_word(12'h000));
     nco i_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(i_code), .phase_control_word(pcw));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(q_code), .phase_control_word(pcw + 12'h400));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(fcw), .i_code(q_code), .phase_control_word(pcw + 12'h200));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
