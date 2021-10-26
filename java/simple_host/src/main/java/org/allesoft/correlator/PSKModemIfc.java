@@ -253,25 +253,15 @@ public class PSKModemIfc
     private static void start_loop(DeviceHandle handle) {
         try {
             sendCommand(handle, 1, new byte[]{}, false);
-            long total = 0;
-            long locked = 0;
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
-                    System.out.print(String.format("%02x ",
+                    System.out.print(String.format("0x%02x ",
                             ch[i + 1]
                     ));
-                    total ++;
-                    if (ch[i + 1] > 0x50) {
-                        locked ++;
-                    }
                 }
                 if (ch[0] != 0) {
-                    System.out.println(String.format(" ===  %f", ((float) 100 * locked) / total));
-                }
-                if (total == 1000) {
-                    total = 0;
-                    locked = 0;
+                    System.out.println();
                 }
             }
             sendCommand(handle, 1, new byte[]{}, false);
