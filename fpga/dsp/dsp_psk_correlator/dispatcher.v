@@ -3,15 +3,14 @@ module dispatcher(
     output reg [7:0] value,
     output reg rdy,
 );
-    wire i_code, q_code, ref;
-    nco ref_nco(.clk(clk), .rst(rst_in), .control_word(12'h101), .i_code(ref), .phase_control_word(12'h000));
+    wire i_code, q_code;
     nco i_nco(.clk(clk), .rst(rst_in), .control_word(12'h100), .i_code(i_code), .phase_control_word(12'h000));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(12'h100), .i_code(q_code), .phase_control_word(12'h200));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(12'h100), .i_code(q_code), .phase_control_word(12'h400));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
-    correlator i_correlator(.clk(clk), .rst(rst), .sig(ref), .code(i_code), .value(i_value));
-    correlator q_correlator(.clk(clk), .rst(rst), .sig(ref), .code(q_code), .value(q_value));
+    correlator i_correlator(.clk(clk), .rst(rst), .sig(sig), .code(i_code), .value(i_value));
+    correlator q_correlator(.clk(clk), .rst(rst), .sig(sig), .code(q_code), .value(q_value));
 
     wire rst;
     dispatcher_ctl ctl(
@@ -23,19 +22,36 @@ module dispatcher(
 
     wire stb;
     reg st1;
-    reg [7:0] tmp;
+    reg st2;
+    reg [7:0] q1;
+    reg [7:0] q2;
+    reg [7:0] q3;
+    reg [7:0] q4;
 
     always@(posedge clk)
     begin
         if (rst_in) begin
             rdy <= 0;
+            st1 <= 0;
+            st2 <= 0;
         end else if (stb) begin
+            q1 <= i_value[7] ? i_value : ~ i_value;
+            q2 <= q_value[7] ? q_value : ~ q_value;
+            st1 <= 1;
+        end else if (st1) begin
+            q3 <= {0, q1[6:0]};
+            q4 <= {0, q2[6:0]};
+            st1 <= 0;
+            st2 <= 1;
+        end else if (st2) begin
+            value <= q3 + q4;
             rdy <= 1;
-            tmp <= q_value;
-            value <= st1 ? i_value : q_value;
-            st1 <= !st1;
+            st1 <= 0;
+            st2 <= 0;
         end else begin
             rdy <= 0;
+            st1 <= 0;
+            st2 <= 0;
         end
     end
 
