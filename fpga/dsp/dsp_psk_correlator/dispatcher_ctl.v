@@ -9,11 +9,11 @@ module dispatcher_ctl(
     wire rst_out = rst_in | capture;
 
     wire capture;
-    wire [11:0] next_ctr;
-    assign capture = next_ctr[11] == 1;
+    wire [8:0] next_ctr;
+    assign capture = next_ctr[8] == 1;
     assign next_ctr = ctr + 1;
 
-    reg [11:0] ctr;
+    reg [7:0] ctr;
     always@(posedge clk)
     begin
         if (rst_out) begin
