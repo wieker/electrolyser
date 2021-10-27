@@ -2,10 +2,10 @@ filename = top
 pcf_file = io.pcf
 
 build:
-	yosys -p "synth_ice40 -blif $(filename).blif" top.v acia_tx.v correlator.v sig_source.v osc.v \
+	yosys -p "synth_ice40 -json $(filename).json" top.v acia_tx.v correlator.v sig_source.v osc.v \
 	    digitizer.v hex_dump.v input_stab.v dispatcher.v acia_rx.v flag_holder.v mass_or.v dispatcher_ctl.v fifo.v \
 	    nco.v
-	arachne-pnr -d 5k -P sg48 -p $(pcf_file) $(filename).blif -o $(filename).asc
+	nextpnr-ice40 --up5k --package sg48 --pcf $(pcf_file) --json $(filename).json --asc $(filename).asc
 	icepack $(filename).asc $(filename).bin
 
 prog:
