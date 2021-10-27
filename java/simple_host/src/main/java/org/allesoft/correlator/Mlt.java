@@ -38,7 +38,11 @@ public class Mlt {
     }
 
     private static void show2(int value, int qv) {
-        System.out.println(String.format("%d", (0x80 - value) * (0x80 - value) +
-                (0x80 - qv) * (0x80 - qv)));
+//        System.out.println(String.format("%d", (0x80 - value) * (0x80 - value) +
+//                (0x80 - qv) * (0x80 - qv)));
+        System.out.println(String.format("%d", Math.abs(0x80 - value) +
+                Math.abs(0x80 - qv)));
+        System.out.println(String.format("%d", Math.abs(value) +
+                Math.abs(qv)));
     }
 }

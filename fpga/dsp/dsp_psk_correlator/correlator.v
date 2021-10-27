@@ -11,7 +11,7 @@ module correlator(
 	begin
 	    sig_buf <= sig;
 	    code_buf <= code;
-		if(rst) begin
+		if (rst) begin
 		    value <= match_counter[7:0];
 		    match_counter <= 0;
 		end else begin
