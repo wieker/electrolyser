@@ -32,7 +32,7 @@ module dispatcher(
         end else if (stb) begin
             rdy <= 1;
             tmp <= q_value;
-            value <= st ? i_value : 8'h33;
+            value <= st;
             st1 <= !st1;
         end else begin
             rdy <= 0;
