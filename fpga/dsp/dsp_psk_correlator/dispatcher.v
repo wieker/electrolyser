@@ -22,36 +22,31 @@ module dispatcher(
 
     wire stb;
     reg st1;
-    reg st2;
-    reg [7:0] q1;
-    reg [7:0] q2;
-    reg [7:0] q3;
-    reg [7:0] q4;
+    reg q1;
+    reg q2;
+
+    reg [7:0] counter;
 
     always@(posedge clk)
     begin
         if (rst_in) begin
             rdy <= 0;
             st1 <= 0;
-            st2 <= 0;
         end else if (stb) begin
-            q1 <= i_value[7] ? i_value : ~ i_value;
-            q2 <= q_value[7] ? q_value : ~ q_value;
+            q1 <= i_value[7];
             st1 <= 1;
         end else if (st1) begin
-            q3 <= {0, q1[6:0]};
-            q4 <= {0, q2[6:0]};
+            if (q2 == q1) begin
+                counter ++;
+            end else begin
+                q2 <= q1;
+                value <= counter;
+                rdy <= counter > 50;
+                counter <= 1;
+            end
             st1 <= 0;
-            st2 <= 1;
-        end else if (st2) begin
-            value <= q3 + q4;
-            rdy <= 1;
-            st1 <= 0;
-            st2 <= 0;
         end else begin
             rdy <= 0;
-            st1 <= 0;
-            st2 <= 0;
         end
     end
 
