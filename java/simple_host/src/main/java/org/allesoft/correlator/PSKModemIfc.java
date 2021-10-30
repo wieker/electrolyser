@@ -253,15 +253,24 @@ public class PSKModemIfc
     private static void start_loop(DeviceHandle handle) {
         try {
             sendCommand(handle, 1, new byte[]{}, false);
+            int zq = 0;
+            double sum = 0;
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
-                    System.out.print(String.format("0x%02x ",
-                            ch[i + 1]
-                    ));
+//                    System.out.print(String.format("0x%02x ",
+//                            ch[i + 1]
+//                    ));
+                    sum += Math.abs(ch[i + 1]);
+                    zq ++;
                 }
-                if (ch[0] != 0) {
-                    System.out.println();
+//                if (ch[0] != 0) {
+//                    System.out.println();
+//                }
+                if (zq == 100) {
+                    System.out.println(sum / 100);
+                    zq = 0;
+                    sum = 0;
                 }
             }
             sendCommand(handle, 1, new byte[]{}, false);
