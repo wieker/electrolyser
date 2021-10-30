@@ -27,18 +27,13 @@ module dispatcher(
     reg q3;
     reg q4;
 
-    wire bq = (counter_q >= counter_i);
-    wire bi = (counter_i >= counter_q);
-    reg rbi;
-    reg rbq;
+    reg i_q;
 
     reg [7:0] counter_i;
     reg [7:0] counter_q;
 
     always@(posedge clk)
     begin
-        rbi <= bi;
-        rbq <= bq;
         if (rst_in) begin
             rdy <= 0;
             st1 <= 0;
@@ -61,12 +56,14 @@ module dispatcher(
                 q4 <= q3;
                 counter_q <= 1;
             end
-            if ((q4 != q3) && rbq) begin
+            if ((q4 != q3) && i_q) begin
                 value <= counter_q;
                 rdy <= 0;
-            end else if ((q2 != q1) && rbi) begin
+                i_q <= 0;
+            end else if ((q2 != q1) && !i_q) begin
                 value <= value + counter_i;
                 rdy <= 1;
+                i_q <= 1;
             end
             st1 <= 0;
         end else begin
