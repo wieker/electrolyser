@@ -1,14 +1,14 @@
 module nco(
-    input clk, rst, input [11:0] control_word,
-    input [11:0] phase_control_word,
+    input clk, rst, input [15:0] control_word,
+    input [15:0] phase_control_word,
     output reg i_code,
 );
 
-    reg [11:0] base_sig;
-    reg [11:0] base_sig_pipeline0;
-    reg [11:0] base_sig_pipeline1;
-    reg [11:0] latched_word;
-    reg [11:0] latched_pcw;
+    reg [15:0] base_sig;
+    reg [15:0] base_sig_pipeline0;
+    reg [15:0] base_sig_pipeline1;
+    reg [15:0] latched_word;
+    reg [15:0] latched_pcw;
     always@(posedge clk)
     begin
         base_sig_pipeline0 <= base_sig;
@@ -20,7 +20,7 @@ module nco(
         end else begin
             base_sig <= base_sig + latched_word;
         end
-        i_code <= base_sig_pipeline1[11];
+        i_code <= base_sig_pipeline1[15];
     end
 
 endmodule
