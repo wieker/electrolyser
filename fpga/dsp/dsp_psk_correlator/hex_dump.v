@@ -13,25 +13,18 @@ module hex_dump(
     wire empty;
     wire full;
     wire [7:0] touart;
-    fifo fifo(.clk(clk), .reset(rst), .wr(stb && phase), .rd(tx_start), .din(value), .empty(empty), .full(full), .dout(touart));
+    fifo fifo(.clk(clk), .reset(rst), .wr(stb), .rd(tx_start), .din(value), .empty(empty), .full(full), .dout(touart));
     reg [24:0] counter;
-    reg phase;
     reg bugfix001;
 
     always@(posedge clk)
     begin
         counter <= counter + 1;
-        if (full) begin
-            phase <= 0;
-        end
-        if (empty) begin
-            phase <= 1;
-        end
-        if ((!empty) && (!tx_busy) && !phase && !bugfix001) begin
+        if ((!empty) && (!tx_busy) && !bugfix001) begin
             bugfix001 <= 1;
             tx_start <= 1;
         end else begin
-            if ((!empty) && (!tx_busy) && !phase && bugfix001) begin
+            if ((!empty) && (!tx_busy) && bugfix001) begin
                 bugfix001 <= 0;
             end
             tx_start <= 0;
