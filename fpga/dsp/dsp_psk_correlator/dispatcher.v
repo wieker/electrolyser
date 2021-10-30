@@ -3,14 +3,11 @@ module dispatcher(
     output reg [7:0] value,
     output reg rdy,
 );
-    wire i_code, q_code;
+    wire i_code;
     nco i_nco(.clk(clk), .rst(rst_in), .control_word(12'h100), .i_code(i_code), .phase_control_word(12'h000));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(12'h100), .i_code(q_code), .phase_control_word(12'h400));
 
     wire [7:0] i_value;
-    wire [7:0] q_value;
     correlator i_correlator(.clk(clk), .rst(rst), .sig(sig), .code(i_code), .value(i_value));
-    correlator q_correlator(.clk(clk), .rst(rst), .sig(sig), .code(q_code), .value(q_value));
 
     wire rst;
     dispatcher_ctl ctl(
@@ -21,19 +18,11 @@ module dispatcher(
     );
 
     wire stb;
-    reg st1;
-    reg q1;
-    reg q2;
-    reg q3;
-    reg q4;
+    wire bi = (i_value >= 8'ha0);
 
-    wire bq = (counter_q >= counter_i);
-    wire bi = (counter_i >= counter_q);
-    reg rbi;
-    reg rbq;
-
-    reg [7:0] counter_i;
-    reg [7:0] counter_q;
+    reg [7:0] counter_low;
+    reg [7:0] counter_up;
+    reg up;
 
     always@(posedge clk)
     begin
@@ -43,32 +32,20 @@ module dispatcher(
             rdy <= 0;
             st1 <= 0;
         end else if (stb) begin
-            q1 <= i_value[7];
-            q3 <= q_value[7];
-            st1 <= 1;
-        end else if (st1) begin
-            if (q2 == q1) begin
-                counter_i ++;
-            end
-            if (q4 == q3) begin
-                counter_q ++;
-            end
-            if (q2 != q1) begin
-                q2 <= q1;
-                counter_i <= 1;
-            end
-            if (q4 != q3) begin
-                q4 <= q3;
-                counter_q <= 1;
-            end
-            if ((q4 != q3) && rbq) begin
-                value <= counter_q;
+            if (bi && !up) begin
+                up <= 1;
+                counter_up <= 1;
+                counter_low <= 0;
+                value <= counter_low;
                 rdy <= 1;
-            end else if ((q2 != q1) && rbi) begin
-                value <= counter_i;
-                rdy <= 1;
+            end else if (counter_up == 8'h20) begin
+                counter_up <= 0;
+                up <= 0;
+            end else if (up) begin
+                counter_up <= counter_up + 1;
+            end else begin
+                counter_low <= counter_low + 1;
             end
-            st1 <= 0;
         end else begin
             rdy <= 0;
         end
