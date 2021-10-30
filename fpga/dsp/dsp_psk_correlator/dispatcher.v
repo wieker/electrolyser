@@ -32,6 +32,10 @@ module dispatcher(
     reg [7:0] counter_i;
     reg [7:0] counter_q;
 
+    reg [19:0] summ;
+
+    reg [15:0] summ_counter;
+
     always@(posedge clk)
     begin
         if (rst_in) begin
@@ -57,15 +61,19 @@ module dispatcher(
                 counter_q <= 1;
             end
             if ((q4 != q3) && i_q) begin
-                value <= counter_q;
-                rdy <= 0;
+                summ <= summ + counter_q;
                 i_q <= 0;
             end else if ((q2 != q1) && !i_q) begin
-                value <= value + counter_i;
-                rdy <= 1;
+                summ <= summ + counter_i;
                 i_q <= 1;
+                summ_counter <= summ_counter + 1;
             end
             st1 <= 0;
+        end else if (summ_counter == 256 * 16) begin
+            summ_counter <= 0;
+            summ <= 0;
+            value <= summ[19:12];
+            rdy <= 1;
         end else begin
             rdy <= 0;
         end
