@@ -1,46 +1,63 @@
 module dispatcher(
     input clk, rst_in, sig,
-    output [7:0] value,
-    output rdy,
+    output reg [7:0] value,
+    output reg rdy,
 );
+    wire i_code, q_code;
+    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1003), .i_code(i_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1003), .i_code(q_code), .phase_control_word(16'h4000));
 
-    reg [4:0] offsetl;
-    reg [4:0] offsetr;
-    reg [4:0] offset;
+    wire [7:0] i_value;
+    wire [7:0] q_value;
+    correlator i_correlator(.clk(clk), .rst(rst), .sig(sig), .code(i_code), .value(i_value));
+    correlator q_correlator(.clk(clk), .rst(rst), .sig(sig), .code(q_code), .value(q_value));
 
-    wire am_lstb;
-    wire am_rstb;
-    wire [7:0] lvalue;
-    wire [7:0] rvalue;
-    wire [7:0] value1;
-    wire [7:0] value2;
-    wire rdy1;
-    wire rdy2;
-    assign rdy = rdy1 | rdy2;
-    assign value = rdy1 ? value1 : value2;
-    wire rst, am_stb;
-    am_detector left(.clk(clk), .rst_in(rst), .sig(sig), .offset(offsetl), .rdy(am_stb), .value(lvalue));
-    am_detector right(.clk(clk), .rst_in(rst), .sig(sig), .offset(offsetr), .rdy(am_rstb), .value(rvalue));
-    psk_demod demod1(.clk(clk), .rst_in(rst), .sig(sig), .offset(offset), .rdy(rdy1), .value(value1));
-    psk_demod demod2(.clk(clk), .rst_in(rst), .sig(sig), .offset(19), .rdy(rdy2), .value(value2));
+    wire rst;
+    dispatcher_ctl ctl(
+        .clk(clk),
+        .rst_in(rst_in),
+        .rst_out(rst),
+        .stb(stb)
+    );
 
+    wire stb;
+    reg st1;
+    reg q1;
+    reg q2;
+    reg q3;
+    reg q4;
+
+    reg i_q;
+    reg [19:0] res_counter;
 
     always@(posedge clk)
     begin
         if (rst_in) begin
-            offsetl <= 12;
-            offsetr <= 20;
-            offset <= 16;
-        end else if (am_lstb | am_rstb) begin
-            if (lvalue > rvalue) begin
-                offsetl <= offset + 1;
-                offsetr <= offsetr + 1;
-                offset <= offset + 1;
-            end else if (lvalue < rvalue) begin
-                offsetl <= offsetl + 5'b11111;
-                offsetr <= offsetr + 5'b11111;
-                offset <= offset + 5'b11111;
+            rdy <= 0;
+            st1 <= 0;
+        end else if (stb) begin
+            q1 <= i_value[7];
+            q3 <= q_value[7];
+            st1 <= 1;
+            res_counter ++;
+        end else if (st1) begin
+            if (q2 != q1) begin
+                q2 <= q1;
             end
+            if (q4 != q3) begin
+                q4 <= q3;
+            end
+            if ((q4 != q3) && i_q) begin
+                i_q <= 0;
+            end else if ((q2 != q1) && !i_q) begin
+                i_q <= 1;
+                res_counter <= 0;
+                value <= res_counter;
+                rdy <= 1;
+            end
+            st1 <= 0;
+        end else begin
+            rdy <= 0;
         end
     end
 

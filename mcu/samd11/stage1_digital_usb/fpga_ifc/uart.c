@@ -89,8 +89,8 @@ void uart_init()
   uart_rx_fifo.wr = 0;
   uart_rx_fifo.rd = 0;
 
-  baud = F_CPU / (16 * 3600);
-  fp = (F_CPU / 3600 - 16 * baud) / 2;
+  baud = F_CPU / (16 * 1000000);
+  fp = (F_CPU / 1000000 - 16 * baud) / 2;
 
   UART_SERCOM->USART.CTRLA.reg =
       SERCOM_USART_CTRLA_DORD | SERCOM_USART_CTRLA_MODE_USART_INT_CLK |
