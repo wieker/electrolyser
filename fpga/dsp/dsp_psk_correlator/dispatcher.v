@@ -1,7 +1,7 @@
 module dispatcher(
     input clk, rst_in, sig,
-    output reg [7:0] value,
-    output reg rdy,
+    output [7:0] value,
+    output rdy,
 );
 
     reg [4:0] offsetl;
