@@ -50,18 +50,16 @@ module dispatcher(
             end
             if ((q4 != q3) && i_q) begin
                 i_q <= 0;
-                if (q2 == 1) begin
-                    pulse_counter <= pulse_counter + 1;
-                end
+                res_counter <= 0;
+                value <= res_counter;
+                rdy <= 1;
             end else if ((q2 != q1) && !i_q) begin
                 i_q <= 1;
+                res_counter <= 0;
+                value <= res_counter;
+                rdy <= 1;
             end
             st1 <= 0;
-        end else if (res_counter == 0) begin
-            res_counter <= 0;
-            value <= pulse_counter;
-            pulse_counter <= 0;
-            rdy <= 1;
         end else begin
             rdy <= 0;
         end
