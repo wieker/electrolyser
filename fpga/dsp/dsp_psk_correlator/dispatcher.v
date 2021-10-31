@@ -29,6 +29,7 @@ module dispatcher(
 
     reg i_q;
     reg [19:0] res_counter;
+    reg [7:0] pulse_counter;
 
     always@(posedge clk)
     begin
@@ -51,11 +52,15 @@ module dispatcher(
                 i_q <= 0;
             end else if ((q2 != q1) && !i_q) begin
                 i_q <= 1;
-                res_counter <= 0;
-                value <= res_counter;
-                rdy <= 1;
+                if (q2 == 0) begin
+                    pulse_counter <= pulse_counter + 1;
+                end
             end
             st1 <= 0;
+        end else if (res_counter == 2000) begin
+            res_counter <= 0;
+            value <= pulse_counter;
+            rdy <= 1;
         end else begin
             rdy <= 0;
         end
