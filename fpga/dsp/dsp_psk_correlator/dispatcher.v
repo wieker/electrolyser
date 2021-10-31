@@ -44,6 +44,12 @@ module dispatcher(
             st1 <= 1;
             res_counter ++;
         end else if (st1) begin
+            if (q2 != q1) begin
+                q2 <= q1;
+            end
+            if (q4 != q3) begin
+                q4 <= q3;
+            end
             if ((q4 != q3) && i_q) begin
                 i_q <= 0;
                 pulse_counter <= pulse_counter + 1;
