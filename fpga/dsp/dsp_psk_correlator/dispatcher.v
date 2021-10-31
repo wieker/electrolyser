@@ -17,7 +17,7 @@ module dispatcher(
     wire rdy1;
     wire rdy2;
     assign rdy = rdy1 | rdy2;
-    assign value = value1 | value2;
+    assign value = rdy1 ? value1 : value2;
     wire rst, am_stb;
     am_detector left(.clk(clk), .rst_in(rst), .sig(sig), .offset(offsetl), .rdy(am_stb), .value(lvalue));
     am_detector right(.clk(clk), .rst_in(rst), .sig(sig), .offset(offsetr), .rdy(am_rstb), .value(rvalue));
