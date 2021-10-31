@@ -4,8 +4,8 @@ module dispatcher(
     output reg rdy,
 );
     wire i_code, q_code;
-    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1003), .i_code(i_code), .phase_control_word(16'h0000));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1003), .i_code(q_code), .phase_control_word(16'h4000));
+    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000), .i_code(i_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000), .i_code(q_code), .phase_control_word(16'h4000));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
@@ -50,11 +50,11 @@ module dispatcher(
             end
             if ((q4 != q3) && i_q) begin
                 i_q <= 0;
-            end else if ((q2 != q1) && !i_q) begin
-                i_q <= 1;
-                if (q2 == 0) begin
+                if (q2 == 1) begin
                     pulse_counter <= pulse_counter + 1;
                 end
+            end else if ((q2 != q1) && !i_q) begin
+                i_q <= 1;
             end
             st1 <= 0;
         end else if (res_counter == 0) begin

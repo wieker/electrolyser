@@ -267,7 +267,7 @@ public class PSKModemIfc
 //                if (ch[0] != 0) {
 //                    System.out.println();
 //                }
-                if (zq >= 1) {
+                if (zq >= 100) {
                     System.out.println(sum / zq);
                     zq = 0;
                     sum = 0;
