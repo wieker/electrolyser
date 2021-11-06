@@ -1,9 +1,9 @@
 module top(
     output LED1, LED2, fpga_tx, pwm_out,
-    input btn1, btn2, lvds_in, fpga_rx
+    input btn1, btn2, lvds_in, fpga_rx, xtal_in
 );
 
-    wire clk;
+    wire clk = xtal_in;
     wire rst;
     osc osc(.clk(clk), .rst(rst));
 

@@ -1,5 +1,6 @@
 module osc(
-    output clk, rst,
+    input clk,
+    output rst,
 );
 
 
@@ -9,7 +10,7 @@ module osc(
     SB_HFOSC inthosc (
       .CLKHFPU(1'b1),
       .CLKHFEN(1'b1),
-      .CLKHF(clk)
+      .CLKHF(ttt)
     );
 
     always@(posedge clk)
