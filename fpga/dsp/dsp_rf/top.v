@@ -22,23 +22,15 @@ module top(
     assign led3 = counter1[19];
 
     reg select;
-    reg enable;
-    reg [15:0] rfcounter;
 
-    assign rf = 1 ? select ? CLK2 : counter1[1] : 0;
+    nco i_nco(.clk(CLK1), .rst(0), .control_word(select ? 16'h4000 : 16'h4004), .i_code(i_code), .phase_control_word(16'h0000));
 
-    always @(posedge CLK1)
+    assign rf = i_code;
+
+    always @(posedge CLK2)
     begin
         if (rx_stb) begin  // cross-clock domain :)
             select <= !select;
-            enable <= 1;
-        end else if (enable) begin
-            if (rfcounter == 16'h0400) begin
-                rfcounter <= 0;
-                enable <= 0;
-            end else begin
-                rfcounter <= rfcounter + 1;
-            end
         end
     end
 
