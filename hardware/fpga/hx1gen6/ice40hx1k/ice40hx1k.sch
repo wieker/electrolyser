@@ -26,12 +26,6 @@ F0 "FPGA" 50
 F1 "fpgaSheet.sch" 50
 $EndSheet
 $Sheet
-S 2050 3450 1950 500 
-U 5E9ED3C7
-F0 "SRAM" 50
-F1 "sramSheet.sch" 50
-$EndSheet
-$Sheet
 S 2050 4300 2000 500 
 U 5E9ED3E9
 F0 "Clock" 50
@@ -54,5 +48,11 @@ S 4800 1500 2150 500
 U 618F6ED2
 F0 "MCU" 50
 F1 "mcu.sch" 50
+$EndSheet
+$Sheet
+S 4700 4300 2100 500 
+U 61A423D4
+F0 "AFE" 50
+F1 "afe.sch" 50
 $EndSheet
 $EndSCHEMATC

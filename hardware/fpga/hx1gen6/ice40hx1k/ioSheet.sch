@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 8
+Sheet 6 8
 Title ""
 Date ""
 Rev ""
@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Text GLabel 2750 3000 0    50   Input ~ 0
-CDONE
+cdone
 $Comp
 L Device:LED D?
 U 1 1 5E677C12
