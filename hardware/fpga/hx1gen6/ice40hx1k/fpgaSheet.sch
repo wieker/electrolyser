@@ -763,22 +763,6 @@ Wire Wire Line
 	4650 5900 4750 5900
 Wire Wire Line
 	4650 5500 4750 5500
-Text GLabel 2850 5100 0    50   Input ~ 0
-sercom2_pad0
-Text GLabel 2850 5200 0    50   Input ~ 0
-sercom2_pad1
-Text GLabel 2850 5300 0    50   Input ~ 0
-sercom1_pad2
-Text GLabel 2850 5500 0    50   Input ~ 0
-sercom1_pad0
-Text GLabel 2850 5600 0    50   Input ~ 0
-sercom1_pad1
-Text GLabel 2850 4900 0    50   Input ~ 0
-sercom2_pad2
-Text GLabel 2850 5000 0    50   Input ~ 0
-sercom2_pad3
-Text GLabel 2850 5400 0    50   Input ~ 0
-sercom1_pad3
 NoConn ~ 2850 4800
 NoConn ~ 4650 4600
 NoConn ~ 4650 4700
@@ -829,4 +813,20 @@ NoConn ~ 4650 5800
 NoConn ~ 4650 5600
 NoConn ~ 4650 5400
 NoConn ~ 4650 5100
+Text GLabel 2850 5400 0    50   Input ~ 0
+sercom2_pad0
+Text GLabel 2850 5300 0    50   Input ~ 0
+sercom2_pad1
+Text GLabel 2850 5200 0    50   Input ~ 0
+sercom1_pad2
+Text GLabel 2850 5000 0    50   Input ~ 0
+sercom1_pad0
+Text GLabel 2850 4900 0    50   Input ~ 0
+sercom1_pad1
+Text GLabel 2850 5600 0    50   Input ~ 0
+sercom2_pad2
+Text GLabel 2850 5500 0    50   Input ~ 0
+sercom2_pad3
+Text GLabel 2850 5100 0    50   Input ~ 0
+sercom1_pad3
 $EndSCHEMATC
