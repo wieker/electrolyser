@@ -254,9 +254,9 @@ Wire Wire Line
 Wire Wire Line
 	2400 1700 2850 1700
 Text GLabel 2850 5700 0    50   Input ~ 0
-CDONE
+cdone
 Text GLabel 2850 5800 0    50   Input ~ 0
-CRESET
+creset
 Text GLabel 2850 5900 0    50   Input ~ 0
 SPI_OUT
 Text GLabel 2850 6000 0    50   Input ~ 0

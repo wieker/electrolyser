@@ -200,9 +200,9 @@ $EndComp
 Text GLabel 4600 2350 0    50   Input ~ 0
 SPI_IN
 Text GLabel 4600 2150 0    50   Input ~ 0
-CDONE
+cdone
 Text GLabel 4600 2250 0    50   Input ~ 0
-CRESET
+creset
 Text GLabel 5750 2350 2    50   Input ~ 0
 SPI_OUT
 Text GLabel 5750 2250 2    50   Input ~ 0
