@@ -14,10 +14,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Oscillator:ASE-xxxMHz X3
+L Oscillator:ASE-xxxMHz X2
 U 1 1 5E66FD40
 P 4050 2900
-F 0 "X3" H 4394 2946 50  0000 L CNN
+F 0 "X2" H 4394 2946 50  0000 L CNN
 F 1 "ASE-10MHz" H 4394 2855 50  0000 L CNN
 F 2 "Oscillator:Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm" H 4750 2550 50  0001 C CNN
 F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 3950 2900 50  0001 C CNN
@@ -25,10 +25,10 @@ F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 3950 2900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C32
+L Device:C C17
 U 1 1 5E67058E
 P 5300 2850
-F 0 "C32" H 5415 2896 50  0000 L CNN
+F 0 "C17" H 5415 2896 50  0000 L CNN
 F 1 "0.01uF" H 5415 2805 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0402_1005Metric" H 5338 2700 50  0001 C CNN
 F 3 "~" H 5300 2850 50  0001 C CNN
@@ -48,10 +48,10 @@ Wire Wire Line
 Wire Wire Line
 	5300 3500 5300 3000
 $Comp
-L power:+3V3 #PWR072
+L power:+3V3 #PWR030
 U 1 1 5E670EA7
 P 4650 2250
-F 0 "#PWR072" H 4650 2100 50  0001 C CNN
+F 0 "#PWR030" H 4650 2100 50  0001 C CNN
 F 1 "+3V3" H 4665 2423 50  0000 C CNN
 F 2 "" H 4650 2250 50  0001 C CNN
 F 3 "" H 4650 2250 50  0001 C CNN
@@ -59,10 +59,10 @@ F 3 "" H 4650 2250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR073
+L power:GND #PWR031
 U 1 1 5E67178D
 P 4700 3750
-F 0 "#PWR073" H 4700 3500 50  0001 C CNN
+F 0 "#PWR031" H 4700 3500 50  0001 C CNN
 F 1 "GND" H 4705 3577 50  0000 C CNN
 F 2 "" H 4700 3750 50  0001 C CNN
 F 3 "" H 4700 3750 50  0001 C CNN
@@ -91,21 +91,10 @@ Wire Wire Line
 Text GLabel 4350 2900 2    50   Input ~ 0
 clock_1
 $Comp
-L Oscillator:ASV-xxxMHz X7
-U 1 1 5E6438F8
-P 8200 2650
-F 0 "X7" H 8544 2696 50  0000 L CNN
-F 1 "ASV-xxxMHz" H 8544 2605 50  0000 L CNN
-F 2 "Oscillator:Oscillator_SMD_Abracon_ASV-4Pin_7.0x5.1mm" H 8900 2300 50  0001 C CNN
-F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 8100 2650 50  0001 C CNN
-	1    8200 2650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Oscillator:ASE-xxxMHz X2
+L Oscillator:ASE-xxxMHz X1
 U 1 1 5E646F30
 P 1900 5300
-F 0 "X2" H 2244 5346 50  0000 L CNN
+F 0 "X1" H 2244 5346 50  0000 L CNN
 F 1 "ASE-10MHz" H 2244 5255 50  0000 L CNN
 F 2 "Oscillator:Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm" H 2600 4950 50  0001 C CNN
 F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 1800 5300 50  0001 C CNN
@@ -113,10 +102,10 @@ F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 1800 5300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C31
+L Device:C C16
 U 1 1 5E646F36
 P 3150 5250
-F 0 "C31" H 3265 5296 50  0000 L CNN
+F 0 "C16" H 3265 5296 50  0000 L CNN
 F 1 "0.01uF" H 3265 5205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0402_1005Metric" H 3188 5100 50  0001 C CNN
 F 3 "~" H 3150 5250 50  0001 C CNN
@@ -136,10 +125,10 @@ Wire Wire Line
 Wire Wire Line
 	3150 5900 3150 5400
 $Comp
-L power:+3V3 #PWR070
+L power:+3V3 #PWR028
 U 1 1 5E646F42
 P 2500 4650
-F 0 "#PWR070" H 2500 4500 50  0001 C CNN
+F 0 "#PWR028" H 2500 4500 50  0001 C CNN
 F 1 "+3V3" H 2515 4823 50  0000 C CNN
 F 2 "" H 2500 4650 50  0001 C CNN
 F 3 "" H 2500 4650 50  0001 C CNN
@@ -147,10 +136,10 @@ F 3 "" H 2500 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR071
+L power:GND #PWR029
 U 1 1 5E646F48
 P 2550 6150
-F 0 "#PWR071" H 2550 5900 50  0001 C CNN
+F 0 "#PWR029" H 2550 5900 50  0001 C CNN
 F 1 "GND" H 2555 5977 50  0000 C CNN
 F 2 "" H 2550 6150 50  0001 C CNN
 F 3 "" H 2550 6150 50  0001 C CNN
@@ -179,10 +168,10 @@ Wire Wire Line
 Text GLabel 2200 5300 2    50   Input ~ 0
 clock_2
 $Comp
-L Oscillator:ASE-xxxMHz X4
+L Oscillator:ASE-xxxMHz X3
 U 1 1 5E647806
 P 4650 5350
-F 0 "X4" H 4994 5396 50  0000 L CNN
+F 0 "X3" H 4994 5396 50  0000 L CNN
 F 1 "ASE-10MHz" H 4994 5305 50  0000 L CNN
 F 2 "Oscillator:Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm" H 5350 5000 50  0001 C CNN
 F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 4550 5350 50  0001 C CNN
@@ -190,10 +179,10 @@ F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 4550 5350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C33
+L Device:C C18
 U 1 1 5E64780C
 P 5900 5300
-F 0 "C33" H 6015 5346 50  0000 L CNN
+F 0 "C18" H 6015 5346 50  0000 L CNN
 F 1 "0.01uF" H 6015 5255 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0402_1005Metric" H 5938 5150 50  0001 C CNN
 F 3 "~" H 5900 5300 50  0001 C CNN
@@ -213,10 +202,10 @@ Wire Wire Line
 Wire Wire Line
 	5900 5950 5900 5450
 $Comp
-L power:+3V3 #PWR074
+L power:+3V3 #PWR032
 U 1 1 5E647818
 P 5250 4700
-F 0 "#PWR074" H 5250 4550 50  0001 C CNN
+F 0 "#PWR032" H 5250 4550 50  0001 C CNN
 F 1 "+3V3" H 5265 4873 50  0000 C CNN
 F 2 "" H 5250 4700 50  0001 C CNN
 F 3 "" H 5250 4700 50  0001 C CNN
@@ -224,10 +213,10 @@ F 3 "" H 5250 4700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR075
+L power:GND #PWR033
 U 1 1 5E64781E
 P 5300 6200
-F 0 "#PWR075" H 5300 5950 50  0001 C CNN
+F 0 "#PWR033" H 5300 5950 50  0001 C CNN
 F 1 "GND" H 5305 6027 50  0000 C CNN
 F 2 "" H 5300 6200 50  0001 C CNN
 F 3 "" H 5300 6200 50  0001 C CNN
@@ -255,224 +244,4 @@ Wire Wire Line
 	4650 5000 4650 4850
 Text GLabel 4950 5350 2    50   Input ~ 0
 clock_3
-$Comp
-L Device:C C36
-U 1 1 5E6489E3
-P 9450 2600
-F 0 "C36" H 9565 2646 50  0000 L CNN
-F 1 "0.01uF" H 9565 2555 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 9488 2450 50  0001 C CNN
-F 3 "~" H 9450 2600 50  0001 C CNN
-	1    9450 2600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8200 2350 8200 2300
-Wire Wire Line
-	8200 2150 8800 2150
-Wire Wire Line
-	9450 2150 9450 2450
-Wire Wire Line
-	8200 2950 8200 3250
-Wire Wire Line
-	8200 3250 8850 3250
-Wire Wire Line
-	9450 3250 9450 2750
-$Comp
-L power:+3V3 #PWR080
-U 1 1 5E6489EF
-P 8800 2000
-F 0 "#PWR080" H 8800 1850 50  0001 C CNN
-F 1 "+3V3" H 8815 2173 50  0000 C CNN
-F 2 "" H 8800 2000 50  0001 C CNN
-F 3 "" H 8800 2000 50  0001 C CNN
-	1    8800 2000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR081
-U 1 1 5E6489F5
-P 8850 3500
-F 0 "#PWR081" H 8850 3250 50  0001 C CNN
-F 1 "GND" H 8855 3327 50  0000 C CNN
-F 2 "" H 8850 3500 50  0001 C CNN
-F 3 "" H 8850 3500 50  0001 C CNN
-	1    8850 3500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8850 3500 8850 3250
-Connection ~ 8850 3250
-Wire Wire Line
-	8850 3250 9450 3250
-Wire Wire Line
-	8800 2000 8800 2150
-Connection ~ 8800 2150
-Wire Wire Line
-	8800 2150 9450 2150
-Wire Wire Line
-	7900 2650 7500 2650
-Wire Wire Line
-	7500 2650 7500 2300
-Wire Wire Line
-	7500 2300 8200 2300
-Connection ~ 8200 2300
-Wire Wire Line
-	8200 2300 8200 2150
-Text GLabel 8500 2650 2    50   Input ~ 0
-clock_5
-$Comp
-L Oscillator:ASV-xxxMHz X6
-U 1 1 5E64DEA5
-P 8100 5150
-F 0 "X6" H 8444 5196 50  0000 L CNN
-F 1 "ASV-xxxMHz" H 8444 5105 50  0000 L CNN
-F 2 "Oscillator:Oscillator_SMD_Abracon_ASV-4Pin_7.0x5.1mm" H 8800 4800 50  0001 C CNN
-F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 8000 5150 50  0001 C CNN
-	1    8100 5150
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C35
-U 1 1 5E64DEAB
-P 9350 5100
-F 0 "C35" H 9465 5146 50  0000 L CNN
-F 1 "0.01uF" H 9465 5055 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 9388 4950 50  0001 C CNN
-F 3 "~" H 9350 5100 50  0001 C CNN
-	1    9350 5100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8100 4850 8100 4800
-Wire Wire Line
-	8100 4650 8700 4650
-Wire Wire Line
-	9350 4650 9350 4950
-Wire Wire Line
-	8100 5450 8100 5750
-Wire Wire Line
-	8100 5750 8750 5750
-Wire Wire Line
-	9350 5750 9350 5250
-$Comp
-L power:+3V3 #PWR078
-U 1 1 5E64DEB7
-P 8700 4500
-F 0 "#PWR078" H 8700 4350 50  0001 C CNN
-F 1 "+3V3" H 8715 4673 50  0000 C CNN
-F 2 "" H 8700 4500 50  0001 C CNN
-F 3 "" H 8700 4500 50  0001 C CNN
-	1    8700 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR079
-U 1 1 5E64DEBD
-P 8750 6000
-F 0 "#PWR079" H 8750 5750 50  0001 C CNN
-F 1 "GND" H 8755 5827 50  0000 C CNN
-F 2 "" H 8750 6000 50  0001 C CNN
-F 3 "" H 8750 6000 50  0001 C CNN
-	1    8750 6000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8750 6000 8750 5750
-Connection ~ 8750 5750
-Wire Wire Line
-	8750 5750 9350 5750
-Wire Wire Line
-	8700 4500 8700 4650
-Connection ~ 8700 4650
-Wire Wire Line
-	8700 4650 9350 4650
-Wire Wire Line
-	7800 5150 7400 5150
-Wire Wire Line
-	7400 5150 7400 4800
-Wire Wire Line
-	7400 4800 8100 4800
-Connection ~ 8100 4800
-Wire Wire Line
-	8100 4800 8100 4650
-Text GLabel 8400 5150 2    50   Input ~ 0
-clock_4
-$Comp
-L Oscillator:ASV-xxxMHz X5
-U 1 1 5E64FFD0
-P 5950 1550
-F 0 "X5" H 6294 1596 50  0000 L CNN
-F 1 "ASV-xxxMHz" H 6294 1505 50  0000 L CNN
-F 2 "Oscillator:Oscillator_SMD_Abracon_ASV-4Pin_7.0x5.1mm" H 6650 1200 50  0001 C CNN
-F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 5850 1550 50  0001 C CNN
-	1    5950 1550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C34
-U 1 1 5E64FFD6
-P 7200 1500
-F 0 "C34" H 7315 1546 50  0000 L CNN
-F 1 "0.01uF" H 7315 1455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 7238 1350 50  0001 C CNN
-F 3 "~" H 7200 1500 50  0001 C CNN
-	1    7200 1500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5950 1250 5950 1200
-Wire Wire Line
-	5950 1050 6550 1050
-Wire Wire Line
-	7200 1050 7200 1350
-Wire Wire Line
-	5950 1850 5950 2150
-Wire Wire Line
-	5950 2150 6600 2150
-Wire Wire Line
-	7200 2150 7200 1650
-$Comp
-L power:+3V3 #PWR076
-U 1 1 5E64FFE2
-P 6550 900
-F 0 "#PWR076" H 6550 750 50  0001 C CNN
-F 1 "+3V3" H 6565 1073 50  0000 C CNN
-F 2 "" H 6550 900 50  0001 C CNN
-F 3 "" H 6550 900 50  0001 C CNN
-	1    6550 900 
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR077
-U 1 1 5E64FFE8
-P 6600 2400
-F 0 "#PWR077" H 6600 2150 50  0001 C CNN
-F 1 "GND" H 6605 2227 50  0000 C CNN
-F 2 "" H 6600 2400 50  0001 C CNN
-F 3 "" H 6600 2400 50  0001 C CNN
-	1    6600 2400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6600 2400 6600 2150
-Connection ~ 6600 2150
-Wire Wire Line
-	6600 2150 7200 2150
-Wire Wire Line
-	6550 900  6550 1050
-Connection ~ 6550 1050
-Wire Wire Line
-	6550 1050 7200 1050
-Wire Wire Line
-	5650 1550 5250 1550
-Wire Wire Line
-	5250 1550 5250 1200
-Wire Wire Line
-	5250 1200 5950 1200
-Connection ~ 5950 1200
-Wire Wire Line
-	5950 1200 5950 1050
-Text GLabel 6250 1550 2    50   Input ~ 0
-clock_6
 $EndSCHEMATC
