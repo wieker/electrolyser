@@ -24,10 +24,6 @@ F 3 "" H 4900 3000 50  0001 C CNN
 	1    4900 3000
 	-1   0    0    1   
 $EndComp
-Text GLabel 2500 2300 0    50   Input ~ 0
-uart_tx
-Text GLabel 2500 2400 0    50   Input ~ 0
-uart_rx
 $Comp
 L Device:C C15
 U 1 1 5E6008C9
@@ -145,7 +141,7 @@ swd_clk
 Text GLabel 2500 2100 0    50   Input ~ 0
 swd_io
 Text GLabel 3500 2400 2    50   Input ~ 0
-led_mcu
+sercom2_pad0
 Wire Wire Line
 	3500 3000 4500 3000
 Wire Wire Line
@@ -155,13 +151,13 @@ creset
 Text GLabel 3500 1600 2    50   Input ~ 0
 cdone
 Text GLabel 3500 2500 2    50   Input ~ 0
-a1
+sercom2_pad1
 Text GLabel 3500 2600 2    50   Input ~ 0
-b1
+sercom1_pad2
 Text GLabel 3500 2800 2    50   Input ~ 0
-a2
+sercom1_pad0
 Text GLabel 3500 2900 2    50   Input ~ 0
-b2
+sercom1_pad1
 $Comp
 L power:GND #PWR?
 U 1 1 5E6748AE
@@ -353,13 +349,13 @@ Wire Wire Line
 	1300 3150 1300 3350
 Connection ~ 1300 3150
 Text GLabel 3500 1800 2    50   Input ~ 0
-mosi
+fpga_spi_out
 Text GLabel 3500 1900 2    50   Input ~ 0
-sck
+fpga_clk
 Text GLabel 3500 2100 2    50   Input ~ 0
-ss
+fpga_cs
 Text GLabel 3500 2000 2    50   Input ~ 0
-miso
+fpga_spi_in
 $Comp
 L GitRep_SAMD:ATSAMD11D14A-M U5
 U 1 1 60B09C8F
@@ -384,20 +380,13 @@ F 3 "" H 3000 3600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3000 3400 3000 3600
-NoConn ~ 3500 2200
-NoConn ~ 3500 2300
-NoConn ~ 3500 2700
 NoConn ~ 3500 3200
-Text GLabel 1100 1200 0    50   Input ~ 0
-uart_tx
-Text GLabel 1100 1300 0    50   Input ~ 0
-uart_rx
-Text GLabel 1150 1300 2    50   Input ~ 0
-fpga_tx
-Text GLabel 1150 1200 2    50   Input ~ 0
-fpga_rx
-Wire Wire Line
-	1100 1200 1150 1200
-Wire Wire Line
-	1100 1300 1150 1300
+Text GLabel 3500 2200 2    50   Input ~ 0
+sercom2_pad2
+Text GLabel 3500 2300 2    50   Input ~ 0
+sercom2_pad3
+Text GLabel 3500 2700 2    50   Input ~ 0
+sercom1_pad3
+NoConn ~ 2500 2300
+NoConn ~ 2500 2400
 $EndSCHEMATC

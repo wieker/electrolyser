@@ -258,13 +258,13 @@ cdone
 Text GLabel 2850 5800 0    50   Input ~ 0
 creset
 Text GLabel 2850 5900 0    50   Input ~ 0
-SPI_OUT
+fpga_spi_out
 Text GLabel 2850 6000 0    50   Input ~ 0
-SPI_IN
+fpga_spi_in
 Text GLabel 2850 6100 0    50   Input ~ 0
-SPI_SCK
+spi_clk
 Text GLabel 2850 6200 0    50   Input ~ 0
-SPI_CS
+spi_cs
 $Comp
 L power:+1V2 #PWR?
 U 1 1 5E65E583
@@ -740,20 +740,6 @@ Text GLabel 2850 4600 0    50   Input ~ 0
 IO27
 Text GLabel 2850 4700 0    50   Input ~ 0
 IO28
-Text GLabel 2850 4800 0    50   Input ~ 0
-IO29
-Text GLabel 2850 4900 0    50   Input ~ 0
-IO30
-Text GLabel 2850 5000 0    50   Input ~ 0
-IO33
-Text GLabel 2850 5100 0    50   Input ~ 0
-IO34
-Text GLabel 2850 5200 0    50   Input ~ 0
-IO36
-Text GLabel 2850 5300 0    50   Input ~ 0
-IO37
-Text GLabel 2850 5400 0    50   Input ~ 0
-IO40
 Text GLabel 4650 6400 2    50   Input ~ 0
 IO51
 Text GLabel 4650 6300 2    50   Input ~ 0
@@ -871,10 +857,6 @@ Text GLabel 9050 3200 2    50   Input ~ 0
 clock_5
 Text GLabel 9050 3400 2    50   Input ~ 0
 clock_6
-Text GLabel 2750 5500 0    50   Input ~ 0
-fpga_tx
-Text GLabel 2750 5600 0    50   Input ~ 0
-fpga_rx
 Text GLabel 8950 2200 0    50   Input ~ 0
 IO62
 Text GLabel 8950 3400 0    50   Input ~ 0
@@ -888,10 +870,6 @@ IO68
 Text GLabel 8950 3200 0    50   Input ~ 0
 IO69
 Wire Wire Line
-	2750 5500 2850 5500
-Wire Wire Line
-	2750 5600 2850 5600
-Wire Wire Line
 	8950 2200 9050 2200
 Wire Wire Line
 	8950 2450 9050 2450
@@ -904,4 +882,21 @@ Wire Wire Line
 Wire Wire Line
 	8950 3400 9050 3400
 NoConn ~ 4650 5900
+Text GLabel 2850 5100 0    50   Input ~ 0
+sercom2_pad0
+Text GLabel 2850 5200 0    50   Input ~ 0
+sercom2_pad1
+Text GLabel 2850 5300 0    50   Input ~ 0
+sercom1_pad2
+Text GLabel 2850 5500 0    50   Input ~ 0
+sercom1_pad0
+Text GLabel 2850 5600 0    50   Input ~ 0
+sercom1_pad1
+Text GLabel 2850 4900 0    50   Input ~ 0
+sercom2_pad2
+Text GLabel 2850 5000 0    50   Input ~ 0
+sercom2_pad3
+Text GLabel 2850 5400 0    50   Input ~ 0
+sercom1_pad3
+NoConn ~ 2850 4800
 $EndSCHEMATC

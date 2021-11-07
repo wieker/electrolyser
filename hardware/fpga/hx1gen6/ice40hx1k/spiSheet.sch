@@ -72,13 +72,13 @@ Connection ~ 3100 1800
 Wire Wire Line
 	3100 1800 3100 2550
 Text GLabel 2900 2100 2    50   Input ~ 0
-SPI_OUT
+fpga_spi_out
 Text GLabel 1700 2100 0    50   Input ~ 0
-SPI_IN
+fpga_spi_in
 Text GLabel 2900 2000 2    50   Input ~ 0
-SPI_SCK
+spi_clk
 Text GLabel 2900 1900 2    50   Input ~ 0
-SPI_CS
+spi_cs
 $Comp
 L power:GND #PWR?
 U 1 1 5E610C07
@@ -198,17 +198,17 @@ F 3 "~" H 4900 1850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 4600 2350 0    50   Input ~ 0
-SPI_IN
+fpga_spi_in
 Text GLabel 4600 2150 0    50   Input ~ 0
 cdone
 Text GLabel 4600 2250 0    50   Input ~ 0
 creset
 Text GLabel 5750 2350 2    50   Input ~ 0
-SPI_OUT
+fpga_spi_out
 Text GLabel 5750 2250 2    50   Input ~ 0
-SPI_SCK
+spi_clk
 Text GLabel 5750 2150 2    50   Input ~ 0
-SPI_CS
+spi_cs
 $Comp
 L power:+3V3 #PWR?
 U 1 1 5E62B5AB
