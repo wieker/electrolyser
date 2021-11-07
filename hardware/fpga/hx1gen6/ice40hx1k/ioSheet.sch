@@ -46,7 +46,7 @@ $EndComp
 Wire Wire Line
 	3550 3000 3350 3000
 Text GLabel 2750 3250 0    50   Input ~ 0
-IO53
+IO26
 $Comp
 L Device:LED D?
 U 1 1 5E677C20
@@ -78,7 +78,7 @@ $EndComp
 Wire Wire Line
 	3550 3250 3350 3250
 Text GLabel 2750 3450 0    50   Input ~ 0
-IO52
+IO27
 $Comp
 L Device:LED D?
 U 1 1 5E677C2E
@@ -110,7 +110,7 @@ $EndComp
 Wire Wire Line
 	3550 3450 3350 3450
 Text GLabel 2750 3650 0    50   Input ~ 0
-IO51
+IO28
 $Comp
 L Device:LED D?
 U 1 1 5E677C3C
@@ -230,72 +230,6 @@ Connection ~ 4200 3900
 Wire Wire Line
 	4200 3900 4200 4200
 $Comp
-L Connector:Conn_01x20_Male J2
-U 1 1 5EABCF22
-P 7350 3450
-F 0 "J2" H 7322 3332 50  0000 R CNN
-F 1 "Conn_01x20_Male" H 7322 3423 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Vertical" H 7350 3450 50  0001 C CNN
-F 3 "~" H 7350 3450 50  0001 C CNN
-	1    7350 3450
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR0101
-U 1 1 5EABCF28
-P 6300 4750
-F 0 "#PWR0101" H 6300 4500 50  0001 C CNN
-F 1 "GND" H 6305 4577 50  0000 C CNN
-F 2 "" H 6300 4750 50  0001 C CNN
-F 3 "" H 6300 4750 50  0001 C CNN
-	1    6300 4750
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR0102
-U 1 1 5EABCF2E
-P 6500 2150
-F 0 "#PWR0102" H 6500 2000 50  0001 C CNN
-F 1 "+3V3" H 6515 2323 50  0000 C CNN
-F 2 "" H 6500 2150 50  0001 C CNN
-F 3 "" H 6500 2150 50  0001 C CNN
-	1    6500 2150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6500 2150 6500 2450
-Wire Wire Line
-	6500 2450 6650 2450
-Wire Wire Line
-	7150 4350 6300 4350
-Connection ~ 6300 4350
-Wire Wire Line
-	6300 4350 6300 4750
-Wire Wire Line
-	7150 2950 6650 2950
-Wire Wire Line
-	6300 2950 6300 3150
-Wire Wire Line
-	7150 3150 6300 3150
-Connection ~ 6300 3150
-Wire Wire Line
-	6300 3150 6300 3450
-Wire Wire Line
-	7150 3450 6300 3450
-Connection ~ 6300 3450
-Wire Wire Line
-	6300 3450 6300 3750
-Wire Wire Line
-	7150 3750 6300 3750
-Connection ~ 6300 3750
-Wire Wire Line
-	6300 3750 6300 4050
-Wire Wire Line
-	7150 4050 6300 4050
-Connection ~ 6300 4050
-Wire Wire Line
-	6300 4050 6300 4350
-$Comp
 L Device:C C3
 U 1 1 5EAC99F6
 P 4500 2550
@@ -304,17 +238,6 @@ F 1 "1uF" H 4615 2505 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0402_1005Metric" H 4538 2400 50  0001 C CNN
 F 3 "~" H 4500 2550 50  0001 C CNN
 	1    4500 2550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C4
-U 1 1 5EACA36E
-P 6650 2700
-F 0 "C4" H 6765 2746 50  0000 L CNN
-F 1 "1uF" H 6765 2655 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 6688 2550 50  0001 C CNN
-F 3 "~" H 6650 2700 50  0001 C CNN
-	1    6650 2700
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -327,42 +250,6 @@ Wire Wire Line
 Connection ~ 4500 2300
 Wire Wire Line
 	4500 2300 5050 2300
-Wire Wire Line
-	6650 2550 6650 2450
-Connection ~ 6650 2450
-Wire Wire Line
-	6650 2450 7150 2450
-Wire Wire Line
-	6650 2850 6650 2950
-Connection ~ 6650 2950
-Wire Wire Line
-	6650 2950 6300 2950
-Text GLabel 7150 3850 0    50   Input ~ 0
-IO71
-Text GLabel 7150 3650 0    50   Input ~ 0
-IO72
-Text GLabel 7150 3550 0    50   Input ~ 0
-IO73
-Text GLabel 7150 3350 0    50   Input ~ 0
-IO74
-Text GLabel 7150 3950 0    50   Input ~ 0
-IO64
-Text GLabel 7150 4250 0    50   Input ~ 0
-IO59
-Text GLabel 7150 4150 0    50   Input ~ 0
-IO60
-Text GLabel 7150 3250 0    50   Input ~ 0
-IO78
-Text GLabel 7150 3050 0    50   Input ~ 0
-IO79
-Text GLabel 7150 2850 0    50   Input ~ 0
-IO80
-Text GLabel 7150 2750 0    50   Input ~ 0
-IO81
-Text GLabel 7150 2650 0    50   Input ~ 0
-IO82
-Text GLabel 7150 2550 0    50   Input ~ 0
-IO83
 Text GLabel 5050 2400 0    50   Input ~ 0
 IO85
 Text GLabel 5050 2500 0    50   Input ~ 0

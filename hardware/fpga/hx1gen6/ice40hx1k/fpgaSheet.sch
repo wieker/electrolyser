@@ -699,41 +699,41 @@ Connection ~ 2750 1900
 Wire Wire Line
 	2750 1900 2750 1800
 Text GLabel 2850 2100 0    50   Input ~ 0
-IO1
+IO1_1A
 Text GLabel 2850 2200 0    50   Input ~ 0
-IO2
+IO2_1A
 Text GLabel 2850 2300 0    50   Input ~ 0
-IO3
+IO3_2A
 Text GLabel 2850 2400 0    50   Input ~ 0
-IO4
+IO4_2B
 Text GLabel 2850 2500 0    50   Input ~ 0
-IO7
+IO7_3A
 Text GLabel 2850 2600 0    50   Input ~ 0
-IO8
+IO8_3B
 Text GLabel 2850 2700 0    50   Input ~ 0
-IO9
+IO9_5A
 Text GLabel 2850 2800 0    50   Input ~ 0
-IO10
+IO10_5B
 Text GLabel 2850 2900 0    50   Input ~ 0
-IO12
+IO12_6A
 Text GLabel 2850 3000 0    50   Input ~ 0
-IO13
+IO13_6B
 Text GLabel 2850 3100 0    50   Input ~ 0
-IO15
+IO15_7A
 Text GLabel 2850 3200 0    50   Input ~ 0
-IO16
+IO16_7B
 Text GLabel 2850 3300 0    50   Input ~ 0
-IO18
+IO18_8A
 Text GLabel 2850 3400 0    50   Input ~ 0
-IO19
+IO19_8B
 Text GLabel 2850 3500 0    50   Input ~ 0
-IO20
+IO20_10A
 Text GLabel 2850 3600 0    50   Input ~ 0
-IO21
+IO21_10B
 Text GLabel 2850 3700 0    50   Input ~ 0
-IO24
+IO24_12A
 Text GLabel 2850 3800 0    50   Input ~ 0
-IO25
+IO25_12B
 Text GLabel 2850 4500 0    50   Input ~ 0
 IO26
 Text GLabel 2850 4600 0    50   Input ~ 0
@@ -754,10 +754,6 @@ Text GLabel 2850 5300 0    50   Input ~ 0
 IO37
 Text GLabel 2850 5400 0    50   Input ~ 0
 IO40
-Text GLabel 2850 5500 0    50   Input ~ 0
-IO41
-Text GLabel 2850 5600 0    50   Input ~ 0
-IO43
 Text GLabel 4650 6400 2    50   Input ~ 0
 IO51
 Text GLabel 4650 6300 2    50   Input ~ 0
@@ -875,14 +871,10 @@ Text GLabel 9050 3200 2    50   Input ~ 0
 clock_5
 Text GLabel 9050 3400 2    50   Input ~ 0
 clock_6
-Text GLabel 7400 5900 0    50   Input ~ 0
-uart_tx
-Text GLabel 7400 6000 0    50   Input ~ 0
-uart_rx
-Text GLabel 7500 6000 2    50   Input ~ 0
-IO54
-Text GLabel 7500 5900 2    50   Input ~ 0
-IO56
+Text GLabel 2750 5500 0    50   Input ~ 0
+fpga_tx
+Text GLabel 2750 5600 0    50   Input ~ 0
+fpga_rx
 Text GLabel 8950 2200 0    50   Input ~ 0
 IO62
 Text GLabel 8950 3400 0    50   Input ~ 0
@@ -896,9 +888,9 @@ IO68
 Text GLabel 8950 3200 0    50   Input ~ 0
 IO69
 Wire Wire Line
-	7400 5900 7500 5900
+	2750 5500 2850 5500
 Wire Wire Line
-	7400 6000 7500 6000
+	2750 5600 2850 5600
 Wire Wire Line
 	8950 2200 9050 2200
 Wire Wire Line
