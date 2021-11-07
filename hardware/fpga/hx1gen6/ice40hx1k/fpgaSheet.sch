@@ -702,118 +702,24 @@ Text GLabel 2850 2100 0    50   Input ~ 0
 IO1_1A
 Text GLabel 2850 2200 0    50   Input ~ 0
 IO2_1A
-Text GLabel 2850 2300 0    50   Input ~ 0
-IO3_2A
-Text GLabel 2850 2400 0    50   Input ~ 0
-IO4_2B
 Text GLabel 2850 2500 0    50   Input ~ 0
 IO7_3A
 Text GLabel 2850 2600 0    50   Input ~ 0
 IO8_3B
-Text GLabel 2850 2700 0    50   Input ~ 0
-IO9_5A
-Text GLabel 2850 2800 0    50   Input ~ 0
-IO10_5B
 Text GLabel 2850 2900 0    50   Input ~ 0
 IO12_6A
 Text GLabel 2850 3000 0    50   Input ~ 0
 IO13_6B
-Text GLabel 2850 3100 0    50   Input ~ 0
-IO15_7A
-Text GLabel 2850 3200 0    50   Input ~ 0
-IO16_7B
 Text GLabel 2850 3300 0    50   Input ~ 0
 IO18_8A
 Text GLabel 2850 3400 0    50   Input ~ 0
 IO19_8B
-Text GLabel 2850 3500 0    50   Input ~ 0
-IO20_10A
-Text GLabel 2850 3600 0    50   Input ~ 0
-IO21_10B
-Text GLabel 2850 3700 0    50   Input ~ 0
-IO24_12A
-Text GLabel 2850 3800 0    50   Input ~ 0
-IO25_12B
 Text GLabel 2850 4500 0    50   Input ~ 0
 IO26
 Text GLabel 2850 4600 0    50   Input ~ 0
 IO27
 Text GLabel 2850 4700 0    50   Input ~ 0
 IO28
-Text GLabel 4650 6400 2    50   Input ~ 0
-IO51
-Text GLabel 4650 6300 2    50   Input ~ 0
-IO52
-Text GLabel 4650 6200 2    50   Input ~ 0
-IO53
-Text GLabel 4650 6100 2    50   Input ~ 0
-IO54
-Text GLabel 4650 6000 2    50   Input ~ 0
-IO56
-Text GLabel 4650 5800 2    50   Input ~ 0
-IO59
-Text GLabel 4650 5700 2    50   Input ~ 0
-IO60
-Text GLabel 4650 5600 2    50   Input ~ 0
-IO62
-Text GLabel 4650 5500 2    50   Input ~ 0
-IO63
-Text GLabel 4650 5400 2    50   Input ~ 0
-IO64
-Text GLabel 4650 5300 2    50   Input ~ 0
-IO65
-Text GLabel 4650 5200 2    50   Input ~ 0
-IO66
-Text GLabel 4650 5100 2    50   Input ~ 0
-IO68
-Text GLabel 4650 5000 2    50   Input ~ 0
-IO69
-Text GLabel 4650 4900 2    50   Input ~ 0
-IO71
-Text GLabel 4650 4800 2    50   Input ~ 0
-IO72
-Text GLabel 4650 4700 2    50   Input ~ 0
-IO73
-Text GLabel 4650 4600 2    50   Input ~ 0
-IO74
-Text GLabel 4650 3800 2    50   Input ~ 0
-IO78
-Text GLabel 4650 3700 2    50   Input ~ 0
-IO79
-Text GLabel 4650 3600 2    50   Input ~ 0
-IO80
-Text GLabel 4650 3500 2    50   Input ~ 0
-IO81
-Text GLabel 4650 3400 2    50   Input ~ 0
-IO82
-Text GLabel 4650 3300 2    50   Input ~ 0
-IO83
-Text GLabel 4650 3200 2    50   Input ~ 0
-IO85
-Text GLabel 4650 3100 2    50   Input ~ 0
-IO86
-Text GLabel 4650 3000 2    50   Input ~ 0
-IO87
-Text GLabel 4650 2900 2    50   Input ~ 0
-IO89
-Text GLabel 4650 2800 2    50   Input ~ 0
-IO90
-Text GLabel 4650 2700 2    50   Input ~ 0
-IO91
-Text GLabel 4650 2600 2    50   Input ~ 0
-IO93
-Text GLabel 4650 2500 2    50   Input ~ 0
-IO94
-Text GLabel 4650 2400 2    50   Input ~ 0
-IO95
-Text GLabel 4650 2300 2    50   Input ~ 0
-IO96
-Text GLabel 4650 2200 2    50   Input ~ 0
-IO97
-Text GLabel 4650 2100 2    50   Input ~ 0
-IO99
-Text GLabel 4650 2000 2    50   Input ~ 0
-IO100
 $Comp
 L power:PWR_FLAG #FLG?
 U 1 1 5E65E696
@@ -845,42 +751,30 @@ F 3 "" H 3750 3900 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	2850 6400 2850 6600
-Text GLabel 9050 2200 2    50   Input ~ 0
+Text GLabel 7150 3950 2    50   Input ~ 0
 clock_1
-Text GLabel 9050 2450 2    50   Input ~ 0
+Text GLabel 7150 4200 2    50   Input ~ 0
 clock_2
-Text GLabel 9050 2700 2    50   Input ~ 0
+Text GLabel 7150 4450 2    50   Input ~ 0
 clock_3
-Text GLabel 9050 2950 2    50   Input ~ 0
+Text GLabel 7150 4700 2    50   Input ~ 0
 clock_4
-Text GLabel 9050 3200 2    50   Input ~ 0
+Text GLabel 7150 4950 2    50   Input ~ 0
 clock_5
-Text GLabel 9050 3400 2    50   Input ~ 0
+Text GLabel 7150 5150 2    50   Input ~ 0
 clock_6
-Text GLabel 8950 2200 0    50   Input ~ 0
-IO62
-Text GLabel 8950 3400 0    50   Input ~ 0
-IO63
-Text GLabel 8950 2450 0    50   Input ~ 0
-IO65
-Text GLabel 8950 2700 0    50   Input ~ 0
-IO66
-Text GLabel 8950 2950 0    50   Input ~ 0
-IO68
-Text GLabel 8950 3200 0    50   Input ~ 0
-IO69
 Wire Wire Line
-	8950 2200 9050 2200
+	7050 3950 7150 3950
 Wire Wire Line
-	8950 2450 9050 2450
+	7050 4200 7150 4200
 Wire Wire Line
-	8950 2700 9050 2700
+	7050 4450 7150 4450
 Wire Wire Line
-	8950 2950 9050 2950
+	7050 4700 7150 4700
 Wire Wire Line
-	8950 3200 9050 3200
+	7050 4950 7150 4950
 Wire Wire Line
-	8950 3400 9050 3400
+	7050 5150 7150 5150
 NoConn ~ 4650 5900
 Text GLabel 2850 5100 0    50   Input ~ 0
 sercom2_pad0
@@ -899,4 +793,47 @@ sercom2_pad3
 Text GLabel 2850 5400 0    50   Input ~ 0
 sercom1_pad3
 NoConn ~ 2850 4800
+NoConn ~ 4650 4600
+NoConn ~ 4650 4700
+NoConn ~ 4650 4800
+NoConn ~ 4650 4900
+NoConn ~ 4650 5000
+NoConn ~ 4650 6400
+NoConn ~ 4650 6300
+NoConn ~ 4650 6200
+NoConn ~ 4650 6100
+NoConn ~ 4650 6000
+NoConn ~ 4650 2000
+NoConn ~ 4650 2100
+NoConn ~ 4650 2200
+NoConn ~ 4650 2300
+NoConn ~ 4650 2500
+NoConn ~ 4650 2700
+NoConn ~ 4650 2900
+NoConn ~ 4650 3100
+NoConn ~ 4650 3200
+NoConn ~ 4650 3300
+NoConn ~ 4650 3400
+NoConn ~ 4650 3500
+NoConn ~ 4650 3600
+NoConn ~ 4650 3700
+NoConn ~ 4650 3800
+Text GLabel 4650 2400 2    50   Input ~ 0
+pwm_tx_1
+Text GLabel 4650 2600 2    50   Input ~ 0
+pwm_tx_2
+Text GLabel 4650 2800 2    50   Input ~ 0
+pwm_tx_3
+Text GLabel 4650 3000 2    50   Input ~ 0
+pwm_tx_4
+NoConn ~ 2850 2300
+NoConn ~ 2850 2400
+NoConn ~ 2850 2700
+NoConn ~ 2850 2800
+NoConn ~ 2850 3500
+NoConn ~ 2850 3600
+NoConn ~ 2850 3700
+NoConn ~ 2850 3800
+NoConn ~ 2850 3100
+NoConn ~ 2850 3200
 $EndSCHEMATC
