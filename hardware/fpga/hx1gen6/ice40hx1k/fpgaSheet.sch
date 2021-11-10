@@ -699,21 +699,21 @@ Connection ~ 2750 1900
 Wire Wire Line
 	2750 1900 2750 1800
 Text GLabel 2850 2100 0    50   Input ~ 0
-IO1_1A
+IO1_1N
 Text GLabel 2850 2200 0    50   Input ~ 0
-IO2_1A
+IO1_1P
 Text GLabel 2850 2500 0    50   Input ~ 0
-IO7_3A
+IO7_3N
 Text GLabel 2850 2600 0    50   Input ~ 0
-IO8_3B
+IO7_3P
 Text GLabel 2850 2900 0    50   Input ~ 0
-IO12_6A
+IO12_6N
 Text GLabel 2850 3000 0    50   Input ~ 0
-IO13_6B
+IO12_6P
 Text GLabel 2850 3300 0    50   Input ~ 0
-IO18_8A
+IO18_8N
 Text GLabel 2850 3400 0    50   Input ~ 0
-IO19_8B
+IO18_8P
 Text GLabel 2850 4500 0    50   Input ~ 0
 IO26
 Text GLabel 2850 4600 0    50   Input ~ 0
