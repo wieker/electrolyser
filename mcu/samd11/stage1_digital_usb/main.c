@@ -86,7 +86,6 @@ int main(void)
   gpio_init();
   gpio_configure(GPIO_LED, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
   gpio_configure(GPIO_RST, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
-  rst_state = 1;
   gpio_write(GPIO_RST, rst_state);
   gpio_write(GPIO_LED, led_state);
 
