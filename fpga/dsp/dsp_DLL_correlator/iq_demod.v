@@ -5,8 +5,8 @@ module iq_demod(
     input [15:0] phase,
 );
     wire i_code, q_code;
-    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000 + phase), .i_code(i_code), .phase_control_word(16'h0000));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000 + phase), .i_code(q_code), .phase_control_word(16'h4000));
+    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000), .i_code(i_code), .phase_control_word(16'h0000 + phase));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000), .i_code(q_code), .phase_control_word(16'h4000 + phase));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
@@ -45,7 +45,8 @@ module iq_demod(
             st1 <= 0;
             st2 <= 1;
         end else if (st2) begin
-            value <= q3 + q4;
+            value <= q3;  // only I
+            //value <= q3 + q4;
             rdy <= 1;
             st1 <= 0;
             st2 <= 0;

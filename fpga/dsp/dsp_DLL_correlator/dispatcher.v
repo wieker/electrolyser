@@ -10,7 +10,7 @@ module dispatcher(
     reg [7:0] rvalue_reg;
     reg [7:0] avalue_reg;
 
-    reg [7:0] phase;
+    reg [15:0] phase;
 
     iq_demod early(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(lrdy), .value(lvalue), .phase(phase + 16'hf000));
     iq_demod late(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rrdy), .value(rvalue), .phase(phase + 16'h1000));
