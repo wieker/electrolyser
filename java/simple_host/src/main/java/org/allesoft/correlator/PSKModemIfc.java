@@ -357,7 +357,7 @@ public class PSKModemIfc
         flash_wait(handle, 0x00);
 
         InputStream inputStream = new FileInputStream(
-                "../../fpga/dsp/dsp_psk_correlator/top.bin");
+                "../../fpga/dsp/dsp_DLL_correlator/top.bin");
         int addr = 0;
         byte[] buf = new byte[16];
         for (;;) {
