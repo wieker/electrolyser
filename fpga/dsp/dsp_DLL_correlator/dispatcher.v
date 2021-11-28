@@ -5,7 +5,7 @@ module dispatcher(
 );
     //iq_demod early(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value));
     //iq_demod late(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value));
-    iq_demod actual(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value)); //PSK modem
+    psk_demod actual(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value)); //PSK modem
 
 
 endmodule

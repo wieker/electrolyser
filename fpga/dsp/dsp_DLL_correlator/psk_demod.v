@@ -1,11 +1,11 @@
 module psk_demod(
-    input clk, rst_in, sig, input [4:0] offset,
+    input clk, rst_in, sig,
     output reg [7:0] value,
     output reg rdy,
 );
     wire i_code, q_code;
-    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h0ff0 + offset), .i_code(i_code), .phase_control_word(16'h0000));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h0ff0 + offset), .i_code(q_code), .phase_control_word(16'h4000));
+    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1001), .i_code(i_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1001), .i_code(q_code), .phase_control_word(16'h4000));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
@@ -22,15 +22,14 @@ module psk_demod(
 
     wire stb;
     reg st1;
-    reg st2;
     reg q1;
     reg q2;
     reg q3;
     reg q4;
 
     reg i_q;
-    reg [19:0] pulse_counter;
-    reg [19:0] res_counter;
+    reg [7:0] res_counter;
+    reg [7:0] pulse_counter;
 
     always@(posedge clk)
     begin
@@ -57,10 +56,10 @@ module psk_demod(
                 pulse_counter <= pulse_counter + 1;
             end
             st1 <= 0;
-        end else if (pulse_counter[16] == 1) begin
+        end else if (res_counter == 0) begin
+            res_counter <= 1;
+            value <= pulse_counter;
             pulse_counter <= 0;
-            res_counter <= 0;
-            value <= offset;
             rdy <= 1;
         end else begin
             rdy <= 0;
