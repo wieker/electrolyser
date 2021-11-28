@@ -5,25 +5,27 @@ module dispatcher(
 );
     wire [7:0] lvalue;
     wire [7:0] rvalue;
+    wire [7:0] avalue;
     reg [7:0] lvalue_reg;
     reg [7:0] rvalue_reg;
-    reg st;
+    reg [7:0] avalue_reg;
 
     reg [7:0] phase;
 
-    iq_demod early(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(lrdy), .value(lvalue), .phase(phase + 16'hffff));
-    iq_demod late(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(lrdy), .value(rvalue), .phase(phase + 16'hffff));
+    iq_demod early(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(lrdy), .value(lvalue), .phase(phase + 16'hf000));
+    iq_demod late(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rrdy), .value(rvalue), .phase(phase + 16'h1000));
+    iq_demod amod(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(qrdy), .value(avalue), .phase(phase));
     psk_demod actual(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value), .phase(phase)); //PSK modem
 
     always @(posedge clk) begin
         if (rdy) begin
             lvalue_reg <= lvalue;
             rvalue_reg <= rvalue;
-            st <= lvalue > rvalue;
-            if (st) begin
-                phase <= phase + 16'hffff;
-            end else begin
-                phase <= phase + 16'h0010;
+            avalue_reg <= avalue;
+            if (lvalue > avalue) begin
+                phase <= phase + 16'hf000;
+            end else if (rvalue > avalue) begin
+                phase <= phase + 16'h1000;
             end
         end
     end
