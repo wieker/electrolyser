@@ -2,10 +2,11 @@ module psk_demod(
     input clk, rst_in, sig,
     output reg [7:0] value,
     output reg rdy,
+    input [15:0] phase,
 );
     wire i_code, q_code;
-    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1001), .i_code(i_code), .phase_control_word(16'h0000));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1001), .i_code(q_code), .phase_control_word(16'h4000));
+    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000 + phase), .i_code(i_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000 + phase), .i_code(q_code), .phase_control_word(16'h4000));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
