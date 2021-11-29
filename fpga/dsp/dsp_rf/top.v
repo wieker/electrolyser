@@ -23,9 +23,10 @@ module top(
 
     reg select;
 
-    nco i_nco(.clk(CLK1), .rst(0), .control_word(select ? 16'h4000 : 16'h4004), .i_code(i_code), .phase_control_word(16'h0000));
+    nco i_nco(.clk(CLK1), .rst(0), .control_word(16'h4000), .i_code(i_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(CLK1), .rst(0), .control_word(16'h4000), .i_code(q_code), .phase_control_word(16'h4000));
 
-    assign rf = i_code;
+    assign rf = select ? i_code : q_code;
 
     always @(posedge CLK2)
     begin
