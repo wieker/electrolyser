@@ -45,8 +45,8 @@ module iq_demod(
             st1 <= 0;
             st2 <= 1;
         end else if (st2) begin
-            value <= q3;  // only I
-            //value <= q3 + q4;
+            //value <= q3;  // only I
+            value <= q3 + q4;
             rdy <= 1;
             st1 <= 0;
             st2 <= 0;

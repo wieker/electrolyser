@@ -1,4 +1,4 @@
-module iq_demod(
+module iabs_demod(
     input clk, rst_in, sig,
     output reg [7:0] value,
     output reg rdy,

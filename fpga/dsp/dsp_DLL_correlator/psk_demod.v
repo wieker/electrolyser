@@ -59,7 +59,7 @@ module psk_demod(
             st1 <= 0;
         end else if (res_counter == 0) begin
             res_counter <= 1;
-            value <= pulse_counter;
+            value <= q1;
             pulse_counter <= 0;
             rdy <= 1;
         end else begin
