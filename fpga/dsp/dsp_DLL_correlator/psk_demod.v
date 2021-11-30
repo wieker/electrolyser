@@ -43,23 +43,11 @@ module psk_demod(
             st1 <= 1;
             res_counter ++;
         end else if (st1) begin
-            if (q2 != q1) begin
-                q2 <= q1;
-            end
-            if (q4 != q3) begin
-                q4 <= q3;
-            end
-            if ((q4 != q3) && i_q) begin
-                i_q <= 0;
-                pulse_counter <= pulse_counter + 1;
-            end else if ((q2 != q1) && !i_q) begin
-                i_q <= 1;
-                pulse_counter <= pulse_counter + 1;
-            end
+            pulse_counter <= pulse_counter + q1;
             st1 <= 0;
         end else if (res_counter == 0) begin
             res_counter <= 1;
-            value <= q1;
+            value <= pulse_counter;
             pulse_counter <= 0;
             rdy <= 1;
         end else begin
