@@ -10,6 +10,8 @@ module dispatcher(
     reg [7:0] rvalue_reg;
     reg [7:0] avalue_reg;
 
+    wire lrdy;
+
     reg [15:0] phase;
 
     reg [3:0] pipeline;
@@ -20,19 +22,21 @@ module dispatcher(
     psk_demod actual(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value), .phase(phase)); //PSK modem
 
     always @(posedge clk) begin
-        if (rdy) begin
+        if (lrdy) begin
             pipeline[0] <= 1;
-            lvalue_reg <= lvalue;
-            rvalue_reg <= rvalue;
+            lvalue_reg <= ~ lvalue;
+            rvalue_reg <= ~ rvalue;
             avalue_reg <= avalue;
         end else if (pipeline[0]) begin
             pipeline[0] <= 0;
             pipeline[1] <= 1;
+            lvalue_reg <= ~ lvalue_reg + avalue_reg;
+            rvalue_reg <= ~ rvalue_reg + avalue_reg;
         end else if (pipeline[1]) begin
             pipeline[1] <= 0;
-            if (lvalue_reg > avalue_reg) begin
+            if (lvalue_reg[7]) begin
                 phase <= phase + 16'hf000;
-            end else if (rvalue_reg > avalue_reg) begin
+            end else if (rvalue_reg[7]) begin
                 phase <= phase + 16'h1000;
             end
         end
