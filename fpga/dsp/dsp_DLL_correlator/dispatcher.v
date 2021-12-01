@@ -19,7 +19,7 @@ module dispatcher(
     iabs_demod early(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(lrdy), .value(lvalue), .phase(phase + 16'hf000));
     iabs_demod late(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rrdy), .value(rvalue), .phase(phase + 16'h1000));
     iabs_demod amod(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(qrdy), .value(avalue), .phase(phase));
-    psk_demod actual(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value), .phase(phase)); //PSK modem
+    fm_demod actual(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value), .phase(phase)); //PSK modem
 
     always @(posedge clk) begin
         if (lrdy) begin
@@ -30,8 +30,8 @@ module dispatcher(
         end else if (pipeline[0]) begin
             pipeline[0] <= 0;
             pipeline[1] <= 1;
-            lvalue_reg <= ~ lvalue_reg + avalue_reg;
-            rvalue_reg <= ~ rvalue_reg + avalue_reg;
+            lvalue_reg <= lvalue_reg + avalue_reg;
+            rvalue_reg <= rvalue_reg + avalue_reg;
         end else if (pipeline[1]) begin
             pipeline[1] <= 0;
             if (lvalue_reg[7]) begin
