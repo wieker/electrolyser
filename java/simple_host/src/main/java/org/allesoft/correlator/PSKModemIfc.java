@@ -261,7 +261,7 @@ public class PSKModemIfc
 //                    System.out.print(String.format("0x%02x ",
 //                            ch[i + 1]
 //                    ));
-                    sum += Math.abs(ch[i + 1]);
+                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
                     zq ++;
                 }
 //                if (ch[0] != 0) {
