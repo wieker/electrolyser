@@ -258,20 +258,20 @@ public class PSKModemIfc
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
-//                    System.out.print(String.format("0x%02x ",
-//                            ch[i + 1]
-//                    ));
-                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
-                    zq ++;
+                    System.out.print(String.format("0x%02x ",
+                            ch[i + 1]
+                    ));
+//                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
+//                    zq ++;
                 }
-//                if (ch[0] != 0) {
-//                    System.out.println();
+                if (ch[0] != 0) {
+                    System.out.println();
+                }
+//                if (zq >= 1) {
+//                    System.out.println(sum / zq);
+//                    zq = 0;
+//                    sum = 0;
 //                }
-                if (zq >= 100) {
-                    System.out.println(sum / zq);
-                    zq = 0;
-                    sum = 0;
-                }
             }
             sendCommand(handle, 1, new byte[]{}, false);
         } catch (Exception e) {
