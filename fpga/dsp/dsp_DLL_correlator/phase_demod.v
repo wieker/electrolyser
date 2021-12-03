@@ -29,6 +29,8 @@ module phase_demod(
     reg [7:0] q3;
     reg [7:0] q4;
 
+    reg [7:0] dumpcor;
+
     always@(posedge clk)
     begin
         if (rst_in) begin
@@ -44,7 +46,10 @@ module phase_demod(
             st2 <= 1;
         end else if (st2) begin
             value <= q1 + q2;
-            rdy <= 1;
+            dumpcor ++;
+            if (dumpcor == 0) begin
+                rdy <= 1;
+            end
             st1 <= 0;
             st2 <= 0;
         end else begin
