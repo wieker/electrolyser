@@ -1,44 +1,38 @@
 module dispatcher(
     input clk, rst_in, sig,
-    output [7:0] value,
-    output rdy,
+    output reg [7:0] i_value_reg,
+    output reg rdy,
+    output reg [7:0] q_value_reg,
 );
-    wire [7:0] lvalue;
-    wire [7:0] rvalue;
-    wire [7:0] avalue;
-    reg [7:0] lvalue_reg;
-    reg [7:0] rvalue_reg;
-    reg [7:0] avalue_reg;
+    wire i_code, q_code;
+    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000), .i_code(i_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h1000), .i_code(q_code), .phase_control_word(16'h4000));
 
-    wire lrdy;
+    wire [7:0] i_value;
+    wire [7:0] q_value;
+    correlator i_correlator(.clk(clk), .rst(rst), .sig(sig), .code(i_code), .value(i_value));
+    correlator q_correlator(.clk(clk), .rst(rst), .sig(sig), .code(q_code), .value(q_value));
 
-    reg [15:0] phase;
+    wire rst;
+    dispatcher_ctl ctl(
+        .clk(clk),
+        .rst_in(rst_in),
+        .rst_out(rst),
+        .stb(stb)
+    );
 
-    reg [3:0] pipeline;
+    wire stb;
 
-    iabs_demod early(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(lrdy), .value(lvalue), .phase(phase + 16'hf000));
-    iabs_demod late(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rrdy), .value(rvalue), .phase(phase + 16'h1000));
-    iabs_demod amod(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(qrdy), .value(avalue), .phase(phase));
-    phase_demod actual(.clk(clk), .rst_in(rst_in), .sig(sig), .rdy(rdy), .value(value), .phase(phase)); //PSK modem
-
-    always @(posedge clk) begin
-        if (lrdy) begin
-            pipeline[0] <= 1;
-            lvalue_reg <= ~ lvalue;
-            rvalue_reg <= ~ rvalue;
-            avalue_reg <= avalue;
-        end else if (pipeline[0]) begin
-            pipeline[0] <= 0;
-            pipeline[1] <= 1;
-            lvalue_reg <= lvalue_reg + avalue_reg;
-            rvalue_reg <= rvalue_reg + avalue_reg;
-        end else if (pipeline[1]) begin
-            pipeline[1] <= 0;
-            if (lvalue_reg[7]) begin
-                phase <= phase + 16'hf000;
-            end else if (rvalue_reg[7]) begin
-                phase <= phase + 16'h1000;
-            end
+    always@(posedge clk)
+    begin
+        if (rst_in) begin
+            rdy <= 0;
+        end else if (stb) begin
+            i_value_reg <= i_value;
+            q_value_reg <= q_value;
+            rdy <= 1;
+        end else begin
+            rdy <= 0;
         end
     end
 

@@ -13,12 +13,6 @@ module top(
     wire rdy3, rdy4;
     hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(fpga_rx), .rdy3(rdy3), .rdy4(rdy4));
 
-    reg [32:0] ctr;
-    always@(posedge clk)
-    begin
-      ctr <= ctr + 1;
-    end
-
     assign LED2 = rdy3;
     assign LED1 = rdy4;
 
