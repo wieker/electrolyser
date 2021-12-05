@@ -52,7 +52,7 @@ module hex_dump(
     begin
         if (ram_wren) begin
             ram_addr <= ram_addr + 1;
-        end else if ((!ram_addr[16]) && (!tx_busy) && !bugfix001) begin
+        end else if (ram_addr[16] && !tx_busy && !bugfix001) begin
             bugfix001 <= 1;
             tx_start <= 1;
             touart <= part ? ram_data_out[15:8] : ram_data_out[7:0];
@@ -61,7 +61,7 @@ module hex_dump(
                 ram_addr <= ram_addr + 1;
             end
         end else begin
-            if ((!ram_addr[16]) && (!tx_busy) && bugfix001) begin
+            if (!tx_busy && bugfix001) begin
                 bugfix001 <= 0;
             end
             tx_start <= 0;
