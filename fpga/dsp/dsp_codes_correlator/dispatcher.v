@@ -15,9 +15,9 @@ module dispatcher(
     always @(posedge e_code)
         begin
             if (!code[0] && !code[1] && !code[2]) begin
-                code <= {1, 1, 0, 0, 1, 0};
+                code <= 6'b110010;
             end else begin
-                code <= {code[5:0], code[6]};
+                code <= {code[4:0], code[5]};
             end
         end
 

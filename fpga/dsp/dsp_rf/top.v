@@ -17,9 +17,9 @@ module top(
             counter2 <= counter2 + 1;
         end
 
-    assign LED1 = counter2[24];
-    assign led2 = counter1[21];
-    assign led3 = counter1[19];
+    assign LED1 = ~ code[0];
+    assign led2 = ~ code[1];
+    assign led3 = ~ code[2];
 
     reg select;
     reg [6:0] phase;
@@ -28,11 +28,11 @@ module top(
     always @(posedge q_code)
         begin
             if (!code[0] && !code[1] && !code[2]) begin
-                code <= {1, 1, 0, 0, 1, 0};
+                code <= 6'b110010;
             end else if (phase == 0) begin
-                code <= {code[5:0], code[6]};
-            end else begin
                 code <= code;
+            end else begin
+                code <= {code[4:0], code[5]};
             end
             phase <= phase + 1;
         end
