@@ -22,17 +22,25 @@ module top(
     assign led3 = counter1[19];
 
     reg select;
-    reg [17:0] phase;
+    reg [6:0] phase;
+    reg [5:0] code;
 
     always @(posedge q_code)
         begin
+            if (!code[0] && !code[1] && !code[2]) begin
+                code <= {1, 1, 0, 0, 1, 0};
+            end else if (phase == 0) begin
+                code <= {code[5:0], code[6]};
+            end else begin
+                code <= code;
+            end
             phase <= phase + 1;
         end
 
     nco i_nco(.clk(CLK1), .rst(0), .control_word(16'h4000), .i_code(i_code), .phase_control_word(16'h0000));
-    nco q_nco(.clk(CLK1), .rst(0), .control_word(16'h1000), .i_code(q_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(CLK1), .rst(0), .control_word(16'h2000), .i_code(q_code), .phase_control_word(16'h0000));
 
-    assign rf = phase[4] ? i_code : i_code ^ q_code;
+    assign rf = i_code ^ code[0];
 
     always @(posedge CLK2)
     begin
