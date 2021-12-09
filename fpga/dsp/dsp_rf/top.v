@@ -29,8 +29,6 @@ module top(
         begin
             if (!code[0] && !code[1] && !code[2]) begin
                 code <= 6'b110010;
-            end else if (phase == 0) begin
-                code <= code;
             end else begin
                 code <= {code[4:0], code[5]};
             end
