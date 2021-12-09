@@ -23,14 +23,14 @@ module top(
 
     reg select;
     reg [6:0] phase;
-    reg [5:0] code;
+    reg [7:0] code;
 
     always @(posedge q_code)
         begin
             if (!code[0] && !code[1] && !code[2]) begin
-                code <= 6'b110010;
+                code <= 8'b11001010;
             end else begin
-                code <= {code[4:0], code[5]};
+                code <= {code[6:0], code[7]};
             end
             phase <= phase + 1;
         end
@@ -38,7 +38,7 @@ module top(
     nco i_nco(.clk(CLK1), .rst(0), .control_word(16'h4000), .i_code(i_code), .phase_control_word(16'h0000));
     nco q_nco(.clk(CLK1), .rst(0), .control_word(16'h2000), .i_code(q_code), .phase_control_word(16'h0000));
 
-    assign rf = i_code ^ code[0];
+    assign rf = select ? i_code : i_code ^ code[0];
 
     always @(posedge CLK2)
     begin

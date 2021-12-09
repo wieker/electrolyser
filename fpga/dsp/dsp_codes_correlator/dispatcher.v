@@ -5,28 +5,28 @@ module dispatcher(
     output reg rdy,
 );
 
-    wire [7:0] value[6];
-    wire rdys[6];
+    wire [7:0] value[8];
+    wire rdys[8];
     genvar i;
-    for (i = 0; i < 6; i ++) begin
+    for (i = 0; i < 8; i ++) begin
         iq_demod i0(.clk(clk), .rst_in(rst_in), .sig(sig ^ code[i]), .rdy(rdys[i]), .value(value[i]), .phase(0));
     end
 
     wire e_code, l_code;
     nco e_nco(.clk(clk), .rst(rst_in), .control_word(16'h0800), .i_code(e_code), .phase_control_word(16'h0000));
 
-    reg [5:0] code;
+    reg [7:0] code;
 
     always @(posedge e_code)
         begin
             if (!code[0] && !code[1] && !code[2]) begin
-                code <= 6'b110010;
+                code <= 8'b11001010;
             end else begin
-                code <= {code[4:0], code[5]};
+                code <= {code[6:0], code[7]};
             end
         end
 
-    reg [2:0] pipeline;
+    reg [3:0] pipeline;
     always@(posedge clk)
     begin
         if (rdys[0]) begin
@@ -46,6 +46,11 @@ module dispatcher(
             q_value_reg <= value[5];
         end else if (pipeline[2]) begin
             pipeline[2] <= 0;
+            pipeline[3] <= 1;
+            i_value_reg <= value[6];
+            q_value_reg <= value[7];
+        end else if (pipeline[3]) begin
+            pipeline[3] <= 0;
             rdy <= 0;
         end
     end
