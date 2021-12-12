@@ -357,7 +357,7 @@ public class TwoRxDumperLoggerXGra
         flash_wait(handle, 0x00);
 
         InputStream inputStream = new FileInputStream(
-                "../../fpga/dsp/dsp_codes_correlator/top.bin");
+                "../../fpga/dsp/dsp_power_dumper/top.bin");
         int addr = 0;
         byte[] buf = new byte[16];
         for (;;) {
