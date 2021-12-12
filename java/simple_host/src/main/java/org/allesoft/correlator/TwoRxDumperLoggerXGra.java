@@ -7,6 +7,15 @@ import org.usb4java.DeviceList;
 import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -173,81 +182,46 @@ public class TwoRxDumperLoggerXGra
 
         Device device = findDevice();
         if (device == null) {
-            System.err.println("Missile launcher not found.");
-            System.exit(1);
+            throw new RuntimeException("Device is not found");
         }
 
         DeviceHandle handle = new DeviceHandle();
         result = LibUsb.open(device, handle);
         if (result != LibUsb.SUCCESS) {
             throw new LibUsbException("Unable to open USB device", result);
-        } try {
-            int attached = LibUsb.kernelDriverActive(handle, 1);
-            if (attached < 0) {
-                throw new LibUsbException( "Unable to check kernel driver active", result);
-            }
+        }
+        int attached = LibUsb.kernelDriverActive(handle, 1);
+        if (attached < 0) {
+            throw new LibUsbException( "Unable to check kernel driver active", result);
+        }
 
-            result = LibUsb.detachKernelDriver(handle, 0);
-            if (result != LibUsb.SUCCESS && result != LibUsb.ERROR_NOT_SUPPORTED && result != LibUsb.ERROR_NOT_FOUND) {
-                throw new LibUsbException("Unable to detach kernel driver", result);
-            }
+        result = LibUsb.detachKernelDriver(handle, 0);
+        if (result != LibUsb.SUCCESS && result != LibUsb.ERROR_NOT_SUPPORTED && result != LibUsb.ERROR_NOT_FOUND) {
+            throw new LibUsbException("Unable to detach kernel driver", result);
+        }
 
-            result = LibUsb.claimInterface(handle, 0);
-            if (result != LibUsb.SUCCESS) {
-                throw new LibUsbException("Unable to claim interface", result);
-            }
+        result = LibUsb.claimInterface(handle, 0);
+        if (result != LibUsb.SUCCESS) {
+            throw new LibUsbException("Unable to claim interface", result);
+        }
 
-            System.out.println("WADX = Move, S = Stop, F = Fire, Q = Exit");
-            boolean exit = false;
-            while (!exit) {
-                System.out.print("> ");
-                char key = readKey();
-                switch (key) {
-
-                    case 'l':
-                        sendCommand(handle, 0, new byte[]{}, true);
-                        break;
-                    case 'f':
-                        sendCommand(handle, 1, new byte[]{}, true);
-                        break;
-                    case 's':
-                        flash(handle);
-                        break;
-                    case 't':
-                        running = true;
-                        new Thread(() -> start_loop(handle)).start();
-                        break;
-                    case 'p':
-                        running = true;
-                        new Thread(() -> start_loop_without_ctl(handle)).start();
-                        break;
-                    case 'k':
-                        running = false;
-                        break;
-                    case '8':
-                        lock.lock();
-                        sendCommand(handle, 7, new byte[] {0x0f, 0x00}, true);
-                        sendCommand(handle, 7, new byte[] {0x00, 0x04}, true);
-                        lock.unlock();
-                        break;
-                    case '9':
-                        lock.lock();
-                        sendCommand(handle, 7, new byte[] {0x15, 0x40}, true);
-                        sendCommand(handle, 7, new byte[] {0x00, 0x04}, true);
-                        lock.unlock();
-                        break;
-                    case 'q':
-                        exit = true;
-                        break;
+        JFrame frame = new JFrame("Power dumper");
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        JButton flashButton = new JButton("Flash");
+        flashButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    flash(handle);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
-
-        }
-        finally
-        {
-            LibUsb.close(handle);
-            LibUsb.exit(null);
-        }
+        });
+        panel.add(flashButton);
+        panel.add(new JButton("Loop"));
+        frame.setVisible(true);
     }
 
     private static void start_loop(DeviceHandle handle) {
