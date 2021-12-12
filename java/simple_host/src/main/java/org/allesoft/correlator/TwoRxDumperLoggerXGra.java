@@ -220,7 +220,15 @@ public class TwoRxDumperLoggerXGra
             }
         });
         panel.add(flashButton);
-        panel.add(new JButton("Loop"));
+        JButton loopButton = new JButton("Loop");
+        loopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                running = true;
+                new Thread(() -> start_loop(handle)).start();
+            }
+        });
+        panel.add(loopButton);
         frame.setVisible(true);
     }
 
