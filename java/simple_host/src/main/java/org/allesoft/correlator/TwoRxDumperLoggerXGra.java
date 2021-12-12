@@ -10,6 +10,7 @@ import org.usb4java.LibUsbException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -23,6 +24,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import static org.usb4java.examples.Ctl1.readKey;
 
 public class TwoRxDumperLoggerXGra
@@ -39,6 +41,7 @@ public class TwoRxDumperLoggerXGra
 
     byte data_wake[] = { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 };
     byte data[] = { (byte) 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    private static JTextArea textArea;
 
     public static Device findDevice() {
         DeviceList list = new DeviceList();
@@ -229,7 +232,26 @@ public class TwoRxDumperLoggerXGra
             }
         });
         panel.add(loopButton);
+        JButton stopButton = new JButton("Stop");
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                running = false;
+            }
+        });
+        panel.add(stopButton);
+        JButton rstButton = new JButton("Switch RST");
+        rstButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                sendCommand(handle, 1, new byte[]{}, true);
+            }
+        });
+        panel.add(rstButton);
+        textArea = new JTextArea();
+        panel.add(textArea);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     private static void start_loop(DeviceHandle handle) {
@@ -240,14 +262,17 @@ public class TwoRxDumperLoggerXGra
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
-                    System.out.print(String.format("0x%02x ",
+                    String value = String.format("0x%02x ",
                             ch[i + 1]
-                    ));
+                    );
+                    textArea.append(value);
+                    System.out.print(value);
 //                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
 //                    zq ++;
                 }
                 if (ch[0] != 0) {
                         System.out.println();
+                        textArea.append(System.lineSeparator());
                 }
 //                if (zq >= 100) {
 //                    System.out.println(sum / zq);
