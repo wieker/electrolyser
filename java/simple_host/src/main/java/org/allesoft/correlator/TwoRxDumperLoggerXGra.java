@@ -10,7 +10,10 @@ import org.usb4java.LibUsbException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -210,7 +213,7 @@ public class TwoRxDumperLoggerXGra
 
         JFrame frame = new JFrame("Power dumper");
         JPanel panel = new JPanel();
-        frame.add(panel);
+        frame.getContentPane().add(BorderLayout.NORTH, panel);
         JButton flashButton = new JButton("Flash");
         flashButton.addActionListener(new ActionListener() {
             @Override
@@ -249,7 +252,7 @@ public class TwoRxDumperLoggerXGra
         });
         panel.add(rstButton);
         textArea = new JTextArea();
-        panel.add(textArea);
+        frame.getContentPane().add(BorderLayout.CENTER, new JScrollPane(textArea));
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
