@@ -7,6 +7,8 @@ import org.usb4java.DeviceList;
 import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -251,8 +253,11 @@ public class TwoRxDumperLoggerXGra
             }
         });
         panel.add(rstButton);
+        JPanel mainPanel = new JPanel();
         textArea = new JTextArea();
-        frame.getContentPane().add(BorderLayout.CENTER, new JScrollPane(textArea));
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+        mainPanel.add(new JScrollPane(textArea));
+        frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
