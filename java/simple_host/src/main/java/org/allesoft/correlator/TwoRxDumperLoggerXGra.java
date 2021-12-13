@@ -8,19 +8,14 @@ import org.usb4java.LibUsb;
 import org.usb4java.LibUsbException;
 
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -31,7 +26,6 @@ import java.nio.IntBuffer;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-import static org.usb4java.examples.Ctl1.readKey;
 
 public class TwoRxDumperLoggerXGra
 {
@@ -286,7 +280,8 @@ public class TwoRxDumperLoggerXGra
             graphics.drawString("drawPolygon", 180, 30);
             graphics.drawPolygon(xPoints2, yPoints2, xPoints2.length);
 
-            graphics.drawRect(0, 60, value * 5, 30);
+            graphics.setColor(Color.RED);
+            graphics.fillRect(0, 60, value * 20, 30);
         }
 
         public void setValue(int value) {
