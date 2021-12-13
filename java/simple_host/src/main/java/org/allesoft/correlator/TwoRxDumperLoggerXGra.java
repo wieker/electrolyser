@@ -43,6 +43,7 @@ public class TwoRxDumperLoggerXGra
     //private static final short PRODUCT_ID = 0x6668;
 
     private static final int TIMEOUT = 0;
+    private static MyDrawing drawArea;
 
 
     byte data_wake[] = { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -257,7 +258,8 @@ public class TwoRxDumperLoggerXGra
         JPanel mainPanel = new JPanel();
         textArea = new JTextArea();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-        mainPanel.add(new MyDrawing());
+        drawArea = new MyDrawing();
+        mainPanel.add(drawArea);
         mainPanel.add(new JScrollPane(textArea));
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
@@ -265,6 +267,8 @@ public class TwoRxDumperLoggerXGra
     }
 
     static class MyDrawing extends JPanel {
+        int value;
+
         @Override
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
@@ -281,6 +285,13 @@ public class TwoRxDumperLoggerXGra
             int[] yPoints2 = { 150, 50, 150 };
             graphics.drawString("drawPolygon", 180, 30);
             graphics.drawPolygon(xPoints2, yPoints2, xPoints2.length);
+
+            graphics.drawRect(0, 60, value * 5, 30);
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+            repaint();
         }
     }
 
@@ -295,7 +306,9 @@ public class TwoRxDumperLoggerXGra
                     String value = String.format("0x%02x ",
                             ch[i + 1]
                     );
+                    // FIXME: no MT safe
                     textArea.append(value);
+                    drawArea.setValue((int) ch[i + 1] & 0xFF);
                     System.out.print(value);
 //                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
 //                    zq ++;
