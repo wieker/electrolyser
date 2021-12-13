@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -256,10 +257,31 @@ public class TwoRxDumperLoggerXGra
         JPanel mainPanel = new JPanel();
         textArea = new JTextArea();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+        mainPanel.add(new MyDrawing());
         mainPanel.add(new JScrollPane(textArea));
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    static class MyDrawing extends JPanel {
+        @Override
+        protected void paintComponent(Graphics graphics) {
+            super.paintComponent(graphics);
+
+            graphics.drawString("drawLine", 10, 30);
+            graphics.drawLine(10, 150, 30, 50);
+
+            int[] xPoints1 = { 80, 120, 160 };
+            int[] yPoints1 = { 150, 50, 150 };
+            graphics.drawString("drawPolyline", 80, 30);
+            graphics.drawPolyline(xPoints1, yPoints1, xPoints1.length);
+
+            int[] xPoints2 = { 180, 220, 260 };
+            int[] yPoints2 = { 150, 50, 150 };
+            graphics.drawString("drawPolygon", 180, 30);
+            graphics.drawPolygon(xPoints2, yPoints2, xPoints2.length);
+        }
     }
 
     private static void start_loop(DeviceHandle handle) {
