@@ -17,9 +17,9 @@ module top(
             counter2 <= counter2 + 1;
         end
 
-    assign LED1 = ~ code[0];
-    assign led2 = ~ code[1];
-    assign led3 = ~ code[2];
+    assign LED1 = counter2[24];
+    assign led2 = counter1[21];
+    assign led3 = counter1[19];
 
     reg select;
     reg [6:0] phase;
@@ -38,7 +38,7 @@ module top(
     nco i_nco(.clk(CLK1), .rst(0), .control_word(16'h4000), .i_code(i_code), .phase_control_word(16'h0000));
     nco q_nco(.clk(CLK1), .rst(0), .control_word(16'h2000), .i_code(q_code), .phase_control_word(16'h0000));
 
-    assign rf = select ? i_code : i_code ^ code[0];
+    assign rf = i_code;
 
     always @(posedge CLK2)
     begin

@@ -262,6 +262,8 @@ public class TwoRxDumperLoggerXGra
 
     static class MyDrawing extends JPanel {
         int value;
+        int save;
+        int order = 0;
 
         @Override
         protected void paintComponent(Graphics graphics) {
@@ -281,11 +283,19 @@ public class TwoRxDumperLoggerXGra
             graphics.drawPolygon(xPoints2, yPoints2, xPoints2.length);
 
             graphics.setColor(Color.RED);
-            graphics.fillRect(0, 60, value * 20, 30);
+            graphics.fillRect(0, 60, value * 5, 30);
+            graphics.setColor(Color.BLACK);
+            graphics.drawRect(0, 60, 256 * 5, 30);
         }
 
         public void setValue(int value) {
-            this.value = value;
+            if (order == 0) {
+                save = value;
+                order = 1;
+                return;
+            }
+            order = 0;
+            this.value = Math.abs(0x80 - value) + Math.abs(0x80 - save);
             repaint();
         }
     }
