@@ -269,23 +269,13 @@ public class TwoRxDumperLoggerXGra
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
 
-            graphics.drawString("drawLine", 10, 30);
-            graphics.drawLine(10, 150, 30, 50);
-
-            int[] xPoints1 = { 80, 120, 160 };
-            int[] yPoints1 = { 150, 50, 150 };
-            graphics.drawString("drawPolyline", 80, 30);
-            graphics.drawPolyline(xPoints1, yPoints1, xPoints1.length);
-
-            int[] xPoints2 = { 180, 220, 260 };
-            int[] yPoints2 = { 150, 50, 150 };
-            graphics.drawString("drawPolygon", 180, 30);
-            graphics.drawPolygon(xPoints2, yPoints2, xPoints2.length);
-
             graphics.setColor(Color.RED);
-            graphics.fillRect(0, 60, value * 5, 30);
+            graphics.fillRect(0, 60, Math.abs(0x80 - value) + Math.abs(0x80 - save) * 5, 30);
             graphics.setColor(Color.BLACK);
             graphics.drawRect(0, 60, 256 * 5, 30);
+
+            graphics.drawArc(256 * 5, 200, 150, 150, 0, 360);
+            graphics.drawLine(256 * 5 + 75, 275, 256 * 5 + 75 + value - 0x80, 275 + save - 0x80);
         }
 
         public void setValue(int value) {
@@ -295,7 +285,7 @@ public class TwoRxDumperLoggerXGra
                 return;
             }
             order = 0;
-            this.value = Math.abs(0x80 - value) + Math.abs(0x80 - save);
+            this.value = value;
             repaint();
         }
     }
