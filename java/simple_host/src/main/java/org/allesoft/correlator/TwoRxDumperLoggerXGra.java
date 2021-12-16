@@ -292,9 +292,14 @@ public class TwoRxDumperLoggerXGra
 
     private static void start_loop(DeviceHandle handle) {
         try {
+            sendCommand(handle, 6, new byte[32], false);
+            sendCommand(handle, 6, new byte[32], false);
+            sendCommand(handle, 6, new byte[32], false);
+            sendCommand(handle, 6, new byte[32], false);
             sendCommand(handle, 1, new byte[]{}, false);
             int zq = 0;
             double sum = 0;
+            int pos = 0;
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
@@ -302,8 +307,11 @@ public class TwoRxDumperLoggerXGra
                             ch[i + 1]
                     );
                     // FIXME: no MT safe
-                    textArea.append(value);
-                    drawArea.setValue((int) ch[i + 1] & 0xFF);
+                    if (pos % 4 < 2) {
+                        textArea.append(value);
+                        drawArea.setValue((int) ch[i + 1] & 0xFF);
+                    }
+                    pos ++;
                     System.out.print(value);
 //                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
 //                    zq ++;

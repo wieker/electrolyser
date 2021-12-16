@@ -21,8 +21,12 @@ module dispatcher(
         .stb(stb)
     );
 
+    wire [7:0] z_value;
+    correlator zero_correlator(.clk(clk), .rst(rst), .sig(sig), .code(0), .value(z_value));
+
     wire stb;
 
+    reg [3:0] pipeline;
     always@(posedge clk)
     begin
         if (rst_in) begin
@@ -31,6 +35,11 @@ module dispatcher(
             i_value_reg <= i_value;
             q_value_reg <= q_value;
             rdy <= 1;
+            pipeline[0] <= 1;
+        end else if (pipeline[0]) begin
+            pipeline[0] <= 0;
+            i_value_reg <= z_value;
+            q_value_reg <= 0;
         end else begin
             rdy <= 0;
         end
