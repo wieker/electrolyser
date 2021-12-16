@@ -228,6 +228,7 @@ public class TwoRxDumperLoggerXGra
         loopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                textArea.setText("");
                 running = true;
                 new Thread(() -> start_loop(handle)).start();
             }
@@ -307,8 +308,8 @@ public class TwoRxDumperLoggerXGra
                             ch[i + 1]
                     );
                     // FIXME: no MT safe
+                    textArea.append(value);
                     if (pos % 4 < 2) {
-                        textArea.append(value);
                         drawArea.setValue((int) ch[i + 1] & 0xFF);
                     }
                     pos ++;
