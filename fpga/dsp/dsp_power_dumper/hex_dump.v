@@ -3,7 +3,7 @@ module hex_dump(
     output fpga_tx, rdy3, rdy4,
 );
 
-    assign rdy4 = done;
+    assign rdy4 = done[4];
     assign rdy3 = sig;
     wire [7:0] i_value;
     wire [7:0] q_value;
@@ -14,7 +14,7 @@ module hex_dump(
     reg [8:0] ram_addr;
     wire [15:0] ram_data_in = {q_value[7:0], i_value[7:0]};
     wire [15:0] ram_data_out;
-    wire ram_wren = (!ram_addr[8] && stb) & ~ done;
+    wire ram_wren = (!ram_addr[8] && stb) & ~ done[4];
 
     SB_SPRAM256KA spram
     (
@@ -34,14 +34,16 @@ module hex_dump(
     reg [7:0] touart;
     reg bugfix001;
     reg part;
-    reg done;
+    reg [4:0] done;
 
     always@(posedge clk)
     begin
-        if (ram_addr[8]) begin
-            done <= 1;
+        if (ram_addr[8] && done[0]) begin
+            done <= {done[3:0], 0};
         end else if (rst) begin
             done <= 0;
+        end else if (!ram_addr[8] && !done[0]) begin
+            done[0] <= 1;
         end
         if (ram_wren) begin
             ram_addr <= ram_addr + 1;
