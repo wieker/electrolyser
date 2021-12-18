@@ -22,6 +22,6 @@ module top(
     assign LED2 = rdy3;
     assign LED1 = rdy4;
 
-    assign pwm_out = 0;
+    assign pwm_out = sig_in;
 
 endmodule

@@ -4,7 +4,7 @@ module hex_dump(
 );
 
     assign rdy4 = done;
-    assign rdy3 = ram_addr[8];
+    assign rdy3 = sig;
     wire [7:0] i_value;
     wire [7:0] q_value;
 
