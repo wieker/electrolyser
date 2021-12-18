@@ -1,9 +1,7 @@
 module digitizer(
     input clk, rst, lvds_in,
-    output sig
+    output sig, comp_in,
 );
-
-    wire comp_in;
 
 	SB_IO #(
 		.PIN_TYPE(6'b000001),
