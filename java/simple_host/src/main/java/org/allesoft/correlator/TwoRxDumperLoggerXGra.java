@@ -264,6 +264,7 @@ public class TwoRxDumperLoggerXGra
     static class MyDrawing extends JPanel {
         int value;
         int save;
+        int offset;
         int order = 0;
 
         @Override
@@ -274,6 +275,11 @@ public class TwoRxDumperLoggerXGra
             graphics.fillRect(0, 60, Math.abs(0x80 - value) + Math.abs(0x80 - save) * 5, 30);
             graphics.setColor(Color.BLACK);
             graphics.drawRect(0, 60, 256 * 5, 30);
+
+            graphics.setColor(Color.RED);
+            graphics.fillRect(128 * 5 - Math.abs(0x80 - offset) * 5, 120, Math.abs(0x80 - offset) * 5, 30);
+            graphics.setColor(Color.BLACK);
+            graphics.drawRect(0, 120, 256 * 5, 30);
 
             graphics.drawArc(256 * 5, 200, 150, 150, 0, 360);
             graphics.drawLine(256 * 5 + 75, 275, 256 * 5 + 75 + value - 0x80, 275 + save - 0x80);
@@ -287,6 +293,10 @@ public class TwoRxDumperLoggerXGra
             }
             order = 0;
             this.value = value;
+        }
+
+        public void setOffset(int value) {
+            this.offset = value;
             repaint();
         }
     }
@@ -311,6 +321,9 @@ public class TwoRxDumperLoggerXGra
                     textArea.append(value);
                     if (pos % 4 < 2) {
                         drawArea.setValue((int) ch[i + 1] & 0xFF);
+                    }
+                    if (pos % 4 == 3) {
+                        drawArea.setOffset((int) ch[i + 1] & 0xFF);
                     }
                     pos ++;
                     System.out.print(value);
