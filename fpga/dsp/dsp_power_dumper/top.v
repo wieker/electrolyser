@@ -1,5 +1,5 @@
 module top(
-    output LED1, LED2, fpga_tx, pwm_out,
+    output LED1, LED2, fpga_tx, output reg pwm_out,
     input btn1, btn2, lvds_in, fpga_rx, xtal_in
 );
 
@@ -23,6 +23,9 @@ module top(
     assign LED2 = rdy3;
     assign LED1 = rdy4;
 
-    assign pwm_out = ctr[7];
+    wire pwm_clk = ctr[2];
+    always @(posedge pwm_clk) begin
+        pwm_out <= ~ comp_in;
+    end
 
 endmodule
