@@ -276,6 +276,8 @@ public class TwoRxDumperLoggerXGra
             graphics.setColor(Color.BLACK);
             graphics.drawRect(0, 60, 256 * 5, 30);
 
+            graphics.setColor(Color.BLUE);
+            graphics.fillRect(128 * 5, 120, (0x80 - offset) * 5, 30);
             graphics.setColor(Color.RED);
             graphics.fillRect(128 * 5 - Math.abs(0x80 - offset) * 5, 120, Math.abs(0x80 - offset) * 5, 30);
             graphics.setColor(Color.BLACK);
