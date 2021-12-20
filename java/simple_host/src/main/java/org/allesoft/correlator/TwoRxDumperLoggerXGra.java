@@ -272,7 +272,7 @@ public class TwoRxDumperLoggerXGra
             super.paintComponent(graphics);
 
             graphics.setColor(Color.RED);
-            graphics.fillRect(0, 60, Math.abs(0x80 - value) + Math.abs(0x80 - save) * 5, 30);
+            graphics.fillRect(0, 60, Math.abs(0x80 - value) * 5 + Math.abs(0x80 - save) * 5, 30);
             graphics.setColor(Color.BLACK);
             graphics.drawRect(0, 60, 256 * 5, 30);
 
