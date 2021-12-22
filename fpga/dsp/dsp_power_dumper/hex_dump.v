@@ -6,55 +6,31 @@ module hex_dump(
 
     assign rdy4 = done;
     assign rdy3 = sig;
-    wire [7:0] i_value;
-    wire [7:0] q_value;
 
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy(stb),
-        .i_value_reg(i_value), .q_value_reg(q_value));
-
-    reg [10:0] ram_addr;
-    wire [15:0] ram_data_in = {q_value[7:0], i_value[7:0]};
-    wire [15:0] ram_data_out;
-    wire ram_wren = (!ram_addr[10] && stb) & ~ done;
-
-    SB_SPRAM256KA spram
-    (
-        .ADDRESS({6'h00, ram_addr[9:0]}),
-        .DATAIN(ram_data_in),
-        .MASKWREN({ram_wren, ram_wren, ram_wren, ram_wren}),
-        .WREN(ram_wren),
-        .CHIPSELECT(1),
-        .CLOCK(clk),
-        .STANDBY(1'b0),
-        .SLEEP(1'b0),
-        .POWEROFF(1'b1),
-        .DATAOUT(ram_data_out)
-    );
+    reg [23:0] ram_addr;
 
     reg tx_start;
     reg [7:0] touart;
     reg bugfix001;
-    reg part;
-    reg done;
+    reg state;
 
     always@(posedge clk)
     begin
-        if (ram_addr[10]) begin
-            done <= 1;
-        end else if (rst) begin
-            done <= 0;
-        end
-        if (ram_wren) begin
-            ram_addr <= ram_addr + 1;
-        end else if (ram_addr[10] && !tx_busy && !bugfix001) begin
+        if (rst) begin
+
+        end else if ((ram_addr < 256) && !state && !tx_busy && !bugfix001) begin
+            state <= 1;
+            spi_addr_en <= 1;
+        end else if ((ram_addr < 256) && spi_rd_data_available && !tx_busy && !bugfix001) begin
+            spi_rd_ack <= 1;
             bugfix001 <= 1;
             tx_start <= 1;
-            touart <= part ? ram_data_out[15:8] : ram_data_out[7:0];
-            part = ~ part;
-            if (part) begin
-                ram_addr <= ram_addr + 1;
-            end
+            touart <= ram_addr[7:0];
+            ram_addr <= ram_addr + 1;
+            state <= 0;
         end else begin
+            spi_rd_ack <= 0;
+            spi_addr_en <= 0;
             if (!tx_busy && bugfix001) begin
                 bugfix001 <= 0;
             end
@@ -81,10 +57,17 @@ module hex_dump(
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
 
+   reg spi_reset;
+   wire spi_addr_buffer_free;
+   reg spi_addr_en;
+   reg [23:0] spi_addr_data;
+   wire spi_rd_data_available;
+   reg spi_rd_ack;
+   wire [31:0] spi_rd_data;
 
-    spi_master spi_master_inst(.clk(clk), .reset(spi_reset),
+    spi_master spi_master_inst(.clk(clk), .reset(rst),
           .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MISO), .SPI_MISO(SPI_MOSI),
-          .addr_buffer_free(spi_addr_buffer_free), .addr_en(spi_addr_en), .addr_data(spi_addr_data),
+          .addr_buffer_free(spi_addr_buffer_free), .addr_en(spi_addr_en), .addr_data(ram_addr),
           .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data)
     );
 
