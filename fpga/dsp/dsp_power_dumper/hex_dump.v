@@ -25,7 +25,7 @@ module hex_dump(
             spi_rd_ack <= 1;
             bugfix001 <= 1;
             tx_start <= 1;
-            touart <= ram_addr[7:0];
+            touart <= spi_rd_data[7:0];
             ram_addr <= ram_addr + 1;
             state <= 0;
         end else begin

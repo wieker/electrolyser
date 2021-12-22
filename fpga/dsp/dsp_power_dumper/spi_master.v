@@ -29,12 +29,12 @@ module spi_master(input wire clk, input wire reset,
       read_addr_reg = 0;
 
       //bunch of commands to read status registers as well as the flash from the datasheet
-      read_cmd = 8'h03; //read
+      //read_cmd = 8'h03; //read
       // read_cmd = 8'h0B; //fast read
       // read_cmd = 8'h5d //READ SERIAL FLASH DISCOVERY PARAMETER
       // read_cmd = 8'hB5; //read non volatile parameters
       // read_cmd = 8'h85; //READ VOLATILE CONFIGURATION REGISTER
-      // read_cmd = 8'h9F; //read ID
+       read_cmd = 8'h9F; //read ID
       // read_cmd = 8'h05; //read status register
       wake_up_cmd = 8'hAB; //wakes up the flash, for writing
 
