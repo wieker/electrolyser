@@ -1,6 +1,7 @@
 module hex_dump(
     input clk, rst, sig, fpga_rx,
     output fpga_tx, rdy3, rdy4,
+    output SPI_SCK, output SPI_SS, output SPI_MOSI, input SPI_MISO,
 );
 
     assign rdy4 = done;
@@ -78,6 +79,13 @@ module hex_dump(
         .tx_start(tx_start),    // trigger transmission
         .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
+    );
+
+
+    spi_master spi_master_inst(.clk(clk), .reset(spi_reset),
+          .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MISO), .SPI_MISO(SPI_MOSI),
+          .addr_buffer_free(spi_addr_buffer_free), .addr_en(spi_addr_en), .addr_data(spi_addr_data),
+          .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data)
     );
 
 endmodule
