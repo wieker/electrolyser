@@ -55,7 +55,7 @@ module spi_master(input wire clk, input wire reset,
             if(addr_en == 1) begin
                read_addr_reg <= addr_data;
                addr_buffer_free <= 0;
-               state <= SEND_READ_CMD; //go directly to the sending of the READ command
+               state <= SEND_WAKE_UP_CMD; //go directly to the sending of the READ command
             end
          end
 
