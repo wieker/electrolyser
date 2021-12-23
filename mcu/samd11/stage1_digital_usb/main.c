@@ -90,7 +90,6 @@ int main(void)
   gpio_write(GPIO_RST, rst_state);
   gpio_write(GPIO_LED, led_state);
 
-  spi_init(8000000, 0);
   uart_init();
 
   while (1)

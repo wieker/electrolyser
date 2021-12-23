@@ -98,6 +98,21 @@ void spi_ss(int state)
   HAL_GPIO_SS_write(state);
 }
 
+void spi_deinit()
+{
+  HAL_GPIO_MISO_in();
+  HAL_GPIO_MISO_pmuxdis();
+
+  HAL_GPIO_MOSI_in();
+  HAL_GPIO_MOSI_pmuxdis();
+
+  HAL_GPIO_SCLK_in();
+  HAL_GPIO_SCLK_pmuxdis();
+
+  HAL_GPIO_SS_in();
+  HAL_GPIO_SS_set();
+}
+
 //-----------------------------------------------------------------------------
 uint8_t spi_write_byte(uint8_t byte)
 {

@@ -418,6 +418,7 @@ public class TwoRxDumperLoggerXGra
     }
 
     private static void flash(DeviceHandle handle) throws IOException {
+        sendCommand(handle, 8, new byte[] { }, true);
         flash_wakeup(handle);
         flash_id(handle);
         flash_we(handle);
@@ -443,5 +444,6 @@ public class TwoRxDumperLoggerXGra
             flash_read(handle, addr);
             addr += buf.length;
         }
+        sendCommand(handle, 9, new byte[] { }, true);
     }
 }
