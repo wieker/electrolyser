@@ -95,7 +95,7 @@ module spi_master(input wire clk, input wire reset,
          WAIT_WAKE_UP : begin
             spi_ss_reg <= 1;
             wake_up_wait_counter <= wake_up_wait_counter + 1;
-            if(wake_up_wait_counter == 32'h10000) begin
+            if(wake_up_wait_counter == 32'h00010) begin
                wake_up_wait_counter <= 0;
                state <= SEND_READ_CMD;
             end
@@ -193,7 +193,7 @@ module spi_master(input wire clk, input wire reset,
             if(rd_ack == 1) begin
                addr_buffer_free <= 0; //space for a new read/address
                rd_data_available <= 0;
-               state <= WAIT_READ_ADDR;
+               state <= SEND_READ_CMD;
             end;
          end
          default: begin

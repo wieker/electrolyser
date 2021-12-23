@@ -4,8 +4,8 @@ module hex_dump(
     output SPI_SCK, output SPI_SS, output SPI_MOSI, input SPI_MISO,
 );
 
-    assign rdy4 = done;
-    assign rdy3 = sig;
+    assign rdy4 = SPI_MISO;
+    assign rdy3 = SPI_SCK;
 
     reg [23:0] ram_addr;
 
@@ -40,7 +40,7 @@ module hex_dump(
 
     wire tx_busy;
     localparam sym_rate = 1200;
-    localparam clk_freq = 48000000;
+    localparam clk_freq = 48000000 / 2048 / 1024;
     localparam sym_cnt = clk_freq / sym_rate;
     localparam SCW = $clog2(sym_cnt);
 
@@ -65,12 +65,8 @@ module hex_dump(
    reg spi_rd_ack;
    wire [31:0] spi_rd_data;
 
-   assign SPI_SCK = 1;
-   assign SPI_SS = 1;
-   assign SPI_MOSI = 1;
-
     spi_master spi_master_inst(.clk(clk), .reset(rst),
-          //.SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
+          .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
           .addr_buffer_free(spi_addr_buffer_free), .addr_en(spi_addr_en), .addr_data(ram_addr),
           .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data)
     );

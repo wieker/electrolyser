@@ -12,8 +12,13 @@ module top(
     wire comp_in;
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
+   reg [24:0] clk_counter;
+   always @(posedge clk) begin
+        clk_counter <= clk_counter + 1;
+   end
+
     wire rdy3, rdy4;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(fpga_rx), .rdy3(rdy3), .rdy4(rdy4),
+    hex_dump hex_dump(.clk(clk_counter[20]), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(fpga_rx), .rdy3(rdy3), .rdy4(rdy4),
         .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO));
 
     reg [7:0] ctr;
