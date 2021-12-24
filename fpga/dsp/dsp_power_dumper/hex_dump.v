@@ -40,7 +40,7 @@ module hex_dump(
 
     wire tx_busy;
     localparam sym_rate = 1200;
-    localparam clk_freq = 48000000 / 2048 / 1024;
+    localparam clk_freq = 48000000 / 2048;
     localparam sym_cnt = clk_freq / sym_rate;
     localparam SCW = $clog2(sym_cnt);
 

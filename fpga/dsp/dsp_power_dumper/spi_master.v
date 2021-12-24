@@ -1,5 +1,5 @@
 module spi_master(input wire clk, input wire reset,
-      output reg SPI_SCK, output reg SPI_SS, output reg SPI_MOSI, input wire SPI_MISO,
+      output reg SPI_SCK, output SPI_SS, output reg SPI_MOSI, input wire SPI_MISO,
       output reg addr_buffer_free, input addr_en, input [23:0] addr_data,
       output reg rd_data_available, input wire rd_ack, output reg [31:0] rd_data
    );
@@ -17,6 +17,8 @@ module spi_master(input wire clk, input wire reset,
    reg [7:0] wake_up_cmd;
    reg spi_ss_reg;
    reg [31:0] wake_up_wait_counter;
+
+   assign SPI_SS = spi_ss_reg;
 
    initial begin
       SPI_SCK = 0;
