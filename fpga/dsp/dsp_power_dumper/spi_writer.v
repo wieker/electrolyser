@@ -38,8 +38,8 @@ module spi_writer(input wire clk, input wire reset,
       // read_cmd = 8'h5d //READ SERIAL FLASH DISCOVERY PARAMETER
       // read_cmd = 8'hB5; //read non volatile parameters
       // read_cmd = 8'h85; //READ VOLATILE CONFIGURATION REGISTER
-      // read_cmd = 8'h9F; //read ID
-      read_cmd = 8'h05; //read status register
+      read_cmd = 8'h9F; //read ID
+      // read_cmd = 8'h05; //read status register
       wake_up_cmd = 8'hAB; //wakes up the flash, for writing
       we_cmd = 8'h06;
 
