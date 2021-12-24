@@ -7,7 +7,7 @@ module hex_dump(
     assign rdy4 = SPI_MISO;
     assign rdy3 = SPI_SCK;
 
-    reg [23:0] ram_addr;
+    reg [10:0] ram_addr;
 
     reg tx_start;
     reg [7:0] touart;
@@ -18,7 +18,7 @@ module hex_dump(
     begin
         if (rst) begin
 
-        end else if ((ram_addr < 256) && spi_rd_data_available && !tx_busy && !bugfix001) begin
+        end else if ((ram_addr[8] == 0) && spi_rd_data_available && !tx_busy && !bugfix001) begin
             spi_rd_ack <= state == 3;
             bugfix001 <= 1;
             tx_start <= 1;
@@ -37,7 +37,7 @@ module hex_dump(
 
     wire tx_busy;
     localparam sym_rate = 1200;
-    localparam clk_freq = 48000000 / 2048;
+    localparam clk_freq = 48000000 / 64;
     localparam sym_cnt = clk_freq / sym_rate;
     localparam SCW = $clog2(sym_cnt);
 
