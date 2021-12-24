@@ -18,16 +18,15 @@ module hex_dump(
     begin
         if (rst) begin
 
-        end else if ((ram_addr[8] == 0) && spi_rd_data_available && !tx_busy && !bugfix001) begin
+        end else if ((ram_addr[8] == 0) && spi_rd && !tx_busy && !bugfix001) begin
             spi_rd_ack <= state == 3;
             bugfix001 <= 1;
             tx_start <= 1;
-            touart <= state == 0 ? spi_rd_data[7:0] : state == 1 ? spi_rd_data[15:8] : state == 2 ? spi_rd_data[23:16] : spi_rd_data[31:24];
+            touart <= state == 0 ? spi_data[7:0] : state == 1 ? spi_data[15:8] : state == 2 ? spi_data[23:16] : spi_data[31:24];
             ram_addr <= ram_addr + 1;
             state <= state + 1;
         end else begin
             spi_rd_ack <= 0;
-            spi_addr_en <= 0;
             if (!tx_busy && bugfix001) begin
                 bugfix001 <= 0;
             end
@@ -37,7 +36,7 @@ module hex_dump(
 
     wire tx_busy;
     localparam sym_rate = 1200;
-    localparam clk_freq = 48000000 / 32;
+    localparam clk_freq = 48000000;
     localparam sym_cnt = clk_freq / sym_rate;
     localparam SCW = $clog2(sym_cnt);
 
@@ -54,6 +53,24 @@ module hex_dump(
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
 
+    reg spi_rd;
+    reg spi_ack;
+    reg [31:0] spi_data;
+
+    reg [10:0] clk_counter;
+    reg xclock;
+    always @(posedge clk) begin
+        clk_counter <= clk_counter + 1;
+        if (xclock == 0 && clk_counter[4] == 0) begin
+            xclock <= 1;
+            spi_ack <= spi_rd_ack;
+            spi_rd <= spi_rd_data_available;
+            spi_data <= spi_rd_data;
+        end else if (clk_counter[4] == 1) begin
+            xclock <= 0;
+        end
+    end
+
    reg spi_reset;
    wire spi_addr_buffer_free;
    reg spi_addr_en;
@@ -62,7 +79,7 @@ module hex_dump(
    reg spi_rd_ack;
    wire [31:0] spi_rd_data;
 
-    spi_writer spi_master_inst(.clk(clk), .reset(rst),
+    spi_writer spi_master_inst(.clk(clk_counter[4]), .reset(rst),
           .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
           .addr_buffer_free(spi_addr_buffer_free), .addr_en(1), .addr_data(0),
           .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data)
