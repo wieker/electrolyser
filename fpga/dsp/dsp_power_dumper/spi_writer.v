@@ -1,4 +1,4 @@
-module spi_master(input wire clk, input wire reset,
+module spi_writer(input wire clk, input wire reset,
       output reg SPI_SCK, output SPI_SS, output reg SPI_MOSI, input wire SPI_MISO,
       output reg addr_buffer_free, input addr_en, input [23:0] addr_data,
       output reg rd_data_available, input wire rd_ack, output reg [31:0] rd_data
@@ -15,6 +15,7 @@ module spi_master(input wire clk, input wire reset,
    reg [23:0] read_addr_reg;
    reg [7:0] read_cmd;
    reg [7:0] wake_up_cmd;
+   reg [7:0] we_cmd;
    reg spi_ss_reg;
    reg [31:0] wake_up_wait_counter;
 
@@ -31,14 +32,15 @@ module spi_master(input wire clk, input wire reset,
       read_addr_reg = 0;
 
       //bunch of commands to read status registers as well as the flash from the datasheet
-      //read_cmd = 8'h03; //read
+      // read_cmd = 8'h03; //read
       // read_cmd = 8'h0B; //fast read
       // read_cmd = 8'h5d //READ SERIAL FLASH DISCOVERY PARAMETER
       // read_cmd = 8'hB5; //read non volatile parameters
       // read_cmd = 8'h85; //READ VOLATILE CONFIGURATION REGISTER
-       read_cmd = 8'h9F; //read ID
-      // read_cmd = 8'h05; //read status register
+      // read_cmd = 8'h9F; //read ID
+      read_cmd = 8'h05; //read status register
       wake_up_cmd = 8'hAB; //wakes up the flash, for writing
+      we_cmd = 8'h06;
 
       SPI_MOSI = 0;
       spi_ss_reg = 1; //active low
@@ -95,6 +97,46 @@ module spi_master(input wire clk, input wire reset,
 
          //after sending the waking up, wait for a bit
          WAIT_WAKE_UP : begin
+            spi_ss_reg <= 1;
+            wake_up_wait_counter <= wake_up_wait_counter + 1;
+            if(wake_up_wait_counter == 32'h00010) begin
+               wake_up_wait_counter <= 0;
+               state <= SEND_WE_CMD;
+            end
+         end
+
+         SEND_WE_CMD : begin
+            counter_clk <= counter_clk + 1;
+            spi_ss_reg <= 0;
+
+            if(counter_clk == 3'b000)begin
+               SPI_MOSI <= we_cmd[7]; //MSB
+               SPI_SCK <= 0;
+            end
+
+            if(counter_clk >= 3'b001 && counter_clk <= 3'b110) begin
+
+            end
+
+            if(counter_clk == 3'b100) begin
+               SPI_SCK <= 1;
+
+            end
+
+            if(counter_clk == 3'b111) begin
+               we_cmd[7:0] <= {we_cmd[6:0], we_cmd[7]};
+               counter_clk <= 0;
+               counter_send <= counter_send + 1;
+               if(counter_send == 7) begin
+                  spi_ss_reg <= 1;
+                  state <= WAIT_WE;
+                  counter_send <= 0;
+               end
+            end
+         end
+
+         //after sending the waking up, wait for a bit
+         WAIT_WE : begin
             spi_ss_reg <= 1;
             wake_up_wait_counter <= wake_up_wait_counter + 1;
             if(wake_up_wait_counter == 32'h00010) begin

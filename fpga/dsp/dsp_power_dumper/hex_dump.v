@@ -62,7 +62,7 @@ module hex_dump(
    reg spi_rd_ack;
    wire [31:0] spi_rd_data;
 
-    spi_master spi_master_inst(.clk(clk), .reset(rst),
+    spi_writer spi_master_inst(.clk(clk), .reset(rst),
           .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
           .addr_buffer_free(spi_addr_buffer_free), .addr_en(1), .addr_data(0),
           .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data)
