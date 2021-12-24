@@ -7,7 +7,8 @@ module spi_writer(input wire clk, input wire reset,
    //states
    parameter IDLE = 0, INIT=IDLE+1, WAIT_READ_ADDR=INIT+1,
              SEND_READ_CMD=WAIT_READ_ADDR+1, SEND_READ_ADDR=SEND_READ_CMD+1, READ_FLASH=SEND_READ_ADDR+1, WAIT_READ_ACK=READ_FLASH+1,
-             SEND_WAKE_UP_CMD=WAIT_READ_ACK+1, WAIT_WAKE_UP=SEND_WAKE_UP_CMD+1;
+             SEND_WAKE_UP_CMD=WAIT_READ_ACK+1, WAIT_WAKE_UP=SEND_WAKE_UP_CMD+1,
+             SEND_WE_CMD=WAIT_WAKE_UP+1, WAIT_WE=SEND_WE_CMD+1;
 
    reg [2:0] counter_clk;
    reg [5:0] counter_send; //64 max
