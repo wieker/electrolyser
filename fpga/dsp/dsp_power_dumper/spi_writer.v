@@ -100,7 +100,7 @@ module spi_writer(input wire clk, input wire reset,
          WAIT_WAKE_UP : begin
             spi_ss_reg <= 1;
             wake_up_wait_counter <= wake_up_wait_counter + 1;
-            if(wake_up_wait_counter == 32'h00010) begin
+            if(wake_up_wait_counter[20] == 1) begin
                wake_up_wait_counter <= 0;
                state <= SEND_WE_CMD;
             end
@@ -140,7 +140,7 @@ module spi_writer(input wire clk, input wire reset,
          WAIT_WE : begin
             spi_ss_reg <= 1;
             wake_up_wait_counter <= wake_up_wait_counter + 1;
-            if(wake_up_wait_counter == 32'h00010) begin
+            if(wake_up_wait_counter[20] == 1) begin
                wake_up_wait_counter <= 0;
                state <= SEND_READ_CMD;
             end
