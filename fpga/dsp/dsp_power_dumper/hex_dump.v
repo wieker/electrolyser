@@ -12,22 +12,19 @@ module hex_dump(
     reg tx_start;
     reg [7:0] touart;
     reg bugfix001;
-    reg state;
+    reg [1:0] state;
 
     always@(posedge clk)
     begin
         if (rst) begin
 
-        end else if ((ram_addr < 256) && !state && !tx_busy && !bugfix001) begin
-            state <= 1;
-            spi_addr_en <= 1;
         end else if ((ram_addr < 256) && spi_rd_data_available && !tx_busy && !bugfix001) begin
-            spi_rd_ack <= 1;
+            spi_rd_ack <= state == 3;
             bugfix001 <= 1;
             tx_start <= 1;
-            touart <= spi_rd_data[15:8];
+            touart <= state == 0 ? spi_rd_data[7:0] : state == 1 ? spi_rd_data[15:8] : state == 2 ? spi_rd_data[23:16] : spi_rd_data[31:24];
             ram_addr <= ram_addr + 1;
-            state <= 0;
+            state <= state + 1;
         end else begin
             spi_rd_ack <= 0;
             spi_addr_en <= 0;
@@ -67,7 +64,7 @@ module hex_dump(
 
     spi_master spi_master_inst(.clk(clk), .reset(rst),
           .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
-          .addr_buffer_free(spi_addr_buffer_free), .addr_en(spi_addr_en), .addr_data(ram_addr),
+          .addr_buffer_free(spi_addr_buffer_free), .addr_en(1), .addr_data(0),
           .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data)
     );
 
