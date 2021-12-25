@@ -136,15 +136,16 @@ public class TwoRxDumperLoggerXGra
         spi_desel(handle);
     }
 
-    public static void flash_read(DeviceHandle handle, int addr) {
+    public static byte[] flash_read(DeviceHandle handle, int addr) {
         byte buffer[] = new byte[4 + 32];
         buffer[0] = 0x0B;
         buffer[1] = (byte) ((addr >> 16) & 0xFF);
         buffer[2] = (byte) ((addr >> 8) & 0xFF);
         buffer[3] = (byte) ((addr >> 0) & 0xFF);
         spi_select(handle);
-        sendCommand(handle, 4, buffer, true);
+        byte[] recv = sendCommand(handle, 4, buffer, true);
         spi_desel(handle);
+        return recv;
     }
 
     public static void flash_erase(DeviceHandle handle) {
@@ -254,7 +255,7 @@ public class TwoRxDumperLoggerXGra
         readButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                readFlashDump(handle);
+                new Thread(() -> readFlashDump(handle)).start();
             }
         });
         panel.add(readButton);
@@ -275,7 +276,30 @@ public class TwoRxDumperLoggerXGra
         flash_id(handle);
         for (int i = 0; i < 4; i ++) {
             for (int j = 0; j < 8; j ++) {
-                flash_read(handle, 0x100000 + i * 256 + j * 32);
+                byte[] recv = flash_read(handle, 0x100000 + i * 256 + j * 32);
+
+                int pos = 0;
+                for (int q = 5; q < recv.length; q ++) {
+                    // FIXME: no MT safe
+                    String value = String.format("0x%02x ",
+                            recv[q]
+                    );
+                    // FIXME: no MT safe
+                    textArea.append(value);
+                    if (pos % 4 > 1) {
+                        drawArea.setValue((int) recv[q] & 0xFF);
+                    }
+                    if (pos % 4 == 1) {
+                        drawArea.setOffset((int) recv[q] & 0xFF);
+                    }
+                    pos ++;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                textArea.append(System.lineSeparator());
             }
         }
         sendCommand(handle, 9, new byte[] { }, true);
