@@ -244,7 +244,7 @@ module spi_writer(input wire clk, input wire reset,
             if(rd_ack != rd_ack_old) begin
                 rd_ack_old <= rd_ack;
                 counter_written ++;
-                if (counter_written == 255) begin
+                if (counter_written == 127) begin
                     spi_ss_reg <= 1;
                     read_addr_reg <= read_addr_reg + 256;
                     state <= WAIT_BANK;
@@ -261,7 +261,7 @@ module spi_writer(input wire clk, input wire reset,
             wake_up_wait_counter <= wake_up_wait_counter + 1;
             if(wake_up_wait_counter[10] == 1) begin
                wake_up_wait_counter <= 0;
-               state <= WAIT_BANK;
+               state <= SEND_WE_CMD;
             end
          end
          default: begin
