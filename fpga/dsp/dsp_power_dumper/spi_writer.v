@@ -207,7 +207,7 @@ module spi_writer(input wire clk, input wire reset,
             spi_ss_reg <= 0; //slave is selected
 
             if(counter_clk == 3'b000) begin
-               SPI_MOSI <= counter_clk[0]; //MSB
+               SPI_MOSI <= counter_send[0]; //MSB
                SPI_SCK <= 0;
             end
 
