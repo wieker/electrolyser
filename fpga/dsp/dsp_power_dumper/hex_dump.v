@@ -63,11 +63,12 @@ module hex_dump(
         clk_counter <= clk_counter + 1;
         if (xclock == 0 && clk_counter[4] == 0) begin
             xclock <= 1;
-            spi_ack <= spi_rd_ack;
+            spi_ack <= spi_ack | spi_rd_ack;
             spi_rd <= spi_rd_data_available;
             spi_data <= spi_rd_data;
-        end else if (clk_counter[4] == 1) begin
+        end else if (xclock == 1 && lk_counter[4] == 1) begin
             xclock <= 0;
+            spi_ack <= 0;
         end
     end
 
