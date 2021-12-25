@@ -243,14 +243,15 @@ module spi_writer(input wire clk, input wire reset,
          WAIT_READ_ACK: begin
             if(rd_ack != rd_ack_old) begin
                 rd_ack_old <= rd_ack;
-                counter_written ++;
                 if (counter_written == 127) begin
                     spi_ss_reg <= 1;
                     read_addr_reg <= read_addr_reg + 256;
                     state <= WAIT_BANK;
+                    counter_written <= 0;
                 end else begin
                     spi_ss_reg <= 0;
                     state <= READ_FLASH;
+                    counter_written ++;
                 end
             end
          end
