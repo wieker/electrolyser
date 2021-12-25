@@ -25,7 +25,7 @@ int rst_state = 0;
 static alignas(4) uint8_t app_usb_recv_buffer[64];
 alignas(4) uint8_t app_response_buffer[64];
 
-uint8_t data_wake[] = { 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 };
+uint8_t data_wake[] = { 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 uint8_t data[] = { 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
 static uint32_t get_uint32(uint8_t *data)
@@ -99,4 +99,33 @@ void usb_recv_callback(void)
 
 void usb_configure_callback() {
   usb_recv(APP_EP_RECV, app_usb_recv_buffer, sizeof(app_usb_recv_buffer));
+}
+
+unsigned char read_cmd[] = {0x0B, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+void init_device() {
+  int state = 0;
+  spi_init(8000000, 0);
+  spi_ss(0);
+
+  for (int i = 0; i < 8; i ++) {
+    app_response_buffer[i] = spi_write_byte(data_wake[i]);
+  }
+  spi_ss(1);
+  for (int i = 0; i < 64; i ++) {}
+  spi_ss(0);
+  for (int i = 0; i < 8; i ++) {
+    app_response_buffer[i] = spi_write_byte(read_cmd[i]);
+  }
+  if (app_response_buffer[5] == 0x55) {
+    state = 0;
+  } else {
+    state = 1;
+  }
+
+  spi_ss(1);
+  spi_deinit();
+
+  rst_state = state;
+  gpio_write(GPIO_RST, rst_state);
 }
