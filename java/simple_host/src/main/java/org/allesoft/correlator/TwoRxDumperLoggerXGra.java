@@ -250,6 +250,14 @@ public class TwoRxDumperLoggerXGra
             }
         });
         panel.add(rstButton);
+        JButton readButton = new JButton("Read Flash");
+        readButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                readFlashDump(handle);
+            }
+        });
+        panel.add(readButton);
         JPanel mainPanel = new JPanel();
         textArea = new JTextArea();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -259,6 +267,14 @@ public class TwoRxDumperLoggerXGra
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private static void readFlashDump(DeviceHandle handle) {
+        sendCommand(handle, 8, new byte[] { }, true);
+        flash_wakeup(handle);
+        flash_id(handle);
+        flash_read(handle, 0x100000);
+        sendCommand(handle, 9, new byte[] { }, true);
     }
 
     static class MyDrawing extends JPanel {

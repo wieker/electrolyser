@@ -33,12 +33,12 @@ module spi_writer(input wire clk, input wire reset,
       read_addr_reg = 0;
 
       //bunch of commands to read status registers as well as the flash from the datasheet
-      // read_cmd = 8'h03; //read
+      read_cmd = 8'h02; //write
       // read_cmd = 8'h0B; //fast read
       // read_cmd = 8'h5d //READ SERIAL FLASH DISCOVERY PARAMETER
       // read_cmd = 8'hB5; //read non volatile parameters
       // read_cmd = 8'h85; //READ VOLATILE CONFIGURATION REGISTER
-      read_cmd = 8'h9F; //read ID
+      // read_cmd = 8'h9F; //read ID
       // read_cmd = 8'h05; //read status register
       wake_up_cmd = 8'hAB; //wakes up the flash, for writing
       we_cmd = 8'h06;
@@ -204,10 +204,10 @@ module spi_writer(input wire clk, input wire reset,
          //read the actual flash value (32bit)
          READ_FLASH: begin
             counter_clk <= counter_clk + 1;
-            SPI_MOSI <= 0;
             spi_ss_reg <= 0; //slave is selected
 
             if(counter_clk == 3'b000) begin
+               SPI_MOSI <= counter_clk[0]; //MSB
                SPI_SCK <= 0;
             end
 
@@ -238,7 +238,7 @@ module spi_writer(input wire clk, input wire reset,
             if(rd_ack == 1) begin
                addr_buffer_free <= 0; //space for a new read/address
                rd_data_available <= 0;
-               state <= SEND_READ_CMD;
+               //state <= SEND_READ_CMD;
             end;
          end
          default: begin
