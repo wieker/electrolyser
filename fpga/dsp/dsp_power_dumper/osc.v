@@ -1,11 +1,11 @@
 module osc(
-    input clk,
+    input clk, ctl1, ctl2,
     output rst,
 );
 
 
     reg [3:0] startup;
-    assign rst = !startup[3];
+    assign rst = !startup[3] || ctl1 || !ctl2;
 
     SB_HFOSC inthosc (
       .CLKHFPU(1'b1),

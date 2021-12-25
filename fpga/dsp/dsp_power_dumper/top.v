@@ -2,11 +2,12 @@ module top(
     output LED1, LED2, fpga_tx, pwm_out,
     input btn1, btn2, lvds_in, fpga_rx, xtal_in,
     output SPI_SCK, output SPI_SS, output SPI_MOSI, input SPI_MISO,
+    input ctl1, ctl2,
 );
 
     wire clk = xtal_in;
     wire rst;
-    osc osc(.clk(clk), .rst(rst));
+    osc osc(.clk(clk), .rst(rst), .ctl1(ctl1), .ctl2(ctl2));
 
     wire sig_in;
     wire comp_in;
