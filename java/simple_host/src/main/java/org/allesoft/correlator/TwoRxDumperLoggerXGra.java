@@ -255,6 +255,8 @@ public class TwoRxDumperLoggerXGra
         readButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                textArea.setText("");
+                running = true;
                 new Thread(() -> readFlashDump(handle)).start();
             }
         });
@@ -300,6 +302,10 @@ public class TwoRxDumperLoggerXGra
                     }
                 }
                 textArea.append(System.lineSeparator());
+
+                if (!running) {
+                    return;
+                }
             }
         }
         sendCommand(handle, 9, new byte[] { }, true);

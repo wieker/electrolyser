@@ -117,7 +117,7 @@ void init_device() {
   for (int i = 0; i < 8; i ++) {
     app_response_buffer[i] = spi_write_byte(read_cmd[i]);
   }
-  if (app_response_buffer[5] == 0x55) {
+  if (app_response_buffer[5] != 0xFF) {
     state = 0;
   } else {
     state = 1;
