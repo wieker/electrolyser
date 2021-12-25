@@ -284,7 +284,7 @@ public class TwoRxDumperLoggerXGra
                 for (int q = 5; q < recv.length; q ++) {
                     // FIXME: no MT safe
                     String value = String.format("0x%02x ",
-                            recv[q]
+                            (int) recv[q] & 0xFF
                     );
                     // FIXME: no MT safe
                     textArea.append(value);

@@ -8,7 +8,9 @@ module spi_writer(input wire clk, input wire reset,
    parameter IDLE = 0, INIT=IDLE+1, WAIT_READ_ADDR=INIT+1,
              SEND_READ_CMD=WAIT_READ_ADDR+1, SEND_READ_ADDR=SEND_READ_CMD+1, READ_FLASH=SEND_READ_ADDR+1, WAIT_READ_ACK=READ_FLASH+1,
              SEND_WAKE_UP_CMD=WAIT_READ_ACK+1, WAIT_WAKE_UP=SEND_WAKE_UP_CMD+1,
-             SEND_WE_CMD=WAIT_WAKE_UP+1, WAIT_WE=SEND_WE_CMD+1, WAIT_BANK=WAIT_WE+1;
+             SEND_WE_CMD=WAIT_WAKE_UP+1, WAIT_WE=SEND_WE_CMD+1, WAIT_BANK=WAIT_WE+1,
+             SYNC_CLOCK=WAIT_BANK+1
+             ;
 
    reg [2:0] counter_clk;
    reg [5:0] counter_send; //64 max
@@ -208,13 +210,13 @@ module spi_writer(input wire clk, input wire reset,
 
          //read the actual flash value (32bit)
          READ_FLASH: begin
-             if (counter_send == 0) begin
+             if ((counter_send == 0) && (counter_clk == 3'b000)) begin
                 wr_data_latch <= wr_data;
              end
             counter_clk <= counter_clk + 1;
             spi_ss_reg <= 0; //slave is selected
 
-            if(counter_clk == 3'b000) begin
+            if(counter_clk == 3'b001) begin
                SPI_MOSI <= wr_data_latch[15]; //MSB
                SPI_SCK <= 0;
             end
