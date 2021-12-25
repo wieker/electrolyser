@@ -28,7 +28,7 @@ module spi_writer(input wire clk, input wire reset,
    initial begin
       SPI_SCK = 0;
       rd_data_available = 0;
-      rd_ack_old = 1;
+      rd_ack_old = 0;
 
       counter_clk = 0;
       counter_send = 0;

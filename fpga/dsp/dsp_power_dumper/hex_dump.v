@@ -7,7 +7,7 @@ module hex_dump(
     assign rdy4 = SPI_MISO;
     assign rdy3 = SPI_SCK;
 
-    reg [10:0] ram_addr;
+    reg [15:0] ram_addr;
 
     reg tx_start;
     reg [7:0] touart;
@@ -20,7 +20,7 @@ module hex_dump(
 
         end else if ((ram_addr[8] == 0) && (spi_rd_data_available != rd_data_available_old) && !tx_busy && !bugfix001) begin
             rd_data_available_old <= spi_rd_data_available;
-            spi_rd_ack <= 1;
+            spi_rd_ack <= ~ spi_rd_ack;
             bugfix001 <= 1;
             tx_start <= 1;
             touart <= ram_addr[7:0];
@@ -28,7 +28,6 @@ module hex_dump(
             state <= state + 1;
             spi_data <= ram_addr;
         end else begin
-            spi_rd_ack <= 0;
             if (!tx_busy && bugfix001) begin
                 bugfix001 <= 0;
             end
@@ -88,7 +87,7 @@ module hex_dump(
     spi_writer spi_master_inst(.clk(clk_counter[20]), .reset(rst),
           .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
           .addr_buffer_free(spi_addr_buffer_free), .addr_en(1), .addr_data(24'h100000),
-          .rd_data_available(spi_rd_data_available), .rd_ack(0), .wr_data(15'h1015)
+          .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .wr_data(ram_addr)
     );
 
 endmodule
