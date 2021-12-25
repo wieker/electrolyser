@@ -1,8 +1,7 @@
 module spi_writer(input wire clk, input wire reset,
       output reg SPI_SCK, output SPI_SS, output reg SPI_MOSI, input wire SPI_MISO,
       output reg addr_buffer_free, input addr_en, input [23:0] addr_data,
-      output reg rd_data_available, input wire rd_ack, input [15:0] wr_data,
-      output reg rd_flag_echo
+      output reg rd_data_available, input wire rd_ack, input [15:0] wr_data
    );
 
    //states
@@ -22,12 +21,14 @@ module spi_writer(input wire clk, input wire reset,
    reg [31:0] wake_up_wait_counter;
    reg [10:0] counter_written;
    reg [15:0] wr_data_latch;
+   reg rd_ack_old;
 
    assign SPI_SS = spi_ss_reg;
 
    initial begin
       SPI_SCK = 0;
-      rd_data_available = 0;
+      rd_data_available = 1;
+      rd_ack_old = 1;
 
       counter_clk = 0;
       counter_send = 0;
@@ -209,7 +210,6 @@ module spi_writer(input wire clk, input wire reset,
          READ_FLASH: begin
              if (counter_send == 0) begin
                 wr_data_latch <= wr_data;
-                rd_flag_echo <= 0;
              end
             counter_clk <= counter_clk + 1;
             spi_ss_reg <= 0; //slave is selected
@@ -233,7 +233,7 @@ module spi_writer(input wire clk, input wire reset,
                if(counter_send == 15) begin
                   counter_send <= 0;
                   state <= WAIT_READ_ACK;
-                  rd_data_available <= 1;
+                  rd_data_available <= ~ rd_data_available;
                   spi_ss_reg <= 0; //un select slave
                end
             end
@@ -245,12 +245,11 @@ module spi_writer(input wire clk, input wire reset,
                 spi_ss_reg <= 1;
             end else begin
                 spi_ss_reg <= 0;
-                if(rd_ack == 1) begin
+                if(rd_ack != rd_ack_old) begin
+                    rd_ack_old <= rd_ack;
                     counter_written ++;
                    addr_buffer_free <= 0; //space for a new read/address
-                   rd_data_available <= 0;
                    state <= READ_FLASH;
-                   rd_flag_echo <= 1;
                 end
             end
          end

@@ -85,8 +85,7 @@ module hex_dump(
     spi_writer spi_master_inst(.clk(clk_counter[20]), .reset(rst),
           .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
           .addr_buffer_free(spi_addr_buffer_free), .addr_en(1), .addr_data(24'h100000),
-          .rd_data_available(spi_rd_data_available), .rd_ack(spi_ack), .wr_data(wr_data),
-          .rd_flag_echo(rd_flag_echo)
+          .rd_data_available(spi_rd_data_available), .rd_ack(0), .wr_data(15'h1015)
     );
 
 endmodule
