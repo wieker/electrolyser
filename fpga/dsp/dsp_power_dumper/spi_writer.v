@@ -1,7 +1,8 @@
 module spi_writer(input wire clk, input wire reset,
       output reg SPI_SCK, output SPI_SS, output reg SPI_MOSI, input wire SPI_MISO,
       output reg addr_buffer_free, input addr_en, input [23:0] addr_data,
-      output reg rd_data_available, input wire rd_ack, output reg [31:0] rd_data
+      output reg rd_data_available, input wire rd_ack, input [15:0] wr_data,
+      output reg rd_flag_echo
    );
 
    //states
@@ -19,6 +20,8 @@ module spi_writer(input wire clk, input wire reset,
    reg [7:0] we_cmd;
    reg spi_ss_reg;
    reg [31:0] wake_up_wait_counter;
+   reg [10:0] counter_written;
+   reg [15:0] wr_data_latch;
 
    assign SPI_SS = spi_ss_reg;
 
@@ -31,6 +34,7 @@ module spi_writer(input wire clk, input wire reset,
       state = WAIT_READ_ADDR;
       addr_buffer_free = 1;
       read_addr_reg = 0;
+      counter_written = 0;
 
       //bunch of commands to read status registers as well as the flash from the datasheet
       read_cmd = 8'h02; //write
@@ -100,7 +104,7 @@ module spi_writer(input wire clk, input wire reset,
          WAIT_WAKE_UP : begin
             spi_ss_reg <= 1;
             wake_up_wait_counter <= wake_up_wait_counter + 1;
-            if(wake_up_wait_counter[20] == 1) begin
+            if(wake_up_wait_counter[4] == 1) begin
                wake_up_wait_counter <= 0;
                state <= SEND_WE_CMD;
             end
@@ -140,7 +144,7 @@ module spi_writer(input wire clk, input wire reset,
          WAIT_WE : begin
             spi_ss_reg <= 1;
             wake_up_wait_counter <= wake_up_wait_counter + 1;
-            if(wake_up_wait_counter[20] == 1) begin
+            if(wake_up_wait_counter[4] == 1) begin
                wake_up_wait_counter <= 0;
                state <= SEND_READ_CMD;
             end
@@ -203,11 +207,15 @@ module spi_writer(input wire clk, input wire reset,
 
          //read the actual flash value (32bit)
          READ_FLASH: begin
+             if (counter_send == 0) begin
+                wr_data_latch <= wr_data;
+                rd_flag_echo <= 0;
+             end
             counter_clk <= counter_clk + 1;
             spi_ss_reg <= 0; //slave is selected
 
             if(counter_clk == 3'b000) begin
-               SPI_MOSI <= counter_send[0]; //MSB
+               SPI_MOSI <= wr_data_latch[0]; //MSB
                SPI_SCK <= 0;
             end
 
@@ -216,30 +224,35 @@ module spi_writer(input wire clk, input wire reset,
             end
 
             if(counter_clk == 3'b110) begin
-               rd_data[31] <= SPI_MISO;
             end
 
             if(counter_clk == 3'b111) begin
-               rd_data[31:0] <= {rd_data[30:0], rd_data[31]};
+               wr_data_latch[15:0] <= {wr_data_latch[14:0], wr_data_latch[15]};
                counter_clk <= 0;
                counter_send <= counter_send + 1;
-               if(counter_send == 31) begin
+               if(counter_send == 15) begin
                   counter_send <= 0;
                   state <= WAIT_READ_ACK;
                   rd_data_available <= 1;
-                  spi_ss_reg <= 1; //un select slave
+                  spi_ss_reg <= 0; //un select slave
                end
             end
          end
 
          //now that the data is saved, wait for the next read request
          WAIT_READ_ACK: begin
-            spi_ss_reg <= 1; //un select slave
-            if(rd_ack == 1) begin
-               addr_buffer_free <= 0; //space for a new read/address
-               rd_data_available <= 0;
-               //state <= SEND_READ_CMD;
-            end;
+            if (counter_written == 100) begin
+                spi_ss_reg <= 1;
+            end else begin
+                spi_ss_reg <= 0;
+                if(rd_ack == 1) begin
+                    counter_written ++;
+                   addr_buffer_free <= 0; //space for a new read/address
+                   rd_data_available <= 0;
+                   state <= READ_FLASH;
+                   rd_flag_echo <= 1;
+                end
+            end
          end
          default: begin
          end

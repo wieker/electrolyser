@@ -19,12 +19,13 @@ module hex_dump(
         if (rst) begin
 
         end else if ((ram_addr[8] == 0) && spi_rd && !tx_busy && !bugfix001) begin
-            spi_rd_ack <= state == 3;
+            spi_rd_ack <= 1;
             bugfix001 <= 1;
             tx_start <= 1;
-            touart <= state == 0 ? spi_data[7:0] : state == 1 ? spi_data[15:8] : state == 2 ? spi_data[23:16] : spi_data[31:24];
+            touart <= ram_addr[7:0];
             ram_addr <= ram_addr + 1;
             state <= state + 1;
+            spi_data <= ram_addr;
         end else begin
             spi_rd_ack <= 0;
             if (!tx_busy && bugfix001) begin
@@ -55,9 +56,9 @@ module hex_dump(
 
     reg spi_rd;
     reg spi_ack;
-    reg [31:0] spi_data;
+    reg [15:0] spi_data;
 
-    reg [10:0] clk_counter;
+    reg [20:0] clk_counter;
     reg xclock;
     always @(posedge clk) begin
         clk_counter <= clk_counter + 1;
@@ -65,7 +66,7 @@ module hex_dump(
             xclock <= 1;
             spi_ack <= spi_ack | spi_rd_ack;
             spi_rd <= spi_rd_data_available;
-            spi_data <= spi_rd_data;
+            wr_data <= spi_data;
         end else if (xclock == 1 && lk_counter[4] == 1) begin
             xclock <= 0;
             spi_ack <= 0;
@@ -78,12 +79,14 @@ module hex_dump(
    reg [23:0] spi_addr_data;
    wire spi_rd_data_available;
    reg spi_rd_ack;
-   wire [31:0] spi_rd_data;
+   reg [15:0] wr_data;
+   wire rd_flag_echo;
 
-    spi_writer spi_master_inst(.clk(clk_counter[4]), .reset(rst),
+    spi_writer spi_master_inst(.clk(clk_counter[20]), .reset(rst),
           .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
           .addr_buffer_free(spi_addr_buffer_free), .addr_en(1), .addr_data(24'h100000),
-          .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data)
+          .rd_data_available(spi_rd_data_available), .rd_ack(spi_ack), .wr_data(wr_data),
+          .rd_flag_echo(rd_flag_echo)
     );
 
 endmodule
