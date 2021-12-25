@@ -18,7 +18,7 @@ module hex_dump(
     begin
         if (rst) begin
 
-        end else if ((ram_addr[8] == 0) && (spi_rd_data_available != rd_data_available_old) && !tx_busy && !bugfix001) begin
+        end else if ((ram_addr[10] == 0) && (spi_rd_data_available != rd_data_available_old) && !tx_busy && !bugfix001) begin
             rd_data_available_old <= spi_rd_data_available;
             spi_rd_ack <= ~ spi_rd_ack;
             bugfix001 <= 1;
@@ -84,7 +84,7 @@ module hex_dump(
 
    reg rd_data_available_old;
 
-    spi_writer spi_master_inst(.clk(clk_counter[20]), .reset(rst),
+    spi_writer spi_master_inst(.clk(clk_counter[10]), .reset(rst),
           .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
           .addr_buffer_free(spi_addr_buffer_free), .addr_en(1), .addr_data(24'h100000),
           .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .wr_data(ram_addr)

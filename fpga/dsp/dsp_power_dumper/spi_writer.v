@@ -8,7 +8,7 @@ module spi_writer(input wire clk, input wire reset,
    parameter IDLE = 0, INIT=IDLE+1, WAIT_READ_ADDR=INIT+1,
              SEND_READ_CMD=WAIT_READ_ADDR+1, SEND_READ_ADDR=SEND_READ_CMD+1, READ_FLASH=SEND_READ_ADDR+1, WAIT_READ_ACK=READ_FLASH+1,
              SEND_WAKE_UP_CMD=WAIT_READ_ACK+1, WAIT_WAKE_UP=SEND_WAKE_UP_CMD+1,
-             SEND_WE_CMD=WAIT_WAKE_UP+1, WAIT_WE=SEND_WE_CMD+1;
+             SEND_WE_CMD=WAIT_WAKE_UP+1, WAIT_WE=SEND_WE_CMD+1, WAIT_BANK=WAIT_WE+1;
 
    reg [2:0] counter_clk;
    reg [5:0] counter_send; //64 max
@@ -19,7 +19,7 @@ module spi_writer(input wire clk, input wire reset,
    reg [7:0] we_cmd;
    reg spi_ss_reg;
    reg [31:0] wake_up_wait_counter;
-   reg [10:0] counter_written;
+   reg [7:0] counter_written;
    reg [15:0] wr_data_latch;
    reg rd_ack_old;
 
@@ -105,7 +105,7 @@ module spi_writer(input wire clk, input wire reset,
          WAIT_WAKE_UP : begin
             spi_ss_reg <= 1;
             wake_up_wait_counter <= wake_up_wait_counter + 1;
-            if(wake_up_wait_counter[4] == 1) begin
+            if(wake_up_wait_counter[10] == 1) begin
                wake_up_wait_counter <= 0;
                state <= SEND_WE_CMD;
             end
@@ -145,7 +145,7 @@ module spi_writer(input wire clk, input wire reset,
          WAIT_WE : begin
             spi_ss_reg <= 1;
             wake_up_wait_counter <= wake_up_wait_counter + 1;
-            if(wake_up_wait_counter[4] == 1) begin
+            if(wake_up_wait_counter[10] == 1) begin
                wake_up_wait_counter <= 0;
                state <= SEND_READ_CMD;
             end
@@ -241,16 +241,27 @@ module spi_writer(input wire clk, input wire reset,
 
          //now that the data is saved, wait for the next read request
          WAIT_READ_ACK: begin
-            if (counter_written == 100) begin
-                spi_ss_reg <= 1;
-            end else begin
-                spi_ss_reg <= 0;
-                if(rd_ack != rd_ack_old) begin
-                    rd_ack_old <= rd_ack;
-                    counter_written ++;
-                   addr_buffer_free <= 0; //space for a new read/address
-                   state <= READ_FLASH;
+            if(rd_ack != rd_ack_old) begin
+                rd_ack_old <= rd_ack;
+                counter_written ++;
+                if (counter_written == 255) begin
+                    spi_ss_reg <= 1;
+                    read_addr_reg <= read_addr_reg + 256;
+                    state <= WAIT_BANK;
+                end else begin
+                    spi_ss_reg <= 0;
+                    state <= READ_FLASH;
                 end
+            end
+         end
+
+         //after sending the waking up, wait for a bit
+         WAIT_BANK : begin
+            spi_ss_reg <= 1;
+            wake_up_wait_counter <= wake_up_wait_counter + 1;
+            if(wake_up_wait_counter[10] == 1) begin
+               wake_up_wait_counter <= 0;
+               state <= WAIT_BANK;
             end
          end
          default: begin

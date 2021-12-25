@@ -273,7 +273,11 @@ public class TwoRxDumperLoggerXGra
         sendCommand(handle, 8, new byte[] { }, true);
         flash_wakeup(handle);
         flash_id(handle);
-        flash_read(handle, 0x100000);
+        for (int i = 0; i < 4; i ++) {
+            for (int j = 0; j < 8; j ++) {
+                flash_read(handle, 0x100000 + i * 256 + j * 32);
+            }
+        }
         sendCommand(handle, 9, new byte[] { }, true);
     }
 
