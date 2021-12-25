@@ -7,6 +7,8 @@
 
 #define GPIO_LED      0
 #define GPIO_RST      1
+#define GPIO_CTL1     2
+#define GPIO_CTL2     3
 
 
 

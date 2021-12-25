@@ -23,8 +23,8 @@ module top(
       ctr <= ctr + 1;
     end
 
-    assign LED2 = rdy3;
-    assign LED1 = rdy4;
+    assign LED2 = ctl1;
+    assign LED1 = ctl2;
 
     assign pwm_out = 0;
 

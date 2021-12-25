@@ -128,4 +128,10 @@ void init_device() {
 
   rst_state = state;
   gpio_write(GPIO_RST, rst_state);
+
+  if (state == 1) {
+    for (int i = 0; i < 500000000; i++) {}
+    gpio_write(GPIO_CTL1, 0);
+    gpio_write(GPIO_CTL2, 1);
+  }
 }

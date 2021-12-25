@@ -32,12 +32,12 @@
 #include "gpio.h"
 
 /*- Definitions -------------------------------------------------------------*/
-#define GPIO_COUNT   2
+#define GPIO_COUNT   4
 
 HAL_GPIO_PIN(0,   A, 14);
 HAL_GPIO_PIN(1,   A, 3);
-HAL_GPIO_PIN(2,   B, 2);
-HAL_GPIO_PIN(3,   B, 3);
+HAL_GPIO_PIN(2,   A, 22);
+HAL_GPIO_PIN(3,   A, 16);
 HAL_GPIO_PIN(4,   B, 4);
 HAL_GPIO_PIN(5,   B, 5);
 HAL_GPIO_PIN(6,   B, 6);
