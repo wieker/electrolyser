@@ -141,7 +141,7 @@ public class TwoRxDumperLoggerXGra
     }
 
     public static byte[] flash_read(DeviceHandle handle, int addr) {
-        byte buffer[] = new byte[4 + 32];
+        byte buffer[] = new byte[4 + 33];
         buffer[0] = 0x0B;
         buffer[1] = (byte) ((addr >> 16) & 0xFF);
         buffer[2] = (byte) ((addr >> 8) & 0xFF);
@@ -270,9 +270,10 @@ public class TwoRxDumperLoggerXGra
         mainPanel.add(scrollBar);
         scrollBar.addAdjustmentListener(adjustmentEvent -> {
             int value = adjustmentEvent.getValue();
-            drawArea.setValue(spiDump[value * 4 + 2]);
-            drawArea.setValue(spiDump[value * 4 + 3]);
-            drawArea.setOffset(spiDump[value * 4 + 1]);
+            drawArea.setValue(spiDump[value * 4 + 6]);
+            drawArea.setValue(spiDump[value * 4 + 7]);
+            drawArea.setOffset(spiDump[value * 4 + 9]);
+            textArea.select(30 + value * 20 + (value - 1) / 8, 30 + value * 20 + 20 + (value - 1) / 8);
         });
         textArea = new JTextArea();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
