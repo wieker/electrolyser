@@ -11,13 +11,17 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import java.awt.Adjustable;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -262,6 +266,14 @@ public class TwoRxDumperLoggerXGra
         });
         panel.add(readButton);
         JPanel mainPanel = new JPanel();
+        JScrollBar scrollBar = new JScrollBar(Adjustable.HORIZONTAL, 0, 10, 0, 256);
+        mainPanel.add(scrollBar);
+        scrollBar.addAdjustmentListener(adjustmentEvent -> {
+            int value = adjustmentEvent.getValue();
+            drawArea.setValue(spiDump[value * 4 + 2]);
+            drawArea.setValue(spiDump[value * 4 + 3]);
+            drawArea.setOffset(spiDump[value * 4 + 1]);
+        });
         textArea = new JTextArea();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
         drawArea = new MyDrawing();
@@ -272,10 +284,13 @@ public class TwoRxDumperLoggerXGra
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    private static int[] spiDump = new int[32 * 32];
+
     private static void readFlashDump(DeviceHandle handle) {
         sendCommand(handle, 8, new byte[] { }, true);
         flash_wakeup(handle);
         flash_id(handle);
+        int k = 0;
         for (int i = 0; i < 4; i ++) {
             for (int j = 0; j < 8; j ++) {
                 byte[] recv = flash_read(handle, 0x100000 + i * 256 + j * 32);
@@ -288,6 +303,7 @@ public class TwoRxDumperLoggerXGra
                     );
                     // FIXME: no MT safe
                     textArea.append(value);
+                    spiDump[k] = (int) recv[q] & 0xFF;
                     if (pos % 4 > 1) {
                         drawArea.setValue((int) recv[q] & 0xFF);
                     }
@@ -295,11 +311,7 @@ public class TwoRxDumperLoggerXGra
                         drawArea.setOffset((int) recv[q] & 0xFF);
                     }
                     pos ++;
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    k ++;
                 }
                 textArea.append(System.lineSeparator());
 
