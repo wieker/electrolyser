@@ -27,7 +27,7 @@ module osc(
       .CLKHF(ttt)
     );
 
-    always@(posedge clk)
+    always@(posedge xtal_in)
     begin
       if (rst)
         startup <= startup + 1;

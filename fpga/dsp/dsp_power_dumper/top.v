@@ -5,17 +5,19 @@ module top(
     input ctl1, ctl2,
 );
 
-    wire clk;
+    wire clk = xtal_in;
+    wire rf_clk;
     wire rst;
-    osc osc(.xtal_in(xtal_in), .clk(clk), .rst(rst), .ctl1(ctl1), .ctl2(ctl2));
+    osc osc(.xtal_in(xtal_in), .clk(rf_clk), .rst(rst), .ctl1(ctl1), .ctl2(ctl2));
 
     wire sig_in;
     wire comp_in;
-	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
+	digitizer digitizer(.clk(rf_clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
     wire rdy3, rdy4;
     hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(fpga_rx), .rdy3(rdy3), .rdy4(rdy4),
-        .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO));
+        .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
+        .rf_clk(rf_clk));
 
     reg [7:0] ctr;
     always@(posedge clk)

@@ -1,5 +1,5 @@
 module hex_dump(
-    input clk, rst, sig, fpga_rx,
+    input clk, rst, sig, fpga_rx, rf_clk,
     output fpga_tx, rdy3, rdy4,
     output SPI_SCK, output SPI_SS, output SPI_MOSI, input SPI_MISO,
 );
@@ -9,7 +9,7 @@ module hex_dump(
     wire [7:0] i_value;
     wire [7:0] q_value;
 
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy(stb),
+    dispatcher dispatcher(.clk(rf_clk), .rst_in(rst), .sig(sig), .rdy(stb),
         .i_value_reg(i_value), .q_value_reg(q_value));
 
     reg [10:0] ram_addr;
