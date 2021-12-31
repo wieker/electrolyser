@@ -5,9 +5,9 @@ module top(
     input ctl1, ctl2,
 );
 
-    wire clk = xtal_in;
+    wire clk;
     wire rst;
-    osc osc(.clk(clk), .rst(rst), .ctl1(ctl1), .ctl2(ctl2));
+    osc osc(.xtal_in(xtal_in), .clk(clk), .rst(rst), .ctl1(ctl1), .ctl2(ctl2));
 
     wire sig_in;
     wire comp_in;
