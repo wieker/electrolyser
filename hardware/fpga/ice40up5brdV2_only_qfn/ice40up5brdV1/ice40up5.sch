@@ -36,39 +36,7 @@ F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 7050 4500 50 
 	1    0    0    -1  
 $EndComp
 Text GLabel 2750 3200 0    50   Input ~ 0
-ale
-Text GLabel 2750 3500 0    50   Input ~ 0
-re
-Text GLabel 2750 3400 0    50   Input ~ 0
-we
-Text GLabel 2750 3600 0    50   Input ~ 0
-cle
-Text GLabel 2750 3700 0    50   Input ~ 0
-ce
-Text GLabel 2750 3800 0    50   Input ~ 0
-d0
-Text GLabel 2750 3900 0    50   Input ~ 0
-d1
-Text GLabel 2750 4100 0    50   Input ~ 0
-d2
-Text GLabel 2750 4200 0    50   Input ~ 0
-d3
-Text GLabel 2750 4000 0    50   Input ~ 0
-d4
-Text GLabel 2750 4400 0    50   Input ~ 0
-d5
-Text GLabel 2750 4600 0    50   Input ~ 0
-d6
-Text GLabel 2750 4700 0    50   Input ~ 0
-d7
-Text GLabel 7050 3900 0    50   Input ~ 0
-a1
-Text GLabel 7050 4000 0    50   Input ~ 0
-b1
-Text GLabel 7050 3800 0    50   Input ~ 0
-a2
-Text GLabel 7050 3600 0    50   Input ~ 0
-b2
+lvds_23_false
 $Comp
 L power:+3V3 #PWR01
 U 1 1 60B33280
@@ -161,24 +129,45 @@ Wire Wire Line
 Connection ~ 5250 2400
 Wire Wire Line
 	5250 2400 5600 2400
-NoConn ~ 2750 3300
-Text GLabel 2750 4800 0    50   Input ~ 0
-l1
-Text GLabel 2750 4500 0    50   Input ~ 0
-l2
+Text GLabel 2750 3300 0    50   Input ~ 0
+lvds_23_true
+Text GLabel 2750 3400 0    50   Input ~ 0
+lvds_26_false
+Text GLabel 2750 3500 0    50   Input ~ 0
+lvds_26_true
+Text GLabel 2750 3700 0    50   Input ~ 0
+lvds_32_false
+Text GLabel 2750 3800 0    50   Input ~ 0
+lvds_32_true
+NoConn ~ 2750 3600
+Text GLabel 2750 3900 0    50   Input ~ 0
+lvds_37_false
+Text GLabel 2750 4000 0    50   Input ~ 0
+lvds_37_true
+NoConn ~ 2750 4100
+NoConn ~ 2750 4600
+NoConn ~ 2750 4700
+NoConn ~ 2750 4800
+Text GLabel 2750 4200 0    50   Input ~ 0
+lvds_43_false
 Text GLabel 2750 4300 0    50   Input ~ 0
-l3
-Text GLabel 6950 3300 0    50   Input ~ 0
-btn1
-Wire Wire Line
-	6950 3300 7050 3300
-Text GLabel 6950 3700 0    50   Input ~ 0
-btn2
-Wire Wire Line
-	6950 3700 7050 3700
-Text GLabel 6950 3500 0    50   Input ~ 0
-btn3
-Wire Wire Line
-	6950 3500 7050 3500
-NoConn ~ 7050 3400
+lvds_43_true
+Text GLabel 2750 4400 0    50   Input ~ 0
+lvds_36_false
+Text GLabel 2750 4500 0    50   Input ~ 0
+lvds_36_true
+NoConn ~ 7050 3300
+Text GLabel 7050 3400 0    50   Input ~ 0
+lvds_32_false
+Text GLabel 7050 3500 0    50   Input ~ 0
+lvds_32_true
+Text GLabel 7050 3600 0    50   Input ~ 0
+lvds_37_false
+Text GLabel 7050 3700 0    50   Input ~ 0
+lvds_37_true
+NoConn ~ 7050 3800
+Text GLabel 7050 3900 0    50   Input ~ 0
+lvds_37_false
+Text GLabel 7050 4000 0    50   Input ~ 0
+lvds_37_true
 $EndSCHEMATC
