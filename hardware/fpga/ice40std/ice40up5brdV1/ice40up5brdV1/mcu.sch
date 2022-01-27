@@ -13,17 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L cyUsb:USBFCI_10103594_MILL X2
-U 1 1 5E5FC52E
-P 4900 3000
-F 0 "X2" H 4472 2960 42  0000 R CNN
-F 1 "USBFCI_10103594_MILL" H 4472 3039 42  0000 R CNN
-F 2 "kifootp:FCI_10103594_MILL" H 4900 3000 50  0001 C CNN
-F 3 "" H 4900 3000 50  0001 C CNN
-	1    4900 3000
-	-1   0    0    1   
-$EndComp
 Text GLabel 2500 2300 0    50   Input ~ 0
 uart_tx
 Text GLabel 2500 2400 0    50   Input ~ 0
@@ -97,12 +86,12 @@ Wire Wire Line
 $Comp
 L power:GND #PWR048
 U 1 1 5E6043F3
-P 4350 3500
-F 0 "#PWR048" H 4350 3250 50  0001 C CNN
-F 1 "GND" H 4355 3327 50  0000 C CNN
-F 2 "" H 4350 3500 50  0001 C CNN
-F 3 "" H 4350 3500 50  0001 C CNN
-	1    4350 3500
+P 4350 3600
+F 0 "#PWR048" H 4350 3350 50  0001 C CNN
+F 1 "GND" H 4355 3427 50  0000 C CNN
+F 2 "" H 4350 3600 50  0001 C CNN
+F 3 "" H 4350 3600 50  0001 C CNN
+	1    4350 3600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -133,11 +122,6 @@ Wire Wire Line
 	4200 3200 4500 3200
 Wire Wire Line
 	3000 1100 3000 1400
-Wire Wire Line
-	4500 2800 4350 2800
-Wire Wire Line
-	4350 2800 4350 3500
-NoConn ~ 4500 2900
 Text GLabel 2500 1800 0    50   Input ~ 0
 swd_rst
 Text GLabel 2500 2000 0    50   Input ~ 0
@@ -146,10 +130,6 @@ Text GLabel 2500 2100 0    50   Input ~ 0
 swd_io
 Text GLabel 3500 2400 2    50   Input ~ 0
 led_mcu
-Wire Wire Line
-	3500 3000 4500 3000
-Wire Wire Line
-	4500 3100 3500 3100
 Text GLabel 3500 1700 2    50   Input ~ 0
 creset
 Text GLabel 3500 1600 2    50   Input ~ 0
@@ -396,4 +376,78 @@ Wire Wire Line
 	1100 1200 1150 1200
 Wire Wire Line
 	1100 1300 1150 1300
+$Comp
+L Connector:Conn_01x04_Male J4
+U 1 1 61F3412E
+P 4700 3100
+F 0 "J4" H 4672 2982 50  0000 R CNN
+F 1 "Conn_01x04_Male" H 4672 3073 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Horizontal" H 4700 3100 50  0001 C CNN
+F 3 "~" H 4700 3100 50  0001 C CNN
+	1    4700 3100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4500 2900 4350 2900
+Wire Wire Line
+	4350 2900 4350 3600
+$Comp
+L power:GND #PWR055
+U 1 1 61F41ABF
+P 8250 4200
+F 0 "#PWR055" H 8250 3950 50  0001 C CNN
+F 1 "GND" H 8255 4027 50  0000 C CNN
+F 2 "" H 8250 4200 50  0001 C CNN
+F 3 "" H 8250 4200 50  0001 C CNN
+	1    8250 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR054
+U 1 1 61F41AC5
+P 8100 2750
+F 0 "#PWR054" H 8100 2600 50  0001 C CNN
+F 1 "+5V" H 8115 2923 50  0000 C CNN
+F 2 "" H 8100 2750 50  0001 C CNN
+F 3 "" H 8100 2750 50  0001 C CNN
+	1    8100 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8100 2750 8100 3800
+Wire Wire Line
+	8100 3800 8400 3800
+$Comp
+L Connector:Conn_01x04_Male J5
+U 1 1 61F41ACF
+P 8600 3700
+F 0 "J5" H 8572 3582 50  0000 R CNN
+F 1 "Conn_01x04_Male" H 8572 3673 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Horizontal" H 8600 3700 50  0001 C CNN
+F 3 "~" H 8600 3700 50  0001 C CNN
+	1    8600 3700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8400 3500 8250 3500
+Wire Wire Line
+	8250 3500 8250 4200
+NoConn ~ 8400 3600
+NoConn ~ 8400 3700
+Wire Wire Line
+	3500 3100 3850 3100
+Wire Wire Line
+	3850 3100 3850 3000
+Wire Wire Line
+	3850 3000 4500 3000
+Wire Wire Line
+	3500 3000 3650 3000
+Wire Wire Line
+	3650 3000 3650 3250
+Wire Wire Line
+	3650 3250 4100 3250
+Wire Wire Line
+	4100 3250 4100 3100
+Wire Wire Line
+	4100 3100 4500 3100
 $EndSCHEMATC
