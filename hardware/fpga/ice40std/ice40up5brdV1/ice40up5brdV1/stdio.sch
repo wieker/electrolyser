@@ -340,7 +340,7 @@ rfrx2_true
 Text GLabel 2650 2450 2    50   Input ~ 0
 rfrx2_false
 Text GLabel 2650 2550 2    50   Input ~ 0
-cle
+notLVDS
 Text GLabel 2650 2750 2    50   Input ~ 0
 rfrx0_false
 Text GLabel 2650 2950 2    50   Input ~ 0
@@ -348,7 +348,7 @@ rfrx0_true
 Text GLabel 2650 3050 2    50   Input ~ 0
 d1
 Text GLabel 2650 3250 2    50   Input ~ 0
-d2
+notLVDS1
 Text GLabel 2650 3350 2    50   Input ~ 0
 d3
 Text GLabel 2650 3550 2    50   Input ~ 0
