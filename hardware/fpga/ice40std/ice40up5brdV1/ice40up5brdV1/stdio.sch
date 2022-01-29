@@ -342,9 +342,9 @@ we
 Text GLabel 2650 2550 2    50   Input ~ 0
 cle
 Text GLabel 2650 2750 2    50   Input ~ 0
-ce
+rfrx0_false
 Text GLabel 2650 2950 2    50   Input ~ 0
-d0
+rfrx0_true
 Text GLabel 2650 3050 2    50   Input ~ 0
 d1
 Text GLabel 2650 3250 2    50   Input ~ 0

@@ -44,9 +44,9 @@ we
 Text GLabel 2750 3600 0    50   Input ~ 0
 cle
 Text GLabel 2750 3700 0    50   Input ~ 0
-ce
+rfrx0_false
 Text GLabel 2750 3800 0    50   Input ~ 0
-d0
+rfrx0_true
 Text GLabel 2750 3900 0    50   Input ~ 0
 d1
 Text GLabel 2750 4100 0    50   Input ~ 0
