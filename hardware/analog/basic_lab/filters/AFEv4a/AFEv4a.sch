@@ -35,4 +35,32 @@ F 3 "" H 4550 3150 50  0001 C CNN
 	1    4550 3150
 	1    0    0    -1  
 $EndComp
+Text GLabel 1800 3350 2    50   Input ~ 0
+rfrx0_true
+Text GLabel 1800 3550 2    50   Input ~ 0
+rfrx0_false
+Text GLabel 1800 4150 2    50   Input ~ 0
+3V3
+Text GLabel 1800 3150 2    50   Input ~ 0
+GND
+Text GLabel 1800 3450 2    50   Input ~ 0
+GND
+Text GLabel 1800 3650 2    50   Input ~ 0
+GND
+NoConn ~ 1800 4050
+NoConn ~ 1800 3950
+NoConn ~ 1800 3850
+NoConn ~ 1800 3750
+NoConn ~ 1800 3250
+NoConn ~ 1800 3050
+NoConn ~ 1800 2250
+NoConn ~ 1800 2350
+NoConn ~ 1800 2450
+NoConn ~ 1800 2550
+NoConn ~ 1800 2650
+NoConn ~ 1800 2750
+NoConn ~ 1800 2850
+NoConn ~ 1800 2950
+Text GLabel 4350 3250 0    50   Input ~ 0
+GND
 $EndSCHEMATC
