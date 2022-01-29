@@ -46,13 +46,13 @@ rfrx0_false
 Text GLabel 2750 3800 0    50   Input ~ 0
 rfrx0_true
 Text GLabel 2750 3900 0    50   Input ~ 0
-d1
+rfrx4_false
 Text GLabel 2750 4100 0    50   Input ~ 0
 notLVDS1
 Text GLabel 2750 4200 0    50   Input ~ 0
-d3
+rfrx3_false
 Text GLabel 2750 4000 0    50   Input ~ 0
-d4
+rfrx4_true
 Text GLabel 2750 4400 0    50   Input ~ 0
 d5
 Text GLabel 2750 4600 0    50   Input ~ 0
@@ -164,7 +164,7 @@ l1
 Text GLabel 2750 4500 0    50   Input ~ 0
 l2
 Text GLabel 2750 4300 0    50   Input ~ 0
-l3
+rfrx3_true
 Text GLabel 6950 3300 0    50   Input ~ 0
 btn1
 Wire Wire Line

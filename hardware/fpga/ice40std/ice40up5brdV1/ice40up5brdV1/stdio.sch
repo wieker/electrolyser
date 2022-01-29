@@ -320,7 +320,7 @@ l1
 Text GLabel 7700 2050 0    50   Input ~ 0
 l2
 Text GLabel 7700 2300 0    50   Input ~ 0
-l3
+rfrx3_true
 Wire Wire Line
 	7700 2300 8400 2300
 Wire Wire Line
@@ -346,13 +346,13 @@ rfrx0_false
 Text GLabel 2650 2950 2    50   Input ~ 0
 rfrx0_true
 Text GLabel 2650 3050 2    50   Input ~ 0
-d1
+rfrx4_false
 Text GLabel 2650 3250 2    50   Input ~ 0
 notLVDS1
 Text GLabel 2650 3350 2    50   Input ~ 0
-d3
+rfrx3_false
 Text GLabel 2650 3550 2    50   Input ~ 0
-d4
+rfrx4_true
 Text GLabel 2650 3650 2    50   Input ~ 0
 d5
 Text GLabel 2650 3850 2    50   Input ~ 0
