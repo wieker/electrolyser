@@ -35,8 +35,6 @@ F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 7050 4500 50 
 	3    7450 3500
 	1    0    0    -1  
 $EndComp
-Text GLabel 2750 3200 0    50   Input ~ 0
-ale
 Text GLabel 2750 3500 0    50   Input ~ 0
 re
 Text GLabel 2750 3400 0    50   Input ~ 0
@@ -161,7 +159,6 @@ Wire Wire Line
 Connection ~ 5250 2400
 Wire Wire Line
 	5250 2400 5600 2400
-NoConn ~ 2750 3300
 Text GLabel 2750 4800 0    50   Input ~ 0
 l1
 Text GLabel 2750 4500 0    50   Input ~ 0
@@ -181,4 +178,7 @@ btn3
 Wire Wire Line
 	6950 3500 7050 3500
 NoConn ~ 7050 3400
+Text GLabel 2750 3200 0    50   Input ~ 0
+rfrx1_false
+NoConn ~ 2750 3300
 $EndSCHEMATC

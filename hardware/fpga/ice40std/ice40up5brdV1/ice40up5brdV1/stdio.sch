@@ -334,7 +334,7 @@ Wire Wire Line
 Wire Wire Line
 	8800 1850 8800 2800
 Text GLabel 2650 2250 2    50   Input ~ 0
-ale
+rfrx1_false
 Text GLabel 2650 2350 2    50   Input ~ 0
 re
 Text GLabel 2650 2450 2    50   Input ~ 0
