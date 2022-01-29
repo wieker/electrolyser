@@ -54,7 +54,7 @@ rfrx3_false
 Text GLabel 2750 4000 0    50   Input ~ 0
 rfrx4_true
 Text GLabel 2750 4400 0    50   Input ~ 0
-d5
+rfrx5_false
 Text GLabel 2750 4600 0    50   Input ~ 0
 d6
 Text GLabel 2750 4700 0    50   Input ~ 0
@@ -162,7 +162,7 @@ Wire Wire Line
 Text GLabel 2750 4800 0    50   Input ~ 0
 l1
 Text GLabel 2750 4500 0    50   Input ~ 0
-l2
+rfrx5_true
 Text GLabel 2750 4300 0    50   Input ~ 0
 rfrx3_true
 Text GLabel 6950 3300 0    50   Input ~ 0
