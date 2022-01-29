@@ -336,9 +336,9 @@ Wire Wire Line
 Text GLabel 2650 2250 2    50   Input ~ 0
 rfrx1_false
 Text GLabel 2650 2350 2    50   Input ~ 0
-re
+rfrx2_true
 Text GLabel 2650 2450 2    50   Input ~ 0
-we
+rfrx2_false
 Text GLabel 2650 2550 2    50   Input ~ 0
 cle
 Text GLabel 2650 2750 2    50   Input ~ 0

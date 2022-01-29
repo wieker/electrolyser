@@ -36,9 +36,9 @@ F 3 "http://www.latticesemi.com/Products/FPGAandCPLD/iCE40Ultra" H 7050 4500 50 
 	1    0    0    -1  
 $EndComp
 Text GLabel 2750 3500 0    50   Input ~ 0
-re
+rfrx2_true
 Text GLabel 2750 3400 0    50   Input ~ 0
-we
+rfrx2_false
 Text GLabel 2750 3600 0    50   Input ~ 0
 cle
 Text GLabel 2750 3700 0    50   Input ~ 0
