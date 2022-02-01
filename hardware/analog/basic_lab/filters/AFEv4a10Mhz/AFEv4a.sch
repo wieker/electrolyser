@@ -291,4 +291,59 @@ Wire Wire Line
 	4550 4400 4950 4400
 Wire Wire Line
 	4550 4400 4550 4850
+Text GLabel 2950 2750 0    50   Input ~ 0
+3V3
+Text GLabel 3400 2750 2    50   Input ~ 0
+GND
+$Comp
+L Device:C C4
+U 1 1 61F9B57E
+P 3200 2750
+F 0 "C4" V 2948 2750 50  0000 C CNN
+F 1 "C" V 3039 2750 50  0000 C CNN
+F 2 "Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P15.00mm_Horizontal" H 3238 2600 50  0001 C CNN
+F 3 "~" H 3200 2750 50  0001 C CNN
+	1    3200 2750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3350 2750 3400 2750
+Wire Wire Line
+	2950 2750 3050 2750
+$Comp
+L bgt:Connector_Generic_Conn_01x02 J3
+U 1 1 61F9FADE
+P 6550 5200
+F 0 "J3" H 6630 5192 50  0000 L CNN
+F 1 "Connector_Generic_Conn_01x02" H 6630 5101 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6550 5200 50  0001 C CNN
+F 3 "" H 6550 5200 50  0001 C CNN
+	1    6550 5200
+	1    0    0    -1  
+$EndComp
+Text GLabel 6350 5300 0    50   Input ~ 0
+GND
+Wire Wire Line
+	5900 5200 6350 5200
+Text GLabel 5900 5200 0    50   Input ~ 0
+bpf_lvds
+Text GLabel 2850 5300 0    50   Input ~ 0
+rfrx0_false
+Text GLabel 3300 5300 2    50   Input ~ 0
+GND
+$Comp
+L Device:C C5
+U 1 1 61FA3683
+P 3100 5300
+F 0 "C5" V 2848 5300 50  0000 C CNN
+F 1 "C" V 2939 5300 50  0000 C CNN
+F 2 "Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P15.00mm_Horizontal" H 3138 5150 50  0001 C CNN
+F 3 "~" H 3100 5300 50  0001 C CNN
+	1    3100 5300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3250 5300 3300 5300
+Wire Wire Line
+	2850 5300 2950 5300
 $EndSCHEMATC
