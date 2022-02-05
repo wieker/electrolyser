@@ -1,5 +1,5 @@
 module top(
-    output LED1, LED2,
+    output LED1
 );
 
     wire clk;
@@ -10,13 +10,12 @@ module top(
       .CLKHF(clk)
     );
 
-    reg [10:0] counter;
+    reg [24:0] counter;
 
     always @(posedge clk) begin
         counter <= counter + 1;
     end
 
-    assign LED1 = counter[10];
-    assign LED2 = counter[9];
+    assign LED1 = counter[22];
 
 endmodule
