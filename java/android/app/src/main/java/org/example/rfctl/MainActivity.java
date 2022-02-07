@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -117,6 +119,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+        Button closeButton = (Button)this.findViewById(R.id.close);
+        closeButton.setOnClickListener(e -> {
+            try {
+                for (UsbDevice device : mUsbManager.getDeviceList().values()) {
+                    UsbDeviceConnection connection = mUsbManager.openDevice(device);
+                    connection.claimInterface(device.getInterface(0), false);
+                    connection.bulkTransfer(device.getInterface(0).getEndpoint(1), new byte[]{0, 0}, 2, 0);
+                }
+            } catch (Exception ex) {
+                TextView textView = (TextView) findViewById(R.id.text);
+                textView.setText(ex.toString());
+            }
+        });
     }
 
     @Override
