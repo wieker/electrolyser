@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         Button closeButton = (Button)this.findViewById(R.id.close);
         closeButton.setOnClickListener(e -> {
             try {
