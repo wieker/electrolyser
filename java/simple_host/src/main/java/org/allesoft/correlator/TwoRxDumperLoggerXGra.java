@@ -270,10 +270,10 @@ public class TwoRxDumperLoggerXGra
         mainPanel.add(scrollBar);
         scrollBar.addAdjustmentListener(adjustmentEvent -> {
             int value = adjustmentEvent.getValue();
-            drawArea.setValue(spiDump[value * 4 + 6]);
-            drawArea.setValue(spiDump[value * 4 + 7]);
-            drawArea.setOffset(spiDump[value * 4 + 9]);
-            textArea.select(30 + value * 20 + (value - 1) / 8, 30 + value * 20 + 20 + (value - 1) / 8);
+            drawArea.setValue(spiDump[value * 4]);
+            drawArea.setValue(spiDump[value * 4 + 1]);
+            drawArea.setOffset(spiDump[value * 4 + 3]);
+            textArea.select(value * 20 + (value - 1) / 8, value * 20 + 20 + (value - 1) / 8);
         });
         textArea = new JTextArea();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -380,8 +380,9 @@ public class TwoRxDumperLoggerXGra
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
                     String value = String.format("0x%02x ",
-                            ch[i + 1]
+                            (int) ch[i + 1] & 0xFF
                     );
+                    spiDump[pos] = (int) ch[i + 1] & 0xFF;
                     // FIXME: no MT safe
                     textArea.append(value);
                     if (pos % 4 < 2) {
@@ -392,12 +393,12 @@ public class TwoRxDumperLoggerXGra
                     }
                     pos ++;
                     System.out.print(value);
-//                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
-//                    zq ++;
-                }
-                if (ch[0] != 0) {
+                    if (pos % 32 == 0) {
                         System.out.println();
                         textArea.append(System.lineSeparator());
+                    }
+//                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
+//                    zq ++;
                 }
 //                if (zq >= 100) {
 //                    System.out.println(sum / zq);
