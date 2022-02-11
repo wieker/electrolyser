@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     private UsbDeviceConnection usbDeviceConnection;
-    //
+    private UsbDevice device;
 
 
     @Override
@@ -126,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
         closeButton.setOnClickListener(e -> {
             try {
                 for (UsbDevice device : mUsbManager.getDeviceList().values()) {
+                    if (this.device == null) {
+                        this.device = device;
+                    }
                     if (usbDeviceConnection == null) {
                         usbDeviceConnection = mUsbManager.openDevice(device);
                         usbDeviceConnection.claimInterface(device.getInterface(0), false);
@@ -137,6 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView = (TextView) findViewById(R.id.text);
                 textView.setText(ex.toString());
             }
+        });
+
+        Button loopButton = (Button)this.findViewById(R.id.loop);
+        loopButton.setOnClickListener(e -> {
+            TextView textView = (TextView) findViewById(R.id.text);
+            textView.setText("");
+            USBUtils.start_loop(usbDeviceConnection, device, textView);
         });
     }
 

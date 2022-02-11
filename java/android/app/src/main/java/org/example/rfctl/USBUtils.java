@@ -2,15 +2,55 @@ package org.example.rfctl;
 
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
+import android.widget.TextView;
 
 import java.util.concurrent.locks.ReentrantLock;
 
 public class USBUtils {
     private static final ReentrantLock lock = new ReentrantLock();
 
+    public static void start_loop(
+            UsbDeviceConnection usbDeviceConnection, UsbDevice device,
+            TextView textView) {
+        try {
+            sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+            sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+            sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+            sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+            sendCommand(usbDeviceConnection, device, 1, new byte[]{});
+            int pos = 0;
+            for (; true; ) {
+                byte[] ch = sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+                for (int i = 0; i < ch[0]; i ++) {
+                    String value = String.format("0x%02x ",
+                            (int) ch[i + 1] & 0xFF
+                    );
+                    //spiDump[pos] = (int) ch[i + 1] & 0xFF;
+                    // FIXME: no MT safe
+                    textView.append(value);
+                    if (pos % 4 < 2) {
+                        //drawArea.setValue((int) ch[i + 1] & 0xFF);
+                    }
+                    if (pos % 4 == 3) {
+                        //drawArea.setOffset((int) ch[i + 1] & 0xFF);
+                    }
+                    pos ++;
+                    System.out.print(value);
+                    if (pos % 32 == 0) {
+                        System.out.println();
+                        textView.append(System.lineSeparator());
+                    }
+                }
+            }
+            //sendCommand(usbDeviceConnection, device, 1, new byte[]{});
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public static byte[] sendCommand(
             UsbDeviceConnection usbDeviceConnection, UsbDevice device,
-            int command, byte[] cmd, boolean print) {
+            int command, byte[] cmd) {
         lock.lock();
         byte[] message = new byte[64];
         message[0] = (byte) command;
