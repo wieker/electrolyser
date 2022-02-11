@@ -24,6 +24,9 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static org.example.rfctl.USBUtils.sendCommand;
+import static org.example.rfctl.USBUtils.start_loop;
+
 public class MainActivity extends AppCompatActivity {
 
     UsbManager mUsbManager = null;
@@ -146,7 +149,11 @@ public class MainActivity extends AppCompatActivity {
         loopButton.setOnClickListener(e -> {
             TextView textView = (TextView) findViewById(R.id.text);
             textView.setText("");
-            USBUtils.start_loop(usbDeviceConnection, device, textView);
+            try {
+                start_loop(usbDeviceConnection, device, textView);
+            } catch (Exception ex) {
+                textView.setText(ex.toString());
+            }
         });
     }
 

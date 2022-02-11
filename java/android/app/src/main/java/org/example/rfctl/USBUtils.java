@@ -12,40 +12,36 @@ public class USBUtils {
     public static void start_loop(
             UsbDeviceConnection usbDeviceConnection, UsbDevice device,
             TextView textView) {
-        try {
-            sendCommand(usbDeviceConnection, device, 6, new byte[32]);
-            sendCommand(usbDeviceConnection, device, 6, new byte[32]);
-            sendCommand(usbDeviceConnection, device, 6, new byte[32]);
-            sendCommand(usbDeviceConnection, device, 6, new byte[32]);
-            sendCommand(usbDeviceConnection, device, 1, new byte[]{});
-            int pos = 0;
-            for (; true; ) {
-                byte[] ch = sendCommand(usbDeviceConnection, device, 6, new byte[32]);
-                for (int i = 0; i < ch[0]; i ++) {
-                    String value = String.format("0x%02x ",
-                            (int) ch[i + 1] & 0xFF
-                    );
-                    //spiDump[pos] = (int) ch[i + 1] & 0xFF;
-                    // FIXME: no MT safe
-                    textView.append(value);
-                    if (pos % 4 < 2) {
-                        //drawArea.setValue((int) ch[i + 1] & 0xFF);
-                    }
-                    if (pos % 4 == 3) {
-                        //drawArea.setOffset((int) ch[i + 1] & 0xFF);
-                    }
-                    pos ++;
-                    System.out.print(value);
-                    if (pos % 32 == 0) {
-                        System.out.println();
-                        textView.append(System.lineSeparator());
-                    }
+        sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+        sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+        sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+        sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+        sendCommand(usbDeviceConnection, device, 1, new byte[]{});
+        int pos = 0;
+        for (; pos < 20; ) {
+            byte[] ch = sendCommand(usbDeviceConnection, device, 6, new byte[32]);
+            for (int i = 0; i < ch[0]; i ++) {
+                String value = String.format("0x%02x ",
+                        (int) ch[i + 1] & 0xFF
+                );
+                //spiDump[pos] = (int) ch[i + 1] & 0xFF;
+                // FIXME: no MT safe
+                textView.append(value);
+                if (pos % 4 < 2) {
+                    //drawArea.setValue((int) ch[i + 1] & 0xFF);
+                }
+                if (pos % 4 == 3) {
+                    //drawArea.setOffset((int) ch[i + 1] & 0xFF);
+                }
+                pos ++;
+                System.out.print(value);
+                if (pos % 32 == 0) {
+                    System.out.println();
+                    textView.append(System.lineSeparator());
                 }
             }
-            //sendCommand(usbDeviceConnection, device, 1, new byte[]{});
-        } catch (Exception e) {
-            System.out.println(e);
         }
+        //sendCommand(usbDeviceConnection, device, 1, new byte[]{});
     }
 
     public static byte[] sendCommand(
@@ -69,7 +65,7 @@ public class USBUtils {
         int transferred = usbDeviceConnection.bulkTransfer(device.getInterface(0).getEndpoint(1), data, data.length, 0);
 
         if (transferred < 0) {
-            throw new RuntimeException("Control transfer failed");
+            throw new RuntimeException("Bulk transfer failed send");
         }
         if (transferred != data.length) {
             throw new RuntimeException("Not all data was sent to device");
@@ -80,11 +76,11 @@ public class USBUtils {
             UsbDeviceConnection usbDeviceConnection, UsbDevice device,
             int length) {
 
-        byte[] data = new byte[length];
-        int transfered = usbDeviceConnection.bulkTransfer(device.getInterface(0).getEndpoint(0), data, length, 0);
+        byte[] data = new byte[64];
+        int transfered = usbDeviceConnection.bulkTransfer(device.getInterface(0).getEndpoint(0), data, 64, 0);
 
         if (transfered < 0) {
-            throw new RuntimeException("Control transfer failed");
+            throw new RuntimeException("Bulk transfer failed recv");
         }
         if (transfered != 64) {
             throw new RuntimeException("Not all data was received from device");
