@@ -23,7 +23,7 @@ public class SimplePing
     private static final short VENDOR_ID = 0x6666;
 
     //private static final short PRODUCT_ID = 0x6671;
-    private static final short PRODUCT_ID = 0x6668;
+    private static final short PRODUCT_ID = 0x6676;
 
     private static final int TIMEOUT = 0;
 
@@ -64,7 +64,7 @@ public class SimplePing
         if (print) {
             printBytes(message);
         }
-        int err = LibUsb.interruptTransfer(handle, (byte) 2, buffer, transferred, TIMEOUT);
+        int err = LibUsb.bulkTransfer(handle, (byte) 2, buffer, transferred, TIMEOUT);
         if (err < 0) {
             throw new LibUsbException("Control transfer failed", err);
         }
@@ -76,7 +76,7 @@ public class SimplePing
     private static byte[] recv(DeviceHandle handle, int length, boolean print) {
         ByteBuffer buffer = ByteBuffer.allocateDirect(64);
         IntBuffer transferred = IntBuffer.allocate(1);
-        int transfered = LibUsb.interruptTransfer(handle, (byte) 0x81, buffer, transferred, TIMEOUT);
+        int transfered = LibUsb.bulkTransfer(handle, (byte) 0x81, buffer, transferred, TIMEOUT);
         if (transfered < 0) {
             throw new LibUsbException("Control transfer failed", transfered);
         }
