@@ -144,8 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         usbDeviceConnection = mUsbManager.openDevice(device);
                         usbDeviceConnection.claimInterface(device.getInterface(0), false);
                     }
-                    usbDeviceConnection.bulkTransfer(device.getInterface(0).getEndpoint(1), new byte[] {1, 0}, 2, 0);
-                    usbDeviceConnection.bulkTransfer(device.getInterface(0).getEndpoint(0), new byte[64], 64, 0);
+                    sendCommand(usbDeviceConnection, device, 1, new byte[]{});
                 }
             } catch (Exception ex) {
                 TextView textView = (TextView) findViewById(R.id.text);
