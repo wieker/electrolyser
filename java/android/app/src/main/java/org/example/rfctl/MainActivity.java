@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private UsbDeviceConnection usbDeviceConnection;
     private UsbDevice device;
-    private int[] buffer;
+    public static int[] buffer = new int[64];
     public static int selection;
 
 
@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.text);
             textView.setText("");
             try {
-                buffer = new int[64];
                 start_loop(usbDeviceConnection, device, buffer);
                 for (int i = 0; i < buffer.length; i ++) {
                     String value = String.format("0x%02x ",
@@ -176,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(rfView);
 
         SeekBar seekBar = (SeekBar)this.findViewById(R.id.seekBar);
-        seekBar.setMax(1);
-        seekBar.setMax(16);
+        seekBar.setMax(0);
+        seekBar.setMax(15);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

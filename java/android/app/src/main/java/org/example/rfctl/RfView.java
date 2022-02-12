@@ -39,9 +39,12 @@ public class RfView extends View {
 
     protected void onDraw(Canvas canvas) {
         // draw basic shapes
-        canvas.drawLine(
+        int[] buffer = MainActivity.buffer;
+        int position = MainActivity.selection;
+        canvas.drawRect(
                 1, 1,
-                10 * MainActivity.selection, 10 * MainActivity.selection,
+                5 * (Math.abs(0x80 - buffer[position * 4])
+                        + Math.abs(0x80 - buffer[position * 4 + 1])), 50,
                 shaderPaint);
     }
 
