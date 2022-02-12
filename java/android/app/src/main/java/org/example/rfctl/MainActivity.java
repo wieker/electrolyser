@@ -39,58 +39,62 @@ public class MainActivity extends AppCompatActivity {
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
 
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
-                synchronized (this) {
-                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+            try {
+                String action = intent.getAction();
+                if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+                    synchronized (this) {
+                        UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
 
-                    if(device != null){
-                        //
-                        Log.d("1","DEATTCHED-" + device);
-                    }
-                }
-            }
-//
-            if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
-                synchronized (this) {
-                    TextView textView = (TextView) findViewById(R.id.text);
-                    textView.setText("ATTACHED");
-                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
-
-                        if(device != null){
+                        if (device != null) {
                             //
-                            textView = (TextView) findViewById(R.id.text);
-                            textView.setText(device.toString());
-                            Log.d("1","ATTACHED-" + device);
+                            Log.d("1", "DEATTCHED-" + device);
                         }
                     }
-                    else {
-                        PendingIntent mPermissionIntent;
-                        mPermissionIntent = PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(ACTION_USB_PERMISSION), PendingIntent.FLAG_ONE_SHOT);
-                        mUsbManager.requestPermission(device, mPermissionIntent);
-
-                    }
-
                 }
-            }
 //
-            if (ACTION_USB_PERMISSION.equals(action)) {
-                synchronized (this) {
-                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+                    synchronized (this) {
+                        TextView textView = (TextView) findViewById(R.id.text);
+                        textView.setText("ATTACHED");
+                        UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                        if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
 
-                        if(device != null){
-                            //
-                            TextView textView = (TextView) findViewById(R.id.text);
-                            textView.setText(device.toString());
-                            Log.d("1","PERMISSION-" + device);
+                            if (device != null) {
+                                //
+                                textView = (TextView) findViewById(R.id.text);
+                                textView.setText(device.toString());
+                                Log.d("1", "ATTACHED-" + device);
+                            }
+                        } else {
+                            PendingIntent mPermissionIntent;
+                            mPermissionIntent = PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(ACTION_USB_PERMISSION),
+                                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+                            mUsbManager.requestPermission(device, mPermissionIntent);
+
                         }
+
                     }
-
                 }
-            }
+//
+                if (ACTION_USB_PERMISSION.equals(action)) {
+                    synchronized (this) {
+                        UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                        if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
 
+                            if (device != null) {
+                                //
+                                TextView textView = (TextView) findViewById(R.id.text);
+                                textView.setText(device.toString());
+                                Log.d("1", "PERMISSION-" + device);
+                            }
+                        }
+
+                    }
+                }
+            } catch (Exception ex) {
+                TextView textView = (TextView) findViewById(R.id.text);
+                textView.setText(ex.toString());
+            }
         }
     };
     private UsbDeviceConnection usbDeviceConnection;
