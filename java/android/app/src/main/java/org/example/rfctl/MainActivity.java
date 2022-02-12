@@ -150,7 +150,14 @@ public class MainActivity extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.text);
             textView.setText("");
             try {
-                start_loop(usbDeviceConnection, device, textView);
+                int[] buffer = new int[64];
+                start_loop(usbDeviceConnection, device, buffer);
+                for (int i = 0; i < buffer.length; i ++) {
+                    String value = String.format("0x%02x ",
+                            buffer[i]
+                    );
+                    textView.append(value);
+                }
             } catch (Exception ex) {
                 textView.setText(ex.toString());
             }

@@ -11,37 +11,24 @@ public class USBUtils {
 
     public static void start_loop(
             UsbDeviceConnection usbDeviceConnection, UsbDevice device,
-            TextView textView) {
+            int[] buffer) {
         sendCommand(usbDeviceConnection, device, 6, new byte[32]);
         sendCommand(usbDeviceConnection, device, 6, new byte[32]);
         sendCommand(usbDeviceConnection, device, 6, new byte[32]);
         sendCommand(usbDeviceConnection, device, 6, new byte[32]);
         sendCommand(usbDeviceConnection, device, 1, new byte[]{});
         int pos = 0;
-        for (; pos < 20; ) {
+        for (; true; ) {
             byte[] ch = sendCommand(usbDeviceConnection, device, 6, new byte[32]);
             for (int i = 0; i < ch[0]; i ++) {
-                String value = String.format("0x%02x ",
-                        (int) ch[i + 1] & 0xFF
-                );
-                //spiDump[pos] = (int) ch[i + 1] & 0xFF;
-                // FIXME: no MT safe
-                textView.append(value);
-                if (pos % 4 < 2) {
-                    //drawArea.setValue((int) ch[i + 1] & 0xFF);
-                }
-                if (pos % 4 == 3) {
-                    //drawArea.setOffset((int) ch[i + 1] & 0xFF);
-                }
+                buffer[pos] = (int) ch[i + 1] & 0xFF;
                 pos ++;
-                System.out.print(value);
-                if (pos % 32 == 0) {
-                    System.out.println();
-                    textView.append(System.lineSeparator());
+                if (buffer.length == pos) {
+                    sendCommand(usbDeviceConnection, device, 1, new byte[]{});
+                    return;
                 }
             }
         }
-        //sendCommand(usbDeviceConnection, device, 1, new byte[]{});
     }
 
     public static byte[] sendCommand(
