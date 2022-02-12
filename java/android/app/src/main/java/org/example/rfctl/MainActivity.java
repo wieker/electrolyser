@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -93,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
     };
     private UsbDeviceConnection usbDeviceConnection;
     private UsbDevice device;
+    private int[] buffer;
+    public static int selection;
 
 
     @Override
@@ -150,19 +154,50 @@ public class MainActivity extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.text);
             textView.setText("");
             try {
-                int[] buffer = new int[64];
+                buffer = new int[64];
                 start_loop(usbDeviceConnection, device, buffer);
                 for (int i = 0; i < buffer.length; i ++) {
                     String value = String.format("0x%02x ",
                             buffer[i]
                     );
                     textView.append(value);
+                    if (i % 8 == 7) {
+                        textView.append(System.lineSeparator());
+                    }
                 }
             } catch (Exception ex) {
                 textView.setText(ex.toString());
             }
         });
+
+
+        LinearLayout layout = (LinearLayout) this.findViewById(R.id.layout_id);
+        RfView rfView = new RfView(getApplicationContext());
+        layout.addView(rfView);
+
+        SeekBar seekBar = (SeekBar)this.findViewById(R.id.seekBar);
+        seekBar.setMax(1);
+        seekBar.setMax(16);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                selection = progress;
+                rfView.invalidate();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
+
+
 
     @Override
     protected void onStart() {
