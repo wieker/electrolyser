@@ -39,7 +39,7 @@ include_directories(../include/component)
 include_directories(../include/instance)
 include_directories(../include/pio)
 
-add_executable(samd11_stage1_usb
+add_executable(samd11_stage1_i2c
         ../startup_samd11.c
         main.c
 
@@ -48,6 +48,7 @@ add_executable(samd11_stage1_usb
         usb_ifc/usb_std_chapter6.c
 
         fpga_ifc/spi_master.c
+        fpga_ifc/i2c_master.c
         fpga_ifc/gpio.c
         fpga_ifc/uart.c
 

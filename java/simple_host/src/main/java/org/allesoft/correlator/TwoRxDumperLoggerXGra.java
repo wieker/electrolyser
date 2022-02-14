@@ -376,7 +376,7 @@ public class TwoRxDumperLoggerXGra
             int zq = 0;
             double sum = 0;
             int pos = 0;
-            for (; running; ) {
+            for (; true; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
                     String value = String.format("0x%02x ",
@@ -397,16 +397,12 @@ public class TwoRxDumperLoggerXGra
                         System.out.println();
                         textArea.append(System.lineSeparator());
                     }
-//                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
-//                    zq ++;
+                    if (pos == 1024) {
+                        sendCommand(handle, 1, new byte[] {}, false);
+                        return;
+                    }
                 }
-//                if (zq >= 100) {
-//                    System.out.println(sum / zq);
-//                    zq = 0;
-//                    sum = 0;
-//                }
             }
-            sendCommand(handle, 1, new byte[]{}, false);
         } catch (Exception e) {
             System.out.println(e);
         }

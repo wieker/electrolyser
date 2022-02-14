@@ -85,16 +85,6 @@ int main(void)
   sys_init();
   usb_init();
 
-  gpio_init();
-  gpio_configure(GPIO_LED, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
-  gpio_configure(GPIO_RST, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
-  gpio_configure(GPIO_CTL1, GPIO_CONF_OUTPUT | GPIO_CONF_SET);
-  gpio_configure(GPIO_CTL2, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
-  gpio_write(GPIO_RST, rst_state);
-  gpio_write(GPIO_LED, led_state);
-
-  uart_init();
-
   while (1)
   {
   }
