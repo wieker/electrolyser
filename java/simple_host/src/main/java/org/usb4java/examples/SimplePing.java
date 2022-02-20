@@ -23,7 +23,7 @@ public class SimplePing
     private static final short VENDOR_ID = 0x6666;
 
     //private static final short PRODUCT_ID = 0x6671;
-    private static final short PRODUCT_ID = 0x6676;
+    private static final short PRODUCT_ID = 0x6677;
 
     private static final int TIMEOUT = 0;
 
@@ -221,8 +221,10 @@ public class SimplePing
                         }
                         break;
                     case 'i':
+                        sendCommand(handle, 8, new byte[] { }, true);
                         flash_wakeup(handle);
                         flash_id(handle);
+                        sendCommand(handle, 9, new byte[] { }, true);
                         break;
                     case 'u':
 
