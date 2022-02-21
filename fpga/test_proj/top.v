@@ -1,21 +1,14 @@
 module top(
-    output LED1
+    output LED1,
+    input xtal_in,
 );
-
-    wire clk;
-
-    SB_HFOSC inthosc (
-      .CLKHFPU(1'b1),
-      .CLKHFEN(1'b1),
-      .CLKHF(clk)
-    );
 
     reg [24:0] counter;
 
-    always @(posedge clk) begin
+    always @(posedge xtal_in) begin
         counter <= counter + 1;
     end
 
-    assign LED1 = counter[22];
+    assign LED1 = counter[24];
 
 endmodule
