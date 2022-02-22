@@ -11,23 +11,22 @@ module hex_dump(
     dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy(stb),
         .i_value_reg(i_value), .q_value_reg(q_value));
 
-    reg [10:0] ram_addr;
+    reg [8:0] ram_addr;
     wire [15:0] ram_data_in = {q_value[7:0], i_value[7:0]};
     wire [15:0] ram_data_out;
-    wire ram_wren = (!ram_addr[10] && stb) & ~ done;
+    wire ram_wren = (!ram_addr[8] && stb) & ~ done;
 
-    SB_SPRAM256KA spram
-    (
-        .ADDRESS({6'h00, ram_addr[9:0]}),
-        .DATAIN(ram_data_in),
-        .MASKWREN({ram_wren, ram_wren, ram_wren, ram_wren}),
-        .WREN(ram_wren),
-        .CHIPSELECT(1),
-        .CLOCK(clk),
-        .STANDBY(1'b0),
-        .SLEEP(1'b0),
-        .POWEROFF(1'b1),
-        .DATAOUT(ram_data_out)
+    SB_RAM40_4K SB_RAM40_4K_inst (
+        .RDATA(ram_data_out),
+        .RADDR(ram_addr[7:0]),
+        .RCLK(clk),
+        .RCLKE(1),
+        .RE(1),
+        .WADDR(ram_addr[7:0]),
+        .WCLK(clk),
+        .WCLKE(1),
+        .WDATA(ram_data_in),
+        .WE(ram_wren)
     );
 
     reg tx_start;
@@ -38,14 +37,14 @@ module hex_dump(
 
     always@(posedge clk)
     begin
-        if (ram_addr[10]) begin
+        if (ram_addr[8]) begin
             done <= 1;
         end else if (rst) begin
             done <= 0;
         end
         if (ram_wren) begin
             ram_addr <= ram_addr + 1;
-        end else if (ram_addr[10] && !tx_busy && !bugfix001) begin
+        end else if (ram_addr[8] && !tx_busy && !bugfix001) begin
             bugfix001 <= 1;
             tx_start <= 1;
             touart <= part ? ram_data_out[15:8] : ram_data_out[7:0];
