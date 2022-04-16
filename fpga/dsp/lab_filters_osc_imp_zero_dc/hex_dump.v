@@ -1,5 +1,5 @@
 module hex_dump(
-    input clk, rst, sig, fpga_rx, flag,
+    input clk, rst, sig, fpga_rx,
     output fpga_tx, rdy3, rdy4,
 );
 
@@ -8,7 +8,6 @@ module hex_dump(
     assign rdy4 = done;
     assign rdy3 = sig;
 
-    reg started;
     reg [15:0] value;
     reg [15:0] bckp;
     reg [3:0] cntr;
@@ -16,23 +15,20 @@ module hex_dump(
 
     always@(posedge clk)
     begin
-        if (start == 1) begin
-            started <= 1;
-        end else if (rst) begin
-            started <= 0;
-        end
-        if (started) begin
+        if (!rst) begin
             cntr <= cntr + 1;
             value <= {ram_data_out[14:1], sig};
-        end
-        if (cntr == 0) begin
-            cntr <= cntr + 1;
-            bckp <= value;
+            if (cntr == 0) begin
+                bckp <= value;
+                stb <= 1;
+            end else begin
+                stb <= 0;
+            end
         end
     end
 
     reg [8:0] ram_addr;
-    wire [15:0] ram_data_in = {value};
+    wire [15:0] ram_data_in = {bckp};
     wire [15:0] ram_data_out;
     wire ram_wren = (!ram_addr[8] && stb) & ~ done;
 
