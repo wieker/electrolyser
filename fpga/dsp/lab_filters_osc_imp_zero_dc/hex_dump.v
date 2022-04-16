@@ -17,7 +17,7 @@ module hex_dump(
     begin
         if (!rst) begin
             cntr <= cntr + 1;
-            value <= {ram_data_out[14:1], sig};
+            value <= {value[14:0], sig};
             if (cntr == 0) begin
                 bckp <= value;
                 stb <= 1;
