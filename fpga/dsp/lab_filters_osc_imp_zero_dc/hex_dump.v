@@ -3,6 +3,8 @@ module hex_dump(
     output fpga_tx, rdy3, rdy4,
 );
 
+    // PWM => LVDS ADC (1-bit comparator)
+
     assign rdy4 = done;
     assign rdy3 = sig;
     wire [7:0] i_value;
