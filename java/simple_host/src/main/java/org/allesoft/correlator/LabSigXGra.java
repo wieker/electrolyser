@@ -246,23 +246,18 @@ public class LabSigXGra
         });
         panel.add(stopButton);
         JButton rstButton = new JButton("Switch RST");
-        rstButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                sendCommand(handle, 1, new byte[]{}, true);
-            }
-        });
+        rstButton.addActionListener(actionEvent -> sendCommand(handle, 1, new byte[]{}, true));
         panel.add(rstButton);
         JButton readButton = new JButton("Read Flash");
-        readButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                textArea.setText("");
-                running = true;
-                new Thread(() -> readFlashDump(handle)).start();
-            }
+        readButton.addActionListener(actionEvent -> {
+            textArea.setText("");
+            running = true;
+            new Thread(() -> readFlashDump(handle)).start();
         });
         panel.add(readButton);
+        JButton drawButton = new JButton("Redraw");
+        drawButton.addActionListener(actionEvent -> drawArea.repaint());
+        panel.add(drawButton);
         JPanel mainPanel = new JPanel();
         JScrollBar scrollBar = new JScrollBar(Adjustable.HORIZONTAL, 0, 10, 0, 256);
         mainPanel.add(scrollBar);
@@ -332,20 +327,21 @@ public class LabSigXGra
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
 
-            graphics.setColor(Color.RED);
-            graphics.fillRect(0, 60, Math.abs(0x80 - value) * 5 + Math.abs(0x80 - save) * 5, 30);
-            graphics.setColor(Color.BLACK);
-            graphics.drawRect(0, 60, 256 * 5, 30);
-
-            graphics.setColor(Color.BLUE);
-            graphics.fillRect(128 * 5, 120, (0x80 - offset) * 5, 30);
-            graphics.setColor(Color.RED);
-            graphics.fillRect(128 * 5 - Math.abs(0x80 - offset) * 5, 120, Math.abs(0x80 - offset) * 5, 30);
-            graphics.setColor(Color.BLACK);
-            graphics.drawRect(0, 120, 256 * 5, 30);
-
-            graphics.drawArc(256 * 5, 200, 150, 150, 0, 360);
-            graphics.drawLine(256 * 5 + 75, 275, 256 * 5 + 75 + value - 0x80, 275 + save - 0x80);
+            for (int i = 0; i < 16; i ++) {
+                for (int k = 0; k < 32; k ++) {
+                    int value = spiDump[i * 16 + k];
+                    for (int j = 7; j >= 0; j--) {
+                        int bit = ((value >> j) & 0x01);
+                        if (bit == 1) {
+                            graphics.setColor(Color.RED);
+                            graphics.fillRect(k * 24 + j * 3, 10 + 15 * i, 5, 5);
+                        } else {
+                            graphics.setColor(Color.BLACK);
+                            graphics.fillRect(k * 24 + j * 3, 15 + 15 * i, 5, 5);
+                        }
+                    }
+                }
+            }
         }
 
         public void setValue(int value) {
@@ -371,8 +367,6 @@ public class LabSigXGra
             sendCommand(handle, 6, new byte[32], false);
             sendCommand(handle, 6, new byte[32], false);
             sendCommand(handle, 1, new byte[]{}, false);
-            int zq = 0;
-            double sum = 0;
             int pos = 0;
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
@@ -383,73 +377,15 @@ public class LabSigXGra
                     spiDump[pos] = (int) ch[i + 1] & 0xFF;
                     // FIXME: no MT safe
                     textArea.append(value);
-                    if (pos % 4 < 2) {
-                        drawArea.setValue((int) ch[i + 1] & 0xFF);
-                    }
-                    if (pos % 4 == 3) {
-                        drawArea.setOffset((int) ch[i + 1] & 0xFF);
-                    }
                     pos ++;
                     System.out.print(value);
                     if (pos % 32 == 0) {
                         System.out.println();
                         textArea.append(System.lineSeparator());
                     }
-//                    sum += Math.abs(((int) ch[i + 1] & 0xFF));
-//                    zq ++;
                 }
-//                if (zq >= 100) {
-//                    System.out.println(sum / zq);
-//                    zq = 0;
-//                    sum = 0;
-//                }
             }
             sendCommand(handle, 1, new byte[]{}, false);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    private static void start_loop_without_ctl(DeviceHandle handle) {
-        try {
-            long total = 0;
-            long locked = 0;
-            for (; running; ) {
-                byte[] ch = sendCommand(handle, 6, new byte[32], false);
-                for (int i = 0; i < ch[0]; i ++) {
-                    System.out.print(String.format("%02x ",
-                            ch[i + 1]
-                    ));
-                    total ++;
-                    if (ch[i + 1] > 0x50) {
-                        locked ++;
-                    }
-                }
-                if (ch[0] != 0) {
-                    System.out.println(String.format(" ===  %f", ((float) 100 * locked) / total));
-                }
-                if (total == 1000) {
-                    total = 0;
-                    locked = 0;
-                }
-                for (int i = 0; i < ch[0]; i += 3) {
-                    System.out.print(String.format("%d ",
-                            (((int) ch[i + 1]) - 0x20) * (((int) ch[i + 2]) - 0x20)
-                    ));
-                }
-                if (ch[0] != 0) {
-                    System.out.println(String.format(" === "));
-                }
-                for (int i = 0; i < ch[0]; i += 3) {
-                    System.out.print(String.format("%d ",
-                            (((int) ch[i + 1]) - 0x20) * (((int) ch[i + 1]) - 0x20) +
-                                    (((int) ch[i + 2]) - 0x20) * (((int) ch[i + 2]) - 0x20)
-                    ));
-                }
-                if (ch[0] != 0) {
-                    System.out.println(String.format(" === "));
-                }
-            }
         } catch (Exception e) {
             System.out.println(e);
         }
