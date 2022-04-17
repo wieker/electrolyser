@@ -4,8 +4,8 @@ module osc(
 );
 
 
-    reg [3:0] startup;
-    assign rst = !startup[3];
+    reg [27:0] startup;
+    assign rst = !startup[27];
 
     SB_HFOSC inthosc (
       .CLKHFPU(1'b1),
