@@ -24,6 +24,6 @@ module top(
     assign LED1 = rdy4;
 
 
-    nco pwm_nco(.clk(clk), .rst(rst), .control_word(16'h4000), .i_code(pwm_out), .phase_control_word(16'h0000));
+    assign pwm_out = comp_in;
 
 endmodule
