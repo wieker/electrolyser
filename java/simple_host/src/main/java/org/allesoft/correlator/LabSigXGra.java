@@ -10,6 +10,7 @@ import org.usb4java.LibUsbException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -40,6 +41,7 @@ public class LabSigXGra
 
     private static final int TIMEOUT = 0;
     private static MyDrawing drawArea;
+    private static JLabel label;
 
 
     byte data_wake[] = { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -268,6 +270,8 @@ public class LabSigXGra
             drawArea.setOffset(spiDump[value * 4 + 3]);
             textArea.select(value * 20 + (value - 1) / 8, value * 20 + 20 + (value - 1) / 8);
         });
+        label = new JLabel();
+        mainPanel.add(label);
         textArea = new JTextArea();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
         drawArea = new MyDrawing();
@@ -326,6 +330,7 @@ public class LabSigXGra
         @Override
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
+            int z = 0, o = 0;
 
             for (int i = 0; i < 16; i ++) {
                 for (int k = 0; k < 32; k ++) {
@@ -335,13 +340,17 @@ public class LabSigXGra
                         if (bit == 1) {
                             graphics.setColor(Color.RED);
                             graphics.fillRect(k * 24 + j * 3, 10 + 15 * i, 5, 5);
+                            o ++;
                         } else {
                             graphics.setColor(Color.BLACK);
                             graphics.fillRect(k * 24 + j * 3, 15 + 15 * i, 5, 5);
+                            z ++;
                         }
                     }
                 }
             }
+
+            label.setText("zero / one: " + z + " / " + o);
         }
 
         public void setValue(int value) {
