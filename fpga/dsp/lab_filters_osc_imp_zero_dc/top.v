@@ -24,6 +24,20 @@ module top(
     assign LED1 = rdy4;
 
 
-    assign pwm_out = comp_in;
+    reg [7:0] period;
+    reg [7:0] cmp_cntr;
+    reg [8:0] mirror;
+    always@(posedge clk)
+    begin
+      period <= period + 1;
+      if (period == 0) begin
+        cmp_cntr <= sig_in;
+        mirror <= cmp_cntr;
+      end else begin
+        cmp_cntr <= cmp_cntr + sig_in;
+        mirror <= mirror + 1;
+      end
+    end
+    assign pwm_out = mirror[8];
 
 endmodule
