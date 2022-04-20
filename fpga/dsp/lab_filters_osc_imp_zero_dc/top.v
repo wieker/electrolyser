@@ -27,17 +27,20 @@ module top(
     reg [7:0] period;
     reg [7:0] cmp_cntr;
     reg [8:0] mirror;
+    reg [8:0] mirror2;
     always@(posedge clk)
     begin
       period <= period + 1;
       if (period == 0) begin
         cmp_cntr <= sig_in;
         mirror <= cmp_cntr;
+        mirror2 <= 8'hff ^ cmp_cntr;
       end else begin
         cmp_cntr <= cmp_cntr + sig_in;
         mirror <= mirror + 1;
+        mirror2 <= mirror2 + 1;
       end
     end
-    assign pwm_out = mirror[8];
+    assign pwm_out = ((mirror[8]) & period[0]) | ((~ mirror2[8]) & ~ period[0]);
 
 endmodule
