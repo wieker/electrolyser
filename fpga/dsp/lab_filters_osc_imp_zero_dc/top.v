@@ -41,6 +41,6 @@ module top(
         mirror2 <= mirror2 + 1;
       end
     end
-    assign pwm_out = ((mirror[8]) & period[0]) | ((~ mirror2[8]) & ~ period[0]);
+    assign pwm_out = ((mirror[8]) & period[2]) | ((~ mirror2[8]) & ~ period[2]);
 
 endmodule
