@@ -34,8 +34,10 @@ module top(
         cmp_cntr <= sig_in;
         if (cmp_cntr[7] == 1) begin
             mirror <= cmp_cntr + 1;
-        end else if (cmp_cntr[7] == 0) begin
-            mirror <= cmp_cntr + 1;
+        end else if (cmp_cntr == 0) begin
+            mirror <= cmp_cntr;
+        end else begin
+            mirror <= cmp_cntr + 8'hff;
         end
       end else begin
         cmp_cntr <= cmp_cntr + sig_in;
