@@ -12,7 +12,7 @@ module top(
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
     wire rdy3, rdy4;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(fpga_rx), .rdy3(rdy3), .rdy4(rdy4));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(pwm_out), .fpga_rx(fpga_rx), .rdy3(rdy3), .rdy4(rdy4));
 
     reg [7:0] ctr;
     always@(posedge clk)
@@ -26,23 +26,22 @@ module top(
 
     reg [7:0] period;
     reg [7:0] cmp_cntr;
-    reg [8:0] mirror;
-    reg [7:0] zu;
+    reg [7:0] mirror;
     always@(posedge clk)
     begin
       period <= period + 1;
       if (period == 0) begin
         cmp_cntr <= sig_in;
         if (cmp_cntr[7] == 1) begin
-            mirror <= 8'h80;
+            mirror <= cmp_cntr;
         end else if (cmp_cntr[7] == 0) begin
-            mirror <= 8'h75;
+            mirror <= cmp_cntr;
         end
       end else begin
         cmp_cntr <= cmp_cntr + sig_in;
-        mirror <= mirror + 1;
       end
     end
-    assign pwm_out = mirror[8];
+    wire [8:0] shadow = mirror + period;
+    assign pwm_out = shadow[8];
 
 endmodule
