@@ -33,11 +33,11 @@ module top(
       if (period == 0) begin
         cmp_cntr <= sig_in;
         if (cmp_cntr[7] == 1) begin
-            mirror <= cmp_cntr + 1;
+            mirror <= 8'h80;
         end else if (cmp_cntr == 0) begin
-            mirror <= cmp_cntr;
+            mirror <= 8'h80;
         end else begin
-            mirror <= cmp_cntr + 8'hff;
+            mirror <= 8'h78;
         end
       end else begin
         cmp_cntr <= cmp_cntr + sig_in;
