@@ -7,6 +7,7 @@ module hex_dump(
 
     assign rdy4 = done;
     assign rdy3 = sig;
+    assign fpga_tx = fpga_rx;
 
     reg [15:0] value;
     reg [15:0] bckp;
@@ -91,7 +92,6 @@ module hex_dump(
         .rst(rst),			// system reset
         .tx_dat(touart),           // transmit data byte
         .tx_start(tx_start),    // trigger transmission
-        .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
 
