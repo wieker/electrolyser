@@ -380,7 +380,6 @@ public class LabSigXGra
             sendCommand(handle, 6, new byte[32], false);
             sendCommand(handle, 6, new byte[32], false);
             sendCommand(handle, 6, new byte[32], false);
-            sendCommand(handle, 1, new byte[]{}, false);
             int pos = 0;
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
@@ -399,7 +398,6 @@ public class LabSigXGra
                     }
                 }
             }
-            sendCommand(handle, 1, new byte[]{}, false);
         } catch (Exception e) {
             System.out.println(e);
         }
