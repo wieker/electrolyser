@@ -262,7 +262,7 @@ public class LabSigXGra
         panel.add(drawButton);
         JButton sendButton = new JButton("Send");
         sendButton.addActionListener(actionEvent -> {
-            sendCommand(handle, 7, new byte[] { 0x01, 0x02, 0x03, 0x04 }, true);
+            sendCommand(handle, 7, new byte[] { 0x78 }, true);
         });
         panel.add(sendButton);
         JPanel mainPanel = new JPanel();

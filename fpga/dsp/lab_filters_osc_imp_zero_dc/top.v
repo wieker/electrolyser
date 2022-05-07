@@ -12,7 +12,7 @@ module top(
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
     wire rdy3, rdy4;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(fpga_rx), .rdy3(rdy3), .rdy4(rdy4));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(rx_stb), .rdy3(rdy3), .rdy4(rdy4));
 
     reg [7:0] ctr;
     always@(posedge clk)
@@ -30,20 +30,32 @@ module top(
     always@(posedge clk)
     begin
       period <= period + 1;
-      if (period == 0) begin
-        cmp_cntr <= sig_in;
-        if (cmp_cntr[7] == 1) begin
-            mirror <= 8'h81;
-        end else if (cmp_cntr == 0) begin
-            mirror <= 8'h80;
-        end else begin
-            mirror <= 8'h78;
-        end
-      end else begin
-        cmp_cntr <= cmp_cntr + sig_in;
+      if (rx_stb == 0) begin
+        mirror <= rx_dat;
       end
     end
     wire [8:0] shadow = mirror + period;
     assign pwm_out = shadow[8];
+
+
+    wire [7:0] rx_dat;
+    wire rx_stb;
+
+    localparam sym_rate = 1200;
+    localparam clk_freq = 48000000;
+    localparam sym_cnt = clk_freq / sym_rate;
+    localparam SCW = $clog2(sym_cnt);
+    acia_rx #(
+        .SCW(SCW),              // rate counter width
+        .sym_cnt(sym_cnt)       // rate count value
+    )
+    my_tx(
+        .clk(clk),
+        .rst(rst),
+        .rx_serial(fpga_rx),
+        .rx_dat(rx_dat),
+        .rx_stb(rx_stb),
+        .rx_err(tx_busy)
+    );
 
 endmodule
