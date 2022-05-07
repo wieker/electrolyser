@@ -260,11 +260,16 @@ public class LabSigXGra
         JButton drawButton = new JButton("Redraw");
         drawButton.addActionListener(actionEvent -> drawArea.repaint());
         panel.add(drawButton);
-        JButton sendButton = new JButton("Send");
-        sendButton.addActionListener(actionEvent -> {
+        JButton send78Button = new JButton("Send0x78");
+        send78Button.addActionListener(actionEvent -> {
             sendCommand(handle, 7, new byte[] { 0x78 }, true);
         });
-        panel.add(sendButton);
+        panel.add(send78Button);
+        JButton send80Button = new JButton("Send0x80");
+        send80Button.addActionListener(actionEvent -> {
+            sendCommand(handle, 7, new byte[] { (byte) 0x80 }, true);
+        });
+        panel.add(send80Button);
         JPanel mainPanel = new JPanel();
         JScrollBar scrollBar = new JScrollBar(Adjustable.HORIZONTAL, 0, 10, 0, 256);
         mainPanel.add(scrollBar);
