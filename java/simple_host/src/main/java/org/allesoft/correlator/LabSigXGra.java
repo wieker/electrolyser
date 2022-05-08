@@ -260,6 +260,30 @@ public class LabSigXGra
         JButton drawButton = new JButton("Redraw");
         drawButton.addActionListener(actionEvent -> drawArea.repaint());
         panel.add(drawButton);
+        JButton calcButton = new JButton("Calc");
+        calcButton.addActionListener(actionEvent -> {
+            for (int i = 0; i < 16; i ++) {
+                int t = 0;
+                int accI = 0;
+                int accQ = 0;
+                for (int k = 0; k < 32; k ++) {
+                    int value = spiDump[i * 32 + k];
+                    for (int j = 7; j >= 0; j--) {
+                        int bit = ((value >> j) & 0x01);
+                        int sinphase = t / 2;
+                        int quad = (t + 1) % 4 / 2;
+                        accI += sinphase == bit ? 1 : 0;
+                        accQ += quad == bit ? 1 : 0;
+                        t = (t + 1) % 4;
+                    }
+                }
+                accI -= 128;
+                accQ -= 128;
+                textArea.append("Values: I: " + accI + " Q: " + accQ + " Power: " + Math.floor(Math.sqrt(accI * accI + accQ * accQ)) + System.lineSeparator());
+            }
+            drawArea.repaint();
+        });
+        panel.add(calcButton);
         JScrollBar sendVal = new JScrollBar(Adjustable.HORIZONTAL, 120, 0, 110, 145);
         JButton send78Button = new JButton("Send0x78");
         send78Button.addActionListener(actionEvent -> {
@@ -341,7 +365,7 @@ public class LabSigXGra
 
             for (int i = 0; i < 16; i ++) {
                 for (int k = 0; k < 32; k ++) {
-                    int value = spiDump[i * 16 + k];
+                    int value = spiDump[i * 32 + k];
                     for (int j = 7; j >= 0; j--) {
                         int bit = ((value >> j) & 0x01);
                         if (bit == 1) {
