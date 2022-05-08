@@ -284,7 +284,7 @@ public class LabSigXGra
             drawArea.repaint();
         });
         panel.add(calcButton);
-        JScrollBar sendVal = new JScrollBar(Adjustable.HORIZONTAL, 120, 0, 110, 145);
+        JScrollBar sendVal = new JScrollBar(Adjustable.HORIZONTAL, 100, 0, 0, 145);
         JButton send78Button = new JButton("Send0x78");
         send78Button.addActionListener(actionEvent -> {
             sendCommand(handle, 7, new byte[] { (byte) sendVal.getValue() }, true);
