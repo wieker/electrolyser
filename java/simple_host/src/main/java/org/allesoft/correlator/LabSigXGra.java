@@ -265,6 +265,11 @@ public class LabSigXGra
             sendCommand(handle, 7, new byte[] { 0x78 }, true);
         });
         panel.add(send78Button);
+        JButton send79Button = new JButton("Send0x79");
+        send79Button.addActionListener(actionEvent -> {
+            sendCommand(handle, 7, new byte[] { 0x79 }, true);
+        });
+        panel.add(send79Button);
         JButton send80Button = new JButton("Send0x80");
         send80Button.addActionListener(actionEvent -> {
             sendCommand(handle, 7, new byte[] { (byte) 0x80 }, true);
