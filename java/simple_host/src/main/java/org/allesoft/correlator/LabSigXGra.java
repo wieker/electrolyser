@@ -182,6 +182,7 @@ public class LabSigXGra
     }
 
     static volatile boolean running;
+    static JScrollBar sendVal = new JScrollBar(Adjustable.HORIZONTAL, 100, 0, 0, 145);
 
     public static void main(String[] args) throws Exception {
         int result = LibUsb.init(null);
@@ -233,9 +234,20 @@ public class LabSigXGra
         loopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                textArea.setText("");
                 running = true;
-                new Thread(() -> start_loop(handle)).start();
+                new Thread(() -> {
+                    while (running) {
+                        try {
+                            Thread.sleep(500L);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        textArea.setText("");
+                        send78(handle, sendVal);
+                        start_loop(handle);
+                        calcIQ();
+                    }
+                }).start();
             }
         });
         panel.add(loopButton);
@@ -262,32 +274,12 @@ public class LabSigXGra
         panel.add(drawButton);
         JButton calcButton = new JButton("Calc");
         calcButton.addActionListener(actionEvent -> {
-            for (int i = 0; i < 16; i ++) {
-                int t = 0;
-                int accI = 0;
-                int accQ = 0;
-                for (int k = 0; k < 32; k ++) {
-                    int value = spiDump[i * 32 + k];
-                    for (int j = 7; j >= 0; j--) {
-                        int bit = ((value >> j) & 0x01);
-                        int sinphase = t / 2;
-                        int quad = (t + 1) % 4 / 2;
-                        accI += sinphase == bit ? 1 : 0;
-                        accQ += quad == bit ? 1 : 0;
-                        t = (t + 1) % 4;
-                    }
-                }
-                accI -= 128;
-                accQ -= 128;
-                textArea.append("Values: I: " + accI + " Q: " + accQ + " Power: " + Math.floor(Math.sqrt(accI * accI + accQ * accQ)) + System.lineSeparator());
-            }
-            drawArea.repaint();
+            calcIQ();
         });
         panel.add(calcButton);
-        JScrollBar sendVal = new JScrollBar(Adjustable.HORIZONTAL, 100, 0, 0, 145);
         JButton send78Button = new JButton("Send0x78");
         send78Button.addActionListener(actionEvent -> {
-            sendCommand(handle, 7, new byte[] { (byte) sendVal.getValue() }, true);
+            send78(handle, sendVal);
         });
         panel.add(send78Button);
         JPanel mainPanel = new JPanel();
@@ -311,6 +303,33 @@ public class LabSigXGra
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private static void send78(DeviceHandle handle, JScrollBar sendVal) {
+        sendCommand(handle, 7, new byte[] { (byte) sendVal.getValue() }, true);
+    }
+
+    private static void calcIQ() {
+        for (int i = 0; i < 16; i ++) {
+            int t = 0;
+            int accI = 0;
+            int accQ = 0;
+            for (int k = 0; k < 32; k ++) {
+                int value = spiDump[i * 32 + k];
+                for (int j = 7; j >= 0; j--) {
+                    int bit = ((value >> j) & 0x01);
+                    int sinphase = t / 2;
+                    int quad = (t + 1) % 4 / 2;
+                    accI += sinphase == bit ? 1 : 0;
+                    accQ += quad == bit ? 1 : 0;
+                    t = (t + 1) % 4;
+                }
+            }
+            accI -= 128;
+            accQ -= 128;
+            textArea.append("Values: I: " + accI + " Q: " + accQ + " Power: " + Math.floor(Math.sqrt(accI * accI + accQ * accQ)) + System.lineSeparator());
+        }
+        drawArea.repaint();
     }
 
     private static int[] spiDump = new int[32 * 32];
@@ -407,6 +426,7 @@ public class LabSigXGra
             sendCommand(handle, 6, new byte[32], false);
             sendCommand(handle, 6, new byte[32], false);
             int pos = 0;
+            long ts = System.currentTimeMillis();
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
@@ -422,6 +442,10 @@ public class LabSigXGra
                         System.out.println();
                         textArea.append(System.lineSeparator());
                     }
+                    ts = System.currentTimeMillis();
+                }
+                if (System.currentTimeMillis() - ts > 2000l) {
+                    break;
                 }
             }
         } catch (Exception e) {

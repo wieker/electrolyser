@@ -49,7 +49,7 @@ module top(
         .SCW(SCW),              // rate counter width
         .sym_cnt(sym_cnt)       // rate count value
     )
-    my_tx(
+    my_rx(
         .clk(clk),
         .rst(rst),
         .rx_serial(fpga_rx),
