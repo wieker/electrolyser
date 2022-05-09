@@ -47,6 +47,7 @@ public class LabSigXGra
     byte data_wake[] = { (byte) 0xAB, 0x00, 0x00, 0x00, 0x00, 0x00 };
     byte data[] = { (byte) 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 };
     private static JTextArea textArea;
+    private static JTextArea sumArea;
 
     public static Device findDevice() {
         DeviceList list = new DeviceList();
@@ -296,10 +297,12 @@ public class LabSigXGra
         label = new JLabel();
         mainPanel.add(label);
         textArea = new JTextArea();
+        sumArea = new JTextArea();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
         drawArea = new MyDrawing();
         mainPanel.add(drawArea);
         mainPanel.add(new JScrollPane(textArea));
+        mainPanel.add(new JScrollPane(sumArea));
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -310,6 +313,7 @@ public class LabSigXGra
     }
 
     private static void calcIQ() {
+        sumArea.setText("");
         for (int i = 0; i < 16; i ++) {
             int t = 0;
             int accI = 0;
@@ -327,7 +331,7 @@ public class LabSigXGra
             }
             accI -= 128;
             accQ -= 128;
-            textArea.append("Values: I: " + accI + " Q: " + accQ + " Power: " + Math.floor(Math.sqrt(accI * accI + accQ * accQ)) + System.lineSeparator());
+            sumArea.append("Values: I: " + accI + " Q: " + accQ + " Power: " + Math.floor(Math.sqrt(accI * accI + accQ * accQ)) + System.lineSeparator());
         }
         drawArea.repaint();
     }
