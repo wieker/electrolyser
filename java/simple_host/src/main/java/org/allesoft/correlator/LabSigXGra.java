@@ -183,7 +183,7 @@ public class LabSigXGra
     }
 
     static volatile boolean running;
-    static JScrollBar sendVal = new JScrollBar(Adjustable.HORIZONTAL, 100, 0, 0, 145);
+    static JScrollBar sendVal = new JScrollBar(Adjustable.HORIZONTAL, 128, 0, 0, 255);
 
     public static void main(String[] args) throws Exception {
         int result = LibUsb.init(null);

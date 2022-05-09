@@ -29,18 +29,21 @@ module top(
     reg [7:0] mirror;
     always@(posedge clk)
     begin
-      period <= period + 1;
+      if (mirror == period) begin
+        period <= 0;
+      end else begin
+        period <= period + 1;
+      end
       if (rx_stb == 0) begin
         mirror <= rx_dat;
       end
     end
-    wire [8:0] shadow = mirror + period;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(shadow[8]),
+		.OUTPUT_ENABLE(mirror == period),
 		.D_OUT_0(0)
     );
 
