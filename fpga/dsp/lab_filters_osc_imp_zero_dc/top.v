@@ -35,8 +35,14 @@ module top(
       end
     end
     wire [8:0] shadow = mirror + period;
-    assign pwm_out = shadow[8];
 
+	SB_IO #(
+		.PIN_TYPE(6'b101001)
+	) lp_compare (
+		.PACKAGE_PIN(pwm_out),
+		.OUTPUT_ENABLE(shadow[8]),
+		.D_OUT_0(0)
+    );
 
     wire [7:0] rx_dat;
     wire rx_stb;
