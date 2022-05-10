@@ -321,7 +321,7 @@ public class LabSigXGra
             for (int k = 0; k < 32; k ++) {
                 int value = spiDump[i * 32 + k];
                 for (int j = 7; j >= 0; j--) {
-                    int bit = ((value >> (7 - j)) & 0x01);
+                    int bit = ((value >> j) & 0x01);
                     int sinphase = t / 2;
                     int quad = (t + 1) % 4 / 2;
                     accI += sinphase == bit ? 1 : 0;
