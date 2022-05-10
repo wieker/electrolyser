@@ -29,11 +29,7 @@ module top(
     reg [7:0] mirror;
     always@(posedge clk)
     begin
-      if (mirror == period) begin
-        period <= 0;
-      end else begin
         period <= period + 1;
-      end
       if (rx_stb == 0) begin
         mirror <= rx_dat;
       end
@@ -43,7 +39,7 @@ module top(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(mirror == period),
+		.OUTPUT_ENABLE(0 == period),
 		.D_OUT_0(0)
     );
 
