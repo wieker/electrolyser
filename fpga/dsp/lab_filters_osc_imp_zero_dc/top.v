@@ -24,7 +24,7 @@ module top(
     assign LED1 = rdy4;
 
 
-    reg [7:0] period;
+    reg [8:0] period;
     reg [7:0] cmp_cntr;
     reg [7:0] mirror;
     always@(posedge clk)
@@ -34,12 +34,13 @@ module top(
         mirror <= rx_dat;
       end
     end
+    wire [9:0] state = period + 9'h1fe;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(0 == period),
+		.OUTPUT_ENABLE(!state[9]),
 		.D_OUT_0(0)
     );
 
