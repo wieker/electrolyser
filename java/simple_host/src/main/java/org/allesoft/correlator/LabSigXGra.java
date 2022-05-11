@@ -37,6 +37,7 @@ public class LabSigXGra
     private static final short VENDOR_ID = 0x6666;
 
     private static final short PRODUCT_ID = 0x6677;
+    //private static final short PRODUCT_ID = 0x6678;
     //private static final short PRODUCT_ID = 0x6668;
 
     private static final int TIMEOUT = 0;
@@ -491,7 +492,8 @@ public class LabSigXGra
         flash_wait(handle, 0x00);
 
         InputStream inputStream = new FileInputStream(
-                "../../fpga/dsp/lab_filters_osc_imp_zero_dc/top.bin");
+               // "../../fpga/dsp/dsp_tx_android/top.bin");
+        "../../fpga/dsp/lab_filters_osc_imp_zero_dc/top.bin");
         int addr = 0;
         byte[] buf = new byte[16];
         for (;;) {
