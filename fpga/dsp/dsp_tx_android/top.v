@@ -9,6 +9,6 @@ module top(
       ctr <= ctr + 1;
     end
 
-    assign lvds_in = ctr[3];
+    assign lvds_in = ctr[1];
 
 endmodule
