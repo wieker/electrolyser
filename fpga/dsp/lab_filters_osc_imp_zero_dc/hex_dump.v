@@ -6,12 +6,14 @@ module hex_dump(
     // PWM => LVDS ADC (1-bit comparator)
 
     assign rdy4 = done;
-    assign rdy3 = sig;
+    assign rdy3 = demod[7] | demod[6];
 
     reg [15:0] value;
     reg [15:0] bckp;
     reg [3:0] cntr;
     reg stb;
+    wire [7:0] demod;
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .value(demod));
 
     always@(posedge clk)
     begin
