@@ -8,7 +8,9 @@ module top(
     begin
       ctr <= ctr + 1;
     end
+    wire clk;
+    osc osc(.clk(clk), .rst(rst), .xtal_in(xtal_in));
 
-    assign lvds_in = ctr[1];
+    assign lvds_in = clk;
 
 endmodule
