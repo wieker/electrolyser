@@ -4,8 +4,8 @@ module dispatcher(
     output reg rdy,
 );
     wire i_code, q_code;
-    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h2AAA), .i_code(i_code), .phase_control_word(16'h0000));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h2AAA), .i_code(q_code), .phase_control_word(16'h4000));
+    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h2000), .i_code(i_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h2000), .i_code(q_code), .phase_control_word(16'h4000));
 
     wire [7:0] i_value;
     wire [7:0] q_value;
