@@ -324,10 +324,10 @@ public class LabSigXGra
                 for (int j = 7; j >= 0; j--) {
                     int bit = ((value >> j) & 0x01);
                     int sinphase = t / 2;
-                    int quad = (t + 1) % 4 / 2;
+                    int quad = (t + 1) % 12 / 2;
                     accI += sinphase == bit ? 1 : 0;
                     accQ += quad == bit ? 1 : 0;
-                    t = (t + 1) % 4;
+                    t = (t + 1) % 12;
                 }
             }
             accI -= 128;
