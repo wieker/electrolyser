@@ -34,7 +34,7 @@ module top(
         mirror <= rx_dat;
       end
     end
-    wire [9:0] state = period + 9'h19A;
+    wire [9:0] state = period + 9'h179;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
@@ -48,7 +48,7 @@ module top(
 		.PIN_TYPE(6'b101001)
 	) lp_tx_out (
 		.PACKAGE_PIN(tx_out),
-		.OUTPUT_ENABLE(pll_enable),
+		.OUTPUT_ENABLE(0),
 		.D_OUT_0(pll_out)
     );
 

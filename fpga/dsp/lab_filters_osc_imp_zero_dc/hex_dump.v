@@ -6,7 +6,7 @@ module hex_dump(
     // PWM => LVDS ADC (1-bit comparator)
 
     assign rdy4 = done;
-    assign rdy3 = demod[7] | demod[6];
+    assign rdy3 = demod[7] | (demod[6] && demod[5]);
 
     reg [15:0] value;
     reg [15:0] bckp;
