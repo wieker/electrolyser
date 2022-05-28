@@ -34,7 +34,7 @@ module top(
         mirror <= rx_dat;
       end
     end
-    wire [9:0] state = period + 9'h179;
+    wire [9:0] state = period + 9'h19A;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
