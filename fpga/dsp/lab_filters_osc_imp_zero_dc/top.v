@@ -1,5 +1,5 @@
 module top(
-    output LED1, LED2, fpga_tx, pwm_out,
+    output LED1, LED2, fpga_tx, pwm_out, tx_out,
     input btn1, btn2, lvds_in, fpga_rx, xtal_in
 );
 
@@ -12,7 +12,7 @@ module top(
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
     wire rdy3, rdy4;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(rx_stb), .rdy3(rdy3), .rdy4(rdy4));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(!pll_enable && rdy3), .rdy3(rdy3), .rdy4(rdy4));
 
     reg [7:0] ctr;
     always@(posedge clk)
@@ -44,8 +44,35 @@ module top(
 		.D_OUT_0(0)
     );
 
+	SB_IO #(
+		.PIN_TYPE(6'b101001)
+	) lp_tx_out (
+		.PACKAGE_PIN(tx_out),
+		.OUTPUT_ENABLE(pll_enable),
+		.D_OUT_0(pll_out)
+    );
+
+    reg pll_enable;
+    wire pll_out;
+    ipll ipll(.xtal_in(xtal_in), .clk(pll_out));
+
     wire [7:0] rx_dat;
     wire rx_stb;
+
+    reg [9:0] pll_samples;
+    always@(posedge clk)
+    begin
+        period <= period + 1;
+        if (pll_samples[9] == 1 && pll_samples[8] == 1) begin
+            pll_enable <= 0;
+            pll_samples <= 0;
+        end else if (rx_stb == 1) begin
+            pll_enable <= 1;
+        end else if (pll_enable == 1) begin
+            pll_samples <= pll_samples + 1;
+        end
+    end
+
 
     localparam sym_rate = 1200;
     localparam clk_freq = 48000000;
