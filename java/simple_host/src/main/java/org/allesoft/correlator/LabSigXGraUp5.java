@@ -30,14 +30,14 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-public class LabSigXGra
+public class LabSigXGraUp5
 {
     private static final ReentrantLock lock = new ReentrantLock();
 
     private static final short VENDOR_ID = 0x6666;
 
-    private static final short PRODUCT_ID = 0x6677;
-    //private static final short PRODUCT_ID = 0x6678;
+    //private static final short PRODUCT_ID = 0x6677;
+    private static final short PRODUCT_ID = 0x6678;
     //private static final short PRODUCT_ID = 0x6668;
 
     private static final int TIMEOUT = 0;
@@ -217,7 +217,7 @@ public class LabSigXGra
             throw new LibUsbException("Unable to claim interface", result);
         }
 
-        JFrame frame = new JFrame("Power dumper");
+        JFrame frame = new JFrame("Power dumper UP5K");
         JPanel panel = new JPanel();
         frame.getContentPane().add(BorderLayout.NORTH, panel);
         JButton flashButton = new JButton("Flash");
@@ -493,7 +493,7 @@ public class LabSigXGra
 
         InputStream inputStream = new FileInputStream(
                 //"../../fpga/dsp/dsp_tx_android/top.bin");
-        "../../fpga/phase_dsp/phase_ping/top.bin");
+        "../../fpga/phase_dsp/phase_ping/top-up5k.bin");
         int addr = 0;
         byte[] buf = new byte[16];
         for (;;) {
