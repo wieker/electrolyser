@@ -245,7 +245,7 @@ public class LabSigXGraUp5
                             e.printStackTrace();
                         }
                         textArea.setText("");
-                        send78(handle, sendVal);
+                        //send78(handle, sendVal);
                         start_loop(handle);
                         calcIQ();
                     }
