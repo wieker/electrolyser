@@ -55,7 +55,7 @@ module hex_dump(
 
     always@(posedge clk)
     begin
-        if (fpga_rx) begin
+        if (fpga_rx && done) begin
             done <= 0;
             ram_addr <= 0;
         end
