@@ -29,18 +29,18 @@ module hex_dump(
         end
     end
 
-    reg [8:0] ram_addr;
+    reg [7:0] ram_addr;
     wire [15:0] ram_data_in = {bckp};
     wire [15:0] ram_data_out;
-    wire ram_wren = (!ram_addr[8] && stb) & ~ done;
+    wire ram_wren = !tx && stb;
 
     SB_RAM40_4K SB_RAM40_4K_inst (
         .RDATA(ram_data_out),
-        .RADDR(ram_addr[7:0]),
+        .RADDR(ram_addr),
         .RCLK(clk),
         .RCLKE(1),
         .RE(1),
-        .WADDR(ram_addr[7:0]),
+        .WADDR(ram_addr),
         .WCLK(clk),
         .WCLKE(1),
         .WDATA(ram_data_in),
@@ -51,28 +51,37 @@ module hex_dump(
     reg [7:0] touart;
     reg bugfix001;
     reg part;
-    reg done;
+
+    reg tx;
+    reg got;
+    reg [7:0] counter;
+    reg [8:0] addr_save;
 
     always@(posedge clk)
     begin
-        if (fpga_rx && done) begin
-            done <= 0;
-            ram_addr <= 0;
-        end
-        if (ram_addr[8]) begin
-            done <= 1;
-        end else if (rst) begin
-            done <= 0;
+        if (fpga_rx && !got) begin
+            got <= 1;
+            counter <= 0;
+        end else if (got && ram_wren) begin
+            counter <= counter + 1;
         end
         if (ram_wren) begin
             ram_addr <= ram_addr + 1;
-        end else if (ram_addr[8] && !tx_busy && !bugfix001) begin
+            if (counter[7] && got) begin
+                got <= 0;
+                tx <= 1;
+                addr_save <= ram_addr[7:0];
+            end
+        end else if (tx && !tx_busy && !bugfix001) begin
             bugfix001 <= 1;
             tx_start <= 1;
             touart <= part ? ram_data_out[15:8] : ram_data_out[7:0];
             part = ~ part;
             if (part) begin
                 ram_addr <= ram_addr + 1;
+                if ((ram_addr + 1) == addr_save) begin
+                    tx <= 0;
+                end
             end
         end else begin
             if (!tx_busy && bugfix001) begin

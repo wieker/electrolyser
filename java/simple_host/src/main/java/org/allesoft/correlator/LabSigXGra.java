@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import java.awt.Adjustable;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -298,9 +299,14 @@ public class LabSigXGra
         label = new JLabel();
         mainPanel.add(label);
         textArea = new JTextArea();
+        textArea.setRows(15);
         sumArea = new JTextArea();
+        sumArea.setRows(10);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
         drawArea = new MyDrawing();
+        Dimension minimumSize = new Dimension();
+        minimumSize.setSize(1900, 500);
+        drawArea.setMinimumSize(minimumSize);
         mainPanel.add(drawArea);
         mainPanel.add(new JScrollPane(textArea));
         mainPanel.add(new JScrollPane(sumArea));
@@ -387,9 +393,9 @@ public class LabSigXGra
             super.paintComponent(graphics);
             int z = 0, o = 0;
 
-            for (int i = 0; i < 16; i ++) {
-                for (int k = 0; k < 32; k ++) {
-                    int value = spiDump[i * 32 + k];
+            for (int i = 0; i < 8; i ++) {
+                for (int k = 0; k < 64; k ++) {
+                    int value = spiDump[i * 64 + k];
                     for (int j = 7; j >= 0; j--) {
                         int bit = ((value >> (7 - j)) & 0x01);
                         if (bit == 1) {
