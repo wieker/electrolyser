@@ -68,7 +68,7 @@ module top(
         if (rdy3 && !got) begin
             got <= 1;
             counter <= 0;
-        end else if (got && ram_wren) begin
+        end else if (got) begin
             counter <= counter + 1;
         end
         if (counter[10] && got) begin
