@@ -35,14 +35,14 @@ module top(
         mirror <= rx_dat;
       end
     end
-    wire [9:0] state = period + 9'h001;
+    wire [9:0] state = period + 9'h179;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(state[9]),
-		.D_OUT_0(1)
+		.OUTPUT_ENABLE(!state[9]),
+		.D_OUT_0(0)
     );
 
 	SB_IO #(
@@ -63,9 +63,11 @@ module top(
     reg [10:0] counter;
 
     reg [9:0] pll_samples;
+    reg pll_lock;
+    reg [10:0] free_pll;
     always@(posedge clk)
     begin
-        if (rdy3 && !got) begin
+        if (rdy3 && !got && !pll_lock) begin
             got <= 1;
             counter <= 0;
         end else if (got) begin
@@ -74,6 +76,7 @@ module top(
         if (counter[10] && got) begin
             got <= 0;
             pll_enable <= 1;
+            pll_lock <= 1;
         end
         period <= period + 1;
         if (pll_samples[9] == 1 && pll_samples[8] == 1) begin
@@ -81,8 +84,15 @@ module top(
             pll_samples <= 0;
         end else if (rx_stb == 1) begin
             pll_enable <= 1;
+            pll_lock <= 1;
         end else if (pll_enable == 1) begin
             pll_samples <= pll_samples + 1;
+        end
+        if (pll_lock && free_pll[10]) begin
+            pll_lock <= 0;
+            free_pll <= 0;
+        end else if (pll_lock) begin
+            free_pll <= free_pll + 1;
         end
     end
 
