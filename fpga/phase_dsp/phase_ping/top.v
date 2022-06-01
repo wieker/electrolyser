@@ -12,7 +12,8 @@ module top(
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
     wire rdy3, rdy4;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(!pll_enable && rdy3), .rdy3(rdy3), .rdy4(rdy4));
+    wire dump_start = rx_stb;
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(dump_start), .rdy3(rdy3), .rdy4(rdy4));
 
     reg [7:0] ctr;
     always@(posedge clk)
@@ -58,10 +59,22 @@ module top(
 
     wire [7:0] rx_dat;
     wire rx_stb;
+    reg got;
+    reg [10:0] counter;
 
     reg [9:0] pll_samples;
     always@(posedge clk)
     begin
+        if (rdy3 && !got) begin
+            got <= 1;
+            counter <= 0;
+        end else if (got && ram_wren) begin
+            counter <= counter + 1;
+        end
+        if (counter[10] && got) begin
+            got <= 0;
+            pll_enable <= 1;
+        end
         period <= period + 1;
         if (pll_samples[9] == 1 && pll_samples[8] == 1) begin
             pll_enable <= 0;

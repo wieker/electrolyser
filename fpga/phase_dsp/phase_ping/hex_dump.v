@@ -54,8 +54,8 @@ module hex_dump(
 
     reg tx;
     reg got;
-    reg [7:0] counter;
-    reg [8:0] addr_save;
+    reg [8:0] counter;
+    reg [7:0] addr_save;
 
     always@(posedge clk)
     begin
@@ -67,10 +67,10 @@ module hex_dump(
         end
         if (ram_wren) begin
             ram_addr <= ram_addr + 1;
-            if (counter[7] && got) begin
+            if (counter[8] && got) begin
                 got <= 0;
                 tx <= 1;
-                addr_save <= ram_addr[7:0];
+                addr_save <= ram_addr;
             end
         end else if (tx && !tx_busy && !bugfix001) begin
             bugfix001 <= 1;
