@@ -83,8 +83,6 @@ module top(
             pll_enable <= 0;
             pll_samples <= 0;
         end else if (rx_stb == 1) begin
-            pll_enable <= 1;
-            pll_lock <= 1;
         end else if (pll_enable == 1) begin
             pll_samples <= pll_samples + 1;
         end
