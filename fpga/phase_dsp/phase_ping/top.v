@@ -35,14 +35,14 @@ module top(
         mirror <= rx_dat;
       end
     end
-    wire [9:0] state = period + 9'h179;
+    wire [9:0] state = period + 9'h001;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(!state[9]),
-		.D_OUT_0(0)
+		.OUTPUT_ENABLE(state[9]),
+		.D_OUT_0(1)
     );
 
 	SB_IO #(
