@@ -13,7 +13,7 @@ module top(
 
     wire rdy3, rdy4;
     wire dump_start = rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(alg), .rdy3(rdy3), .rdy4(rdy4));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(dump_start), .rdy3(rdy3), .rdy4(rdy4));
 
     reg [7:0] ctr;
     always@(posedge clk)
@@ -69,7 +69,7 @@ module top(
     reg [4:0] algcnt;
     always@(posedge clk)
     begin
-        if (algcnt[1] == 1) begin
+        if (algcnt[0] == 1) begin
             algcnt <= 0;
             alg <= 0;
         end
@@ -86,7 +86,7 @@ module top(
             pll_lock <= 1;
         end
         period <= period + 1;
-        if (pll_samples[9] == 1 && pll_samples[8] == 1) begin
+        if (pll_samples[9] == 1) begin
             pll_enable <= 0;
             pll_samples <= 0;
         end else if (rx_stb == 1) begin

@@ -79,7 +79,7 @@ module top(
             pll_lock <= 1;
         end
         period <= period + 1;
-        if (pll_samples[9] == 1 && pll_samples[8] == 1) begin
+        if (pll_samples[9] == 1) begin
             pll_enable <= 0;
             pll_samples <= 0;
         end else if (rx_stb == 1) begin
