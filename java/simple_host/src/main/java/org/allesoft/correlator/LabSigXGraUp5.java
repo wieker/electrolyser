@@ -244,7 +244,7 @@ public class LabSigXGraUp5
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        textArea.setText("");
+                        //textArea.setText("");
                         //send78(handle, sendVal);
                         start_loop(handle);
                         calcIQ();

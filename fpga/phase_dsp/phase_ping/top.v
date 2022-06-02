@@ -69,7 +69,7 @@ module top(
     reg [4:0] algcnt;
     always@(posedge clk)
     begin
-        if (algcnt[4] == 1) begin
+        if (algcnt[1] == 1) begin
             algcnt <= 0;
             alg <= 0;
         end
