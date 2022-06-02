@@ -499,7 +499,7 @@ public class LabSigXGra
 
         InputStream inputStream = new FileInputStream(
                 //"../../fpga/dsp/dsp_tx_android/top.bin");
-        "../../fpga/phase_dsp/phase_ping/top.bin");
+        "../../fpga/phase_dsp/beacon/top.bin");
         int addr = 0;
         byte[] buf = new byte[16];
         for (;;) {
