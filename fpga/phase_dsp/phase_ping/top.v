@@ -11,101 +11,30 @@ module top(
     wire comp_in;
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
-    wire rdy3, rdy4;
-    wire dump_start = rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(dump_start), .rdy3(rdy3), .rdy4(rdy4));
+    wire rf_rx_stb;
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(uart_rx_stb), .rdy3(rf_rx_stb));
 
-    reg [7:0] ctr;
-    always@(posedge clk)
-    begin
-      ctr <= ctr + 1;
-    end
+    adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out));
 
-    assign LED2 = rdy3;
-    assign LED1 = rdy4;
+    wire tx_stb;
+    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb | (rf_rx_stb & alg)));
 
-
-    reg [8:0] period;
-    reg [7:0] cmp_cntr;
-    reg [7:0] mirror;
-    always@(posedge clk)
-    begin
-        period <= period + 1;
-      if (rx_stb == 0) begin
-        mirror <= rx_dat;
-      end
-    end
-    wire [9:0] state = period + 9'h001;
-
-	SB_IO #(
-		.PIN_TYPE(6'b101001)
-	) lp_compare (
-		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(state[9]),
-		.D_OUT_0(1)
-    );
-
-	SB_IO #(
-		.PIN_TYPE(6'b101001)
-	) lp_tx_out (
-		.PACKAGE_PIN(tx_out),
-		.OUTPUT_ENABLE(pll_enable),
-		.D_OUT_0(pll_out)
-    );
-
-    reg pll_enable;
-    wire pll_out;
-    ipll ipll(.xtal_in(xtal_in), .clk(pll_out));
-
-    wire [7:0] rx_dat;
-    wire rx_stb;
-    reg got;
-    reg [10:0] counter;
-
-    reg [9:0] pll_samples;
-    reg pll_lock;
-    reg [10:0] free_pll;
     reg alg;
-    reg [4:0] algcnt;
+    reg [3:0] alg_counter;
     always@(posedge clk)
     begin
-        if (algcnt[0] == 1) begin
-            algcnt <= 0;
-            alg <= 0;
-        end
-        if (rdy3 && !got && !pll_lock && alg) begin
-            got <= 1;
-            counter <= 0;
-            algcnt <= algcnt + 1;
-        end else if (got) begin
-            counter <= counter + 1;
-        end
-        if (counter[10] && got) begin
-            got <= 0;
-            pll_enable <= 1;
-            pll_lock <= 1;
-        end
-        period <= period + 1;
-        if (pll_samples[9] == 1) begin
-            pll_enable <= 0;
-            pll_samples <= 0;
-        end else if (rx_stb == 1) begin
+        if (uart_rx_stb) begin
             alg <= 1;
-            algcnt <= 0;
-            pll_enable <= 1;
-            pll_lock <= 1;
-        end else if (pll_enable == 1) begin
-            pll_samples <= pll_samples + 1;
-        end
-        if (pll_lock && free_pll[10]) begin
-            pll_lock <= 0;
-            free_pll <= 0;
-        end else if (pll_lock) begin
-            free_pll <= free_pll + 1;
+            alg_counter <= 0;
+        end else if (alg_counter[0] == 1) begin
+            alg <= 0;
+            alg_counter <= 0;
+        end else if (rf_rx_stb == 1) begin
+            alg_counter <= 1;
         end
     end
 
-
+    wire uart_rx_stb;
     localparam sym_rate = 1200;
     localparam clk_freq = 48000000;
     localparam sym_cnt = clk_freq / sym_rate;
@@ -119,7 +48,7 @@ module top(
         .rst(rst),
         .rx_serial(fpga_rx),
         .rx_dat(rx_dat),
-        .rx_stb(rx_stb),
+        .rx_stb(uart_rx_stb),
         .rx_err(tx_busy)
     );
 
