@@ -16,9 +16,9 @@ module tx(
     wire pll_out;
     ipll ipll(.xtal_in(xtal_in), .clk(pll_out));
 
-    always@(posedge clk)
+    always@(posedge xtal_in)
     begin
-        if (pll_samples[9] == 1) begin
+        if (pll_samples[9] == 1 && pll_samples[8] == 1) begin
             pll_enable <= 0;
             pll_samples <= 0;
         end else if (pll_enable == 1) begin
