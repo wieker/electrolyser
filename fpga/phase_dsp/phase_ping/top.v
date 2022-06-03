@@ -11,13 +11,14 @@ module top(
     wire comp_in;
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
+    assign LED2 = rf_rx_stb;
     wire rf_rx_stb;
     hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(uart_rx_stb), .rdy3(rf_rx_stb));
 
     adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out));
 
     wire tx_stb;
-    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb | (rf_rx_stb & alg)));
+    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb | (rf_rx_stb)));
 
     reg alg;
     reg [3:0] alg_counter;
