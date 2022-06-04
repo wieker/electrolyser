@@ -32,6 +32,7 @@ module top(
     begin
         if (uart_rx_stb) begin
             alg <= 1;
+            rx_counter <= 0;
         end else if (alg_counter[15] == 1) begin
             alg <= 0;
             alg_counter <= 0;
