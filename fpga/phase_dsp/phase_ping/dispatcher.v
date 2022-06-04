@@ -30,29 +30,11 @@ module dispatcher(
 
     always@(posedge clk)
     begin
-        if (rst_in) begin
-            rdy <= 0;
-            st1 <= 0;
-            st2 <= 0;
-        end else if (stb) begin
-            q1 <= i_value[7] ? i_value : ~ i_value;
-            q2 <= q_value[7] ? q_value : ~ q_value;
-            st1 <= 1;
-        end else if (st1) begin
-            q3 <= {0, q1[6:0]};
-            q4 <= {0, q2[6:0]};
-            st1 <= 0;
-            st2 <= 1;
-        end else if (st2) begin
-            value <= q3 + q4;
-            rdy <= 1;
-            st1 <= 0;
-            st2 <= 0;
-        end else begin
-            rdy <= 0;
-            st1 <= 0;
-            st2 <= 0;
-        end
+        q1 <= i_value[7] ? i_value : ~ i_value;
+        q2 <= q_value[7] ? q_value : ~ q_value;
+        q3 <= {0, q1[6:0]};
+        q4 <= {0, q2[6:0]};
+        value <= q3 + q4;
     end
 
 
