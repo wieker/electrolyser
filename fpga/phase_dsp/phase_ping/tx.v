@@ -7,18 +7,18 @@ module tx(
 		.PIN_TYPE(6'b101001)
 	) lp_tx_out (
 		.PACKAGE_PIN(tx_out),
-		.OUTPUT_ENABLE(pll_enable),
+		.OUTPUT_ENABLE(pll_samples[9]),
 		.D_OUT_0(pll_out)
     );
 
     reg pll_enable;
-    reg [9:0] pll_samples;
+    reg [10:0] pll_samples;
     wire pll_out;
     ipll ipll(.xtal_in(xtal_in), .clk(pll_out));
 
     always@(posedge xtal_in)
     begin
-        if (pll_samples[9] == 1 && pll_samples[8] == 1) begin
+        if (pll_samples[10] == 1) begin
             pll_enable <= 0;
             pll_samples <= 0;
         end else if (pll_enable == 1) begin
@@ -28,6 +28,6 @@ module tx(
         end
     end
 
-    assign tx_en = pll_enable;
+    assign tx_en = pll_samples[9];
 
 endmodule

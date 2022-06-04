@@ -19,7 +19,7 @@ module top(
 
     wire tx_stb;
     wire tx_en;
-    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb), .tx_en(tx_en));
+    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb | rf_rx_stb), .tx_en(tx_en));
 
     reg alg;
     reg [3:0] alg_counter;
