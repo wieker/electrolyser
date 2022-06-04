@@ -13,7 +13,7 @@ module top(
 
     assign LED2 = rf_rx_stb;
     wire rf_rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(alg_counter[15]), .rdy3(rf_rx_stb),
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(alg_counter[23]), .rdy3(rf_rx_stb),
         .rx_counter(rx_counter));
 
     adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out));
@@ -23,8 +23,8 @@ module top(
     tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb | (alg & rf_rx_stb)), .tx_en(tx_en));
 
     reg alg;
-    reg [15:0] alg_counter;
-    reg [7:0] rx_counter;
+    reg [23:0] alg_counter;
+    reg [15:0] rx_counter;
     reg relax;
     reg [9:0] relax_counter;
     always@(posedge clk)
@@ -32,7 +32,7 @@ module top(
         if (uart_rx_stb) begin
             alg <= 1;
             rx_counter <= 0;
-        end else if (alg_counter[15] == 1) begin
+        end else if (alg_counter[23] == 1) begin
             alg <= 0;
             alg_counter <= 0;
         end else if (alg) begin

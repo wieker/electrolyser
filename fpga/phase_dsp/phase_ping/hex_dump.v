@@ -1,5 +1,5 @@
 module hex_dump(
-    input clk, rst, sig, fpga_rx, input [7:0] rx_counter,
+    input clk, rst, sig, fpga_rx, input [15:0] rx_counter,
     output fpga_tx, rdy3, rdy4,
 );
 
@@ -75,7 +75,7 @@ module hex_dump(
         end else if (tx && !tx_busy && !bugfix001) begin
             bugfix001 <= 1;
             tx_start <= 1;
-            touart <= rx_counter;
+            touart <= part ? rx_counter[15:8] : rx_counter[7:0];
             part = ~ part;
             if (part) begin
                 ram_addr <= ram_addr + 1;
