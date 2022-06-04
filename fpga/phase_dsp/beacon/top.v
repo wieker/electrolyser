@@ -49,7 +49,7 @@ module top(
 		.PIN_TYPE(6'b101001)
 	) lp_tx_out (
 		.PACKAGE_PIN(tx_out),
-		.OUTPUT_ENABLE(pll_enable),
+		.OUTPUT_ENABLE(1),
 		.D_OUT_0(pll_out)
     );
 
