@@ -26,8 +26,7 @@ module top(
     reg [15:0] alg_counter;
     reg [7:0] rx_counter;
     reg relax;
-    reg [7:0] relax_counter;
-    reg prerel;
+    reg [9:0] relax_counter;
     always@(posedge clk)
     begin
         if (uart_rx_stb) begin
@@ -42,12 +41,11 @@ module top(
         if (rf_rx_stb && !relax && alg) begin
             rx_counter <= rx_counter + 1;
             relax <= 1;
-            prerel <= 1;
-        end else if (relax_counter == 0 && !prerel) begin
+        end else if (relax_counter[9] == 1) begin
             relax <= 0;
+            relax_counter[9] <= 0;
         end else if (relax) begin
             relax_counter <= relax_counter + 1;
-            prerel <= 0;
         end
     end
 
