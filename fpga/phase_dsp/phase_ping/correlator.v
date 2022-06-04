@@ -16,7 +16,7 @@ module correlator(
 		    value <= match_counter[7:0];
 		    match_counter <= 0;
 		end else begin
-		    match_counter <= match_counter + (code_buf == sig_buf);
+		    match_counter <= match_counter + ram_data_out[0];
 		end
 	end
 
@@ -27,7 +27,7 @@ module correlator(
 
     SB_RAM40_4K SB_RAM40_4K_inst (
         .RDATA(ram_data_out),
-        .RADDR(ram_addr),
+        .RADDR(ram_addr + 1),
         .RCLK(clk),
         .RCLKE(1),
         .RE(1),
