@@ -39,7 +39,7 @@ module top(
         end else if (alg) begin
             alg_counter <= alg_counter + 1;
         end
-        if (rf_rx_stb && !relax) begin
+        if (rf_rx_stb && !relax && alg) begin
             rx_counter <= rx_counter + 1;
             relax <= 1;
             prerel <= 1;
