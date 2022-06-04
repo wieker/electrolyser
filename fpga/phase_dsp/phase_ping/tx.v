@@ -1,5 +1,5 @@
 module tx(
-    output tx_out,
+    output tx_out, tx_en,
     input xtal_in, tx_stb,
 );
 
@@ -27,5 +27,7 @@ module tx(
             pll_enable <= 1;
         end
     end
+
+    assign tx_en = pll_enable;
 
 endmodule

@@ -13,12 +13,13 @@ module top(
 
     assign LED2 = rf_rx_stb;
     wire rf_rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(sig_in), .fpga_rx(uart_rx_stb), .rdy3(rf_rx_stb));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(rf_rx_stb), .rdy3(rf_rx_stb));
 
     adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out));
 
     wire tx_stb;
-    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb | (rf_rx_stb)));
+    wire tx_en;
+    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb), .tx_en(tx_en));
 
     reg alg;
     reg [3:0] alg_counter;
