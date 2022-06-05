@@ -3,21 +3,21 @@ module correlator(
     output reg [7:0] value,
 );
 
-    reg [13:0] match_counter;
+    reg [7:0] match_counter;
     reg sig_buf;
     reg code_buf;
+    reg [7:0] svd1;
+    reg [7:0] svd2;
 
 	always @(posedge clk)
 	begin
 	    sig_buf <= sig;
 	    code_buf <= code;
 	    ram_addr <= ram_addr + 1;
-		if (ram_addr == 0) begin
-		    value <= match_counter[7:0];
-		    match_counter <= 0;
-		end else begin
-		    match_counter <= match_counter + ram_data_out[0];
-		end
+        value <= match_counter[7:0];
+        svd1 <= match_counter + (code_buf == sig_buf);
+        svd2 <= ram_data_out[0] ? 8'hff : 0;
+        match_counter <= svd1 + svd2;
 	end
 
     assign ram_data_in[0] = (code_buf == sig_buf);
