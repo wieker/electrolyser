@@ -7,7 +7,6 @@ module correlator(
     reg sig_buf;
     reg code_buf;
     reg [7:0] svd1;
-    reg [7:0] svd2;
 
 	always @(posedge clk)
 	begin
@@ -15,9 +14,8 @@ module correlator(
 	    code_buf <= code;
 	    ram_addr <= ram_addr + 1;
         value <= match_counter[7:0];
-        svd1 <= match_counter + (code_buf == sig_buf);
-        svd2 <= ram_data_out[0] ? 8'hff : 0;
-        match_counter <= svd1 + svd2;
+        svd1 <= (code_buf == sig_buf) + (ram_data_out[0] ? 8'hff : 0);
+        match_counter <= svd1 + match_counter;
 	end
 
     assign ram_data_in[0] = (code_buf == sig_buf);
