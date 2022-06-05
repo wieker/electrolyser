@@ -1,19 +1,18 @@
 module hex_dump(
-    input clk, rst, sig, fpga_rx,
+    input clk, rst, sig, fpga_rx, input [15:0] rx_counter,
     output fpga_tx, rdy3, rdy4,
 );
 
     // PWM => LVDS ADC (1-bit comparator)
 
     assign rdy4 = done;
-    assign rdy3 = demod[7];
 
     reg [15:0] value;
     reg [15:0] bckp;
     reg [3:0] cntr;
     reg stb;
     wire [7:0] demod;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .value(demod));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy(rdy3));
 
     always@(posedge clk)
     begin
