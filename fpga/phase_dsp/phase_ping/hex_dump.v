@@ -75,8 +75,8 @@ module hex_dump(
         end else if (tx && !tx_busy && !bugfix001) begin
             bugfix001 <= 1;
             tx_start <= 1;
-            //touart <= part ? ram_data_out[15:8] : ram_data_out[7:0];
-            touart <= part ? rx_counter[15:8] : rx_counter[7:0];
+            touart <= part ? ram_data_out[15:8] : ram_data_out[7:0];
+            //touart <= part ? rx_counter[15:8] : rx_counter[7:0];
             part = ~ part;
             if (part) begin
                 ram_addr <= ram_addr + 1;
