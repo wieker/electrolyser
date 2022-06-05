@@ -13,9 +13,13 @@ module correlator(
 	    sig_buf <= sig;
 	    code_buf <= code;
 	    ram_addr <= ram_addr + 1;
-        value <= match_counter[7:0];
-        svd1 <= (code_buf == sig_buf) + (ram_data_out[0] ? 8'hff : 0);
-        match_counter <= svd1 + match_counter;
+	    if (ram_addr == 0) begin
+            value <= match_counter[7:0];
+            match_counter <= 0;
+        end else begin
+            svd1 <= (ram_data_out[0] ? 1 : 0);
+            match_counter <= svd1 + match_counter;
+        end
 	end
 
     assign ram_data_in[0] = (code_buf == sig_buf);
