@@ -8,6 +8,7 @@ module correlator(
     reg sig_buf;
     reg code_buf;
     reg [7:0] ram_addr;
+    wire [7:0] next_addr = ram_addr + 1;
 
 	always @(posedge clk)
 	begin
@@ -17,12 +18,7 @@ module correlator(
             sig_buf <= sig;
             code_buf <= code;
             ram_addr <= ram_addr + 1;
-            if (ram_addr == 0) begin
-                value <= match_counter[7:0];
-                match_counter <= 0;
-            end else begin
-                match_counter <= ram_data_out[0] + match_counter;
-            end
+            match_counter <= match_counter + (ram_data_out[0] ? 8'hff : 0) + xored;
         end
 	end
 
@@ -34,7 +30,7 @@ module correlator(
 
     SB_RAM40_4K SB_RAM40_4K_inst (
         .RDATA(ram_data_out),
-        .RADDR(ram_addr + 1),
+        .RADDR(next_addr),
         .RCLK(clk),
         .RCLKE(1),
         .RE(1),
