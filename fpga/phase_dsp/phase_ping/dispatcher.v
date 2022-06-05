@@ -1,6 +1,7 @@
 module dispatcher(
     input clk, rst_in, sig,
-    output rdy,
+    output reg [7:0] value,
+    output reg rdy,
 );
     wire i_code, q_code;
     nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h2000), .i_code(i_code), .phase_control_word(16'h0000));
@@ -8,9 +9,20 @@ module dispatcher(
 
     wire [7:0] i_value;
     wire [7:0] q_value;
-    correlator i_correlator(.clk(clk), .rst(rst_in), .sig(sig), .code(i_code), .value(i_value), .shift(0));
-    correlator q_correlator(.clk(clk), .rst(rst_in), .sig(sig), .code(q_code), .value(q_value), .shift(0));
+    correlator i_correlator(.clk(clk), .rst(rst), .sig(sig), .code(i_code), .value(i_value));
+    correlator q_correlator(.clk(clk), .rst(rst), .sig(sig), .code(q_code), .value(q_value));
 
+    wire rst;
+    dispatcher_ctl ctl(
+        .clk(clk),
+        .rst_in(rst_in),
+        .rst_out(rst),
+        .stb(stb)
+    );
+
+    wire stb;
+    reg st1;
+    reg st2;
     reg [7:0] q1;
     reg [7:0] q2;
     reg [7:0] q3;
@@ -25,27 +37,5 @@ module dispatcher(
         value <= q3 + q4;
     end
 
-    wire [7:0] i_value1;
-    wire [7:0] q_value1;
-    correlator i_correlator1(.clk(clk), .rst(rst_in), .sig(sig), .code(i_code), .value(i_value1), .shift(8'h80));
-    correlator q_correlator1(.clk(clk), .rst(rst_in), .sig(sig), .code(q_code), .value(q_value1), .shift(8'h80));
-
-    reg [7:0] q11;
-    reg [7:0] q21;
-    reg [7:0] q31;
-    reg [7:0] q41;
-
-    always@(posedge clk)
-    begin
-        q11 <= i_value1[7] ? i_value1 : ~ i_value1;
-        q21 <= q_value1[7] ? q_value1 : ~ q_value1;
-        q31 <= {0, q11[6:0]};
-        q41 <= {0, q21[6:0]};
-        value1 <= q31 + q41;
-    end
-
-    reg [7:0] value;
-    reg [7:0] value1;
-    assign rdy = value[7] | (value[6] && value[5]) | value1[7] | (value1[6] && value1[5]);
 
 endmodule
