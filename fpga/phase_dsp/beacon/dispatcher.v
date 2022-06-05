@@ -27,11 +27,19 @@ module dispatcher(
     reg [7:0] q2;
     reg [7:0] q3;
     reg [7:0] q4;
+    reg [7:0] s1;
+    reg [7:0] s2;
+    reg [7:0] s3;
+    reg [7:0] s4;
 
     always@(posedge clk)
     begin
-        q1 <= i_value[7] ? i_value : ~ i_value;
-        q2 <= q_value[7] ? q_value : ~ q_value;
+        s1 <= i_value;
+        s2 <= ~ i_value;
+        s3 <= q_value;
+        s4 <= ~ q_value;
+        q1 <= s1[7] ? s1 : s2;
+        q2 <= s3[7] ? s3 : s4;
         q3 <= {0, q1[6:0]};
         q4 <= {0, q2[6:0]};
         value <= q3 + q4;

@@ -6,7 +6,7 @@ module correlator(
     reg [7:0] match_counter;
     reg sig_buf;
     reg code_buf;
-    reg [7:0] ram_addr;
+    reg [6:0] ram_addr;
     reg [7:0] old_value;
 
 	always @(posedge clk)
@@ -20,7 +20,7 @@ module correlator(
         end else begin
             match_counter <= xored + match_counter;
         end
-        value <= old_value;
+        value <= old_value + match_counter;
 	end
 
     wire xored = (code_buf == sig_buf);
