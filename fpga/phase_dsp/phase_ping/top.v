@@ -13,26 +13,39 @@ module top(
 
     assign LED2 = rf_rx_stb;
     wire rf_rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(uart_rx_stb), .rdy3(rf_rx_stb),
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(total_counter[13] == 1 && process), .rdy3(rf_rx_stb),
         .rx_counter(rx_counter));
 
     adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out));
 
     wire tx_stb;
     wire tx_en;
-    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(uart_rx_stb), .tx_en(tx_en));
+    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(process && total_counter[11:0] == 0), .tx_en(tx_en));
 
+    reg process;
+    reg [24:0] total_counter;
     reg alg;
-    reg [15:0] rx_counter;
+    reg [23:0] rx_counter;
     always@(posedge clk)
     begin
         if (uart_rx_stb) begin
             alg <= 1;
+            process <= 1;
             rx_counter <= 0;
+            total_counter <= 0;
+        end else if (process && total_counter[11:0] == 0) begin
+            alg <= 1;
         end else if (rf_rx_stb) begin
             alg <= 0;
         end else if (alg) begin
             rx_counter <= rx_counter + 1;
+        end
+        if (process) begin
+            if (total_counter[13] == 1) begin
+                process <= 0;
+            end else begin
+                total_counter <= total_counter + 1;
+            end
         end
     end
 
