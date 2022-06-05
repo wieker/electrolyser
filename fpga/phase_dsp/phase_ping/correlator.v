@@ -19,6 +19,7 @@ module correlator(
             code_buf <= code;
             ram_addr <= ram_addr + 1;
             match_counter <= match_counter + (ram_data_out[0] ? 8'hff : 0) + xored;
+            value <= match_counter;
         end
 	end
 
