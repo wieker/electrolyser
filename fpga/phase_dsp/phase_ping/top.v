@@ -24,15 +24,15 @@ module top(
     tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(process && total_counter[11:0] == 0), .tx_en(tx_en));
 
     reg process;
-    reg [24:0] total_counter;
+    reg [12:0] total_counter;
     reg alg;
-    reg [23:0] rx_counter;
-    reg [23:0] begin_counter;
-    reg [23:0] end_counter;
+    reg [12:0] rx_counter;
+    reg [12:0] begin_counter;
+    reg [12:0] end_counter;
     reg [23:0] svd;
     reg rcvd;
-    reg [23:0] tcb;
-    reg [23:0] tce;
+    reg [11:0] tcb;
+    reg [11:0] tce;
     always@(posedge clk)
     begin
         if (rst) begin
@@ -44,7 +44,7 @@ module top(
             total_counter <= 0;
         end else if (total_counter[12] == 1) begin
             rx_counter <= 0;
-            svd <= tcb + tce;
+            svd <= {tcb, tce};
             total_counter <= 0;
             tcb <= 0;
             tce <= 0;
@@ -66,6 +66,7 @@ module top(
             end
             end_counter <= rx_counter;
             rcvd <= 1;
+            rx_counter <= rx_counter + 1;
         end else begin
             rx_counter <= rx_counter + 1;
         end
