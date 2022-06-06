@@ -14,7 +14,7 @@ module top(
     assign LED2 = rf_rx_stb;
     assign LED1 = process;
     wire rf_rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(total_counter[24] == 1 && process), .rdy3(rf_rx_stb),
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(total_counter[23] == 1 && process), .rdy3(rf_rx_stb),
         .rx_counter(svd));
 
     adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out));
@@ -27,7 +27,12 @@ module top(
     reg [24:0] total_counter;
     reg alg;
     reg [23:0] rx_counter;
+    reg [23:0] begin_counter;
+    reg [23:0] end_counter;
     reg [23:0] svd;
+    reg rcvd;
+    reg [23:0] tcb;
+    reg [23:0] tce;
     always@(posedge clk)
     begin
         if (rst) begin
@@ -37,19 +42,34 @@ module top(
             process <= 1;
             rx_counter <= 0;
             total_counter <= 0;
-        end else if (total_counter[24] == 1) begin
+        end else if (total_counter[23] == 1) begin
             rx_counter <= 0;
-            svd <= rx_counter;
+            svd <= tcb + tce;
             total_counter <= 0;
+            tcb <= 0;
+            tce <= 0;
             alg <= 1;
         end else if (process && total_counter[11:0] == 0) begin
             alg <= 1;
+            rx_counter <= 0;
+            end_counter <= 0;
+            begin_counter <= 0;
+            rcvd <= 0;
+            if (rcvd) begin
+                tcb <= tcb + begin_counter;
+                tce <= tce + end_counter;
+            end
         end else if (rf_rx_stb) begin
-            alg <= 0;
-        end else if (alg) begin
+            if (alg) begin
+                alg <= 0;
+                begin_counter <= rx_counter;
+            end
+            end_counter <= rx_counter;
+            rcvd <= 1;
+        end else begin
             rx_counter <= rx_counter + 1;
         end
-        if (process && total_counter[24] == 0) begin
+        if (process && total_counter[23] == 0) begin
             total_counter <= total_counter + 1;
         end
     end
