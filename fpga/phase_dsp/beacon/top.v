@@ -19,20 +19,26 @@ module top(
 
     wire tx_stb;
     wire tx_en;
-    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(rf_rx_stb), .tx_en(tx_en));
+    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(tx_counter == (8'hff + mid_counter)), .tx_en(tx_en));
 
-    reg alg;
-    reg [3:0] alg_counter;
+    reg rcvd;
+    reg tx_prep;
+    reg [7:0] end_counter;
+    reg [7:0] mid_counter;
+    reg [8:0] tx_counter;
     always@(posedge clk)
     begin
-        if (uart_rx_stb) begin
-            alg <= 1;
-            alg_counter <= 0;
-        end else if (alg_counter[0] == 1) begin
-            alg <= 0;
-            alg_counter <= 0;
-        end else if (rf_rx_stb == 1) begin
-            alg_counter <= 1;
+        if (rf_rx_stb) begin
+            rcvd <= 1;
+            end_counter <= end_counter + 1;
+            mid_counter <= end_counter[7:1];
+            tx_counter <= tx_counter + 1;
+        end else if (tx_counter == (8'hff + mid_counter)) begin
+            rcvd <= 0;
+            end_counter <= 0;
+            tx_counter <= 0;
+        end else if (rcvd == 1) begin
+            tx_counter <= tx_counter + 1;
         end
     end
 

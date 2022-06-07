@@ -28,6 +28,6 @@ module tx(
         end
     end
 
-    assign tx_en = pll_samples[9] && !pll_samples[8];
+    assign tx_en = pll_samples[8];
 
 endmodule
