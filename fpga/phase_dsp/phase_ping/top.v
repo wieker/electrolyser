@@ -21,7 +21,7 @@ module top(
 
     wire tx_stb;
     wire tx_en;
-    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(process && total_counter[11:0] == 0), .tx_en(tx_en));
+    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(process && total_counter[10:0] == 0), .tx_en(tx_en));
 
     reg process;
     reg [24:0] total_counter;
@@ -49,7 +49,7 @@ module top(
             tcb <= 0;
             tce <= 0;
             alg <= 1;
-        end else if (process && total_counter[11:0] == 0) begin
+        end else if (process && total_counter[10:0] == 0) begin
             alg <= 1;
             rx_counter <= 0;
             end_counter <= 0;
