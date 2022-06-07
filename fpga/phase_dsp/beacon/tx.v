@@ -18,7 +18,7 @@ module tx(
 
     always@(posedge xtal_in)
     begin
-        if (pll_samples[10] == 1) begin
+        if (pll_samples[9] == 1) begin
             pll_enable <= 0;
             pll_samples <= 0;
         end else if (pll_enable == 1) begin
