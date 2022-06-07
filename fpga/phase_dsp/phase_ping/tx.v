@@ -7,7 +7,7 @@ module tx(
 		.PIN_TYPE(6'b101001)
 	) lp_tx_out (
 		.PACKAGE_PIN(tx_out),
-		.OUTPUT_ENABLE(pll_samples[9]),
+		.OUTPUT_ENABLE(tx_en),
 		.D_OUT_0(pll_out)
     );
 
@@ -28,6 +28,6 @@ module tx(
         end
     end
 
-    assign tx_en = pll_samples[9];
+    assign tx_en = pll_samples[9] && !pll_samples[8];
 
 endmodule
