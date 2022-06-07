@@ -51,21 +51,38 @@ module hex_dump(
     reg bugfix001;
     reg part;
 
-    reg [1:0] tx;
+    reg tx;
     reg got;
     reg [8:0] counter;
     reg [7:0] addr_save;
 
     always@(posedge clk)
     begin
-        if (fpga_rx && tx == 0) begin
-            tx <= 1;
+        if (fpga_rx && !got) begin
+            got <= 1;
+            counter <= 0;
+        end else if (got && ram_wren) begin
+            counter <= counter + 1;
         end
-        if (tx != 0 && !tx_busy && !bugfix001) begin
+        if (ram_wren) begin
+            ram_addr <= ram_addr + 1;
+            if (counter[8] && got) begin
+                got <= 0;
+                tx <= 1;
+                addr_save <= ram_addr;
+            end
+        end else if (tx && !tx_busy && !bugfix001) begin
             bugfix001 <= 1;
             tx_start <= 1;
-            touart <= tx == 1 ? rx_counter[23:16] : tx == 2 ? rx_counter[15:8] : rx_counter[7:0];
-            tx <= tx + 1;
+            touart <= part ? ram_data_out[15:8] : ram_data_out[7:0];
+            //touart <= part ? rx_counter[15:8] : rx_counter[7:0];
+            part = ~ part;
+            if (part) begin
+                ram_addr <= ram_addr + 1;
+                if ((ram_addr + 1) == addr_save) begin
+                    tx <= 0;
+                end
+            end
         end else begin
             if (!tx_busy && bugfix001) begin
                 bugfix001 <= 0;
