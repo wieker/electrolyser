@@ -12,7 +12,7 @@ module top(
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
     assign LED2 = rf_rx_stb;
-    assign LED1 = process;
+    //assign LED1 = process;
     wire rf_rx_stb;
     hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(total_counter[20] == 1 && process), .rdy3(rf_rx_stb),
         .rx_counter(svd));
