@@ -14,7 +14,7 @@ module top(
     assign LED2 = rf_rx_stb;
     //assign LED1 = process;
     wire rf_rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(processed[0] == 1 && process), .rdy3(rf_rx_stb),
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .fpga_rx(processed[8] == 1 && process), .rdy3(rf_rx_stb),
         .rx_counter(svd));
 
     adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out));
@@ -43,9 +43,9 @@ module top(
             process <= 1;
             rx_counter <= 0;
             total_counter <= 0;
-        end else if (processed[0] == 1) begin
+        end else if (processed[8] == 1) begin
             rx_counter <= 0;
-            svd <= tcb[11:0] + tce[11:0];
+            svd <= tcb[19:8] + tce[19:8];
             total_counter <= 0;
             processed <= 0;
             tcb <= 0;
@@ -73,7 +73,7 @@ module top(
         end else begin
             rx_counter <= rx_counter + 1;
         end
-        if (process && processed[0] == 0) begin
+        if (process && processed[8] == 0) begin
             total_counter <= total_counter + 1;
         end
     end
