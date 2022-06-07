@@ -44,7 +44,7 @@ module top(
             total_counter <= 0;
         end else if (total_counter[20] == 1) begin
             rx_counter <= 0;
-            svd <= {tcb[19:8], tce[19:8]};
+            svd <= tcb[19:8] + tce[19:8];
             total_counter <= 0;
             tcb <= 0;
             tce <= 0;
