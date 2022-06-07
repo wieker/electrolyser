@@ -45,7 +45,7 @@ module top(
             total_counter <= 0;
         end else if (processed[0] == 1) begin
             rx_counter <= 0;
-            svd <= tcb[11:0] + tce[11:0];
+            svd <= {tcb[11:0], tce[11:0]};
             total_counter <= 0;
             processed <= 0;
             tcb <= 0;
