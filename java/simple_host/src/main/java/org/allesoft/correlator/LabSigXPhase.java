@@ -400,11 +400,11 @@ public class LabSigXPhase
                         int bit = ((value >> (7 - j)) & 0x01);
                         if (bit == 1) {
                             graphics.setColor(Color.RED);
-                            graphics.fillRect(k * 24 + j * 3, 10 + 15 * i, 5, 5);
+                            graphics.fillRect((k * 24 + j * 3) / 2, 10 + 15 * i + 5 * (j % 2), 5, 5);
                             o ++;
                         } else {
                             graphics.setColor(Color.BLACK);
-                            graphics.fillRect(k * 24 + j * 3, 15 + 15 * i, 5, 5);
+                            graphics.fillRect((k * 24 + j * 3) / 2, 10 + 15 * i + 5 * (j % 2), 5, 5);
                             z ++;
                         }
                     }
