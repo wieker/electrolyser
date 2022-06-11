@@ -24,7 +24,7 @@ module top(
 
     wire tx_stb;
     wire tx_en;
-    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(1), .tx_en(tx_en));
+    tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(0), .tx_en(tx_en));
 
     wire uart_rx_stb;
     wire [8:0] rx_dat;
