@@ -3,22 +3,16 @@ module hex_dump(
     output fpga_tx,
 );
 
-    // PWM => LVDS ADC (1-bit comparator)
-
-    assign rdy4 = done;
-
     reg [15:0] value;
     reg [15:0] bckp;
-    reg [3:0] cntr;
+    reg [2:0] cntr;
     reg stb;
-    wire [7:0] demod;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .rdy(rdy3));
 
     always@(posedge clk)
     begin
         if (!rst) begin
             cntr <= cntr + 1;
-            value <= {value[14:0], sig};
+            value <= {value[13:0], sig, sig1};
             if (cntr == 0) begin
                 bckp <= value;
                 stb <= 1;

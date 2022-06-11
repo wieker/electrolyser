@@ -1,4 +1,4 @@
-module adjust(
+module adjust1(
     input clk, rst,
     output pwm_out,
 );
