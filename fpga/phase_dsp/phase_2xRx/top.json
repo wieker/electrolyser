@@ -11454,6 +11454,69 @@
             "O": [ 72 ]
           }
         },
+        "digitizer.digitizer_SB_DFF_Q": {
+          "hide_name": 0,
+          "type": "SB_DFF",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "top.v:14.12-14.95|digitizer.v:17.5-20.8|/usr/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+          },
+          "port_directions": {
+            "C": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "C": [ 10 ],
+            "D": [ 90 ],
+            "Q": [ 91 ]
+          }
+        },
+        "digitizer.lp_compare": {
+          "hide_name": 0,
+          "type": "SB_IO",
+          "parameters": {
+            "IO_STANDARD": "SB_LVDS_INPUT",
+            "PIN_TYPE": "000001"
+          },
+          "attributes": {
+            "hdlname": "digitizer lp_compare",
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "top.v:14.12-14.95|digitizer.v:9.4-12.6"
+          },
+          "port_directions": {
+            "CLOCK_ENABLE": "input",
+            "D_IN_0": "output",
+            "PACKAGE_PIN": "inout"
+          },
+          "connections": {
+            "CLOCK_ENABLE": [ "1" ],
+            "D_IN_0": [ 90 ],
+            "PACKAGE_PIN": [ 8 ]
+          }
+        },
+        "digitizer.sig_SB_DFF_Q": {
+          "hide_name": 0,
+          "type": "SB_DFF",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "top.v:14.12-14.95|digitizer.v:17.5-20.8|/usr/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+          },
+          "port_directions": {
+            "C": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "C": [ 10 ],
+            "D": [ 91 ],
+            "Q": [ 92 ]
+          }
+        },
         "digitizer1.digitizer_SB_DFF_Q": {
           "hide_name": 0,
           "type": "SB_DFF",
@@ -11470,8 +11533,8 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 90 ],
-            "Q": [ 91 ]
+            "D": [ 93 ],
+            "Q": [ 94 ]
           }
         },
         "digitizer1.lp_compare": {
@@ -11493,7 +11556,7 @@
           },
           "connections": {
             "CLOCK_ENABLE": [ "1" ],
-            "D_IN_0": [ 90 ],
+            "D_IN_0": [ 93 ],
             "PACKAGE_PIN": [ 11 ]
           }
         },
@@ -11513,8 +11576,8 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 91 ],
-            "Q": [ 92 ]
+            "D": [ 94 ],
+            "Q": [ 95 ]
           }
         },
         "fpga_tx_SB_DFFESS_Q": {
@@ -11535,10 +11598,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 93 ],
-            "E": [ 94 ],
+            "D": [ 96 ],
+            "E": [ 97 ],
             "Q": [ 2 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "fpga_tx_SB_DFFESS_Q_D_SB_LUT4_O": {
@@ -11561,9 +11624,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 96 ],
-            "I3": [ 97 ],
-            "O": [ 93 ]
+            "I2": [ 99 ],
+            "I3": [ 100 ],
+            "O": [ 96 ]
           }
         },
         "fpga_tx_SB_DFFESS_Q_E_SB_LUT4_O": {
@@ -11585,35 +11648,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 98 ],
-            "I2": [ 99 ],
-            "I3": [ 100 ],
-            "O": [ 94 ]
-          }
-        },
-        "fpga_tx_SB_DFFESS_Q_S_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0000000011111111"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:12.34-13.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ "0" ],
-            "I3": [ 98 ],
-            "O": [ 95 ]
+            "I1": [ 101 ],
+            "I2": [ 102 ],
+            "I3": [ 103 ],
+            "O": [ 97 ]
           }
         },
         "hex_dump.SB_RAM40_4K_inst": {
@@ -11641,16 +11679,16 @@
           },
           "connections": {
             "MASK": [ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ],
-            "RADDR": [ 101, 102, 103, 104, 105, 106, 107, 108, "0", "0", "0" ],
+            "RADDR": [ 104, 105, 106, 107, 108, 109, 110, 111, "0", "0", "0" ],
             "RCLK": [ 10 ],
             "RCLKE": [ "1" ],
-            "RDATA": [ 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124 ],
+            "RDATA": [ 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127 ],
             "RE": [ "1" ],
-            "WADDR": [ 101, 102, 103, 104, 105, 106, 107, 108, "0", "0", "0" ],
+            "WADDR": [ 104, 105, 106, 107, 108, 109, 110, 111, "0", "0", "0" ],
             "WCLK": [ 10 ],
             "WCLKE": [ "1" ],
-            "WDATA": [ 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140 ],
-            "WE": [ 141 ]
+            "WDATA": [ 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143 ],
+            "WE": [ 144 ]
           }
         },
         "hex_dump.addr_save_SB_DFFE_Q": {
@@ -11670,9 +11708,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 108 ],
-            "E": [ 142 ],
-            "Q": [ 143 ]
+            "D": [ 111 ],
+            "E": [ 145 ],
+            "Q": [ 146 ]
           }
         },
         "hex_dump.addr_save_SB_DFFE_Q_1": {
@@ -11692,9 +11730,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 107 ],
-            "E": [ 142 ],
-            "Q": [ 144 ]
+            "D": [ 110 ],
+            "E": [ 145 ],
+            "Q": [ 147 ]
           }
         },
         "hex_dump.addr_save_SB_DFFE_Q_2": {
@@ -11714,9 +11752,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 106 ],
-            "E": [ 142 ],
-            "Q": [ 145 ]
+            "D": [ 109 ],
+            "E": [ 145 ],
+            "Q": [ 148 ]
           }
         },
         "hex_dump.addr_save_SB_DFFE_Q_3": {
@@ -11736,9 +11774,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 105 ],
-            "E": [ 142 ],
-            "Q": [ 146 ]
+            "D": [ 108 ],
+            "E": [ 145 ],
+            "Q": [ 149 ]
           }
         },
         "hex_dump.addr_save_SB_DFFE_Q_4": {
@@ -11758,9 +11796,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 104 ],
-            "E": [ 142 ],
-            "Q": [ 147 ]
+            "D": [ 107 ],
+            "E": [ 145 ],
+            "Q": [ 150 ]
           }
         },
         "hex_dump.addr_save_SB_DFFE_Q_5": {
@@ -11780,9 +11818,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 103 ],
-            "E": [ 142 ],
-            "Q": [ 148 ]
+            "D": [ 106 ],
+            "E": [ 145 ],
+            "Q": [ 151 ]
           }
         },
         "hex_dump.addr_save_SB_DFFE_Q_6": {
@@ -11802,9 +11840,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 102 ],
-            "E": [ 142 ],
-            "Q": [ 149 ]
+            "D": [ 105 ],
+            "E": [ 145 ],
+            "Q": [ 152 ]
           }
         },
         "hex_dump.addr_save_SB_DFFE_Q_7": {
@@ -11824,9 +11862,134 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 101 ],
-            "E": [ 142 ],
-            "Q": [ 150 ]
+            "D": [ 104 ],
+            "E": [ 145 ],
+            "Q": [ 153 ]
+          }
+        },
+        "hex_dump.addr_save_SB_LUT4_I1": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "1001000000001001"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ 154 ],
+            "I1": [ 151 ],
+            "I2": [ 155 ],
+            "I3": [ 149 ],
+            "O": [ 156 ]
+          }
+        },
+        "hex_dump.addr_save_SB_LUT4_I1_1": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "1001000000001001"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ 157 ],
+            "I1": [ 150 ],
+            "I2": [ 158 ],
+            "I3": [ 146 ],
+            "O": [ 159 ]
+          }
+        },
+        "hex_dump.addr_save_SB_LUT4_I2": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0100000110000010"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ 104 ],
+            "I1": [ 160 ],
+            "I2": [ 148 ],
+            "I3": [ 153 ],
+            "O": [ 161 ]
+          }
+        },
+        "hex_dump.addr_save_SB_LUT4_I2_1": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "1100001100000000"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:22.34-23.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ 162 ],
+            "I2": [ 147 ],
+            "I3": [ 161 ],
+            "O": [ 163 ]
+          }
+        },
+        "hex_dump.addr_save_SB_LUT4_I3": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "1111000000001111"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:17.34-18.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 164 ],
+            "I3": [ 152 ],
+            "O": [ 165 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q": {
@@ -11846,9 +12009,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 151 ],
-            "E": [ 152 ],
-            "Q": [ 140 ]
+            "D": [ 166 ],
+            "E": [ 167 ],
+            "Q": [ 143 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_1": {
@@ -11868,9 +12031,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 153 ],
-            "E": [ 152 ],
-            "Q": [ 139 ]
+            "D": [ 168 ],
+            "E": [ 167 ],
+            "Q": [ 142 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_10": {
@@ -11890,9 +12053,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 154 ],
-            "E": [ 152 ],
-            "Q": [ 130 ]
+            "D": [ 169 ],
+            "E": [ 167 ],
+            "Q": [ 133 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_11": {
@@ -11912,9 +12075,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 155 ],
-            "E": [ 152 ],
-            "Q": [ 129 ]
+            "D": [ 170 ],
+            "E": [ 167 ],
+            "Q": [ 132 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_12": {
@@ -11934,9 +12097,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 156 ],
-            "E": [ 152 ],
-            "Q": [ 128 ]
+            "D": [ 171 ],
+            "E": [ 167 ],
+            "Q": [ 131 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_13": {
@@ -11956,9 +12119,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 157 ],
-            "E": [ 152 ],
-            "Q": [ 127 ]
+            "D": [ 172 ],
+            "E": [ 167 ],
+            "Q": [ 130 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_14": {
@@ -11978,9 +12141,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 158 ],
-            "E": [ 152 ],
-            "Q": [ 126 ]
+            "D": [ 173 ],
+            "E": [ 167 ],
+            "Q": [ 129 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_15": {
@@ -12000,9 +12163,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 159 ],
-            "E": [ 152 ],
-            "Q": [ 125 ]
+            "D": [ 174 ],
+            "E": [ 167 ],
+            "Q": [ 128 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_2": {
@@ -12022,9 +12185,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 160 ],
-            "E": [ 152 ],
-            "Q": [ 138 ]
+            "D": [ 175 ],
+            "E": [ 167 ],
+            "Q": [ 141 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_3": {
@@ -12044,9 +12207,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 161 ],
-            "E": [ 152 ],
-            "Q": [ 137 ]
+            "D": [ 176 ],
+            "E": [ 167 ],
+            "Q": [ 140 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_4": {
@@ -12066,9 +12229,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 162 ],
-            "E": [ 152 ],
-            "Q": [ 136 ]
+            "D": [ 177 ],
+            "E": [ 167 ],
+            "Q": [ 139 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_5": {
@@ -12088,9 +12251,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 163 ],
-            "E": [ 152 ],
-            "Q": [ 135 ]
+            "D": [ 178 ],
+            "E": [ 167 ],
+            "Q": [ 138 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_6": {
@@ -12110,9 +12273,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 164 ],
-            "E": [ 152 ],
-            "Q": [ 134 ]
+            "D": [ 179 ],
+            "E": [ 167 ],
+            "Q": [ 137 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_7": {
@@ -12132,9 +12295,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 165 ],
-            "E": [ 152 ],
-            "Q": [ 133 ]
+            "D": [ 180 ],
+            "E": [ 167 ],
+            "Q": [ 136 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_8": {
@@ -12154,9 +12317,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 166 ],
-            "E": [ 152 ],
-            "Q": [ 132 ]
+            "D": [ 181 ],
+            "E": [ 167 ],
+            "Q": [ 135 ]
           }
         },
         "hex_dump.bckp_SB_DFFE_Q_9": {
@@ -12176,9 +12339,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 167 ],
-            "E": [ 152 ],
-            "Q": [ 131 ]
+            "D": [ 182 ],
+            "E": [ 167 ],
+            "Q": [ 134 ]
           }
         },
         "hex_dump.bugfix001_SB_DFFESS_Q": {
@@ -12200,9 +12363,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ "0" ],
-            "E": [ 168 ],
-            "Q": [ 169 ],
-            "S": [ 170 ]
+            "E": [ 183 ],
+            "Q": [ 184 ],
+            "S": [ 185 ]
           }
         },
         "hex_dump.bugfix001_SB_LUT4_I2": {
@@ -12224,10 +12387,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 96 ],
-            "I2": [ 169 ],
-            "I3": [ 171 ],
-            "O": [ 170 ]
+            "I1": [ 99 ],
+            "I2": [ 184 ],
+            "I3": [ 186 ],
+            "O": [ 185 ]
           }
         },
         "hex_dump.cntr_SB_DFFE_Q": {
@@ -12247,9 +12410,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 172 ],
-            "E": [ 98 ],
-            "Q": [ 173 ]
+            "D": [ 187 ],
+            "E": [ 101 ],
+            "Q": [ 188 ]
           }
         },
         "hex_dump.cntr_SB_DFFE_Q_1": {
@@ -12269,9 +12432,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 174 ],
-            "E": [ 98 ],
-            "Q": [ 175 ]
+            "D": [ 189 ],
+            "E": [ 101 ],
+            "Q": [ 190 ]
           }
         },
         "hex_dump.cntr_SB_DFFE_Q_2": {
@@ -12291,31 +12454,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 176 ],
-            "E": [ 98 ],
-            "Q": [ 177 ]
-          }
-        },
-        "hex_dump.cntr_SB_DFFE_Q_3": {
-          "hide_name": 0,
-          "type": "SB_DFFE",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:20.14-20.140|hex_dump.v:11.5-23.8|/usr/bin/../share/yosys/ice40/ff_map.v:5.57-5.103"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "E": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 10 ],
-            "D": [ 178 ],
-            "E": [ 98 ],
-            "Q": [ 179 ]
+            "D": [ 191 ],
+            "E": [ 101 ],
+            "Q": [ 192 ]
           }
         },
         "hex_dump.cntr_SB_DFFE_Q_D_SB_LUT4_O": {
@@ -12338,9 +12479,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 173 ],
-            "I3": [ 180 ],
-            "O": [ 172 ]
+            "I2": [ 188 ],
+            "I3": [ 193 ],
+            "O": [ 187 ]
           }
         },
         "hex_dump.cntr_SB_DFFE_Q_D_SB_LUT4_O_1": {
@@ -12363,37 +12504,12 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 175 ],
-            "I3": [ 181 ],
-            "O": [ 174 ]
+            "I2": [ 190 ],
+            "I3": [ 192 ],
+            "O": [ 189 ]
           }
         },
         "hex_dump.cntr_SB_DFFE_Q_D_SB_LUT4_O_2": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:20.14-20.140|hex_dump.v:14.21-14.29|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 177 ],
-            "I3": [ 179 ],
-            "O": [ 176 ]
-          }
-        },
-        "hex_dump.cntr_SB_DFFE_Q_D_SB_LUT4_O_3": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -12414,8 +12530,8 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ "0" ],
-            "I3": [ 179 ],
-            "O": [ 178 ]
+            "I3": [ 192 ],
+            "O": [ 191 ]
           }
         },
         "hex_dump.cntr_SB_DFFE_Q_D_SB_LUT4_O_I3_SB_CARRY_CO": {
@@ -12433,31 +12549,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 181 ],
-            "CO": [ 180 ],
+            "CI": [ 192 ],
+            "CO": [ 193 ],
             "I0": [ "0" ],
-            "I1": [ 175 ]
-          }
-        },
-        "hex_dump.cntr_SB_DFFE_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_1": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:20.14-20.140|hex_dump.v:14.21-14.29|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 179 ],
-            "CO": [ 181 ],
-            "I0": [ "0" ],
-            "I1": [ 177 ]
+            "I1": [ 190 ]
           }
         },
         "hex_dump.counter_SB_CARRY_CI": {
@@ -12475,10 +12570,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 182 ],
-            "CO": [ 183 ],
+            "CI": [ 194 ],
+            "CO": [ 195 ],
             "I0": [ "0" ],
-            "I1": [ 184 ]
+            "I1": [ 196 ]
           }
         },
         "hex_dump.counter_SB_CARRY_I1": {
@@ -12496,10 +12591,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 185 ],
-            "CO": [ 186 ],
+            "CI": [ 197 ],
+            "CO": [ 198 ],
             "I0": [ "0" ],
-            "I1": [ 187 ]
+            "I1": [ 199 ]
           }
         },
         "hex_dump.counter_SB_CARRY_I1_1": {
@@ -12517,10 +12612,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 188 ],
-            "CO": [ 185 ],
+            "CI": [ 200 ],
+            "CO": [ 197 ],
             "I0": [ "0" ],
-            "I1": [ 189 ]
+            "I1": [ 201 ]
           }
         },
         "hex_dump.counter_SB_CARRY_I1_2": {
@@ -12538,10 +12633,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 190 ],
-            "CO": [ 188 ],
+            "CI": [ 202 ],
+            "CO": [ 200 ],
             "I0": [ "0" ],
-            "I1": [ 191 ]
+            "I1": [ 203 ]
           }
         },
         "hex_dump.counter_SB_CARRY_I1_3": {
@@ -12559,10 +12654,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 192 ],
-            "CO": [ 190 ],
+            "CI": [ 204 ],
+            "CO": [ 202 ],
             "I0": [ "0" ],
-            "I1": [ 193 ]
+            "I1": [ 205 ]
           }
         },
         "hex_dump.counter_SB_CARRY_I1_4": {
@@ -12580,10 +12675,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 194 ],
-            "CO": [ 192 ],
+            "CI": [ 206 ],
+            "CO": [ 204 ],
             "I0": [ "0" ],
-            "I1": [ 195 ]
+            "I1": [ 207 ]
           }
         },
         "hex_dump.counter_SB_CARRY_I1_5": {
@@ -12601,10 +12696,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 183 ],
-            "CO": [ 194 ],
+            "CI": [ 195 ],
+            "CO": [ 206 ],
             "I0": [ "0" ],
-            "I1": [ 196 ]
+            "I1": [ 208 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q": {
@@ -12625,10 +12720,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 197 ],
-            "E": [ 198 ],
-            "Q": [ 199 ],
-            "R": [ 200 ]
+            "D": [ 209 ],
+            "E": [ 210 ],
+            "Q": [ 211 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q_1": {
@@ -12649,10 +12744,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 201 ],
-            "E": [ 198 ],
-            "Q": [ 187 ],
-            "R": [ 200 ]
+            "D": [ 213 ],
+            "E": [ 210 ],
+            "Q": [ 199 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q_2": {
@@ -12673,10 +12768,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 202 ],
-            "E": [ 198 ],
-            "Q": [ 189 ],
-            "R": [ 200 ]
+            "D": [ 214 ],
+            "E": [ 210 ],
+            "Q": [ 201 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q_3": {
@@ -12697,10 +12792,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 203 ],
-            "E": [ 198 ],
-            "Q": [ 191 ],
-            "R": [ 200 ]
+            "D": [ 215 ],
+            "E": [ 210 ],
+            "Q": [ 203 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q_4": {
@@ -12721,10 +12816,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 204 ],
-            "E": [ 198 ],
-            "Q": [ 193 ],
-            "R": [ 200 ]
+            "D": [ 216 ],
+            "E": [ 210 ],
+            "Q": [ 205 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q_5": {
@@ -12745,10 +12840,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 205 ],
-            "E": [ 198 ],
-            "Q": [ 195 ],
-            "R": [ 200 ]
+            "D": [ 217 ],
+            "E": [ 210 ],
+            "Q": [ 207 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q_6": {
@@ -12769,10 +12864,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 206 ],
-            "E": [ 198 ],
-            "Q": [ 196 ],
-            "R": [ 200 ]
+            "D": [ 218 ],
+            "E": [ 210 ],
+            "Q": [ 208 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q_7": {
@@ -12793,10 +12888,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 207 ],
-            "E": [ 198 ],
-            "Q": [ 184 ],
-            "R": [ 200 ]
+            "D": [ 219 ],
+            "E": [ 210 ],
+            "Q": [ 196 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_DFFESR_Q_8": {
@@ -12817,10 +12912,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 208 ],
-            "E": [ 198 ],
-            "Q": [ 182 ],
-            "R": [ 200 ]
+            "D": [ 220 ],
+            "E": [ 210 ],
+            "Q": [ 194 ],
+            "R": [ 212 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I2": {
@@ -12843,9 +12938,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 199 ],
-            "I3": [ 186 ],
-            "O": [ 197 ]
+            "I2": [ 211 ],
+            "I3": [ 198 ],
+            "O": [ 209 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I2_1": {
@@ -12868,9 +12963,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 187 ],
-            "I3": [ 185 ],
-            "O": [ 201 ]
+            "I2": [ 199 ],
+            "I3": [ 197 ],
+            "O": [ 213 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I2_2": {
@@ -12893,9 +12988,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 189 ],
-            "I3": [ 188 ],
-            "O": [ 202 ]
+            "I2": [ 201 ],
+            "I3": [ 200 ],
+            "O": [ 214 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I2_3": {
@@ -12918,9 +13013,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 191 ],
-            "I3": [ 190 ],
-            "O": [ 203 ]
+            "I2": [ 203 ],
+            "I3": [ 202 ],
+            "O": [ 215 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I2_4": {
@@ -12943,9 +13038,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 193 ],
-            "I3": [ 192 ],
-            "O": [ 204 ]
+            "I2": [ 205 ],
+            "I3": [ 204 ],
+            "O": [ 216 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I2_5": {
@@ -12968,9 +13063,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 195 ],
-            "I3": [ 194 ],
-            "O": [ 205 ]
+            "I2": [ 207 ],
+            "I3": [ 206 ],
+            "O": [ 217 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I2_6": {
@@ -12993,9 +13088,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 196 ],
-            "I3": [ 183 ],
-            "O": [ 206 ]
+            "I2": [ 208 ],
+            "I3": [ 195 ],
+            "O": [ 218 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I2_7": {
@@ -13018,9 +13113,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 184 ],
-            "I3": [ 182 ],
-            "O": [ 207 ]
+            "I2": [ 196 ],
+            "I3": [ 194 ],
+            "O": [ 219 ]
           }
         },
         "hex_dump.counter_SB_LUT4_I3": {
@@ -13044,8 +13139,8 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ "0" ],
-            "I3": [ 182 ],
-            "O": [ 208 ]
+            "I3": [ 194 ],
+            "O": [ 220 ]
           }
         },
         "hex_dump.got_SB_DFF_Q": {
@@ -13064,8 +13159,8 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 209 ],
-            "Q": [ 210 ]
+            "D": [ 221 ],
+            "Q": [ 222 ]
           }
         },
         "hex_dump.got_SB_LUT4_I2": {
@@ -13087,10 +13182,35 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 141 ],
-            "I2": [ 210 ],
-            "I3": [ 199 ],
-            "O": [ 142 ]
+            "I1": [ 144 ],
+            "I2": [ 222 ],
+            "I3": [ 211 ],
+            "O": [ 145 ]
+          }
+        },
+        "hex_dump.got_SB_LUT4_I2_O_SB_LUT4_I3": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "1111111110000000"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ 165 ],
+            "I1": [ 163 ],
+            "I2": [ 223 ],
+            "I3": [ 145 ],
+            "O": [ 224 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q": {
@@ -13111,10 +13231,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 211 ],
-            "E": [ 94 ],
-            "Q": [ 212 ],
-            "R": [ 95 ]
+            "D": [ 225 ],
+            "E": [ 97 ],
+            "Q": [ 226 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_1": {
@@ -13135,10 +13255,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 213 ],
-            "E": [ 94 ],
-            "Q": [ 214 ],
-            "R": [ 95 ]
+            "D": [ 227 ],
+            "E": [ 97 ],
+            "Q": [ 228 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_1_D_SB_LUT4_O": {
@@ -13159,11 +13279,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 96 ],
-            "I1": [ 214 ],
+            "I0": [ 99 ],
+            "I1": [ 228 ],
             "I2": [ "1" ],
-            "I3": [ 215 ],
-            "O": [ 213 ]
+            "I3": [ 229 ],
+            "O": [ 227 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_2": {
@@ -13184,10 +13304,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 216 ],
-            "E": [ 94 ],
-            "Q": [ 217 ],
-            "R": [ 95 ]
+            "D": [ 230 ],
+            "E": [ 97 ],
+            "Q": [ 231 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_2_D_SB_LUT4_O": {
@@ -13208,11 +13328,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 96 ],
-            "I1": [ 217 ],
+            "I0": [ 99 ],
+            "I1": [ 231 ],
             "I2": [ "1" ],
-            "I3": [ 218 ],
-            "O": [ 216 ]
+            "I3": [ 232 ],
+            "O": [ 230 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_3": {
@@ -13233,10 +13353,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 219 ],
-            "E": [ 94 ],
-            "Q": [ 218 ],
-            "R": [ 95 ]
+            "D": [ 233 ],
+            "E": [ 97 ],
+            "Q": [ 232 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_3_D_SB_LUT4_O": {
@@ -13259,9 +13379,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 96 ],
-            "I3": [ 218 ],
-            "O": [ 219 ]
+            "I2": [ 99 ],
+            "I3": [ 232 ],
+            "O": [ 233 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O": {
@@ -13282,11 +13402,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 96 ],
-            "I1": [ 212 ],
+            "I0": [ 99 ],
+            "I1": [ 226 ],
             "I2": [ "1" ],
-            "I3": [ 220 ],
-            "O": [ 211 ]
+            "I3": [ 234 ],
+            "O": [ 225 ]
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO": {
@@ -13304,9 +13424,9 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 215 ],
-            "CO": [ 220 ],
-            "I0": [ 214 ],
+            "CI": [ 229 ],
+            "CO": [ 234 ],
+            "I0": [ 228 ],
             "I1": [ "1" ]
           }
         },
@@ -13325,9 +13445,9 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 218 ],
-            "CO": [ 215 ],
-            "I0": [ 217 ],
+            "CI": [ 232 ],
+            "CO": [ 229 ],
+            "I0": [ 231 ],
             "I1": [ "1" ]
           }
         },
@@ -13348,9 +13468,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 221 ],
-            "Q": [ 96 ],
-            "R": [ 95 ]
+            "D": [ 235 ],
+            "Q": [ 99 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q": {
@@ -13371,10 +13491,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 222 ],
-            "E": [ 100 ],
-            "Q": [ 223 ],
-            "R": [ 95 ]
+            "D": [ 236 ],
+            "E": [ 103 ],
+            "Q": [ 237 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_1": {
@@ -13395,10 +13515,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 224 ],
-            "E": [ 100 ],
-            "Q": [ 225 ],
-            "R": [ 95 ]
+            "D": [ 238 ],
+            "E": [ 103 ],
+            "Q": [ 239 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_10": {
@@ -13419,10 +13539,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 226 ],
-            "E": [ 100 ],
-            "Q": [ 227 ],
-            "R": [ 95 ]
+            "D": [ 240 ],
+            "E": [ 103 ],
+            "Q": [ 241 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_10_D_SB_LUT4_O": {
@@ -13443,11 +13563,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 227 ],
+            "I0": [ 102 ],
+            "I1": [ 241 ],
             "I2": [ "1" ],
-            "I3": [ 228 ],
-            "O": [ 226 ]
+            "I3": [ 242 ],
+            "O": [ 240 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_11": {
@@ -13468,10 +13588,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 229 ],
-            "E": [ 100 ],
-            "Q": [ 230 ],
-            "R": [ 95 ]
+            "D": [ 243 ],
+            "E": [ 103 ],
+            "Q": [ 244 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_11_D_SB_LUT4_O": {
@@ -13492,11 +13612,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 230 ],
+            "I0": [ 102 ],
+            "I1": [ 244 ],
             "I2": [ "1" ],
-            "I3": [ 231 ],
-            "O": [ 229 ]
+            "I3": [ 245 ],
+            "O": [ 243 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_12": {
@@ -13517,10 +13637,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 232 ],
-            "E": [ 100 ],
-            "Q": [ 233 ],
-            "R": [ 95 ]
+            "D": [ 246 ],
+            "E": [ 103 ],
+            "Q": [ 247 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_12_D_SB_LUT4_O": {
@@ -13541,11 +13661,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 233 ],
+            "I0": [ 102 ],
+            "I1": [ 247 ],
             "I2": [ "1" ],
-            "I3": [ 234 ],
-            "O": [ 232 ]
+            "I3": [ 248 ],
+            "O": [ 246 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_13": {
@@ -13566,10 +13686,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 235 ],
-            "E": [ 100 ],
-            "Q": [ 236 ],
-            "R": [ 95 ]
+            "D": [ 249 ],
+            "E": [ 103 ],
+            "Q": [ 250 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_13_D_SB_LUT4_O": {
@@ -13590,11 +13710,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 236 ],
+            "I0": [ 102 ],
+            "I1": [ 250 ],
             "I2": [ "1" ],
-            "I3": [ 237 ],
-            "O": [ 235 ]
+            "I3": [ 251 ],
+            "O": [ 249 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_14": {
@@ -13615,10 +13735,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 238 ],
-            "E": [ 100 ],
-            "Q": [ 239 ],
-            "R": [ 95 ]
+            "D": [ 252 ],
+            "E": [ 103 ],
+            "Q": [ 253 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_14_D_SB_LUT4_O": {
@@ -13639,11 +13759,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 239 ],
+            "I0": [ 102 ],
+            "I1": [ 253 ],
             "I2": [ "1" ],
-            "I3": [ 240 ],
-            "O": [ 238 ]
+            "I3": [ 254 ],
+            "O": [ 252 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_15": {
@@ -13664,10 +13784,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 241 ],
-            "E": [ 100 ],
-            "Q": [ 240 ],
-            "R": [ 95 ]
+            "D": [ 255 ],
+            "E": [ 103 ],
+            "Q": [ 254 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_15_D_SB_LUT4_O": {
@@ -13690,9 +13810,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 240 ],
-            "I3": [ 99 ],
-            "O": [ 241 ]
+            "I2": [ 254 ],
+            "I3": [ 102 ],
+            "O": [ 255 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_1_D_SB_LUT4_O": {
@@ -13713,11 +13833,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 225 ],
+            "I0": [ 102 ],
+            "I1": [ 239 ],
             "I2": [ "1" ],
-            "I3": [ 242 ],
-            "O": [ 224 ]
+            "I3": [ 256 ],
+            "O": [ 238 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_2": {
@@ -13738,10 +13858,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 243 ],
-            "E": [ 100 ],
-            "Q": [ 244 ],
-            "R": [ 95 ]
+            "D": [ 257 ],
+            "E": [ 103 ],
+            "Q": [ 258 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_2_D_SB_LUT4_O": {
@@ -13762,11 +13882,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 244 ],
+            "I0": [ 102 ],
+            "I1": [ 258 ],
             "I2": [ "1" ],
-            "I3": [ 245 ],
-            "O": [ 243 ]
+            "I3": [ 259 ],
+            "O": [ 257 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_3": {
@@ -13787,10 +13907,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 246 ],
-            "E": [ 100 ],
-            "Q": [ 247 ],
-            "R": [ 95 ]
+            "D": [ 260 ],
+            "E": [ 103 ],
+            "Q": [ 261 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_3_D_SB_LUT4_O": {
@@ -13811,11 +13931,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 247 ],
+            "I0": [ 102 ],
+            "I1": [ 261 ],
             "I2": [ "1" ],
-            "I3": [ 248 ],
-            "O": [ 246 ]
+            "I3": [ 262 ],
+            "O": [ 260 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_4": {
@@ -13836,10 +13956,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 249 ],
-            "E": [ 100 ],
-            "Q": [ 250 ],
-            "R": [ 95 ]
+            "D": [ 263 ],
+            "E": [ 103 ],
+            "Q": [ 264 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_4_D_SB_LUT4_O": {
@@ -13860,11 +13980,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 250 ],
+            "I0": [ 102 ],
+            "I1": [ 264 ],
             "I2": [ "1" ],
-            "I3": [ 251 ],
-            "O": [ 249 ]
+            "I3": [ 265 ],
+            "O": [ 263 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_5": {
@@ -13885,10 +14005,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 252 ],
-            "E": [ 100 ],
-            "Q": [ 253 ],
-            "R": [ 95 ]
+            "D": [ 266 ],
+            "E": [ 103 ],
+            "Q": [ 267 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_5_D_SB_LUT4_O": {
@@ -13909,11 +14029,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 253 ],
+            "I0": [ 102 ],
+            "I1": [ 267 ],
             "I2": [ "1" ],
-            "I3": [ 254 ],
-            "O": [ 252 ]
+            "I3": [ 268 ],
+            "O": [ 266 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_6": {
@@ -13934,10 +14054,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 255 ],
-            "E": [ 100 ],
-            "Q": [ 256 ],
-            "R": [ 95 ]
+            "D": [ 269 ],
+            "E": [ 103 ],
+            "Q": [ 270 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_6_D_SB_LUT4_O": {
@@ -13958,11 +14078,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 256 ],
+            "I0": [ 102 ],
+            "I1": [ 270 ],
             "I2": [ "1" ],
-            "I3": [ 257 ],
-            "O": [ 255 ]
+            "I3": [ 271 ],
+            "O": [ 269 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_7": {
@@ -13983,10 +14103,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 258 ],
-            "E": [ 100 ],
-            "Q": [ 259 ],
-            "R": [ 95 ]
+            "D": [ 272 ],
+            "E": [ 103 ],
+            "Q": [ 273 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_7_D_SB_LUT4_O": {
@@ -14007,11 +14127,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 259 ],
+            "I0": [ 102 ],
+            "I1": [ 273 ],
             "I2": [ "1" ],
-            "I3": [ 260 ],
-            "O": [ 258 ]
+            "I3": [ 274 ],
+            "O": [ 272 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_8": {
@@ -14032,10 +14152,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 261 ],
-            "E": [ 100 ],
-            "Q": [ 262 ],
-            "R": [ 95 ]
+            "D": [ 275 ],
+            "E": [ 103 ],
+            "Q": [ 276 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_8_D_SB_LUT4_O": {
@@ -14056,11 +14176,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 262 ],
+            "I0": [ 102 ],
+            "I1": [ 276 ],
             "I2": [ "1" ],
-            "I3": [ 263 ],
-            "O": [ 261 ]
+            "I3": [ 277 ],
+            "O": [ 275 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_9": {
@@ -14081,10 +14201,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 264 ],
-            "E": [ 100 ],
-            "Q": [ 265 ],
-            "R": [ 95 ]
+            "D": [ 278 ],
+            "E": [ 103 ],
+            "Q": [ 279 ],
+            "R": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_9_D_SB_LUT4_O": {
@@ -14105,11 +14225,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 265 ],
+            "I0": [ 102 ],
+            "I1": [ 279 ],
             "I2": [ "1" ],
-            "I3": [ 266 ],
-            "O": [ 264 ]
+            "I3": [ 280 ],
+            "O": [ 278 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O": {
@@ -14130,11 +14250,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 99 ],
-            "I1": [ 223 ],
+            "I0": [ 102 ],
+            "I1": [ 237 ],
             "I2": [ "1" ],
-            "I3": [ 267 ],
-            "O": [ 222 ]
+            "I3": [ 281 ],
+            "O": [ 236 ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO": {
@@ -14152,9 +14272,9 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 257 ],
-            "CO": [ 254 ],
-            "I0": [ 256 ],
+            "CI": [ 271 ],
+            "CO": [ 268 ],
+            "I0": [ 270 ],
             "I1": [ "1" ]
           }
         },
@@ -14173,13 +14293,160 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 260 ],
-            "CO": [ 257 ],
-            "I0": [ 259 ],
+            "CI": [ 274 ],
+            "CO": [ 271 ],
+            "I0": [ 273 ],
             "I1": [ "1" ]
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_10": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 259 ],
+            "CO": [ 256 ],
+            "I0": [ 258 ],
+            "I1": [ "1" ]
+          }
+        },
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_11": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 262 ],
+            "CO": [ 259 ],
+            "I0": [ 261 ],
+            "I1": [ "1" ]
+          }
+        },
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_12": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 265 ],
+            "CO": [ 262 ],
+            "I0": [ 264 ],
+            "I1": [ "1" ]
+          }
+        },
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_13": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 268 ],
+            "CO": [ 265 ],
+            "I0": [ 267 ],
+            "I1": [ "1" ]
+          }
+        },
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_2": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 277 ],
+            "CO": [ 274 ],
+            "I0": [ 276 ],
+            "I1": [ "1" ]
+          }
+        },
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_3": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 280 ],
+            "CO": [ 277 ],
+            "I0": [ 279 ],
+            "I1": [ "1" ]
+          }
+        },
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_4": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 242 ],
+            "CO": [ 280 ],
+            "I0": [ 241 ],
+            "I1": [ "1" ]
+          }
+        },
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_5": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
@@ -14200,7 +14467,7 @@
             "I1": [ "1" ]
           }
         },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_11": {
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_6": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
@@ -14221,7 +14488,7 @@
             "I1": [ "1" ]
           }
         },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_12": {
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_7": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
@@ -14242,7 +14509,7 @@
             "I1": [ "1" ]
           }
         },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_13": {
+        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_8": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
@@ -14263,153 +14530,6 @@
             "I1": [ "1" ]
           }
         },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_2": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 263 ],
-            "CO": [ 260 ],
-            "I0": [ 262 ],
-            "I1": [ "1" ]
-          }
-        },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_3": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 266 ],
-            "CO": [ 263 ],
-            "I0": [ 265 ],
-            "I1": [ "1" ]
-          }
-        },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_4": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 228 ],
-            "CO": [ 266 ],
-            "I0": [ 227 ],
-            "I1": [ "1" ]
-          }
-        },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_5": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 231 ],
-            "CO": [ 228 ],
-            "I0": [ 230 ],
-            "I1": [ "1" ]
-          }
-        },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_6": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 234 ],
-            "CO": [ 231 ],
-            "I0": [ 233 ],
-            "I1": [ "1" ]
-          }
-        },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_7": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 237 ],
-            "CO": [ 234 ],
-            "I0": [ 236 ],
-            "I1": [ "1" ]
-          }
-        },
-        "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_8": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 240 ],
-            "CO": [ 237 ],
-            "I0": [ 239 ],
-            "I1": [ "1" ]
-          }
-        },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_9": {
           "hide_name": 0,
           "type": "SB_CARRY",
@@ -14425,9 +14545,9 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 242 ],
-            "CO": [ 267 ],
-            "I0": [ 225 ],
+            "CI": [ 256 ],
+            "CO": [ 281 ],
+            "I0": [ 239 ],
             "I1": [ "1" ]
           }
         },
@@ -14449,10 +14569,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 268 ],
-            "E": [ 94 ],
-            "Q": [ 269 ],
-            "S": [ 95 ]
+            "D": [ 282 ],
+            "E": [ 97 ],
+            "Q": [ 283 ],
+            "S": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_1": {
@@ -14473,10 +14593,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 270 ],
-            "E": [ 94 ],
-            "Q": [ 271 ],
-            "S": [ 95 ]
+            "D": [ 284 ],
+            "E": [ 97 ],
+            "Q": [ 285 ],
+            "S": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_1_D_SB_LUT4_O": {
@@ -14498,10 +14618,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 272 ],
-            "I2": [ 269 ],
-            "I3": [ 96 ],
-            "O": [ 270 ]
+            "I1": [ 286 ],
+            "I2": [ 283 ],
+            "I3": [ 99 ],
+            "O": [ 284 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_2": {
@@ -14522,10 +14642,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 273 ],
-            "E": [ 94 ],
-            "Q": [ 274 ],
-            "S": [ 95 ]
+            "D": [ 287 ],
+            "E": [ 97 ],
+            "Q": [ 288 ],
+            "S": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_2_D_SB_LUT4_O": {
@@ -14547,10 +14667,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 275 ],
-            "I2": [ 271 ],
-            "I3": [ 96 ],
-            "O": [ 273 ]
+            "I1": [ 289 ],
+            "I2": [ 285 ],
+            "I3": [ 99 ],
+            "O": [ 287 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_3": {
@@ -14571,10 +14691,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 276 ],
-            "E": [ 94 ],
-            "Q": [ 277 ],
-            "S": [ 95 ]
+            "D": [ 290 ],
+            "E": [ 97 ],
+            "Q": [ 291 ],
+            "S": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_3_D_SB_LUT4_O": {
@@ -14596,10 +14716,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 278 ],
-            "I2": [ 274 ],
-            "I3": [ 96 ],
-            "O": [ 276 ]
+            "I1": [ 292 ],
+            "I2": [ 288 ],
+            "I3": [ 99 ],
+            "O": [ 290 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_4": {
@@ -14620,10 +14740,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 279 ],
-            "E": [ 94 ],
-            "Q": [ 280 ],
-            "S": [ 95 ]
+            "D": [ 293 ],
+            "E": [ 97 ],
+            "Q": [ 294 ],
+            "S": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_4_D_SB_LUT4_O": {
@@ -14645,10 +14765,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 281 ],
-            "I2": [ 277 ],
-            "I3": [ 96 ],
-            "O": [ 279 ]
+            "I1": [ 295 ],
+            "I2": [ 291 ],
+            "I3": [ 99 ],
+            "O": [ 293 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_5": {
@@ -14669,10 +14789,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 282 ],
-            "E": [ 94 ],
-            "Q": [ 283 ],
-            "S": [ 95 ]
+            "D": [ 296 ],
+            "E": [ 97 ],
+            "Q": [ 297 ],
+            "S": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_5_D_SB_LUT4_O": {
@@ -14694,10 +14814,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 284 ],
-            "I2": [ 280 ],
-            "I3": [ 96 ],
-            "O": [ 282 ]
+            "I1": [ 298 ],
+            "I2": [ 294 ],
+            "I3": [ 99 ],
+            "O": [ 296 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_6": {
@@ -14718,10 +14838,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 285 ],
-            "E": [ 94 ],
-            "Q": [ 286 ],
-            "S": [ 95 ]
+            "D": [ 299 ],
+            "E": [ 97 ],
+            "Q": [ 300 ],
+            "S": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_6_D_SB_LUT4_O": {
@@ -14743,10 +14863,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 287 ],
-            "I2": [ 283 ],
-            "I3": [ 96 ],
-            "O": [ 285 ]
+            "I1": [ 301 ],
+            "I2": [ 297 ],
+            "I3": [ 99 ],
+            "O": [ 299 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_7": {
@@ -14767,10 +14887,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 288 ],
-            "E": [ 94 ],
-            "Q": [ 97 ],
-            "S": [ 95 ]
+            "D": [ 302 ],
+            "E": [ 97 ],
+            "Q": [ 100 ],
+            "S": [ 98 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_7_D_SB_LUT4_O": {
@@ -14792,10 +14912,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 289 ],
-            "I2": [ 286 ],
-            "I3": [ 96 ],
-            "O": [ 288 ]
+            "I1": [ 303 ],
+            "I2": [ 300 ],
+            "I3": [ 99 ],
+            "O": [ 302 ]
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_D_SB_LUT4_O": {
@@ -14818,9 +14938,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 96 ],
-            "I3": [ 290 ],
-            "O": [ 268 ]
+            "I2": [ 99 ],
+            "I3": [ 304 ],
+            "O": [ 282 ]
           }
         },
         "hex_dump.part_SB_DFFE_Q": {
@@ -14840,9 +14960,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 291 ],
-            "E": [ 170 ],
-            "Q": [ 292 ]
+            "D": [ 305 ],
+            "E": [ 185 ],
+            "Q": [ 306 ]
           }
         },
         "hex_dump.part_SB_DFFE_Q_D_SB_LUT4_O": {
@@ -14866,8 +14986,8 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ "0" ],
-            "I3": [ 292 ],
-            "O": [ 291 ]
+            "I3": [ 306 ],
+            "O": [ 305 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q": {
@@ -14887,9 +15007,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 293 ],
-            "E": [ 294 ],
-            "Q": [ 108 ]
+            "D": [ 158 ],
+            "E": [ 307 ],
+            "Q": [ 111 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_1": {
@@ -14909,9 +15029,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 295 ],
-            "E": [ 294 ],
-            "Q": [ 107 ]
+            "D": [ 162 ],
+            "E": [ 307 ],
+            "Q": [ 110 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_2": {
@@ -14931,9 +15051,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 296 ],
-            "E": [ 294 ],
-            "Q": [ 106 ]
+            "D": [ 160 ],
+            "E": [ 307 ],
+            "Q": [ 109 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_3": {
@@ -14953,9 +15073,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 297 ],
-            "E": [ 294 ],
-            "Q": [ 105 ]
+            "D": [ 155 ],
+            "E": [ 307 ],
+            "Q": [ 108 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_4": {
@@ -14975,9 +15095,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 298 ],
-            "E": [ 294 ],
-            "Q": [ 104 ]
+            "D": [ 157 ],
+            "E": [ 307 ],
+            "Q": [ 107 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_5": {
@@ -14997,9 +15117,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 299 ],
-            "E": [ 294 ],
-            "Q": [ 103 ]
+            "D": [ 154 ],
+            "E": [ 307 ],
+            "Q": [ 106 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_6": {
@@ -15019,9 +15139,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 300 ],
-            "E": [ 294 ],
-            "Q": [ 102 ]
+            "D": [ 164 ],
+            "E": [ 307 ],
+            "Q": [ 105 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_7": {
@@ -15041,9 +15161,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 301 ],
-            "E": [ 294 ],
-            "Q": [ 101 ]
+            "D": [ 308 ],
+            "E": [ 307 ],
+            "Q": [ 104 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D_SB_LUT4_O": {
@@ -15066,9 +15186,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 108 ],
-            "I3": [ 302 ],
-            "O": [ 293 ]
+            "I2": [ 111 ],
+            "I3": [ 309 ],
+            "O": [ 158 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D_SB_LUT4_O_1": {
@@ -15091,9 +15211,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 107 ],
-            "I3": [ 303 ],
-            "O": [ 295 ]
+            "I2": [ 110 ],
+            "I3": [ 310 ],
+            "O": [ 162 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D_SB_LUT4_O_2": {
@@ -15116,9 +15236,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 106 ],
-            "I3": [ 304 ],
-            "O": [ 296 ]
+            "I2": [ 109 ],
+            "I3": [ 311 ],
+            "O": [ 160 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D_SB_LUT4_O_3": {
@@ -15141,9 +15261,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 105 ],
-            "I3": [ 305 ],
-            "O": [ 297 ]
+            "I2": [ 108 ],
+            "I3": [ 312 ],
+            "O": [ 155 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D_SB_LUT4_O_4": {
@@ -15166,9 +15286,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 104 ],
-            "I3": [ 306 ],
-            "O": [ 298 ]
+            "I2": [ 107 ],
+            "I3": [ 313 ],
+            "O": [ 157 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D_SB_LUT4_O_5": {
@@ -15191,9 +15311,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 103 ],
-            "I3": [ 307 ],
-            "O": [ 299 ]
+            "I2": [ 106 ],
+            "I3": [ 314 ],
+            "O": [ 154 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D_SB_LUT4_O_6": {
@@ -15216,9 +15336,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 102 ],
-            "I3": [ 101 ],
-            "O": [ 300 ]
+            "I2": [ 105 ],
+            "I3": [ 104 ],
+            "O": [ 164 ]
           }
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D_SB_LUT4_O_7": {
@@ -15242,8 +15362,8 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ "0" ],
-            "I3": [ 101 ],
-            "O": [ 301 ]
+            "I3": [ 104 ],
+            "O": [ 308 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I1": {
@@ -15264,11 +15384,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 308 ],
-            "I1": [ 141 ],
-            "I2": [ 309 ],
-            "I3": [ 310 ],
-            "O": [ 311 ]
+            "I0": [ 315 ],
+            "I1": [ 144 ],
+            "I2": [ 156 ],
+            "I3": [ 159 ],
+            "O": [ 223 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I1_I0_SB_CARRY_CO": {
@@ -15286,10 +15406,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 302 ],
-            "CO": [ 308 ],
+            "CI": [ 309 ],
+            "CO": [ 315 ],
             "I0": [ "0" ],
-            "I1": [ 108 ]
+            "I1": [ 111 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I1_I0_SB_CARRY_CO_1": {
@@ -15307,10 +15427,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 303 ],
-            "CO": [ 302 ],
+            "CI": [ 310 ],
+            "CO": [ 309 ],
             "I0": [ "0" ],
-            "I1": [ 107 ]
+            "I1": [ 110 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I1_I0_SB_CARRY_CO_2": {
@@ -15328,10 +15448,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 304 ],
-            "CO": [ 303 ],
+            "CI": [ 311 ],
+            "CO": [ 310 ],
             "I0": [ "0" ],
-            "I1": [ 106 ]
+            "I1": [ 109 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I1_I0_SB_CARRY_CO_3": {
@@ -15349,10 +15469,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 305 ],
-            "CO": [ 304 ],
+            "CI": [ 312 ],
+            "CO": [ 311 ],
             "I0": [ "0" ],
-            "I1": [ 105 ]
+            "I1": [ 108 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I1_I0_SB_CARRY_CO_4": {
@@ -15370,10 +15490,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 306 ],
-            "CO": [ 305 ],
+            "CI": [ 313 ],
+            "CO": [ 312 ],
             "I0": [ "0" ],
-            "I1": [ 104 ]
+            "I1": [ 107 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I1_I0_SB_CARRY_CO_5": {
@@ -15391,10 +15511,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 307 ],
-            "CO": [ 306 ],
+            "CI": [ 314 ],
+            "CO": [ 313 ],
             "I0": [ "0" ],
-            "I1": [ 103 ]
+            "I1": [ 106 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I1_I0_SB_CARRY_CO_6": {
@@ -15412,110 +15532,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 101 ],
-            "CO": [ 307 ],
+            "CI": [ 104 ],
+            "CO": [ 314 ],
             "I0": [ "0" ],
-            "I1": [ 102 ]
-          }
-        },
-        "hex_dump.ram_wren_SB_LUT4_I1_I2_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "1011000000001011"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ 298 ],
-            "I1": [ 147 ],
-            "I2": [ 297 ],
-            "I3": [ 146 ],
-            "O": [ 309 ]
-          }
-        },
-        "hex_dump.ram_wren_SB_LUT4_I1_I2_SB_LUT4_O_1": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "1011000000001011"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ 147 ],
-            "I1": [ 298 ],
-            "I2": [ 293 ],
-            "I3": [ 143 ],
-            "O": [ 310 ]
-          }
-        },
-        "hex_dump.ram_wren_SB_LUT4_I1_O_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "1100001100000000"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:22.34-23.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ 295 ],
-            "I2": [ 144 ],
-            "I3": [ 312 ],
-            "O": [ 313 ]
-          }
-        },
-        "hex_dump.ram_wren_SB_LUT4_I1_O_SB_LUT4_O_I3_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0100000110000010"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ 101 ],
-            "I1": [ 296 ],
-            "I2": [ 145 ],
-            "I3": [ 150 ],
-            "O": [ 312 ]
+            "I1": [ 105 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_I3": {
@@ -15537,60 +15557,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 292 ],
-            "I2": [ 170 ],
-            "I3": [ 141 ],
-            "O": [ 294 ]
-          }
-        },
-        "hex_dump.ram_wren_SB_LUT4_I3_O_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "1101000000000000"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ 148 ],
-            "I1": [ 299 ],
-            "I2": [ 311 ],
-            "I3": [ 313 ],
-            "O": [ 314 ]
-          }
-        },
-        "hex_dump.ram_wren_SB_LUT4_I3_O_SB_LUT4_O_1": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "1011000000001011"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ 148 ],
-            "I1": [ 299 ],
-            "I2": [ 300 ],
-            "I3": [ 149 ],
-            "O": [ 315 ]
+            "I1": [ 306 ],
+            "I2": [ 185 ],
+            "I3": [ 144 ],
+            "O": [ 307 ]
           }
         },
         "hex_dump.ram_wren_SB_LUT4_O": {
@@ -15613,9 +15583,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 171 ],
+            "I2": [ 186 ],
             "I3": [ 316 ],
-            "O": [ 141 ]
+            "O": [ 144 ]
           }
         },
         "hex_dump.stb_SB_DFFE_Q": {
@@ -15636,7 +15606,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 317 ],
-            "E": [ 98 ],
+            "E": [ 101 ],
             "Q": [ 316 ]
           }
         },
@@ -15661,19 +15631,19 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ 317 ],
-            "I3": [ 98 ],
-            "O": [ 152 ]
+            "I3": [ 101 ],
+            "O": [ 167 ]
           }
         },
         "hex_dump.stb_SB_DFFE_Q_D_SB_LUT4_O": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
-            "LUT_INIT": "0000000000000001"
+            "LUT_INIT": "0000000000000011"
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:22.34-23.52"
           },
           "port_directions": {
             "I0": "input",
@@ -15683,10 +15653,10 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 179 ],
-            "I1": [ 177 ],
-            "I2": [ 175 ],
-            "I3": [ 173 ],
+            "I0": [ "0" ],
+            "I1": [ 192 ],
+            "I2": [ 190 ],
+            "I3": [ 188 ],
             "O": [ 317 ]
           }
         },
@@ -15709,10 +15679,10 @@
           },
           "connections": {
             "I0": [ 316 ],
-            "I1": [ 169 ],
-            "I2": [ 171 ],
-            "I3": [ 96 ],
-            "O": [ 168 ]
+            "I1": [ 184 ],
+            "I2": [ 186 ],
+            "I3": [ 99 ],
+            "O": [ 183 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q": {
@@ -15733,8 +15703,8 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 318 ],
-            "E": [ 170 ],
-            "Q": [ 290 ]
+            "E": [ 185 ],
+            "Q": [ 304 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q_1": {
@@ -15755,8 +15725,8 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 319 ],
-            "E": [ 170 ],
-            "Q": [ 272 ]
+            "E": [ 185 ],
+            "Q": [ 286 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q_1_D_SB_LUT4_O": {
@@ -15778,9 +15748,9 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 115 ],
-            "I2": [ 123 ],
-            "I3": [ 292 ],
+            "I1": [ 118 ],
+            "I2": [ 126 ],
+            "I3": [ 306 ],
             "O": [ 319 ]
           }
         },
@@ -15802,8 +15772,8 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 320 ],
-            "E": [ 170 ],
-            "Q": [ 275 ]
+            "E": [ 185 ],
+            "Q": [ 289 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q_2_D_SB_LUT4_O": {
@@ -15825,9 +15795,9 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 114 ],
-            "I2": [ 122 ],
-            "I3": [ 292 ],
+            "I1": [ 117 ],
+            "I2": [ 125 ],
+            "I3": [ 306 ],
             "O": [ 320 ]
           }
         },
@@ -15849,8 +15819,8 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 321 ],
-            "E": [ 170 ],
-            "Q": [ 278 ]
+            "E": [ 185 ],
+            "Q": [ 292 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q_3_D_SB_LUT4_O": {
@@ -15872,9 +15842,9 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 113 ],
-            "I2": [ 121 ],
-            "I3": [ 292 ],
+            "I1": [ 116 ],
+            "I2": [ 124 ],
+            "I3": [ 306 ],
             "O": [ 321 ]
           }
         },
@@ -15896,8 +15866,8 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 322 ],
-            "E": [ 170 ],
-            "Q": [ 281 ]
+            "E": [ 185 ],
+            "Q": [ 295 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q_4_D_SB_LUT4_O": {
@@ -15919,9 +15889,9 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 112 ],
-            "I2": [ 120 ],
-            "I3": [ 292 ],
+            "I1": [ 115 ],
+            "I2": [ 123 ],
+            "I3": [ 306 ],
             "O": [ 322 ]
           }
         },
@@ -15943,8 +15913,8 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 323 ],
-            "E": [ 170 ],
-            "Q": [ 284 ]
+            "E": [ 185 ],
+            "Q": [ 298 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q_5_D_SB_LUT4_O": {
@@ -15966,9 +15936,9 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 111 ],
-            "I2": [ 119 ],
-            "I3": [ 292 ],
+            "I1": [ 114 ],
+            "I2": [ 122 ],
+            "I3": [ 306 ],
             "O": [ 323 ]
           }
         },
@@ -15990,8 +15960,8 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 324 ],
-            "E": [ 170 ],
-            "Q": [ 287 ]
+            "E": [ 185 ],
+            "Q": [ 301 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q_6_D_SB_LUT4_O": {
@@ -16013,9 +15983,9 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 110 ],
-            "I2": [ 118 ],
-            "I3": [ 292 ],
+            "I1": [ 113 ],
+            "I2": [ 121 ],
+            "I3": [ 306 ],
             "O": [ 324 ]
           }
         },
@@ -16037,8 +16007,8 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 325 ],
-            "E": [ 170 ],
-            "Q": [ 289 ]
+            "E": [ 185 ],
+            "Q": [ 303 ]
           }
         },
         "hex_dump.touart_SB_DFFE_Q_7_D_SB_LUT4_O": {
@@ -16060,9 +16030,9 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 109 ],
-            "I2": [ 117 ],
-            "I3": [ 292 ],
+            "I1": [ 112 ],
+            "I2": [ 120 ],
+            "I3": [ 306 ],
             "O": [ 325 ]
           }
         },
@@ -16085,9 +16055,9 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 116 ],
-            "I2": [ 124 ],
-            "I3": [ 292 ],
+            "I1": [ 119 ],
+            "I2": [ 127 ],
+            "I3": [ 306 ],
             "O": [ 318 ]
           }
         },
@@ -16108,20 +16078,20 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 141 ],
+            "D": [ 144 ],
             "E": [ 326 ],
-            "Q": [ 171 ]
+            "Q": [ 186 ]
           }
         },
         "hex_dump.tx_SB_DFFE_Q_E_SB_LUT4_O": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
-            "LUT_INIT": "1111100000000000"
+            "LUT_INIT": "1111000000000000"
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:17.34-18.52"
           },
           "port_directions": {
             "I0": "input",
@@ -16131,10 +16101,10 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 314 ],
-            "I1": [ 315 ],
-            "I2": [ 142 ],
-            "I3": [ 294 ],
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 224 ],
+            "I3": [ 307 ],
             "O": [ 326 ]
           }
         },
@@ -16155,7 +16125,7 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 170 ],
+            "D": [ 185 ],
             "E": [ 327 ],
             "Q": [ 328 ]
           }
@@ -16181,7 +16151,7 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ "0" ],
-            "I3": [ 141 ],
+            "I3": [ 144 ],
             "O": [ 327 ]
           }
         },
@@ -16203,11 +16173,11 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 218 ],
+            "I0": [ 232 ],
             "I1": [ 329 ],
             "I2": [ 328 ],
-            "I3": [ 96 ],
-            "O": [ 221 ]
+            "I3": [ 99 ],
+            "O": [ 235 ]
           }
         },
         "hex_dump.tx_start_SB_LUT4_I2_1": {
@@ -16229,10 +16199,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 96 ],
+            "I1": [ 99 ],
             "I2": [ 328 ],
-            "I3": [ 98 ],
-            "O": [ 100 ]
+            "I3": [ 101 ],
+            "O": [ 103 ]
           }
         },
         "hex_dump.tx_start_SB_LUT4_I2_I1_SB_LUT4_O": {
@@ -16253,9 +16223,9 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 217 ],
-            "I1": [ 214 ],
-            "I2": [ 212 ],
+            "I0": [ 231 ],
+            "I1": [ 228 ],
+            "I2": [ 226 ],
             "I3": [ 330 ],
             "O": [ 329 ]
           }
@@ -16281,8 +16251,8 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ 330 ],
-            "I3": [ 96 ],
-            "O": [ 99 ]
+            "I3": [ 99 ],
+            "O": [ 102 ]
           }
         },
         "hex_dump.tx_start_SB_LUT4_I2_I1_SB_LUT4_O_I3_SB_LUT4_O": {
@@ -16328,10 +16298,10 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 259 ],
-            "I1": [ 256 ],
-            "I2": [ 253 ],
-            "I3": [ 250 ],
+            "I0": [ 273 ],
+            "I1": [ 270 ],
+            "I2": [ 267 ],
+            "I3": [ 264 ],
             "O": [ 334 ]
           }
         },
@@ -16353,10 +16323,10 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 247 ],
-            "I1": [ 244 ],
-            "I2": [ 225 ],
-            "I3": [ 223 ],
+            "I0": [ 261 ],
+            "I1": [ 258 ],
+            "I2": [ 239 ],
+            "I3": [ 237 ],
             "O": [ 333 ]
           }
         },
@@ -16378,10 +16348,10 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 240 ],
-            "I1": [ 239 ],
-            "I2": [ 236 ],
-            "I3": [ 233 ],
+            "I0": [ 254 ],
+            "I1": [ 253 ],
+            "I2": [ 250 ],
+            "I3": [ 247 ],
             "O": [ 332 ]
           }
         },
@@ -16403,10 +16373,10 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 230 ],
-            "I1": [ 227 ],
-            "I2": [ 265 ],
-            "I3": [ 262 ],
+            "I0": [ 244 ],
+            "I1": [ 241 ],
+            "I2": [ 279 ],
+            "I3": [ 276 ],
             "O": [ 331 ]
           }
         },
@@ -16428,9 +16398,33 @@
           },
           "connections": {
             "C": [ 10 ],
+            "D": [ 95 ],
+            "E": [ 101 ],
+            "Q": [ 173 ],
+            "S": [ 335 ]
+          }
+        },
+        "hex_dump.value_SB_DFFESS_Q_1": {
+          "hide_name": 0,
+          "type": "SB_DFFESS",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "top.v:20.14-20.140|hex_dump.v:11.5-23.8|/usr/bin/../share/yosys/ice40/ff_map.v:25.66-25.119"
+          },
+          "port_directions": {
+            "C": "input",
+            "D": "input",
+            "E": "input",
+            "Q": "output",
+            "S": "input"
+          },
+          "connections": {
+            "C": [ 10 ],
             "D": [ 92 ],
-            "E": [ 98 ],
-            "Q": [ 159 ],
+            "E": [ 101 ],
+            "Q": [ 174 ],
             "S": [ 335 ]
           }
         },
@@ -16451,9 +16445,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 153 ],
-            "E": [ 98 ],
-            "Q": [ 151 ]
+            "D": [ 175 ],
+            "E": [ 101 ],
+            "Q": [ 166 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_1": {
@@ -16473,9 +16467,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 160 ],
-            "E": [ 98 ],
-            "Q": [ 153 ]
+            "D": [ 176 ],
+            "E": [ 101 ],
+            "Q": [ 168 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_10": {
@@ -16495,9 +16489,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 155 ],
-            "E": [ 98 ],
-            "Q": [ 154 ]
+            "D": [ 171 ],
+            "E": [ 101 ],
+            "Q": [ 169 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_11": {
@@ -16517,9 +16511,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 156 ],
-            "E": [ 98 ],
-            "Q": [ 155 ]
+            "D": [ 172 ],
+            "E": [ 101 ],
+            "Q": [ 170 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_12": {
@@ -16539,9 +16533,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 157 ],
-            "E": [ 98 ],
-            "Q": [ 156 ]
+            "D": [ 173 ],
+            "E": [ 101 ],
+            "Q": [ 171 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_13": {
@@ -16561,31 +16555,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 158 ],
-            "E": [ 98 ],
-            "Q": [ 157 ]
-          }
-        },
-        "hex_dump.value_SB_DFFE_Q_14": {
-          "hide_name": 0,
-          "type": "SB_DFFE",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:20.14-20.140|hex_dump.v:11.5-23.8|/usr/bin/../share/yosys/ice40/ff_map.v:5.57-5.103"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "E": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 10 ],
-            "D": [ 159 ],
-            "E": [ 98 ],
-            "Q": [ 158 ]
+            "D": [ 174 ],
+            "E": [ 101 ],
+            "Q": [ 172 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_2": {
@@ -16605,9 +16577,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 161 ],
-            "E": [ 98 ],
-            "Q": [ 160 ]
+            "D": [ 177 ],
+            "E": [ 101 ],
+            "Q": [ 175 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_3": {
@@ -16627,9 +16599,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 162 ],
-            "E": [ 98 ],
-            "Q": [ 161 ]
+            "D": [ 178 ],
+            "E": [ 101 ],
+            "Q": [ 176 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_4": {
@@ -16649,9 +16621,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 163 ],
-            "E": [ 98 ],
-            "Q": [ 162 ]
+            "D": [ 179 ],
+            "E": [ 101 ],
+            "Q": [ 177 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_5": {
@@ -16671,9 +16643,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 164 ],
-            "E": [ 98 ],
-            "Q": [ 163 ]
+            "D": [ 180 ],
+            "E": [ 101 ],
+            "Q": [ 178 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_6": {
@@ -16693,9 +16665,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 165 ],
-            "E": [ 98 ],
-            "Q": [ 164 ]
+            "D": [ 181 ],
+            "E": [ 101 ],
+            "Q": [ 179 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_7": {
@@ -16715,9 +16687,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 166 ],
-            "E": [ 98 ],
-            "Q": [ 165 ]
+            "D": [ 182 ],
+            "E": [ 101 ],
+            "Q": [ 180 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_8": {
@@ -16737,9 +16709,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 167 ],
-            "E": [ 98 ],
-            "Q": [ 166 ]
+            "D": [ 169 ],
+            "E": [ 101 ],
+            "Q": [ 181 ]
           }
         },
         "hex_dump.value_SB_DFFE_Q_9": {
@@ -16759,9 +16731,9 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 154 ],
-            "E": [ 98 ],
-            "Q": [ 167 ]
+            "D": [ 170 ],
+            "E": [ 101 ],
+            "Q": [ 182 ]
           }
         },
         "my_rx.in_pipe_SB_DFFSS_Q": {
@@ -16783,7 +16755,7 @@
             "C": [ 10 ],
             "D": [ 336 ],
             "Q": [ 337 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_pipe_SB_DFFSS_Q_1": {
@@ -16805,7 +16777,7 @@
             "C": [ 10 ],
             "D": [ 338 ],
             "Q": [ 336 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_pipe_SB_DFFSS_Q_2": {
@@ -16827,7 +16799,7 @@
             "C": [ 10 ],
             "D": [ 339 ],
             "Q": [ 338 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_pipe_SB_DFFSS_Q_3": {
@@ -16849,7 +16821,7 @@
             "C": [ 10 ],
             "D": [ 340 ],
             "Q": [ 339 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_pipe_SB_DFFSS_Q_4": {
@@ -16871,7 +16843,7 @@
             "C": [ 10 ],
             "D": [ 341 ],
             "Q": [ 340 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_pipe_SB_DFFSS_Q_5": {
@@ -16893,7 +16865,7 @@
             "C": [ 10 ],
             "D": [ 342 ],
             "Q": [ 341 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_pipe_SB_DFFSS_Q_6": {
@@ -16915,7 +16887,7 @@
             "C": [ 10 ],
             "D": [ 343 ],
             "Q": [ 342 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_pipe_SB_DFFSS_Q_7": {
@@ -16937,7 +16909,7 @@
             "C": [ 10 ],
             "D": [ 9 ],
             "Q": [ 343 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_state_SB_DFFESS_Q": {
@@ -16961,18 +16933,18 @@
             "D": [ 344 ],
             "E": [ 345 ],
             "Q": [ 346 ],
-            "S": [ 95 ]
+            "S": [ 98 ]
           }
         },
         "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
-            "LUT_INIT": "1011111111111111"
+            "LUT_INIT": "1111110011111111"
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:22.34-23.52"
           },
           "port_directions": {
             "I0": "input",
@@ -16982,10 +16954,10 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 343 ],
-            "I1": [ 347 ],
-            "I2": [ 346 ],
-            "I3": [ 348 ],
+            "I0": [ "0" ],
+            "I1": [ 341 ],
+            "I2": [ 340 ],
+            "I3": [ 347 ],
             "O": [ 344 ]
           }
         },
@@ -17008,10 +16980,10 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 349 ],
-            "I2": [ 350 ],
+            "I1": [ 348 ],
+            "I2": [ 341 ],
             "I3": [ 340 ],
-            "O": [ 351 ]
+            "O": [ 349 ]
           }
         },
         "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_1_I1_SB_LUT4_O": {
@@ -17032,18 +17004,18 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 341 ],
-            "I1": [ 339 ],
+            "I0": [ 350 ],
+            "I1": [ 338 ],
             "I2": [ 336 ],
             "I3": [ 337 ],
-            "O": [ 349 ]
+            "O": [ 348 ]
           }
         },
-        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_I1_SB_LUT4_O": {
+        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_1_I1_SB_LUT4_O_I0_SB_LUT4_O": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
-            "LUT_INIT": "0000000000000001"
+            "LUT_INIT": "0100000000000000"
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
@@ -17057,22 +17029,22 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 342 ],
-            "I1": [ 341 ],
-            "I2": [ 340 ],
+            "I0": [ 346 ],
+            "I1": [ 343 ],
+            "I2": [ 342 ],
             "I3": [ 339 ],
-            "O": [ 347 ]
+            "O": [ 350 ]
           }
         },
-        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_I1_SB_LUT4_O_1": {
+        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_I3_SB_LUT4_O": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
-            "LUT_INIT": "0000000000000011"
+            "LUT_INIT": "0000000100000000"
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:22.34-23.52"
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -17082,11 +17054,36 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ "0" ],
-            "I1": [ 338 ],
-            "I2": [ 336 ],
-            "I3": [ 337 ],
-            "O": [ 348 ]
+            "I0": [ 338 ],
+            "I1": [ 336 ],
+            "I2": [ 337 ],
+            "I3": [ 351 ],
+            "O": [ 347 ]
+          }
+        },
+        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_I3_SB_LUT4_O_I3_SB_LUT4_O": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0000000100000000"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ 343 ],
+            "I1": [ 342 ],
+            "I2": [ 339 ],
+            "I3": [ 346 ],
+            "O": [ 351 ]
           }
         },
         "my_rx.in_state_SB_DFFESS_Q_E_SB_LUT4_O": {
@@ -17108,35 +17105,52 @@
           },
           "connections": {
             "I0": [ "0" ],
-            "I1": [ 351 ],
+            "I1": [ 349 ],
             "I2": [ 344 ],
-            "I3": [ 98 ],
+            "I3": [ 101 ],
             "O": [ 345 ]
           }
         },
-        "my_rx.in_state_SB_LUT4_I0": {
+        "my_rx.rx_bcnt_SB_CARRY_CI": {
           "hide_name": 0,
-          "type": "SB_LUT4",
+          "type": "SB_CARRY",
           "parameters": {
-            "LUT_INIT": "0100000000000000"
           },
           "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
+            "CI": "input",
+            "CO": "output",
             "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
+            "I1": "input"
           },
           "connections": {
-            "I0": [ 346 ],
-            "I1": [ 343 ],
-            "I2": [ 342 ],
-            "I3": [ 338 ],
-            "O": [ 350 ]
+            "CI": [ 352 ],
+            "CO": [ 353 ],
+            "I0": [ 354 ],
+            "I1": [ "1" ]
+          }
+        },
+        "my_rx.rx_bcnt_SB_CARRY_I0": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 353 ],
+            "CO": [ 355 ],
+            "I0": [ 356 ],
+            "I1": [ "1" ]
           }
         },
         "my_rx.rx_bcnt_SB_DFFESR_Q": {
@@ -17157,10 +17171,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 352 ],
-            "E": [ 353 ],
-            "Q": [ 354 ],
-            "R": [ 355 ]
+            "D": [ 357 ],
+            "E": [ 358 ],
+            "Q": [ 356 ],
+            "R": [ 359 ]
           }
         },
         "my_rx.rx_bcnt_SB_DFFESR_Q_1": {
@@ -17181,152 +17195,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 356 ],
-            "E": [ 353 ],
-            "Q": [ 357 ],
-            "R": [ 355 ]
-          }
-        },
-        "my_rx.rx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ 358 ],
-            "I2": [ "1" ],
-            "I3": [ 359 ],
-            "O": [ 360 ]
-          }
-        },
-        "my_rx.rx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O_1": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ 354 ],
-            "I2": [ "1" ],
-            "I3": [ 361 ],
-            "O": [ 352 ]
-          }
-        },
-        "my_rx.rx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O_2": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ 357 ],
-            "I2": [ "1" ],
-            "I3": [ 362 ],
-            "O": [ 356 ]
-          }
-        },
-        "my_rx.rx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O_3": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0000000011111111"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:12.34-13.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ "0" ],
-            "I3": [ 362 ],
-            "O": [ 363 ]
-          }
-        },
-        "my_rx.rx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 361 ],
-            "CO": [ 359 ],
-            "I0": [ 354 ],
-            "I1": [ "1" ]
-          }
-        },
-        "my_rx.rx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3_SB_CARRY_CO_1": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 362 ],
-            "CO": [ 361 ],
-            "I0": [ 357 ],
-            "I1": [ "1" ]
+            "D": [ 360 ],
+            "E": [ 358 ],
+            "Q": [ 354 ],
+            "R": [ 359 ]
           }
         },
         "my_rx.rx_bcnt_SB_DFFESR_Q_E_SB_LUT4_O": {
@@ -17349,9 +17221,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 364 ],
-            "I3": [ 365 ],
-            "O": [ 353 ]
+            "I2": [ 361 ],
+            "I3": [ 362 ],
+            "O": [ 358 ]
           }
         },
         "my_rx.rx_bcnt_SB_DFFESS_Q": {
@@ -17372,10 +17244,10 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 360 ],
-            "E": [ 353 ],
-            "Q": [ 358 ],
-            "S": [ 355 ]
+            "D": [ 363 ],
+            "E": [ 358 ],
+            "Q": [ 364 ],
+            "S": [ 359 ]
           }
         },
         "my_rx.rx_bcnt_SB_DFFESS_Q_1": {
@@ -17396,10 +17268,110 @@
           },
           "connections": {
             "C": [ 10 ],
-            "D": [ 363 ],
-            "E": [ 353 ],
-            "Q": [ 362 ],
-            "S": [ 355 ]
+            "D": [ 365 ],
+            "E": [ 358 ],
+            "Q": [ 352 ],
+            "S": [ 359 ]
+          }
+        },
+        "my_rx.rx_bcnt_SB_LUT4_I1": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ 364 ],
+            "I2": [ "1" ],
+            "I3": [ 355 ],
+            "O": [ 363 ]
+          }
+        },
+        "my_rx.rx_bcnt_SB_LUT4_I1_1": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ 356 ],
+            "I2": [ "1" ],
+            "I3": [ 353 ],
+            "O": [ 357 ]
+          }
+        },
+        "my_rx.rx_bcnt_SB_LUT4_I1_2": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ 354 ],
+            "I2": [ "1" ],
+            "I3": [ 352 ],
+            "O": [ 360 ]
+          }
+        },
+        "my_rx.rx_bcnt_SB_LUT4_I3": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0000000011111111"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:12.34-13.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ "0" ],
+            "I3": [ 352 ],
+            "O": [ 365 ]
           }
         },
         "my_rx.rx_busy_SB_DFFSR_Q": {
@@ -17421,7 +17393,7 @@
             "C": [ 10 ],
             "D": [ 366 ],
             "Q": [ 367 ],
-            "R": [ 95 ]
+            "R": [ 98 ]
           }
         },
         "my_rx.rx_busy_SB_DFFSR_Q_D_SB_LUT4_O": {
@@ -17470,8 +17442,8 @@
             "I0": [ "0" ],
             "I1": [ 346 ],
             "I2": [ 367 ],
-            "I3": [ 98 ],
-            "O": [ 365 ]
+            "I3": [ 101 ],
+            "O": [ 362 ]
           }
         },
         "my_rx.rx_busy_SB_LUT4_I3": {
@@ -17496,7 +17468,7 @@
             "I1": [ "0" ],
             "I2": [ "0" ],
             "I3": [ 367 ],
-            "O": [ 355 ]
+            "O": [ 359 ]
           }
         },
         "my_rx.rx_busy_SB_LUT4_I3_1": {
@@ -17521,7 +17493,7 @@
             "I1": [ "0" ],
             "I2": [ 369 ],
             "I3": [ 367 ],
-            "O": [ 364 ]
+            "O": [ 361 ]
           }
         },
         "my_rx.rx_busy_SB_LUT4_I3_1_I2_SB_LUT4_O": {
@@ -17668,9 +17640,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 390 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 379 ],
-            "R": [ 364 ]
+            "R": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_1": {
@@ -17692,9 +17664,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 391 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 374 ],
-            "R": [ 364 ]
+            "R": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_10": {
@@ -17716,9 +17688,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 392 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 388 ],
-            "R": [ 355 ]
+            "R": [ 359 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_10_D_SB_LUT4_O": {
@@ -17765,9 +17737,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 394 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 389 ],
-            "R": [ 364 ]
+            "R": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_3": {
@@ -17789,9 +17761,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 395 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 386 ],
-            "R": [ 364 ]
+            "R": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_4": {
@@ -17813,9 +17785,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 396 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 385 ],
-            "R": [ 364 ]
+            "R": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_5": {
@@ -17837,9 +17809,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 397 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 384 ],
-            "R": [ 364 ]
+            "R": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_6": {
@@ -17861,9 +17833,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 398 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 383 ],
-            "R": [ 364 ]
+            "R": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_7": {
@@ -17885,9 +17857,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 399 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 382 ],
-            "R": [ 364 ]
+            "R": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_8": {
@@ -17909,9 +17881,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 400 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 381 ],
-            "R": [ 355 ]
+            "R": [ 359 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_8_D_SB_LUT4_O": {
@@ -17958,9 +17930,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 402 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 378 ],
-            "R": [ 355 ]
+            "R": [ 359 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESR_Q_9_D_SB_LUT4_O": {
@@ -18007,9 +17979,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 404 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 377 ],
-            "S": [ 364 ]
+            "S": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESS_Q_1": {
@@ -18031,9 +18003,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 405 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 376 ],
-            "S": [ 364 ]
+            "S": [ 361 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESS_Q_2": {
@@ -18055,9 +18027,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 406 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 380 ],
-            "S": [ 355 ]
+            "S": [ 359 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESS_Q_2_D_SB_LUT4_O": {
@@ -18104,9 +18076,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 408 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 375 ],
-            "S": [ 355 ]
+            "S": [ 359 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESS_Q_3_D_SB_LUT4_O": {
@@ -18153,9 +18125,9 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 410 ],
-            "E": [ 365 ],
+            "E": [ 362 ],
             "Q": [ 387 ],
-            "S": [ 355 ]
+            "S": [ 359 ]
           }
         },
         "my_rx.rx_rcnt_SB_DFFESS_Q_4_D_SB_LUT4_O": {
@@ -19017,10 +18989,10 @@
             "O": "output"
           },
           "connections": {
-            "I0": [ 362 ],
-            "I1": [ 357 ],
-            "I2": [ 354 ],
-            "I3": [ 358 ],
+            "I0": [ 352 ],
+            "I1": [ 354 ],
+            "I2": [ 356 ],
+            "I3": [ 364 ],
             "O": [ 433 ]
           }
         },
@@ -19069,7 +19041,7 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 98 ],
+            "I2": [ 101 ],
             "I3": [ 367 ],
             "O": [ 432 ]
           }
@@ -19094,9 +19066,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ 431 ],
-            "I2": [ 210 ],
-            "I3": [ 142 ],
-            "O": [ 209 ]
+            "I2": [ 222 ],
+            "I3": [ 145 ],
+            "O": [ 221 ]
           }
         },
         "my_rx.rx_stb_SB_LUT4_I1_1": {
@@ -19119,9 +19091,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ 431 ],
-            "I2": [ 141 ],
-            "I3": [ 210 ],
-            "O": [ 198 ]
+            "I2": [ 144 ],
+            "I3": [ 222 ],
+            "O": [ 210 ]
           }
         },
         "my_rx.rx_stb_SB_LUT4_I3": {
@@ -19144,9 +19116,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 210 ],
+            "I2": [ 222 ],
             "I3": [ 431 ],
-            "O": [ 200 ]
+            "O": [ 212 ]
           }
         },
         "osc.startup_SB_CARRY_CI": {
@@ -19713,7 +19685,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 487 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 485 ]
           }
         },
@@ -19735,7 +19707,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 488 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 486 ]
           }
         },
@@ -19757,7 +19729,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 489 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 460 ]
           }
         },
@@ -19779,7 +19751,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 490 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 462 ]
           }
         },
@@ -19801,7 +19773,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 491 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 466 ]
           }
         },
@@ -19823,7 +19795,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 492 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 468 ]
           }
         },
@@ -19845,7 +19817,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 493 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 470 ]
           }
         },
@@ -19867,7 +19839,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 494 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 472 ]
           }
         },
@@ -19889,7 +19861,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 495 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 473 ]
           }
         },
@@ -19911,7 +19883,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 496 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 439 ]
           }
         },
@@ -19933,7 +19905,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 497 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 441 ]
           }
         },
@@ -19955,7 +19927,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 498 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 464 ]
           }
         },
@@ -19977,7 +19949,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 499 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 444 ]
           }
         },
@@ -19999,7 +19971,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 500 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 475 ]
           }
         },
@@ -20021,7 +19993,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 501 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 477 ]
           }
         },
@@ -20043,7 +20015,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 502 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 479 ]
           }
         },
@@ -20065,7 +20037,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 503 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 481 ]
           }
         },
@@ -20087,7 +20059,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 504 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 482 ]
           }
         },
@@ -20109,7 +20081,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 505 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 436 ]
           }
         },
@@ -20131,7 +20103,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 506 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 434 ]
           }
         },
@@ -20153,7 +20125,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 507 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 446 ]
           }
         },
@@ -20175,7 +20147,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 508 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 448 ]
           }
         },
@@ -20197,7 +20169,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 509 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 450 ]
           }
         },
@@ -20219,7 +20191,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 510 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 452 ]
           }
         },
@@ -20241,7 +20213,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 511 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 454 ]
           }
         },
@@ -20263,7 +20235,7 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 512 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 456 ]
           }
         },
@@ -20285,11 +20257,33 @@
           "connections": {
             "C": [ 10 ],
             "D": [ 513 ],
-            "E": [ 95 ],
+            "E": [ 98 ],
             "Q": [ 458 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O": {
+        "osc.startup_SB_DFFSS_Q": {
+          "hide_name": 0,
+          "type": "SB_DFFSS",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "top.v:8.9-8.34|osc.v:16.5-20.8|/usr/bin/../share/yosys/ice40/ff_map.v:20.59-20.105"
+          },
+          "port_directions": {
+            "C": "input",
+            "D": "input",
+            "Q": "output",
+            "S": "input"
+          },
+          "connections": {
+            "C": [ 10 ],
+            "D": [ 514 ],
+            "Q": [ 101 ],
+            "S": [ 101 ]
+          }
+        },
+        "osc.startup_SB_LUT4_I2": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20314,7 +20308,7 @@
             "O": [ 496 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_1": {
+        "osc.startup_SB_LUT4_I2_1": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20339,7 +20333,7 @@
             "O": [ 497 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_10": {
+        "osc.startup_SB_LUT4_I2_10": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20364,7 +20358,7 @@
             "O": [ 488 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_11": {
+        "osc.startup_SB_LUT4_I2_11": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20389,7 +20383,7 @@
             "O": [ 499 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_12": {
+        "osc.startup_SB_LUT4_I2_12": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20414,7 +20408,7 @@
             "O": [ 507 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_13": {
+        "osc.startup_SB_LUT4_I2_13": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20439,7 +20433,7 @@
             "O": [ 508 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_14": {
+        "osc.startup_SB_LUT4_I2_14": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20464,7 +20458,7 @@
             "O": [ 509 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_15": {
+        "osc.startup_SB_LUT4_I2_15": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20489,7 +20483,7 @@
             "O": [ 510 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_16": {
+        "osc.startup_SB_LUT4_I2_16": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20514,7 +20508,7 @@
             "O": [ 505 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_17": {
+        "osc.startup_SB_LUT4_I2_17": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20539,7 +20533,7 @@
             "O": [ 511 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_18": {
+        "osc.startup_SB_LUT4_I2_18": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20564,7 +20558,7 @@
             "O": [ 512 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_19": {
+        "osc.startup_SB_LUT4_I2_19": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20589,7 +20583,7 @@
             "O": [ 513 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_2": {
+        "osc.startup_SB_LUT4_I2_2": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20614,7 +20608,7 @@
             "O": [ 498 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_20": {
+        "osc.startup_SB_LUT4_I2_20": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20639,7 +20633,7 @@
             "O": [ 489 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_21": {
+        "osc.startup_SB_LUT4_I2_21": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20664,7 +20658,7 @@
             "O": [ 490 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_22": {
+        "osc.startup_SB_LUT4_I2_22": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20689,7 +20683,7 @@
             "O": [ 491 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_23": {
+        "osc.startup_SB_LUT4_I2_23": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20714,7 +20708,7 @@
             "O": [ 492 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_24": {
+        "osc.startup_SB_LUT4_I2_24": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20739,7 +20733,7 @@
             "O": [ 493 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_25": {
+        "osc.startup_SB_LUT4_I2_25": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20764,7 +20758,7 @@
             "O": [ 494 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_26": {
+        "osc.startup_SB_LUT4_I2_26": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20789,32 +20783,7 @@
             "O": [ 495 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_27": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0000000011111111"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:12.34-13.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ "0" ],
-            "I3": [ 434 ],
-            "O": [ 506 ]
-          }
-        },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_3": {
+        "osc.startup_SB_LUT4_I2_3": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20839,7 +20808,7 @@
             "O": [ 500 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_4": {
+        "osc.startup_SB_LUT4_I2_4": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20864,7 +20833,7 @@
             "O": [ 501 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_5": {
+        "osc.startup_SB_LUT4_I2_5": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20889,7 +20858,7 @@
             "O": [ 502 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_6": {
+        "osc.startup_SB_LUT4_I2_6": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20914,7 +20883,7 @@
             "O": [ 503 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_7": {
+        "osc.startup_SB_LUT4_I2_7": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20939,7 +20908,7 @@
             "O": [ 504 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_8": {
+        "osc.startup_SB_LUT4_I2_8": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20959,12 +20928,12 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 98 ],
+            "I2": [ 101 ],
             "I3": [ 484 ],
             "O": [ 514 ]
           }
         },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_9": {
+        "osc.startup_SB_LUT4_I2_9": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -20989,26 +20958,54 @@
             "O": [ 487 ]
           }
         },
-        "osc.startup_SB_DFFSS_Q": {
+        "osc.startup_SB_LUT4_I3": {
           "hide_name": 0,
-          "type": "SB_DFFSS",
+          "type": "SB_LUT4",
           "parameters": {
+            "LUT_INIT": "0000000011111111"
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:8.9-8.34|osc.v:16.5-20.8|/usr/bin/../share/yosys/ice40/ff_map.v:20.59-20.105"
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:12.34-13.52"
           },
           "port_directions": {
-            "C": "input",
-            "D": "input",
-            "Q": "output",
-            "S": "input"
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
           },
           "connections": {
-            "C": [ 10 ],
-            "D": [ 514 ],
-            "Q": [ 98 ],
-            "S": [ 98 ]
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ "0" ],
+            "I3": [ 434 ],
+            "O": [ 506 ]
+          }
+        },
+        "osc.startup_SB_LUT4_I3_1": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0000000011111111"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:12.34-13.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ "0" ],
+            "I3": [ 101 ],
+            "O": [ 98 ]
           }
         },
         "tx.ipll.SB_PLL40_CORE_inst": {
@@ -22061,9 +22058,16 @@
             "src": "top.v:6.10-6.13"
           }
         },
-        "comp_in1": {
+        "comp_in": {
           "hide_name": 0,
           "bits": [ 90 ],
+          "attributes": {
+            "src": "top.v:11.10-11.17"
+          }
+        },
+        "comp_in1": {
+          "hide_name": 0,
+          "bits": [ 93 ],
           "attributes": {
             "src": "top.v:13.10-13.18"
           }
@@ -22076,6 +22080,22 @@
             "src": "top.v:14.12-14.95|digitizer.v:2.11-2.14"
           }
         },
+        "digitizer.comp_in": {
+          "hide_name": 0,
+          "bits": [ 90 ],
+          "attributes": {
+            "hdlname": "digitizer comp_in",
+            "src": "top.v:14.12-14.95|digitizer.v:3.17-3.24"
+          }
+        },
+        "digitizer.digitizer": {
+          "hide_name": 0,
+          "bits": [ 91, 92 ],
+          "attributes": {
+            "hdlname": "digitizer digitizer",
+            "src": "top.v:14.12-14.95|digitizer.v:14.15-14.24"
+          }
+        },
         "digitizer.lvds_in": {
           "hide_name": 0,
           "bits": [ 8 ],
@@ -22083,6 +22103,14 @@
             "hdlname": "digitizer lvds_in",
             "src": "top.v:14.12-14.95|digitizer.v:2.21-2.28",
             "unused_bits": "0 "
+          }
+        },
+        "digitizer.sig": {
+          "hide_name": 0,
+          "bits": [ 92 ],
+          "attributes": {
+            "hdlname": "digitizer sig",
+            "src": "top.v:14.12-14.95|digitizer.v:3.12-3.15"
           }
         },
         "digitizer1.clk": {
@@ -22095,7 +22123,7 @@
         },
         "digitizer1.comp_in": {
           "hide_name": 0,
-          "bits": [ 90 ],
+          "bits": [ 93 ],
           "attributes": {
             "hdlname": "digitizer1 comp_in",
             "src": "top.v:15.12-15.99|digitizer.v:3.17-3.24"
@@ -22103,7 +22131,7 @@
         },
         "digitizer1.digitizer": {
           "hide_name": 0,
-          "bits": [ 91, 92 ],
+          "bits": [ 94, 95 ],
           "attributes": {
             "hdlname": "digitizer1 digitizer",
             "src": "top.v:15.12-15.99|digitizer.v:14.15-14.24"
@@ -22120,7 +22148,7 @@
         },
         "digitizer1.sig": {
           "hide_name": 0,
-          "bits": [ 92 ],
+          "bits": [ 95 ],
           "attributes": {
             "hdlname": "digitizer1 sig",
             "src": "top.v:15.12-15.99|digitizer.v:3.12-3.15"
@@ -22142,33 +22170,49 @@
         },
         "fpga_tx_SB_DFFESS_Q_D": {
           "hide_name": 0,
-          "bits": [ 93 ],
+          "bits": [ 96 ],
           "attributes": {
           }
         },
         "fpga_tx_SB_DFFESS_Q_E": {
           "hide_name": 0,
-          "bits": [ 94 ],
+          "bits": [ 97 ],
           "attributes": {
           }
         },
         "fpga_tx_SB_DFFESS_Q_S": {
           "hide_name": 0,
-          "bits": [ 95 ],
+          "bits": [ 98 ],
           "attributes": {
           }
         },
         "hex_dump.addr_save": {
           "hide_name": 0,
-          "bits": [ 150, 149, 148, 147, 146, 145, 144, 143 ],
+          "bits": [ 153, 152, 151, 150, 149, 148, 147, 146 ],
           "attributes": {
             "hdlname": "hex_dump addr_save",
             "src": "top.v:20.14-20.140|hex_dump.v:51.15-51.24"
           }
         },
+        "hex_dump.addr_save_SB_LUT4_I1_O": {
+          "hide_name": 0,
+          "bits": [ 315, 144, 156, 159 ],
+          "attributes": {
+            "force_downto": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
+          }
+        },
+        "hex_dump.addr_save_SB_LUT4_I2_O": {
+          "hide_name": 0,
+          "bits": [ 162, 147, 161 ],
+          "attributes": {
+            "force_downto": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
+          }
+        },
         "hex_dump.bckp": {
           "hide_name": 0,
-          "bits": [ 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140 ],
+          "bits": [ 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143 ],
           "attributes": {
             "hdlname": "hex_dump bckp",
             "src": "top.v:20.14-20.140|hex_dump.v:7.16-7.20"
@@ -22176,7 +22220,7 @@
         },
         "hex_dump.bugfix001": {
           "hide_name": 0,
-          "bits": [ 169 ],
+          "bits": [ 184 ],
           "attributes": {
             "hdlname": "hex_dump bugfix001",
             "src": "top.v:20.14-20.140|hex_dump.v:45.9-45.18"
@@ -22184,13 +22228,13 @@
         },
         "hex_dump.bugfix001_SB_DFFESS_Q_E": {
           "hide_name": 0,
-          "bits": [ 168 ],
+          "bits": [ 183 ],
           "attributes": {
           }
         },
         "hex_dump.bugfix001_SB_LUT4_I2_O": {
           "hide_name": 0,
-          "bits": [ 292, 170, 141 ],
+          "bits": [ 306, 185, 144 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22206,7 +22250,7 @@
         },
         "hex_dump.cntr": {
           "hide_name": 0,
-          "bits": [ 179, 177, 175, 173 ],
+          "bits": [ 192, 190, 188 ],
           "attributes": {
             "hdlname": "hex_dump cntr",
             "src": "top.v:20.14-20.140|hex_dump.v:8.15-8.19"
@@ -22214,7 +22258,7 @@
         },
         "hex_dump.cntr_SB_DFFE_Q_D": {
           "hide_name": 0,
-          "bits": [ 178, 176, 174, 172 ],
+          "bits": [ 191, 189, 187 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|hex_dump.v:14.21-14.29|/usr/bin/../share/yosys/ice40/arith_map.v:33.26-33.27"
@@ -22222,7 +22266,7 @@
         },
         "hex_dump.cntr_SB_DFFE_Q_D_SB_LUT4_O_I3": {
           "hide_name": 0,
-          "bits": [ "0", 179, 181, 180 ],
+          "bits": [ "0", 192, 193 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|hex_dump.v:14.21-14.29|/usr/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
@@ -22230,7 +22274,7 @@
         },
         "hex_dump.counter": {
           "hide_name": 0,
-          "bits": [ 182, 184, 196, 195, 193, 191, 189, 187, 199 ],
+          "bits": [ 194, 196, 208, 207, 205, 203, 201, 199, 211 ],
           "attributes": {
             "hdlname": "hex_dump counter",
             "src": "top.v:20.14-20.140|hex_dump.v:50.15-50.22"
@@ -22238,7 +22282,7 @@
         },
         "hex_dump.counter_SB_CARRY_CI_CO": {
           "hide_name": 0,
-          "bits": [ "0", 182, 183, 194, 192, 190, 188, 185, 186 ],
+          "bits": [ "0", 194, 195, 206, 204, 202, 200, 197, 198 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|hex_dump.v:59.24-59.35|/usr/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
@@ -22246,7 +22290,7 @@
         },
         "hex_dump.counter_SB_DFFESR_Q_D": {
           "hide_name": 0,
-          "bits": [ 208, 207, 206, 205, 204, 203, 202, 201, 197 ],
+          "bits": [ 220, 219, 218, 217, 216, 215, 214, 213, 209 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|hex_dump.v:59.24-59.35|/usr/bin/../share/yosys/ice40/arith_map.v:33.26-33.27"
@@ -22270,7 +22314,7 @@
         },
         "hex_dump.got": {
           "hide_name": 0,
-          "bits": [ 210 ],
+          "bits": [ 222 ],
           "attributes": {
             "hdlname": "hex_dump got",
             "src": "top.v:20.14-20.140|hex_dump.v:49.9-49.12"
@@ -22278,14 +22322,14 @@
         },
         "hex_dump.got_SB_DFF_Q_D": {
           "hide_name": 0,
-          "bits": [ 209 ],
+          "bits": [ 221 ],
           "attributes": {
             "src": "top.v:20.14-20.140|hex_dump.v:53.5-85.8"
           }
         },
         "hex_dump.got_SB_LUT4_I2_O": {
           "hide_name": 0,
-          "bits": [ 431, 210, 142 ],
+          "bits": [ 431, 222, 145 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22301,7 +22345,7 @@
         },
         "hex_dump.my_tx.tx_bcnt": {
           "hide_name": 0,
-          "bits": [ 218, 217, 214, 212 ],
+          "bits": [ 232, 231, 228, 226 ],
           "attributes": {
             "hdlname": "hex_dump my_tx tx_bcnt",
             "src": "top.v:20.14-20.140|acia_tx.v:18.12-18.19|hex_dump.v:97.5-104.6"
@@ -22309,31 +22353,31 @@
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_1_D": {
           "hide_name": 0,
-          "bits": [ 213 ],
+          "bits": [ 227 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_2_D": {
           "hide_name": 0,
-          "bits": [ 216 ],
+          "bits": [ 230 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_3_D": {
           "hide_name": 0,
-          "bits": [ 219 ],
+          "bits": [ 233 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_D": {
           "hide_name": 0,
-          "bits": [ 211 ],
+          "bits": [ 225 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3": {
           "hide_name": 0,
-          "bits": [ "1", 218, 215, 220 ],
+          "bits": [ "1", 232, 229, 234 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|acia_tx.v:48.17-48.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
@@ -22341,7 +22385,7 @@
         },
         "hex_dump.my_tx.tx_busy": {
           "hide_name": 0,
-          "bits": [ 96 ],
+          "bits": [ 99 ],
           "attributes": {
             "hdlname": "hex_dump my_tx tx_busy",
             "src": "top.v:20.14-20.140|acia_tx.v:10.13-10.20|hex_dump.v:97.5-104.6"
@@ -22349,13 +22393,13 @@
         },
         "hex_dump.my_tx.tx_busy_SB_DFFSR_Q_D": {
           "hide_name": 0,
-          "bits": [ 221 ],
+          "bits": [ 235 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_dat": {
           "hide_name": 0,
-          "bits": [ 289, 287, 284, 281, 278, 275, 272, 290 ],
+          "bits": [ 303, 301, 298, 295, 292, 289, 286, 304 ],
           "attributes": {
             "hdlname": "hex_dump my_tx tx_dat",
             "src": "top.v:20.14-20.140|acia_tx.v:7.14-7.20|hex_dump.v:97.5-104.6"
@@ -22363,7 +22407,7 @@
         },
         "hex_dump.my_tx.tx_rcnt": {
           "hide_name": 0,
-          "bits": [ 240, 239, 236, 233, 230, 227, 265, 262, 259, 256, 253, 250, 247, 244, 225, 223 ],
+          "bits": [ 254, 253, 250, 247, 244, 241, 279, 276, 273, 270, 267, 264, 261, 258, 239, 237 ],
           "attributes": {
             "hdlname": "hex_dump my_tx tx_rcnt",
             "src": "top.v:20.14-20.140|acia_tx.v:19.16-19.23|hex_dump.v:97.5-104.6"
@@ -22371,103 +22415,103 @@
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_10_D": {
           "hide_name": 0,
-          "bits": [ 226 ],
+          "bits": [ 240 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_11_D": {
           "hide_name": 0,
-          "bits": [ 229 ],
+          "bits": [ 243 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_12_D": {
           "hide_name": 0,
-          "bits": [ 232 ],
+          "bits": [ 246 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_13_D": {
           "hide_name": 0,
-          "bits": [ 235 ],
+          "bits": [ 249 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_14_D": {
           "hide_name": 0,
-          "bits": [ 238 ],
+          "bits": [ 252 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_15_D": {
           "hide_name": 0,
-          "bits": [ 241 ],
+          "bits": [ 255 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_1_D": {
           "hide_name": 0,
-          "bits": [ 224 ],
+          "bits": [ 238 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_2_D": {
           "hide_name": 0,
-          "bits": [ 243 ],
+          "bits": [ 257 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_3_D": {
           "hide_name": 0,
-          "bits": [ 246 ],
+          "bits": [ 260 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_4_D": {
           "hide_name": 0,
-          "bits": [ 249 ],
+          "bits": [ 263 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_5_D": {
           "hide_name": 0,
-          "bits": [ 252 ],
+          "bits": [ 266 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_6_D": {
           "hide_name": 0,
-          "bits": [ 255 ],
+          "bits": [ 269 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_7_D": {
           "hide_name": 0,
-          "bits": [ 258 ],
+          "bits": [ 272 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_8_D": {
           "hide_name": 0,
-          "bits": [ 261 ],
+          "bits": [ 275 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_9_D": {
           "hide_name": 0,
-          "bits": [ 264 ],
+          "bits": [ 278 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D": {
           "hide_name": 0,
-          "bits": [ 222 ],
+          "bits": [ 236 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_rcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3": {
           "hide_name": 0,
-          "bits": [ "1", 240, 237, 234, 231, 228, 266, 263, 260, 257, 254, 251, 248, 245, 242, 267 ],
+          "bits": [ "1", 254, 251, 248, 245, 242, 280, 277, 274, 271, 268, 265, 262, 259, 256, 281 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
@@ -22483,7 +22527,7 @@
         },
         "hex_dump.my_tx.tx_sr": {
           "hide_name": 0,
-          "bits": [ 2, 97, 286, 283, 280, 277, 274, 271, 269 ],
+          "bits": [ 2, 100, 300, 297, 294, 291, 288, 285, 283 ],
           "attributes": {
             "hdlname": "hex_dump my_tx tx_sr",
             "src": "top.v:20.14-20.140|acia_tx.v:17.12-17.17|hex_dump.v:97.5-104.6"
@@ -22491,49 +22535,49 @@
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_1_D": {
           "hide_name": 0,
-          "bits": [ 270 ],
+          "bits": [ 284 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_2_D": {
           "hide_name": 0,
-          "bits": [ 273 ],
+          "bits": [ 287 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_3_D": {
           "hide_name": 0,
-          "bits": [ 276 ],
+          "bits": [ 290 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_4_D": {
           "hide_name": 0,
-          "bits": [ 279 ],
+          "bits": [ 293 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_5_D": {
           "hide_name": 0,
-          "bits": [ 282 ],
+          "bits": [ 296 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_6_D": {
           "hide_name": 0,
-          "bits": [ 285 ],
+          "bits": [ 299 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_7_D": {
           "hide_name": 0,
-          "bits": [ 288 ],
+          "bits": [ 302 ],
           "attributes": {
           }
         },
         "hex_dump.my_tx.tx_sr_SB_DFFESS_Q_D": {
           "hide_name": 0,
-          "bits": [ 268 ],
+          "bits": [ 282 ],
           "attributes": {
           }
         },
@@ -22547,7 +22591,7 @@
         },
         "hex_dump.part": {
           "hide_name": 0,
-          "bits": [ 292 ],
+          "bits": [ 306 ],
           "attributes": {
             "hdlname": "hex_dump part",
             "src": "top.v:20.14-20.140|hex_dump.v:46.9-46.13"
@@ -22555,13 +22599,13 @@
         },
         "hex_dump.part_SB_DFFE_Q_D": {
           "hide_name": 0,
-          "bits": [ 291 ],
+          "bits": [ 305 ],
           "attributes": {
           }
         },
         "hex_dump.ram_addr": {
           "hide_name": 0,
-          "bits": [ 101, 102, 103, 104, 105, 106, 107, 108 ],
+          "bits": [ 104, 105, 106, 107, 108, 109, 110, 111 ],
           "attributes": {
             "hdlname": "hex_dump ram_addr",
             "src": "top.v:20.14-20.140|hex_dump.v:25.15-25.23"
@@ -22569,15 +22613,23 @@
         },
         "hex_dump.ram_addr_SB_DFFE_Q_D": {
           "hide_name": 0,
-          "bits": [ 301, 300, 299, 298, 297, 296, 295, 293, 308 ],
+          "bits": [ 308, 164, 154, 157, 155, 160, 162, 158, 315 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|hex_dump.v:62.25-62.37|/usr/bin/../share/yosys/ice40/arith_map.v:33.26-33.27"
           }
         },
+        "hex_dump.ram_addr_SB_DFFE_Q_E": {
+          "hide_name": 0,
+          "bits": [ 224, 307 ],
+          "attributes": {
+            "force_downto": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
+          }
+        },
         "hex_dump.ram_data_in": {
           "hide_name": 0,
-          "bits": [ 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140 ],
+          "bits": [ 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143 ],
           "attributes": {
             "hdlname": "hex_dump ram_data_in",
             "src": "top.v:20.14-20.140|hex_dump.v:26.17-26.28"
@@ -22585,7 +22637,7 @@
         },
         "hex_dump.ram_data_out": {
           "hide_name": 0,
-          "bits": [ 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124 ],
+          "bits": [ 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127 ],
           "attributes": {
             "hdlname": "hex_dump ram_data_out",
             "src": "top.v:20.14-20.140|hex_dump.v:27.17-27.29"
@@ -22593,7 +22645,7 @@
         },
         "hex_dump.ram_wren": {
           "hide_name": 0,
-          "bits": [ 141 ],
+          "bits": [ 144 ],
           "attributes": {
             "hdlname": "hex_dump ram_wren",
             "src": "top.v:20.14-20.140|hex_dump.v:28.10-28.18"
@@ -22601,39 +22653,15 @@
         },
         "hex_dump.ram_wren_SB_LUT4_I1_I0": {
           "hide_name": 0,
-          "bits": [ "0", 101, 307, 306, 305, 304, 303, 302, 308 ],
+          "bits": [ "0", 104, 314, 313, 312, 311, 310, 309, 315 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|hex_dump.v:62.25-62.37|/usr/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
           }
         },
-        "hex_dump.ram_wren_SB_LUT4_I1_I2": {
-          "hide_name": 0,
-          "bits": [ 308, 141, 309, 310 ],
-          "attributes": {
-            "force_downto": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
-          }
-        },
         "hex_dump.ram_wren_SB_LUT4_I1_O": {
           "hide_name": 0,
-          "bits": [ 148, 299, 311, 313 ],
-          "attributes": {
-            "force_downto": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
-          }
-        },
-        "hex_dump.ram_wren_SB_LUT4_I1_O_SB_LUT4_O_I3": {
-          "hide_name": 0,
-          "bits": [ 295, 144, 312 ],
-          "attributes": {
-            "force_downto": "00000000000000000000000000000001",
-            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
-          }
-        },
-        "hex_dump.ram_wren_SB_LUT4_I3_O": {
-          "hide_name": 0,
-          "bits": [ 314, 315, 142, 294 ],
+          "bits": [ 165, 163, 223, 145 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22649,7 +22677,7 @@
         },
         "hex_dump.stb_SB_DFFE_Q_D": {
           "hide_name": 0,
-          "bits": [ 317, 98 ],
+          "bits": [ 317, 101 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22657,13 +22685,13 @@
         },
         "hex_dump.stb_SB_DFFE_Q_D_SB_LUT4_I2_O": {
           "hide_name": 0,
-          "bits": [ 152 ],
+          "bits": [ 167 ],
           "attributes": {
           }
         },
         "hex_dump.touart": {
           "hide_name": 0,
-          "bits": [ 289, 287, 284, 281, 278, 275, 272, 290 ],
+          "bits": [ 303, 301, 298, 295, 292, 289, 286, 304 ],
           "attributes": {
             "hdlname": "hex_dump touart",
             "src": "top.v:20.14-20.140|hex_dump.v:44.15-44.21"
@@ -22727,7 +22755,7 @@
         },
         "hex_dump.tx": {
           "hide_name": 0,
-          "bits": [ 171 ],
+          "bits": [ 186 ],
           "attributes": {
             "hdlname": "hex_dump tx",
             "src": "top.v:20.14-20.140|hex_dump.v:48.9-48.11"
@@ -22741,7 +22769,7 @@
         },
         "hex_dump.tx_busy": {
           "hide_name": 0,
-          "bits": [ 96 ],
+          "bits": [ 99 ],
           "attributes": {
             "hdlname": "hex_dump tx_busy",
             "src": "top.v:20.14-20.140|hex_dump.v:87.10-87.17"
@@ -22763,7 +22791,7 @@
         },
         "hex_dump.tx_start_SB_LUT4_I2_1_O": {
           "hide_name": 0,
-          "bits": [ 98, 99, 100 ],
+          "bits": [ 101, 102, 103 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22771,7 +22799,7 @@
         },
         "hex_dump.tx_start_SB_LUT4_I2_I1": {
           "hide_name": 0,
-          "bits": [ 218, 329, 328, 96 ],
+          "bits": [ 232, 329, 328, 99 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22779,7 +22807,7 @@
         },
         "hex_dump.tx_start_SB_LUT4_I2_I1_SB_LUT4_O_I3": {
           "hide_name": 0,
-          "bits": [ 217, 214, 212, 330 ],
+          "bits": [ 330, 99 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22787,7 +22815,7 @@
         },
         "hex_dump.tx_start_SB_LUT4_I2_I1_SB_LUT4_O_I3_SB_LUT4_I2_O": {
           "hide_name": 0,
-          "bits": [ 99, 230, "1", 231 ],
+          "bits": [ 102, 244, "1", 245 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:20.14-20.140|acia_tx.v:58.17-58.28|hex_dump.v:97.5-104.6|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22803,7 +22831,7 @@
         },
         "hex_dump.value": {
           "hide_name": 0,
-          "bits": [ 159, 158, 157, 156, 155, 154, 167, 166, 165, 164, 163, 162, 161, 160, 153, 151 ],
+          "bits": [ 174, 173, 172, 171, 170, 169, 182, 181, 180, 179, 178, 177, 176, 175, 168, 166 ],
           "attributes": {
             "hdlname": "hex_dump value",
             "src": "top.v:20.14-20.140|hex_dump.v:6.16-6.21"
@@ -22849,7 +22877,7 @@
         },
         "my_rx.in_state_SB_DFFESS_Q_D": {
           "hide_name": 0,
-          "bits": [ 351, 344, 98 ],
+          "bits": [ 349, 344, 101 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22857,15 +22885,31 @@
         },
         "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_1_I1": {
           "hide_name": 0,
-          "bits": [ 349, 350, 340 ],
+          "bits": [ 348, 341, 340 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
           }
         },
-        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_I1": {
+        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_1_I1_SB_LUT4_O_I0": {
           "hide_name": 0,
-          "bits": [ 343, 347, 346, 348 ],
+          "bits": [ 350, 338, 336, 337 ],
+          "attributes": {
+            "force_downto": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
+          }
+        },
+        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_I3": {
+          "hide_name": 0,
+          "bits": [ 341, 340, 347 ],
+          "attributes": {
+            "force_downto": "00000000000000000000000000000001",
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
+          }
+        },
+        "my_rx.in_state_SB_DFFESS_Q_D_SB_LUT4_O_I3_SB_LUT4_O_I3": {
+          "hide_name": 0,
+          "bits": [ 338, 336, 337, 351 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22879,31 +22923,31 @@
         },
         "my_rx.rx_bcnt": {
           "hide_name": 0,
-          "bits": [ 362, 357, 354, 358 ],
+          "bits": [ 352, 354, 356, 364 ],
           "attributes": {
             "hdlname": "my_rx rx_bcnt",
             "src": "top.v:39.5-46.6|acia_rx.v:42.12-42.19"
           }
         },
-        "my_rx.rx_bcnt_SB_DFFESR_Q_D": {
+        "my_rx.rx_bcnt_SB_CARRY_CI_CO": {
           "hide_name": 0,
-          "bits": [ 363, 356, 352, 360 ],
-          "attributes": {
-            "force_downto": "00000000000000000000000000000001",
-            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:33.26-33.27"
-          }
-        },
-        "my_rx.rx_bcnt_SB_DFFESR_Q_D_SB_LUT4_O_I3": {
-          "hide_name": 0,
-          "bits": [ "1", 362, 361, 359 ],
+          "bits": [ "1", 352, 353, 355 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
           }
         },
+        "my_rx.rx_bcnt_SB_DFFESR_Q_D": {
+          "hide_name": 0,
+          "bits": [ 365, 360, 357, 363 ],
+          "attributes": {
+            "force_downto": "00000000000000000000000000000001",
+            "src": "top.v:39.5-46.6|acia_rx.v:74.17-74.28|/usr/bin/../share/yosys/ice40/arith_map.v:33.26-33.27"
+          }
+        },
         "my_rx.rx_bcnt_SB_DFFESR_Q_E": {
           "hide_name": 0,
-          "bits": [ 353 ],
+          "bits": [ 358 ],
           "attributes": {
           }
         },
@@ -22923,7 +22967,7 @@
         },
         "my_rx.rx_busy_SB_LUT4_I2_O": {
           "hide_name": 0,
-          "bits": [ 364, 365 ],
+          "bits": [ 361, 362 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
@@ -22931,10 +22975,10 @@
         },
         "my_rx.rx_busy_SB_LUT4_I3_1_I2": {
           "hide_name": 0,
-          "bits": [ 369, 381, "1", 401 ],
+          "bits": [ 369, 367 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
-            "src": "top.v:39.5-46.6|acia_rx.v:93.17-93.28|/usr/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:6.21-6.22"
           }
         },
         "my_rx.rx_busy_SB_LUT4_I3_1_I2_SB_LUT4_O_I0": {
@@ -22947,7 +22991,7 @@
         },
         "my_rx.rx_busy_SB_LUT4_I3_O": {
           "hide_name": 0,
-          "bits": [ 355 ],
+          "bits": [ 359 ],
           "attributes": {
           }
         },
@@ -23074,13 +23118,13 @@
         },
         "my_rx.rx_stb_SB_LUT4_I1_1_O": {
           "hide_name": 0,
-          "bits": [ 198 ],
+          "bits": [ 210 ],
           "attributes": {
           }
         },
         "my_rx.rx_stb_SB_LUT4_I3_O": {
           "hide_name": 0,
-          "bits": [ 200 ],
+          "bits": [ 212 ],
           "attributes": {
             "src": "top.v:20.14-20.140|hex_dump.v:55.13-55.28"
           }
@@ -23095,10 +23139,18 @@
         },
         "osc.startup": {
           "hide_name": 0,
-          "bits": [ 434, 436, 482, 481, 479, 477, 475, 464, 441, 439, 473, 472, 470, 468, 466, 462, 460, 458, 456, 454, 452, 450, 448, 446, 444, 486, 485, 98 ],
+          "bits": [ 434, 436, 482, 481, 479, 477, 475, 464, 441, 439, 473, 472, 470, 468, 466, 462, 460, 458, 456, 454, 452, 450, 448, 446, 444, 486, 485, 101 ],
           "attributes": {
             "hdlname": "osc startup",
             "src": "top.v:8.9-8.34|osc.v:7.16-7.23"
+          }
+        },
+        "osc.startup_SB_CARRY_CI_CO": {
+          "hide_name": 0,
+          "bits": [ "0", 434, 435, 480, 478, 476, 474, 463, 440, 437, 438, 471, 469, 467, 465, 461, 459, 457, 455, 453, 451, 449, 447, 445, 442, 443, 483, 484 ],
+          "attributes": {
+            "force_downto": "00000000000000000000000000000001",
+            "src": "top.v:8.9-8.34|osc.v:19.20-19.31|/usr/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
           }
         },
         "osc.startup_SB_DFFE_Q_D": {
@@ -23107,14 +23159,6 @@
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
             "src": "top.v:8.9-8.34|osc.v:19.20-19.31|/usr/bin/../share/yosys/ice40/arith_map.v:33.26-33.27"
-          }
-        },
-        "osc.startup_SB_DFFE_Q_D_SB_LUT4_O_I3": {
-          "hide_name": 0,
-          "bits": [ "0", 434, 435, 480, 478, 476, 474, 463, 440, 437, 438, 471, 469, 467, 465, 461, 459, 457, 455, 453, 451, 449, 447, 445, 442, 443, 483, 484 ],
-          "attributes": {
-            "force_downto": "00000000000000000000000000000001",
-            "src": "top.v:8.9-8.34|osc.v:19.20-19.31|/usr/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
           }
         },
         "pwm_out": {
@@ -23145,9 +23189,16 @@
             "src": "top.v:30.16-30.22"
           }
         },
-        "sig_in1": {
+        "sig_in": {
           "hide_name": 0,
           "bits": [ 92 ],
+          "attributes": {
+            "src": "top.v:10.10-10.16"
+          }
+        },
+        "sig_in1": {
+          "hide_name": 0,
+          "bits": [ 95 ],
           "attributes": {
             "src": "top.v:12.10-12.17"
           }
