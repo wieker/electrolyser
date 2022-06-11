@@ -15,7 +15,7 @@ module adjust1(
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
 		.OUTPUT_ENABLE(state[11]),
-		.D_OUT_0(0)
+		.D_OUT_0(1)
     );
 
 endmodule
