@@ -17,7 +17,7 @@ module top(
     assign LED2 = rf_rx_stb;
     //assign LED1 = process;
     wire rf_rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : oe), .sig1(tx_en ? 1 : sig_in1), .fpga_rx(uart_rx_stb));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .sig1(tx_en ? 1 : sig_in1), .fpga_rx(uart_rx_stb));
 
     wire oe;
     adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out), .oe(oe));
