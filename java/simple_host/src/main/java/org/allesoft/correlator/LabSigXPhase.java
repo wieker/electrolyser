@@ -329,11 +329,11 @@ public class LabSigXPhase
                 int value = spiDump[i * 256 + k];
                 for (int j = 7; j >= 0; j--) {
                     int bit = ((value >> j) & 0x01);
-                    int sinphase = t / 512;
-                    int quad = (t + 256) % 1024 / 512;
+                    int sinphase = t / 1024;
+                    int quad = (t + 512) % 2048 / 1024;
                     accI += sinphase == bit ? 1 : 0;
                     accQ += quad == bit ? 1 : 0;
-                    t = (t + 1) % 1024;
+                    t = (t + 1) % 2048;
                 }
             }
             accI -= 1024;

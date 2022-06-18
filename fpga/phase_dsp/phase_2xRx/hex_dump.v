@@ -7,12 +7,13 @@ module hex_dump(
     reg [15:0] bckp;
     reg [3:0] cntr;
     reg stb;
+    reg [10:0] vld;
 
     always@(posedge clk)
     begin
         if (!rst) begin
             cntr <= cntr + 1;
-            value <= {value[14:0], sig};
+            value <= {value[14:0], vld[10]};
             if (cntr == 0) begin
                 bckp <= value;
                 stb <= 1;
@@ -52,6 +53,7 @@ module hex_dump(
 
     always@(posedge clk)
     begin
+        vld <= vld + 1;
         if (fpga_rx && !got) begin
             got <= 1;
             counter <= 0;
