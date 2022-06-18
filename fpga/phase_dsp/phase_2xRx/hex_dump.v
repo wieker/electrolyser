@@ -13,7 +13,7 @@ module hex_dump(
     begin
         if (!rst) begin
             cntr <= cntr + 1;
-            value <= {value[14:0], vld[10]};
+            value <= {value[14:0], sig};
             if (cntr == 0) begin
                 bckp <= value;
                 stb <= 1;
