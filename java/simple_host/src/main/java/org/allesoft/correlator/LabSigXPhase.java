@@ -330,7 +330,7 @@ public class LabSigXPhase
                 for (int j = 7; j >= 0; j--) {
                     int bit = ((value >> j) & 0x01);
                     int sinphase = t / 512;
-                    int quad = (t + 1) % 1024 / 512;
+                    int quad = (t + 256) % 1024 / 512;
                     accI += sinphase == bit ? 1 : 0;
                     accQ += quad == bit ? 1 : 0;
                     t = (t + 1) % 1024;
