@@ -321,24 +321,24 @@ public class LabSigXPhase
 
     private static void calcIQ() {
         sumArea.setText("");
-        for (int i = 0; i < 16; i ++) {
+        for (int i = 0; i < 2; i ++) {
             int t = 0;
             int accI = 0;
             int accQ = 0;
-            for (int k = 0; k < 32; k ++) {
-                int value = spiDump[i * 32 + k];
+            for (int k = 0; k < 256; k ++) {
+                int value = spiDump[i * 256 + k];
                 for (int j = 7; j >= 0; j--) {
                     int bit = ((value >> j) & 0x01);
-                    int sinphase = t / 2;
-                    int quad = (t + 1) % 12 / 2;
+                    int sinphase = t / 512;
+                    int quad = (t + 1) % 1024 / 512;
                     accI += sinphase == bit ? 1 : 0;
                     accQ += quad == bit ? 1 : 0;
-                    t = (t + 1) % 12;
+                    t = (t + 1) % 1024;
                 }
             }
-            accI -= 128;
-            accQ -= 128;
-            sumArea.append("Values: I: " + accI + " Q: " + accQ + " Power: " + Math.floor(Math.sqrt(accI * accI + accQ * accQ)) + System.lineSeparator());
+            accI -= 1024;
+            accQ -= 1024;
+            sumArea.append("Values: I: " + accI + " Q: " + accQ + " Power: " + (Math.abs(accI) + Math.abs(accQ)) + System.lineSeparator());
         }
         drawArea.repaint();
     }
