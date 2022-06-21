@@ -5,7 +5,7 @@ module hex_dump(
 
     reg [15:0] value;
     reg [15:0] bckp;
-    reg [2:0] cntr;
+    reg [3:0] cntr;
     reg stb;
     reg [10:0] vld;
 
@@ -13,7 +13,7 @@ module hex_dump(
     begin
         if (!rst) begin
             cntr <= cntr + 1;
-            value <= {value[13:0], sig, sig1};
+            value <= {value[14:0], sig1};
             if (cntr == 0) begin
                 bckp <= value;
                 stb <= 1;
