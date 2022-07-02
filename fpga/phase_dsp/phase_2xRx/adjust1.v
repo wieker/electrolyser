@@ -8,7 +8,7 @@ module adjust1(
     begin
         period <= period + 1;
     end
-    wire [13:0] state = period + 13'h00F;
+    wire [13:0] state = period + 13'h014;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
