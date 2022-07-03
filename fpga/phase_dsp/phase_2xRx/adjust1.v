@@ -3,18 +3,18 @@ module adjust1(
     output pwm_out,
 );
 
-    reg [12:0] period;
+    reg [10:0] period;
     always@(posedge clk)
     begin
         period <= period + 1;
     end
-    wire [13:0] state = period + 13'h014;
+    wire [11:0] state = period + 11'h002;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(state[13]),
+		.OUTPUT_ENABLE(state[11]),
 		.D_OUT_0(1)
     );
 
