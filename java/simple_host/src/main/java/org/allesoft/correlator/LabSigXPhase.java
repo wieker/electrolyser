@@ -245,7 +245,6 @@ public class LabSigXPhase
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        textArea.setText("");
                         //send78(handle, sendVal);
                         start_loop(handle);
                         calcIQ();
@@ -437,10 +436,15 @@ public class LabSigXPhase
             sendCommand(handle, 6, new byte[32], false);
             sendCommand(handle, 6, new byte[32], false);
             int pos = 0;
+            boolean f = false;
             long ts = System.currentTimeMillis();
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
+                    if (!f) {
+                        //textArea.setText("");
+                    }
+                    f = true;
                     String value = String.format("0x%02x ",
                             (int) ch[i + 1] & 0xFF
                     );
