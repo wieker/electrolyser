@@ -23,7 +23,7 @@ public class SimplePing
     private static final short VENDOR_ID = 0x6666;
 
     //private static final short PRODUCT_ID = 0x6671;
-    private static final short PRODUCT_ID = 0x6677;
+    private static final short PRODUCT_ID = 0x6678;
 
     private static final int TIMEOUT = 0;
 
