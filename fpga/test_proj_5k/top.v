@@ -1,5 +1,5 @@
 module top(
-    output LED1,
+    output LED1, LED2,
     input xtal_in,
 );
 
@@ -10,5 +10,6 @@ module top(
     end
 
     assign LED1 = counter[24];
+    assign LED2 = ~counter[24];
 
 endmodule
