@@ -4,10 +4,14 @@ module top(
 );
 
     reg [24:0] counter;
+    reg [24:0] counter1;
     wire clk;
 
     always @(posedge clk) begin
         counter <= counter + 1;
+    end
+    always @(posedge xtal_in) begin
+        counter1 <= counter1 + 1;
     end
 
 
@@ -18,6 +22,6 @@ module top(
     );
 
     assign LED1 = counter[24];
-    assign LED2 = ~counter[24];
+    assign LED2 = ~counter1[24];
 
 endmodule
