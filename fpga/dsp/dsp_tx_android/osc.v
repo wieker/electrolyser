@@ -52,7 +52,7 @@ module osc(
 
 // FILTER_RANGE: 2 (3'b010)
 
-
+    assign clk = dvdd[3];
 
 
    SB_PLL40_CORE #(
@@ -65,7 +65,7 @@ module osc(
         ) SB_PLL40_CORE_inst (
           .RESETB(1'b1),
           .BYPASS(1'b0),
-          .PLLOUTCORE(clk),
+          //.PLLOUTCORE(clk),
           .REFERENCECLK(xtal_in)
     );
 
@@ -77,9 +77,11 @@ module osc(
       .CLKHFEN(1'b1),
       .CLKHF(ttt)
     );
+    reg [3:0] dvdd;
 
     always@(posedge xtal_in)
     begin
+        dvdd <= dvdd + 1;
       if (rst)
         startup <= startup + 1;
     end
