@@ -82,6 +82,7 @@ void dma_start()
 }
 
 void dma_descrs() {
+  descriptor_section[0].DMAC_DESCADDR = 0;
   descriptor_section[0].DMAC_DSTADDR = (uint32_t) ((intptr_t) (app_response_buffer + 32));
   descriptor_section[0].DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
   descriptor_section[0].DMAC_BTCNT = 32;
