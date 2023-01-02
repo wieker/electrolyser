@@ -12,6 +12,7 @@
 #include "unused/hal_gpio.h"
 #include "gpio.h"
 #include "usb_ifc/usb.h"
+#include "../glue_periph/dma.h"
 
 
 HAL_GPIO_PIN(LED,      A, 14)
@@ -63,7 +64,9 @@ void usb_recv_callback(void)
   if (app_usb_recv_buffer[0] == 1) {
     led_state = !led_state;
     gpio_write(GPIO_LED, led_state);
-    app_response_buffer[0] = adc_read_polling();
+    dma_descrs();
+    dma_start();
+    //app_response_buffer[0] = adc_read_polling();
   }
   if (app_usb_recv_buffer[0] == 2) {
     pwm_write(get_uint32(app_usb_recv_buffer + 2), get_uint32(app_usb_recv_buffer + 6));

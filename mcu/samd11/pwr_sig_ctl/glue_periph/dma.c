@@ -49,12 +49,10 @@ void dma_init()
 
   DMAC->CHID.reg = 0;
 
-  DMAC->CHCTRLB.reg = DMAC_CHCTRLB_TRIGACT_BEAT | DMAC_CHCTRLB_TRIGSRC(ADC_DMAC_ID_RESRDY) | DMAC_CHCTRLB_LVL(0) |
-          DMAC_CHCTRLB_EVIE | DMAC_CHCTRLB_EVACT_RESUME;
+  DMAC->CHCTRLB.reg = DMAC_CHCTRLB_TRIGACT_BEAT | DMAC_CHCTRLB_TRIGSRC(ADC_DMAC_ID_RESRDY) | DMAC_CHCTRLB_LVL(0);
 
-  descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_NOACT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID |
+  descriptor_section[0].DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_BOTH | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID |
           DMAC_BTCTRL_DSTINC;
-  descriptor_chain_3.DMAC_BTCTRL = DMAC_BTCTRL_BLOCKACT_BOTH | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID;
 
   DMAC->CHINTENSET.reg = (DMAC_CHINTENSET_TERR | DMAC_CHINTENSET_TCMPL);
 
@@ -86,7 +84,7 @@ void dma_start()
 void dma_descrs() {
   descriptor_section[0].DMAC_DSTADDR = (uint32_t) ((intptr_t) (app_response_buffer + 32));
   descriptor_section[0].DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-  descriptor_section[0].DMAC_BTCNT = 1;
+  descriptor_section[0].DMAC_BTCNT = 32;
 }
 
 void irq_handler_dmac( void )

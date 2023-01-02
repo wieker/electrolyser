@@ -50,7 +50,6 @@ HAL_GPIO_PIN(LED,      A, 14)
 
 /*- Variables ---------------------------------------------------------------*/
 static alignas(4) uint8_t app_usb_recv_buffer[64];
-alignas(4) uint8_t app_response_buffer[64];
 
 /*- Implementations ---------------------------------------------------------*/
 
@@ -96,8 +95,7 @@ int main(void)
   adc_init();
   pwm_init(0, 10);
 
-  //dma_init();
-  //dma_start();
+  dma_init();
   //adc_read();
 
   //HAL_GPIO_LED_out();
