@@ -77,7 +77,7 @@ void adc_init(void)
 void adc_configure(uint32_t prescaler, uint32_t samplenum, uint32_t adjres) {
   ADC->CTRLA.reg = 0;
   ADC->CTRLB.reg = ADC_CTRLB_RESSEL_8BIT | prescaler | ADC_CTRLB_FREERUN;
-  ADC->AVGCTRL.reg = samplenum | adjres;
+  //ADC->AVGCTRL.reg = samplenum | adjres;
   ADC->CTRLA.reg = ADC_CTRLA_ENABLE;
 }
 

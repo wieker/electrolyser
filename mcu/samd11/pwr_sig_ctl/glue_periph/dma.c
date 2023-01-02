@@ -84,15 +84,9 @@ void dma_start()
 }
 
 void dma_descrs() {
-  descriptor_section[0].DMAC_DESCADDR = (uint32_t) &descriptor_chain_3;
   descriptor_section[0].DMAC_DSTADDR = (uint32_t) ((intptr_t) (app_response_buffer + 32));
   descriptor_section[0].DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-  descriptor_section[0].DMAC_BTCNT = 32;
-
-  descriptor_chain_3.DMAC_DESCADDR = (uint32_t) descriptor_section;
-  descriptor_chain_3.DMAC_DSTADDR = ((intptr_t) &fake);
-  descriptor_chain_3.DMAC_SRCADDR = (uint32_t) ((const void *) &ADC->RESULT.reg);
-  descriptor_chain_3.DMAC_BTCNT = 1;
+  descriptor_section[0].DMAC_BTCNT = 1;
 }
 
 void irq_handler_dmac( void )
