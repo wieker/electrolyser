@@ -84,7 +84,7 @@ void usb_recv_callback(void)
     }*/
   }
   if (app_usb_recv_buffer[0] == 5) {
-    adc_configure(get_uint32(app_usb_recv_buffer + 2), get_uint32(app_usb_recv_buffer + 6), get_uint32(app_usb_recv_buffer + 10));
+    adc_configure(app_usb_recv_buffer[2], get_uint32(app_usb_recv_buffer + 6), get_uint32(app_usb_recv_buffer + 10));
   }
 
 
