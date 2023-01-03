@@ -66,6 +66,7 @@ void usb_recv_callback(void)
     gpio_write(GPIO_LED, led_state);
     dma_descrs();
     dma_start();
+    return;
     //app_response_buffer[0] = adc_read_polling();
   }
   if (app_usb_recv_buffer[0] == 2) {
