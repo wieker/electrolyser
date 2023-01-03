@@ -70,7 +70,7 @@ void usb_recv_callback(void)
     //app_response_buffer[0] = adc_read_polling();
   }
   if (app_usb_recv_buffer[0] == 2) {
-    pwm_write(get_uint32(app_usb_recv_buffer + 2), get_uint32(app_usb_recv_buffer + 6));
+    pwm_write(app_usb_recv_buffer[2], app_usb_recv_buffer[3]);
   }
   if (app_usb_recv_buffer[0] == 3) {
     if (lock == 1) {
