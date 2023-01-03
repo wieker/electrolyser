@@ -93,7 +93,7 @@ int main(void)
   gpio_configure(GPIO_LED, GPIO_CONF_OUTPUT | GPIO_CONF_CLR);
   usb_init();
   adc_init();
-  pwm_init(4, 2);
+  pwm_init(3, 1);
 
   dma_init();
   //adc_read();
