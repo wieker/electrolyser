@@ -8,13 +8,13 @@ module adjust1(
     begin
         period <= period + 1;
     end
-    wire [11:0] state = period + 11'h024;
+    wire [11:0] state = period + 11'h026;
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(0),
+		.OUTPUT_ENABLE(state[11]),
 		.D_OUT_0(0)
     );
 
