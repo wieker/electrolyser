@@ -5,7 +5,7 @@ module hex_dump(
 
 
     wire [7:0] value;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig1), .value(value));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .value(value));
 
     reg tx_start;
     reg [7:0] touart;
