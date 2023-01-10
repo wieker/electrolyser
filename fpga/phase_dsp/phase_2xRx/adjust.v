@@ -9,7 +9,7 @@ module adjust(
     begin
         period <= period + 1;
     end
-    wire [11:0] state = period + 11'h00B;
+    wire [11:0] state = period + 11'h001;
     assign oe = state[11];
 
 	SB_IO #(
@@ -17,7 +17,7 @@ module adjust(
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
 		.OUTPUT_ENABLE(state[11]),
-		.D_OUT_0(1)
+		.D_OUT_0(0)
     );
 
 endmodule
