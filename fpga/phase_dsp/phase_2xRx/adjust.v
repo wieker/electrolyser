@@ -16,7 +16,7 @@ module adjust(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(state[11]),
+		.OUTPUT_ENABLE(0),
 		.D_OUT_0(0)
     );
 
