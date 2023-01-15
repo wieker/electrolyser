@@ -52,7 +52,7 @@ module osc(
 
 // FILTER_RANGE: 2 (3'b010)
 
-    assign clk = dvdd[3];
+    assign clk = dvdd[1];
 
 
    SB_PLL40_CORE #(
@@ -70,7 +70,7 @@ module osc(
     );
 
     reg [3:0] startup;
-    assign rst = !startup[1];
+    assign rst = !startup[3];
 
     SB_HFOSC inthosc (
       .CLKHFPU(1'b1),
