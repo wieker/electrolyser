@@ -52,7 +52,10 @@ module osc(
 
 // FILTER_RANGE: 2 (3'b010)
 
-    assign clk = dvdd[1];
+    nco i_nco(.clk(xtal_in), .rst(rst), .control_word(16'h3300), .i_code(clk), .phase_control_word(16'h0000));
+
+
+    //assign clk = dvdd[1];
 
 
    SB_PLL40_CORE #(
