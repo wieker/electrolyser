@@ -38,7 +38,7 @@ public class LabSigXPhase
     private static final short VENDOR_ID = 0x6666;
 
     //private static final short PRODUCT_ID = 0x6677;
-    private static final short PRODUCT_ID = 0x6677;
+    private static final short PRODUCT_ID = 0x6678;
     //private static final short PRODUCT_ID = 0x6668;
 
     private static final int TIMEOUT = 0;
@@ -399,11 +399,11 @@ public class LabSigXPhase
                         int bit = ((value >> (7 - j)) & 0x01);
                         if (bit == 1) {
                             graphics.setColor(Color.RED);
-                            graphics.fillRect(k * 24 + j * 3, 10 + 15 * i, 5, 5);
+                            graphics.fillRect((k * 24 + j * 3) / 2, 10 + 15 * i + 5 * (j % 2), 5, 5);
                             o ++;
                         } else {
                             graphics.setColor(Color.BLACK);
-                            graphics.fillRect(k * 24 + j * 3, 15 + 15 * i, 5, 5);
+                            graphics.fillRect((k * 24 + j * 3) / 2, 10 + 15 * i + 5 * (j % 2), 5, 5);
                             z ++;
                         }
                     }
@@ -502,8 +502,8 @@ public class LabSigXPhase
         flash_wait(handle, 0x00);
 
         InputStream inputStream = new FileInputStream(
-                "../../fpga/dsp/dsp_tx_android/top.bin");
-        //"../../fpga/phase_dsp/phase_2xRx/top-up5k.bin");
+                //"../../fpga/dsp/dsp_tx_android/top.bin");
+        "../../fpga/phase_dsp/phase_2xRx/top-up5k.bin");
         int addr = 0;
         byte[] buf = new byte[16];
         for (;;) {
