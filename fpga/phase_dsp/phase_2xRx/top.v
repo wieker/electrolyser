@@ -17,7 +17,7 @@ module top(
     assign LED2 = rf_rx_stb;
     //assign LED1 = process;
     wire rf_rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .sig1(tx_en ? 1 : sig_in1), .fpga_rx(fcnt_n[24]));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .sig1(tx_en ? 1 : sig_in1), .fpga_rx(uart_rx_stb));
 
     wire oe;
     adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out), .oe(oe));
@@ -26,14 +26,6 @@ module top(
     wire tx_stb;
     wire tx_en;
     tx tx(.xtal_in(xtal_in), .tx_out(tx_out), .tx_stb(0), .tx_en(tx_en));
-
-
-    reg [23:0] fcnt;
-    wire [24:0] fcnt_n = fcnt + 1;
-	always @(posedge clk)
-	begin
-        fcnt <= fcnt + 1;
-	end
 
     wire uart_rx_stb;
     wire [8:0] rx_dat;
