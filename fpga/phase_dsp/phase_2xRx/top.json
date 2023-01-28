@@ -9753,14 +9753,14 @@
             "PACKAGE_PIN": [ 5 ]
           }
         },
-        "digitizer.digitizer_SB_DFF_Q": {
+        "digitizer1.digitizer_SB_DFF_Q": {
           "hide_name": 0,
           "type": "SB_DFF",
           "parameters": {
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:14.12-14.95|digitizer.v:17.5-20.8|/usr/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "top.v:15.12-15.99|digitizer.v:17.5-20.8|/usr/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -9773,7 +9773,7 @@
             "Q": [ 13 ]
           }
         },
-        "digitizer.lp_compare": {
+        "digitizer1.lp_compare": {
           "hide_name": 0,
           "type": "SB_IO",
           "parameters": {
@@ -9781,9 +9781,9 @@
             "PIN_TYPE": "000001"
           },
           "attributes": {
-            "hdlname": "digitizer lp_compare",
+            "hdlname": "digitizer1 lp_compare",
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:14.12-14.95|digitizer.v:9.4-12.6"
+            "src": "top.v:15.12-15.99|digitizer.v:9.4-12.6"
           },
           "port_directions": {
             "CLOCK_ENABLE": "input",
@@ -9793,17 +9793,17 @@
           "connections": {
             "CLOCK_ENABLE": [ "1" ],
             "D_IN_0": [ 12 ],
-            "PACKAGE_PIN": [ 8 ]
+            "PACKAGE_PIN": [ 11 ]
           }
         },
-        "digitizer.sig_SB_DFF_Q": {
+        "digitizer1.sig_SB_DFF_Q": {
           "hide_name": 0,
           "type": "SB_DFF",
           "parameters": {
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "top.v:14.12-14.95|digitizer.v:17.5-20.8|/usr/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "top.v:15.12-15.99|digitizer.v:17.5-20.8|/usr/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -19405,11 +19405,11 @@
             "src": "top.v:6.10-6.13"
           }
         },
-        "comp_in": {
+        "comp_in1": {
           "hide_name": 0,
           "bits": [ 12 ],
           "attributes": {
-            "src": "top.v:11.10-11.17"
+            "src": "top.v:13.10-13.18"
           }
         },
         "digitizer.clk": {
@@ -19418,22 +19418,6 @@
           "attributes": {
             "hdlname": "digitizer clk",
             "src": "top.v:14.12-14.95|digitizer.v:2.11-2.14"
-          }
-        },
-        "digitizer.comp_in": {
-          "hide_name": 0,
-          "bits": [ 12 ],
-          "attributes": {
-            "hdlname": "digitizer comp_in",
-            "src": "top.v:14.12-14.95|digitizer.v:3.17-3.24"
-          }
-        },
-        "digitizer.digitizer": {
-          "hide_name": 0,
-          "bits": [ 13, 14 ],
-          "attributes": {
-            "hdlname": "digitizer digitizer",
-            "src": "top.v:14.12-14.95|digitizer.v:14.15-14.24"
           }
         },
         "digitizer.lvds_in": {
@@ -19445,20 +19429,28 @@
             "unused_bits": "0 "
           }
         },
-        "digitizer.sig": {
-          "hide_name": 0,
-          "bits": [ 14 ],
-          "attributes": {
-            "hdlname": "digitizer sig",
-            "src": "top.v:14.12-14.95|digitizer.v:3.12-3.15"
-          }
-        },
         "digitizer1.clk": {
           "hide_name": 0,
           "bits": [ 10 ],
           "attributes": {
             "hdlname": "digitizer1 clk",
             "src": "top.v:15.12-15.99|digitizer.v:2.11-2.14"
+          }
+        },
+        "digitizer1.comp_in": {
+          "hide_name": 0,
+          "bits": [ 12 ],
+          "attributes": {
+            "hdlname": "digitizer1 comp_in",
+            "src": "top.v:15.12-15.99|digitizer.v:3.17-3.24"
+          }
+        },
+        "digitizer1.digitizer": {
+          "hide_name": 0,
+          "bits": [ 13, 14 ],
+          "attributes": {
+            "hdlname": "digitizer1 digitizer",
+            "src": "top.v:15.12-15.99|digitizer.v:14.15-14.24"
           }
         },
         "digitizer1.lvds_in": {
@@ -19468,6 +19460,14 @@
             "hdlname": "digitizer1 lvds_in",
             "src": "top.v:15.12-15.99|digitizer.v:2.21-2.28",
             "unused_bits": "0 "
+          }
+        },
+        "digitizer1.sig": {
+          "hide_name": 0,
+          "bits": [ 14 ],
+          "attributes": {
+            "hdlname": "digitizer1 sig",
+            "src": "top.v:15.12-15.99|digitizer.v:3.12-3.15"
           }
         },
         "fpga_rx": {
@@ -20497,11 +20497,11 @@
             "src": "top.v:31.16-31.22"
           }
         },
-        "sig_in": {
+        "sig_in1": {
           "hide_name": 0,
           "bits": [ 14 ],
           "attributes": {
-            "src": "top.v:10.10-10.16"
+            "src": "top.v:12.10-12.17"
           }
         },
         "tx.ipll.clk": {
