@@ -1,5 +1,5 @@
 module top(
-    output lvds_in,
+    output lvds_in, tx_out,
     input xtal_in
 );
 
@@ -11,6 +11,7 @@ module top(
     wire clk;
     osc osc(.clk(clk), .rst(rst), .xtal_in(xtal_in));
 
-    assign lvds_in = clk;
+    assign lvds_in = ctr[5] == 0 ? clk : 0;
+    assign tx_out = ctr[5] == 1 ? clk : 0;
 
 endmodule
