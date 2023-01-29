@@ -20,6 +20,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -50,6 +51,10 @@ public class LabSigXPhase
     byte data[] = { (byte) 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00 };
     private static JTextArea textArea;
     private static JTextArea sumArea;
+    private static TextField offsetV;
+    private static TextField ncoDen;
+    private static TextField ncoNum;
+    private static TextField shift;
 
     public static Device findDevice() {
         DeviceList list = new DeviceList();
@@ -284,7 +289,23 @@ public class LabSigXPhase
             send78(handle, sendVal);
         });
         panel.add(send78Button);
+        offsetV = new TextField();
+        offsetV.setText("0");
+        offsetV.setMinimumSize(new Dimension(100, 20));
+        ncoDen = new TextField();
+        ncoDen.setText("1");
+        ncoDen.setMinimumSize(new Dimension(100, 20));
+        ncoNum = new TextField();
+        ncoNum.setText("1");
+        ncoNum.setMinimumSize(new Dimension(100, 20));
+        shift = new TextField();
+        JPanel pnl = new JPanel();
+        pnl.add(offsetV);
+        pnl.add(ncoDen);
+        pnl.add(ncoNum);
+        pnl.add(shift);
         JPanel mainPanel = new JPanel();
+        mainPanel.add(pnl);
         mainPanel.add(sendVal);
         JScrollBar scrollBar = new JScrollBar(Adjustable.HORIZONTAL, 0, 10, 0, 256);
         mainPanel.add(scrollBar);
@@ -391,6 +412,9 @@ public class LabSigXPhase
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
             int z = 0, o = 0;
+            int beg = Integer.parseInt(offsetV.getText());
+            float bfloat = beg;
+            float tval = Float.parseFloat(ncoNum.getText()) / Float.parseFloat(ncoDen.getText());
 
             for (int i = 0; i < 8; i ++) {
                 for (int k = 0; k < 64; k ++) {
@@ -406,6 +430,17 @@ public class LabSigXPhase
                             graphics.fillRect(k * 24 + j * 3, 15 + 15 * i, 5, 5);
                             z ++;
                         }
+                        beg = (int) Math.floor(bfloat);
+                        if (beg % 2 == 1) {
+                            graphics.setColor(Color.RED);
+                            graphics.fillRect(k * 24 + j * 3, 20 + 15 * i, 5, 5);
+                            o ++;
+                        } else {
+                            graphics.setColor(Color.BLACK);
+                            graphics.fillRect(k * 24 + j * 3, 25 + 15 * i, 5, 5);
+                            z ++;
+                        }
+                        bfloat += tval;
                     }
                 }
             }
