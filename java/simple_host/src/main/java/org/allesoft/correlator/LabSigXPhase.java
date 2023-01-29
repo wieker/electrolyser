@@ -430,8 +430,8 @@ public class LabSigXPhase
                             graphics.fillRect(k * 24 + j * 3, 15 + 25 * i, 5, 5);
                             z ++;
                         }
-                        if (phase < 2) {
-                            beg = (int) Math.floor(bfloat + (phase == 1 ? Float.parseFloat(shift.getText()) : 0));
+                        if (phase >= 2) {
+                            beg = (int) Math.floor(bfloat + (phase == 3 ? Float.parseFloat(shift.getText()) : 0));
                             if (beg % 2 == 1) {
                                 graphics.setColor(Color.RED);
                                 graphics.fillRect(k * 24 + j * 3, 20 + 25 * i, 5, 5);
@@ -441,7 +441,7 @@ public class LabSigXPhase
                             }
                         }
                         bfloat += tval;
-                        pos = (pos + 1) % 32;
+                        pos = (pos + 1) % 64;
                         if (pos == 0) {
                             phase = (phase + 1) % 4;
                         }
