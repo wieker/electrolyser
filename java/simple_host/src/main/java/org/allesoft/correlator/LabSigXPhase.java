@@ -410,11 +410,9 @@ public class LabSigXPhase
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
             int z = 0, o = 0;
-            int beg = Integer.parseInt(offsetV.getText());
-            float bfloat = beg;
+            float bfloat = 0;
             float tval = Float.parseFloat(ncoNum.getText()) / Float.parseFloat(ncoDen.getText());
-            int pos = beg;
-            int phase = 0;
+            int pos = Integer.parseInt(offsetV.getText());
 
             for (int i = 0; i < 8; i ++) {
                 for (int k = 0; k < 64; k ++) {
@@ -430,23 +428,32 @@ public class LabSigXPhase
                             graphics.fillRect(k * 24 + j * 3, 15 + 25 * i, 5, 5);
                             z ++;
                         }
-                        if (phase >= 2) {
-                            beg = (int) Math.floor(bfloat + (phase == 3 ? Float.parseFloat(shift.getText()) : 0));
-                            if (beg % 2 == 1) {
-                                graphics.setColor(Color.RED);
-                                graphics.fillRect(k * 24 + j * 3, 20 + 25 * i, 5, 5);
-                            } else {
-                                graphics.setColor(Color.BLACK);
-                                graphics.fillRect(k * 24 + j * 3, 25 + 25 * i, 5, 5);
-                            }
-                        }
-                        bfloat += tval;
-                        pos = (pos + 1) % 64;
-                        if (pos == 0) {
-                            phase = (phase + 1) % 4;
-                        }
                     }
                 }
+            }
+            for (int qq = 0; qq < 64; qq ++) {
+                int beg = (int) Math.floor(bfloat);
+                if (beg % 2 == 1) {
+                    graphics.setColor(Color.RED);
+                    graphics.fillRect((qq + pos) * 3, 20, 5, 5);
+                } else {
+                    graphics.setColor(Color.BLACK);
+                    graphics.fillRect((qq + pos) * 3, 25, 5, 5);
+                }
+                bfloat += tval;
+            }
+            bfloat += Float.parseFloat(shift.getText());
+            pos += 64;
+            for (int qq = 0; qq < 64; qq ++) {
+                int beg = (int) Math.floor(bfloat);
+                if (beg % 2 == 1) {
+                    graphics.setColor(Color.RED);
+                    graphics.fillRect((qq + pos) * 3, 20, 5, 5);
+                } else {
+                    graphics.setColor(Color.BLACK);
+                    graphics.fillRect((qq + pos) * 3, 25, 5, 5);
+                }
+                bfloat += tval;
             }
 
             label.setText("zero / one: " + z + " / " + o);
