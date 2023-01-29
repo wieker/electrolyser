@@ -414,7 +414,7 @@ public class LabSigXPhase
             float bfloat = beg;
             float tval = Float.parseFloat(ncoNum.getText()) / Float.parseFloat(ncoDen.getText());
             int pos = beg;
-            boolean phase = false;
+            int phase = 0;
 
             for (int i = 0; i < 8; i ++) {
                 for (int k = 0; k < 64; k ++) {
@@ -430,18 +430,20 @@ public class LabSigXPhase
                             graphics.fillRect(k * 24 + j * 3, 15 + 25 * i, 5, 5);
                             z ++;
                         }
-                        beg = (int) Math.floor(bfloat + (phase ? Float.parseFloat(shift.getText()) : 0));
-                        if (beg % 2 == 1) {
-                            graphics.setColor(Color.RED);
-                            graphics.fillRect(k * 24 + j * 3, 20 + 25 * i, 5, 5);
-                        } else {
-                            graphics.setColor(Color.BLACK);
-                            graphics.fillRect(k * 24 + j * 3, 25 + 25 * i, 5, 5);
+                        if (phase < 2) {
+                            beg = (int) Math.floor(bfloat + (phase == 1 ? Float.parseFloat(shift.getText()) : 0));
+                            if (beg % 2 == 1) {
+                                graphics.setColor(Color.RED);
+                                graphics.fillRect(k * 24 + j * 3, 20 + 25 * i, 5, 5);
+                            } else {
+                                graphics.setColor(Color.BLACK);
+                                graphics.fillRect(k * 24 + j * 3, 25 + 25 * i, 5, 5);
+                            }
                         }
                         bfloat += tval;
                         pos = (pos + 1) % 32;
                         if (pos == 0) {
-                            phase = !phase;
+                            phase = (phase + 1) % 4;
                         }
                     }
                 }
