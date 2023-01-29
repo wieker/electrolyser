@@ -292,16 +292,17 @@ public class LabSigXPhase
         offsetV = new TextField();
         offsetV.setText("0000000");
         offsetV.setMinimumSize(new Dimension(100, 20));
-        ncoDen = new TextField();
-        ncoDen.setText("00000001");
-        ncoDen.setMinimumSize(new Dimension(100, 20));
         ncoNum = new TextField();
         ncoNum.setText("00000001");
         ncoNum.setMinimumSize(new Dimension(100, 20));
+        ncoDen = new TextField();
+        ncoDen.setText("00000001");
+        ncoDen.setMinimumSize(new Dimension(100, 20));
         shift = new TextField();
+        shift.setText("0.00000000");
         panel.add(offsetV);
-        panel.add(ncoDen);
         panel.add(ncoNum);
+        panel.add(ncoDen);
         panel.add(shift);
         JPanel mainPanel = new JPanel();
         mainPanel.add(sendVal);
@@ -412,6 +413,8 @@ public class LabSigXPhase
             int beg = Integer.parseInt(offsetV.getText());
             float bfloat = beg;
             float tval = Float.parseFloat(ncoNum.getText()) / Float.parseFloat(ncoDen.getText());
+            int pos = beg;
+            boolean phase = false;
 
             for (int i = 0; i < 8; i ++) {
                 for (int k = 0; k < 64; k ++) {
@@ -427,7 +430,7 @@ public class LabSigXPhase
                             graphics.fillRect(k * 24 + j * 3, 15 + 25 * i, 5, 5);
                             z ++;
                         }
-                        beg = (int) Math.floor(bfloat);
+                        beg = (int) Math.floor(bfloat + (phase ? Float.parseFloat(shift.getText()) : 0));
                         if (beg % 2 == 1) {
                             graphics.setColor(Color.RED);
                             graphics.fillRect(k * 24 + j * 3, 20 + 25 * i, 5, 5);
@@ -436,6 +439,10 @@ public class LabSigXPhase
                             graphics.fillRect(k * 24 + j * 3, 25 + 25 * i, 5, 5);
                         }
                         bfloat += tval;
+                        pos = (pos + 1) % 32;
+                        if (pos == 0) {
+                            phase = !phase;
+                        }
                     }
                 }
             }
