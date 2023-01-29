@@ -290,13 +290,13 @@ public class LabSigXPhase
         });
         panel.add(send78Button);
         offsetV = new TextField();
-        offsetV.setText("0");
+        offsetV.setText("0000000");
         offsetV.setMinimumSize(new Dimension(100, 20));
         ncoDen = new TextField();
-        ncoDen.setText("1");
+        ncoDen.setText("00000001");
         ncoDen.setMinimumSize(new Dimension(100, 20));
         ncoNum = new TextField();
-        ncoNum.setText("1");
+        ncoNum.setText("00000001");
         ncoNum.setMinimumSize(new Dimension(100, 20));
         shift = new TextField();
         JPanel pnl = new JPanel();
