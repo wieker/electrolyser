@@ -299,13 +299,11 @@ public class LabSigXPhase
         ncoNum.setText("00000001");
         ncoNum.setMinimumSize(new Dimension(100, 20));
         shift = new TextField();
-        JPanel pnl = new JPanel();
-        pnl.add(offsetV);
-        pnl.add(ncoDen);
-        pnl.add(ncoNum);
-        pnl.add(shift);
+        panel.add(offsetV);
+        panel.add(ncoDen);
+        panel.add(ncoNum);
+        panel.add(shift);
         JPanel mainPanel = new JPanel();
-        mainPanel.add(pnl);
         mainPanel.add(sendVal);
         JScrollBar scrollBar = new JScrollBar(Adjustable.HORIZONTAL, 0, 10, 0, 256);
         mainPanel.add(scrollBar);
@@ -329,7 +327,6 @@ public class LabSigXPhase
         drawArea.setMinimumSize(minimumSize);
         mainPanel.add(drawArea);
         mainPanel.add(new JScrollPane(textArea));
-        mainPanel.add(new JScrollPane(sumArea));
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -423,22 +420,20 @@ public class LabSigXPhase
                         int bit = ((value >> (7 - j)) & 0x01);
                         if (bit == 1) {
                             graphics.setColor(Color.RED);
-                            graphics.fillRect(k * 24 + j * 3, 10 + 15 * i, 5, 5);
+                            graphics.fillRect(k * 24 + j * 3, 10 + 25 * i, 5, 5);
                             o ++;
                         } else {
                             graphics.setColor(Color.BLACK);
-                            graphics.fillRect(k * 24 + j * 3, 15 + 15 * i, 5, 5);
+                            graphics.fillRect(k * 24 + j * 3, 15 + 25 * i, 5, 5);
                             z ++;
                         }
                         beg = (int) Math.floor(bfloat);
                         if (beg % 2 == 1) {
                             graphics.setColor(Color.RED);
-                            graphics.fillRect(k * 24 + j * 3, 20 + 15 * i, 5, 5);
-                            o ++;
+                            graphics.fillRect(k * 24 + j * 3, 20 + 25 * i, 5, 5);
                         } else {
                             graphics.setColor(Color.BLACK);
-                            graphics.fillRect(k * 24 + j * 3, 25 + 15 * i, 5, 5);
-                            z ++;
+                            graphics.fillRect(k * 24 + j * 3, 25 + 25 * i, 5, 5);
                         }
                         bfloat += tval;
                     }
