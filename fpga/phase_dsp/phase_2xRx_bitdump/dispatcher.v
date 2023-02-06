@@ -8,8 +8,8 @@ module dispatcher(
 
     wire [7:0] i_value;
     wire [7:0] q_value;
-    correlator i_correlator(.clk(clk), .rst(rst_in), .sig(sig), .code(i_code), .value(i_value), .shift(0));
-    correlator q_correlator(.clk(clk), .rst(rst_in), .sig(sig), .code(q_code), .value(q_value), .shift(0));
+    correlator i_correlator(.clk(clk), .rst(rst_in), .sig(sig), .code(1), .value(i_value), .shift(0));
+    correlator q_correlator(.clk(clk), .rst(rst_in), .sig(sig), .code(1), .value(q_value), .shift(0));
 
     reg [7:0] q1;
     reg [7:0] q2;
@@ -22,7 +22,7 @@ module dispatcher(
         q2 <= q_value[7] ? q_value : ~ q_value;
         q3 <= {0, q1[6:0]};
         q4 <= {0, q2[6:0]};
-        value <= q3 + q4;
+        value <= i_value;
     end
 
 endmodule
