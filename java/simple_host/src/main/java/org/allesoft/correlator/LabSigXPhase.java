@@ -405,12 +405,20 @@ public class LabSigXPhase
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
 
-            drawArc(graphics, spiDump[value * 2], spiDump[value * 2 + 1]);
+            drawArcForSample(graphics, offset, 1);
+            drawArcForSample(graphics, offset + 1, 2);
+            drawArcForSample(graphics, offset + 2, 3);
+            drawArcForSample(graphics, offset + 3, 4);
+            drawArcForSample(graphics, offset + 4, 5);
         }
 
-        private void drawArc(Graphics graphics, int Icomp, int Qcomp) {
-            graphics.drawArc(256 * 5, 200, 150, 150, 0, 360);
-            graphics.drawLine(256 * 5 + 75, 275, 256 * 5 + 75 + Icomp - 0x80, 275 + Qcomp - 0x80);
+        private void drawArcForSample(Graphics graphics, int sample, int pos) {
+            drawArc(graphics, spiDump[value * 2], spiDump[sample * 2 + 1], pos);
+        }
+
+        private void drawArc(Graphics graphics, int Icomp, int Qcomp, int pos) {
+            graphics.drawArc(256 * pos, 200, 150, 150, 0, 360);
+            graphics.drawLine(256 * pos + 75, 275, 256 * pos + 75 + Icomp - 0x80, 275 + Qcomp - 0x80);
         }
 
         public void setValue(int value) {
