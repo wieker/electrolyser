@@ -22,7 +22,7 @@ module dispatcher(
         q2 <= q_value[7] ? q_value : ~ q_value;
         q3 <= {0, q1[6:0]};
         q4 <= {0, q2[6:0]};
-        value <= q3 + q4;
+        value <= i_value;
     end
 
 endmodule
