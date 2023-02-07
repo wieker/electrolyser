@@ -451,7 +451,7 @@ public class LabSigXPhase
                     }
                     ts = System.currentTimeMillis();
                 }
-                if (System.currentTimeMillis() - ts > 2000l) {
+                if (pos == 256) {
                     break;
                 }
             }
