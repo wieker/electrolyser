@@ -549,8 +549,8 @@ public class LabSigXPhase
 
         InputStream inputStream = new FileInputStream(
                 //"../../fpga/dsp/dsp_tx_android/top.bin");
-                //"../../fpga/dsp/dsp_phase_dumper/top-up5k.bin");
-        "../../fpga/phase_dsp/phase_2xRx/top-up5k.bin");
+                "../../fpga/dsp/dsp_phase_dumper/top-up5k.bin");
+        //"../../fpga/phase_dsp/phase_2xRx/top-up5k.bin");
         int addr = 0;
         byte[] buf = new byte[16];
         for (;;) {
