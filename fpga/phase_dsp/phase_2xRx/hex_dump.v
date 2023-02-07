@@ -19,10 +19,10 @@ module hex_dump(
     dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig),
         .i_value(i_value), .q_value(q_value));
 
-    reg [7:0] ram_addr;
+    reg [8:0] ram_addr;
     wire [15:0] ram_data_in = {q_value[7:0], i_value[7:0]};
     wire [15:0] ram_data_out;
-    wire ram_wren = !ram_addr[7] && stb;
+    wire ram_wren = !ram_addr[7] && !ram_addr[8] && stb;
 
     SB_SPRAM256KA spram
     (
@@ -46,7 +46,9 @@ module hex_dump(
 
     always@(posedge clk)
     begin
-        if (ram_wren) begin
+        if (fpga_rx) begin
+            ram_addr <= 0;
+        end else if (ram_wren) begin
             ram_addr <= ram_addr + 1;
         end else if (ram_addr[7] && !tx_busy && !bugfix001) begin
             bugfix001 <= 1;
