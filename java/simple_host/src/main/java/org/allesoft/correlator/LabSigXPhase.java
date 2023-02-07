@@ -310,10 +310,9 @@ public class LabSigXPhase
         mainPanel.add(scrollBar);
         scrollBar.addAdjustmentListener(adjustmentEvent -> {
             int value = adjustmentEvent.getValue();
-            drawArea.setValue(spiDump[value * 4]);
-            drawArea.setValue(spiDump[value * 4 + 1]);
-            drawArea.setOffset(spiDump[value * 4 + 3]);
-            textArea.select(value * 20 + (value - 1) / 8, value * 20 + 20 + (value - 1) / 8);
+            drawArea.setValue(spiDump[value * 2]);
+            drawArea.setOffset(spiDump[value * 2 + 1]);
+            textArea.select(value * 10, value * 10 + 10);
         });
         label = new JLabel();
         mainPanel.add(label);
@@ -402,70 +401,17 @@ public class LabSigXPhase
 
     static class MyDrawing extends JPanel {
         int value;
-        int save;
         int offset;
-        int order = 0;
 
         @Override
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
-            int z = 0, o = 0;
-            float bfloat = 0;
-            float tval = Float.parseFloat(ncoNum.getText()) / Float.parseFloat(ncoDen.getText());
-            int pos = Integer.parseInt(offsetV.getText());
 
-            for (int i = 0; i < 8; i ++) {
-                for (int k = 0; k < 64; k ++) {
-                    int value = spiDump[i * 64 + k];
-                    for (int j = 7; j >= 0; j--) {
-                        int bit = ((value >> (7 - j)) & 0x01);
-                        if (bit == 1) {
-                            graphics.setColor(Color.RED);
-                            graphics.fillRect(k * 24 + j * 3, 10 + 25 * i, 5, 5);
-                            o ++;
-                        } else {
-                            graphics.setColor(Color.BLACK);
-                            graphics.fillRect(k * 24 + j * 3, 15 + 25 * i, 5, 5);
-                            z ++;
-                        }
-                    }
-                }
-            }
-            for (int qq = 0; qq < 64; qq ++) {
-                int beg = (int) Math.floor(bfloat);
-                if (beg % 2 == 1) {
-                    graphics.setColor(Color.RED);
-                    graphics.fillRect((qq + pos) * 3, 20, 5, 5);
-                } else {
-                    graphics.setColor(Color.BLACK);
-                    graphics.fillRect((qq + pos) * 3, 25, 5, 5);
-                }
-                bfloat += tval;
-            }
-            bfloat += Float.parseFloat(shift.getText());
-            pos += 64;
-            for (int qq = 0; qq < 64; qq ++) {
-                int beg = (int) Math.floor(bfloat);
-                if (beg % 2 == 1) {
-                    graphics.setColor(Color.RED);
-                    graphics.fillRect((qq + pos) * 3, 20, 5, 5);
-                } else {
-                    graphics.setColor(Color.BLACK);
-                    graphics.fillRect((qq + pos) * 3, 25, 5, 5);
-                }
-                bfloat += tval;
-            }
-
-            label.setText("zero / one: " + z + " / " + o);
+            graphics.drawArc(256 * 5, 200, 150, 150, 0, 360);
+            graphics.drawLine(256 * 5 + 75, 275, 256 * 5 + 75 + value - 0x80, 275 + offset - 0x80);
         }
 
         public void setValue(int value) {
-            if (order == 0) {
-                save = value;
-                order = 1;
-                return;
-            }
-            order = 0;
             this.value = value;
         }
 
