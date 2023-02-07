@@ -17,7 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.Adjustable;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.TextField;
@@ -310,8 +309,7 @@ public class LabSigXPhase
         mainPanel.add(scrollBar);
         scrollBar.addAdjustmentListener(adjustmentEvent -> {
             int value = adjustmentEvent.getValue();
-            drawArea.setValue(spiDump[value * 2]);
-            drawArea.setOffset(spiDump[value * 2 + 1]);
+            drawArea.setOffset(value);
             textArea.select(value * 10, value * 10 + 10);
         });
         label = new JLabel();
@@ -407,8 +405,12 @@ public class LabSigXPhase
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
 
+            drawArc(graphics, spiDump[value * 2], spiDump[value * 2 + 1]);
+        }
+
+        private void drawArc(Graphics graphics, int Icomp, int Qcomp) {
             graphics.drawArc(256 * 5, 200, 150, 150, 0, 360);
-            graphics.drawLine(256 * 5 + 75, 275, 256 * 5 + 75 + value - 0x80, 275 + offset - 0x80);
+            graphics.drawLine(256 * 5 + 75, 275, 256 * 5 + 75 + Icomp - 0x80, 275 + Qcomp - 0x80);
         }
 
         public void setValue(int value) {
