@@ -376,14 +376,7 @@ public class LabSigXPhase
                             (int) recv[q] & 0xFF
                     );
                     // FIXME: no MT safe
-                    textArea.append(value);
                     spiDump[k] = (int) recv[q] & 0xFF;
-                    if (pos % 4 > 1) {
-                        drawArea.setValue((int) recv[q] & 0xFF);
-                    }
-                    if (pos % 4 == 1) {
-                        drawArea.setOffset((int) recv[q] & 0xFF);
-                    }
                     pos ++;
                     k ++;
                 }
@@ -398,7 +391,6 @@ public class LabSigXPhase
     }
 
     static class MyDrawing extends JPanel {
-        int value;
         int offset;
 
         @Override
@@ -413,16 +405,12 @@ public class LabSigXPhase
         }
 
         private void drawArcForSample(Graphics graphics, int sample, int pos) {
-            drawArc(graphics, spiDump[value * 2], spiDump[sample * 2 + 1], pos);
+            drawArc(graphics, spiDump[sample * 2], spiDump[sample * 2 + 1], pos);
         }
 
         private void drawArc(Graphics graphics, int Icomp, int Qcomp, int pos) {
             graphics.drawArc(256 * pos, 200, 150, 150, 0, 360);
             graphics.drawLine(256 * pos + 75, 275, 256 * pos + 75 + Icomp - 0x80, 275 + Qcomp - 0x80);
-        }
-
-        public void setValue(int value) {
-            this.value = value;
         }
 
         public void setOffset(int value) {
