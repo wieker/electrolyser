@@ -34,6 +34,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class LabSigXPhase
 {
     private static final ReentrantLock lock = new ReentrantLock();
+    private static final ReentrantLock prelock = new ReentrantLock();
 
     private static final short VENDOR_ID = 0x6666;
 
@@ -177,15 +178,20 @@ public class LabSigXPhase
     }
 
     public static byte[] sendCommand(DeviceHandle handle, int command, byte[] cmd, boolean print) {
+        prelock.lock();
         lock.lock();
-        byte[] message = new byte[64];
-        message[0] = (byte) command;
-        message[1] = (byte) cmd.length;
-        System.arraycopy(cmd, 0, message, 2, cmd.length);
-        send(handle, message, print);
-        byte[] recv = recv(handle, cmd.length, print);
-        lock.unlock();
-        return recv;
+        prelock.unlock();
+        try {
+            byte[] message = new byte[64];
+            message[0] = (byte) command;
+            message[1] = (byte) cmd.length;
+            System.arraycopy(cmd, 0, message, 2, cmd.length);
+            send(handle, message, print);
+            byte[] recv = recv(handle, cmd.length, print);
+            return recv;
+        } finally {
+            lock.unlock();
+        }
     }
 
     static volatile boolean running;
@@ -426,15 +432,9 @@ public class LabSigXPhase
             sendCommand(handle, 6, new byte[32], false);
             sendCommand(handle, 6, new byte[32], false);
             int pos = 0;
-            boolean f = false;
-            long ts = System.currentTimeMillis();
             for (; running; ) {
                 byte[] ch = sendCommand(handle, 6, new byte[32], false);
                 for (int i = 0; i < ch[0]; i ++) {
-                    if (!f) {
-                        //textArea.setText("");
-                    }
-                    f = true;
                     String value = String.format("0x%02x ",
                             (int) ch[i + 1] & 0xFF
                     );
@@ -447,7 +447,6 @@ public class LabSigXPhase
                         System.out.println();
                         textArea.append(System.lineSeparator());
                     }
-                    ts = System.currentTimeMillis();
                 }
                 if (pos == 256) {
                     break;
