@@ -11,7 +11,7 @@ module top(
     wire clk;
     osc osc(.clk(clk), .rst(rst), .xtal_in(xtal_in));
 
-    assign lvds_in = ctr[9] == 0 ? clk : 0;
-    assign tx_out = ctr[9] == 1 ? clk : 0;
+    assign lvds_in = clk;
+    assign tx_out = 0;
 
 endmodule
