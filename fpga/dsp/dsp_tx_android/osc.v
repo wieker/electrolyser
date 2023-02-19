@@ -68,6 +68,23 @@ module osc(
 
 // FILTER_RANGE: 4 (3'b100)
 
+// wieker@debian:~$ icepll -i 48 -o 99
+
+// F_PLLIN:    48.000 MHz (given)
+// F_PLLOUT:   99.000 MHz (requested)
+// F_PLLOUT:   99.000 MHz (achieved)
+
+// FEEDBACK: SIMPLE
+// F_PFD:   24.000 MHz
+// F_VCO:  792.000 MHz
+
+// DIVR:  1 (4'b0001)
+// DIVF: 32 (7'b0100000)
+// DIVQ:  3 (3'b011)
+
+// FILTER_RANGE: 2 (3'b010)
+
+
 
 
     //nco i_nco(.clk(xtal_in), .rst(rst), .control_word(16'h3300), .i_code(clk), .phase_control_word(16'h0000));
