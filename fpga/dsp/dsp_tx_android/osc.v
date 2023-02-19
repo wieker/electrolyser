@@ -52,7 +52,25 @@ module osc(
 
 // FILTER_RANGE: 2 (3'b010)
 
-    nco i_nco(.clk(xtal_in), .rst(rst), .control_word(16'h3300), .i_code(clk), .phase_control_word(16'h0000));
+// wieker@debian:~$ icepll -i 48 -o 120
+
+// F_PLLIN:    48.000 MHz (given)
+// F_PLLOUT:  120.000 MHz (requested)
+// F_PLLOUT:  120.000 MHz (achieved)
+
+// FEEDBACK: SIMPLE
+// F_PFD:   48.000 MHz
+// F_VCO:  960.000 MHz
+
+// DIVR:  0 (4'b0000)
+// DIVF: 19 (7'b0010011)
+// DIVQ:  3 (3'b011)
+
+// FILTER_RANGE: 4 (3'b100)
+
+
+
+    //nco i_nco(.clk(xtal_in), .rst(rst), .control_word(16'h3300), .i_code(clk), .phase_control_word(16'h0000));
 
 
     //assign clk = dvdd[1];
@@ -61,14 +79,14 @@ module osc(
    SB_PLL40_CORE #(
           .FEEDBACK_PATH("SIMPLE"),
           .PLLOUT_SELECT("GENCLK"),
-          .DIVR(4'b0001),
-          .DIVF(7'b0011000),
-          .DIVQ(3'b010),
-          .FILTER_RANGE(3'b010),
+          .DIVR(4'b0000),
+          .DIVF(7'b0010011),
+          .DIVQ(3'b011),
+          .FILTER_RANGE(3'b100),
         ) SB_PLL40_CORE_inst (
           .RESETB(1'b1),
           .BYPASS(1'b0),
-          //.PLLOUTCORE(clk),
+          .PLLOUTCORE(clk),
           .REFERENCECLK(xtal_in)
     );
 
