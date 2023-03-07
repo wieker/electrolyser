@@ -23,7 +23,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 module spi_slave
-  #(parameter SPI_MODE = 1)
+  #(parameter SPI_MODE = 0)
   (
    // Control/Data Signals,
    input            i_Rst_L,    // FPGA Reset, active low
@@ -53,7 +53,7 @@ module spi_slave
   reg [7:0] r_RX_Byte;
   reg r_RX_Done, r2_RX_Done, r3_RX_Done;
   reg [7:0] r_TX_Byte;
-  reg r_SPI_MISO_Bit, r_Preload_MISO;
+  reg r_SPI_MISO_Bit;
 
   // CPOL: Clock Polarity
   // CPOL=0 means clock idles at 0, leading edge is rising edge.
@@ -134,25 +134,10 @@ module spi_slave
   end // always @ (posedge i_Bus_Clk)
 
 
-  // Control preload signal.  Should be 1 when CS is high, but as soon as
-  // first clock edge is seen it goes low.
-  always @(posedge w_SPI_Clk)
-  begin
-    if (i_SPI_CS_n)
-    begin
-      r_Preload_MISO <= 1'b1;
-    end
-    else
-    begin
-      r_Preload_MISO <= 1'b0;
-    end
-  end
-
-
   // Purpose: Transmits 1 SPI Byte whenever SPI clock is toggling
   // Will transmit read data back to SW over MISO line.
   // Want to put data on the line immediately when CS goes low.
-  always @(posedge w_SPI_Clk)
+  always @(negedge w_SPI_Clk)
   begin
     if (i_SPI_CS_n)
     begin
@@ -165,7 +150,7 @@ module spi_slave
 
       // Here is where data crosses clock domains from i_Clk to w_SPI_Clk
       // Can set up a timing constraint with wide margin for data path.
-      r_SPI_MISO_Bit <= r_TX_Byte[r_TX_Bit_Count];
+      r_SPI_MISO_Bit <= r_TX_Byte[r_TX_Bit_Count - 1];
 
     end // else: !if(i_SPI_CS_n)
   end // always @ (negedge w_SPI_Clk or posedge i_SPI_CS_n_SW)
@@ -188,11 +173,7 @@ module spi_slave
     end // else: !if(~i_Rst_L)
   end // always @ (posedge i_Clk or negedge i_Rst_L)
 
-  // Preload MISO with top bit of send data when preload selector is high.
-  // Otherwise just send the normal MISO data
-  assign w_SPI_MISO_Mux = r_Preload_MISO ? r_TX_Byte[3'b111] : r_SPI_MISO_Bit;
-
   // Tri-state MISO when CS is high.  Allows for multiple slaves to talk.
-  assign o_SPI_MISO = w_SPI_MISO_Mux;
+  assign o_SPI_MISO = r_SPI_MISO_Bit;
 
 endmodule // SPI_Slave

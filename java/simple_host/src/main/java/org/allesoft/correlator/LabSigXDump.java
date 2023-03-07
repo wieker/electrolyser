@@ -279,7 +279,9 @@ public class LabSigXDump
         readButton.addActionListener(actionEvent -> {
             textArea.setText("");
             sendCommand(handle, 8, new byte[] { }, true);
-            flash_id(handle);
+            spi_select(handle);
+            sendCommand(handle, 4, new byte[] { (byte) 0x9F, 0x00, 0x55, 0x00, 0x56, 0x00 }, true);
+            spi_desel(handle);
             sendCommand(handle, 9, new byte[] { }, true);
 //running = true;
             //new Thread(() -> readFlashDump(handle)).start();
