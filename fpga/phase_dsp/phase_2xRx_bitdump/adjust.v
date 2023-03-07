@@ -25,7 +25,7 @@ module adjust(
 		.PIN_TYPE(6'b101001)
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
-		.OUTPUT_ENABLE(1),
+		.OUTPUT_ENABLE(oe),
 		.D_OUT_0(z_o_counter[10])
     );
 
