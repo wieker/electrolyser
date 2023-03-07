@@ -404,6 +404,7 @@ public class LabSigXDump
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
 
+            int z = 0, o = 0;
 
             for (int i = 0; i < 8; i ++) {
                 for (int k = 0; k < 64; k ++) {
@@ -413,13 +414,16 @@ public class LabSigXDump
                         if (bit == 1) {
                             graphics.setColor(Color.RED);
                             graphics.fillRect(k * 24 + j * 3, 10 + 25 * i, 5, 5);
+                            o ++;
                         } else {
                             graphics.setColor(Color.BLACK);
                             graphics.fillRect(k * 24 + j * 3, 15 + 25 * i, 5, 5);
+                            z ++;
                         }
                     }
                 }
             }
+            label.setText("zero / one: " + z + " / " + o);
         }
 
         private void drawArcForSample(Graphics graphics, int sample, int pos) {
@@ -460,7 +464,7 @@ public class LabSigXDump
                         textArea.append(System.lineSeparator());
                     }
                 }
-                if (pos == 256) {
+                if (pos == 510) {
                     break;
                 }
             }
