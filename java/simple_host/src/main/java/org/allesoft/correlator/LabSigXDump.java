@@ -32,7 +32,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-public class LabSigXPhase
+public class LabSigXDump
 {
     private static final ReentrantLock lock = new ReentrantLock();
     private static final ReentrantLock prelock = new ReentrantLock();
@@ -404,11 +404,22 @@ public class LabSigXPhase
         protected void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
 
-            drawArcForSample(graphics, offset, 1);
-            drawArcForSample(graphics, offset + 1, 2);
-            drawArcForSample(graphics, offset + 2, 3);
-            drawArcForSample(graphics, offset + 3, 4);
-            drawArcForSample(graphics, offset + 4, 5);
+
+            for (int i = 0; i < 8; i ++) {
+                for (int k = 0; k < 64; k ++) {
+                    int value = spiDump[i * 64 + k];
+                    for (int j = 7; j >= 0; j--) {
+                        int bit = ((value >> (7 - j)) & 0x01);
+                        if (bit == 1) {
+                            graphics.setColor(Color.RED);
+                            graphics.fillRect(k * 24 + j * 3, 10 + 25 * i, 5, 5);
+                        } else {
+                            graphics.setColor(Color.BLACK);
+                            graphics.fillRect(k * 24 + j * 3, 15 + 25 * i, 5, 5);
+                        }
+                    }
+                }
+            }
         }
 
         private void drawArcForSample(Graphics graphics, int sample, int pos) {
@@ -494,8 +505,8 @@ public class LabSigXPhase
         InputStream inputStream = new FileInputStream(
                 //"../../fpga/dsp/dsp_tx_android/top.bin");
                 //"../../fpga/dsp/dsp_phase_dumper/top-up5k.bin");
-        "../../fpga/phase_dsp/phase_2xRx/top-up5k.bin");
-        //"../../fpga/phase_dsp/phase_2xRx_bitdump/top-up5k.bin");
+        //"../../fpga/phase_dsp/phase_2xRx/top-up5k.bin");
+        "../../fpga/phase_dsp/phase_2xRx_bitdump/top-up5k.bin");
         int addr = 0;
         byte[] buf = new byte[16];
         for (;;) {
