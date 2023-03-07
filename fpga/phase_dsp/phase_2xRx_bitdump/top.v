@@ -54,7 +54,7 @@ module top(
     spi_slave spi_slave
       (
         .i_Clk(clk),
-        .i_Rst_L(rst),
+        .i_Rst_L(~rst),
 
         .i_SPI_Clk(SPI_SCK),
         .o_SPI_MISO(SPI_MISO),
@@ -63,8 +63,8 @@ module top(
 
         .o_RX_DV(spi_valid),
         .o_RX_Byte(spi_data),
-        .i_TX_DV(1),
-        .i_TX_Byte(8'h3b),
+        .i_TX_DV(spi_valid),
+        .i_TX_Byte(spi_data),
 
        );
 

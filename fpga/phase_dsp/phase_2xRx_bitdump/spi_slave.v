@@ -23,7 +23,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 module spi_slave
-  #(parameter SPI_MODE = 0)
+  #(parameter SPI_MODE = 1)
   (
    // Control/Data Signals,
    input            i_Rst_L,    // FPGA Reset, active low
@@ -35,7 +35,7 @@ module spi_slave
 
    // SPI Interface
    input      i_SPI_Clk,
-   output reg o_SPI_MISO,
+   output     o_SPI_MISO,
    input      i_SPI_MOSI,
    input      i_SPI_CS_n        // active low
    );
@@ -193,6 +193,6 @@ module spi_slave
   assign w_SPI_MISO_Mux = r_Preload_MISO ? r_TX_Byte[3'b111] : r_SPI_MISO_Bit;
 
   // Tri-state MISO when CS is high.  Allows for multiple slaves to talk.
-  assign o_SPI_MISO = i_SPI_CS_n ? 1'bZ : w_SPI_MISO_Mux;
+  assign o_SPI_MISO = w_SPI_MISO_Mux;
 
 endmodule // SPI_Slave
