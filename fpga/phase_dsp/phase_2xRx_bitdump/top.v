@@ -1,6 +1,7 @@
 module top(
     output LED1, LED2, fpga_tx, pwm_out, tx_out, pwm_out1,
     input btn1, btn2, lvds_in, fpga_rx, xtal_in, lvds_in1,
+    input SPI_SCK, input SPI_SS, input SPI_MOSI, output SPI_MISO,
 );
 
     wire clk = xtal_in;
@@ -47,5 +48,24 @@ module top(
         .rx_stb(uart_rx_stb),
         .rx_err(tx_busy)
     );
+
+    wire spi_valid;
+    wire [7:0] spi_data;
+    spi_slave spi_slave
+      (
+        .i_Clk(clk),
+        .i_Rst_L(rst),
+
+        .i_SPI_Clk(SPI_SCK),
+        .o_SPI_MISO(SPI_MISO),
+        .i_SPI_MOSI(SPI_MOSI),
+        .i_SPI_CS_n(SPI_SS),
+
+        .o_RX_DV(spi_valid),
+        .o_RX_Byte(spi_data),
+        .i_TX_DV(1),
+        .i_TX_Byte(8'h3b),
+
+       );
 
 endmodule

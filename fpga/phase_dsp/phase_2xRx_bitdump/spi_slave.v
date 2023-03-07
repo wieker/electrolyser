@@ -73,7 +73,7 @@ module spi_slave
 
   // Purpose: Recover SPI Byte in SPI Clock Domain
   // Samples line on correct edge of SPI Clock
-  always @(posedge w_SPI_Clk or posedge i_SPI_CS_n)
+  always @(posedge w_SPI_Clk)
   begin
     if (i_SPI_CS_n)
     begin
@@ -104,7 +104,7 @@ module spi_slave
 
   // Purpose: Cross from SPI Clock Domain to main FPGA clock domain
   // Assert o_RX_DV for 1 clock cycle when o_RX_Byte has valid data.
-  always @(posedge i_Clk or negedge i_Rst_L)
+  always @(posedge i_Clk)
   begin
     if (~i_Rst_L)
     begin
@@ -136,7 +136,7 @@ module spi_slave
 
   // Control preload signal.  Should be 1 when CS is high, but as soon as
   // first clock edge is seen it goes low.
-  always @(posedge w_SPI_Clk or posedge i_SPI_CS_n)
+  always @(posedge w_SPI_Clk)
   begin
     if (i_SPI_CS_n)
     begin
@@ -152,7 +152,7 @@ module spi_slave
   // Purpose: Transmits 1 SPI Byte whenever SPI clock is toggling
   // Will transmit read data back to SW over MISO line.
   // Want to put data on the line immediately when CS goes low.
-  always @(posedge w_SPI_Clk or posedge i_SPI_CS_n)
+  always @(posedge w_SPI_Clk)
   begin
     if (i_SPI_CS_n)
     begin
@@ -173,7 +173,7 @@ module spi_slave
 
   // Purpose: Register TX Byte when DV pulse comes.  Keeps registed byte in
   // this module to get serialized and sent back to master.
-  always @(posedge i_Clk or negedge i_Rst_L)
+  always @(posedge i_Clk)
   begin
     if (~i_Rst_L)
     begin

@@ -278,8 +278,9 @@ public class LabSigXDump
         JButton readButton = new JButton("Read Flash");
         readButton.addActionListener(actionEvent -> {
             textArea.setText("");
-            running = true;
-            new Thread(() -> readFlashDump(handle)).start();
+            flash_id(handle);
+            //running = true;
+            //new Thread(() -> readFlashDump(handle)).start();
         });
         panel.add(readButton);
         JButton drawButton = new JButton("Redraw");
