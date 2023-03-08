@@ -28,8 +28,8 @@ module spi_slave
    // Control/Data Signals,
    input            i_Rst_L,    // FPGA Reset, active low
    input            i_Clk,      // FPGA Clock
-   output reg       o_RX_DV,    // Data Valid pulse (1 clock cycle)
-   output reg [7:0] o_RX_Byte,  // Byte received on MOSI
+   output           o_RX_DV,    // Data Valid pulse (1 clock cycle)
+   output     [7:0] o_RX_Byte,  // Byte received on MOSI
    input            i_TX_DV,    // Data Valid pulse to register i_TX_Byte
    input  [7:0]     i_TX_Byte,  // Byte to serialize to MISO.
 
@@ -75,13 +75,6 @@ module spi_slave
   // Samples line on correct edge of SPI Clock
   always @(posedge w_SPI_Clk)
   begin
-    if (i_SPI_CS_n)
-    begin
-      r_RX_Bit_Count <= 0;
-      r_RX_Done      <= 1'b0;
-    end
-    else
-    begin
       r_RX_Bit_Count <= r_RX_Bit_Count + 1;
 
       // Receive in LSB, shift up to MSB
@@ -97,7 +90,6 @@ module spi_slave
         r_RX_Done <= 1'b0;
       end
 
-    end // else: !if(i_SPI_CS_n)
   end // always @ (posedge w_SPI_Clk or posedge i_SPI_CS_n)
 
 
@@ -110,8 +102,6 @@ module spi_slave
     begin
       r2_RX_Done <= 1'b0;
       r3_RX_Done <= 1'b0;
-      o_RX_DV    <= 1'b0;
-      o_RX_Byte  <= 8'h00;
     end
     else
     begin
@@ -121,17 +111,11 @@ module spi_slave
 
       r3_RX_Done <= r2_RX_Done;
 
-      if (r3_RX_Done == 1'b0 && r2_RX_Done == 1'b1) // rising edge
-      begin
-        o_RX_DV   <= 1'b1;  // Pulse Data Valid 1 clock cycle
-        o_RX_Byte <= r_RX_Byte;
-      end
-      else
-      begin
-        o_RX_DV <= 1'b0;
-      end
     end // else: !if(~i_Rst_L)
   end // always @ (posedge i_Bus_Clk)
+
+  assign o_RX_DV = (r3_RX_Done == 1'b0 && r2_RX_Done == 1'b1);
+  assign o_RX_Byte = r_RX_Byte;
 
 
   // Purpose: Transmits 1 SPI Byte whenever SPI clock is toggling
@@ -139,20 +123,12 @@ module spi_slave
   // Want to put data on the line immediately when CS goes low.
   always @(negedge w_SPI_Clk)
   begin
-    if (i_SPI_CS_n)
-    begin
-      r_TX_Bit_Count <= 3'b111;  // Send MSb first
-      r_SPI_MISO_Bit <= r_TX_Byte[3'b111];  // Reset to MSb
-    end
-    else
-    begin
       r_TX_Bit_Count <= r_TX_Bit_Count - 1;
 
       // Here is where data crosses clock domains from i_Clk to w_SPI_Clk
       // Can set up a timing constraint with wide margin for data path.
       r_SPI_MISO_Bit <= r_TX_Byte[r_TX_Bit_Count - 1];
 
-    end // else: !if(i_SPI_CS_n)
   end // always @ (negedge w_SPI_Clk or posedge i_SPI_CS_n_SW)
 
 
