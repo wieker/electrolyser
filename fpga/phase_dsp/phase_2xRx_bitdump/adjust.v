@@ -2,6 +2,7 @@ module adjust(
     input clk, rst, sig,
     output pwm_out,
     output oe,
+    input [7:0] param,
 );
 
     reg [10:0] period;
@@ -18,7 +19,7 @@ module adjust(
             z_o_counter <= z_o_counter + sig;
         end
     end
-    wire [11:0] state = period + 11'h000;
+    wire [11:0] state = period + {4'b0000, param[6:0]};
     assign oe = state[11];
 
 	SB_IO #(
@@ -26,7 +27,7 @@ module adjust(
 	) lp_compare (
 		.PACKAGE_PIN(pwm_out),
 		.OUTPUT_ENABLE(oe),
-		.D_OUT_0(z_o_counter[10])
+		.D_OUT_0(param[7])
     );
 
 endmodule

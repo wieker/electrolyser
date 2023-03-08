@@ -21,7 +21,7 @@ module top(
     hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .sig1(tx_en ? 1 : sig_in1), .fpga_rx(uart_rx_stb));
 
     wire oe;
-    adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out), .oe(oe), .sig(sig_in));
+    adjust adjust(.clk(clk), .rst(rst), .pwm_out(pwm_out), .oe(oe), .sig(sig_in), .param(param));
     adjust1 adjust1(.clk(clk), .rst(rst), .pwm_out(pwm_out1));
     //assign pwm_out = sig_in;
     //assign pwm_out1 = sig_in1;
@@ -49,6 +49,14 @@ module top(
         .rx_err(tx_busy)
     );
 
+    reg [7:0] param;
+    always@(posedge clk)
+    begin
+        if (spi_valid == 0) begin
+            param <= spi_data;
+        end
+    end
+
     wire spi_valid;
     wire [7:0] spi_data;
     spi_slave spi_slave
@@ -63,8 +71,8 @@ module top(
 
         .o_RX_DV(spi_valid),
         .o_RX_Byte(spi_data),
-        .i_TX_DV(spi_valid),
-        .i_TX_Byte(spi_data),
+        .i_TX_DV(0),
+        .i_TX_Byte(8'hAA),
 
        );
 
