@@ -2,6 +2,7 @@ module adjust(
     input clk, rst, sig,
     output pwm_out,
     output oe,
+    output prm,
     input [7:0] param,
 );
 
@@ -21,6 +22,7 @@ module adjust(
     end
     wire [11:0] state = period + {4'b0000, param[6:0]};
     assign oe = state[11];
+    assign prm = param[7];
 
 	SB_IO #(
 		.PIN_TYPE(6'b101001)
