@@ -1,6 +1,6 @@
 module hex_dump(
     input clk, rst, sig, sig1, pause, next,
-    output fpga_tx, output [7:0] byte,
+    output fpga_tx, output reg [7:0] byte,
 );
 
     reg [15:0] value;
@@ -49,7 +49,7 @@ module hex_dump(
         if (next && !part) begin
             part <= 1;
             byte <= ram_data_out[15:8];
-        end else if (next && !part) begin
+        end else if (next && part) begin
             part <= 0;
             ram_rd_addr <= ram_rd_addr + 1;
             byte <= ram_data_out[7:0];

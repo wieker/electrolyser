@@ -281,7 +281,7 @@ public class LabSigXDump
             sendCommand(handle, 8, new byte[] { }, true);
             spi_select(handle);
             byte[] bytes = new byte[32];
-            bytes[0] = 0x55;
+            bytes[0] = 0x57;
             bytes[1] = (byte) 0x0a;
             //for (int i = 0; i < 16; i ++) {
                 sendCommand(handle, 4, bytes, true);
