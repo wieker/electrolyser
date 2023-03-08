@@ -52,7 +52,7 @@ module top(
     reg [7:0] param;
     always@(posedge clk)
     begin
-        if (spi_valid == 0) begin
+        if (spi_valid == 1) begin
             param <= spi_data;
         end
     end
