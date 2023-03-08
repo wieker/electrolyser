@@ -50,11 +50,15 @@ module top(
         .rx_err(tx_busy)
     );
 
+    reg spi_state;
     reg [7:0] param;
     always@(posedge clk)
     begin
-        if (spi_valid == 1) begin
+        if (spi_valid == 1 && spi_state == 0) begin
             param <= spi_data;
+            spi_state <= 1;
+        end else if (SPI_SS == 1 && spi_state == 1) begin
+            spi_state <= 0;
         end
     end
 
@@ -76,7 +80,7 @@ module top(
         .o_RX_DV(spi_valid),
         .o_RX_Byte(spi_data),
         .i_TX_DV(spi_valid),
-        .i_TX_Byte(spi_data),
+        .i_TX_Byte(param),
 
        );
 
