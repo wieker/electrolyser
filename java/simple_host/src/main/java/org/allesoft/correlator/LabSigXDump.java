@@ -280,7 +280,12 @@ public class LabSigXDump
             textArea.setText("");
             sendCommand(handle, 8, new byte[] { }, true);
             spi_select(handle);
-            sendCommand(handle, 4, new byte[] { (byte) 0x02, (byte) 0x82, (byte) 0x8f, 0x0f, 0x05, 0x05 }, true);
+            byte[] bytes = new byte[32];
+            bytes[0] = 0x55;
+            bytes[1] = (byte) 0x0a;
+            //for (int i = 0; i < 16; i ++) {
+                sendCommand(handle, 4, bytes, true);
+            //}
             spi_desel(handle);
             sendCommand(handle, 9, new byte[] { }, true);
 //running = true;

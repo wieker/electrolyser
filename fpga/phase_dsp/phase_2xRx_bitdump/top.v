@@ -18,7 +18,8 @@ module top(
     assign LED2 = rf_rx_stb;
     //assign LED1 = process;
     wire rf_rx_stb;
-    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .sig1(tx_en ? 1 : sig_in1), .fpga_rx(uart_rx_stb));
+    hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .sig1(tx_en ? 1 : sig_in1),
+        .next(next), .pause(pause), .byte(byte));
 
     wire oe;
     wire prm;
@@ -52,17 +53,32 @@ module top(
 
     reg spi_state;
     reg [7:0] param;
+    reg [7:0] addr;
     reg [7:0] echo;
+    wire [7:0] byte;
+    reg next;
+    reg pause;
     always@(posedge clk)
     begin
-        if (spi_valid == 1 && spi_state == 0) begin
-            param <= spi_data;
-            spi_state <= 1;
-        end else if (SPI_SS == 1 && spi_state == 1) begin
+        if (SPI_SS == 1) begin
             spi_state <= 0;
-        end
-        if (spi_valid == 1) begin
+            pause <= 0;
+        end else if (spi_valid == 1 && spi_state == 0) begin
+            spi_state <= 1;
+            addr <= spi_data;
+            if (spi_data == 8'h57) begin
+                pause <= 1;
+            end
+        end else if (spi_valid == 1 && addr == 8'h55 && spi_state == 1) begin
+            param <= spi_data;
+            spi_state <= 0;
+        end else if (spi_valid == 1 && addr == 8'h56 && spi_state == 1) begin
             echo <= spi_data;
+        end else if (spi_valid == 1 && addr == 8'h57 && spi_state == 1) begin
+            echo <= byte;
+            next <= 1;
+        end else if (next == 1 && addr == 8'h57 && spi_state == 1) begin
+            next <= 0;
         end
     end
 
