@@ -12,7 +12,7 @@ module hex_dump(
     begin
         if (!rst && !pause) begin
             cntr <= cntr + 1;
-            value <= {value[14:0], sig};
+            value <= 16'b0110101010010010;
             if (cntr == 0) begin
                 ram_data_in <= value;
                 ram_we <= 1;
