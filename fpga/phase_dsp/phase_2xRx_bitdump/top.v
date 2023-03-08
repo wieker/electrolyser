@@ -52,6 +52,7 @@ module top(
 
     reg spi_state;
     reg [7:0] param;
+    reg [7:0] echo;
     always@(posedge clk)
     begin
         if (spi_valid == 1 && spi_state == 0) begin
@@ -59,6 +60,9 @@ module top(
             spi_state <= 1;
         end else if (SPI_SS == 1 && spi_state == 1) begin
             spi_state <= 0;
+        end
+        if (spi_valid == 1) begin
+            echo <= spi_data;
         end
     end
 
@@ -80,7 +84,7 @@ module top(
         .o_RX_DV(spi_valid),
         .o_RX_Byte(spi_data),
         .i_TX_DV(spi_valid),
-        .i_TX_Byte(param),
+        .i_TX_Byte(echo),
 
        );
 
