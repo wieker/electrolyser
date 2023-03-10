@@ -281,8 +281,11 @@ public class LabSigXDump
             sendCommand(handle, 8, new byte[] { }, true);
             spi_select(handle);
             byte[] bytes = new byte[32];
-            bytes[0] = 0x57;
+            bytes[0] = 0x56;
             bytes[1] = (byte) 0x0a;
+            for (int i = 2; i < 32; i ++) {
+                bytes[i] = (byte) (Math.random() * 256);
+            }
             //for (int i = 0; i < 16; i ++) {
                 sendCommand(handle, 4, bytes, true);
             //}
