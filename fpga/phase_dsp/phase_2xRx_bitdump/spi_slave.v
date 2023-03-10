@@ -166,7 +166,7 @@ module spi_slave
     end
     else
     begin
-      if (i_TX_DV)
+      if (r3_RX_Done == 1'b0 && r2_RX_Done == 1'b1)
       begin
         r_TX_Byte <= i_TX_Byte;
       end
