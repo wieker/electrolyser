@@ -1,7 +1,19 @@
 module hex_dump(
-    input clk, rst, sig, sig1, pause, next,
+    input clk, rst, sig, sig1, pause, next, mode,
     output fpga_tx, output reg [7:0] byte,
 );
+    wire stb = fcnt_n[8];
+    reg [7:0] fcnt;
+    wire [8:0] fcnt_n = fcnt + 1;
+    always @(posedge clk)
+    begin
+        fcnt <= fcnt + 1;
+    end
+    wire [7:0] i_value;
+    wire [7:0] q_value;
+
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig),
+        .i_value(i_value), .q_value(q_value));
 
     reg [15:0] value;
     reg [15:0] ram_data_in;
@@ -11,8 +23,13 @@ module hex_dump(
     always@(posedge clk)
     begin
         if (!rst && !pause) begin
-            cntr <= cntr + 1;
-            value <= {value[14:0], sig};
+            if (mode == 0) begin
+                cntr <= cntr + 1;
+                value <= {value[14:0], sig};
+            end else if (mode == 1 && stb == 1) begin
+                cntr <= cntr + 1;
+                value <= {q_value[7:0], i_value[7:0]};
+            end
             if (cntr == 0) begin
                 ram_data_in <= value;
                 ram_we <= 1;

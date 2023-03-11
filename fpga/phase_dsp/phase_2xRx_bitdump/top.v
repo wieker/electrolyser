@@ -19,7 +19,7 @@ module top(
     //assign LED1 = process;
     wire rf_rx_stb;
     hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .sig1(tx_en ? 1 : sig_in1),
-        .next(next), .pause(pause), .byte(byte));
+        .next(next), .pause(pause), .byte(byte), .mode(mode));
 
     wire oe;
     wire prm;
@@ -58,6 +58,7 @@ module top(
     wire [7:0] byte;
     reg next;
     reg pause;
+    reg mode;
     always@(posedge clk)
     begin
         if (SPI_SS == 1) begin
@@ -71,6 +72,9 @@ module top(
             end
         end else if (spi_valid == 1 && addr == 8'h55 && spi_state == 1) begin
             param <= spi_data;
+            spi_state <= 0;
+        end else if (spi_valid == 1 && addr == 8'h58 && spi_state == 1) begin
+            mode <= spi_data[7];
             spi_state <= 0;
         end else if (spi_valid == 1 && addr == 8'h56 && spi_state == 1) begin
             echo <= spi_data;
