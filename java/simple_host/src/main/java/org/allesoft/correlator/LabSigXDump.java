@@ -277,32 +277,8 @@ public class LabSigXDump
         panel.add(rstButton);
         JButton readButton = new JButton("Read Flash");
         readButton.addActionListener(actionEvent -> {
-            textArea.setText("");
-            sendCommand(handle, 8, new byte[] { }, true);
-            spi_select(handle);
-            byte[] bytes = new byte[32];
-            bytes[0] = 0x57;
-            bytes[1] = (byte) 0x0a;
-            for (int i = 2; i < 32; i ++) {
-                bytes[i] = (byte) (Math.random() * 256);
-            }
-            int pos = 0;
-            while (true) {
-                byte[] ret_result = sendCommand(handle, 4, bytes, true);
-                //}
-
-                for (int i = 0; i < 32; i++) {
-                    spiDump[pos ++] = (int) ret_result[i] & 0xFF;
-                }
-                if (pos == 32 * 16) {
-                    break;
-                }
-            }
-            spi_desel(handle);
-            sendCommand(handle, 9, new byte[] { }, true);
-            drawArea.repaint();
-//running = true;
-            //new Thread(() -> readFlashDump(handle)).start();
+            adjustDAC(handle);
+            dumpRF(handle);
         });
         panel.add(readButton);
         JButton drawButton = new JButton("Redraw");
@@ -335,9 +311,9 @@ public class LabSigXDump
         panel.add(shift);
         JPanel mainPanel = new JPanel();
         mainPanel.add(sendVal);
-        JScrollBar scrollBar = new JScrollBar(Adjustable.HORIZONTAL, 0, 10, 0, 256);
-        mainPanel.add(scrollBar);
-        scrollBar.addAdjustmentListener(adjustmentEvent -> {
+        JScrollBar dacLevel = new JScrollBar(Adjustable.HORIZONTAL, 0, 10, 0, 256);
+        mainPanel.add(dacLevel);
+        dacLevel.addAdjustmentListener(adjustmentEvent -> {
             int value = adjustmentEvent.getValue();
             drawArea.setOffset(value);
             textArea.select(value * 10, value * 10 + 10);
@@ -358,6 +334,46 @@ public class LabSigXDump
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private static void adjustDAC(DeviceHandle handle) {
+        sendCommand(handle, 8, new byte[] { }, true);
+        spi_select(handle);
+        byte[] bytes = new byte[32];
+        bytes[0] = 0x55;
+        bytes[1] = (byte) ((sendVal.getValue() >= 0x80) ? sendVal.getValue() : 0x7F - sendVal.getValue());
+        sendCommand(handle, 4, bytes, true);
+        spi_desel(handle);
+        sendCommand(handle, 9, new byte[] { }, true);
+    }
+
+    private static void dumpRF(DeviceHandle handle) {
+        textArea.setText("");
+        sendCommand(handle, 8, new byte[] { }, true);
+        spi_select(handle);
+        byte[] bytes = new byte[32];
+        bytes[0] = 0x57;
+        bytes[1] = (byte) 0x0a;
+        for (int i = 2; i < 32; i ++) {
+            bytes[i] = (byte) (Math.random() * 256);
+        }
+        int pos = 0;
+        while (true) {
+            byte[] ret_result = sendCommand(handle, 4, bytes, true);
+            //}
+
+            for (int i = 0; i < 32; i++) {
+                spiDump[pos ++] = (int) ret_result[i] & 0xFF;
+            }
+            if (pos == 32 * 16) {
+                break;
+            }
+        }
+        spi_desel(handle);
+        sendCommand(handle, 9, new byte[] { }, true);
+        drawArea.repaint();
+//running = true;
+        //new Thread(() -> readFlashDump(handle)).start();
     }
 
     private static void send78(DeviceHandle handle, JScrollBar sendVal) {
