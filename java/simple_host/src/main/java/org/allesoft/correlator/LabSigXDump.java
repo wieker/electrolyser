@@ -306,11 +306,15 @@ public class LabSigXDump
         shift = new TextField();
         shift.setText("0.00000000");
         panel.add(offsetV);
-        panel.add(ncoNum);
-        panel.add(ncoDen);
-        panel.add(shift);
+        //panel.add(ncoNum);
+        //panel.add(ncoDen);
+        //panel.add(shift);
         JPanel mainPanel = new JPanel();
         mainPanel.add(sendVal);
+        sendVal.addAdjustmentListener(adjustmentEvent -> {
+            int value = adjustmentEvent.getValue();
+            offsetV.setText(Integer.toHexString(formatDACvalue(value)));
+        });
         JScrollBar dacLevel = new JScrollBar(Adjustable.HORIZONTAL, 0, 10, 0, 256);
         mainPanel.add(dacLevel);
         dacLevel.addAdjustmentListener(adjustmentEvent -> {
@@ -341,10 +345,14 @@ public class LabSigXDump
         spi_select(handle);
         byte[] bytes = new byte[32];
         bytes[0] = 0x55;
-        bytes[1] = (byte) ((sendVal.getValue() >= 0x80) ? sendVal.getValue() : 0x7F - sendVal.getValue());
+        bytes[1] = (byte) formatDACvalue(sendVal.getValue());
         sendCommand(handle, 4, bytes, true);
         spi_desel(handle);
         sendCommand(handle, 9, new byte[] { }, true);
+    }
+
+    private static int formatDACvalue(int value) {
+        return (value >= 0x80) ? sendVal.getValue() : 0x7F - sendVal.getValue();
     }
 
     private static void dumpRF(DeviceHandle handle) {
