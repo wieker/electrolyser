@@ -70,7 +70,7 @@ module hex_dump(
         .clk(clk),				// system clock
         .rst(rst),			// system reset
         .tx_dat(touart),           // transmit data byte
-        .tx_start(tx_start),    // trigger transmission
+        .tx_start(0),    // trigger transmission
         .tx_serial(fpga_tx),         // tx serial output
         .tx_busy(tx_busy)       // tx is active (not ready)
     );
