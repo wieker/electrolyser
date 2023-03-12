@@ -19,21 +19,20 @@ module hex_dump(
     reg [15:0] ram_data_in;
     reg [3:0] cntr;
     reg ram_we;
-    reg paused;
 
     always@(posedge clk)
     begin
-        cntr <= cntr + 1;
-        value <= {value[14:0], sig};
-        if (pause) begin
-            paused <= 0;
-            ram_wr_addr <= 1;
-        end else if (ram_wr_addr == 0) begin
-            paused <= 1;
-        end else begin
+        if (!rst && !pause) begin
+            if (mode == 0) begin
+                cntr <= cntr + 1;
+                value <= {value[14:0], sig};
+            end else if (mode == 1 && stb == 1) begin
+                cntr <= cntr + 1;
+                value <= {q_value[7:0], i_value[7:0]};
+            end
             if (cntr == 0) begin
                 ram_data_in <= value;
-                ram_we <= !paused;
+                ram_we <= 1;
                 ram_wr_addr <= ram_wr_addr + 1;
             end else begin
                 ram_we <= 0;
