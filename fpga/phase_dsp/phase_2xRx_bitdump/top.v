@@ -67,7 +67,7 @@ module top(
         end else if (spi_valid == 1 && spi_state == 0) begin
             spi_state <= 1;
             addr <= spi_data;
-            if (spi_data == 8'h57) begin
+            if (spi_data == 8'h59) begin
                 pause <= 1;
             end
         end else if (spi_valid == 1 && addr == 8'h55 && spi_state == 1) begin
@@ -83,6 +83,8 @@ module top(
             next <= 1;
         end else if (next == 1 && addr == 8'h57 && spi_state == 1) begin
             next <= 0;
+        end else begin
+            pause <= 0;
         end
     end
 

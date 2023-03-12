@@ -278,6 +278,7 @@ public class LabSigXDump
         JButton readButton = new JButton("Read Flash");
         readButton.addActionListener(actionEvent -> {
             adjustDAC(handle);
+            start_snapshot(handle);
             dumpRF(handle);
         });
         panel.add(readButton);
@@ -347,6 +348,22 @@ public class LabSigXDump
         bytes[0] = 0x55;
         bytes[1] = (byte) formatDACvalue(sendVal.getValue());
         sendCommand(handle, 4, bytes, true);
+        spi_desel(handle);
+        sendCommand(handle, 9, new byte[] { }, true);
+    }
+
+    private static void start_snapshot(DeviceHandle handle) {
+        sendCommand(handle, 8, new byte[] { }, true);
+        spi_select(handle);
+        byte[] bytes = new byte[1];
+        bytes[0] = 0x59;
+
+        sendCommand(handle, 4, bytes, true);
+        try {
+            Thread.sleep(1000l);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         spi_desel(handle);
         sendCommand(handle, 9, new byte[] { }, true);
     }
