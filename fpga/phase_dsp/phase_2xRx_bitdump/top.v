@@ -19,7 +19,7 @@ module top(
     //assign LED1 = process;
     wire rf_rx_stb;
     hex_dump hex_dump(.clk(clk), .rst(rst), .fpga_tx(fpga_tx), .sig(tx_en ? 1 : sig_in), .sig1(tx_en ? 1 : sig_in1),
-        .next(next), .pause(pause), .byte(byte), .mode(mode));
+        .next(next), .pause(st1), .byte(byte), .mode(mode));
 
     wire oe;
     wire prm;
@@ -50,6 +50,25 @@ module top(
         .rx_stb(uart_rx_stb),
         .rx_err(tx_busy)
     );
+
+
+    reg [7:0] tcounter;
+    reg fired;
+    reg st1;
+    always@(posedge clk)
+    begin
+        if (pause == 1) begin
+            tcounter <= tcounter + 1;
+            fired <= 0;
+        end else if (tcounter == 0 && !fired) begin
+            fired <= 1;
+            st1 <= 1;
+        end else if (tcounter == 0 && fired) begin
+            st1 <= 0;
+        end else begin
+            tcounter <= tcounter + 1;
+        end
+    end
 
     reg spi_state;
     reg [7:0] param;
