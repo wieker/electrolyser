@@ -84,10 +84,25 @@ module osc(
 
 // FILTER_RANGE: 2 (3'b010)
 
+// F_PLLIN:    48.000 MHz (given)
+// F_PLLOUT:   28.000 MHz (requested)
+// F_PLLOUT:   28.000 MHz (achieved)
+
+// FEEDBACK: SIMPLE
+// F_PFD:   16.000 MHz
+// F_VCO:  896.000 MHz
+
+// DIVR:  2 (4'b0010)
+// DIVF: 55 (7'b0110111)
+// DIVQ:  5 (3'b101)
+
+// FILTER_RANGE: 1 (3'b001)
 
 
 
-    nco i_nco(.clk(xtal_in), .rst(rst), .control_word(16'h3300), .i_code(clk), .phase_control_word(16'h0000));
+
+
+    //nco i_nco(.clk(xtal_in), .rst(rst), .control_word(16'h3300), .i_code(clk), .phase_control_word(16'h0000));
 
 
     //assign clk = dvdd[1];
@@ -96,14 +111,14 @@ module osc(
    SB_PLL40_CORE #(
           .FEEDBACK_PATH("SIMPLE"),
           .PLLOUT_SELECT("GENCLK"),
-          .DIVR(4'b0000),
-          .DIVF(7'b0010011),
-          .DIVQ(3'b011),
-          .FILTER_RANGE(3'b100),
+          .DIVR(4'b0010),
+          .DIVF(7'b0101110),
+          .DIVQ(3'b100),
+          .FILTER_RANGE(3'b001),
         ) SB_PLL40_CORE_inst (
           .RESETB(1'b1),
           .BYPASS(1'b0),
-          //.PLLOUTCORE(clk),
+          .PLLOUTCORE(clk),
           .REFERENCECLK(xtal_in)
     );
 
