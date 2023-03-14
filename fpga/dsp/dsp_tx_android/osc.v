@@ -112,7 +112,7 @@ module osc(
           .FEEDBACK_PATH("SIMPLE"),
           .PLLOUT_SELECT("GENCLK"),
           .DIVR(4'b0010),
-          .DIVF(7'b0101110),
+          .DIVF(7'b0100111),
           .DIVQ(3'b100),
           .FILTER_RANGE(3'b001),
         ) SB_PLL40_CORE_inst (
