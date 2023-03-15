@@ -1,9 +1,9 @@
 module top(
-    output lvds_in, tx_out,
+    output lvds_in, tx_out, LED1, LED2,
     input xtal_in
 );
 
-    reg [9:0] ctr;
+    reg [27:0] ctr;
     always@(posedge xtal_in)
     begin
       ctr <= ctr + 1;
@@ -11,7 +11,8 @@ module top(
     wire clk;
     osc osc(.clk(clk), .rst(rst), .xtal_in(xtal_in));
 
-    assign lvds_in = clk;
-    assign tx_out = 0;
+    assign lvds_in = ctr[27];
+    assign LED1 = ctr[27];
+    assign LED2 = !ctr[27];
 
 endmodule
