@@ -4,7 +4,7 @@ module top(
 );
 
     reg [27:0] ctr;
-    always@(posedge clk)
+    always@(posedge xtal_in)
     begin
       ctr <= ctr + 1;
     end
@@ -24,7 +24,7 @@ module top(
           .REFERENCECLK(xtal_in)
     );
 
-    assign lvds_in = clk;
+    assign lvds_in = ctr[0];
     assign LED1 = ctr[27];
     assign LED2 = !ctr[27];
 
