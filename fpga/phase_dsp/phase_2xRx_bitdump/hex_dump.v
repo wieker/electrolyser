@@ -31,7 +31,7 @@ module hex_dump(
                 cntr[2:0] <= 0;
                 value <= {value[7:0], i_value[7:0]};
             end else begin
-                cntr <= 1;
+                cntr[0] <= 1;
             end
             if (cntr == 0) begin
                 ram_data_in <= value;
