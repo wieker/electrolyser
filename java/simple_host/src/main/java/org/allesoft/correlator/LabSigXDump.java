@@ -290,9 +290,9 @@ public class LabSigXDump
             calcIQ();
         });
         panel.add(calcButton);
-        JButton send78Button = new JButton("Send0x78");
+        JButton send78Button = new JButton("Mode");
         send78Button.addActionListener(actionEvent -> {
-            send78(handle, sendVal);
+            sendMode(handle, sendVal);
         });
         panel.add(send78Button);
         offsetV = new TextField();
@@ -389,7 +389,14 @@ public class LabSigXDump
 
             for (int i = 0; i < 32; i++) {
                 spiDump[pos ++] = (int) ret_result[i] & 0xFF;
+                String value = String.format("0x%02x ",
+                        (int) ret_result[i] & 0xFF
+                );
+                textArea.append(value);
+                System.out.print(value);
             }
+            System.out.println();
+            textArea.append(System.lineSeparator());
             if (pos == 32 * 16) {
                 break;
             }
@@ -401,8 +408,18 @@ public class LabSigXDump
         //new Thread(() -> readFlashDump(handle)).start();
     }
 
-    private static void send78(DeviceHandle handle, JScrollBar sendVal) {
-        sendCommand(handle, 7, new byte[] { (byte) sendVal.getValue() }, true);
+    private static int mode = 0;
+
+    private static void sendMode(DeviceHandle handle, JScrollBar sendVal) {
+        sendCommand(handle, 8, new byte[] { }, true);
+        spi_select(handle);
+        byte[] bytes = new byte[32];
+        bytes[0] = 0x58;
+        bytes[1] = (byte) ((mode == 1) ? 0x00 : 0x80);
+        mode = (mode + 1) % 2;
+        sendCommand(handle, 4, bytes, true);
+        spi_desel(handle);
+        sendCommand(handle, 9, new byte[] { }, true);
     }
 
     private static void calcIQ() {

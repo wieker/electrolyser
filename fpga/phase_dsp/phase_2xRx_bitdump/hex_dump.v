@@ -27,8 +27,11 @@ module hex_dump(
                 cntr <= cntr + 1;
                 value <= {value[14:0], sig};
             end else if (mode == 1 && stb == 1) begin
-                cntr <= cntr + 1;
-                value <= {q_value[7:0], i_value[7:0]};
+                cntr[3] <= cntr[3] + 1;
+                cntr[2:0] <= 0;
+                value <= {value[7:0], i_value[7:0]};
+            end else begin
+                cntr <= 1;
             end
             if (cntr == 0) begin
                 ram_data_in <= value;
