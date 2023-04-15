@@ -87,7 +87,7 @@ void usb_recv_callback(void)
     }
   }
   if (app_usb_recv_buffer[0] == 8) {
-    spi_init(8000000, 0);
+    spi_init(800000, 0);
   }
   if (app_usb_recv_buffer[0] == 9) {
     spi_deinit();
@@ -105,7 +105,7 @@ unsigned char read_cmd[] = {0x0B, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 void init_device() {
   int state = 0;
-  spi_init(8000000, 0);
+  spi_init(800000, 0);
   spi_ss(0);
 
   for (int i = 0; i < 8; i ++) {
