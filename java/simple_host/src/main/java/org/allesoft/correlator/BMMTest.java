@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class I2CTest
+public class BMMTest
 {
     private static final ReentrantLock lock = new ReentrantLock();
 
@@ -140,16 +140,24 @@ public class I2CTest
                     CMD_I2C_READ = 0x03,
                     CMD_I2C_WRITE = 0x04,
                     CMD_I2C_PINS = 0x05;
-        while (true) {
-            byte[] ch = sendCommand(handle, 6, new byte[32], false);
-            String s = new String(ch, 1, ch[0]);
-            if (ch[0] > 0) {
-                System.out.println(s);
-            }
-            Thread.sleep(100);
-        }
+        sendCommand(handle, 8, new byte[] { }, true);
+        spi_select(handle);
+        sendCommand(handle, 4, new byte[] { (byte) 0x4B, 0x01, 0x00 }, true);
+        Thread.sleep(100);
+        spi_desel(handle);
+        spi_select(handle);
+        sendCommand(handle, 4, new byte[] { (byte) 0x80 + 0x40, 0x00, 0x00 }, true);
+        Thread.sleep(100);
+        spi_desel(handle);
 
 
+    }
+    private static void spi_desel(DeviceHandle handle) {
+        sendCommand(handle, 5, new byte[] { }, true);
+    }
+
+    private static void spi_select(DeviceHandle handle) {
+        sendCommand(handle, 3, new byte[] { }, true);
     }
 
 }
