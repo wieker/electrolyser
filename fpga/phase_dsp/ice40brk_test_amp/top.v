@@ -1,5 +1,5 @@
 module top(
-    output LED1, LED2, LED3, LED4, tx_out,
+    output LED1, LED2, LED3, LED4,
     input lvds_in, xtal_in,
 );
 
@@ -11,15 +11,7 @@ module top(
     wire comp_in;
 	digitizer digitizer(.clk(clk), .rst(rst), .lvds_in(lvds_in), .sig(sig_in), .comp_in(comp_in));
 
-	wire[7:0] ones;
-	wire[7:0] zeros;
-	correlator one(.clk(clk), .rst(rst), .code(1), .sig(sig_in), .value(ones));
-	correlator zero(.clk(clk), .rst(rst), .code(0), .sig(sig_in), .value(zeros));
-
-	assign LED1 = ones[7];
-	assign LED2 = ones[6];
-	assign LED3 = ones[5];
-	assign LED4 = ones[4];
+	reg [7:0] counter;
 
     reg [10:0] tx_counter;
     always@(posedge xtal_in)
@@ -27,5 +19,6 @@ module top(
         tx_counter <= tx_counter + 1;
     end
 
-    assign tx_out = tx_counter[3];
+    assign LED2 = sig_in;
+    assign LED2 = !sig_in;
 endmodule
