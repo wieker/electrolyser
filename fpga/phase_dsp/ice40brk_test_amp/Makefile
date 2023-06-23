@@ -11,7 +11,7 @@ build:
 	icepack $(filename)-up5k.asc $(filename)-up5k.bin
 
 prog:
-	iceprog -S $(filename).bin
+	iceprog $(filename).bin
 
 prog_flash:
 	iceprog -d d:001/012 $(filename).bin
