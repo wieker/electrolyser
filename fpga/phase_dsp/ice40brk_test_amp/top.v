@@ -1,5 +1,5 @@
 module top(
-    output LED2, LED3,
+    output LED2, LED3, tx_out,
     input lvds_in, xtal_in,
 );
 
