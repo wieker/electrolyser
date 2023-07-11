@@ -45,7 +45,7 @@ module top(
 
 //    FILTER_RANGE: 1 (3'b001)
 
-   SB_PLL40_CORE #(
+   SB_PLL40_PAD #(
           .FEEDBACK_PATH("SIMPLE"),
           .PLLOUT_SELECT("GENCLK"),
           .DIVR(4'b0000),
@@ -56,8 +56,14 @@ module top(
           .RESETB(1'b1),
           .BYPASS(1'b0),
           .PLLOUTCORE(clk),
-          .REFERENCECLK(xtal_in)
+          .PACKAGEPIN(xtal_in)
     );
 
     assign tx_out = ou1;
+
+
+    wire [7:0] value;
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .value(value));
+    assign LED2 = (value[7] == 1) && (value[6] == 1);
+    assign LED3 = (value[7] == 1) && (value[6] == 1) && (value[5] == 1);
 endmodule
