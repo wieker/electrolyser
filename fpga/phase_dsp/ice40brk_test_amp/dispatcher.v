@@ -4,8 +4,8 @@ module dispatcher(
 );
 
     wire i_code, q_code;
-    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h3333), .i_code(i_code), .phase_control_word(16'h0000));
-    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h3333), .i_code(q_code), .phase_control_word(16'h4000));
+    nco i_nco(.clk(clk), .rst(rst_in), .control_word(16'h4000), .i_code(i_code), .phase_control_word(16'h0000));
+    nco q_nco(.clk(clk), .rst(rst_in), .control_word(16'h4000), .i_code(q_code), .phase_control_word(16'h4000));
 
     correlator i_correlator(.clk(clk), .rst(rst_in), .sig(sig), .code(i_code), .value(i_value), .shift(0));
     correlator q_correlator(.clk(clk), .rst(rst_in), .sig(sig), .code(q_code), .value(q_value), .shift(0));

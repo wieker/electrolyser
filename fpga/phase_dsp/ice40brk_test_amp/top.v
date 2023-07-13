@@ -29,28 +29,12 @@ module top(
         end
     end
 
-//    $ icepll -o 20 -i 12
-
-//    F_PLLIN:    12.000 MHz (given)
-//    F_PLLOUT:   20.000 MHz (requested)
-//    F_PLLOUT:   19.875 MHz (achieved)
-
-//    FEEDBACK: SIMPLE
-//    F_PFD:   12.000 MHz
-//    F_VCO:  636.000 MHz
-
-//    DIVR:  0 (4'b0000)
-//    DIVF: 52 (7'b0110100)
-//    DIVQ:  5 (3'b101)
-
-//    FILTER_RANGE: 1 (3'b001)
-
    SB_PLL40_PAD #(
           .FEEDBACK_PATH("SIMPLE"),
           .PLLOUT_SELECT("GENCLK"),
           .DIVR(4'b0000),
-          .DIVF(7'b0110100),
-          .DIVQ(3'b101),
+          .DIVF(7'b0111111),
+          .DIVQ(3'b011),
           .FILTER_RANGE(3'b001),
         ) SB_PLL40_CORE_inst (
           .RESETB(1'b1),
@@ -64,6 +48,6 @@ module top(
 
     wire [7:0] value;
     dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .value(value));
-    assign LED2 = (value[7] == 1) && (value[6] == 1);
-    assign LED3 = (value[7] == 1) && (value[6] == 1) && (value[5] == 1);
+    assign LED2 = (value[6] == 1);
+    assign LED3 = (value[6] == 1) && (value[5] == 1);
 endmodule
