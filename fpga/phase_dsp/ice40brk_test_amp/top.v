@@ -33,7 +33,7 @@ module top(
 
 
     wire [7:0] value;
-    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .value(value));
+    dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig_in), .value(value));
     assign LED2 = value[6];
     assign LED3 = value[5];
 endmodule
