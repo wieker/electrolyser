@@ -3,7 +3,7 @@ module top(
     input lvds_in, xtal_in,
 );
 
-    wire clk;
+    wire clk = xtal_in;
     wire rst;
     osc osc(.clk(clk), .rst(rst));
 
@@ -29,25 +29,11 @@ module top(
         end
     end
 
-   SB_PLL40_PAD #(
-          .FEEDBACK_PATH("SIMPLE"),
-          .PLLOUT_SELECT("GENCLK"),
-          .DIVR(4'b0000),
-          .DIVF(7'b0111111),
-          .DIVQ(3'b011),
-          .FILTER_RANGE(3'b001),
-        ) SB_PLL40_CORE_inst (
-          .RESETB(1'b1),
-          .BYPASS(1'b0),
-          .PLLOUTCORE(clk),
-          .PACKAGEPIN(xtal_in)
-    );
-
     assign tx_out = ou1;
 
 
     wire [7:0] value;
     dispatcher dispatcher(.clk(clk), .rst_in(rst), .sig(sig), .value(value));
-    assign LED2 = (value[6] == 1);
-    assign LED3 = (value[6] == 1) && (value[5] == 1);
+    assign LED2 = value[6];
+    assign LED3 = value[5];
 endmodule

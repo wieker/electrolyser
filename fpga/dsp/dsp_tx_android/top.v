@@ -24,7 +24,7 @@ module top(
           .REFERENCECLK(xtal_in)
     );
 
-    assign lvds_in = ctr[0];
+    assign lvds_in = ctr[3];
     assign LED1 = ctr[27];
     assign LED2 = !ctr[27];
 
