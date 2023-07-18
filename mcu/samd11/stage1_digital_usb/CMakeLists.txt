@@ -7,7 +7,7 @@ set(CMAKE_VERBOSE_MAKEFILE 1)
 set(OPENOCD_BINARY "/home/wieker/Projects/linux/hackrf/openocd-bin/bin/openocd")
 set(CMAKE_C_STANDARD 99)
 
-set(CMAKE_C_COMPILER "/usr/local/bin/arm-none-eabi-gcc")
+set(CMAKE_C_COMPILER "/usr/bin/arm-none-eabi-gcc")
 set(CMAKE_ASM_COMPILER "arm-none-eabi-gcc")
 
 set(CMAKE_C_FLAGS "\
