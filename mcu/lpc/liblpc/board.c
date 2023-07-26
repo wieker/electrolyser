@@ -208,15 +208,15 @@ void Board_SDMMC_Init(void)
 void Board_SSP_Init(LPC_SSP_T *pSSP)
 {
 	if (pSSP == LPC_SSP1) {
-		Chip_SCU_PinMuxSet(0x1, 5, (SCU_PINIO_FAST | SCU_MODE_FUNC5));  /* P1.5 => SSEL1 */
+		Chip_SCU_PinMuxSet(0x1, 5, (SCU_PINIO_FAST | SCU_MODE_FUNC0));  /* P1.5 => SSEL1 */
 		Chip_SCU_PinMuxSet(0xF, 4, (SCU_PINIO_FAST | SCU_MODE_FUNC0));  /* PF.4 => SCK1 */
 
 		Chip_SCU_PinMuxSet(0x1, 4, (SCU_MODE_INACT | SCU_MODE_INBUFF_EN | SCU_MODE_ZIF_DIS | SCU_MODE_FUNC5)); /* P1.4 => MOSI1 */
 		Chip_SCU_PinMuxSet(0x1, 3, (SCU_MODE_INACT | SCU_MODE_INBUFF_EN | SCU_MODE_ZIF_DIS | SCU_MODE_FUNC5)); /* P1.3 => MISO1 */
         
         Chip_SCU_PinMuxSet(0x3, 1, (SCU_MODE_INACT | SCU_MODE_FUNC4));  /* P1.5 => SSEL1 */
-        Chip_GPIO_SetPinDIROutput(LPC_GPIO_PORT, 5, 8);
-        Chip_GPIO_SetPinState(LPC_GPIO_PORT, 5, 8, (bool) true);
+        Chip_GPIO_SetPinDIROutput(LPC_GPIO_PORT, 1, 8);
+        Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
 	}
 	else {
 		return;

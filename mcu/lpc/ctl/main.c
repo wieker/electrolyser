@@ -21,7 +21,7 @@
 
 #include "gpio_lpc.h"
 #include <math.h>
-#include "board_api.h"
+#include "board.h"
 
 static struct gpio_t gpio_led[] = {
 	GPIO(3,  7),
@@ -275,11 +275,62 @@ int main2(void)
     }
 }
 
+#define LPC_SSP           LPC_SSP1
+#define SSP_DATA_BITS                       (SSP_BITS_8)
+
+uint8_t Rx_Buf[256];
+uint8_t Tx_Buf[256];
+static const uint8_t WHOAMI = 0x98;
+static const uint8_t WHO_AM_I = 0x75;
+static const uint8_t PWR_MGMT_1 = 0x6B;
+static const uint8_t DIR_READ = 0x80;
+
 int main(void)
 {
     DEBUGINIT();
 	DEBUGOUT("Main enter\r\n");
-	main_ssp();
+	Board_Init();
+
+	/* SSP initialization */
+	Board_SSP_Init(LPC_SSP);
+
+	Chip_SSP_Init(LPC_SSP);
+
+	Chip_SSP_SetFormat(LPC_SSP, SSP_DATA_BITS, SSP_FRAMEFORMAT_SPI, SSP_CLOCK_MODE0);
+
+	Chip_SSP_Enable(LPC_SSP);
+	Chip_SSP_SetMaster(LPC_SSP, 1);
+
+
+	static Chip_SSP_DATA_SETUP_T xf_setup;
+	xf_setup.length = 2;
+	xf_setup.tx_data = Tx_Buf;
+	Tx_Buf[0] = PWR_MGMT_1;
+	Tx_Buf[1] = 0x80;
+	Tx_Buf[2] = 0x04;
+	Tx_Buf[2] = 0x08;
+	xf_setup.rx_data = Rx_Buf;
+	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
+	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
+	while (1)
+	{
+		delay(20000000);
+		xf_setup.length = 2;
+		xf_setup.tx_data = Tx_Buf;
+		Tx_Buf[0] = WHO_AM_I | DIR_READ;
+		Tx_Buf[1] = 0x00;
+		Tx_Buf[2] = 0x04;
+		Tx_Buf[2] = 0x08;
+		xf_setup.rx_data = Rx_Buf;
+		xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
+        Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
+		Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
+        Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
+		printf("test %02x %02x %02x %02x\r\n", Rx_Buf[0], Rx_Buf[1], Rx_Buf[2], Rx_Buf[3]);
+	}
+
 	gpio_init();
 	gpio_output(&gpio_led[0]);
 	gpio_output(&gpio_led[1]);
