@@ -3,7 +3,7 @@
  * This example show how to use the SSP in 3 modes : Polling, Interrupt and DMA
  *
  * @note
- * Copyright(C) NXP Semiconductors, 2013
+ * Copyright(C) NXP Semiconductors, 2012
  * All rights reserved.
  *
  * @par
@@ -30,28 +30,85 @@
  * this code.
  */
 
-#include <unistd.h>
 #include "board.h"
 #include "stdio.h"
+
+/** @defgroup EXAMPLES_PERIPH_18XX43XX_SSP LPC18xx/43xx SSP/SPI example
+ * @ingroup EXAMPLES_PERIPH_18XX43XX
+ * <b>Example description</b><br>
+ * This example describes how to use SSP in POLLING, INTERRUPT or DMA mode.
+ * It is needed to connect 2 hardware boards, one for Master and one for Slave.<br>
+ *
+ *      SSP configuration:<br>
+ *          - CPHA = 0: data is sampled on the first clock edge of SCK.<br>
+ *          - CPOL = 0: SCK is active high.<br>
+ *          - Sample rate = 400kHz.<br>
+ *          - DSS = 8: 8 bits per transfer.<br>
+ *          - FRF= 0: SPI Frame format.<br>
+ *      After initialize transmit buffer, SPI master/slave will transfer a number of bytes 
+ *      to SPI slave/master and receive data concurrently.<br>
+ *      After a transfer completed, receive and transmit buffer will be compared and
+ *      the result will be print out via UART port.<br>
+ *      This example supports 3 transfer modes: POLLING mode, INTERRUPT mode and DMA mode.<br>
+ *
+ *  - Connect UART port on the master board and slave board to COM ports on your PC.<br>
+ *  - Configure terminal program on the PC per the above Serial display configuration<br>
+ *  - Configure hardware, connect master board and slave board as below<br>
+ *  - Build and run the example. Following guidance on terminals of master and slave to do test.<br>
+ *
+ * <b>Special connection requirements</b><br>
+ *  - Hitex A4 LPC1850 and LPC4350 boards<br>
+ *    - PF_0 : X16 pin 43 - SCK0 master(slave) - connect to SCK slave(master) board <br>
+ *    - PF_1 : X16 pin 46 - SEL0 master(slave) - connect to SEL slave(master) board<br>
+ *    - PF_2 : X16 pin 45 - MISO0 master(slave) - connect to MISO slave(master) board<br>
+ *    - PF_3 : X16 pin 44 - MOSI0 master(slave) - connect to MOSI slave(master) board<br>
+ *  - Keil MCB1857 and MCB4357 boards<br>
+ *    - PF_4 - SCK1  master(slave) - connect to SCK slave(master) board<br>
+ *    - PF_5 - SSEL1  master(slave) - connect to SEL slave(master) board<br>
+ *    - PF_6 - MISO1  master(slave) - connect to MISO slave(master) board<br>
+ *    - PF_7 - MOSI1  master(slave) - connect to MOSI slave(master) board<br>
+ *  - NGX Xplorer 1830 and 4330 boards<br>
+ *    - CLK0 : J8 pin 7 - SCK1 master(slave) - connect to SCK slave(master) board <br>
+ *    - P1_2 : J8 pin 8 - SSEL1 master(slave) - connect to SEL slave(master) board<br>
+ *    - P1_3 : J8 pin 6 - MISO1  master(slave) - connect to MISO slave(master) board<br>
+ *    - P1_4 : J8 pin 5 - MOSI1  master(slave) - connect to MOSI slave(master) board<br>
+ *
+ * Notes : <br>
+ *  - Common ground must be connected together between two boards.<br>
+ *  - The application default mode is Master mode. Press '1' on main menu to change Slave mode<br>
+ *
+ * <b>Build procedures:</b><br>
+ * @ref LPCOPEN_18XX43XX_BUILDPROCS_KEIL<br>
+ * @ref LPCOPEN_18XX43XX_BUILDPROCS_IAR<br>
+ * @ref LPCOPEN_18XX43XX_BUILDPROCS_XPRESSO<br>
+ *
+ * <b>Supported boards and board setup:</b><br>
+ * @ref LPCOPEN_18XX_BOARD_HITEX1850<br>
+ * @ref LPCOPEN_43XX_BOARD_HITEX4350<br>
+ * @ref LPCOPEN_18XX_BOARD_KEIL1857<br>
+ * @ref LPCOPEN_43XX_BOARD_KEIL4357<br>
+ * @ref LPCOPEN_18XX_BOARD_NGX1830<br>
+ * @ref LPCOPEN_43XX_BOARD_NGX4330<br>
+ *
+ * <b>Submitting LPCOpen issues:</b><br>
+ * @ref LPCOPEN_COMMUNITY
+ * @{
+ */
 
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
 
-#if (defined(BOARD_KEIL_MCB_1857) || defined(BOARD_KEIL_MCB_4357) || \
-	defined(BOARD_NGX_XPLORER_1830) || defined(BOARD_NGX_XPLORER_4330) || \
-	defined(BOARD_NXP_LPCLINK2_4370) || defined(BOARD_NXP_LPCXPRESSO_4337))
+#if 1 == 1 || defined(BOARD_NGX_XPLORER_18304330)
 #define LPC_SSP           LPC_SSP1
 #define SSP_IRQ           SSP1_IRQn
 #define LPC_GPDMA_SSP_TX  GPDMA_CONN_SSP1_Tx
 #define LPC_GPDMA_SSP_RX  GPDMA_CONN_SSP1_Rx
-#define SSPIRQHANDLER SSP1_IRQHandler
-#elif (defined(BOARD_HITEX_EVA_1850) || defined(BOARD_HITEX_EVA_4350))
+#elif defined(BOARD_HITEX_EVA_18504350)
 #define LPC_SSP           LPC_SSP0
 #define SSP_IRQ           SSP0_IRQn
 #define LPC_GPDMA_SSP_TX  GPDMA_CONN_SSP0_Tx
 #define LPC_GPDMA_SSP_RX  GPDMA_CONN_SSP0_Rx
-#define SSPIRQHANDLER SSP0_IRQHandler
 #else
 #warning Unsupported Board
 #endif
@@ -103,28 +160,12 @@ static char sspMainMenu[] = "\t 1: Select SSP Mode (Master/Slave)\n\r"
 static char sspSelectModeMenu[] = "\n\rPress 1-2 to select or 'q' to exit:\n\r"
 								  "\t 1: Master \n\r"
 								  "\t 2: Slave\n\r";
-
-#include "ssp_general.h"
-
-void ice40reset();
-
-void ice40_release();
-
-void spi_deinit();
-
-void spi_init();
-
-int getMenu();
-
-void spi_select();
-
-void spi_unselect();
-
-void spi_send();
-
-uint8_t *spi_flash_read(uint32_t addr, uint32_t len);
-
 #endif /* defined(DEBUG_ENABLE) */
+#if defined(BOARD_KEIL_MCB_18574357) || defined(BOARD_NGX_XPLORER_18304330)
+#define SSPIRQHANDLER SSP1_IRQHandler
+#elif defined(BOARD_HITEX_EVA_18504350)
+#define SSPIRQHANDLER SSP0_IRQHandler
+#endif
 
 /*****************************************************************************
  * Public types/enumerations/variables
@@ -153,18 +194,23 @@ static uint8_t Buffer_Verify(void)
 	uint8_t *src_addr = (uint8_t *) &Tx_Buf[0];
 	uint8_t *dest_addr = (uint8_t *) &Rx_Buf[0];
 
+	printf("test %x%x%x\r\n", dest_addr[0], dest_addr[1], dest_addr[2]);
+	printf("test %x%x%x\r\n", src_addr[0], src_addr[1], src_addr[2]);
+
 	for ( i = 0; i < BUFFER_SIZE; i++ ) {
 
-		if (((*src_addr) & SSP_LO_BYTE_MSK(ssp_format.bits)) !=
-				((*dest_addr) & SSP_LO_BYTE_MSK(ssp_format.bits))) {
+		if (((*src_addr) & SSP_LO_BYTE_MSK(ssp_format.bits)) != 
+				(((*dest_addr) / 2) & SSP_LO_BYTE_MSK(ssp_format.bits))) {
+				printf("test %02x %02x %02x\r\n", dest_addr[0], src_addr[0], dest_addr[2]);
 				return 1;
 		}
 		src_addr++;
 		dest_addr++;
-
+			
 		if (SSP_DATA_BYTES(ssp_format.bits) == 2) {
-			if (((*src_addr) & SSP_HI_BYTE_MSK(ssp_format.bits)) !=
+			if (((*src_addr) & SSP_HI_BYTE_MSK(ssp_format.bits)) != 
 				  ((*dest_addr) & SSP_HI_BYTE_MSK(ssp_format.bits))) {
+				printf("test %02x %02x %02x\r\n", dest_addr[0], src_addr[0], dest_addr[2]);
 					return 1;
 			}
 			src_addr++;
@@ -182,8 +228,8 @@ static void appSSPTest(void)
 
 	DEBUGOUT(sspTransferModeSel);
 
-	dmaChSSPTx = Chip_GPDMA_GetFreeChannel(LPC_GPDMA, LPC_GPDMA_SSP_TX);
-	dmaChSSPRx = Chip_GPDMA_GetFreeChannel(LPC_GPDMA, LPC_GPDMA_SSP_RX);
+	//dmaChSSPTx = Chip_DMA_GetFreeChannel(LPC_GPDMA, LPC_GPDMA_SSP_TX);
+	//dmaChSSPRx = Chip_DMA_GetFreeChannel(LPC_GPDMA, LPC_GPDMA_SSP_RX);
 
 	xf_setup.length = BUFFER_SIZE;
 	xf_setup.tx_data = Tx_Buf;
@@ -243,17 +289,17 @@ static void appSSPTest(void)
 
 			Chip_SSP_DMA_Enable(LPC_SSP);
 			/* data Tx_Buf --> SSP */
-			Chip_GPDMA_Transfer(LPC_GPDMA, dmaChSSPTx,
-							  (uint32_t) &Tx_Buf[0],
-							  LPC_GPDMA_SSP_TX,
-							  GPDMA_TRANSFERTYPE_M2P_CONTROLLER_DMA,
-							  BUFFER_SIZE);
-			/* data SSP --> Rx_Buf */
-			Chip_GPDMA_Transfer(LPC_GPDMA, dmaChSSPRx,
-							  LPC_GPDMA_SSP_RX,
-							  (uint32_t) &Rx_Buf[0],
-							  GPDMA_TRANSFERTYPE_P2M_CONTROLLER_DMA,
-							  BUFFER_SIZE);
+			// Chip_DMA_Transfer(LPC_GPDMA, dmaChSSPTx,
+			// 				  (uint32_t) &Tx_Buf[0],
+			// 				  LPC_GPDMA_SSP_TX,
+			// 				  GPDMA_TRANSFERTYPE_M2P_CONTROLLER_DMA,
+			// 				  BUFFER_SIZE);
+			// /* data SSP --> Rx_Buf */
+			// Chip_DMA_Transfer(LPC_GPDMA, dmaChSSPRx,
+			// 				  LPC_GPDMA_SSP_RX,
+			// 				  (uint32_t) &Rx_Buf[0],
+			// 				  GPDMA_TRANSFERTYPE_P2M_CONTROLLER_DMA,
+			// 				  BUFFER_SIZE);
 
 			while (!isDmaTxfCompleted || !isDmaRxfCompleted) {}
 			if (Buffer_Verify() == 0) {
@@ -267,8 +313,8 @@ static void appSSPTest(void)
 
 		case 'q':
 		case 'Q':
-			Chip_GPDMA_Stop(LPC_GPDMA, dmaChSSPTx);
-			Chip_GPDMA_Stop(LPC_GPDMA, dmaChSSPRx);
+			//Chip_DMA_Stop(LPC_GPDMA, dmaChSSPTx);
+			//Chip_DMA_Stop(LPC_GPDMA, dmaChSSPRx);
 			return;
 
 		default:
@@ -377,34 +423,16 @@ void SSPIRQHANDLER(void)
  * @brief	DMA interrupt handler sub-routine. Set the waiting flag when transfer is successful
  * @return	Nothing
  */
-void DMA_IRQHandlerA(void)
+void DMA_IRQHandler2(void)
 {
-	if (Chip_GPDMA_Interrupt(LPC_GPDMA, dmaChSSPTx) == SUCCESS) {
-		isDmaTxfCompleted = 1;
-	}
-
-	if (Chip_GPDMA_Interrupt(LPC_GPDMA, dmaChSSPRx) == SUCCESS) {
-		isDmaRxfCompleted = 1;
-	}
+	// if (Chip_DMA_Interrupt(LPC_GPDMA, dmaChSSPTx) == SUCCESS) {
+	// 	isDmaTxfCompleted = 1;
+	// }
+ //
+	// if (Chip_DMA_Interrupt(LPC_GPDMA, dmaChSSPRx) == SUCCESS) {
+	// 	isDmaRxfCompleted = 1;
+	// }
 }
-
-/* Print data to console */
-static void con_print_data(const uint8_t *dat, int sz)
-{
-    int i;
-    if (!sz) {
-        return;
-    }
-    for (i = 0; i < sz; i++) {
-        if (!(i & 0xF)) {
-            DEBUGOUT("\r\n%02X: ", i);
-        }
-        DEBUGOUT(" %02X", dat[i]);
-    }
-    DEBUGOUT("\r\n");
-}
-
-void spi_read_id();
 
 /**
  * @brief	Main routine for SSP example
@@ -412,210 +440,42 @@ void spi_read_id();
  */
 int main_ssp(void)
 {
-    ice40reset();
+	Board_Init();
 
-    spi_init();
+	/* SSP initialization */
+	Board_SSP_Init(LPC_SSP);
 
+	Chip_SSP_Init(LPC_SSP);
 
-    while (1) {
-        DEBUGOUT("SPI enter\r\n");
+	ssp_format.frameFormat = SSP_FRAMEFORMAT_SPI;
+	ssp_format.bits = SSP_DATA_BITS;
+	ssp_format.clockMode = SSP_CLOCK_MODE0;
+	Chip_SSP_SetFormat(LPC_SSP, SSP_DATA_BITS, SSP_FRAMEFORMAT_SPI, SSP_CLOCK_MODE0);
 
-        spi_wake_up();
+	Chip_SSP_Enable(LPC_SSP);
 
-        spi_read_id();
+	/* Initialize GPDMA controller */
+	Chip_GPDMA_Init(LPC_GPDMA);
 
-        spi_flash_read(0, 20);
+	/* Setting GPDMA interrupt */
+	NVIC_DisableIRQ(DMA_IRQn);
+	NVIC_SetPriority(DMA_IRQn, ((0x01 << 3) | 0x01));
+	NVIC_EnableIRQ(DMA_IRQn);
 
-        int key = getMenu();
-        switch (key) {
-            case 'q':
-                goto there;
-            default:
-                continue;
-        }
-    }
+	/* Setting SSP interrupt */
+	NVIC_EnableIRQ(SSP_IRQ);
 
-    there: ;
+#if defined(BOARD_HITEX_EVA_18504350)
+	Chip_GPIO_WriteDirBit(LPC_GPIO_PORT, 0x6, 10, true);	/* SSEL_MUX_A */
+	Chip_GPIO_WriteDirBit(LPC_GPIO_PORT, 0x6, 11, true);	/* SSEL_MUX_B */
+	Chip_GPIO_WritePortBit(LPC_GPIO_PORT, 0x6, 10, true);
+	Chip_GPIO_WritePortBit(LPC_GPIO_PORT, 0x6, 11, false);
+#endif
 
-    spi_deinit();
-
-    ice40_release();
-
-    return 0;
+	appSSPMainMenu();
+	return 0;
 }
 
-void spi_read_id() {
-    Tx_Buf[0] = 0x9F;
-    spi_send(1, 20, 0);
-}
-
-void spi_wake_up() {
-    Tx_Buf[0] = 0xAB;
-    spi_send(1, 20, 0);
-}
-
-uint8_t *spi_flash_write(uint32_t addr, uint32_t len, uint8_t* data) {
-    Tx_Buf[0] = 0x02;
-    Tx_Buf[1] = (addr >> 16) & 0xff;
-    Tx_Buf[2] = (addr >> 8) & 0xff;;
-    Tx_Buf[3] = (addr >> 0) & 0xff;;
-    for (int i = 4; i < 4 + len; i ++) {
-        Tx_Buf[i] = data[i - 4];
-    }
-    spi_send(4 + len, 0, 1);
-    return Rx_Buf + 4;
-}
-
-uint8_t *spi_flash_read(uint32_t addr, uint32_t len) {
-    Tx_Buf[0] = 0x03;
-    Tx_Buf[1] = (addr >> 16) & 0xff;
-    Tx_Buf[2] = (addr >> 8) & 0xff;;
-    Tx_Buf[3] = (addr >> 0) & 0xff;;
-    spi_send(4, len, 0);
-    return Rx_Buf + 4;
-}
-
-uint8_t *spi_flash_we() {
-    Tx_Buf[0] = 0x06;
-    spi_send(1, 0, 1);
-    return Rx_Buf + 1;
-}
-
-uint8_t *spi_flash_erase(uint32_t addr) {
-    Tx_Buf[0] = 0x20;
-    Tx_Buf[1] = (addr >> 16) & 0xff;
-    Tx_Buf[2] = (addr >> 8) & 0xff;;
-    Tx_Buf[3] = (addr >> 0) & 0xff;;
-    spi_send(4, 0, 1);
-    return Rx_Buf + 4;
-}
-
-uint8_t *spi_flash_erase_all() {
-    Tx_Buf[0] = 0xC7;
-    spi_send(1, 0, 1);
-    return Rx_Buf + 4;
-}
-
-void delay(uint32_t duration);
-
-uint8_t *spi_flash_wait() {
-    Tx_Buf[0] = 0x05;
-    DEBUGOUT("SPI wait:\r\n");
-    while (true) {
-        spi_send(1, 1, 0);
-        uint8_t result = *(Rx_Buf + 1);
-        if ((result & 0x01) == 0) {
-            DEBUGOUT("SPI wait done:\r\n");
-            return Rx_Buf + 1;
-        }
-        DEBUGOUT(".\r\n");
-    }
-}
-
-void spi_send(int cmdlen, int rcvlen, int nonStd) {
-    spi_select();
-    xf_setup.length = cmdlen + rcvlen + (nonStd == 0);
-    xf_setup.tx_data = Tx_Buf;
-    xf_setup.rx_data = Rx_Buf;
-    xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
-    DEBUGOUT("SPI send:\r\n");
-    for (int i = cmdlen; i < xf_setup.length; i++) {
-        Tx_Buf[i] = 0x00;
-    }
-    con_print_data(Tx_Buf, cmdlen);
-    Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
-    DEBUGOUT("SPI receive:\r\n");
-    con_print_data(Rx_Buf + cmdlen, rcvlen);
-    spi_unselect();
-    DEBUGOUT("SPI done:\r\n");
-}
-
-void spi_unselect() { Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 0, (bool) true); }
-
-void spi_select() { Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 0, (bool) false); }
-
-int getMenu() {
-    int key;
-    key = 0xFF;
-    do {
-        key = DEBUGIN();
-    } while ((key & 0xFF) == 0xFF);
-    return key;
-}
-
-void spi_init() {
-    Chip_GPIO_SetPinDIROutput(LPC_GPIO_PORT, 1, 0);
-    Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 0, (bool) true);
-
-    /* SSP initialization */
-    Board_SSP_Init(LPC_SSP);
-
-    Chip_SSP_Init(LPC_SSP);
-
-    ssp_format.frameFormat = SSP_FRAMEFORMAT_SPI;
-    ssp_format.bits = SSP_DATA_BITS;
-    ssp_format.clockMode = SSP_CLOCK_CPHA0_CPOL1;
-    Chip_SSP_SetFormat(LPC_SSP, ssp_format.bits, ssp_format.frameFormat, ssp_format.clockMode);
-    Chip_SSP_Enable(LPC_SSP);
-    //Chip_SSP_SetBitRate(LPC_SSP, 8);
-
-    /* Initialize GPDMA controller */
-    Chip_GPDMA_Init(LPC_GPDMA);
-
-    /* Setting GPDMA interrupt */
-    NVIC_DisableIRQ(DMA_IRQn);
-    NVIC_SetPriority(DMA_IRQn, ((0x01 << 3) | 0x01));
-    NVIC_EnableIRQ(DMA_IRQn);
-
-    /* Setting SSP interrupt */
-    NVIC_EnableIRQ(SSP_IRQ);
-}
-
-void spi_deinit() {
-    Chip_SCU_PinMuxSet(0x1, 5, (SCU_PINIO_FAST | SCU_MODE_FUNC0));  /* P1.5 => SSEL1 */
-    //Chip_SCU_PinMuxSet(0xF, 4, (SCU_PINIO_FAST | SCU_MODE_FUNC0));  /* PF.4 => SCK1 */
-
-    Chip_SCU_PinMuxSet(0x1, 4, (SCU_MODE_INACT | SCU_MODE_INBUFF_EN | SCU_MODE_ZIF_DIS | SCU_MODE_FUNC0)); /* P1.4 => MOSI1 */
-    Chip_SCU_PinMuxSet(0x1, 3, (SCU_MODE_INACT | SCU_MODE_INBUFF_EN | SCU_MODE_ZIF_DIS | SCU_MODE_FUNC0)); /* P1.3 => MISO1 */
-
-    Chip_SCU_PinMuxSet(0x3, 1, (SCU_MODE_INACT | SCU_MODE_FUNC0));  /* P1.5 => SSEL1 */
-    Chip_GPIO_SetPinDIRInput(LPC_GPIO_PORT, 5, 8);
-    //Chip_GPIO_SetPinState(LPC_GPIO_PORT, 5, 8, (bool) true);
-    Chip_GPIO_SetPinDIRInput(LPC_GPIO_PORT, 1, 0);
-}
-
-void ice40_release() { Chip_GPIO_SetPinDIRInput(LPC_GPIO_PORT, 1, 7); }
-
-void ice40reset() {
-    Chip_SCU_PinMuxSet(0x1, 14, (SCU_PINIO_FAST | SCU_MODE_FUNC0));  // ice40 CRESET
-    Chip_GPIO_SetPinDIROutput(LPC_GPIO_PORT, 1, 7);
-    Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 7, (bool) false);
-}
-
-void spi_main() {
-    DEBUGOUT("SPI enter\r\n");
-
-
-    Chip_SCU_PinMuxSet(0x3, 3, (SCU_MODE_INACT | SCU_MODE_ZIF_DIS | SCU_MODE_INBUFF_EN | SCU_MODE_FUNC1));		/* P2.3 : I2C1_SDA */
-    Chip_SCU_PinMuxSet(0x3, 6, (SCU_MODE_INACT | SCU_MODE_ZIF_DIS | SCU_MODE_INBUFF_EN | SCU_MODE_FUNC1));		/* P2.3 : I2C1_SDA */
-    Chip_SCU_PinMuxSet(0x3, 7, (SCU_MODE_INACT | SCU_MODE_ZIF_DIS | SCU_MODE_INBUFF_EN | SCU_MODE_FUNC1));		/* P2.3 : I2C1_SDA */
-    Chip_GPIO_SetPinDIROutput(LPC_GPIO_PORT, 3, 8);
-    Chip_GPIO_SetPinState(LPC_GPIO_PORT, 3, 8, (bool) true);
-    Chip_Clock_Enable(CLK_SPI);
-    Chip_Clock_Enable(CLK_PERIPH_CORE);
-    Chip_Clock_Enable(CLK_PERIPH_BUS);
-
-    Chip_SPI_Init(LPC_SPI);
-    unsigned char* buf = "hello\r\n";
-    SPI_DATA_SETUP_T spiSet;
-    spiSet.fnAftFrame = spiSet.fnAftTransfer = spiSet.fnBefFrame = spiSet.fnBefTransfer = 0;
-    spiSet.pRxData = spiSet.pTxData = buf;
-    spiSet.cnt = 0;
-    spiSet.length = 2;
-    Chip_SPI_SetMode(LPC_SPI, SPI_MODE_SLAVE);
-    DEBUGOUT("SPI wait\r\n");
-    Chip_SPI_RWFrames_Blocking(LPC_SPI, &spiSet);
-    DEBUGOUT("out: %s\r\n", buf);
-    DEBUGOUT("SPI cmplt\r\n");
-    DEBUGOUT(buf);
-}
+/**
+ * @}
+ */

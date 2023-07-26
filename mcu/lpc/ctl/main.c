@@ -279,6 +279,7 @@ int main(void)
 {
     DEBUGINIT();
 	DEBUGOUT("Main enter\r\n");
+	main_ssp();
 	gpio_init();
 	gpio_output(&gpio_led[0]);
 	gpio_output(&gpio_led[1]);
