@@ -14,8 +14,8 @@
 #elif defined(EFM32GG)
 #	include <libopencmsis/efm32/efm32gg/irqhandlers.h>
 
-#elif defined(LPC43XX)
-#	include <libopencmsis/lpc43xx/irqhandlers.h>
+#elif defined(LPC43XX_M4)
+#	include <libopencmsis/lpc43xx/m4/irqhandlers.h>
 
 #else
 #	warning"no chipset defined; user interrupts are not redirected"

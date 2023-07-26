@@ -35,7 +35,7 @@ SET(LIBOPENCM3 ..)
 
 SET(LDSCRIPT_M4_DFU "-T${MCU_PARTNO}_M4_memory.ld -Tlibopencm3_lpc43xx.ld -TLPC43xx_M4_M0_image_from_text.ld")
 
-SET(CFLAGS_COMMON "-Os -g3 -Wall -Wextra ${HACKRF_OPTS} ${COMMON_FLAGS} -fno-common -MD")
+SET(CFLAGS_COMMON "-Os -g3 -Wall -Wextra ${HACKRF_OPTS} -DDEBUG_ENABLE ${COMMON_FLAGS} -fno-common -MD")
 SET(LDFLAGS_COMMON "-nostartfiles -Wl,--gc-sections")
 
 if(V STREQUAL "1")
@@ -51,6 +51,7 @@ SET(LDFLAGS_M4_DFU "${LDFLAGS_COMMON} ${CPUFLAGS_M4} ${LDSCRIPT_M4_DFU} -Xlinker
 set(BUILD_SHARED_LIBS OFF)
 
 include_directories("${LIBOPENCM3}/include")
+include_directories("${LIBOPENCM3}/liblpc")
 include_directories("${PATH_HACKRF_FIRMWARE_COMMON}")
 
 macro(DeclareTargets)
@@ -79,6 +80,26 @@ endmacro()
 set(SRC_M4
 	main.c
 	gpio_lpc.c
+	../liblpc/i2c_18xx_43xx.c
+	../liblpc/i2c.c
+	../liblpc/clock_18xx_43xx.c
+	../liblpc/board.c
+	../liblpc/chip_18xx_43xx.c
+	../liblpc/uart_18xx_43xx.c
+	../liblpc/gpio_18xx_43xx.c
+	../liblpc/ring_buffer.c
+	../liblpc/ssp_18xx_43xx.c
+	../liblpc/i2cm_18xx_43xx.c
+	../liblpc/wm8904.c
+	../liblpc/adc.c
+	../liblpc/adc_18xx_43xx.c
+	../liblpc/gpdma_18xx_43xx.c
+	../liblpc/timers.c
+	../liblpc/timer_18xx_43xx.c
+	../liblpc/ssp.c
+	../liblpc/spi_18xx_43xx.c
+	../liblpc/sgpio.c
+	../liblpc/uart.c
 )
 
 DeclareTargets()
