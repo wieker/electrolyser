@@ -285,12 +285,96 @@ static const uint8_t WHO_AM_I = 0x75;
 static const uint8_t PWR_MGMT_1 = 0x6B;
 static const uint8_t DIR_READ = 0x80;
 
+void SCT_PinsConfigure(void)
+{
+	Chip_SCU_PinMuxSet(0x2, 7, (SCU_MODE_INACT | SCU_MODE_FUNC1));
+}
+
+#define SCT_PWM            LPC_SCT
+
+#define SCT_PWM_PIN_OUT    4        /* COUT4 Generate square wave */
+#define SCT_PWM_PIN_LED    1        /* COUT2 [index 2] Controls LED */
+
+#define SCT_PWM_OUT        1        /* Index of OUT PWM */
+#define SCT_PWM_LED        2        /* Index of LED PWM */
+#define SCT_PWM_RATE   10000        /* PWM frequency 10 KHz */
+
+/* Systick timer tick rate, to change duty cycle */
+#define TICKRATE_HZ     1000        /* 1 ms Tick rate */
+
+#define LED_STEP_CNT      20        /* Change LED duty cycle every 20ms */
+#define OUT_STEP_CNT    1000        /* Change duty cycle every 1 second */
+
 int main(void)
 {
+	uint32_t timerFreq;
+
     DEBUGINIT();
 	DEBUGOUT("Main enter\r\n");
 	Board_Init();
 
+
+
+	uint32_t cnt1 = 0, cnt2 = 0;
+	int led_dp = 0, led_step = 1, out_dp = 0;
+
+	/* Generic Initialization */
+	SystemCoreClockUpdate();
+	Board_Init();
+
+	/* Initialize the SCT as PWM and set frequency */
+	Chip_SCTPWM_Init(SCT_PWM);
+	Chip_SCTPWM_SetRate(SCT_PWM, SCT_PWM_RATE);
+
+	/* Setup Board specific output pin */
+	SCT_PinsConfigure();
+
+	/* Use SCT0_OUT1 pin */
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_OUT, SCT_PWM_PIN_OUT);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, SCT_PWM_PIN_LED);
+
+	/* Start with 0% duty cycle */
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_OUT, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/2);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, 0);
+	Chip_SCTPWM_Start(SCT_PWM);
+
+
+	/* Enable SysTick Timer */
+	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
+
+	while (1) {
+		cnt1 ++;
+		cnt2 ++;
+		if (cnt1 >= OUT_STEP_CNT) {
+			out_dp += 10;
+			if (out_dp > 100) {
+				out_dp = 0;
+			}
+
+			/* Increase dutycycle by 10% every second */
+			Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_OUT,
+				Chip_SCTPWM_PercentageToTicks(SCT_PWM, out_dp));
+			cnt1 = 0;
+		}
+
+		if (cnt2 >= LED_STEP_CNT) {
+			led_dp += led_step;
+			if (led_dp < 0) {
+				led_dp = 0;
+				led_step = 1;
+			}
+			if (led_dp > 200) {
+				led_dp = 200;
+				led_step = -1;
+			}
+
+			/* Increment or Decrement Dutycycle by 0.5% every 10ms */
+			Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED,
+				Chip_SCTPWM_PercentageToTicks(SCT_PWM, led_dp)/2);
+			cnt2 = 0;
+		}
+		__WFI();
+	}
 	/* SSP initialization */
 	Board_SSP_Init(LPC_SSP);
 

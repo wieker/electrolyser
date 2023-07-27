@@ -100,6 +100,8 @@ set(SRC_M4
 	../liblpc/spi_18xx_43xx.c
 	../liblpc/sgpio.c
 	../liblpc/uart.c
+	../liblpc/sct_18xx_43xx.c
+	../liblpc/sct_pwm_18xx_43xx.c
 )
 
 DeclareTargets()
