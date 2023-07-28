@@ -303,19 +303,23 @@ void SCT_PinsConfigure(void)
 
 #define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
 
-int main(void)
-{
-	uint32_t timerFreq;
+uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
+	static Chip_SSP_DATA_SETUP_T xf_setup;
+	xf_setup.length = 2;
+	xf_setup.tx_data = Tx_Buf;
+	Tx_Buf[0] = reg;
+	Tx_Buf[1] = dt;
+	Tx_Buf[2] = 0x04;
+	Tx_Buf[2] = 0x08;
+	xf_setup.rx_data = Rx_Buf;
+	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
+	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
+    return Rx_Buf[1];
+}
 
-    DEBUGINIT();
-	DEBUGOUT("Main enter\r\n");
-	Board_Init();
-
-
-
-	uint32_t cnt1 = 0, cnt2 = 0;
-	int led_dp = 21, led_step = 1, out_dp = 0;
-
+void configure_pwm() {
 	/* Generic Initialization */
 	SystemCoreClockUpdate();
 	Board_Init();
@@ -339,6 +343,9 @@ int main(void)
 	/* Enable SysTick Timer */
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
 
+	uint32_t cnt1 = 0, cnt2 = 0;
+	int led_dp = 21, led_step = 1, out_dp = 0;
+
 	while (1) {
 		cnt2 ++;
 
@@ -355,6 +362,16 @@ int main(void)
 		}
 		__WFI();
 	}
+}
+
+int main(void)
+{
+	uint32_t timerFreq;
+
+    DEBUGINIT();
+	DEBUGOUT("Main enter\r\n");
+	Board_Init();
+
 	/* SSP initialization */
 	Board_SSP_Init(LPC_SSP);
 
@@ -366,33 +383,11 @@ int main(void)
 	Chip_SSP_SetMaster(LPC_SSP, 1);
 
 
-	static Chip_SSP_DATA_SETUP_T xf_setup;
-	xf_setup.length = 2;
-	xf_setup.tx_data = Tx_Buf;
-	Tx_Buf[0] = PWR_MGMT_1;
-	Tx_Buf[1] = 0x80;
-	Tx_Buf[2] = 0x04;
-	Tx_Buf[2] = 0x08;
-	xf_setup.rx_data = Rx_Buf;
-	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
-	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
+    spi_xfer(PWR_MGMT_1, 0x80);
 	while (1)
 	{
 		delay(20000000);
-		xf_setup.length = 2;
-		xf_setup.tx_data = Tx_Buf;
-		Tx_Buf[0] = WHO_AM_I | DIR_READ;
-		Tx_Buf[1] = 0x00;
-		Tx_Buf[2] = 0x04;
-		Tx_Buf[2] = 0x08;
-		xf_setup.rx_data = Rx_Buf;
-		xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
-        Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
-		Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
-        Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
-		printf("test %02x %02x %02x %02x\r\n", Rx_Buf[0], Rx_Buf[1], Rx_Buf[2], Rx_Buf[3]);
+		printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
 	}
 
 	gpio_init();
