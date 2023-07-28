@@ -322,6 +322,22 @@ uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
     return Rx_Buf[1];
 }
 
+uint8_t* spi_xfer6(uint8_t reg) {
+	static Chip_SSP_DATA_SETUP_T xf_setup;
+	xf_setup.length = 7;
+	xf_setup.tx_data = Tx_Buf;
+	Tx_Buf[0] = reg;
+	Tx_Buf[1] = 0x00;
+	Tx_Buf[2] = 0x00;
+	Tx_Buf[2] = 0x00;
+	xf_setup.rx_data = Rx_Buf;
+	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
+	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
+    return &Rx_Buf[1];
+}
+
 void configure_pwm() {
 	/* Generic Initialization */
 	SystemCoreClockUpdate();
@@ -404,6 +420,8 @@ int main(void)
 	{
 		delay(20000000);
 		printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
+        uint8_t* val = spi_xfer6(MPU_RA_GYRO_XOUT_H | DIR_READ);
+		printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
 	}
 
 	gpio_init();
