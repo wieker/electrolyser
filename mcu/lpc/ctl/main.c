@@ -288,22 +288,20 @@ static const uint8_t DIR_READ = 0x80;
 void SCT_PinsConfigure(void)
 {
 	Chip_SCU_PinMuxSet(0x2, 7, (SCU_MODE_INACT | SCU_MODE_FUNC1));
+	Chip_SCU_PinMuxSet(0x2, 12, (SCU_MODE_INACT | SCU_MODE_FUNC1));
 }
 
 #define SCT_PWM            LPC_SCT
 
-#define SCT_PWM_PIN_OUT    4        /* COUT4 Generate square wave */
 #define SCT_PWM_PIN_LED    1        /* COUT2 [index 2] Controls LED */
 
-#define SCT_PWM_OUT        1        /* Index of OUT PWM */
 #define SCT_PWM_LED        2        /* Index of LED PWM */
-#define SCT_PWM_RATE   10000        /* PWM frequency 10 KHz */
+#define SCT_PWM_RATE   50        /* PWM frequency 10 KHz */
 
 /* Systick timer tick rate, to change duty cycle */
 #define TICKRATE_HZ     1000        /* 1 ms Tick rate */
 
-#define LED_STEP_CNT      20        /* Change LED duty cycle every 20ms */
-#define OUT_STEP_CNT    1000        /* Change duty cycle every 1 second */
+#define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
 
 int main(void)
 {
@@ -316,7 +314,7 @@ int main(void)
 
 
 	uint32_t cnt1 = 0, cnt2 = 0;
-	int led_dp = 0, led_step = 1, out_dp = 0;
+	int led_dp = 21, led_step = 1, out_dp = 0;
 
 	/* Generic Initialization */
 	SystemCoreClockUpdate();
@@ -330,12 +328,11 @@ int main(void)
 	SCT_PinsConfigure();
 
 	/* Use SCT0_OUT1 pin */
-	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_OUT, SCT_PWM_PIN_OUT);
 	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, SCT_PWM_PIN_LED);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, 4);
 
 	/* Start with 0% duty cycle */
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_OUT, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/2);
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, 0);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20);
 	Chip_SCTPWM_Start(SCT_PWM);
 
 
@@ -343,34 +340,17 @@ int main(void)
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
 
 	while (1) {
-		cnt1 ++;
 		cnt2 ++;
-		if (cnt1 >= OUT_STEP_CNT) {
-			out_dp += 10;
-			if (out_dp > 100) {
-				out_dp = 0;
-			}
-
-			/* Increase dutycycle by 10% every second */
-			Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_OUT,
-				Chip_SCTPWM_PercentageToTicks(SCT_PWM, out_dp));
-			cnt1 = 0;
-		}
 
 		if (cnt2 >= LED_STEP_CNT) {
-			led_dp += led_step;
-			if (led_dp < 0) {
-				led_dp = 0;
-				led_step = 1;
-			}
-			if (led_dp > 200) {
-				led_dp = 200;
-				led_step = -1;
+			led_dp -= 1;
+			if (led_dp < 4) {
+				led_dp = 21;
 			}
 
 			/* Increment or Decrement Dutycycle by 0.5% every 10ms */
 			Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED,
-				Chip_SCTPWM_PercentageToTicks(SCT_PWM, led_dp)/2);
+				Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/15);
 			cnt2 = 0;
 		}
 		__WFI();
