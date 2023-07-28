@@ -20,9 +20,6 @@
 
 #pragma once
 
-#include "drivers/bus.h"
 
 #define ICM20689_BIT_RESET                  (0x80)
 
-bool icm20689AccDetect(accDev_t *acc);
-bool icm20689GyroDetect(gyroDev_t *gyro);

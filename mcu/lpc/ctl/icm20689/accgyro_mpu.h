@@ -17,9 +17,6 @@
 
 #pragma once
 
-#include "drivers/exti.h"
-#include "drivers/sensor.h"
-#include "drivers/accgyro/accgyro.h"
 
 #define MPU6000_WHO_AM_I_CONST              (0x68)
 #define MPU6500_WHO_AM_I_CONST              (0x70)
@@ -178,7 +175,6 @@ enum accel_fsr_e {
 struct gyroDev_s;
 struct accDev_s;
 
-const gyroFilterAndRateConfig_t * mpuChooseGyroConfig(uint8_t desiredLpf, uint16_t desiredRateHz);
 bool mpuGyroRead(struct gyroDev_s *gyro);
 bool mpuGyroReadScratchpad(struct gyroDev_s *gyro);
 bool mpuAccReadScratchpad(struct accDev_s *acc);

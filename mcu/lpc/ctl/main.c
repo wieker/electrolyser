@@ -23,6 +23,9 @@
 #include <math.h>
 #include "board.h"
 
+#include "icm20689/accgyro_icm20689.h"
+#include "icm20689/accgyro_mpu.h"
+
 static struct gpio_t gpio_led[] = {
 	GPIO(3,  7),
 	GPIO(0,  7),
@@ -384,6 +387,19 @@ int main(void)
 
 
     spi_xfer(PWR_MGMT_1, 0x80);
+    delay(20000000);
+    spi_xfer(MPU_RA_SIGNAL_PATH_RESET, 0x03);
+    delay(20000000);
+    spi_xfer(MPU_RA_PWR_MGMT_1, INV_CLK_PLL);
+    delay(20000000);
+    spi_xfer(MPU_RA_GYRO_CONFIG, INV_FSR_2000DPS << 3);
+    delay(200);
+    spi_xfer(MPU_RA_ACCEL_CONFIG, INV_FSR_16G << 3);
+    delay(200);
+    spi_xfer(MPU_RA_CONFIG, MPU_DLPF_256HZ);
+    delay(200);
+    spi_xfer(MPU_RA_SMPLRT_DIV, 15);
+    delay(200);
 	while (1)
 	{
 		delay(20000000);
