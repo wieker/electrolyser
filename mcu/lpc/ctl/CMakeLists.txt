@@ -81,7 +81,6 @@ set(SRC_M4
 	main.c
 	gpio_lpc.c
 	../liblpc/i2c_18xx_43xx.c
-	../liblpc/i2c.c
 	../liblpc/clock_18xx_43xx.c
 	../liblpc/board.c
 	../liblpc/chip_18xx_43xx.c

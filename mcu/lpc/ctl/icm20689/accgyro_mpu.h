@@ -175,7 +175,6 @@ enum accel_fsr_e {
 struct gyroDev_s;
 struct accDev_s;
 
-bool mpuGyroRead(struct gyroDev_s *gyro);
 bool mpuGyroReadScratchpad(struct gyroDev_s *gyro);
 bool mpuAccReadScratchpad(struct accDev_s *acc);
 bool mpuTemperatureReadScratchpad(struct gyroDev_s *gyro, int16_t * data);

@@ -40,6 +40,34 @@ void delay(uint32_t duration)
 		__asm__("nop");
 }
 
+// cycles per microsecond
+static volatile uint32_t usTicks = 0;
+// current uptime for 1kHz systick timer. will rollover after 49 days. hopefully we won't care.
+static volatile uint32_t sysTickUptime = 0;
+
+// SysTick
+void SysTick_Handler(void)
+{
+    sysTickUptime++;
+}
+
+// Return system uptime in microseconds (rollover in 70minutes)
+uint32_t micros(void)
+{
+    register uint32_t ms, cycle_cnt;
+    do {
+        ms = sysTickUptime;
+        cycle_cnt = SysTick->VAL;
+    } while (ms != sysTickUptime);
+    return (ms * 1000) + (usTicks * 1000 - cycle_cnt) / usTicks;
+}
+
+// Return system uptime in milliseconds (rollover in 49 days)
+uint32_t millis(void)
+{
+    return sysTickUptime;
+}
+
 #define CALIBRATING_GYRO_CYCLES             1000
 
 enum {
@@ -57,9 +85,87 @@ uint32_t currentTime = 0;
 uint32_t previousTime = 0;
 uint16_t cycleTime = 0;
 
+#define LPC_SSP           LPC_SSP1
+#define SSP_DATA_BITS                       (SSP_BITS_8)
+
+uint8_t Rx_Buf[256];
+uint8_t Tx_Buf[256];
+static const uint8_t WHOAMI = 0x98;
+static const uint8_t WHO_AM_I = 0x75;
+static const uint8_t PWR_MGMT_1 = 0x6B;
+static const uint8_t DIR_READ = 0x80;
+
+uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
+	static Chip_SSP_DATA_SETUP_T xf_setup;
+	xf_setup.length = 2;
+	xf_setup.tx_data = Tx_Buf;
+	Tx_Buf[0] = reg;
+	Tx_Buf[1] = dt;
+	Tx_Buf[2] = 0x04;
+	Tx_Buf[2] = 0x08;
+	xf_setup.rx_data = Rx_Buf;
+	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
+	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
+    return Rx_Buf[1];
+}
+
+uint8_t* spi_xfer6(uint8_t reg) {
+	static Chip_SSP_DATA_SETUP_T xf_setup;
+	xf_setup.length = 7;
+	xf_setup.tx_data = Tx_Buf;
+	Tx_Buf[0] = reg;
+	Tx_Buf[1] = 0x00;
+	Tx_Buf[2] = 0x00;
+	Tx_Buf[2] = 0x00;
+	xf_setup.rx_data = Rx_Buf;
+	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
+	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
+	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
+    return &Rx_Buf[1];
+}
+
 
 void imuInit(void)
 {
+	/* SSP initialization */
+	Board_SSP_Init(LPC_SSP);
+
+	Chip_SSP_Init(LPC_SSP);
+
+	Chip_SSP_SetFormat(LPC_SSP, SSP_DATA_BITS, SSP_FRAMEFORMAT_SPI, SSP_CLOCK_MODE0);
+
+	Chip_SSP_Enable(LPC_SSP);
+	Chip_SSP_SetMaster(LPC_SSP, 1);
+
+
+    spi_xfer(PWR_MGMT_1, 0x80);
+    delay(20000000);
+    spi_xfer(MPU_RA_SIGNAL_PATH_RESET, 0x03);
+    delay(20000000);
+    spi_xfer(MPU_RA_PWR_MGMT_1, INV_CLK_PLL);
+    delay(20000000);
+    spi_xfer(MPU_RA_GYRO_CONFIG, INV_FSR_2000DPS << 3);
+    delay(200);
+    spi_xfer(MPU_RA_ACCEL_CONFIG, INV_FSR_16G << 3);
+    delay(200);
+    spi_xfer(MPU_RA_CONFIG, MPU_DLPF_256HZ);
+    delay(200);
+    spi_xfer(MPU_RA_SMPLRT_DIV, 15);
+    delay(200);
+}
+
+static void mpuGyroRead(int16_t *gyroData)
+{
+    //delay(20000000);
+    //printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
+    uint8_t* val = spi_xfer6(MPU_RA_GYRO_XOUT_H | DIR_READ);
+    //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
+    gyroData[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
+    gyroData[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
+    gyroData[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
 }
 
 typedef struct stdev_t {
@@ -129,7 +235,7 @@ static void GYRO_Common(void)
 void Gyro_getADC(void)
 {
     // range: +/- 8192; +/- 2000 deg/sec
-    //gyro.read(gyroADC);
+    mpuGyroRead(gyroADC);
     GYRO_Common();
 }
 
@@ -246,11 +352,11 @@ void loop(void)
     uint32_t auxState = 0;
     bool isThrottleLow = false;
 
-    //currentTime = micros();
+    currentTime = micros();
 
 	computeIMU();
 	// Measure loop rate just afer reading the sensors
-//	currentTime = micros();
+	currentTime = micros();
 	cycleTime = (int32_t)(currentTime - previousTime);
 	previousTime = currentTime;
 
@@ -269,7 +375,7 @@ int main2(void)
 
     //pwmInit(0x0);
 
-    //previousTime = micros();
+    previousTime = micros();
     calibratingG = CALIBRATING_GYRO_CYCLES;
 
     // loopy
@@ -277,16 +383,6 @@ int main2(void)
         loop();
     }
 }
-
-#define LPC_SSP           LPC_SSP1
-#define SSP_DATA_BITS                       (SSP_BITS_8)
-
-uint8_t Rx_Buf[256];
-uint8_t Tx_Buf[256];
-static const uint8_t WHOAMI = 0x98;
-static const uint8_t WHO_AM_I = 0x75;
-static const uint8_t PWR_MGMT_1 = 0x6B;
-static const uint8_t DIR_READ = 0x80;
 
 void SCT_PinsConfigure(void)
 {
@@ -305,38 +401,6 @@ void SCT_PinsConfigure(void)
 #define TICKRATE_HZ     1000        /* 1 ms Tick rate */
 
 #define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
-
-uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
-	static Chip_SSP_DATA_SETUP_T xf_setup;
-	xf_setup.length = 2;
-	xf_setup.tx_data = Tx_Buf;
-	Tx_Buf[0] = reg;
-	Tx_Buf[1] = dt;
-	Tx_Buf[2] = 0x04;
-	Tx_Buf[2] = 0x08;
-	xf_setup.rx_data = Rx_Buf;
-	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
-	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
-    return Rx_Buf[1];
-}
-
-uint8_t* spi_xfer6(uint8_t reg) {
-	static Chip_SSP_DATA_SETUP_T xf_setup;
-	xf_setup.length = 7;
-	xf_setup.tx_data = Tx_Buf;
-	Tx_Buf[0] = reg;
-	Tx_Buf[1] = 0x00;
-	Tx_Buf[2] = 0x00;
-	Tx_Buf[2] = 0x00;
-	xf_setup.rx_data = Rx_Buf;
-	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
-	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
-    return &Rx_Buf[1];
-}
 
 void configure_pwm() {
 	/* Generic Initialization */
@@ -390,38 +454,12 @@ int main(void)
     DEBUGINIT();
 	DEBUGOUT("Main enter\r\n");
 	Board_Init();
+	SystemCoreClockUpdate();
+	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
+    usTicks = SystemCoreClock / 1000000;
 
-	/* SSP initialization */
-	Board_SSP_Init(LPC_SSP);
-
-	Chip_SSP_Init(LPC_SSP);
-
-	Chip_SSP_SetFormat(LPC_SSP, SSP_DATA_BITS, SSP_FRAMEFORMAT_SPI, SSP_CLOCK_MODE0);
-
-	Chip_SSP_Enable(LPC_SSP);
-	Chip_SSP_SetMaster(LPC_SSP, 1);
-
-
-    spi_xfer(PWR_MGMT_1, 0x80);
-    delay(20000000);
-    spi_xfer(MPU_RA_SIGNAL_PATH_RESET, 0x03);
-    delay(20000000);
-    spi_xfer(MPU_RA_PWR_MGMT_1, INV_CLK_PLL);
-    delay(20000000);
-    spi_xfer(MPU_RA_GYRO_CONFIG, INV_FSR_2000DPS << 3);
-    delay(200);
-    spi_xfer(MPU_RA_ACCEL_CONFIG, INV_FSR_16G << 3);
-    delay(200);
-    spi_xfer(MPU_RA_CONFIG, MPU_DLPF_256HZ);
-    delay(200);
-    spi_xfer(MPU_RA_SMPLRT_DIV, 15);
-    delay(200);
 	while (1)
 	{
-		delay(20000000);
-		printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
-        uint8_t* val = spi_xfer6(MPU_RA_GYRO_XOUT_H | DIR_READ);
-		printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
 	}
 
 	gpio_init();
