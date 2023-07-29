@@ -371,9 +371,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {1, 1, 1};
-    int32_t cfgI8[] = {1, 1, 1};
-    int32_t cfgD8[] = {1, 1, 1};
+    int32_t cfgP8[] = {40, 40, 85};
+    int32_t cfgI8[] = {30, 30, 45};
+    int32_t cfgD8[] = {23, 23, 0};
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -453,6 +453,17 @@ int main2(void)
     // loopy
     while (1) {
         loop();
+        char ch = DEBUGIN();
+        switch (ch) {
+            case '=': {
+                throttle += 100;
+                break;
+            }
+            case '-': {
+                throttle -= 100;
+                break;
+            }
+        }
     }
 }
 
