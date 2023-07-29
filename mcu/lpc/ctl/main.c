@@ -250,6 +250,45 @@ void computeIMU(void)
     gyroData[PITCH] = gyroADC[PITCH];
 }
 
+void SCT_PinsConfigure(void)
+{
+	Chip_SCU_PinMuxSet(0x2, 7, (SCU_MODE_INACT | SCU_MODE_FUNC1));
+	Chip_SCU_PinMuxSet(0x2, 12, (SCU_MODE_INACT | SCU_MODE_FUNC1));
+}
+
+#define SCT_PWM            LPC_SCT
+
+#define SCT_PWM_PIN_LED    1        /* COUT2 [index 2] Controls LED */
+
+#define SCT_PWM_LED        2        /* Index of LED PWM */
+#define SCT_PWM_RATE   50        /* PWM frequency 10 KHz */
+
+/* Systick timer tick rate, to change duty cycle */
+#define TICKRATE_HZ     1000        /* 1 ms Tick rate */
+
+#define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
+
+void configure_pwm() {
+	/* Generic Initialization */
+	SystemCoreClockUpdate();
+	Board_Init();
+
+	/* Initialize the SCT as PWM and set frequency */
+	Chip_SCTPWM_Init(SCT_PWM);
+	Chip_SCTPWM_SetRate(SCT_PWM, SCT_PWM_RATE);
+
+	/* Setup Board specific output pin */
+	SCT_PinsConfigure();
+
+	/* Use SCT0_OUT1 pin */
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, SCT_PWM_PIN_LED);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, 4);
+
+	/* Start with 0% duty cycle */
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20);
+	Chip_SCTPWM_Start(SCT_PWM);
+}
+
 typedef struct motorMixer_t {
     float throttle;
     float roll;
@@ -271,32 +310,26 @@ static motorMixer_t currentMixer[MAX_MOTORS];
 int16_t motor[MAX_MOTORS];
 int16_t motor_disarmed[MAX_MOTORS];
 
+int throttle = 0;
+
 void mixerResetMotors(void)
 {
-    int i;
-    // set disarmed motor values
-    for (i = 0; i < MAX_MOTORS; i++)
-        motor_disarmed[i] = 0;
+
 }
 
 void mixerInit(void)
 {
-    int i;
     numberMotor = 4;
-    // copy motor-based mixers
-	for (i = 0; i < numberMotor; i++)
-		currentMixer[i] = mixerQuadX[i];
+    configure_pwm();
+    throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
 
     mixerResetMotors();
 }
 
 void writeMotors(void)
 {
-    uint8_t i;
-
-    for (i = 0; i < numberMotor; i++) {
-		//pwmWriteMotor(i, motor[i]);
-	}
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, motor[0]);
+    DEBUGOUT("PWM write %02x\r\n", motor[0]);
 }
 
 int16_t axisPID[3];
@@ -309,7 +342,7 @@ void mixTable(void)
     // motors for non-servo mixes
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
-            motor[i] = axisPID[PITCH] * currentMixer[i].pitch + axisPID[ROLL] * currentMixer[i].roll + axisPID[YAW] * currentMixer[i].yaw;
+            motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
         }
     }
 }
@@ -317,31 +350,70 @@ void mixTable(void)
 static int32_t errorGyroI[3] = { 0, 0, 0 };
 static int32_t errorAngleI[2] = { 0, 0 };
 
+#define GYRO_I_MAX 256
+
+int constrain(int amt, int low, int high)
+{
+    if (amt < low)
+        return low;
+    else if (amt > high)
+        return high;
+    else
+        return amt;
+}
+
 static void pidMultiWii(void)
 {
-    int axis, prop;
-    int32_t error, errorAngle;
-    int32_t PTerm, ITerm, PTermACC = 0, ITermACC = 0, PTermGYRO = 0, ITermGYRO = 0, DTerm;
-    static int16_t lastGyro[3] = { 0, 0, 0 };
+    int32_t errorAngle = 0;
+    int axis;
+    int32_t delta, deltaSum;
     static int32_t delta1[3], delta2[3];
-    int32_t deltaSum;
-    int32_t delta;
+    int32_t PTerm, ITerm, DTerm;
+    static int32_t lastError[3] = { 0, 0, 0 };
+    int32_t AngleRateTmp, RateError;
+    int32_t cfgP8[] = {1, 1, 1};
+    int32_t cfgI8[] = {1, 1, 1};
+    int32_t cfgD8[] = {1, 1, 1};
 
-    // **** PITCH & ROLL & YAW PID ****
+    // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
-		errorGyroI[axis] -= gyroData[axis];
-		ITermGYRO = (errorGyroI[axis] / 125) >> 6;
-		PTerm = PTermGYRO;
-		ITerm = ITermGYRO;
+        // -----Get the desired angle rate depending on flight mode
+        AngleRateTmp = 0;
+        // --------low-level gyro-based PID. ----------
+        // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
+        // -----calculate scaled error.AngleRates
+        // multiplication of rcCommand corresponds to changing the sticks scaling here
+        RateError = AngleRateTmp - gyroData[axis];
 
-        PTerm -= (int32_t)gyroData[axis] / 10 / 8; // 32 bits is needed for calculation
-        delta = gyroData[axis] - lastGyro[axis];
-        lastGyro[axis] = gyroData[axis];
+        // -----calculate P component
+        PTerm = (RateError * cfgP8[axis]) >> 7;
+        // -----calculate I component
+        // there should be no division before accumulating the error to integrator, because the precision would be reduced.
+        // Precision is critical, as I prevents from long-time drift. Thus, 32 bits integrator is used.
+        // Time correction (to avoid different I scaling for different builds based on average cycle time)
+        // is normalized to cycle time = 2048.
+        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) >> 11) * cfgI8[axis];
+
+        // limit maximum integrator value to prevent WindUp - accumulating extreme values when system is saturated.
+        // I coefficient (I8) moved before integration to make limiting independent from PID settings
+        errorGyroI[axis] = constrain(errorGyroI[axis], (int32_t)(-GYRO_I_MAX) << 13, (int32_t)(+GYRO_I_MAX) << 13);
+        ITerm = errorGyroI[axis] >> 13;
+
+        //-----calculate D-term
+        delta = RateError - lastError[axis];  // 16 bits is ok here, the dif between 2 consecutive gyro reads is limited to 800
+        lastError[axis] = RateError;
+
+        // Correct difference by cycle time. Cycle time is jittery (can be different 2 times), so calculated difference
+        // would be scaled by different dt each time. Division by dT fixes that.
+        delta = (delta * ((uint16_t)0xFFFF / (cycleTime >> 4))) >> 6;
+        // add moving average here to reduce noise
         deltaSum = delta1[axis] + delta2[axis] + delta;
         delta2[axis] = delta1[axis];
         delta1[axis] = delta;
-        DTerm = (deltaSum) / 32;
-        axisPID[axis] = PTerm + ITerm - DTerm;
+        DTerm = (deltaSum * cfgD8[axis]) >> 8;
+
+        // -----calculate total PID output
+        axisPID[axis] = PTerm + ITerm + DTerm;
     }
 }
 
@@ -384,69 +456,6 @@ int main2(void)
     }
 }
 
-void SCT_PinsConfigure(void)
-{
-	Chip_SCU_PinMuxSet(0x2, 7, (SCU_MODE_INACT | SCU_MODE_FUNC1));
-	Chip_SCU_PinMuxSet(0x2, 12, (SCU_MODE_INACT | SCU_MODE_FUNC1));
-}
-
-#define SCT_PWM            LPC_SCT
-
-#define SCT_PWM_PIN_LED    1        /* COUT2 [index 2] Controls LED */
-
-#define SCT_PWM_LED        2        /* Index of LED PWM */
-#define SCT_PWM_RATE   50        /* PWM frequency 10 KHz */
-
-/* Systick timer tick rate, to change duty cycle */
-#define TICKRATE_HZ     1000        /* 1 ms Tick rate */
-
-#define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
-
-void configure_pwm() {
-	/* Generic Initialization */
-	SystemCoreClockUpdate();
-	Board_Init();
-
-	/* Initialize the SCT as PWM and set frequency */
-	Chip_SCTPWM_Init(SCT_PWM);
-	Chip_SCTPWM_SetRate(SCT_PWM, SCT_PWM_RATE);
-
-	/* Setup Board specific output pin */
-	SCT_PinsConfigure();
-
-	/* Use SCT0_OUT1 pin */
-	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, SCT_PWM_PIN_LED);
-	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, 4);
-
-	/* Start with 0% duty cycle */
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20);
-	Chip_SCTPWM_Start(SCT_PWM);
-
-
-	/* Enable SysTick Timer */
-	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
-
-	uint32_t cnt1 = 0, cnt2 = 0;
-	int led_dp = 21, led_step = 1, out_dp = 0;
-
-	while (1) {
-		cnt2 ++;
-
-		if (cnt2 >= LED_STEP_CNT) {
-			led_dp -= 1;
-			if (led_dp < 4) {
-				led_dp = 21;
-			}
-
-			/* Increment or Decrement Dutycycle by 0.5% every 10ms */
-			Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED,
-				Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/15);
-			cnt2 = 0;
-		}
-		__WFI();
-	}
-}
-
 int main(void)
 {
 	uint32_t timerFreq;
@@ -458,9 +467,7 @@ int main(void)
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
     usTicks = SystemCoreClock / 1000000;
 
-	while (1)
-	{
-	}
+	main2();
 
 	gpio_init();
 	gpio_output(&gpio_led[0]);
