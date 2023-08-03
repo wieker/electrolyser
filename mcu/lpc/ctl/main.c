@@ -285,7 +285,7 @@ void configure_pwm() {
 	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, 4);
 
 	/* Start with 0% duty cycle */
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
 	Chip_SCTPWM_Start(SCT_PWM);
 }
 
@@ -310,7 +310,7 @@ static motorMixer_t currentMixer[MAX_MOTORS];
 int16_t motor[MAX_MOTORS];
 int16_t motor_disarmed[MAX_MOTORS];
 
-int throttle = 0;
+uint32_t throttle = 0;
 
 void mixerResetMotors(void)
 {
@@ -321,15 +321,15 @@ void mixerInit(void)
 {
     numberMotor = 4;
     configure_pwm();
-    throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
+    throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
 
     mixerResetMotors();
 }
 
 void writeMotors(void)
 {
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, motor[0]);
-    DEBUGOUT("PWM write %02x\r\n", motor[0]);
+	//Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, motor[0]);
+    //DEBUGOUT("PWM write %02x\r\n", motor[0]);
 }
 
 int16_t axisPID[3];
@@ -342,7 +342,7 @@ void mixTable(void)
     // motors for non-servo mixes
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
-            motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
+            motor[i] = throttle;// + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
         }
     }
 }
@@ -456,10 +456,12 @@ int main2(void)
         char ch = DEBUGIN();
         switch (ch) {
             case '=': {
+                Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, throttle);
                 throttle += 100;
                 break;
             }
             case '-': {
+                Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, throttle);
                 throttle -= 100;
                 break;
             }
