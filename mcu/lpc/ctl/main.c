@@ -456,12 +456,12 @@ int main2(void)
         char ch = DEBUGIN();
         switch (ch) {
             case '=': {
-                Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, throttle);
+                Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/18);
                 throttle += 100;
                 break;
             }
             case '-': {
-                Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, throttle);
+                Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
                 throttle -= 100;
                 break;
             }
