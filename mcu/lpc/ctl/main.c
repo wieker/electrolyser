@@ -307,7 +307,7 @@ static const motorMixer_t mixerQuadX[] = {
 static uint8_t numberMotor = 0;
 
 static motorMixer_t currentMixer[MAX_MOTORS];
-int16_t motor[MAX_MOTORS];
+uint32_t motor[MAX_MOTORS];
 int16_t motor_disarmed[MAX_MOTORS];
 
 uint32_t throttle = 0;
@@ -328,8 +328,12 @@ void mixerInit(void)
 
 void writeMotors(void)
 {
-	//Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, motor[0]);
-    //DEBUGOUT("PWM write %02x\r\n", motor[0]);
+    static uint32_t oldv = 0;
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, motor[0]);
+    if (oldv != motor[0]) {
+        DEBUGOUT("PWM write %02x\r\n", motor[0]);
+    }
+    oldv = motor[0];
 }
 
 int16_t axisPID[3];
@@ -456,13 +460,11 @@ int main2(void)
         char ch = DEBUGIN();
         switch (ch) {
             case '=': {
-                Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/18);
-                throttle += 100;
+                throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/18;
                 break;
             }
             case '-': {
-                Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
-                throttle -= 100;
+                throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
                 break;
             }
         }
