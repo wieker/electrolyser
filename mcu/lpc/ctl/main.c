@@ -331,7 +331,7 @@ void writeMotors(void)
     static uint32_t oldv = 0;
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, motor[0]);
     if (oldv != motor[0]) {
-        DEBUGOUT("PWM write %02x\r\n", motor[0]);
+        DEBUGOUT("PWM write %08x\r\n", motor[0]);
     }
     oldv = motor[0];
 }
@@ -460,11 +460,11 @@ int main2(void)
         char ch = DEBUGIN();
         switch (ch) {
             case '=': {
-                throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/18;
+                throttle += 100;
                 break;
             }
             case '-': {
-                throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
+                throttle -= 100;
                 break;
             }
         }
