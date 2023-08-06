@@ -251,6 +251,8 @@ void computeIMU(void)
     gyroData[YAW] = gyroADC[YAW];
     gyroData[ROLL] = gyroADC[ROLL];
     gyroData[PITCH] = gyroADC[PITCH];
+
+    printf("test %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
 }
 
 void SCT_PinsConfigure(void)
