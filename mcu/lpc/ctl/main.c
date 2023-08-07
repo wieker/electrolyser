@@ -245,6 +245,7 @@ void Gyro_getADC(void)
 void computeIMU(void)
 {
     static int16_t gyroYawSmooth = 0;
+    static int cnt = 0;
 
     Gyro_getADC();
 
@@ -252,7 +253,12 @@ void computeIMU(void)
     gyroData[ROLL] = gyroADC[ROLL];
     gyroData[PITCH] = gyroADC[PITCH];
 
-    printf("test %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
+    if (cnt == 100) {
+        printf("test %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
+        cnt = 0;
+    } else {
+        cnt ++;
+    }
 }
 
 void SCT_PinsConfigure(void)
