@@ -265,13 +265,17 @@ void SCT_PinsConfigure(void)
 {
 	Chip_SCU_PinMuxSet(0x2, 7, (SCU_MODE_INACT | SCU_MODE_FUNC1));
 	Chip_SCU_PinMuxSet(0x2, 12, (SCU_MODE_INACT | SCU_MODE_FUNC1));
+	Chip_SCU_PinMuxSet(0x1, 7, (SCU_MODE_INACT | SCU_MODE_FUNC2));
+	Chip_SCU_PinMuxSet(0x2, 9, (SCU_MODE_INACT | SCU_MODE_FUNC1));
 }
 
 #define SCT_PWM            LPC_SCT
 
 #define SCT_PWM_PIN_LED    1        /* COUT2 [index 2] Controls LED */
 
-#define SCT_PWM_LED        2        /* Index of LED PWM */
+#define SCT_PWM_MTR1        2        /* Index of LED PWM */
+#define SCT_PWM_MTR2        2        /* Index of LED PWM */
+#define SCT_PWM_MTR3        2        /* Index of LED PWM */
 #define SCT_PWM_RATE   50        /* PWM frequency 10 KHz */
 
 /* Systick timer tick rate, to change duty cycle */
@@ -292,11 +296,15 @@ void configure_pwm() {
 	SCT_PinsConfigure();
 
 	/* Use SCT0_OUT1 pin */
-	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, SCT_PWM_PIN_LED);
-	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_LED, 4);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR1, SCT_PWM_PIN_LED);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR1, 4);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR2, 3);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR3, 13);
 
 	/* Start with 0% duty cycle */
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
 	Chip_SCTPWM_Start(SCT_PWM);
 }
 
@@ -340,7 +348,9 @@ void mixerInit(void)
 void writeMotors(void)
 {
     static uint32_t oldv = 0;
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_LED, motor[0]);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, motor[0]);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, motor[0]);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, motor[0]);
     if (oldv != motor[0]) {
         DEBUGOUT("PWM write %08x\r\n", motor[0]);
     }
