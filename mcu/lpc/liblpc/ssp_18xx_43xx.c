@@ -459,7 +459,7 @@ void Chip_SSP_Init(LPC_SSP_T *pSSP)
 
 	Chip_SSP_Set_Mode(pSSP, SSP_MODE_MASTER);
 	Chip_SSP_SetFormat(pSSP, SSP_BITS_8, SSP_FRAMEFORMAT_SPI, SSP_CLOCK_CPHA0_CPOL0);
-	Chip_SSP_SetBitRate(pSSP, 100000);
+	Chip_SSP_SetBitRate(pSSP, 8000000);
 }
 
 /* De-initializes the SSP peripheral */
