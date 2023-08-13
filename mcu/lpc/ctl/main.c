@@ -253,7 +253,7 @@ void computeIMU(void)
     gyroData[ROLL] = gyroADC[ROLL];
     gyroData[PITCH] = gyroADC[PITCH];
 
-    if (cnt == 100) {
+    if (gyroData[YAW] >= 100 || gyroData[ROLL] >= 100 || gyroData[PITCH] >= 100) {
         printf("test %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
         cnt = 0;
     } else {
@@ -316,10 +316,9 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f, -1.0f,  1.0f, -1.0f },          // REAR_R
-    { 1.0f, -1.0f, -1.0f,  1.0f },          // FRONT_R
-    { 1.0f,  1.0f,  1.0f,  1.0f },          // REAR_L
-    { 1.0f,  1.0f, -1.0f, -1.0f },          // FRONT_L
+    { 1.0f,  0.0f,  1.333333f,  0.0f },     // REAR
+    { 1.0f, -1.0f, -0.666667f,  0.0f },     // RIGHT
+    { 1.0f,  1.0f, -0.666667f,  0.0f },
 };
 #define MAX_MOTORS             4
 
@@ -338,7 +337,7 @@ void mixerResetMotors(void)
 
 void mixerInit(void)
 {
-    numberMotor = 4;
+    numberMotor = 3;
     configure_pwm();
     throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
 
@@ -349,8 +348,8 @@ void writeMotors(void)
 {
     static uint32_t oldv = 0;
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, motor[0]);
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, motor[0]);
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, motor[0]);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, motor[1]);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, motor[2]);
     if (oldv != motor[0]) {
         DEBUGOUT("PWM write %08x\r\n", motor[0]);
     }
@@ -367,7 +366,7 @@ void mixTable(void)
     // motors for non-servo mixes
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
-            motor[i] = throttle;// + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
+            motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
         }
     }
 }
