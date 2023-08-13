@@ -273,9 +273,9 @@ void SCT_PinsConfigure(void)
 
 #define SCT_PWM_PIN_LED    1        /* COUT2 [index 2] Controls LED */
 
-#define SCT_PWM_MTR1        2        /* Index of LED PWM */
-#define SCT_PWM_MTR2        2        /* Index of LED PWM */
-#define SCT_PWM_MTR3        2        /* Index of LED PWM */
+#define SCT_PWM_MTR1        2        /* Index of RIGHT PWM */
+#define SCT_PWM_MTR2        3        /* Index of REAR PWM */
+#define SCT_PWM_MTR3        4        /* Index of LEFT PWM */
 #define SCT_PWM_RATE   50        /* PWM frequency 10 KHz */
 
 /* Systick timer tick rate, to change duty cycle */
@@ -316,9 +316,9 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f,  0.0f,  1.333333f,  0.0f },     // REAR
     { 1.0f, -1.0f, -0.666667f,  0.0f },     // RIGHT
-    { 1.0f,  1.0f, -0.666667f,  0.0f },
+    { 1.0f,  0.0f,  1.333333f,  0.0f },     // REAR
+    { 1.0f,  1.0f, -0.666667f,  0.0f },     // LEFT
 };
 #define MAX_MOTORS             4
 
@@ -386,6 +386,8 @@ int constrain(int amt, int low, int high)
         return amt;
 }
 
+int32_t yawUI = 0;
+
 static void pidMultiWii(void)
 {
     int32_t errorAngle = 0;
@@ -402,7 +404,11 @@ static void pidMultiWii(void)
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
         // -----Get the desired angle rate depending on flight mode
-        AngleRateTmp = 0;
+        if (axis == 2) {
+            AngleRateTmp = yawUI;
+        } else {
+            AngleRateTmp = 0;
+        }
         // --------low-level gyro-based PID. ----------
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
@@ -484,8 +490,15 @@ int main2(void)
                 break;
             }
             case '-': {
-                throttle -= 100;
+                throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
                 break;
+            }
+            case 'w': {
+                yawUI += 100;
+                break;
+            }
+            case 's': {
+                yawUI = 0;
             }
         }
     }
