@@ -316,9 +316,9 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f, -1.0f, -0.666667f,  0.0f },     // RIGHT
-    { 1.0f,  0.0f,  1.333333f,  0.0f },     // REAR
-    { 1.0f,  1.0f, -0.666667f,  0.0f },     // LEFT
+    { 1.0f, -10.0f, -6.66667f,  0.0f },     // RIGHT
+    { 1.0f,  0.0f,  13.33333f,  0.0f },     // REAR
+    { 1.0f,  10.0f, -6.66667f,  0.0f },     // LEFT
 };
 #define MAX_MOTORS             4
 
@@ -350,9 +350,6 @@ void writeMotors(void)
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, motor[0]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, motor[1]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, motor[2]);
-    if (oldv != motor[0]) {
-        DEBUGOUT("PWM write %08x\r\n", motor[0]);
-    }
     oldv = motor[0];
 }
 
@@ -367,6 +364,8 @@ void mixTable(void)
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
             motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
+            DEBUGOUT("PWM write %d: %d %f %f %f\r\n", i, throttle, axisPID[PITCH] * mixerQuadX[i].pitch,
+                     axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
         }
     }
 }
@@ -404,7 +403,7 @@ static void pidMultiWii(void)
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
         // -----Get the desired angle rate depending on flight mode
-        if (axis == 2) {
+        if (axis == 0) {
             AngleRateTmp = yawUI;
         } else {
             AngleRateTmp = 0;
