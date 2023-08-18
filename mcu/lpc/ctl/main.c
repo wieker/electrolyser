@@ -267,6 +267,7 @@ void SCT_PinsConfigure(void)
 	Chip_SCU_PinMuxSet(0x2, 12, (SCU_MODE_INACT | SCU_MODE_FUNC1));
 	Chip_SCU_PinMuxSet(0x1, 7, (SCU_MODE_INACT | SCU_MODE_FUNC2));
 	Chip_SCU_PinMuxSet(0x2, 9, (SCU_MODE_INACT | SCU_MODE_FUNC1));
+	Chip_SCU_PinMuxSet(0x1, 8, (SCU_MODE_INACT | SCU_MODE_FUNC2));
 }
 
 #define SCT_PWM            LPC_SCT
@@ -276,6 +277,7 @@ void SCT_PinsConfigure(void)
 #define SCT_PWM_MTR1        2        /* Index of RIGHT PWM */
 #define SCT_PWM_MTR2        3        /* Index of REAR PWM */
 #define SCT_PWM_MTR3        4        /* Index of LEFT PWM */
+#define SCT_PWM_MTR4        5        /* Index of LEFT PWM */
 #define SCT_PWM_RATE   50        /* PWM frequency 10 KHz */
 
 /* Systick timer tick rate, to change duty cycle */
@@ -300,11 +302,13 @@ void configure_pwm() {
 	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR1, 4);
 	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR2, 3);
 	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR3, 13);
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR4, 12);
 
 	/* Start with 0% duty cycle */
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR4, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
 	Chip_SCTPWM_Start(SCT_PWM);
 }
 
@@ -316,9 +320,10 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f, -10.0f, -6.66667f,  0.0f },     // RIGHT
-    { 1.0f,  0.0f,  13.33333f,  0.0f },     // REAR
-    { 1.0f,  10.0f, -6.66667f,  0.0f },     // LEFT
+    { 1.0f, -1.0f,  1.0f, -1.0f },          // REAR_R
+    { 1.0f, -1.0f, -1.0f,  1.0f },          // FRONT_R
+    { 1.0f,  1.0f,  1.0f,  1.0f },          // REAR_L
+    { 1.0f,  1.0f, -1.0f, -1.0f },          // FRONT_L
 };
 #define MAX_MOTORS             4
 
@@ -337,7 +342,7 @@ void mixerResetMotors(void)
 
 void mixerInit(void)
 {
-    numberMotor = 3;
+    numberMotor = 4;
     configure_pwm();
     throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
 
@@ -350,6 +355,7 @@ void writeMotors(void)
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, motor[0]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, motor[1]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, motor[2]);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR4, motor[3]);
     oldv = motor[0];
 }
 
