@@ -286,7 +286,6 @@ void SCT_PinsConfigure(void)
 #define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
 
 void configure_pwm() {
-	/* Generic Initialization */
 	SystemCoreClockUpdate();
 	Board_Init();
 
@@ -320,10 +319,10 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f, -1.0f,  1.0f, -1.0f },          // REAR_R
-    { 1.0f, -1.0f, -1.0f,  1.0f },          // FRONT_R
-    { 1.0f,  1.0f,  1.0f,  1.0f },          // REAR_L
-    { 1.0f,  1.0f, -1.0f, -1.0f },          // FRONT_L
+    { 1.0f,  0.0f,  1.0f, -1.0f },          // RIGHT
+    { 1.0f, -1.0f,  0.0f,  1.0f },          // REAR
+    { 1.0f,  0.0f, -1.0f, -1.0f },          // LEFT
+    { 1.0f,  1.0f,  0.0f,  1.0f },          // FRONT
 };
 #define MAX_MOTORS             4
 
@@ -370,8 +369,8 @@ void mixTable(void)
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
             motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
-            DEBUGOUT("PWM write %d: %d %f %f %f\r\n", i, throttle, axisPID[PITCH] * mixerQuadX[i].pitch,
-                     axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
+            //DEBUGOUT("PWM write %d: %d %f %f %f\r\n", i, throttle, axisPID[PITCH] * mixerQuadX[i].pitch,
+            //         axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
         }
     }
 }
@@ -402,9 +401,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {40, 40, 85};
-    int32_t cfgI8[] = {30, 30, 45};
-    int32_t cfgD8[] = {23, 23, 0};
+    int32_t cfgP8[] = {400, 400, 850};
+    int32_t cfgI8[] = {300, 300, 450};
+    int32_t cfgD8[] = {230, 230, 0};
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -504,6 +503,23 @@ int main2(void)
             }
             case 's': {
                 yawUI = 0;
+                break;
+            }
+            case '1': {
+                motor[0] = throttle;
+                break;
+            }
+            case '2': {
+                motor[1] = throttle;
+                break;
+            }
+            case '3': {
+                motor[2] = throttle;
+                break;
+            }
+            case '4': {
+                motor[3] = throttle;
+                break;
             }
         }
     }
