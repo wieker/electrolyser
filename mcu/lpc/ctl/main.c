@@ -45,12 +45,6 @@ static volatile uint32_t usTicks = 0;
 // current uptime for 1kHz systick timer. will rollover after 49 days. hopefully we won't care.
 static volatile uint32_t sysTickUptime = 0;
 
-// SysTick
-void sys_tick_handler(void)
-{
-    sysTickUptime++;
-}
-
 // Return system uptime in microseconds (rollover in 70minutes)
 uint32_t micros(void)
 {
@@ -77,6 +71,7 @@ enum {
     THROTTLE,
 };
 
+#define MAX_MOTORS             4
 int16_t gyroData[3] = { 0, 0, 0 };
 int16_t gyroADC[3];
 uint16_t calibratingG = 0;
@@ -84,9 +79,12 @@ int16_t gyroZero[3] = { 0, 0, 0 };
 uint32_t currentTime = 0;
 uint32_t previousTime = 0;
 uint16_t cycleTime = 0;
+uint32_t motor[MAX_MOTORS];
 
 #define LPC_SSP           LPC_SSP1
 #define SSP_DATA_BITS                       (SSP_BITS_8)
+
+#define SCT_PWM            LPC_SCT
 
 uint8_t Rx_Buf[256];
 uint8_t Tx_Buf[256];
@@ -174,7 +172,7 @@ static void mpuGyroRead(int16_t *gyroData)
     //printf("test %d\r\n", ctime);
     if ((ctime - ptime) > 1000) {
         val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
-        printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
+        printf("acc %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
         ptime = ctime;
     }
 }
@@ -261,12 +259,12 @@ void computeIMU(void)
     gyroData[ROLL] = gyroADC[ROLL];
     gyroData[PITCH] = gyroADC[PITCH];
 
-    if (gyroData[YAW] >= 100 || gyroData[ROLL] >= 100 || gyroData[PITCH] >= 100) {
-        printf("test %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
-        cnt = 0;
-    } else {
-        cnt ++;
-    }
+    // if (gyroData[YAW] >= 100 || gyroData[ROLL] >= 100 || gyroData[PITCH] >= 100) {
+    //     printf("test %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
+    //     cnt = 0;
+    // } else {
+    //     cnt ++;
+    // }
 }
 
 void SCT_PinsConfigure(void)
@@ -277,8 +275,6 @@ void SCT_PinsConfigure(void)
 	Chip_SCU_PinMuxSet(0x2, 9, (SCU_MODE_INACT | SCU_MODE_FUNC1));
 	Chip_SCU_PinMuxSet(0x1, 8, (SCU_MODE_INACT | SCU_MODE_FUNC2));
 }
-
-#define SCT_PWM            LPC_SCT
 
 #define SCT_PWM_PIN_LED    1        /* COUT2 [index 2] Controls LED */
 
@@ -325,16 +321,14 @@ typedef struct motorMixer_t {
 
 static const motorMixer_t mixerQuadX[] = {
     { 1.0f,  0.0f,  1.0f, -1.0f },          // RIGHT
-    { 1.0f,  1.0f,  0.0f,  1.0f },          // REAR
+    { 1.0f, -1.0f,  0.0f,  1.0f },          // REAR
     { 1.0f,  0.0f, -1.0f, -1.0f },          // LEFT
-    { 1.0f, -1.0f,  0.0f,  1.0f },          // FRONT
+    { 1.0f,  1.0f,  0.0f,  1.0f },          // FRONT
 };
-#define MAX_MOTORS             4
 
 static uint8_t numberMotor = 0;
 
 static motorMixer_t currentMixer[MAX_MOTORS];
-uint32_t motor[MAX_MOTORS];
 int16_t motor_disarmed[MAX_MOTORS];
 
 uint32_t throttle = 0;
@@ -355,15 +349,22 @@ void mixerInit(void)
 
 void writeMotors(void)
 {
-    static uint32_t oldv = 0;
+    static uint32_t ptime = 0;
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, motor[0]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, motor[1]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, motor[2]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR4, motor[3]);
-    oldv = motor[0];
+    uint32_t ctime = millis();
+    //printf("test %d\r\n", ctime);
+    if ((ctime - ptime) > 1000) {
+        printf("gyr %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
+        int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
+        DEBUGOUT("PWM write %d %d %d %d %d\r\n", motor[0] - low, motor[1] - low, motor[2] - low, motor[3] - low, low);
+        ptime = ctime;
+    }
 }
 
-int16_t axisPID[3];
+int32_t axisPID[3];
 
 void mixTable(void)
 {
@@ -452,7 +453,7 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = PTerm + ITerm + DTerm;
+        axisPID[axis] = gyroData[axis] * 10;
     }
 }
 
@@ -564,4 +565,10 @@ int main(void)
 	}
 
 	return 0;
+}
+
+// SysTick
+void sys_tick_handler(void)
+{
+    sysTickUptime++;
 }
