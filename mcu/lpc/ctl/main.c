@@ -80,6 +80,8 @@ uint32_t currentTime = 0;
 uint32_t previousTime = 0;
 uint16_t cycleTime = 0;
 uint32_t motor[MAX_MOTORS];
+int16_t accADC[3];
+int16_t accZero[3] = { 0, 0, 0 };
 
 #define LPC_SSP           LPC_SSP1
 #define SSP_DATA_BITS                       (SSP_BITS_8)
@@ -170,8 +172,11 @@ static void mpuGyroRead(int16_t *gyroData)
     gyroData[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
     uint32_t ctime = millis();
     //printf("test %d\r\n", ctime);
+    val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
+    accADC[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
+    accADC[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
+    accADC[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
     if ((ctime - ptime) > 1000) {
-        val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
         printf("acc %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
         ptime = ctime;
     }
@@ -215,6 +220,7 @@ static void GYRO_Common(void)
 {
     int axis;
     static int32_t g[3];
+    static int32_t v[3];
     static stdev_t var[3];
 
     if (calibratingG > 0) {
@@ -222,17 +228,22 @@ static void GYRO_Common(void)
             // Reset g[axis] at start of calibration
             if (calibratingG == CALIBRATING_GYRO_CYCLES) {
                 g[axis] = 0;
+                v[axis] = 0;
                 devClear(&var[axis]);
             }
             // Sum up 1000 readings
             g[axis] += gyroADC[axis];
+            v[axis] += accADC[axis];
             devPush(&var[axis], gyroADC[axis]);
             // Clear global variables for next reading
             gyroADC[axis] = 0;
             gyroZero[axis] = 0;
+            accADC[axis] = 0;
+            accZero[axis] = 0;
             if (calibratingG == 1) {
                 float dev = devStandardDeviation(&var[axis]);
                 gyroZero[axis] = (g[axis] + (CALIBRATING_GYRO_CYCLES / 2)) / CALIBRATING_GYRO_CYCLES;
+                accZero[axis] = (v[axis] + (CALIBRATING_GYRO_CYCLES / 2)) / CALIBRATING_GYRO_CYCLES;
             }
         }
         calibratingG--;
@@ -250,21 +261,11 @@ void Gyro_getADC(void)
 
 void computeIMU(void)
 {
-    static int16_t gyroYawSmooth = 0;
-    static int cnt = 0;
-
     Gyro_getADC();
 
     gyroData[YAW] = gyroADC[YAW];
     gyroData[ROLL] = gyroADC[ROLL];
     gyroData[PITCH] = gyroADC[PITCH];
-
-    // if (gyroData[YAW] >= 100 || gyroData[ROLL] >= 100 || gyroData[PITCH] >= 100) {
-    //     printf("test %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
-    //     cnt = 0;
-    // } else {
-    //     cnt ++;
-    // }
 }
 
 void SCT_PinsConfigure(void)
@@ -403,13 +404,17 @@ static void pidMultiWii(void)
     int32_t errorAngle = 0;
     int axis;
     int32_t delta, deltaSum;
-    static int32_t delta1[3], delta2[3];
+    static int32_t delta1[3], delta2[3], acc_delta[3];
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
     int32_t cfgP8[] = {400, 400, 850};
     int32_t cfgI8[] = {300, 300, 450};
     int32_t cfgD8[] = {230, 230, 0};
+
+    acc_delta[2] = 0;
+    acc_delta[PITCH] = accADC[ROLL] - accZero[ROLL];
+    acc_delta[ROLL] = - accADC[PITCH] + accZero[PITCH];
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -453,7 +458,7 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = gyroData[axis] * 10;
+        axisPID[axis] = gyroData[axis] * 10 + 1 * acc_delta[axis];
     }
 }
 
