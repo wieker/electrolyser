@@ -46,7 +46,7 @@ static volatile uint32_t usTicks = 0;
 static volatile uint32_t sysTickUptime = 0;
 
 // SysTick
-void SysTick_Handler(void)
+void sys_tick_handler(void)
 {
     sysTickUptime++;
 }
@@ -163,12 +163,20 @@ void imuInit(void)
 static void mpuGyroRead(int16_t *gyroData)
 {
     //delay(20000000);
+    static uint32_t ptime = 0;
     //printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
     uint8_t* val = spi_xfer6(MPU_RA_GYRO_XOUT_H | DIR_READ);
     //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
     gyroData[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
     gyroData[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
     gyroData[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
+    uint32_t ctime = millis();
+    //printf("test %d\r\n", ctime);
+    if ((ctime - ptime) > 1000) {
+        val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
+        printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
+        ptime = ctime;
+    }
 }
 
 typedef struct stdev_t {
@@ -286,9 +294,6 @@ void SCT_PinsConfigure(void)
 #define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
 
 void configure_pwm() {
-	SystemCoreClockUpdate();
-	Board_Init();
-
 	/* Initialize the SCT as PWM and set frequency */
 	Chip_SCTPWM_Init(SCT_PWM);
 	Chip_SCTPWM_SetRate(SCT_PWM, SCT_PWM_RATE);
