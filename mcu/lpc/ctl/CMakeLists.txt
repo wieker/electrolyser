@@ -91,6 +91,7 @@ set(SRC_M4
 	../liblpc/i2cm_18xx_43xx.c
 	../liblpc/wm8904.c
 	../liblpc/adc.c
+	../liblpc/i2c
 	../liblpc/adc_18xx_43xx.c
 	../liblpc/gpdma_18xx_43xx.c
 	../liblpc/timers.c

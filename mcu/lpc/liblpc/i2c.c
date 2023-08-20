@@ -247,7 +247,7 @@ static void i2c_app_init(I2C_ID_T id, int speed)
 	Chip_I2C_SetClockRate(id, speed);
 
 	/* Set default mode to interrupt */
-	i2c_set_mode(id, 0);
+	i2c_set_mode(id, 1);
 }
 
 /* Function that probes all available slaves connected to an I2C bus */
@@ -431,17 +431,12 @@ void I2C0_IRQHandler(void)
 }
 
 int init_i2c() {
-    SystemCoreClockUpdate();
-    Board_Init();
-
     i2c_app_init(I2C0, SPEED_100KHZ);
-    i2c_app_init(I2C1, SPEED_100KHZ);
-
 
     i2c_set_mode(I2C0, 1);
-    i2c_set_mode(I2C1, 1);
 
     DEBUGOUT("I2C initialized\r\n");
+	i2c_probe_slaves(I2C0);
 }
 
 /**

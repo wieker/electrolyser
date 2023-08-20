@@ -536,6 +536,9 @@ int main2(void)
     }
 }
 
+int init_i2c();
+uint8_t *read_data(int slaveAddr, unsigned int addr);
+
 int main(void)
 {
 	uint32_t timerFreq;
@@ -546,6 +549,11 @@ int main(void)
 	SystemCoreClockUpdate();
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
     usTicks = SystemCoreClock / 1000000;
+
+    init_i2c();
+    read_data(0x0d, 0x0d);
+
+    for (;;);
 
 	main2();
 
