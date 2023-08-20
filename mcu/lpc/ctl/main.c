@@ -651,6 +651,9 @@ int Mag_getADC(void)
             magInit = 1;
         }
     }
+    float hd = (atan2f(magADCRaw[0], magADCRaw[2]) * 1800.0f / M_PI) / 10.0f;
+    int head = lrintf(hd);
+    printf("head: %d\r\n", head);
 
     return 1;
 }
