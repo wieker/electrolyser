@@ -96,6 +96,8 @@ static const uint8_t WHO_AM_I = 0x75;
 static const uint8_t PWR_MGMT_1 = 0x6B;
 static const uint8_t DIR_READ = 0x80;
 
+int Mag_getADC(void);
+
 uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
 	static Chip_SSP_DATA_SETUP_T xf_setup;
 	xf_setup.length = 2;
@@ -467,10 +469,16 @@ void loop(void)
 {
     static uint32_t rcTime = 0;
     static uint32_t loopTime;
+    static uint32_t t;
     uint32_t auxState = 0;
     bool isThrottleLow = false;
 
     currentTime = micros();
+
+    if ((micros() - t > 100000)) {
+        t = micros();
+        Mag_getADC();
+    }
 
 	computeIMU();
 	// Measure loop rate just afer reading the sensors
@@ -594,6 +602,59 @@ void xxx() {
     printf("gyr %d %d %d\r\n", magADCRaw[YAW], magADCRaw[ROLL], magADCRaw[PITCH]);
 }
 
+int magInit = 0;
+int magcal = 0;
+
+int Mag_getADC(void)
+{
+    static uint32_t t, tCal = 0;
+    static int16_t magZeroTempMin[3];
+    static int16_t magZeroTempMax[3];
+    static int16_t magZero[3];
+    uint32_t axis;
+
+    if ((int32_t)(currentTime - t) < 0)
+        return 0;                 //each read is spaced by 100ms
+    t = currentTime + 100000;
+
+    // Read mag sensor
+    xxx();
+
+    if (!magcal) {
+        tCal = t;
+        for (axis = 0; axis < 3; axis++) {
+            magZero[axis] = 0;
+            magZeroTempMin[axis] = magADCRaw[axis];
+            magZeroTempMax[axis] = magADCRaw[axis];
+        }
+        magcal = 1;
+    }
+
+    if (magInit) {              // we apply offset only once mag calibration is done
+        magADCRaw[0] -= magZero[0];
+        magADCRaw[1] -= magZero[1];
+        magADCRaw[2] -= magZero[2];
+    }
+
+    if (tCal != 0) {
+        if ((t - tCal) < 30000000) {    // 30s: you have 30s to turn the multi in all directions
+            for (axis = 0; axis < 3; axis++) {
+                if (magADCRaw[axis] < magZeroTempMin[axis])
+                    magZeroTempMin[axis] = magADCRaw[axis];
+                if (magADCRaw[axis] > magZeroTempMax[axis])
+                    magZeroTempMax[axis] = magADCRaw[axis];
+            }
+        } else {
+            tCal = 0;
+            for (axis = 0; axis < 3; axis++)
+                magZero[axis] = (magZeroTempMin[axis] + magZeroTempMax[axis]) / 2; // Calculate offsets
+            magInit = 1;
+        }
+    }
+
+    return 1;
+}
+
 int main(void)
 {
 	uint32_t timerFreq;
@@ -612,16 +673,6 @@ int main(void)
     uint8_t arr2[] = {QMC5883L_REG_CONF1, QMC5883L_MODE_CONTINUOUS | QMC5883L_ODR_200HZ | QMC5883L_OSR_512 | QMC5883L_RNG_8G};
     Chip_I2C_MasterSend(I2C0, 0x0d, arr, 2);
     Chip_I2C_MasterSend(I2C0, 0x0d, arr2, 2);
-
-    xxx();
-
-    uint32_t t = micros();
-    for (;;) {
-        if (micros() - t > 1000000) {
-            t = micros();
-            xxx();
-        }
-    }
 
 	main2();
 
