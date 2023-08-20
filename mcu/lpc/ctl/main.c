@@ -458,7 +458,7 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = gyroData[axis] * 10 + 1 * acc_delta[axis];
+        axisPID[axis] = gyroData[axis] * 10 + 1 * acc_delta[axis] + yawUI;
     }
 }
 
