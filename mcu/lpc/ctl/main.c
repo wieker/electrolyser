@@ -83,6 +83,7 @@ uint32_t motor[MAX_MOTORS];
 int16_t accADC[3];
 int16_t accZero[3] = { 0, 0, 0 };
 int16_t magADCRaw[3];
+int head;
 
 #define LPC_SSP           LPC_SSP1
 #define SSP_DATA_BITS                       (SSP_BITS_8)
@@ -415,7 +416,7 @@ static void pidMultiWii(void)
     int32_t cfgI8[] = {300, 300, 450};
     int32_t cfgD8[] = {230, 230, 0};
 
-    acc_delta[2] = 0;
+    acc_delta[2] = (- 140 + head) * 10;
     acc_delta[PITCH] = accADC[ROLL] - accZero[ROLL];
     acc_delta[ROLL] = - accADC[PITCH] + accZero[PITCH];
 
@@ -461,7 +462,7 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = gyroData[axis] * 10 + 1 * acc_delta[axis] + yawUI;
+        axisPID[axis] = gyroData[axis] * 10 + 1 * acc_delta[axis];
     }
 }
 
@@ -653,7 +654,7 @@ int Mag_getADC(void)
         }
     }
     float hd = (atan2f(magADCRaw[0], magADCRaw[2]) * 1800.0f / M_PI) / 10.0f;
-    int head = lrintf(hd);
+    head = lrintf(hd);
     printf("head: %d\r\n", head);
 
     return 1;
