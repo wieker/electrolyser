@@ -602,15 +602,15 @@ void xxx() {
     printf("gyr %d %d %d\r\n", magADCRaw[YAW], magADCRaw[ROLL], magADCRaw[PITCH]);
 }
 
-int magInit = 0;
-int magcal = 0;
+int magInit = 1;
+int magcal = 1;
 
 int Mag_getADC(void)
 {
     static uint32_t t, tCal = 0;
     static int16_t magZeroTempMin[3];
     static int16_t magZeroTempMax[3];
-    static int16_t magZero[3];
+    static int16_t magZero[3] = {371, -967, -730};
     uint32_t axis;
 
     if ((int32_t)(currentTime - t) < 0)
@@ -634,10 +634,11 @@ int Mag_getADC(void)
         magADCRaw[0] -= magZero[0];
         magADCRaw[1] -= magZero[1];
         magADCRaw[2] -= magZero[2];
+        //printf("zero %d %d %d\r\n", magZero[0], magZero[1], magZero[2]);
     }
 
     if (tCal != 0) {
-        if ((t - tCal) < 30000000) {    // 30s: you have 30s to turn the multi in all directions
+        if ((t - tCal) < 60000000) {    // 30s: you have 30s to turn the multi in all directions
             for (axis = 0; axis < 3; axis++) {
                 if (magADCRaw[axis] < magZeroTempMin[axis])
                     magZeroTempMin[axis] = magADCRaw[axis];
@@ -661,6 +662,7 @@ int Mag_getADC(void)
 int main(void)
 {
 	uint32_t timerFreq;
+    static uint32_t t;
 
     DEBUGINIT();
 	DEBUGOUT("Main enter\r\n");
@@ -676,6 +678,15 @@ int main(void)
     uint8_t arr2[] = {QMC5883L_REG_CONF1, QMC5883L_MODE_CONTINUOUS | QMC5883L_ODR_200HZ | QMC5883L_OSR_512 | QMC5883L_RNG_8G};
     Chip_I2C_MasterSend(I2C0, 0x0d, arr, 2);
     Chip_I2C_MasterSend(I2C0, 0x0d, arr2, 2);
+
+    // for (;;) {
+    //     currentTime = micros();
+    //
+    //     if ((micros() - t > 100000)) {
+    //         t = micros();
+    //         Mag_getADC();
+    //     }
+    // }
 
 	main2();
 
