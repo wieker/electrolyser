@@ -102,6 +102,7 @@ set(SRC_M4
 	../liblpc/uart.c
 	../liblpc/sct_18xx_43xx.c
 	../liblpc/sct_pwm_18xx_43xx.c
+	ctl/imu.c
 )
 
 DeclareTargets()

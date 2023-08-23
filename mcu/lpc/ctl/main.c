@@ -22,6 +22,7 @@
 #include "gpio_lpc.h"
 #include <math.h>
 #include "board.h"
+#include "ctl/defs.h"
 
 #include "icm20689/accgyro_icm20689.h"
 #include "icm20689/accgyro_mpu.h"
@@ -64,13 +65,6 @@ uint32_t millis(void)
 
 #define CALIBRATING_GYRO_CYCLES             1000
 
-enum {
-    ROLL = 0,
-    PITCH,
-    YAW,
-    THROTTLE,
-};
-
 #define MAX_MOTORS             4
 int16_t gyroData[3] = { 0, 0, 0 };
 int16_t gyroADC[3];
@@ -82,7 +76,8 @@ uint16_t cycleTime = 0;
 uint32_t motor[MAX_MOTORS];
 int16_t accADC[3];
 int16_t accZero[3] = { 0, 0, 0 };
-int16_t magADCRaw[3];
+int16_t magADC[3];
+int16_t accSmooth[3];
 int head;
 
 #define LPC_SSP           LPC_SSP1
@@ -416,9 +411,14 @@ static void pidMultiWii(void)
     int32_t cfgI8[] = {300, 300, 450};
     int32_t cfgD8[] = {230, 230, 0};
 
+    static int32_t acc_balance_offset[3] = {0, 0};
+
     acc_delta[2] = 50 * head - 3000;
     acc_delta[PITCH] = accADC[ROLL] - accZero[ROLL];
     acc_delta[ROLL] = - accADC[PITCH] + accZero[PITCH] + 500;
+
+    acc_balance_offset[PITCH] = (acc_balance_offset[PITCH] * 100.0f + acc_delta[PITCH]) / 101.f;
+    acc_balance_offset[ROLL] = (acc_balance_offset[ROLL] * 100.0f + acc_delta[ROLL]) / 101.f;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -462,7 +462,7 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = gyroData[axis] * 10 + 1 * acc_delta[axis];
+        axisPID[axis] = (gyroData[axis] * 20 + 1 * acc_delta[axis] + acc_balance_offset[axis]) / 2;
     }
 }
 
@@ -596,11 +596,11 @@ void xxx() {
              (xfer).status == I2C_STATUS_DONE ? "SUCCESS" : "FAILURE");
     DEBUGOUT("Received %d bytes from slave 0x%02X\r\n", 6 - (xfer).rxSz, (xfer).slaveAddr);
 
-    magADCRaw[0] = (int16_t)(rxd[1] << 8 | rxd[0]);
-    magADCRaw[1] = (int16_t)(rxd[3] << 8 | rxd[2]);
-    magADCRaw[2] = (int16_t)(rxd[5] << 8 | rxd[4]);
+    magADC[0] = (int16_t)(rxd[1] << 8 | rxd[0]);
+    magADC[1] = (int16_t)(rxd[3] << 8 | rxd[2]);
+    magADC[2] = (int16_t)(rxd[5] << 8 | rxd[4]);
 
-    printf("gyr %d %d %d\r\n", magADCRaw[YAW], magADCRaw[ROLL], magADCRaw[PITCH]);
+    printf("gyr %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
 }
 
 int magInit = 1;
@@ -625,26 +625,26 @@ int Mag_getADC(void)
         tCal = t;
         for (axis = 0; axis < 3; axis++) {
             magZero[axis] = 0;
-            magZeroTempMin[axis] = magADCRaw[axis];
-            magZeroTempMax[axis] = magADCRaw[axis];
+            magZeroTempMin[axis] = magADC[axis];
+            magZeroTempMax[axis] = magADC[axis];
         }
         magcal = 1;
     }
 
     if (magInit) {              // we apply offset only once mag calibration is done
-        magADCRaw[0] -= magZero[0];
-        magADCRaw[1] -= magZero[1];
-        magADCRaw[2] -= magZero[2];
+        magADC[0] -= magZero[0];
+        magADC[1] -= magZero[1];
+        magADC[2] -= magZero[2];
         //printf("zero %d %d %d\r\n", magZero[0], magZero[1], magZero[2]);
     }
 
     if (tCal != 0) {
         if ((t - tCal) < 60000000) {    // 30s: you have 30s to turn the multi in all directions
             for (axis = 0; axis < 3; axis++) {
-                if (magADCRaw[axis] < magZeroTempMin[axis])
-                    magZeroTempMin[axis] = magADCRaw[axis];
-                if (magADCRaw[axis] > magZeroTempMax[axis])
-                    magZeroTempMax[axis] = magADCRaw[axis];
+                if (magADC[axis] < magZeroTempMin[axis])
+                    magZeroTempMin[axis] = magADC[axis];
+                if (magADC[axis] > magZeroTempMax[axis])
+                    magZeroTempMax[axis] = magADC[axis];
             }
         } else {
             tCal = 0;
@@ -653,7 +653,7 @@ int Mag_getADC(void)
             magInit = 1;
         }
     }
-    float hd = (atan2f(magADCRaw[0], magADCRaw[2]) * 1800.0f / M_PI) / 10.0f;
+    float hd = (atan2f(magADC[0], magADC[2]) * 1800.0f / M_PI) / 10.0f;
     head = lrintf(hd);
     printf("head: %d\r\n", head);
 
