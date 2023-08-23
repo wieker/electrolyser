@@ -416,7 +416,7 @@ static void pidMultiWii(void)
     int32_t cfgI8[] = {300, 300, 450};
     int32_t cfgD8[] = {230, 230, 0};
 
-    acc_delta[2] = -3000;
+    acc_delta[2] = 50 * head - 3000;
     acc_delta[PITCH] = accADC[ROLL] - accZero[ROLL];
     acc_delta[ROLL] = - accADC[PITCH] + accZero[PITCH] + 500;
 
