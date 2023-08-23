@@ -325,10 +325,10 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f,  0.0f,  1.0f, -1.0f },          // RIGHT
-    { 1.0f, -1.0f,  0.0f,  1.0f },          // REAR
-    { 1.0f,  0.0f, -1.0f, -1.0f },          // LEFT
-    { 1.0f,  1.0f,  0.0f,  1.0f },          // FRONT
+    { 1.0f,  0.0f,  1.0f, -1.6f },          // RIGHT
+    { 1.0f, -1.0f,  0.0f,  0.8f },          // REAR
+    { 1.0f,  0.0f, -1.0f, -1.6f },          // LEFT
+    { 1.0f,  1.6f,  0.0f,  0.8f },          // FRONT
 };
 
 static uint8_t numberMotor = 0;
@@ -416,9 +416,9 @@ static void pidMultiWii(void)
     int32_t cfgI8[] = {300, 300, 450};
     int32_t cfgD8[] = {230, 230, 0};
 
-    acc_delta[2] = (- 37 + head) * 5;
+    acc_delta[2] = -3000;
     acc_delta[PITCH] = accADC[ROLL] - accZero[ROLL];
-    acc_delta[ROLL] = - accADC[PITCH] + accZero[PITCH];
+    acc_delta[ROLL] = - accADC[PITCH] + accZero[PITCH] + 500;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
