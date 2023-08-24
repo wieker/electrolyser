@@ -17,7 +17,7 @@ t_fp_vector EstG;
 int16_t angle[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 float anglerad[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
 int16_t heading, magHold;
-uint16_t acc_1G = 2048;
+uint16_t acc_1G = 1024;
 extern int16_t gyroADC[3], accADC[3], accSmooth[3], magADC[3];
 int32_t accSum[3];
 uint32_t accTimeSum = 0;        // keep track for integration of acc
@@ -153,7 +153,7 @@ static int16_t calculateHeading(t_fp_vector *vec)
     return head;
 }
 
-static void getEstimatedAttitude(void)
+void getEstimatedAttitude(void)
 {
     int32_t axis;
     int32_t accMag = 0;

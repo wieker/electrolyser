@@ -26,4 +26,10 @@ typedef enum {
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #define abs(x) ((x) > 0 ? (x) : -(x))
 
+extern int16_t angle[2];
+extern int32_t axisPID[3];
+extern int16_t heading;
+extern uint16_t acc_1G;
+
 uint32_t micros(void);
+void getEstimatedAttitude(void);

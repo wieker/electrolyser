@@ -175,10 +175,6 @@ static void mpuGyroRead(int16_t *gyroData)
     accADC[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
     accADC[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
     accADC[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
-    if ((ctime - ptime) > 1000) {
-        printf("acc %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
-        ptime = ctime;
-    }
 }
 
 typedef struct stdev_t {
@@ -249,6 +245,9 @@ static void GYRO_Common(void)
     }
     for (axis = 0; axis < 3; axis++)
         gyroADC[axis] -= gyroZero[axis];
+    for (axis = 0; axis < 3; axis++)
+        accADC[axis] -= accZero[axis];
+    accADC[YAW] -= acc_1G;
 }
 
 void Gyro_getADC(void)
@@ -265,6 +264,9 @@ void computeIMU(void)
     gyroData[YAW] = gyroADC[YAW];
     gyroData[ROLL] = gyroADC[ROLL];
     gyroData[PITCH] = gyroADC[PITCH];
+
+    getEstimatedAttitude();
+
 }
 
 void SCT_PinsConfigure(void)
@@ -358,8 +360,12 @@ void writeMotors(void)
     //printf("test %d\r\n", ctime);
     if ((ctime - ptime) > 1000) {
         printf("gyr %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
+        printf("mag %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
+        printf("acc %d %d %d\r\n", accADC[YAW], accADC[ROLL], accADC[PITCH]);
         int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
-        DEBUGOUT("PWM write %d %d %d %d %d\r\n", motor[0] - low, motor[1] - low, motor[2] - low, motor[3] - low, low);
+        DEBUGOUT("PWM write %d %d %d %d %d\r\n", motor[0] - throttle, motor[1] - throttle, motor[2] - throttle, motor[3] - throttle, low);
+        DEBUGOUT("PWM ctl %d %d %d %d\r\n", throttle, axisPID[0], axisPID[1], axisPID[2]);
+        printf("calculated %d %d %d\r\n", angle[0], angle[1], heading);
         ptime = ctime;
     }
 }
@@ -592,15 +598,15 @@ void xxx() {
     (xfer).txSz = 1;
     (xfer).rxSz = 6;
     Chip_I2C_MasterTransfer(I2C0, &xfer);
-    DEBUGOUT("Master transfer : %s\r\n",
-             (xfer).status == I2C_STATUS_DONE ? "SUCCESS" : "FAILURE");
-    DEBUGOUT("Received %d bytes from slave 0x%02X\r\n", 6 - (xfer).rxSz, (xfer).slaveAddr);
+    // DEBUGOUT("Master transfer : %s\r\n",
+    //          (xfer).status == I2C_STATUS_DONE ? "SUCCESS" : "FAILURE");
+    // DEBUGOUT("Received %d bytes from slave 0x%02X\r\n", 6 - (xfer).rxSz, (xfer).slaveAddr);
 
     magADC[0] = (int16_t)(rxd[1] << 8 | rxd[0]);
     magADC[1] = (int16_t)(rxd[3] << 8 | rxd[2]);
     magADC[2] = (int16_t)(rxd[5] << 8 | rxd[4]);
 
-    printf("gyr %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
+    // printf("gyr %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
 }
 
 int magInit = 1;
@@ -655,7 +661,7 @@ int Mag_getADC(void)
     }
     float hd = (atan2f(magADC[0], magADC[2]) * 1800.0f / M_PI) / 10.0f;
     head = lrintf(hd);
-    printf("head: %d\r\n", head);
+    //printf("head: %d\r\n", head);
 
     return 1;
 }
