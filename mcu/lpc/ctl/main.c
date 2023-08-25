@@ -363,8 +363,8 @@ void writeMotors(void)
         printf("mag %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
         printf("acc %d %d %d\r\n", accADC[YAW], accADC[ROLL], accADC[PITCH]);
         int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
-        DEBUGOUT("PWM write %d %d %d %d %d\r\n", motor[0] - throttle, motor[1] - throttle, motor[2] - throttle, motor[3] - throttle, low);
-        DEBUGOUT("PWM ctl %d %d %d %d\r\n", throttle, axisPID[0], axisPID[1], axisPID[2]);
+        DEBUGOUT("PWM write %d %d %d %d %d\r\n", throttle, motor[0] - throttle, motor[1] - throttle, motor[2] - throttle, motor[3] - throttle);
+        DEBUGOUT("PWM ctl %d %d %d %d\r\n", low, axisPID[0], axisPID[1], axisPID[2]);
         printf("calculated %d %d %d %d\r\n", angle[0], angle[1], heading, head);
         ptime = ctime;
     }
@@ -419,9 +419,9 @@ static void pidMultiWii(void)
 
     static int32_t acc_balance_offset[3] = {0, 0};
 
-    acc_delta[2] = -50 * min(heading, 360 - heading) - 3000;
+    acc_delta[2] = -50 * min(heading, 360 - heading);
     acc_delta[PITCH] = angle[PITCH] * 3;
-    acc_delta[ROLL] = - angle[ROLL] * 3;
+    acc_delta[ROLL] = (- 70 - angle[ROLL]) * 3;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -466,7 +466,7 @@ static void pidMultiWii(void)
 
         // -----calculate total PID output
         axisPID[axis] = PTerm + ITerm + DTerm;
-        axisPID[axis] = axisPID[axis] >> 3;
+        axisPID[axis] = axisPID[axis] >> 1;
     }
 }
 

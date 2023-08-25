@@ -171,8 +171,8 @@ void getEstimatedAttitude(void)
     // Initialization
     for (axis = 0; axis < 3; axis++) {
         deltaGyroAngle[axis] = gyroADC[axis] * scale;
-        if (0 > 0) {
-            accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / 0)) + accADC[axis] * (1.0f / 0);
+        if (4 > 0) {
+            accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / 4)) + accADC[axis] * (1.0f / 4);
             accSmooth[axis] = accLPF[axis];
         } else {
             accSmooth[axis] = accADC[axis];
@@ -188,7 +188,8 @@ void getEstimatedAttitude(void)
     // To do that, we just skip filter, as EstV already rotated by Gyro
     if (72 < (uint16_t)accMag && (uint16_t)accMag < 133) {
         for (axis = 0; axis < 3; axis++)
-            EstG.A[axis] = (EstG.A[axis] * (float)100 + accSmooth[axis]) / 101;
+            //EstG.A[axis] = (EstG.A[axis] * (float)100 + accSmooth[axis]) / 101;
+            EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
     }
 
     // Attitude of the estimated vector
@@ -199,7 +200,7 @@ void getEstimatedAttitude(void)
 
     rotateV(&EstM.V, deltaGyroAngle);
      for (axis = 0; axis < 3; axis++)
-         EstM.A[axis] = (EstM.A[axis] * (float)100 + magADC[axis]) / 101;
+         EstM.A[axis] = (EstM.A[axis] * (float)600 + magADC[axis]) / 601;
     //normalizeV(&EstN.V, &EstN.V);
     heading = calculateHeading(&EstM);
 
