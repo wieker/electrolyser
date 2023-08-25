@@ -365,7 +365,7 @@ void writeMotors(void)
         int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
         DEBUGOUT("PWM write %d %d %d %d %d\r\n", motor[0] - throttle, motor[1] - throttle, motor[2] - throttle, motor[3] - throttle, low);
         DEBUGOUT("PWM ctl %d %d %d %d\r\n", throttle, axisPID[0], axisPID[1], axisPID[2]);
-        printf("calculated %d %d %d\r\n", angle[0], angle[1], heading);
+        printf("calculated %d %d %d %d\r\n", angle[0], angle[1], heading, head);
         ptime = ctime;
     }
 }
@@ -617,7 +617,7 @@ int Mag_getADC(void)
     static uint32_t t, tCal = 0;
     static int16_t magZeroTempMin[3];
     static int16_t magZeroTempMax[3];
-    static int16_t magZero[3] = {371, -967, -730};
+    static int16_t magZero[3] = {371 - 180, -967 + 700, -730};
     uint32_t axis;
 
     if ((int32_t)(currentTime - t) < 0)
@@ -659,7 +659,7 @@ int Mag_getADC(void)
             magInit = 1;
         }
     }
-    float hd = (atan2f(magADC[0], magADC[2]) * 1800.0f / M_PI) / 10.0f;
+    float hd = (atan2f(magADC[0], magADC[1]) * 1800.0f / M_PI) / 10.0f;
     head = lrintf(hd);
     //printf("head: %d\r\n", head);
 

@@ -198,8 +198,9 @@ void getEstimatedAttitude(void)
     angle[PITCH] = lrintf(anglerad[PITCH] * (1800.0f / M_PI));
 
     rotateV(&EstM.V, deltaGyroAngle);
-    for (axis = 0; axis < 3; axis++)
-        EstM.A[axis] = (EstM.A[axis] * (float)100 + magADC[axis]) / 101;
+     for (axis = 0; axis < 3; axis++)
+         EstM.A[axis] = (EstM.A[axis] * (float)100 + magADC[axis]) / 101;
+    //normalizeV(&EstN.V, &EstN.V);
     heading = calculateHeading(&EstM);
 
     acc_calc(deltaT); // rotate acc vector into earth frame
