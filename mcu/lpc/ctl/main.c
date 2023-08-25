@@ -420,8 +420,8 @@ static void pidMultiWii(void)
     static int32_t acc_balance_offset[3] = {0, 0};
 
     acc_delta[2] = -50 * min(heading, 360 - heading) - 3000;
-    acc_delta[PITCH] = angle[PITCH] * 5;
-    acc_delta[ROLL] = - angle[ROLL] * 5;
+    acc_delta[PITCH] = angle[PITCH] * 3;
+    acc_delta[ROLL] = - angle[ROLL] * 3;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -435,7 +435,7 @@ static void pidMultiWii(void)
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
-        RateError = AngleRateTmp - gyroData[axis];
+        RateError = gyroData[axis] * 10 + 1 * acc_delta[axis];
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
@@ -465,7 +465,8 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = gyroData[axis] * 10 + 1 * acc_delta[axis];
+        axisPID[axis] = PTerm + ITerm + DTerm;
+        axisPID[axis] = axisPID[axis] >> 3;
     }
 }
 
