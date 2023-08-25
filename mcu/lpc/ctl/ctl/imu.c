@@ -192,7 +192,7 @@ void getEstimatedAttitude(void)
     }
 
     // Attitude of the estimated vector
-    anglerad[ROLL] = atan2f(EstG.V.Y, EstG.V.Z);
+    anglerad[ROLL] = atan2f(EstG.V.Y, - EstG.V.Z);
     anglerad[PITCH] = atan2f(-EstG.V.X, sqrtf(EstG.V.Y * EstG.V.Y + EstG.V.Z * EstG.V.Z));
     angle[ROLL] = lrintf(anglerad[ROLL] * (1800.0f / M_PI));
     angle[PITCH] = lrintf(anglerad[PITCH] * (1800.0f / M_PI));

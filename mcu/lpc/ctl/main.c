@@ -325,7 +325,7 @@ static const motorMixer_t mixerQuadX[] = {
     { 1.0f,  0.0f,  1.0f, -1.6f },          // RIGHT
     { 1.0f, -1.0f,  0.0f,  0.8f },          // REAR
     { 1.0f,  0.0f, -1.0f, -1.6f },          // LEFT
-    { 1.0f,  1.6f,  0.0f,  0.8f },          // FRONT
+    { 1.0f,  2.0f,  0.0f,  0.8f },          // FRONT
 };
 
 static uint8_t numberMotor = 0;
@@ -419,12 +419,9 @@ static void pidMultiWii(void)
 
     static int32_t acc_balance_offset[3] = {0, 0};
 
-    acc_delta[2] = 50 * head - 3000;
-    acc_delta[PITCH] = accADC[ROLL] - accZero[ROLL];
-    acc_delta[ROLL] = - accADC[PITCH] + accZero[PITCH] + 500;
-
-    acc_balance_offset[PITCH] = (acc_balance_offset[PITCH] * 100.0f + acc_delta[PITCH]) / 101.f;
-    acc_balance_offset[ROLL] = (acc_balance_offset[ROLL] * 100.0f + acc_delta[ROLL]) / 101.f;
+    acc_delta[2] = -50 * min(heading, 360 - heading) - 3000;
+    acc_delta[PITCH] = angle[PITCH] * 5;
+    acc_delta[ROLL] = - angle[ROLL] * 5;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -468,7 +465,7 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = (gyroData[axis] * 20 + 1 * acc_delta[axis] + acc_balance_offset[axis]) / 2;
+        axisPID[axis] = gyroData[axis] * 10 + 1 * acc_delta[axis];
     }
 }
 
