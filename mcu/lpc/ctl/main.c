@@ -370,6 +370,7 @@ void writeMotors(void)
         printf("calculated %d %d %d %d\r\n", angle[0] / 10, angle[1] / 10, heading, head);
         printf("calculated %d %d\r\n", angleACC[0] / 10, angleACC[1] / 10);
         printf("abs %f %f %f\r\n", absAngle[0], absAngle[1], absAngle[2]);
+        printf("rel %f %f %f\r\n", relAngle[0], relAngle[1], relAngle[2]);
         ptime = ctime;
         //absAngle[0] = absAngle[1] = absAngle[2] = 0;
     }

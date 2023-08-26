@@ -28,6 +28,7 @@ int16_t smallAngle = 0;
 float fc_acc;// correction of throttle in lateral wind,
 float magneticDeclination = 0.0f;
 float absAngle[3] = { 0, 0, 0 };
+float relAngle[3] = { 0, 0, 0 };
 
 // Normalize a vector
 void normalizeV(struct fp_vector *src, struct fp_vector *dest)
@@ -174,7 +175,11 @@ void getEstimatedAttitude(void)
     // Initialization
     for (axis = 0; axis < 3; axis++) {
         deltaGyroAngle[axis] = gyroADC[axis] * scale;
-        absAngle[axis] += fabsf(deltaGyroAngle[axis]) * 180.0f * M_PI;
+        absAngle[axis] += fabsf(deltaGyroAngle[axis]) * 180.0f / M_PI;
+        relAngle[axis] += deltaGyroAngle[axis] * 180.0f / M_PI;
+        if (fabsf(deltaGyroAngle[axis]) > 1) {
+            printf("abs %f %d %d\r\n", fabsf(deltaGyroAngle[axis]), deltaT, gyroADC[axis]);
+        }
         if (4 > 0) {
             accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / 4)) + accADC[axis] * (1.0f / 4);
             accSmooth[axis] = accLPF[axis];

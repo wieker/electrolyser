@@ -32,6 +32,7 @@ extern int32_t axisPID[3];
 extern int16_t heading;
 extern uint16_t acc_1G;
 extern float absAngle[3];
+extern float relAngle[3];
 
 uint32_t micros(void);
 void getEstimatedAttitude(void);
