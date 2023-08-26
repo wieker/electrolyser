@@ -165,6 +165,7 @@ void getEstimatedAttitude(void)
     static t_fp_vector EstN = { .A = { 1.0f, 0.0f, 0.0f } };
     static float accLPF[3];
     static uint32_t previousT;
+    uint32_t ppT = previousT;
     uint32_t currentT = micros();
     uint32_t deltaT;
     float scale, deltaGyroAngle[3];
@@ -179,6 +180,8 @@ void getEstimatedAttitude(void)
         relAngle[axis] += deltaGyroAngle[axis] * 180.0f / M_PI;
         if (fabsf(deltaGyroAngle[axis]) > 1) {
             printf("abs %f %d %d\r\n", fabsf(deltaGyroAngle[axis]), deltaT, gyroADC[axis]);
+            printf("time %d %d\r\n", currentT, ppT);
+            for (;;);
         }
         if (4 > 0) {
             accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / 4)) + accADC[axis] * (1.0f / 4);
