@@ -166,10 +166,10 @@ void getEstimatedAttitude(void)
     static float accLPF[3];
     static uint32_t previousT;
     uint32_t ppT = previousT;
-    uint32_t currentT = micros();
-    uint32_t deltaT;
+    uint32_t currentT;
+    int32_t deltaT;
     float scale, deltaGyroAngle[3];
-    deltaT = currentT - previousT;
+    while ((deltaT = ((currentT = micros()) - previousT)) <= 0) {}
     scale = deltaT * (4.0f / 16.4f) * (M_PI / 180.0f) * 0.000001f;
     previousT = currentT;
 
