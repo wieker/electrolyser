@@ -393,7 +393,7 @@ void mixTable(void)
         }
     }
 
-    motor[0] = throttle;
+    motor[0] = throttle + axisPID[PITCH] * mixerQuadX[0].pitch;
 }
 
 static int32_t errorGyroI[3] = { 0, 0, 0 };
@@ -429,7 +429,7 @@ static void pidMultiWii(void)
     static int32_t acc_balance_offset[3] = {0, 0};
 
     acc_delta[2] = -50 * min(heading, 360 - heading);
-    acc_delta[PITCH] = angle[PITCH] * 3;
+    acc_delta[PITCH] = ( 100 - angle[PITCH]) * 3;
     acc_delta[ROLL] = (- 70 - angle[ROLL]) * 3;
 
     // ----------PID controller----------
@@ -487,8 +487,6 @@ void loop(void)
     uint32_t auxState = 0;
     bool isThrottleLow = false;
 
-    currentTime = micros();
-
     if ((micros() - t > 100000)) {
         t = micros();
         Mag_getADC();
@@ -496,8 +494,7 @@ void loop(void)
 
 	computeIMU();
 	// Measure loop rate just afer reading the sensors
-	currentTime = micros();
-	cycleTime = (int32_t)(currentTime - previousTime);
+    while ((cycleTime = (int32_t)((int32_t)(currentTime = micros()) - (int32_t)previousTime)) <= 0) {}
 	previousTime = currentTime;
 
 	pidMultiWii();
