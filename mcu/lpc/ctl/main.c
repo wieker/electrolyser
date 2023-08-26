@@ -166,15 +166,17 @@ static void mpuGyroRead(int16_t *gyroData)
     //printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
     uint8_t* val = spi_xfer6(MPU_RA_GYRO_XOUT_H | DIR_READ);
     //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
-    gyroData[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
-    gyroData[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
-    gyroData[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
+    gyroData[0] = (int16_t)((val[0] << 8) | val[1]) / 8;
+    gyroData[1] = (int16_t)((val[2] << 8) | val[3]) / 8;
+    gyroData[2] = (int16_t)((val[4] << 8) | val[5]) / 8;
     uint32_t ctime = millis();
     //printf("test %d\r\n", ctime);
     val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
     accADC[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
     accADC[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
     accADC[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
+    //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
+    //printf("test %f %f %f\r\n", accADC[0] * 16.0f / 32767.0f, accADC[1] * 16.0f / 32767.0f, accADC[2] * 16.0f / 32767.0f);
 }
 
 typedef struct stdev_t {
@@ -365,7 +367,8 @@ void writeMotors(void)
         int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
         DEBUGOUT("PWM write %d %d %d %d %d\r\n", throttle, motor[0] - throttle, motor[1] - throttle, motor[2] - throttle, motor[3] - throttle);
         DEBUGOUT("PWM ctl %d %d %d %d\r\n", low, axisPID[0], axisPID[1], axisPID[2]);
-        printf("calculated %d %d %d %d\r\n", angle[0], angle[1], heading, head);
+        printf("calculated %d %d %d %d\r\n", angle[0] / 10, angle[1] / 10, heading, head);
+        printf("calculated %d %d\r\n", angleACC[0] / 10, angleACC[1] / 10);
         ptime = ctime;
     }
 }
@@ -380,11 +383,14 @@ void mixTable(void)
     // motors for non-servo mixes
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
-            motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
+            //motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
+            motor[i] = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
             //DEBUGOUT("PWM write %d: %d %f %f %f\r\n", i, throttle, axisPID[PITCH] * mixerQuadX[i].pitch,
             //         axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
         }
     }
+
+    motor[0] = throttle;
 }
 
 static int32_t errorGyroI[3] = { 0, 0, 0 };
