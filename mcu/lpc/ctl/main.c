@@ -369,7 +369,9 @@ void writeMotors(void)
         DEBUGOUT("PWM ctl %d %d %d %d\r\n", low, axisPID[0], axisPID[1], axisPID[2]);
         printf("calculated %d %d %d %d\r\n", angle[0] / 10, angle[1] / 10, heading, head);
         printf("calculated %d %d\r\n", angleACC[0] / 10, angleACC[1] / 10);
+        printf("abs %f %f %f\r\n", absAngle[0], absAngle[1], absAngle[2]);
         ptime = ctime;
+        //absAngle[0] = absAngle[1] = absAngle[2] = 0;
     }
 }
 

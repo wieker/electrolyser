@@ -27,6 +27,7 @@ int accSumCount = 0;
 int16_t smallAngle = 0;
 float fc_acc;// correction of throttle in lateral wind,
 float magneticDeclination = 0.0f;
+float absAngle[3] = { 0, 0, 0 };
 
 // Normalize a vector
 void normalizeV(struct fp_vector *src, struct fp_vector *dest)
@@ -165,7 +166,6 @@ void getEstimatedAttitude(void)
     static uint32_t previousT;
     uint32_t currentT = micros();
     uint32_t deltaT;
-    static int cnt = 0;
     float scale, deltaGyroAngle[3];
     deltaT = currentT - previousT;
     scale = deltaT * (4.0f / 16.4f) * (M_PI / 180.0f) * 0.000001f;
@@ -174,6 +174,7 @@ void getEstimatedAttitude(void)
     // Initialization
     for (axis = 0; axis < 3; axis++) {
         deltaGyroAngle[axis] = gyroADC[axis] * scale;
+        absAngle[axis] += fabsf(deltaGyroAngle[axis]) * 180.0f * M_PI;
         if (4 > 0) {
             accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / 4)) + accADC[axis] * (1.0f / 4);
             accSmooth[axis] = accLPF[axis];
@@ -189,12 +190,9 @@ void getEstimatedAttitude(void)
     // Apply complimentary filter (Gyro drift correction)
     // If accel magnitude >1.15G or <0.85G and ACC vector outside of the limit range => we neutralize the effect of accelerometers in the angle estimation.
     // To do that, we just skip filter, as EstV already rotated by Gyro
-    if (cnt < 1000) {
-        if (72 < (uint16_t)accMag && (uint16_t)accMag < 133) {
-            for (axis = 0; axis < 3; axis++)
-                EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
-        }
-        cnt ++;
+    if (72 < (uint16_t)accMag && (uint16_t)accMag < 133) {
+        for (axis = 0; axis < 3; axis++)
+            EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
     }
 
     // Attitude of the estimated vector
