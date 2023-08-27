@@ -413,6 +413,7 @@ int constrain(int amt, int low, int high)
 }
 
 int32_t yawUI = 0;
+int32_t desired = 0;
 
 static void pidMultiWii(void)
 {
@@ -430,8 +431,8 @@ static void pidMultiWii(void)
     static int32_t acc_balance_offset[3] = {0, 0};
 
     acc_delta[2] = -50 * min(heading, 360 - heading);
-    acc_delta[PITCH] = ( 100 - angle[PITCH]) * 3;
-    acc_delta[ROLL] = (- 70 - angle[ROLL]) * 3;
+    acc_delta[PITCH] = ( - angleGYR[PITCH] + desired ) * 3;
+    acc_delta[ROLL] = (- 70 - angleGYR[ROLL]) * 3;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -530,11 +531,11 @@ int main2(void)
                 break;
             }
             case 'w': {
-                yawUI += 100;
+                desired += 100;
                 break;
             }
             case 's': {
-                yawUI = 0;
+                desired = 0;
                 break;
             }
             case '1': {
