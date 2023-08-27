@@ -365,13 +365,10 @@ void writeMotors(void)
         printf("mag %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
         printf("acc %d %d %d\r\n", accADC[YAW], accADC[ROLL], accADC[PITCH]);
         int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
-        DEBUGOUT("PWM write %d %d %d %d %d\r\n", throttle, motor[0] - throttle, motor[1] - throttle, motor[2] - throttle, motor[3] - throttle);
-        DEBUGOUT("PWM ctl %d %d %d %d\r\n", low, axisPID[0], axisPID[1], axisPID[2]);
-        printf("calculated %d %d %d %d\r\n", angle[0] / 10, angle[1] / 10, heading, head);
-        printf("calculated ACC %d %d\r\n", angleACC[0] / 10, angleACC[1] / 10);
-        printf("calculated GYR %d %d\r\n", angleGYR[0] / 10, angleGYR[1] / 10);
-        printf("abs %f %f %f\r\n", absAngle[0], absAngle[1], absAngle[2]);
-        printf("rel %f %f %f\r\n", relAngle[0], relAngle[1], relAngle[2]);
+        DEBUGOUT("PWM write to motor %d %d\r\n", throttle, motor[0] - throttle);
+        DEBUGOUT("PWM PID value %d %d\r\n", low, axisPID[0]);
+        printf("calculated S A G %d %d %d\r\n", angle[0] / 10, angleACC[0] / 10, angleGYR[0] / 10);
+        printf("abs %f rel %f\r\n", absAngle[0], relAngle[0]);
         ptime = ctime;
         //absAngle[0] = absAngle[1] = absAngle[2] = 0;
     }
@@ -394,7 +391,7 @@ void mixTable(void)
         }
     }
 
-    motor[0] = throttle + axisPID[PITCH] * mixerQuadX[0].pitch;
+    motor[0] = throttle + axisPID[0];
 }
 
 static int32_t errorGyroI[3] = { 0, 0, 0 };
@@ -431,8 +428,8 @@ static void pidMultiWii(void)
     static int32_t acc_balance_offset[3] = {0, 0};
 
     acc_delta[2] = -50 * min(heading, 360 - heading);
-    acc_delta[PITCH] = ( - angleGYR[PITCH] + desired ) * 3;
-    acc_delta[ROLL] = (- 70 - angleGYR[ROLL]) * 3;
+    acc_delta[0] = ( - angle[ROLL] + 150 ) * 3;
+    //acc_delta[ROLL] = (- 70 - angleGYR[ROLL]) * 3;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -446,7 +443,7 @@ static void pidMultiWii(void)
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
-        RateError = gyroData[axis] * 10 + 1 * acc_delta[axis];
+        RateError = (- gyroData[axis] + 1 * acc_delta[axis]) * 5;
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
@@ -477,7 +474,7 @@ static void pidMultiWii(void)
 
         // -----calculate total PID output
         axisPID[axis] = PTerm + ITerm + DTerm;
-        axisPID[axis] = axisPID[axis] >> 1;
+        axisPID[axis] = axisPID[axis];
     }
 }
 
