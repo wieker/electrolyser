@@ -249,7 +249,7 @@ static void GYRO_Common(void)
         gyroADC[axis] -= gyroZero[axis];
     for (axis = 0; axis < 3; axis++)
         accADC[axis] -= accZero[axis];
-    accADC[YAW] -= acc_1G;
+    accADC[1] -= acc_1G;
 }
 
 void Gyro_getADC(void)
@@ -489,10 +489,10 @@ void loop(void)
     uint32_t auxState = 0;
     bool isThrottleLow = false;
 
-    if ((micros() - t > 100000)) {
-        t = micros();
-        Mag_getADC();
-    }
+    // if ((micros() - t > 100000)) {
+    //     t = micros();
+    //     Mag_getADC();
+    // }
 
 	computeIMU();
 	// Measure loop rate just afer reading the sensors
@@ -684,13 +684,13 @@ int main(void)
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
     usTicks = SystemCoreClock / 1000000;
 
-    init_i2c();
-    read_data(0x0d, 0x0d);
-
-    uint8_t arr[] = {0x0B, 0x01};
-    uint8_t arr2[] = {QMC5883L_REG_CONF1, QMC5883L_MODE_CONTINUOUS | QMC5883L_ODR_200HZ | QMC5883L_OSR_512 | QMC5883L_RNG_8G};
-    Chip_I2C_MasterSend(I2C0, 0x0d, arr, 2);
-    Chip_I2C_MasterSend(I2C0, 0x0d, arr2, 2);
+    // init_i2c();
+    // read_data(0x0d, 0x0d);
+    //
+    // uint8_t arr[] = {0x0B, 0x01};
+    // uint8_t arr2[] = {QMC5883L_REG_CONF1, QMC5883L_MODE_CONTINUOUS | QMC5883L_ODR_200HZ | QMC5883L_OSR_512 | QMC5883L_RNG_8G};
+    // Chip_I2C_MasterSend(I2C0, 0x0d, arr, 2);
+    // Chip_I2C_MasterSend(I2C0, 0x0d, arr2, 2);
 
     // for (;;) {
     //     currentTime = micros();

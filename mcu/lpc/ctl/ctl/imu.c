@@ -164,7 +164,7 @@ void getEstimatedAttitude(void)
     int32_t axis;
     int32_t accMag = 0;
     static t_fp_vector EstM;
-    static t_fp_vector EstN = { .A = { 0.0f, 0.0f, -1000.0f } };
+    static t_fp_vector EstN = { .A = { 0.0f, -1000.0f, 0.0f } };
     static float accLPF[3];
     static uint32_t previousT;
     uint32_t ppT = previousT;
@@ -207,15 +207,15 @@ void getEstimatedAttitude(void)
     }
 
     // Attitude of the estimated vector
-    anglerad[ROLL] = atan2f(EstG.V.Y, - EstG.V.Z);
+    anglerad[ROLL] = atan2f(EstG.V.Z, - EstG.V.Y);
     anglerad[PITCH] = atan2f(-EstG.V.X, sqrtf(EstG.V.Y * EstG.V.Y + EstG.V.Z * EstG.V.Z));
     angle[ROLL] = lrintf(anglerad[ROLL] * (1800.0f / M_PI));
     angle[PITCH] = lrintf(anglerad[PITCH] * (1800.0f / M_PI));
-    angleradACC[ROLL] = atan2f(accADC[PITCH], - accADC[YAW]);
+    angleradACC[ROLL] = atan2f(accADC[YAW], - accADC[PITCH]);
     angleradACC[PITCH] = atan2f(-accADC[ROLL], sqrtf(accADC[PITCH] * accADC[PITCH] + accADC[YAW] * accADC[YAW]));
     angleACC[ROLL] = lrintf(angleradACC[ROLL] * (1800.0f / M_PI));
     angleACC[PITCH] = lrintf(angleradACC[PITCH] * (1800.0f / M_PI));
-    angleradGYR[ROLL] = atan2f(EstN.V.Y, - EstN.V.Z);
+    angleradGYR[ROLL] = atan2f(EstN.V.Z, - EstN.V.Y);
     angleradGYR[PITCH] = atan2f(-EstN.V.X, sqrtf(EstN.V.Y * EstN.V.Y + EstN.V.Z * EstN.V.Z));
     angleGYR[ROLL] = lrintf(angleradGYR[ROLL] * (1800.0f / M_PI));
     angleGYR[PITCH] = lrintf(angleradGYR[PITCH] * (1800.0f / M_PI));
