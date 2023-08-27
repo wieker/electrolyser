@@ -16,8 +16,10 @@ typedef union {
 t_fp_vector EstG;
 int16_t angle[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 int16_t angleACC[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
+int16_t angleGYR[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 float anglerad[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
 float angleradACC[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
+float angleradGYR[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
 int16_t heading, magHold;
 uint16_t acc_1G = 1024;
 extern int16_t gyroADC[3], accADC[3], accSmooth[3], magADC[3];
@@ -162,7 +164,7 @@ void getEstimatedAttitude(void)
     int32_t axis;
     int32_t accMag = 0;
     static t_fp_vector EstM;
-    static t_fp_vector EstN = { .A = { 1.0f, 0.0f, 0.0f } };
+    static t_fp_vector EstN = { .A = { 0.0f, 0.0f, -1000.0f } };
     static float accLPF[3];
     static uint32_t previousT;
     uint32_t ppT = previousT;
@@ -194,6 +196,7 @@ void getEstimatedAttitude(void)
     accMag = accMag * 100 / ((int32_t)acc_1G * acc_1G);
 
     rotateV(&EstG.V, deltaGyroAngle);
+    rotateV(&EstN.V, deltaGyroAngle);
 
     // Apply complimentary filter (Gyro drift correction)
     // If accel magnitude >1.15G or <0.85G and ACC vector outside of the limit range => we neutralize the effect of accelerometers in the angle estimation.
@@ -209,9 +212,13 @@ void getEstimatedAttitude(void)
     angle[ROLL] = lrintf(anglerad[ROLL] * (1800.0f / M_PI));
     angle[PITCH] = lrintf(anglerad[PITCH] * (1800.0f / M_PI));
     angleradACC[ROLL] = atan2f(accADC[PITCH], - accADC[YAW]);
-    angleradACC[PITCH] = atan2f(accADC[ROLL], sqrtf(accADC[PITCH] * accADC[PITCH] + accADC[YAW] * accADC[YAW]));
+    angleradACC[PITCH] = atan2f(-accADC[ROLL], sqrtf(accADC[PITCH] * accADC[PITCH] + accADC[YAW] * accADC[YAW]));
     angleACC[ROLL] = lrintf(angleradACC[ROLL] * (1800.0f / M_PI));
     angleACC[PITCH] = lrintf(angleradACC[PITCH] * (1800.0f / M_PI));
+    angleradGYR[ROLL] = atan2f(EstN.V.Y, - EstN.V.Z);
+    angleradGYR[PITCH] = atan2f(-EstN.V.X, sqrtf(EstN.V.Y * EstN.V.Y + EstN.V.Z * EstN.V.Z));
+    angleGYR[ROLL] = lrintf(angleradGYR[ROLL] * (1800.0f / M_PI));
+    angleGYR[PITCH] = lrintf(angleradGYR[PITCH] * (1800.0f / M_PI));
 
     rotateV(&EstM.V, deltaGyroAngle);
      for (axis = 0; axis < 3; axis++)
