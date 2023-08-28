@@ -71,7 +71,7 @@ static void pidMultiWii(void)
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
     int32_t cfgP8[] = {400, 400, 850};
-    int32_t cfgI8[] = {400, 400, 450};
+    int32_t cfgI8[] = {300, 300, 450};
     int32_t cfgD8[] = {230, 230, 0};
 
     static int32_t acc_balance_offset[3] = {0, 0};
@@ -94,7 +94,7 @@ static void pidMultiWii(void)
         // multiplication of rcCommand corresponds to changing the sticks scaling here
         int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000 * 4;
         relAngle[axis] = 0;
-        RateError = (- angleSpeed + 1 * acc_delta[axis]) * 5;
+        RateError = (- 10 * angleSpeed + 1 * acc_delta[axis]) * 5;
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;

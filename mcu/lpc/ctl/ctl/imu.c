@@ -211,8 +211,8 @@ void getEstimatedAttitude(void)
     anglerad[PITCH] = atan2f(-EstG.V.X, sqrtf(EstG.V.Y * EstG.V.Y + EstG.V.Z * EstG.V.Z));
     angle[ROLL] = lrintf(anglerad[ROLL] * (1800.0f / M_PI));
     angle[PITCH] = lrintf(anglerad[PITCH] * (1800.0f / M_PI));
-    angleradACC[ROLL] = atan2f(accADC[YAW], - accADC[PITCH]);
-    angleradACC[PITCH] = atan2f(-accADC[ROLL], sqrtf(accADC[PITCH] * accADC[PITCH] + accADC[YAW] * accADC[YAW]));
+    angleradACC[ROLL] = atan2f(accSmooth[YAW], - accSmooth[PITCH]);
+    angleradACC[PITCH] = atan2f(-accSmooth[ROLL], sqrtf(accSmooth[PITCH] * accSmooth[PITCH] + accSmooth[YAW] * accSmooth[YAW]));
     angleACC[ROLL] = lrintf(angleradACC[ROLL] * (1800.0f / M_PI));
     angleACC[PITCH] = lrintf(angleradACC[PITCH] * (1800.0f / M_PI));
     angleradGYR[ROLL] = atan2f(EstN.V.Z, - EstN.V.Y);
