@@ -129,6 +129,6 @@ void mixTable(void)
         }
     }
 
-    motor[0] = throttle - 2.0f * axisPID[0];
-    motor[2] = throttle + axisPID[0];
+    motor[0] = throttle - 3.0f * axisPID[0];
+    motor[2] = throttle + 0.5f * axisPID[0];
 }

@@ -77,7 +77,7 @@ static void pidMultiWii(void)
     static int32_t acc_balance_offset[3] = {0, 0};
 
     acc_delta[2] = -50 * min(heading, 360 - heading);
-    acc_delta[0] = ( - angleGYR[ROLL] + desired ) * 3;
+    acc_delta[0] = ( - angle[ROLL] + desired ) * 3;
     //acc_delta[ROLL] = (- 70 - angleGYR[ROLL]) * 3;
 
     // ----------PID controller----------
@@ -94,7 +94,7 @@ static void pidMultiWii(void)
         // multiplication of rcCommand corresponds to changing the sticks scaling here
         int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000 * 4;
         relAngle[axis] = 0;
-        RateError = (- 10 * angleSpeed + 1 * acc_delta[axis]) * 5;
+        RateError = (- 1 * angleSpeed + 1 * acc_delta[axis]) * 5;
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
@@ -124,9 +124,10 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = PTerm + ITerm + DTerm;
-        axisPID[axis] = axisPID[axis] >> 2;
+        axisPID[axis] = PTerm;// + ITerm + DTerm;
+        axisPID[axis] = RateError;
     }
+    axisPID[0] += 3000;
 }
 
 void loop(void)
