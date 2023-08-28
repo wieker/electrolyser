@@ -26,6 +26,8 @@ typedef enum {
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #define abs(x) ((x) > 0 ? (x) : -(x))
 
+#define CALIBRATING_GYRO_CYCLES             1000
+
 extern int16_t angle[2];
 extern int16_t angleACC[2];
 extern int16_t angleGYR[2];
@@ -35,5 +37,25 @@ extern uint16_t acc_1G;
 extern float absAngle[3];
 extern float relAngle[3];
 
+extern uint32_t currentTime;
+extern uint16_t calibratingG;
+extern int16_t gyroData[3];
+extern int16_t magADC[3];
+extern int16_t accADC[3];
+
+extern uint32_t throttle;
+
 uint32_t micros(void);
 void getEstimatedAttitude(void);
+
+void computeIMU(void);
+void imuInit(void);
+
+void mixerInit();
+void mixTable();
+void writeMotors();
+void stopMotors();
+
+extern void sysInit();
+uint32_t micros(void);
+uint32_t millis(void);

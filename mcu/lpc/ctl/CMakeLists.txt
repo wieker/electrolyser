@@ -103,6 +103,9 @@ set(SRC_M4
 	../liblpc/sct_18xx_43xx.c
 	../liblpc/sct_pwm_18xx_43xx.c
 	ctl/imu.c
+	ctl/sensors.c
+	ctl/mixer.c
+	ctl/systime.c
 )
 
 DeclareTargets()
