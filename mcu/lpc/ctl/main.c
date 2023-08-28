@@ -71,7 +71,7 @@ static void pidMultiWii(void)
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
     int32_t cfgP8[] = {400, 400, 850};
-    int32_t cfgI8[] = {300, 300, 450};
+    int32_t cfgI8[] = {400, 400, 450};
     int32_t cfgD8[] = {230, 230, 0};
 
     static int32_t acc_balance_offset[3] = {0, 0};
@@ -92,7 +92,9 @@ static void pidMultiWii(void)
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
-        RateError = (- gyroData[axis] + 1 * acc_delta[axis]) * 5;
+        int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000 * 4;
+        relAngle[axis] = 0;
+        RateError = (- angleSpeed + 1 * acc_delta[axis]) * 5;
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
@@ -143,12 +145,14 @@ void loop(void)
 	computeIMU();
 	// Measure loop rate just afer reading the sensors
     while ((cycleTime = (int32_t)((int32_t)(currentTime = micros()) - (int32_t)previousTime)) <= 0) {}
-	previousTime = currentTime;
 
-	pidMultiWii();
+    if (cycleTime > 5000) {
+        previousTime = currentTime;
+        pidMultiWii();
 
-	mixTable();
-	writeMotors();
+        mixTable();
+        writeMotors();
+    }
 }
 
 int main2(void)
