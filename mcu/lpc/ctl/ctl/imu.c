@@ -175,6 +175,9 @@ void getEstimatedAttitude(void)
     scale = deltaT * (4.0f / 16.4f) * (M_PI / 180.0f) * 0.000001f;
     previousT = currentT;
 
+    int32_t accDelta[3];
+    int32_t smoothMag = 0;
+
     // Initialization
     for (axis = 0; axis < 3; axis++) {
         deltaGyroAngle[axis] = gyroADC[axis] * scale;
@@ -192,8 +195,17 @@ void getEstimatedAttitude(void)
             accSmooth[axis] = accADC[axis];
         }
         accMag += (int32_t)accSmooth[axis] * accSmooth[axis];
+        accDelta[axis] = accADC[axis] - accSmooth[axis];
+        smoothMag += (int32_t)accDelta[axis] * accDelta[axis];
     }
     accMag = accMag * 100 / ((int32_t)acc_1G * acc_1G);
+    smoothMag = smoothMag * 100 / ((int32_t)acc_1G * acc_1G);
+    if (smoothMag > 100) {
+        printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
+        printf("smooth %d %d %d\r\n", accSmooth[0], accSmooth[1], accSmooth[2]);
+        printf("time %d %d\r\n", currentT, ppT);
+        for (;;);
+    }
 
     rotateV(&EstG.V, deltaGyroAngle);
     rotateV(&EstN.V, deltaGyroAngle);
