@@ -56,10 +56,10 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f,  0.0f,  1.0f, -1.6f },          // RIGHT
-    { 1.0f, -1.0f,  0.0f,  0.8f },          // REAR
-    { 1.0f,  0.0f, -1.0f, -1.6f },          // LEFT
-    { 1.0f,  2.0f,  0.0f,  0.8f },          // FRONT
+    { 1.0f, -1.0f,  0.0f,  1.0f },          // REAR
+    { 1.0f,  0.0f,  1.0f, -1.0f },          // RIGHT
+    { 1.0f,  1.0f,  0.0f,  1.0f },          // FRONT
+    { 1.0f,  0.0f, -1.0f, -1.0f },          // LEFT
 };
 
 static uint8_t numberMotor = 0;
@@ -124,13 +124,10 @@ void mixTable(void)
     // motors for non-servo mixes
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
-            //motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
-            motor[i] = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
+            motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
+            //motor[i] = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
             //DEBUGOUT("PWM write %d: %d %f %f %f\r\n", i, throttle, axisPID[PITCH] * mixerQuadX[i].pitch,
             //         axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
         }
     }
-
-    motor[0] = throttle - 3.0f * axisPID[0];
-    motor[2] = throttle + 0.5f * axisPID[0];
 }

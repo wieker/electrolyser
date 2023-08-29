@@ -76,9 +76,9 @@ static void pidMultiWii(void)
 
     static int32_t acc_balance_offset[3] = {0, 0};
 
-    acc_delta[2] = -50 * min(heading, 360 - heading);
-    acc_delta[0] = ( - angle[ROLL] + desired ) * 3;
-    //acc_delta[ROLL] = (- 70 - angleGYR[ROLL]) * 3;
+    acc_delta[2] = 0;
+    acc_delta[0] = ( - angle[ROLL] + 0 ) * 3;
+    acc_delta[1] = ( - angle[1] + 0 ) * 3;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
