@@ -86,6 +86,8 @@ void imuInit(void)
     delay(200);
     spi_xfer(MPU_RA_ACCEL_CONFIG, INV_FSR_16G << 3);
     delay(200);
+    spi_xfer(0x1D, 0x05);
+    delay(200);
     spi_xfer(MPU_RA_CONFIG, MPU_DLPF_10HZ);
     delay(200);
     spi_xfer(MPU_RA_SMPLRT_DIV, 0);
