@@ -124,10 +124,9 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = PTerm;// + ITerm + DTerm;
-        axisPID[axis] = RateError;
+        axisPID[axis] = PTerm + ITerm + DTerm;
+        //axisPID[axis] = RateError;
     }
-    axisPID[0] += 3000;
 }
 
 void loop(void)
