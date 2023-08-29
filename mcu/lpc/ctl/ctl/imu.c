@@ -163,6 +163,7 @@ void getEstimatedAttitude(void)
 {
     int32_t axis;
     int32_t accMag = 0;
+    static int32_t initial = 0;
     static t_fp_vector EstM;
     static t_fp_vector EstN = { .A = { 0.0f, -1000.0f, 0.0f } };
     static float accLPF[3];
@@ -200,11 +201,15 @@ void getEstimatedAttitude(void)
     }
     accMag = accMag * 100 / ((int32_t)acc_1G * acc_1G);
     smoothMag = smoothMag * 100 / ((int32_t)acc_1G * acc_1G);
-    if (smoothMag > 100) {
-        printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
-        printf("smooth %d %d %d\r\n", accSmooth[0], accSmooth[1], accSmooth[2]);
-        printf("time %d %d\r\n", currentT, ppT);
-        for (;;);
+    if (smoothMag > 25) {
+        if (initial < 1000) {
+            initial ++;
+        } else {
+            printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
+            printf("smooth %d %d %d\r\n", accSmooth[0], accSmooth[1], accSmooth[2]);
+            printf("time %d %d\r\n", currentT, ppT);
+            for (;;);
+        }
     }
 
     rotateV(&EstG.V, deltaGyroAngle);
