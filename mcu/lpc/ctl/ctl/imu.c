@@ -31,6 +31,8 @@ float fc_acc;// correction of throttle in lateral wind,
 float magneticDeclination = 0.0f;
 float absAngle[3] = { 0, 0, 0 };
 float relAngle[3] = { 0, 0, 0 };
+float accAbsAngle[2] = {0.0f, 0.0f};
+int cycles = 0;
 
 // Normalize a vector
 void normalizeV(struct fp_vector *src, struct fp_vector *dest)
@@ -172,6 +174,7 @@ void getEstimatedAttitude(void)
     uint32_t currentT;
     int32_t deltaT;
     float scale, deltaGyroAngle[3];
+    static float oldAngle[2] = {0.0f, 0.0f};
     while ((deltaT = ((currentT = micros()) - previousT)) <= 0) {}
     scale = deltaT * (4.0f / 16.4f) * (M_PI / 180.0f) * 0.000001f;
     previousT = currentT;
@@ -236,6 +239,12 @@ void getEstimatedAttitude(void)
     angleradGYR[PITCH] = atan2f(-EstN.V.X, sqrtf(EstN.V.Y * EstN.V.Y + EstN.V.Z * EstN.V.Z));
     angleGYR[ROLL] = lrintf(angleradGYR[ROLL] * (1800.0f / M_PI));
     angleGYR[PITCH] = lrintf(angleradGYR[PITCH] * (1800.0f / M_PI));
+
+    accAbsAngle[ROLL] += fabsf((float)(angleradACC[ROLL] * (180.0f / M_PI)) - oldAngle[ROLL]);
+    accAbsAngle[PITCH] += fabsf((float)(angleradACC[PITCH] * (180.0f / M_PI)) - oldAngle[PITCH]);
+    oldAngle[ROLL] = (angleradACC[ROLL] * (180.0f / M_PI));
+    oldAngle[PITCH] = (angleradACC[PITCH] * (180.0f / M_PI));
+    cycles ++;
 
     rotateV(&EstM.V, deltaGyroAngle);
      for (axis = 0; axis < 3; axis++)

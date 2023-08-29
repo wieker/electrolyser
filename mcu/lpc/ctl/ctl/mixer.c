@@ -106,8 +106,10 @@ void writeMotors(void)
         DEBUGOUT("PWM write to motor %d %d\r\n", throttle, motor[0] - throttle);
         DEBUGOUT("PWM PID value %d %d\r\n", low, axisPID[0]);
         printf("calculated S A G %d %d %d\r\n", angle[0] / 10, angleACC[0] / 10, angleGYR[0] / 10);
-        printf("abs %f rel %f\r\n", absAngle[0], relAngle[0]);
+        printf("abs %f rel %f acc %f / %d\r\n", absAngle[0], relAngle[0], accAbsAngle[0], cycles);
+        cycles = 0;
         ptime = ctime;
+        accAbsAngle[0] = 0;
         //absAngle[0] = absAngle[1] = absAngle[2] = 0;
     }
 }

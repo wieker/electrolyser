@@ -45,6 +45,9 @@ extern int16_t accADC[3];
 
 extern uint32_t throttle;
 
+extern float accAbsAngle[2];
+extern int cycles;
+
 uint32_t micros(void);
 void getEstimatedAttitude(void);
 
