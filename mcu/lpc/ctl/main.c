@@ -78,7 +78,7 @@ static void pidMultiWii(void)
 
     acc_delta[2] = 0;
     acc_delta[0] = ( - angle[ROLL] + 0 ) * 3;
-    acc_delta[1] = ( angle[1] + 0 ) * 3;
+    acc_delta[1] = ( - angle[1] + 0 ) * 3;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {

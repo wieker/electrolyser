@@ -104,7 +104,7 @@ void writeMotors(void)
         printf("acc %d %d %d\r\n", accADC[YAW], accADC[ROLL], accADC[PITCH]);
         int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
         DEBUGOUT("PWM write to motor %d %d\r\n", throttle, motor[0] - throttle);
-        DEBUGOUT("PWM PID value %d %d\r\n", low, axisPID[0]);
+        DEBUGOUT("PWM PID value %d %d %d\r\n", low, axisPID[0], axisPID[1]);
         printf("calculated S A G %d %d %d\r\n", angle[0] / 10, angleACC[0] / 10, angleGYR[0] / 10);
         printf("abs %f rel %f acc %f / %d\r\n", absAngle[0], relAngle[0], accAbsAngle[0], cycles);
         cycles = 0;
