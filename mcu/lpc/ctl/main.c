@@ -60,6 +60,23 @@ int constrain(int amt, int low, int high)
 
 int32_t yawUI = 0;
 int32_t desired = 0;
+int32_t lastAngle[3];
+float lastAngleDiff[3];
+
+void checkCond(int axis, int32_t angleSpeed) {
+    if (fabsf(relAngle[axis]) > 5 || abs(angle[ROLL]) > 100 || abs(angle[1]) > 100) {
+        printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
+        printf("rotate %d %d\r\n", angleSpeed, axis);
+        printf("relAngle %f %f %f %d\r\n", relAngle[0], relAngle[1], relAngle[2], cycleTime);
+        stopMotors();
+        printf("angle %d %d\r\n", angle[0], angle[1]);
+        printf("lastAngleS %f %f %f %d\r\n", lastAngleDiff[0], lastAngleDiff[1], lastAngleDiff[2], cycleTime);
+        printf("lastAngle %d %d\r\n", lastAngle[0], lastAngle[1]);
+        for (;;);
+    }
+    lastAngle[axis] = angle[axis];
+    lastAngleDiff[axis] = relAngle[axis];
+}
 
 static void pidMultiWii(void)
 {
@@ -74,17 +91,9 @@ static void pidMultiWii(void)
     int32_t cfgI8[] = {300, 300, 450};
     int32_t cfgD8[] = {230, 230, 0};
 
-    static int32_t acc_balance_offset[3] = {0, 0};
-
     acc_delta[2] = 0;
     acc_delta[0] = ( - angle[ROLL] + 0 ) * 3;
     acc_delta[1] = ( - angle[1] + 0 ) * 3;
-    if (abs(angle[ROLL]) > 100 || abs(angle[1]) > 100) {
-        printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
-        printf("angle %d %d\r\n", angle[0], angle[1]);
-        stopMotors();
-        for (;;);
-    }
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -100,13 +109,7 @@ static void pidMultiWii(void)
         // multiplication of rcCommand corresponds to changing the sticks scaling here
         int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000;
         RateError = (- 10 * angleSpeed + 1 * acc_delta[axis]) * 5;
-        if (fabsf(relAngle[axis]) > 5) {
-            printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
-            printf("rotate %d %d\r\n", angleSpeed, axis);
-            printf("relAngle %f %f %f %d\r\n", relAngle[0], relAngle[1], relAngle[2], cycleTime);
-            stopMotors();
-            for (;;);
-        }
+        checkCond(axis, angleSpeed);
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
