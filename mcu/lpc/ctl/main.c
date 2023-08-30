@@ -64,7 +64,7 @@ int32_t lastAngle[3];
 float lastAngleDiff[3];
 
 void checkCond(int axis, int32_t angleSpeed) {
-    if (throttle < 80000) {
+    if (throttle < 93000) {
         return;
     }
     if (fabsf(relAngle[axis]) > 5 || abs(angle[ROLL]) > 100 || abs(angle[1]) > 100) {
@@ -144,7 +144,7 @@ static void pidMultiWii(void)
 
         // -----calculate total PID output
         axisPID[axis] = PTerm + ITerm + DTerm;
-        axisPID[axis] = axisPID[axis] >> 1;
+        axisPID[axis] = axisPID[axis] >> 3;
     }
 }
 

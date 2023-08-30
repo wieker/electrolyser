@@ -25,6 +25,8 @@ void SCT_PinsConfigure(void)
 
 #define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
 
+#define LOW_PWM 90000
+
 void configure_pwm() {
 	/* Initialize the SCT as PWM and set frequency */
 	Chip_SCTPWM_Init(SCT_PWM);
@@ -41,10 +43,10 @@ void configure_pwm() {
 	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_MTR4, 12);
 
 	/* Start with 0% duty cycle */
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
-	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR4, Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, LOW_PWM);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, LOW_PWM);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, LOW_PWM);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR4, LOW_PWM);
 	Chip_SCTPWM_Start(SCT_PWM);
 }
 
@@ -56,8 +58,8 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f, -1.0f,  0.0f, -1.0f },          // REAR
-    { 1.0f,  0.0f,  1.0f,  1.0f },          // RIGHT
+    { 1.1f, -1.0f,  0.0f, -1.0f },          // REAR
+    { 1.1f,  0.0f,  1.0f,  1.0f },          // RIGHT
     { 1.0f,  1.0f,  0.0f, -1.0f },          // FRONT
     { 1.0f,  0.0f, -1.0f,  1.0f },          // LEFT
 };
@@ -77,9 +79,9 @@ void mixerResetMotors(void)
 void stopMotors()
 {
     int i;
-    throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
+    throttle = 0;
     for (i = 0; i < numberMotor; i++) {
-        motor[i] = throttle;
+        motor[i] = LOW_PWM;
     }
     writeMotors();
 }
@@ -89,7 +91,7 @@ void mixerInit(void)
 {
     numberMotor = 4;
     configure_pwm();
-    throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
+    throttle = 0;
 
     mixerResetMotors();
 }
@@ -114,6 +116,8 @@ void writeMotors(void)
         printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
         printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
         printf("angle GYR %d %d\r\n", angleGYR[0], angleGYR[1]);
+        printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
+        printf("mixer PID %d %d %d\r\n", axisPID[0], axisPID[1], axisPID[2]);
         cycles = 0;
         ptime = ctime;
         accAbsAngle[0] = 0;
@@ -132,7 +136,7 @@ void mixTable(void)
     // motors for non-servo mixes
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
-            motor[i] = throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
+            motor[i] = LOW_PWM + throttle * mixerQuadX[i].throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
             //motor[i] = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
             //DEBUGOUT("PWM write %d: %d %f %f %f\r\n", i, throttle, axisPID[PITCH] * mixerQuadX[i].pitch,
             //         axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
