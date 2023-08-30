@@ -75,6 +75,7 @@ void checkCond(int axis, int32_t angleSpeed) {
         printf("angle %d %d\r\n", angle[0], angle[1]);
         printf("lastAngleS %f %f %f %d\r\n", lastAngleDiff[0], lastAngleDiff[1], lastAngleDiff[2], cycleTime);
         printf("lastAngle %d %d\r\n", lastAngle[0], lastAngle[1]);
+        printf("PID table %d %d %d\r\n", axisPID[0], axisPID[1], axisPID[2]);
         for (;;);
     }
     lastAngle[axis] = angle[axis];
@@ -112,7 +113,7 @@ static void pidMultiWii(void)
         // multiplication of rcCommand corresponds to changing the sticks scaling here
         int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000;
         checkCond(axis, angleSpeed);
-        RateError = (- 10 * angleSpeed ) * 5;
+        RateError = (- 100 * angleSpeed + acc_delta[axis] ) >> 1;
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
