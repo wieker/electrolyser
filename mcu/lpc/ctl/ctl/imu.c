@@ -247,9 +247,9 @@ void getEstimatedAttitude(void)
     cycles ++;
 
     rotateV(&EstM.V, deltaGyroAngle);
-     for (axis = 0; axis < 3; axis++)
-         EstM.A[axis] = (EstM.A[axis] * (float)600 + magADC[axis]) / 601;
-    //normalizeV(&EstN.V, &EstN.V);
+    // for (axis = 0; axis < 3; a/*xis++)
+    //     EstM.A[axis] = (EstM.A[axis] * (float)600 + magADC[axis]) / 601;*/
+    normalizeV(&EstM.V, &EstM.V);
     heading = calculateHeading(&EstM);
 
     acc_calc(deltaT); // rotate acc vector into earth frame

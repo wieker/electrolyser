@@ -77,8 +77,14 @@ static void pidMultiWii(void)
     static int32_t acc_balance_offset[3] = {0, 0};
 
     acc_delta[2] = 0;
-    acc_delta[0] = ( - 50 - angle[ROLL] + 0 ) * 3;
+    acc_delta[0] = ( - angle[ROLL] + 0 ) * 3;
     acc_delta[1] = ( - angle[1] + 0 ) * 3;
+    if (abs(angle[ROLL]) > 100 || abs(angle[1]) > 100) {
+        printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
+        printf("angle %d %d\r\n", angle[0], angle[1]);
+        stopMotors();
+        for (;;);
+    }
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -92,9 +98,15 @@ static void pidMultiWii(void)
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
-        int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000 * 4;
-        relAngle[axis] = 0;
-        RateError = (- 1 * angleSpeed + 1 * acc_delta[axis]) * 5;
+        int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000;
+        RateError = (- 10 * angleSpeed + 1 * acc_delta[axis]) * 5;
+        if (fabsf(relAngle[axis]) > 5) {
+            printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
+            printf("rotate %d %d\r\n", angleSpeed, axis);
+            printf("relAngle %f %f %f %d\r\n", relAngle[0], relAngle[1], relAngle[2], cycleTime);
+            stopMotors();
+            for (;;);
+        }
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
@@ -146,7 +158,7 @@ void loop(void)
 	// Measure loop rate just afer reading the sensors
     while ((cycleTime = (int32_t)((int32_t)(currentTime = micros()) - (int32_t)previousTime)) <= 0) {}
 
-    if (cycleTime > 5000) {
+    if (cycleTime > 20000) {
         previousTime = currentTime;
         pidMultiWii();
 

@@ -76,7 +76,12 @@ void mixerResetMotors(void)
 
 void stopMotors()
 {
+    int i;
     throttle = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
+    for (i = 0; i < numberMotor; i++) {
+        motor[i] = throttle;
+    }
+    writeMotors();
 }
 
 
@@ -107,11 +112,14 @@ void writeMotors(void)
         DEBUGOUT("PWM PID value %d %d %d\r\n", low, axisPID[0], axisPID[1]);
         printf("calculated S A G %d %d %d\r\n", angle[0] / 10, angleACC[0] / 10, angleGYR[0] / 10);
         printf("abs %f rel %f acc %f / %d\r\n", absAngle[0], relAngle[0], accAbsAngle[0], cycles);
+        printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
+        printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
         cycles = 0;
         ptime = ctime;
         accAbsAngle[0] = 0;
         //absAngle[0] = absAngle[1] = absAngle[2] = 0;
     }
+    relAngle[0] = relAngle[1] = relAngle[2] = 0;
 }
 
 int32_t axisPID[3];
