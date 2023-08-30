@@ -64,6 +64,9 @@ int32_t lastAngle[3];
 float lastAngleDiff[3];
 
 void checkCond(int axis, int32_t angleSpeed) {
+    if (throttle < 80000) {
+        return;
+    }
     if (fabsf(relAngle[axis]) > 5 || abs(angle[ROLL]) > 100 || abs(angle[1]) > 100) {
         printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
         printf("rotate %d %d\r\n", angleSpeed, axis);
@@ -108,8 +111,8 @@ static void pidMultiWii(void)
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
         int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000;
-        RateError = (- 10 * angleSpeed + 1 * acc_delta[axis]) * 5;
         checkCond(axis, angleSpeed);
+        RateError = (- 10 * angleSpeed ) * 5;
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;

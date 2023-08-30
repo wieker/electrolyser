@@ -56,10 +56,10 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f, -1.0f,  0.0f,  1.0f },          // REAR
-    { 1.0f,  0.0f,  1.0f, -1.0f },          // RIGHT
-    { 1.0f,  1.0f,  0.0f,  1.0f },          // FRONT
-    { 1.0f,  0.0f, -1.0f, -1.0f },          // LEFT
+    { 1.0f, -1.0f,  0.0f, -1.0f },          // REAR
+    { 1.0f,  0.0f,  1.0f,  1.0f },          // RIGHT
+    { 1.0f,  1.0f,  0.0f, -1.0f },          // FRONT
+    { 1.0f,  0.0f, -1.0f,  1.0f },          // LEFT
 };
 
 static uint8_t numberMotor = 0;
@@ -108,12 +108,12 @@ void writeMotors(void)
         printf("mag %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
         printf("acc %d %d %d\r\n", accADC[YAW], accADC[ROLL], accADC[PITCH]);
         int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
-        DEBUGOUT("PWM write to motor %d %d\r\n", throttle, motor[0] - throttle);
-        DEBUGOUT("PWM PID value %d %d %d\r\n", low, axisPID[0], axisPID[1]);
         printf("calculated S A G %d %d %d\r\n", angle[0] / 10, angleACC[0] / 10, angleGYR[0] / 10);
         printf("abs %f rel %f acc %f / %d\r\n", absAngle[0], relAngle[0], accAbsAngle[0], cycles);
         printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
         printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
+        printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
+        printf("angle GYR %d %d\r\n", angleGYR[0], angleGYR[1]);
         cycles = 0;
         ptime = ctime;
         accAbsAngle[0] = 0;
