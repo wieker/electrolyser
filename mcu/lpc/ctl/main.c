@@ -113,7 +113,7 @@ static void pidMultiWii(void)
         // multiplication of rcCommand corresponds to changing the sticks scaling here
         int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000;
         checkCond(axis, angleSpeed);
-        RateError = (- 100 * angleSpeed + acc_delta[axis] ) >> 1;
+        RateError = (- 100 * angleSpeed + 10*acc_delta[axis] ) >> 1;
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
@@ -144,7 +144,7 @@ static void pidMultiWii(void)
 
         // -----calculate total PID output
         axisPID[axis] = PTerm + ITerm + DTerm;
-        //axisPID[axis] = RateError;
+        axisPID[axis] = axisPID[axis] >> 1;
     }
 }
 
