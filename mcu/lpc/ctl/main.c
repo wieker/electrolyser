@@ -46,7 +46,7 @@ uint16_t cycleTime = 0;
 static int32_t errorGyroI[3] = { 0, 0, 0 };
 static int32_t errorAngleI[2] = { 0, 0 };
 
-#define GYRO_I_MAX 256
+#define GYRO_I_MAX 20000
 
 int constrain(int amt, int low, int high)
 {
@@ -116,18 +116,18 @@ static void pidMultiWii(void)
         RateError = (- 100 * angleSpeed + 10*acc_delta[axis] ) >> 1;
 
         // -----calculate P component
-        PTerm = (RateError * cfgP8[axis]) >> 7;
+        PTerm = (RateError * cfgP8[axis]) >> 8;
         // -----calculate I component
         // there should be no division before accumulating the error to integrator, because the precision would be reduced.
         // Precision is critical, as I prevents from long-time drift. Thus, 32 bits integrator is used.
         // Time correction (to avoid different I scaling for different builds based on average cycle time)
         // is normalized to cycle time = 2048.
-        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) >> 11) * cfgI8[axis];
+        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 20000) * cfgI8[axis];
 
         // limit maximum integrator value to prevent WindUp - accumulating extreme values when system is saturated.
         // I coefficient (I8) moved before integration to make limiting independent from PID settings
-        errorGyroI[axis] = constrain(errorGyroI[axis], (int32_t)(-GYRO_I_MAX) << 13, (int32_t)(+GYRO_I_MAX) << 13);
-        ITerm = errorGyroI[axis] >> 13;
+        errorGyroI[axis] = constrain(errorGyroI[axis], (int32_t)(-GYRO_I_MAX) << 14, (int32_t)(+GYRO_I_MAX) << 14);
+        ITerm = errorGyroI[axis] >> 14;
 
         //-----calculate D-term
         delta = RateError - lastError[axis];  // 16 bits is ok here, the dif between 2 consecutive gyro reads is limited to 800
@@ -143,8 +143,8 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = PTerm;// + ITerm + DTerm;
-        axisPID[axis] = axisPID[axis] >> 1;
+        axisPID[axis] = PTerm + ITerm;// + DTerm;
+        axisPID[axis] = axisPID[axis];
     }
 }
 
@@ -164,6 +164,11 @@ void loop(void)
 	computeIMU();
 	// Measure loop rate just afer reading the sensors
     while ((cycleTime = (int32_t)((int32_t)(currentTime = micros()) - (int32_t)previousTime)) <= 0) {}
+
+
+    if (throttle < 0) {
+        errorGyroI[0] = errorGyroI[1] = errorGyroI[2] = 0;
+    }
 
     if (cycleTime > 20000) {
         previousTime = currentTime;
