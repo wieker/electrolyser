@@ -43,7 +43,7 @@ extern int16_t gyroData[3];
 extern int16_t magADC[3];
 extern int16_t accADC[3];
 
-extern uint32_t throttle;
+extern int32_t throttle;
 
 extern float accAbsAngle[2];
 extern int cycles;
