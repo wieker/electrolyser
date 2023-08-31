@@ -140,10 +140,10 @@ static void pidMultiWii(void)
         deltaSum = delta1[axis] + delta2[axis] + delta;
         delta2[axis] = delta1[axis];
         delta1[axis] = delta;
-        DTerm = (deltaSum * cfgD8[axis]) >> 8;
+        DTerm = (deltaSum * cfgD8[axis]) >> 9;
 
         // -----calculate total PID output
-        axisPID[axis] = PTerm + ITerm;// + DTerm;
+        axisPID[axis] = PTerm + ITerm + DTerm;
         axisPID[axis] = axisPID[axis];
     }
 }
