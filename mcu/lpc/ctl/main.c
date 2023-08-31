@@ -96,7 +96,7 @@ static void pidMultiWii(void)
     int32_t cfgD8[] = {230, 230, 0};
 
     acc_delta[2] = 0;
-    acc_delta[0] = ( - angle[ROLL] + 0 ) * 3;
+    acc_delta[0] = ( desired - angle[ROLL] + 0 ) * 3;
     acc_delta[1] = ( - angle[1] + 0 ) * 3;
 
     // ----------PID controller----------
@@ -143,8 +143,8 @@ static void pidMultiWii(void)
         DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
-        axisPID[axis] = PTerm + ITerm + DTerm;
-        axisPID[axis] = axisPID[axis] >> 1;
+        axisPID[axis] = PTerm;// + ITerm + DTerm;
+        axisPID[axis] = axisPID[axis];
     }
 }
 
@@ -200,11 +200,15 @@ int main2(void)
                 break;
             }
             case 'w': {
-                desired = 200;
+                desired = 70;
                 break;
             }
             case 's': {
                 desired = 0;
+                break;
+            }
+            case 'g': {
+                calibratingG = CALIBRATING_GYRO_CYCLES;
                 break;
             }
         }
