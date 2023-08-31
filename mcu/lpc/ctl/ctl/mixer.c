@@ -25,7 +25,7 @@ void SCT_PinsConfigure(void)
 
 #define LED_STEP_CNT      10000        /* Change LED duty cycle every 20ms */
 
-#define LOW_PWM 90000
+#define LOW_PWM 70000
 
 void configure_pwm() {
 	/* Initialize the SCT as PWM and set frequency */
@@ -58,8 +58,8 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.1f, -1.0f,  0.0f, -1.0f },          // REAR
-    { 1.1f,  0.0f,  1.0f,  1.0f },          // RIGHT
+    { 1.0f, -1.0f,  0.0f, -1.0f },          // REAR
+    { 1.0f,  0.0f,  1.0f,  1.0f },          // RIGHT
     { 1.0f,  1.0f,  0.0f, -1.0f },          // FRONT
     { 1.0f,  0.0f, -1.0f,  1.0f },          // LEFT
 };
@@ -142,4 +142,5 @@ void mixTable(void)
             //         axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
         }
     }
+    motor[0] += 16250;
 }

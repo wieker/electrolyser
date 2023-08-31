@@ -144,7 +144,7 @@ static void pidMultiWii(void)
 
         // -----calculate total PID output
         axisPID[axis] = PTerm;// + ITerm + DTerm;
-        axisPID[axis] = axisPID[axis];
+        axisPID[axis] = axisPID[axis] >> 2;
     }
 }
 
