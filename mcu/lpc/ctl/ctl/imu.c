@@ -22,7 +22,6 @@ float angleradACC[2] = { 0.0f, 0.0f };        // this is the 1G measured acceler
 float angleradGYR[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
 int16_t heading, magHold;
 uint16_t acc_1G = 1024;
-extern int16_t gyroADC[3], accADC[3], accSmooth[3], magADC[3];
 int32_t accSum[3];
 uint32_t accTimeSum = 0;        // keep track for integration of acc
 int accSumCount = 0;
