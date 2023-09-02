@@ -44,6 +44,7 @@ uint32_t previousTime = 0;
 uint16_t cycleTime = 0;
 
 int32_t errorGyroI[3] = { 0, 0, 0 };
+int32_t errorP[3] = { 0, 0, 0 };
 static int32_t errorAngleI[2] = { 0, 0 };
 
 #define GYRO_I_MAX 5000
@@ -69,13 +70,21 @@ void checkCond(int axis, int32_t angleSpeed) {
     }
     if (fabsf(relAngle[axis]) > 5 || abs(angle[ROLL]) > 100 || abs(angle[1]) > 100) {
         printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
+        printf("mag %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
+        printf("acc %d %d %d\r\n", accADC[YAW], accADC[ROLL], accADC[PITCH]);
         printf("rotate %d %d\r\n", angleSpeed, axis);
         printf("relAngle %f %f %f %d\r\n", relAngle[0], relAngle[1], relAngle[2], cycleTime);
         stopMotors();
-        printf("angle %d %d\r\n", angle[0], angle[1]);
         printf("lastAngleS %f %f %f %d\r\n", lastAngleDiff[0], lastAngleDiff[1], lastAngleDiff[2], cycleTime);
         printf("lastAngle %d %d\r\n", lastAngle[0], lastAngle[1]);
-        printf("PID table %d %d %d\r\n", axisPID[0], axisPID[1], axisPID[2]);
+        printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
+        printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
+        printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
+        printf("angle GYR %d %d\r\n", angleGYR[0], angleGYR[1]);
+        printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
+        printf("mixer PID %d %d %d\r\n", axisPID[0], axisPID[1], axisPID[2]);
+        printf("mixer PIDI %d %d %d\r\n", errorGyroI[0] >> 13, errorGyroI[1] >> 13, errorGyroI[2] >> 13);
+        printf("mixer PIDP %d %d %d\r\n", errorP[0], errorP[1], errorP[2]);
         for (;;);
     }
     lastAngle[axis] = angle[axis];
@@ -91,9 +100,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {30, 30, 15};
-    int32_t cfgI8[] = {450, 450, 300};
-    int32_t cfgD8[] = {10, 10, 5};
+    int32_t cfgP8[] = {200, 200, 45};
+    int32_t cfgI8[] = {200, 200, 200};
+    int32_t cfgD8[] = {0, 0, 0};
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
@@ -120,6 +129,7 @@ static void pidMultiWii(void)
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
+        errorP[axis] = PTerm;
         // -----calculate I component
         // there should be no division before accumulating the error to integrator, because the precision would be reduced.
         // Precision is critical, as I prevents from long-time drift. Thus, 32 bits integrator is used.
