@@ -46,7 +46,7 @@ uint16_t cycleTime = 0;
 int32_t errorGyroI[3] = { 0, 0, 0 };
 static int32_t errorAngleI[2] = { 0, 0 };
 
-#define GYRO_I_MAX 256
+#define GYRO_I_MAX 500
 
 int constrain(int amt, int low, int high)
 {
@@ -91,9 +91,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {6, 6, 10};
+    int32_t cfgP8[] = {20, 20, 42};
     int32_t cfgI8[] = {30, 30, 45};
-    int32_t cfgD8[] = {2, 2, 0};
+    int32_t cfgD8[] = {10, 10, 0};
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
@@ -125,7 +125,7 @@ static void pidMultiWii(void)
         // Precision is critical, as I prevents from long-time drift. Thus, 32 bits integrator is used.
         // Time correction (to avoid different I scaling for different builds based on average cycle time)
         // is normalized to cycle time = 2048.
-        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 2000) * cfgI8[axis];
+        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 20000) * cfgI8[axis];
 
         // limit maximum integrator value to prevent WindUp - accumulating extreme values when system is saturated.
         // I coefficient (I8) moved before integration to make limiting independent from PID settings
@@ -147,7 +147,7 @@ static void pidMultiWii(void)
 
         // -----calculate total PID output
         axisPID[axis] = PTerm + ITerm + DTerm;
-        axisPID[axis] *= 96;
+        axisPID[axis] *= 100;
     }
 }
 
