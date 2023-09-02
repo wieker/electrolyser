@@ -43,10 +43,10 @@ uint32_t currentTime = 0;
 uint32_t previousTime = 0;
 uint16_t cycleTime = 0;
 
-static int32_t errorGyroI[3] = { 0, 0, 0 };
+int32_t errorGyroI[3] = { 0, 0, 0 };
 static int32_t errorAngleI[2] = { 0, 0 };
 
-#define GYRO_I_MAX 20000
+#define GYRO_I_MAX 256
 
 int constrain(int amt, int low, int high)
 {
@@ -91,9 +91,10 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {400, 400, 850};
-    int32_t cfgI8[] = {300, 300, 450};
-    int32_t cfgD8[] = {230, 230, 0};
+    int32_t cfgP8[] = {6, 6, 10};
+    int32_t cfgI8[] = {30, 30, 45};
+    int32_t cfgD8[] = {2, 2, 0};
+    int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
     acc_delta[0] = ( desired - angle[ROLL] + 0 ) * 3;
@@ -102,33 +103,34 @@ static void pidMultiWii(void)
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
         // -----Get the desired angle rate depending on flight mode
-        if (axis == 0) {
-            AngleRateTmp = yawUI;
-        } else {
+        if (axis == 2) { // YAW is always gyro-controlled (MAG correction is applied to rcCommand)
             AngleRateTmp = 0;
+        } else {
+            // calculate error and limit the angle to 50 degrees max inclination
+            errorAngle = - angle[axis] / 10.0f;
+            AngleRateTmp = (errorAngle * cfgP8PIDLEVEL) >> 4;
         }
+
         // --------low-level gyro-based PID. ----------
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
-        int32_t angleSpeed = relAngle[axis] / cycleTime * 1000000;
-        checkCond(axis, angleSpeed);
-        // RateError = (- 100 * angleSpeed + 10*acc_delta[axis] ) >> 1;
-        RateError = (- 100 * gyroADC[axis] / (4) + 10*acc_delta[axis] ) >> 1;
+        RateError = AngleRateTmp - gyroData[axis];
+        checkCond(axis, 0);
 
         // -----calculate P component
-        PTerm = (RateError * cfgP8[axis]) >> 8;
+        PTerm = (RateError * cfgP8[axis]) >> 7;
         // -----calculate I component
         // there should be no division before accumulating the error to integrator, because the precision would be reduced.
         // Precision is critical, as I prevents from long-time drift. Thus, 32 bits integrator is used.
         // Time correction (to avoid different I scaling for different builds based on average cycle time)
         // is normalized to cycle time = 2048.
-        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 20000) * cfgI8[axis];
+        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 2000) * cfgI8[axis];
 
         // limit maximum integrator value to prevent WindUp - accumulating extreme values when system is saturated.
         // I coefficient (I8) moved before integration to make limiting independent from PID settings
-        errorGyroI[axis] = constrain(errorGyroI[axis], (int32_t)(-GYRO_I_MAX) << 14, (int32_t)(+GYRO_I_MAX) << 14);
-        ITerm = errorGyroI[axis] >> 14;
+        errorGyroI[axis] = constrain(errorGyroI[axis], (int32_t)(-GYRO_I_MAX) << 13, (int32_t)(+GYRO_I_MAX) << 13);
+        ITerm = errorGyroI[axis] >> 13;
 
         //-----calculate D-term
         delta = RateError - lastError[axis];  // 16 bits is ok here, the dif between 2 consecutive gyro reads is limited to 800
@@ -141,11 +143,11 @@ static void pidMultiWii(void)
         deltaSum = delta1[axis] + delta2[axis] + delta;
         delta2[axis] = delta1[axis];
         delta1[axis] = delta;
-        DTerm = (deltaSum * cfgD8[axis]) >> 9;
+        DTerm = (deltaSum * cfgD8[axis]) >> 8;
 
         // -----calculate total PID output
         axisPID[axis] = PTerm + ITerm + DTerm;
-        axisPID[axis] = axisPID[axis];
+        axisPID[axis] *= 96;
     }
 }
 

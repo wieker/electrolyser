@@ -49,6 +49,7 @@ extern float accAbsAngle[2];
 extern int cycles;
 
 extern int16_t gyroADC[3], accADC[3], accSmooth[3], magADC[3];
+extern int32_t errorGyroI[3];
 
 uint32_t micros(void);
 void getEstimatedAttitude(void);

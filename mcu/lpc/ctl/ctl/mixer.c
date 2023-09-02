@@ -61,7 +61,7 @@ typedef struct motorMixer_t {
 static const motorMixer_t mixerQuadX[] = {
     { 1.0f, -1.0f,  0.0f, -1.0f },          // REAR
     { 1.0f,  0.0f,  1.0f,  1.0f },          // RIGHT
-    { 1.16f,  1.0f,  0.0f, -1.0f },          // FRONT
+    { 1.0f,  1.0f,  0.0f, -1.0f },          // FRONT
     { 1.0f,  0.0f, -1.0f,  1.0f },          // LEFT
 };
 
@@ -119,6 +119,7 @@ void writeMotors(void)
         printf("angle GYR %d %d\r\n", angleGYR[0], angleGYR[1]);
         printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
         printf("mixer PID %d %d %d\r\n", axisPID[0], axisPID[1], axisPID[2]);
+        printf("mixer PIDI %d %d %d\r\n", errorGyroI[0] >> 13, errorGyroI[1] >> 13, errorGyroI[2] >> 13);
         cycles = 0;
         ptime = ctime;
         accAbsAngle[0] = 0;
@@ -143,5 +144,4 @@ void mixTable(void)
             //         axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
         }
     }
-    motor[0] += 16250;
 }
