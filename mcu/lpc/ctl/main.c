@@ -46,7 +46,7 @@ uint16_t cycleTime = 0;
 int32_t errorGyroI[3] = { 0, 0, 0 };
 static int32_t errorAngleI[2] = { 0, 0 };
 
-#define GYRO_I_MAX 500
+#define GYRO_I_MAX 5000
 
 int constrain(int amt, int low, int high)
 {
@@ -91,9 +91,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {10, 10, 10};
-    int32_t cfgI8[] = {45, 45, 30};
-    int32_t cfgD8[] = {10, 10, 10};
+    int32_t cfgP8[] = {30, 30, 15};
+    int32_t cfgI8[] = {450, 450, 300};
+    int32_t cfgD8[] = {10, 10, 5};
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
@@ -147,7 +147,7 @@ static void pidMultiWii(void)
 
         // -----calculate total PID output
         axisPID[axis] = PTerm + ITerm + DTerm;
-        axisPID[axis] *= 100;
+        axisPID[axis] *= 10;
     }
 }
 
