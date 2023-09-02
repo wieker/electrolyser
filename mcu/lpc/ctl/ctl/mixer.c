@@ -120,6 +120,8 @@ void writeMotors(void)
         printf("mixer PID %d %d %d\r\n", axisPID[0], axisPID[1], axisPID[2]);
         printf("mixer PIDI %d %d %d\r\n", errorGyroI[0] >> 13, errorGyroI[1] >> 13, errorGyroI[2] >> 13);
         printf("mixer PIDP %d %d %d\r\n", errorP[0], errorP[1], errorP[2]);
+        printf("angle accel %f %f %f\r\n", accMomLPF[0], accMomLPF[1], accMomLPF[2]);
+        printf("mixer wanna %d %d %d\r\n", wannaP[0], wannaP[1], wannaP[2]);
         cycles = 0;
         ptime = ctime;
         accAbsAngle[0] = 0;

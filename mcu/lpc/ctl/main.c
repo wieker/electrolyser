@@ -45,6 +45,7 @@ uint16_t cycleTime = 0;
 
 int32_t errorGyroI[3] = { 0, 0, 0 };
 int32_t errorP[3] = { 0, 0, 0 };
+int32_t wannaP[3] = { 0, 0, 0 };
 static int32_t errorAngleI[2] = { 0, 0 };
 
 #define GYRO_I_MAX 5000
@@ -91,6 +92,17 @@ void checkCond(int axis, int32_t angleSpeed) {
     lastAngleDiff[axis] = relAngle[axis];
 }
 
+float lastSpeed[3];
+float accMomLPF[3] = {0.0f, 0.0f, 0.0f};
+
+void calcAngleSpeed(int axis, int32_t a) {
+    float angleSpeed = relAngle[axis] * 1000000 / cycleTime;
+    float angleAccel = (angleSpeed - lastSpeed[axis]) * 1000000 / cycleTime;
+    lastSpeed[axis] = angleSpeed;
+    float angleMoment = errorP[axis] == 0 ? 0 : angleAccel / errorP[axis];
+    accMomLPF[axis] = accMomLPF[axis] * (1.0f - (1.0f / 50)) + angleMoment * (1.0f / 50);
+}
+
 static void pidMultiWii(void)
 {
     int32_t errorAngle = 0;
@@ -124,11 +136,16 @@ static void pidMultiWii(void)
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
+        float expectedT = 1.0f / 25;
+        float needAccel = 2 * (errorAngle - gyroData[axis] * expectedT) / expectedT / expectedT;
         RateError = AngleRateTmp - gyroData[axis];
+
         checkCond(axis, 0);
+        calcAngleSpeed(axis, 0);
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
+        wannaP[axis] = needAccel / accMomLPF[axis];
         errorP[axis] = PTerm;
         // -----calculate I component
         // there should be no division before accumulating the error to integrator, because the precision would be reduced.
