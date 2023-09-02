@@ -91,9 +91,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {10, 10, 21};
-    int32_t cfgI8[] = {30, 30, 21};
-    int32_t cfgD8[] = {10, 10, 0};
+    int32_t cfgP8[] = {10, 10, 10};
+    int32_t cfgI8[] = {45, 45, 30};
+    int32_t cfgD8[] = {10, 10, 10};
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
