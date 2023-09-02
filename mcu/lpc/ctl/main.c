@@ -112,9 +112,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {200, 200, 45};
+    int32_t cfgP8[] = {100, 100, 45};
     int32_t cfgI8[] = {200, 200, 200};
-    int32_t cfgD8[] = {0, 0, 0};
+    int32_t cfgD8[] = {50, 50, 25};
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
@@ -136,23 +136,20 @@ static void pidMultiWii(void)
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
-        float expectedT = 1.0f / 25;
-        float needAccel = 2 * (errorAngle - gyroData[axis] * expectedT) / expectedT / expectedT;
         RateError = AngleRateTmp - gyroData[axis];
 
         checkCond(axis, 0);
-        calcAngleSpeed(axis, 0);
+        //calcAngleSpeed(axis, 0);
 
         // -----calculate P component
         PTerm = (RateError * cfgP8[axis]) >> 7;
-        wannaP[axis] = needAccel / accMomLPF[axis];
         errorP[axis] = PTerm;
         // -----calculate I component
         // there should be no division before accumulating the error to integrator, because the precision would be reduced.
         // Precision is critical, as I prevents from long-time drift. Thus, 32 bits integrator is used.
         // Time correction (to avoid different I scaling for different builds based on average cycle time)
         // is normalized to cycle time = 2048.
-        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 20000) * cfgI8[axis];
+        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 10000) * cfgI8[axis];
 
         // limit maximum integrator value to prevent WindUp - accumulating extreme values when system is saturated.
         // I coefficient (I8) moved before integration to make limiting independent from PID settings
@@ -200,7 +197,7 @@ void loop(void)
         errorGyroI[0] = errorGyroI[1] = errorGyroI[2] = 0;
     }
 
-    if (cycleTime > 20000) {
+    if (cycleTime > 10000) {
         previousTime = currentTime;
         pidMultiWii();
 
