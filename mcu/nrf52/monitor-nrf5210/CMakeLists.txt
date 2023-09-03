@@ -3,7 +3,7 @@ project(rf_uart C ASM)
 
 set(CMAKE_VERBOSE_MAKEFILE 1)
 
-set(NRF52_SDK "/home/wieker/Projects/linux/nrf/sdk")
+set(NRF52_SDK "/home/wieker/Projects/")
 # or
 # -DNRF52_SDK=...
 
