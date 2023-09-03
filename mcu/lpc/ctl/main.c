@@ -69,7 +69,7 @@ void checkCond(int axis, int32_t angleSpeed) {
     if (throttle < 0) {
         return;
     }
-    if (fabsf(relAngle[axis]) > 5 || abs(angle[ROLL]) > 100 || abs(angle[1]) > 100) {
+    if (abs(angle[ROLL]) > 100 || abs(angle[1]) > 100) {
         printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
         printf("mag %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
         printf("acc %d %d %d\r\n", accADC[YAW], accADC[ROLL], accADC[PITCH]);
@@ -81,7 +81,6 @@ void checkCond(int axis, int32_t angleSpeed) {
         printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
         printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
         printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
-        printf("angle GYR %d %d\r\n", angleGYR[0], angleGYR[1]);
         printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
         printf("mixer PID %d %d %d\r\n", axisPID[0], axisPID[1], axisPID[2]);
         printf("mixer PIDI %d %d %d\r\n", errorGyroI[0] >> 13, errorGyroI[1] >> 13, errorGyroI[2] >> 13);
@@ -112,7 +111,7 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {100, 100, 45};
+    int32_t cfgP8[] = {200, 200, 45};
     int32_t cfgI8[] = {200, 200, 200};
     int32_t cfgD8[] = {50, 50, 25};
     int32_t cfgP8PIDLEVEL = 90;
@@ -138,7 +137,7 @@ static void pidMultiWii(void)
         // multiplication of rcCommand corresponds to changing the sticks scaling here
         RateError = AngleRateTmp - gyroData[axis];
 
-        checkCond(axis, 0);
+        //checkCond(axis, 0);
         //calcAngleSpeed(axis, 0);
 
         // -----calculate P component

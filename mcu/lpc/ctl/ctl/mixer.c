@@ -104,30 +104,17 @@ void writeMotors(void)
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, motor[2]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR4, motor[3]);
     uint32_t ctime = millis();
-    //printf("test %d\r\n", ctime);
     if ((ctime - ptime) > 1000) {
-        //printf("gyr %d %d %d\r\n", gyroData[YAW], gyroData[ROLL], gyroData[PITCH]);
-        //printf("mag %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
-        //printf("acc %d %d %d\r\n", accADC[YAW], accADC[ROLL], accADC[PITCH]);
-        int low = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/20;
-        //printf("calculated S A G %d %d %d\r\n", angle[0] / 10, angleACC[0] / 10, angleGYR[0] / 10);
-        //printf("abs %f rel %f acc %f / %d\r\n", absAngle[0], relAngle[0], accAbsAngle[0], cycles);
+        printf("abs %f %f %f / %d\r\n", absAngle[0], absAngle[0], absAngle[0], cycles);
         printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
         printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
         printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
-        printf("angle GYR %d %d\r\n", angleGYR[0], angleGYR[1]);
         printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
-        printf("mixer PID %d %d %d\r\n", axisPID[0], axisPID[1], axisPID[2]);
-        printf("mixer PIDI %d %d %d\r\n", errorGyroI[0] >> 13, errorGyroI[1] >> 13, errorGyroI[2] >> 13);
-        printf("mixer PIDP %d %d %d\r\n", errorP[0], errorP[1], errorP[2]);
-        printf("angle accel %f %f %f\r\n", accMomLPF[0], accMomLPF[1], accMomLPF[2]);
-        printf("mixer wanna %d %d %d\r\n", wannaP[0], wannaP[1], wannaP[2]);
         cycles = 0;
         ptime = ctime;
-        accAbsAngle[0] = 0;
-        //absAngle[0] = absAngle[1] = absAngle[2] = 0;
+        absAngle[0] = absAngle[1] = absAngle[2] = 0;
+        relAngle[0] = relAngle[1] = relAngle[2] = 0;
     }
-    relAngle[0] = relAngle[1] = relAngle[2] = 0;
 }
 
 int32_t axisPID[3];

@@ -16,10 +16,8 @@ typedef union {
 t_fp_vector EstG;
 int16_t angle[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 int16_t angleACC[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
-int16_t angleGYR[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 float anglerad[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
 float angleradACC[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
-float angleradGYR[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
 int16_t heading, magHold;
 uint16_t acc_1G = 1024;
 int32_t accSum[3];
@@ -30,7 +28,6 @@ float fc_acc;// correction of throttle in lateral wind,
 float magneticDeclination = 0.0f;
 float absAngle[3] = { 0, 0, 0 };
 float relAngle[3] = { 0, 0, 0 };
-float accAbsAngle[2] = {0.0f, 0.0f};
 int cycles = 0;
 
 // Normalize a vector
@@ -166,7 +163,6 @@ void getEstimatedAttitude(void)
     int32_t accMag = 0;
     static int32_t initial = 0;
     static t_fp_vector EstM;
-    static t_fp_vector EstN = { .A = { 0.0f, -1000.0f, 0.0f } };
     static float accLPF[3];
     static uint32_t previousT;
     uint32_t ppT = previousT;
@@ -178,19 +174,11 @@ void getEstimatedAttitude(void)
     scale = deltaT * (4.0f / 16.4f) * (M_PI / 180.0f) * 0.000001f;
     previousT = currentT;
 
-    int32_t accDelta[3];
-    int32_t smoothMag = 0;
-
     // Initialization
     for (axis = 0; axis < 3; axis++) {
         deltaGyroAngle[axis] = gyroADC[axis] * scale;
         absAngle[axis] += fabsf(deltaGyroAngle[axis]) * 180.0f / M_PI;
         relAngle[axis] += deltaGyroAngle[axis] * 180.0f / M_PI;
-        if (fabsf(deltaGyroAngle[axis]) > 1) {
-            printf("abs %f %d %d\r\n", fabsf(deltaGyroAngle[axis]), deltaT, gyroADC[axis]);
-            printf("time %d %d\r\n", currentT, ppT);
-            for (;;);
-        }
         if (4 > 0) {
             accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / 4)) + accADC[axis] * (1.0f / 4);
             accSmooth[axis] = accLPF[axis];
@@ -198,24 +186,10 @@ void getEstimatedAttitude(void)
             accSmooth[axis] = accADC[axis];
         }
         accMag += (int32_t)accSmooth[axis] * accSmooth[axis];
-        accDelta[axis] = accADC[axis] - accSmooth[axis];
-        smoothMag += (int32_t)accDelta[axis] * accDelta[axis];
     }
     accMag = accMag * 100 / ((int32_t)acc_1G * acc_1G);
-    smoothMag = smoothMag * 100 / ((int32_t)acc_1G * acc_1G);
-    if (smoothMag > 25) {
-        if (initial < 1000) {
-            initial ++;
-        } else {
-            printf("abs %d %d %d\r\n", accADC[0], accADC[1], accADC[2]);
-            printf("smooth %d %d %d\r\n", accSmooth[0], accSmooth[1], accSmooth[2]);
-            printf("time %d %d\r\n", currentT, ppT);
-            for (;;);
-        }
-    }
 
     rotateV(&EstG.V, deltaGyroAngle);
-    rotateV(&EstN.V, deltaGyroAngle);
 
     // Apply complimentary filter (Gyro drift correction)
     // If accel magnitude >1.15G or <0.85G and ACC vector outside of the limit range => we neutralize the effect of accelerometers in the angle estimation.
@@ -234,15 +208,7 @@ void getEstimatedAttitude(void)
     angleradACC[PITCH] = atan2f(-accSmooth[ROLL], sqrtf(accSmooth[PITCH] * accSmooth[PITCH] + accSmooth[YAW] * accSmooth[YAW]));
     angleACC[ROLL] = lrintf(angleradACC[ROLL] * (1800.0f / M_PI));
     angleACC[PITCH] = lrintf(angleradACC[PITCH] * (1800.0f / M_PI));
-    angleradGYR[ROLL] = atan2f(EstN.V.Z, - EstN.V.Y);
-    angleradGYR[PITCH] = atan2f(-EstN.V.X, sqrtf(EstN.V.Y * EstN.V.Y + EstN.V.Z * EstN.V.Z));
-    angleGYR[ROLL] = lrintf(angleradGYR[ROLL] * (1800.0f / M_PI));
-    angleGYR[PITCH] = lrintf(angleradGYR[PITCH] * (1800.0f / M_PI));
 
-    accAbsAngle[ROLL] += fabsf((float)(angleradACC[ROLL] * (180.0f / M_PI)) - oldAngle[ROLL]);
-    accAbsAngle[PITCH] += fabsf((float)(angleradACC[PITCH] * (180.0f / M_PI)) - oldAngle[PITCH]);
-    oldAngle[ROLL] = (angleradACC[ROLL] * (180.0f / M_PI));
-    oldAngle[PITCH] = (angleradACC[PITCH] * (180.0f / M_PI));
     cycles ++;
 
     rotateV(&EstM.V, deltaGyroAngle);

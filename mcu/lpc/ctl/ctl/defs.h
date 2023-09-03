@@ -31,7 +31,6 @@ typedef enum {
 
 extern int16_t angle[2];
 extern int16_t angleACC[2];
-extern int16_t angleGYR[2];
 extern int32_t axisPID[3];
 extern int16_t heading;
 extern uint16_t acc_1G;
