@@ -58,10 +58,10 @@ typedef struct motorMixer_t {
 } motorMixer_t;
 
 static const motorMixer_t mixerQuadX[] = {
-    { 1.0f, -1.0f,  0.0f, -1.0f },          // REAR
-    { 1.0f,  0.0f,  1.0f,  1.0f },          // RIGHT
-    { 1.0f,  1.0f,  0.0f, -1.0f },          // FRONT
-    { 1.0f,  0.0f, -1.0f,  1.0f },          // LEFT
+    { 1.0f, -1.0f,  0.0f,  1.0f },          // REAR
+    { 1.0f,  0.0f,  1.0f, -1.0f },          // RIGHT
+    { 1.0f,  1.0f,  0.0f,  1.0f },          // FRONT
+    { 1.0f,  0.0f, -1.0f, -1.0f },          // LEFT
 };
 
 static uint8_t numberMotor = 0;

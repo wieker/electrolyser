@@ -39,7 +39,6 @@ extern float relAngle[3];
 
 extern uint32_t currentTime;
 extern uint16_t calibratingG;
-extern int16_t gyroData[3];
 extern int16_t magADC[3];
 extern int16_t accADC[3];
 

@@ -5,7 +5,6 @@
 #include "../icm20689/accgyro_icm20689.h"
 #include "../icm20689/accgyro_mpu.h"
 
-int16_t gyroData[3] = { 0, 0, 0 };
 int16_t gyroADC[3];
 uint16_t calibratingG = 0;
 int16_t gyroZero[3] = { 0, 0, 0 };
@@ -102,8 +101,8 @@ static void mpuGyroRead(int16_t *gyroData)
     uint8_t* val = spi_xfer6(MPU_RA_GYRO_XOUT_H | DIR_READ);
     //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
     gyroData[0] = (int16_t)((val[0] << 8) | val[1]) / 8;
-    gyroData[1] = (int16_t)((val[2] << 8) | val[3]) / 8;
-    gyroData[2] = (int16_t)((val[4] << 8) | val[5]) / 8;
+    gyroData[2] = (int16_t)((val[2] << 8) | val[3]) / 8;
+    gyroData[1] = (int16_t)((val[4] << 8) | val[5]) / 8;
     uint32_t ctime = millis();
     //printf("test %d\r\n", ctime);
     val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
@@ -197,10 +196,6 @@ void Gyro_getADC(void)
 void computeIMU(void)
 {
     Gyro_getADC();
-
-    gyroData[YAW] = gyroADC[YAW];
-    gyroData[ROLL] = gyroADC[ROLL];
-    gyroData[PITCH] = gyroADC[PITCH];
 
     getEstimatedAttitude();
 

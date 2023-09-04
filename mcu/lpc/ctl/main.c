@@ -111,7 +111,7 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {200, 200, 45};
+    int32_t cfgP8[] = {200, 200, 100};
     int32_t cfgI8[] = {200, 200, 200};
     int32_t cfgD8[] = {50, 50, 25};
     int32_t cfgP8PIDLEVEL = 90;
@@ -135,7 +135,7 @@ static void pidMultiWii(void)
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
-        RateError = AngleRateTmp - gyroData[axis];
+        RateError = AngleRateTmp - gyroADC[axis];
 
         //checkCond(axis, 0);
         //calcAngleSpeed(axis, 0);

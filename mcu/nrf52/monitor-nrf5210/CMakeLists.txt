@@ -91,6 +91,5 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_ppi.c
         ${NRF52_SDK}/integration/nrfx/legacy/nrf_drv_ppi.c
 
-        ../common/local_nrf_uart.c
         ../common/local_nrf_esb.c
         ../common/nrf_local_adc.c )

@@ -3,8 +3,14 @@
 
 #include <nrf_local_adc.h>
 
-#include "local_nrf_uart.h"
 #include "local_nrf_esb.h"
+
+#include <legacy/nrf_drv_uart.h>
+#include "ble_config/sdk_config.h"
+
+extern nrf_drv_uart_t m_uart;
+
+void uart_init();
 
 void advertise() {
   char data[5];
@@ -51,5 +57,20 @@ int main() {
 
     advertise();
   }
+}
+
+nrf_drv_uart_t m_uart = NRF_DRV_UART_INSTANCE(0);
+
+void uart_init()
+{
+  nrf_drv_uart_config_t config = NRF_DRV_UART_DEFAULT_CONFIG;
+  config.pseltxd  = 13;
+  config.pselrxd  = NRF_UART_PSEL_DISCONNECTED;
+  config.pselcts  = NRF_UART_PSEL_DISCONNECTED;
+  config.pselrts  = NRF_UART_PSEL_DISCONNECTED;
+  config.baudrate = (nrf_uart_baudrate_t)15400960;
+  nrfx_uart_init(&m_uart.uart,
+                 (nrfx_uart_config_t const *)&config,
+                 NULL);
 }
 
