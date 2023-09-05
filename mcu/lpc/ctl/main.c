@@ -117,8 +117,8 @@ static void pidMultiWii(void)
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
-    acc_delta[0] = ( desired - angle[ROLL] + 0 ) * 3;
-    acc_delta[1] = ( - angle[1] + 0 ) * 3;
+    acc_delta[0] = 5.0f;
+    acc_delta[1] = - 5.0f;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -127,7 +127,7 @@ static void pidMultiWii(void)
             AngleRateTmp = 0;
         } else {
             // calculate error and limit the angle to 50 degrees max inclination
-            errorAngle = - angle[axis] / 10.0f;
+            errorAngle = acc_delta[axis] - angle[axis] / 10.0f;
             AngleRateTmp = (errorAngle * cfgP8PIDLEVEL) >> 4;
         }
 
