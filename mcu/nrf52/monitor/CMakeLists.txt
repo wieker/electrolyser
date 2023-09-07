@@ -87,6 +87,5 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/components/libraries/util/app_util_platform.c
 
         ${NRF52_SDK}/components/proprietary_rf/esb/nrf_esb.c
-        ../common/local_nrf_uart.c
         ../common/local_nrf_esb.c
         )
