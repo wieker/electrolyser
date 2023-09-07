@@ -76,7 +76,7 @@ void imuInit(void)
     delay(20000000);
     spi_xfer(WHO_AM_I | DIR_READ, 0x80);
     delay(20000000);
-    DEBUGOUT("PWM write res=%02x expected=%02x\r\n", Rx_Buf[1], WHOAMI);
+    //DEBUGOUT("PWM write res=%02x expected=%02x\r\n", Rx_Buf[1], WHOAMI);
     spi_xfer(MPU_RA_SIGNAL_PATH_RESET, 0x03);
     delay(20000000);
     spi_xfer(MPU_RA_PWR_MGMT_1, INV_CLK_PLL);

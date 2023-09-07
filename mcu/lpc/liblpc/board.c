@@ -55,8 +55,8 @@ static uint32_t lcd_cfg_val;
 
 void Board_UART_Init(LPC_USART_T *pUART)
 {
-	Chip_SCU_PinMuxSet(0x6, 4, (SCU_MODE_INACT | SCU_MODE_FUNC2));					/* P6,4 : UART0_TXD */
-	Chip_SCU_PinMuxSet(0x2, 1, (SCU_MODE_INACT | SCU_MODE_INBUFF_EN | SCU_MODE_ZIF_DIS | SCU_MODE_FUNC1));/* P2.1 : UART0_RXD */
+	Chip_SCU_PinMuxSet(0x3, 4, (SCU_MODE_INACT | SCU_MODE_FUNC4));					/* P6,4 : UART0_TXD */
+	Chip_SCU_PinMuxSet(0x1, 14, (SCU_MODE_INACT | SCU_MODE_INBUFF_EN | SCU_MODE_ZIF_DIS | SCU_MODE_FUNC1));/* P2.1 : UART0_RXD */
 }
 
 /* Initialize debug output via UART for board */

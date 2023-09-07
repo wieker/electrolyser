@@ -105,11 +105,12 @@ void writeMotors(void)
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR4, motor[3]);
     uint32_t ctime = millis();
     if ((ctime - ptime) > 1000) {
-        printf("abs %f %f %f / %d\r\n", absAngle[0], absAngle[0], absAngle[0], cycles);
-        printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
-        printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
-        printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
-        printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
+        //printf("abs %f %f %f / %d\r\n", absAngle[0], absAngle[0], absAngle[0], cycles);
+        //printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
+        //printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
+        //printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
+        //printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
+        printf("K\r\n");
         cycles = 0;
         ptime = ctime;
         absAngle[0] = absAngle[1] = absAngle[2] = 0;
