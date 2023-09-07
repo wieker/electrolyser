@@ -110,7 +110,7 @@ void writeMotors(void)
         //printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
         //printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
         //printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
-        printf("K\r\n");
+        Board_UARTPutSTR("K\r\n");
         cycles = 0;
         ptime = ctime;
         absAngle[0] = absAngle[1] = absAngle[2] = 0;

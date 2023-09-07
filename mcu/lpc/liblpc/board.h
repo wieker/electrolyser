@@ -67,7 +67,7 @@ extern "C" {
 /** Board UART used for debug output and input using the DEBUG* macros. This
     is also the port used for Board_UARTPutChar, Board_UARTGetChar, and
 	Board_UARTPutSTR functions. */
-#define DEBUG_UART LPC_UART1
+#define DEBUG_UART LPC_USART2
 
 /**
  * @}
