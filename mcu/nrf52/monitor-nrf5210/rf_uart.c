@@ -36,12 +36,14 @@ void cpyN(int n, uint8_t* string, char* dest) {
 }
 
 void advertise() {
-  radio_packet_send((uint8_t *) dt, strlen(dt));
+  radio_packet_send((uint8_t *) "test\r\n", 6);
   //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txt\n", 4);
 }
 
 void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
   nrfx_uart_tx(&m_uart.uart, packet, packet_length);
+      cpyN(packet_length, packet, dt);
+      dt[packet_length] = 0;
 }
 
 int main() {
@@ -58,6 +60,7 @@ int main() {
     NRF_P0->OUTSET = 1 << 18 | 1 << 19;
     NRF_P0->OUTCLR = 1 << 17 | 1 << 20;
     nrf_delay_ms(1000);
+      advertise();
 
     //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "ok \r\n", 5);
   }
@@ -71,7 +74,6 @@ void evh(nrfx_uart_event_t const * p_event,
     if (p_event->type == 1) {
       cpyN(p_event->data.rxtx.bytes, p_event->data.rxtx.p_data, dt);
       dt[p_event->data.rxtx.bytes] = 0;
-      advertise();
     }
   nrfx_uart_rx(&m_uart.uart, rxx, 1);
 }

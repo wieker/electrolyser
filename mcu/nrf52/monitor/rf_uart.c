@@ -42,6 +42,7 @@ void advertise() {
 
 void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
   nrfx_uart_tx(&m_uart.uart, packet, packet_length);
+  nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "rcvd\r\n", 6);
 }
 
 int main() {
@@ -58,8 +59,6 @@ int main() {
     NRF_P0->OUTSET = 1 << 18 | 1 << 19;
     NRF_P0->OUTCLR = 1 << 17 | 1 << 20;
     nrf_delay_ms(1000);
-
-    //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "ok \r\n", 5);
   }
 }
 
@@ -79,14 +78,16 @@ void evh(nrfx_uart_event_t const * p_event,
 void uart_init()
 {
   nrf_drv_uart_config_t config = NRF_DRV_UART_DEFAULT_CONFIG;
-  config.pseltxd  = 13;
-  config.pselrxd  = 15;
+  config.pseltxd  = 6;
+  config.pselrxd  = 8;
   config.pselcts  = NRF_UART_PSEL_DISCONNECTED;
   config.pselrts  = NRF_UART_PSEL_DISCONNECTED;
   config.baudrate = (nrf_uart_baudrate_t)NRFX_UART_DEFAULT_CONFIG_BAUDRATE;
   nrfx_uart_init(&m_uart.uart,
                  (nrfx_uart_config_t const *)&config,
                  evh);
+  nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "init00\r\n", 8);
+  nrfx_uart_rx_enable(&m_uart.uart);
   nrfx_uart_rx(&m_uart.uart, rxx, 1);
 }
 
