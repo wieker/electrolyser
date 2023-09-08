@@ -42,7 +42,6 @@ void advertise() {
 
 void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
   nrfx_uart_tx(&m_uart.uart, packet, packet_length);
-  nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "rcvd\r\n", 6);
 }
 
 int main() {

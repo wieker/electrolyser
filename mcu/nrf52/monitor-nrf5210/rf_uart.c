@@ -36,14 +36,14 @@ void cpyN(int n, uint8_t* string, char* dest) {
 }
 
 void advertise() {
-  radio_packet_send((uint8_t *) "test\r\n", 6);
+  radio_packet_send((uint8_t *) dt, strlen(dt));
   //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txt\n", 4);
 }
 
 void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
   nrfx_uart_tx(&m_uart.uart, packet, packet_length);
-      cpyN(packet_length, packet, dt);
-      dt[packet_length] = 0;
+  cpyN(packet_length, packet, dt + 2);
+  dt[packet_length + 2] = 0;
 }
 
 int main() {
@@ -51,6 +51,8 @@ int main() {
   uart_init();
 
   radio_init(1);
+  dt[0] = 't';
+  dt[1] = 'd';
 
   while (1) {
     NRF_P0->OUTSET = 1 << 17 | 1 << 20;
@@ -60,9 +62,8 @@ int main() {
     NRF_P0->OUTSET = 1 << 18 | 1 << 19;
     NRF_P0->OUTCLR = 1 << 17 | 1 << 20;
     nrf_delay_ms(1000);
-      advertise();
 
-    //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "ok \r\n", 5);
+    advertise();
   }
 }
 
@@ -81,14 +82,16 @@ void evh(nrfx_uart_event_t const * p_event,
 void uart_init()
 {
   nrf_drv_uart_config_t config = NRF_DRV_UART_DEFAULT_CONFIG;
-  config.pseltxd  = 28;
-  config.pselrxd  = 29;
+  config.pseltxd  = 6;
+  config.pselrxd  = 8;
   config.pselcts  = NRF_UART_PSEL_DISCONNECTED;
   config.pselrts  = NRF_UART_PSEL_DISCONNECTED;
   config.baudrate = (nrf_uart_baudrate_t)NRFX_UART_DEFAULT_CONFIG_BAUDRATE;
   nrfx_uart_init(&m_uart.uart,
                  (nrfx_uart_config_t const *)&config,
                  evh);
+  nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "init00\r\n", 8);
+  nrfx_uart_rx_enable(&m_uart.uart);
   nrfx_uart_rx(&m_uart.uart, rxx, 1);
 }
 
