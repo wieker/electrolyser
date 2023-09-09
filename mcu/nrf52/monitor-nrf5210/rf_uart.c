@@ -10,6 +10,7 @@ extern nrf_drv_uart_t m_uart;
 void uart_init();
 char dt[100];
 uint8_t rxx[10];
+int dtpos = 0;
 
 int strlen(char* string) {
   int i = 0;
@@ -36,7 +37,10 @@ void cpyN(int n, uint8_t* string, char* dest) {
 }
 
 void advertise() {
-  radio_packet_send((uint8_t *) dt, strlen(dt));
+  if (dtpos > 0) {
+    radio_packet_send((uint8_t *) dt, strlen(dt));
+    dtpos = 0;
+  }
   //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txt\n", 4);
 }
 
@@ -58,6 +62,7 @@ int main() {
     NRF_P0->OUTSET = 1 << 18 | 1 << 19;
     NRF_P0->OUTCLR = 1 << 17 | 1 << 20;
     nrf_delay_ms(100);
+
     advertise();
   }
 }
@@ -68,8 +73,11 @@ void evh(nrfx_uart_event_t const * p_event,
          void *                    p_context)
 {
     if (p_event->type == 1) {
-      cpyN(p_event->data.rxtx.bytes, p_event->data.rxtx.p_data, dt);
-      dt[p_event->data.rxtx.bytes] = 0;
+      if (dtpos + p_event->data.rxtx.bytes < 100) {
+        cpyN(p_event->data.rxtx.bytes, p_event->data.rxtx.p_data, dt + dtpos);
+        dt[p_event->data.rxtx.bytes + dtpos] = 0;
+        dtpos += p_event->data.rxtx.bytes;
+      }
     }
   nrfx_uart_rx(&m_uart.uart, rxx, 1);
 }
