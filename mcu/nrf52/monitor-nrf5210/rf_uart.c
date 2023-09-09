@@ -42,8 +42,6 @@ void advertise() {
 
 void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
   nrfx_uart_tx(&m_uart.uart, packet, packet_length);
-  cpyN(packet_length, packet, dt + 2);
-  dt[packet_length + 2] = 0;
 }
 
 int main() {
@@ -51,8 +49,6 @@ int main() {
   uart_init();
 
   radio_init(1);
-  dt[0] = 't';
-  dt[1] = 'd';
 
   while (1) {
     NRF_P0->OUTSET = 1 << 17 | 1 << 20;
@@ -62,7 +58,6 @@ int main() {
     NRF_P0->OUTSET = 1 << 18 | 1 << 19;
     NRF_P0->OUTCLR = 1 << 17 | 1 << 20;
     nrf_delay_ms(100);
-
     advertise();
   }
 }
