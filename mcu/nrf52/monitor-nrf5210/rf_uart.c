@@ -57,11 +57,11 @@ int main() {
   while (1) {
     NRF_P0->OUTSET = 1 << 17 | 1 << 20;
     NRF_P0->OUTCLR = 1 << 18 | 1 << 19;
-    nrf_delay_ms(1000);
+    nrf_delay_ms(100);
 
     NRF_P0->OUTSET = 1 << 18 | 1 << 19;
     NRF_P0->OUTCLR = 1 << 17 | 1 << 20;
-    nrf_delay_ms(1000);
+    nrf_delay_ms(100);
 
     advertise();
   }
