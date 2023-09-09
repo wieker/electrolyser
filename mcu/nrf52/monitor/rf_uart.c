@@ -10,7 +10,7 @@ extern nrf_drv_uart_t m_uart;
 void uart_init();
 char dt[100];
 uint8_t rxx[10];
-int dtpos = 0;
+int dtpos = 2;
 
 int strlen(char* string) {
   int i = 0;
@@ -39,13 +39,13 @@ void cpyN(int n, uint8_t* string, char* dest) {
 void advertise() {
   if (dtpos > 0) {
     radio_packet_send((uint8_t *) dt, strlen(dt));
-    dtpos = 0;
+    dtpos = 2;
   }
   //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txt\n", 4);
 }
 
 void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
-  nrfx_uart_tx(&m_uart.uart, packet, packet_length);
+  nrfx_uart_tx(&m_uart.uart, packet + 2, packet_length - 2);
 }
 
 int main() {
@@ -53,6 +53,8 @@ int main() {
   uart_init();
 
   radio_init(1);
+  dt[0] = 'p';
+  dt[1] = 'd';
 
   while (1) {
     NRF_P0->OUTSET = 1 << 17 | 1 << 20;
@@ -93,7 +95,7 @@ void uart_init()
   nrfx_uart_init(&m_uart.uart,
                  (nrfx_uart_config_t const *)&config,
                  evh);
-  nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "init00\r\n", 8);
+  //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "init00\r\n", 8);
   nrfx_uart_rx_enable(&m_uart.uart);
   nrfx_uart_rx(&m_uart.uart, rxx, 1);
 }
