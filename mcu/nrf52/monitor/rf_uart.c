@@ -11,6 +11,7 @@ void uart_init();
 char dt[100];
 uint8_t rxx[10];
 int dtpos = 2;
+int v = 0;
 
 int strlen(char* string) {
   int i = 0;
@@ -38,14 +39,17 @@ void cpyN(int n, uint8_t* string, char* dest) {
 
 void advertise() {
   if (dtpos > 0) {
-    radio_packet_send((uint8_t *) dt, strlen(dt));
+    dt[1] = '0' + v % 10;
+    v ++;
+    radio_packet_send((uint8_t *) dt, dtpos);
     dtpos = 2;
+    dt[2] = 0;
   }
   //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "txt\n", 4);
 }
 
 void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
-  nrfx_uart_tx(&m_uart.uart, packet + 2, packet_length - 2);
+  nrfx_uart_tx(&m_uart.uart, packet, packet_length);
 }
 
 int main() {
