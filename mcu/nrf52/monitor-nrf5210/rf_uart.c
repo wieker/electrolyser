@@ -39,8 +39,6 @@ void cpyN(int n, uint8_t* string, char* dest) {
 
 void advertise() {
   if (dtpos > 0) {
-    dt[1] = '0' + v % 10;
-    v ++;
     radio_packet_send((uint8_t *) dt, dtpos);
     dtpos = 2;
     dt[2] = 0;
@@ -49,7 +47,9 @@ void advertise() {
 }
 
 void radio_packet_recv(uint8_t *packet, uint32_t packet_length) {
-  nrfx_uart_tx(&m_uart.uart, packet + 2, packet_length - 2);
+  if (packet_length > 2) {
+    nrfx_uart_tx(&m_uart.uart, packet + 2, packet_length - 2);
+  }
 }
 
 int main() {
@@ -83,6 +83,8 @@ void evh(nrfx_uart_event_t const * p_event,
         cpyN(p_event->data.rxtx.bytes, p_event->data.rxtx.p_data, dt + dtpos);
         dt[p_event->data.rxtx.bytes + dtpos] = 0;
         dtpos += p_event->data.rxtx.bytes;
+        dt[1] = '0' + v % 10;
+        v ++;
       }
     }
   nrfx_uart_rx(&m_uart.uart, rxx, 1);
