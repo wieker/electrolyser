@@ -217,10 +217,20 @@ int main2(void)
     previousTime = micros();
     calibratingG = CALIBRATING_GYRO_CYCLES;
 
+    int32_t ping_time;
+    int32_t prev_time;
     // loopy
     while (1) {
         loop();
         char ch = DEBUGIN();
+        if (ch != EOF) {
+            prev_time = millis();
+        } else {
+            while ((ping_time = (int32_t)((int32_t)(millis()) - (int32_t)prev_time)) <= 0) {}
+            if (ping_time > 5000) {
+                stopMotors();
+            }
+        }
         switch (ch) {
             case '=': {
                 throttle += 100;
@@ -230,8 +240,8 @@ int main2(void)
                 stopMotors();
                 break;
             }
-            case 'w': {
-                desired = 70;
+            case 'p': {
+                prev_time = millis();
                 break;
             }
             case 's': {
