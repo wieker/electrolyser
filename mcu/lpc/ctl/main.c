@@ -61,7 +61,8 @@ int constrain(int amt, int low, int high)
 }
 
 int32_t yawUI = 0;
-int32_t desired = 0;
+int32_t desiredX = 0;
+int32_t desiredY = 0;
 int32_t lastAngle[3];
 float lastAngleDiff[3];
 
@@ -117,8 +118,8 @@ static void pidMultiWii(void)
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
-    acc_delta[0] = 5.0f;
-    acc_delta[1] = - 5.0f;
+    acc_delta[0] = desiredX;
+    acc_delta[1] = desiredY;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -244,8 +245,20 @@ int main2(void)
                 prev_time = millis();
                 break;
             }
+            case 'a': {
+                desiredX --;
+                break;
+            }
             case 's': {
-                desired = 0;
+                desiredY --;
+                break;
+            }
+            case 'd': {
+                desiredX ++;
+                break;
+            }
+            case 'w': {
+                desiredY ++;
                 break;
             }
             case 'g': {
