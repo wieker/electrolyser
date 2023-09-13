@@ -63,6 +63,7 @@ int constrain(int amt, int low, int high)
 int32_t yawUI = 0;
 int32_t desiredX = 0;
 int32_t desiredY = 0;
+int32_t acc_delta[3];
 int32_t lastAngle[3];
 float lastAngleDiff[3];
 
@@ -108,7 +109,7 @@ static void pidMultiWii(void)
     int32_t errorAngle = 0;
     int axis;
     int32_t delta, deltaSum;
-    static int32_t delta1[3], delta2[3], acc_delta[3];
+    static int32_t delta1[3], delta2[3];
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
@@ -118,8 +119,8 @@ static void pidMultiWii(void)
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
-    acc_delta[0] = desiredX;
-    acc_delta[1] = desiredY;
+    acc_delta[0] = desiredX - angle[axis] / 10.0f;
+    acc_delta[1] = desiredY - angle[axis] / 10.0f;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -128,7 +129,7 @@ static void pidMultiWii(void)
             AngleRateTmp = 0;
         } else {
             // calculate error and limit the angle to 50 degrees max inclination
-            errorAngle = acc_delta[axis] - angle[axis] / 10.0f;
+            errorAngle = acc_delta[axis];
             AngleRateTmp = (errorAngle * cfgP8PIDLEVEL) >> 4;
         }
 
