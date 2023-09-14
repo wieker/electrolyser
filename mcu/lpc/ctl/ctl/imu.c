@@ -177,6 +177,7 @@ void getEstimatedAttitude(void)
     // Initialization
     for (axis = 0; axis < 3; axis++) {
         deltaGyroAngle[axis] = gyroADC[axis] * scale;
+        relAngle[axis] += deltaGyroAngle[axis] * 180.0f / M_PI;
         if (4 > 0) {
             accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / 4)) + accADC[axis] * (1.0f / 4);
             accSmooth[axis] = accLPF[axis];
