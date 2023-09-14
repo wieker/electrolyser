@@ -58,6 +58,8 @@ extern int32_t desiredX;
 extern int32_t desiredY;
 extern int32_t acc_delta[3];
 
+extern int cMode;
+
 uint32_t micros(void);
 void getEstimatedAttitude(void);
 

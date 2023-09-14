@@ -129,8 +129,12 @@ static void pidMultiWii(void)
             AngleRateTmp = 0;
         } else {
             // calculate error and limit the angle to 50 degrees max inclination
-            errorAngle = acc_delta[axis];
-            AngleRateTmp = (errorAngle * cfgP8PIDLEVEL) >> 4;
+            if (cMode == 3) {
+                AngleRateTmp = 0;
+            } else {
+                errorAngle = acc_delta[axis];
+                AngleRateTmp = (errorAngle * cfgP8PIDLEVEL) >> 4;
+            }
         }
 
         // --------low-level gyro-based PID. ----------
@@ -260,6 +264,22 @@ int main2(void)
             }
             case 'w': {
                 desiredY ++;
+                break;
+            }
+            case '1': {
+                cMode = 0;
+                break;
+            }
+            case '2': {
+                cMode = 1;
+                break;
+            }
+            case '3': {
+                cMode = 2;
+                break;
+            }
+            case '4': {
+                cMode = 3;
                 break;
             }
             case 'g': {

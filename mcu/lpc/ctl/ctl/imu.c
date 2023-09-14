@@ -13,7 +13,7 @@ typedef union {
     t_fp_vector_def V;
 } t_fp_vector;
 
-t_fp_vector EstG;
+t_fp_vector EstG = { .A = { 0.0f, 1.0f, 0.0f } };
 int16_t angle[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 int16_t angleACC[2] = { 0, 0 };     // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 float anglerad[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
@@ -29,6 +29,8 @@ float magneticDeclination = 0.0f;
 float absAngle[3] = { 0, 0, 0 };
 float relAngle[3] = { 0, 0, 0 };
 int cycles = 0;
+
+int cMode = 0;
 
 // Normalize a vector
 void normalizeV(struct fp_vector *src, struct fp_vector *dest)
@@ -195,8 +197,17 @@ void getEstimatedAttitude(void)
     // If accel magnitude >1.15G or <0.85G and ACC vector outside of the limit range => we neutralize the effect of accelerometers in the angle estimation.
     // To do that, we just skip filter, as EstV already rotated by Gyro
     if (72 < (uint16_t)accMag && (uint16_t)accMag < 133) {
-        for (axis = 0; axis < 3; axis++)
-            EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
+        for (axis = 0; axis < 3; axis++) {
+            if (cMode == 0) {
+                EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
+            }
+            if (cMode == 1) {
+                EstG.A[axis] = EstG.A[axis];
+            }
+            if (cMode == 2) {
+                EstG.A[axis] = accSmooth[axis];
+            }
+        }
     }
 
     // Attitude of the estimated vector
