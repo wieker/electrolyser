@@ -163,15 +163,13 @@ void getEstimatedAttitude(void)
 {
     int32_t axis;
     int32_t accMag = 0;
-    static int32_t initial = 0;
     static t_fp_vector EstM;
+    static t_fp_vector EstN = { .A = { 1.0f, 0.0f, 0.0f } };
     static float accLPF[3];
     static uint32_t previousT;
-    uint32_t ppT = previousT;
     uint32_t currentT;
     int32_t deltaT;
     float scale, deltaGyroAngle[3];
-    static float oldAngle[2] = {0.0f, 0.0f};
     while ((deltaT = ((currentT = micros()) - previousT)) <= 0) {}
     scale = deltaT * (4.0f / 16.4f) * (M_PI / 180.0f) * 0.000001f;
     previousT = currentT;
@@ -179,8 +177,6 @@ void getEstimatedAttitude(void)
     // Initialization
     for (axis = 0; axis < 3; axis++) {
         deltaGyroAngle[axis] = gyroADC[axis] * scale;
-        absAngle[axis] += fabsf(deltaGyroAngle[axis]) * 180.0f / M_PI;
-        relAngle[axis] += deltaGyroAngle[axis] * 180.0f / M_PI;
         if (4 > 0) {
             accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / 4)) + accADC[axis] * (1.0f / 4);
             accSmooth[axis] = accLPF[axis];
@@ -197,37 +193,21 @@ void getEstimatedAttitude(void)
     // If accel magnitude >1.15G or <0.85G and ACC vector outside of the limit range => we neutralize the effect of accelerometers in the angle estimation.
     // To do that, we just skip filter, as EstV already rotated by Gyro
     if (72 < (uint16_t)accMag && (uint16_t)accMag < 133) {
-        for (axis = 0; axis < 3; axis++) {
-            if (cMode == 0) {
-                EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
-            }
-            if (cMode == 1) {
-                EstG.A[axis] = EstG.A[axis];
-            }
-            if (cMode == 2) {
-                EstG.A[axis] = accSmooth[axis];
-            }
-        }
+        for (axis = 0; axis < 3; axis++)
+            EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
     }
 
     // Attitude of the estimated vector
-    anglerad[ROLL] = atan2f(EstG.V.Z, - EstG.V.Y);
+    anglerad[ROLL] = atan2f(EstG.V.Y, EstG.V.Z);
     anglerad[PITCH] = atan2f(-EstG.V.X, sqrtf(EstG.V.Y * EstG.V.Y + EstG.V.Z * EstG.V.Z));
     angle[ROLL] = lrintf(anglerad[ROLL] * (1800.0f / M_PI));
     angle[PITCH] = lrintf(anglerad[PITCH] * (1800.0f / M_PI));
-    angleradACC[ROLL] = atan2f(accSmooth[YAW], - accSmooth[PITCH]);
-    angleradACC[PITCH] = atan2f(-accSmooth[ROLL], sqrtf(accSmooth[PITCH] * accSmooth[PITCH] + accSmooth[YAW] * accSmooth[YAW]));
-    angleACC[ROLL] = lrintf(angleradACC[ROLL] * (1800.0f / M_PI));
-    angleACC[PITCH] = lrintf(angleradACC[PITCH] * (1800.0f / M_PI));
-
-    cycles ++;
 
     rotateV(&EstM.V, deltaGyroAngle);
-    // for (axis = 0; axis < 3; a/*xis++)
-    //     EstM.A[axis] = (EstM.A[axis] * (float)600 + magADC[axis]) / 601;*/
-    normalizeV(&EstM.V, &EstM.V);
+    for (axis = 0; axis < 3; axis++)
+        EstM.A[axis] = (EstM.A[axis] * (float)600 + magADC[axis]) / 601;
     heading = calculateHeading(&EstM);
 
-    acc_calc(deltaT); // rotate acc vector into earth frame
 
+    acc_calc(deltaT); // rotate acc vector into earth frame
 }

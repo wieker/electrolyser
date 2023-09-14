@@ -97,18 +97,25 @@ static void mpuGyroRead(int16_t *gyroData)
 {
     //delay(20000000);
     static uint32_t ptime = 0;
+    int16_t tmp[3];
     //printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
     uint8_t* val = spi_xfer6(MPU_RA_GYRO_XOUT_H | DIR_READ);
     //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
-    gyroData[0] = (int16_t)((val[0] << 8) | val[1]) / 8;
-    gyroData[2] = (int16_t)((val[2] << 8) | val[3]) / 8;
-    gyroData[1] = (int16_t)((val[4] << 8) | val[5]) / 8;
+    tmp[0] = (int16_t)((val[0] << 8) | val[1]) / 8;
+    tmp[1] = (int16_t)((val[2] << 8) | val[3]) / 8;
+    tmp[2] = (int16_t)((val[4] << 8) | val[5]) / 8;
+    gyroData[0] = tmp[0];
+    gyroData[1] = tmp[2];
+    gyroData[2] = - tmp[1];
     uint32_t ctime = millis();
     //printf("test %d\r\n", ctime);
     val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
-    accADC[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
-    accADC[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
-    accADC[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
+    tmp[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
+    tmp[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
+    tmp[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
+    accADC[0] = tmp[0];
+    accADC[1] = tmp[2];
+    accADC[2] = - tmp[1];
     //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
     //printf("test %f %f %f\r\n", accADC[0] * 16.0f / 32767.0f, accADC[1] * 16.0f / 32767.0f, accADC[2] * 16.0f / 32767.0f);
 }
@@ -183,7 +190,7 @@ static void GYRO_Common(void)
         gyroADC[axis] -= gyroZero[axis];
     for (axis = 0; axis < 3; axis++)
         accADC[axis] -= accZero[axis];
-    accADC[1] -= acc_1G;
+    accADC[2] += acc_1G;
 }
 
 void Gyro_getADC(void)

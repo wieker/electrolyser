@@ -119,8 +119,8 @@ static void pidMultiWii(void)
     int32_t cfgP8PIDLEVEL = 90;
 
     acc_delta[2] = 0;
-    acc_delta[0] = desiredX - angle[axis] / 10.0f;
-    acc_delta[1] = desiredY - angle[axis] / 10.0f;
+    acc_delta[0] = desiredX - angle[0] / 10.0f;
+    acc_delta[1] = desiredY - angle[1] / 10.0f;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
