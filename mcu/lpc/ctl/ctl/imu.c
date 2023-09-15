@@ -19,7 +19,7 @@ int16_t angleACC[2] = { 0, 0 };     // absolute angle inclination in multiple of
 float anglerad[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
 float angleradACC[2] = { 0.0f, 0.0f };        // this is the 1G measured acceleration.
 int16_t heading, magHold;
-uint16_t acc_1G = 1024;
+uint16_t acc_1G = 512;
 int32_t accSum[3];
 uint32_t accTimeSum = 0;        // keep track for integration of acc
 int accSumCount = 0;

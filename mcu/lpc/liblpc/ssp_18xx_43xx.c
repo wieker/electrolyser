@@ -187,10 +187,6 @@ uint32_t Chip_SSP_RWFrames_Blocking(LPC_SSP_T *pSSP, Chip_SSP_DATA_SETUP_T *xf_s
 		}
 	}
 
-	for (int i = 0; i < xf_setup->rx_cnt - 1; i ++) {
-        ((uint8_t *)xf_setup->rx_data)[i] = (((uint8_t *)xf_setup->rx_data)[i] << 1) + (((uint8_t *)xf_setup->rx_data)[i + 1] >> 7);
-	}
-
 	if (xf_setup->tx_data) {
 		return xf_setup->tx_cnt;
 	}

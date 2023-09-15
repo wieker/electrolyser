@@ -44,7 +44,7 @@ uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
 
 uint8_t* spi_xfer6(uint8_t reg) {
 	static Chip_SSP_DATA_SETUP_T xf_setup;
-	xf_setup.length = 7;
+	xf_setup.length = 15;
 	xf_setup.tx_data = Tx_Buf;
 	Tx_Buf[0] = reg;
 	Tx_Buf[1] = 0x00;
@@ -81,6 +81,8 @@ void imuInit(void)
     delay(20000000);
     spi_xfer(MPU_RA_PWR_MGMT_1, INV_CLK_PLL);
     delay(20000000);
+    spi_xfer(0x6A, 0x10);
+    delay(200);
     spi_xfer(MPU_RA_GYRO_CONFIG, INV_FSR_2000DPS << 3);
     delay(200);
     spi_xfer(MPU_RA_ACCEL_CONFIG, INV_FSR_16G << 3);
@@ -99,17 +101,16 @@ static void mpuGyroRead(int16_t *gyroData)
     static uint32_t ptime = 0;
     int16_t tmp[3];
     //printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
-    uint8_t* val = spi_xfer6(MPU_RA_GYRO_XOUT_H | DIR_READ);
-    //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
-    tmp[0] = (int16_t)((val[0] << 8) | val[1]) / 8;
-    tmp[1] = (int16_t)((val[2] << 8) | val[3]) / 8;
-    tmp[2] = (int16_t)((val[4] << 8) | val[5]) / 8;
+    uint8_t* val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
+    //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[8], val[9], val[10], val[11], val[12], val[13]);
+    tmp[0] = (int16_t)((val[8] << 8) | val[9]) / 4;
+    tmp[1] = (int16_t)((val[10] << 8) | val[11]) / 4;
+    tmp[2] = (int16_t)((val[12] << 8) | val[13]) / 4;
     gyroData[0] = tmp[0];
     gyroData[1] = tmp[2];
     gyroData[2] = - tmp[1];
     uint32_t ctime = millis();
     //printf("test %d\r\n", ctime);
-    val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
     tmp[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
     tmp[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
     tmp[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
@@ -117,7 +118,7 @@ static void mpuGyroRead(int16_t *gyroData)
     accADC[1] = tmp[2];
     accADC[2] = - tmp[1];
     //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
-    //printf("test %f %f %f\r\n", accADC[0] * 16.0f / 32767.0f, accADC[1] * 16.0f / 32767.0f, accADC[2] * 16.0f / 32767.0f);
+    //printf("test %f %f %f\r\n", accADC[0] * 4.0f / 2048.0f, accADC[1] * 4.0f / 2048.0f, accADC[2] * 4.0f / 2048.0f);
 }
 
 typedef struct stdev_t {
