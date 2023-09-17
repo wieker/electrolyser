@@ -113,8 +113,8 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {800, 800, 300};
-    int32_t cfgI8[] = {100, 100, 200};
+    int32_t cfgP8[] = {200, 200, 150};
+    int32_t cfgI8[] = {200, 200, 200};
     int32_t cfgD8[] = {100, 100, 50};
     int32_t cfgP8PIDLEVEL = 90;
 
