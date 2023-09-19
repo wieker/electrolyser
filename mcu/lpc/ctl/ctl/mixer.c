@@ -117,6 +117,7 @@ void writeMotors(void)
         cycles = 0;
         ptime = ctime;
         cumulativeG = 0.0f;
+        cumulativeV = 0.0f;
     }
 }
 
