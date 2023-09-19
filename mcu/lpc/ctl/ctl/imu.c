@@ -28,6 +28,7 @@ float fc_acc;// correction of throttle in lateral wind,
 float magneticDeclination = 0.0f;
 float absAngle[3] = { 0, 0, 0 };
 float relAngle[3] = { 0, 0, 0 };
+float cumulativeG = 0.0f;
 int cycles = 0;
 
 int cMode = 0;
@@ -187,6 +188,7 @@ void getEstimatedAttitude(void)
         accMag += (int32_t)accSmooth[axis] * accSmooth[axis];
     }
     accMag = accMag * 100 / ((int32_t)acc_1G * acc_1G);
+    cumulativeG += (accADC[2] + acc_1G) * (deltaT * 0.000001f) * (deltaT * 0.000001f) * 10.0f * (4.0f / 2048.0f);
 
     rotateV(&EstG.V, deltaGyroAngle);
 
@@ -194,8 +196,13 @@ void getEstimatedAttitude(void)
     // If accel magnitude >1.15G or <0.85G and ACC vector outside of the limit range => we neutralize the effect of accelerometers in the angle estimation.
     // To do that, we just skip filter, as EstV already rotated by Gyro
     if (72 < (uint16_t)accMag && (uint16_t)accMag < 133) {
-        for (axis = 0; axis < 3; axis++)
-            EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
+        for (axis = 0; axis < 3; axis++) {
+            if (cMode == 0) {
+                EstG.A[axis] = (EstG.A[axis] * (float)600 + accSmooth[axis]) / 601;
+            } else if (cMode == 2) {
+                EstG.A[axis] = accSmooth[axis];
+            }
+        }
     }
 
     // Attitude of the estimated vector
