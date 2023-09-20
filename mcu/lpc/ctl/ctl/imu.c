@@ -33,6 +33,8 @@ int cycles = 0;
 int cMode = 0;
 float cumulativeV = 0.0f;
 float cumulativeG = 0.0f;
+float pathG = 0.0f;
+float energyG = 0.0f;
 
 // Normalize a vector
 void normalizeV(struct fp_vector *src, struct fp_vector *dest)
@@ -191,6 +193,8 @@ void getEstimatedAttitude(void)
     accMag = accMag * 100 / ((int32_t)acc_1G * acc_1G);
     cumulativeV += (accADC[2] - acc_1G) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f);
     cumulativeG += cumulativeV * (deltaT * 0.000001f);
+    pathG += fabsf(cumulativeV) * (deltaT * 0.000001f);
+    energyG += fabsf(cumulativeV) * (deltaT * 0.000001f) * (accADC[2] - acc_1G) * 9.8f * (4.0f / 2048.0f);
 
     rotateV(&EstG.V, deltaGyroAngle);
 
