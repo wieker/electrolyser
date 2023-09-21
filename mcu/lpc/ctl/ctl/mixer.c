@@ -100,7 +100,6 @@ void writeMotors(void)
 {
     static uint32_t ptime = 0;
     static int odd = 0;
-    static int supp = 0;
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR1, motor[0]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR2, motor[1]);
 	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_MTR3, motor[2]);
@@ -112,12 +111,11 @@ void writeMotors(void)
         //printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
         //printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
         //printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
-        printf("OK %d %d => %d %s%d\r\n", ctime, odd == 0 ? desiredX : desiredY,
+        printf("OK %d %s %d => %d %d\r\n", ctime,
+               odd == 0 ? "X" : "Y", odd == 0 ? desiredX : desiredY,
                (int32_t) angle[odd],
-               0 == supp ? "G" : 1 == supp ? "P" : "E",
-               (int)(100 * (pathG - cumulativeG)));
+               (int)(100 * (cumulativeG - fabsf(cumulativeV))));
         odd = (odd + 1) % 2;
-        supp = (supp + 1) % 3;
         cycles = 0;
         ptime = ctime;
         cumulativeG = 0.0f;

@@ -235,7 +235,7 @@ void getEstimatedAttitude(void)
 
     accel_ned.V.Z -= acc_1G;
     cumulativeV += (accel_ned.V.Z) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f);
-    cumulativeG += cumulativeV * (deltaT * 0.000001f);
+    cumulativeG += fabsf((accel_ned.V.Z) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f));
     pathG += fabsf(cumulativeV) * (deltaT * 0.000001f);
     energyG += fabsf(cumulativeV) * (deltaT * 0.000001f) * (accel_ned.V.Z) * 9.8f * (4.0f / 2048.0f);
 }
