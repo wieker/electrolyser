@@ -122,6 +122,8 @@ void writeMotors(void)
         ptime = ctime;
         cumulativeG = 0.0f;
         cumulativeV = 0.0f;
+        pathG = 0.0f;
+        energyG = 0.0f;
     }
 }
 
