@@ -115,7 +115,7 @@ void writeMotors(void)
         printf("OK %d %d => %d %s%d\r\n", ctime, odd == 0 ? desiredX : desiredY,
                (int32_t) angle[odd],
                0 == supp ? "G" : 1 == supp ? "P" : "E",
-               (int)(100 * (0 == supp ? cumulativeG : 1 == supp ? pathG : energyG)));
+               (int)(100 * (pathG - cumulativeG)));
         odd = (odd + 1) % 2;
         supp = (supp + 1) % 3;
         cycles = 0;
