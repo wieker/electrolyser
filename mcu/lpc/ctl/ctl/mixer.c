@@ -112,10 +112,10 @@ void writeMotors(void)
         //printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
         //printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
         //printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
-        printf("OK %d %d => %d %s%f\r\n", ctime, odd == 0 ? desiredX : desiredY,
+        printf("OK %d %d => %d %s%d\r\n", ctime, odd == 0 ? desiredX : desiredY,
                (int32_t) angle[odd],
                0 == supp ? "G" : 1 == supp ? "P" : "E",
-               0 == supp ? cumulativeG : 1 == supp ? pathG : energyG);
+               (int)(100 * (0 == supp ? cumulativeG : 1 == supp ? pathG : energyG)));
         odd = (odd + 1) % 2;
         supp = (supp + 1) % 3;
         cycles = 0;
