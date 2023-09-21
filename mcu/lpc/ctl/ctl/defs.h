@@ -61,6 +61,8 @@ extern int32_t acc_delta[3];
 extern int cMode;
 extern float cumulativeG;
 extern float cumulativeV;
+extern float pathG;
+extern float energyG;
 
 uint32_t micros(void);
 void getEstimatedAttitude(void);
