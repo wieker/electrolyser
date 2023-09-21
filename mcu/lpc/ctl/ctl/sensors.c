@@ -189,9 +189,6 @@ static void GYRO_Common(void)
     }
     for (axis = 0; axis < 3; axis++)
         gyroADC[axis] -= gyroZero[axis];
-    for (axis = 0; axis < 3; axis++)
-        accADC[axis] -= accZero[axis];
-    accADC[2] += acc_1G;
 }
 
 void Gyro_getADC(void)

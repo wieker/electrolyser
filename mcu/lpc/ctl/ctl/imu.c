@@ -191,10 +191,6 @@ void getEstimatedAttitude(void)
         accMag += (int32_t)accSmooth[axis] * accSmooth[axis];
     }
     accMag = accMag * 100 / ((int32_t)acc_1G * acc_1G);
-    cumulativeV += (accADC[2] - acc_1G) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f);
-    cumulativeG += cumulativeV * (deltaT * 0.000001f);
-    pathG += fabsf(cumulativeV) * (deltaT * 0.000001f);
-    energyG += fabsf(cumulativeV) * (deltaT * 0.000001f) * (accADC[2] - acc_1G) * 9.8f * (4.0f / 2048.0f);
 
     rotateV(&EstG.V, deltaGyroAngle);
 
@@ -218,10 +214,28 @@ void getEstimatedAttitude(void)
     angle[PITCH] = lrintf(anglerad[PITCH] * (1800.0f / M_PI));
 
     rotateV(&EstM.V, deltaGyroAngle);
-    for (axis = 0; axis < 3; axis++)
-        EstM.A[axis] = (EstM.A[axis] * (float)600 + magADC[axis]) / 601;
+    normalizeV(&EstM.V, &EstM.V);
     heading = calculateHeading(&EstM);
 
 
     acc_calc(deltaT); // rotate acc vector into earth frame
+
+    t_fp_vector accel_ned;
+    float rpy[3];
+
+    rpy[0] = -(float)anglerad[ROLL];
+    rpy[1] = -(float)anglerad[PITCH];
+    rpy[2] = -(float)heading * RAD;
+
+    accel_ned.V.X = accSmooth[0];
+    accel_ned.V.Y = accSmooth[1];
+    accel_ned.V.Z = accSmooth[2];
+
+    rotateV(&accel_ned.V, rpy);
+
+    accel_ned.V.Z -= acc_1G;
+    cumulativeV += (accel_ned.V.Z) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f);
+    cumulativeG += cumulativeV * (deltaT * 0.000001f);
+    pathG += fabsf(cumulativeV) * (deltaT * 0.000001f);
+    energyG += fabsf(cumulativeV) * (deltaT * 0.000001f) * (accel_ned.V.Z) * 9.8f * (4.0f / 2048.0f);
 }
