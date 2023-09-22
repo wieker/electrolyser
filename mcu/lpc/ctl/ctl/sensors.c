@@ -190,7 +190,7 @@ static void GYRO_Common(void)
     for (axis = 0; axis < 3; axis++)
         gyroADC[axis] -= gyroZero[axis];
     accADC[2] -= 6;
-    accADC[1] += 5;
+    accADC[1] += 7;
     accADC[0] -= 9;
 }
 
