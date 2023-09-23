@@ -63,6 +63,7 @@ extern float cumulativeG;
 extern float cumulativeV;
 extern float pathG;
 extern float energyG;
+extern float oldG;
 
 uint32_t micros(void);
 void getEstimatedAttitude(void);

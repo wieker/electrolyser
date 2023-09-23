@@ -114,11 +114,12 @@ void writeMotors(void)
         printf("OK %d %s %d => %d %d\r\n", ctime,
                odd == 0 ? "X" : "Y", odd == 0 ? desiredX : desiredY,
                (int32_t) angle[odd],
-               (int)(100 * pathG));
+               (int)(100 * cumulativeG));
         odd = (odd + 1) % 2;
         cycles = 0;
         ptime = ctime;
-        cumulativeG = 0.0f;
+        cumulativeG -= oldG;
+        oldG = cumulativeG;
         cumulativeV = 0.0f;
         pathG = 0.0f;
         energyG = 0.0f;

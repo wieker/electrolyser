@@ -33,6 +33,7 @@ int cycles = 0;
 int cMode = 0;
 float cumulativeV = 0.0f;
 float cumulativeG = 0.0f;
+float oldG = 0.0f;
 float pathG = 0.0f;
 float energyG = 0.0f;
 
