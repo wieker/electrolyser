@@ -225,9 +225,21 @@ int main2(void)
 
     int32_t ping_time;
     int32_t prev_time;
+    int32_t chTime;
+    int chState = 0;
     // loopy
     while (1) {
         loop();
+        if ((chState > 0) && ((micros() - chTime) > 1000)) {
+            if (chState == 20) {
+                chState = 0;
+                stopMotors();
+            } else {
+                chState ++;
+                chTime = micros();
+                throttle += 1000;
+            }
+        }
         char ch = DEBUGIN();
         if (ch != EOF) {
             prev_time = millis();
@@ -239,11 +251,12 @@ int main2(void)
         }
         switch (ch) {
             case '=': {
-                throttle += 100;
+                throttle += 1000;
                 break;
             }
             case '-': {
                 stopMotors();
+                chState = 0;
                 break;
             }
             case 'p': {
@@ -284,6 +297,12 @@ int main2(void)
             }
             case 'g': {
                 calibratingG = CALIBRATING_GYRO_CYCLES;
+                break;
+            }
+            case 'v': {
+                throttle = 1000;
+                chState = 1;
+                chTime = micros();
                 break;
             }
         }
