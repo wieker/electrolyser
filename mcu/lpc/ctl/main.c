@@ -255,6 +255,10 @@ int main2(void)
                 break;
             }
             case '-': {
+                throttle -= 1000;
+                break;
+            }
+            case '0': {
                 stopMotors();
                 chState = 0;
                 break;
