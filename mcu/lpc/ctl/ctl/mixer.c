@@ -123,6 +123,14 @@ void writeMotors(void)
         cumulativeV = 0.0f;
         pathG = 0.0f;
         energyG = 0.0f;
+        if (chState == 2) {
+            stopMotors();
+            chState = 0;
+        }
+        if (chState == 1) {
+            throttle += 5000;
+            chState = 2;
+        }
     }
 }
 

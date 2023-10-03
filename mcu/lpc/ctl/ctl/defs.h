@@ -65,6 +65,8 @@ extern float pathG;
 extern float energyG;
 extern float oldG;
 
+extern int chState;
+
 uint32_t micros(void);
 void getEstimatedAttitude(void);
 

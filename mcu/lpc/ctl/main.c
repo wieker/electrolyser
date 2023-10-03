@@ -210,6 +210,7 @@ void loop(void)
         writeMotors();
     }
 }
+int chState = 0;
 
 int main2(void)
 {
@@ -226,7 +227,6 @@ int main2(void)
     int32_t ping_time;
     int32_t prev_time;
     int32_t chTime;
-    int chState = 0;
     // loopy
     while (1) {
         loop();
@@ -251,7 +251,8 @@ int main2(void)
         }
         switch (ch) {
             case '=': {
-                throttle += 1000;
+                throttle = 40000;
+                //chState = 1;
                 break;
             }
             case '-': {
