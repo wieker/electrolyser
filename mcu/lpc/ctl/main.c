@@ -113,10 +113,10 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {200, 200, 150};
-    int32_t cfgI8[] = {200, 200, 200};
-    int32_t cfgD8[] = {100, 100, 50};
-    int32_t cfgP8PIDLEVEL = 45;
+    int32_t cfgP8[] = {400, 400, 300};
+    int32_t cfgI8[] = {400, 400, 400};
+    int32_t cfgD8[] = {200, 200, 100};
+    int32_t cfgP8PIDLEVEL = 15;
 
     acc_delta[2] = 0;
     acc_delta[0] = 10 * desiredX - angle[0];
@@ -251,7 +251,7 @@ int main2(void)
         }
         switch (ch) {
             case '=': {
-                throttle = 40000;
+                throttle += 5000;
                 //chState = 1;
                 break;
             }
