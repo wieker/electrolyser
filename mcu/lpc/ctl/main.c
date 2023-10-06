@@ -198,8 +198,6 @@ void loop(void)
     //     t = micros();
     //     Mag_getADC();
     // }
-
-	computeIMU();
 	// Measure loop rate just afer reading the sensors
     while ((cycleTime = (int32_t)((int32_t)(currentTime = micros()) - (int32_t)previousTime)) <= 0) {}
 
@@ -209,6 +207,8 @@ void loop(void)
     }
 
     if (cycleTime > 10000) {
+        computeIMU();
+
         previousTime = currentTime;
         pidMultiWii();
 
