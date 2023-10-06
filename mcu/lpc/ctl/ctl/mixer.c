@@ -108,6 +108,7 @@ void writeMotors(void)
     if ((ctime - ptime) > 1000) {
         //printf("abs %f %f %f / %d\r\n", absAngle[0], absAngle[0], absAngle[0], cycles);
         printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
+        printf("desired %d %d\r\n", desiredX, desiredY);
         //printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
         //printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
         printf("gyroADC %d %d %d\r\n", gyroADC[0], gyroADC[1], gyroADC[2]);
