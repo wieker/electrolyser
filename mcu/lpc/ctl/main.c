@@ -301,7 +301,11 @@ int main2(void)
                 break;
             }
             case 'v': {
-                throttle = 20000;
+                throttle = 0;
+                break;
+            }
+            case 'm': {
+                throttle = 80000;
                 break;
             }
         }
