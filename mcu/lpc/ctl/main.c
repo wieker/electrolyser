@@ -119,8 +119,10 @@ static void pidMultiWii(void)
     int32_t cfgP8PIDLEVEL = 45;
 
     acc_delta[2] = 0;
-    acc_delta[0] = 10 * desiredX - angle[0];
-    acc_delta[1] = 10 * desiredY - angle[1];
+    //acc_delta[0] = 10 * desiredX - angle[0];
+    //acc_delta[1] = 10 * desiredY - angle[1];
+    acc_delta[0] = desiredX;
+    acc_delta[1] = desiredY;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
@@ -131,8 +133,12 @@ static void pidMultiWii(void)
             // calculate error and limit the angle to 50 degrees max inclination
             if (cMode == 3) {
                 AngleRateTmp = 0;
+            } else if (cMode == 4) {
+                AngleRateTmp = acc_delta[axis] * 4;
+            } else if (cMode == 5) {
+                AngleRateTmp = gyroADC[axis];
             } else {
-                errorAngle = acc_delta[axis];
+                errorAngle = 10 * acc_delta[axis] - angle[axis];
                 AngleRateTmp = (errorAngle * cfgP8PIDLEVEL) >> 4;
             }
         }
@@ -230,25 +236,7 @@ int main2(void)
     // loopy
     while (1) {
         loop();
-        if ((chState > 0) && ((micros() - chTime) > 1000)) {
-            if (chState == 20) {
-                chState = 0;
-                stopMotors();
-            } else {
-                chState ++;
-                chTime = micros();
-                throttle += 1000;
-            }
-        }
         char ch = DEBUGIN();
-        if (ch != EOF) {
-            prev_time = millis();
-        } else {
-            while ((ping_time = (int32_t)((int32_t)(millis()) - (int32_t)prev_time)) <= 0) {}
-            if (ping_time > 5000) {
-                stopMotors();
-            }
-        }
         switch (ch) {
             case '=': {
                 throttle += 5000;
@@ -300,14 +288,20 @@ int main2(void)
                 cMode = 3;
                 break;
             }
+            case '5': {
+                cMode = 4;
+                break;
+            }
+            case '6': {
+                cMode = 5;
+                break;
+            }
             case 'g': {
                 calibratingG = CALIBRATING_GYRO_CYCLES;
                 break;
             }
             case 'v': {
-                throttle = 1000;
-                chState = 1;
-                chTime = micros();
+                throttle = 20000;
                 break;
             }
         }
