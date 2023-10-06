@@ -30,7 +30,7 @@ float absAngle[3] = { 0, 0, 0 };
 float relAngle[3] = { 0, 0, 0 };
 int cycles = 0;
 
-int cMode = 4;
+int cMode = 0;
 float cumulativeV = 0.0f;
 float cumulativeG = 0.0f;
 float oldG = 0.0f;

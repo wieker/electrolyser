@@ -116,7 +116,7 @@ static void pidMultiWii(void)
     int32_t cfgP8 = 200;
     int32_t cfgI8 = 200;
     int32_t cfgD8 = 100;
-    int32_t cfgP8PIDLEVEL = 45;
+    int32_t cfgP8PIDLEVEL = 15;
 
     acc_delta[2] = 0;
     //acc_delta[0] = 10 * desiredX - angle[0];
@@ -147,7 +147,7 @@ static void pidMultiWii(void)
         // Used in stand-alone mode for ACRO, controlled by higher level regulators in other modes
         // -----calculate scaled error.AngleRates
         // multiplication of rcCommand corresponds to changing the sticks scaling here
-        RateError = 0 - gyroADC[axis];
+        RateError = AngleRateTmp - gyroADC[axis];
 
         //checkCond(axis, 0);
         //calcAngleSpeed(axis, 0);
@@ -206,9 +206,9 @@ void loop(void)
         errorGyroI[0] = errorGyroI[1] = errorGyroI[2] = 0;
     }
 
-    if (cycleTime > 10000) {
-        computeIMU();
+    computeIMU();
 
+    if (cycleTime > 10000) {
         previousTime = currentTime;
         pidMultiWii();
 
