@@ -113,9 +113,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8[] = {200, 200, 150};
-    int32_t cfgI8[] = {200, 200, 200};
-    int32_t cfgD8[] = {100, 100, 50};
+    int32_t cfgP8 = 400;
+    int32_t cfgI8 = 0;
+    int32_t cfgD8 = 0;
     int32_t cfgP8PIDLEVEL = 45;
 
     acc_delta[2] = 0;
@@ -153,14 +153,14 @@ static void pidMultiWii(void)
         //calcAngleSpeed(axis, 0);
 
         // -----calculate P component
-        PTerm = (RateError * cfgP8[axis]) >> 7;
+        PTerm = (RateError * cfgP8) >> 7;
         errorP[axis] = PTerm;
         // -----calculate I component
         // there should be no division before accumulating the error to integrator, because the precision would be reduced.
         // Precision is critical, as I prevents from long-time drift. Thus, 32 bits integrator is used.
         // Time correction (to avoid different I scaling for different builds based on average cycle time)
         // is normalized to cycle time = 2048.
-        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 10000) * cfgI8[axis];
+        errorGyroI[axis] = errorGyroI[axis] + ((RateError * cycleTime) / 10000) * cfgI8;
 
         // limit maximum integrator value to prevent WindUp - accumulating extreme values when system is saturated.
         // I coefficient (I8) moved before integration to make limiting independent from PID settings
@@ -178,7 +178,7 @@ static void pidMultiWii(void)
         deltaSum = delta1[axis] + delta2[axis] + delta;
         delta2[axis] = delta1[axis];
         delta1[axis] = delta;
-        DTerm = (deltaSum * cfgD8[axis]) >> 8;
+        DTerm = (deltaSum * cfgD8) >> 8;
 
         // -----calculate total PID output
         axisPID[axis] = PTerm + ITerm + DTerm;
