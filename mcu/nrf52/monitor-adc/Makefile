@@ -289,17 +289,15 @@ $(foreach target, $(TARGETS), $(call define_target, $(target)))
 # Flash the program
 flash: default
 	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex
-	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --sectorerase
-	nrfjprog -f nrf52 --reset
+	openocd -f openocd-old.cfg -c "program _build/nrf52832_xxaa.hex reset exit"
 
 # Flash softdevice
 flash_softdevice:
 	@echo Flashing: s132_nrf52_7.0.1_softdevice.hex
-	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/s132/hex/s132_nrf52_7.0.1_softdevice.hex --sectorerase
-	nrfjprog -f nrf52 --reset
+	openocd -f openocd-old.cfg -c "program /home/wieker/Projects//components/softdevice/s132/hex/s132_nrf52_7.0.1_softdevice.hex reset exit"
 
 erase:
-	nrfjprog -f nrf52 --eraseall
+	/home/wieker/Downloads/nrf-command-line-tools/bin/nrfjprog -f nrf52 --eraseall
 
 SDK_CONFIG_FILE := ../config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
