@@ -305,7 +305,7 @@ int main2(void)
                 break;
             }
             case 'm': {
-                throttle = 80000;
+                throttle = 30000;
                 break;
             }
         }
