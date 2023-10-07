@@ -34,6 +34,7 @@ interface Blinky {
      * The current state of the button.
      */
     val buttonState: StateFlow<Boolean>
+    val adcState: StateFlow<Int>
 
     /**
      * Controls the LED state.

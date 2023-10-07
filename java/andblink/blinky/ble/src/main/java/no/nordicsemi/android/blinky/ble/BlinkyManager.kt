@@ -13,6 +13,8 @@ import no.nordicsemi.android.ble.ktx.getCharacteristic
 import no.nordicsemi.android.ble.ktx.state.ConnectionState
 import no.nordicsemi.android.ble.ktx.stateAsFlow
 import no.nordicsemi.android.ble.ktx.suspend
+import no.nordicsemi.android.blinky.ble.data.ADCState
+import no.nordicsemi.android.blinky.ble.data.AdcCallback
 import no.nordicsemi.android.blinky.ble.data.ButtonCallback
 import no.nordicsemi.android.blinky.ble.data.ButtonState
 import no.nordicsemi.android.blinky.ble.data.LedCallback
@@ -34,12 +36,16 @@ private class BlinkyManagerImpl(
 
     private var ledCharacteristic: BluetoothGattCharacteristic? = null
     private var buttonCharacteristic: BluetoothGattCharacteristic? = null
+    private var adcCharacteristic: BluetoothGattCharacteristic? = null
 
     private val _ledState = MutableStateFlow(false)
     override val ledState = _ledState.asStateFlow()
 
     private val _buttonState = MutableStateFlow(false)
     override val buttonState = _buttonState.asStateFlow()
+
+    private val _adcState = MutableStateFlow(0)
+    override val adcState = _adcState.asStateFlow()
 
     override val state = stateAsFlow()
         .map {
@@ -58,6 +64,14 @@ private class BlinkyManagerImpl(
         object : ButtonCallback() {
             override fun onButtonStateChanged(device: BluetoothDevice, state: Boolean) {
                 _buttonState.tryEmit(state)
+            }
+        }
+    }
+
+    private val adcCallback by lazy {
+        object : AdcCallback() {
+            override fun onButtonStateChanged(device: BluetoothDevice, state: Int) {
+                _adcState.tryEmit(state)
             }
         }
     }
@@ -129,9 +143,14 @@ private class BlinkyManagerImpl(
                 BlinkySpec.BLINKY_BUTTON_CHARACTERISTIC_UUID,
                 BluetoothGattCharacteristic.PROPERTY_NOTIFY
             )
+            // Get the Button characteristic.
+            adcCharacteristic = getCharacteristic(
+                BlinkySpec.BLINKY_ADC_CHARACTERISTIC_UUID,
+                BluetoothGattCharacteristic.PROPERTY_NOTIFY
+            )
 
             // Return true if all required characteristics are supported.
-            return ledCharacteristic != null && buttonCharacteristic != null
+            return ledCharacteristic != null && buttonCharacteristic != null && adcCharacteristic != null
         }
         return false
     }
@@ -155,6 +174,23 @@ private class BlinkyManagerImpl(
             .with(buttonCallback)
             .enqueue()
 
+        // Enable notifications for the ADC characteristic.
+        val adcFlow: Flow<ADCState> = setNotificationCallback(adcCharacteristic)
+            .asValidResponseFlow()
+
+        // Forward the button state to the buttonState flow.
+        scope.launch {
+            adcFlow.map { it.state }.collect { _adcState.tryEmit(it) }
+        }
+
+        enableNotifications(adcCharacteristic)
+            .enqueue()
+
+        // Read the initial value of the button characteristic.
+        readCharacteristic(adcCharacteristic)
+            .with(adcCallback)
+            .enqueue()
+
         // Read the initial value of the LED characteristic.
         readCharacteristic(ledCharacteristic)
             .with(ledCallback)
@@ -164,5 +200,6 @@ private class BlinkyManagerImpl(
     override fun onServicesInvalidated() {
         ledCharacteristic = null
         buttonCharacteristic = null
+        adcCharacteristic = null
     }
 }

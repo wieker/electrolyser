@@ -60,6 +60,11 @@ class BlinkyRepository @Inject constructor(
             }
         }
 
+    val loggedADCState: Flow<Int>
+        get() = blinky.adcState.onEach {
+            // The same applies here.
+        }
+
     override fun release() {
         Timber.uproot(tree)
         blinky.release()

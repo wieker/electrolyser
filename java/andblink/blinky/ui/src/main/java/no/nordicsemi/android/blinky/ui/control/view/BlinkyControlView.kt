@@ -13,6 +13,7 @@ import no.nordicsemi.android.common.theme.NordicTheme
 internal fun BlinkyControlView(
     ledState: Boolean,
     buttonState: Boolean,
+    adcState: Int,
     onStateChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -28,6 +29,8 @@ internal fun BlinkyControlView(
         ButtonControlView(
             state = buttonState
         )
+
+        ADCControlView(state = adcState)
     }
 }
 
@@ -38,6 +41,7 @@ private fun BlinkyControlViewPreview() {
         BlinkyControlView(
             ledState = true,
             buttonState = true,
+            adcState = 0,
             onStateChanged = {},
             modifier = Modifier.padding(16.dp),
         )
