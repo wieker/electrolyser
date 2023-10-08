@@ -43,6 +43,7 @@
  * This file contains the source code for a sample server application using the LED Button service.
  */
 
+#include "sdk_config.h"
 #include <stdint.h>
 #include <string.h>
 #include "nordic_common.h"
@@ -67,6 +68,8 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+
+#include <nrf_local_adc.h>
 
 
 #define ADVERTISING_LED                 BSP_BOARD_LED_0                         /**< Is on when device is advertising. */
@@ -122,6 +125,19 @@ static ble_gap_adv_data_t m_adv_data =
 
     }
 };
+
+void send_adc(nrf_saadc_value_t *vls)
+{
+    ret_code_t err_code;
+    err_code = ble_lbs_on_adc_timer(m_conn_handle, &m_lbs, vls[0]);
+    if (err_code != NRF_SUCCESS &&
+        err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
+        err_code != NRF_ERROR_INVALID_STATE &&
+        err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING)
+    {
+        APP_ERROR_CHECK(err_code);
+    }
+}
 
 /**@brief Function for assert macro callback.
  *
@@ -501,14 +517,6 @@ static void button_event_handler(uint8_t pin_no, uint8_t button_action)
             {
                 APP_ERROR_CHECK(err_code);
             }
-            err_code = ble_lbs_on_adc_timer(m_conn_handle, &m_lbs, counter ++);
-            if (err_code != NRF_SUCCESS &&
-                err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
-                err_code != NRF_ERROR_INVALID_STATE &&
-                err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING)
-            {
-                APP_ERROR_CHECK(err_code);
-            }
             break;
 
         default:
@@ -584,6 +592,10 @@ int main(void)
     services_init();
     advertising_init();
     conn_params_init();
+    saadc_init();
+    saadc_sampling_event_init();
+    saadc_sampling_event_enable();
+
 
     // Start execution.
     NRF_LOG_INFO("Blinky example started.");

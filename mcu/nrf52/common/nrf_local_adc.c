@@ -22,10 +22,11 @@
 #include "nrf_drv_ppi.h"
 #include "nrf_drv_timer.h"
 #include "nrf_delay.h"
+#include "ble_lbs.h"
 
 volatile uint8_t state = 1;
 
-static const nrf_drv_timer_t m_timer = NRF_DRV_TIMER_INSTANCE(0);
+static const nrf_drv_timer_t m_timer = NRF_DRV_TIMER_INSTANCE(1);
 nrf_saadc_value_t     m_buffer_pool[2][SAMPLES_IN_BUFFER];
 static nrf_ppi_channel_t     m_ppi_channel;
 static uint32_t              m_adc_evt_counter;
@@ -47,7 +48,7 @@ void saadc_sampling_event_init(void)
   nrf_drv_timer_init(&m_timer, &timer_cfg, timer_handler);
 
   /* setup m_timer for compare event every 400ms */
-  uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer, 400);
+  uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer, 1000);
   nrf_drv_timer_extended_compare(&m_timer,
                                  NRF_TIMER_CC_CHANNEL0,
                                  ticks,
@@ -73,6 +74,7 @@ void saadc_sampling_event_enable(void)
   nrf_drv_ppi_channel_enable(m_ppi_channel);
 }
 
+void send_adc(nrf_saadc_value_t *vls);
 
 void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 {
@@ -82,6 +84,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
             nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
 
     int i;
+    send_adc(m_buffer_pool[0]);
 
     for (i = 0; i < SAMPLES_IN_BUFFER; i++)
     {
