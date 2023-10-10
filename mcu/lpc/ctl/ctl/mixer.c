@@ -113,6 +113,7 @@ void writeMotors(void)
         //printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
         printf("gyroADC %d %d %d\r\n", gyroADC[0], gyroADC[1], gyroADC[2]);
         printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
+        printf("vibr motor %f %f %f\r\n", cumulativeG, cumulativeX, cumulativeY);
         // printf("OK %d %s %d => %d %d\r\n", ctime,
         //        odd == 0 ? "X" : "Y", odd == 0 ? desiredX : desiredY,
         //        (int32_t) angle[odd],
@@ -120,11 +121,9 @@ void writeMotors(void)
         odd = (odd + 1) % 2;
         cycles = 0;
         ptime = ctime;
-        cumulativeG -= oldG;
-        oldG = cumulativeG;
-        cumulativeV = 0.0f;
-        pathG = 0.0f;
-        energyG = 0.0f;
+        cumulativeG = 0.0f;
+        cumulativeX = 0.0f;
+        cumulativeY = 0.0f;
         if (chState == 2) {
             stopMotors();
             chState = 0;

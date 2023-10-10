@@ -31,11 +31,9 @@ float relAngle[3] = { 0, 0, 0 };
 int cycles = 0;
 
 int cMode = 0;
-float cumulativeV = 0.0f;
 float cumulativeG = 0.0f;
-float oldG = 0.0f;
-float pathG = 0.0f;
-float energyG = 0.0f;
+float cumulativeX = 0.0f;
+float cumulativeY = 0.0f;
 
 // Normalize a vector
 void normalizeV(struct fp_vector *src, struct fp_vector *dest)
@@ -235,8 +233,7 @@ void getEstimatedAttitude(void)
     rotateV(&accel_ned.V, rpy);
 
     accel_ned.V.Z -= acc_1G;
-    cumulativeV += (accel_ned.V.Z) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f);
     cumulativeG += fabsf((accel_ned.V.Z) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f));
-    pathG = (accel_ned.V.Z) * 9.8f * (4.0f / 2048.0f);
-    energyG += fabsf(cumulativeV) * (deltaT * 0.000001f) * (accel_ned.V.Z) * 9.8f * (4.0f / 2048.0f);
+    cumulativeX += fabsf((accel_ned.V.X) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f));
+    cumulativeY += fabsf((accel_ned.V.Y) * (deltaT * 0.000001f) * 9.8f * (4.0f / 2048.0f));
 }
