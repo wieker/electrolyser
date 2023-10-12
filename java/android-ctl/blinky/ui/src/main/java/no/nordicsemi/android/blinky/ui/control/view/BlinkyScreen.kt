@@ -67,11 +67,12 @@ internal fun BlinkyScreen(
                         ledState = ledState,
                         buttonState = buttonState,
                         adcState = adcState,
-                        onStateChanged = { viewModel.turnLed(it) },
+                        onStateChanged = { },
                         modifier = Modifier
                             .widthIn(max = 460.dp)
                             .verticalScroll(rememberScrollState())
-                            .padding(16.dp)
+                            .padding(16.dp),
+                        viewModel = viewModel
                     )
                 }
                 Blinky.State.NOT_AVAILABLE -> {

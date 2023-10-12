@@ -41,5 +41,5 @@ interface Blinky {
      *
      * @param state the new state of the LED.
      */
-    suspend fun turnLed(state: Boolean)
+    suspend fun sendCommand(state: Byte)
 }

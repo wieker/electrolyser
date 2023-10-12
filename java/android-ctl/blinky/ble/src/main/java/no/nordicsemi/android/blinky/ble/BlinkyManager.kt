@@ -18,7 +18,7 @@ import no.nordicsemi.android.blinky.ble.data.AdcCallback
 import no.nordicsemi.android.blinky.ble.data.ButtonCallback
 import no.nordicsemi.android.blinky.ble.data.ButtonState
 import no.nordicsemi.android.blinky.ble.data.LedCallback
-import no.nordicsemi.android.blinky.ble.data.LedData
+import no.nordicsemi.android.blinky.ble.data.CtlData
 import no.nordicsemi.android.blinky.spec.Blinky
 import no.nordicsemi.android.blinky.spec.BlinkySpec
 import timber.log.Timber
@@ -105,18 +105,6 @@ private class BlinkyManagerImpl(
         }
     }
 
-    override suspend fun turnLed(state: Boolean) {
-        // Write the value to the characteristic.
-        writeCharacteristic(
-            ledCharacteristic,
-            LedData.from(state),
-            BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-        ).suspend()
-
-        // Update the state flow with the new value.
-        _ledState.value = state
-    }
-
     override fun log(priority: Int, message: String) {
         Timber.log(priority, message)
     }
@@ -201,5 +189,14 @@ private class BlinkyManagerImpl(
         ledCharacteristic = null
         buttonCharacteristic = null
         adcCharacteristic = null
+    }
+
+    override suspend fun sendCommand(ctl: Byte) {
+        // Write the value to the characteristic.
+        writeCharacteristic(
+            ledCharacteristic,
+            CtlData.from(ctl),
+            BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+        ).suspend()
     }
 }
