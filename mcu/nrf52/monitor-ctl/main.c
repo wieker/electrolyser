@@ -288,7 +288,7 @@ static void led_write_handler(uint16_t conn_handle, ble_lbs_t * p_lbs, uint8_t l
     if (led_state)
     {
         bsp_board_led_on(LEDBUTTON_LED);
-        NRF_LOG_INFO("Received LED ON!");
+        NRF_LOG_INFO("Received LED ON! %x", led_state);
     }
     else
     {
