@@ -186,6 +186,8 @@ static void pidMultiWii(void)
     }
 }
 
+int32_t startTime;
+
 void loop(void)
 {
     static uint32_t rcTime = 0;
@@ -218,24 +220,8 @@ void loop(void)
 }
 int chState = 0;
 
-int main2(void)
-{
-    //systemInit();
+void parse_ctl() {
 
-    imuInit(); // Mag is initialized inside imuInit
-    mixerInit(); // this will set core.useServo var depending on mixer type
-
-    //pwmInit(0x0);
-
-    previousTime = micros();
-    calibratingG = CALIBRATING_GYRO_CYCLES;
-
-    int32_t ping_time;
-    int32_t prev_time;
-    int32_t chTime;
-    // loopy
-    while (1) {
-        loop();
         char ch = DEBUGIN();
         switch (ch) {
             case '=': {
@@ -250,10 +236,6 @@ int main2(void)
             case '0': {
                 stopMotors();
                 chState = 0;
-                break;
-            }
-            case 'p': {
-                prev_time = millis();
                 break;
             }
             case 'a': {
@@ -306,8 +288,33 @@ int main2(void)
             }
             case 'm': {
                 throttle = 30000;
+                startTime = millis();
                 break;
             }
+        }
+}
+
+int main2(void)
+{
+    //systemInit();
+
+    imuInit(); // Mag is initialized inside imuInit
+    mixerInit(); // this will set core.useServo var depending on mixer type
+
+    //pwmInit(0x0);
+
+    previousTime = micros();
+    calibratingG = CALIBRATING_GYRO_CYCLES;
+
+    int32_t ping_time;
+    int32_t prev_time;
+    int32_t chTime;
+    // loopy
+    while (1) {
+        loop();
+        parse_ctl();
+        if (millis() - startTime > 3000) {
+            stopMotors();
         }
     }
 }
