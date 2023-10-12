@@ -13,7 +13,6 @@ SRC_FILES += \
   $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52.S \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_serial.c \
-  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_uart.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_default_backends.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_frontend.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_str_formatter.c \
@@ -69,6 +68,7 @@ SRC_FILES += \
   ${SDK_ROOT}/modules/nrfx/drivers/src/nrfx_timer.c \
   ${SDK_ROOT}/modules/nrfx/drivers/src/nrfx_ppi.c \
   ${SDK_ROOT}/integration/nrfx/legacy/nrf_drv_ppi.c \
+  ${SDK_ROOT}/modules/nrfx/drivers/src/nrfx_uart.c \
 
 # Include folders common to all targets
 INC_FOLDERS += \

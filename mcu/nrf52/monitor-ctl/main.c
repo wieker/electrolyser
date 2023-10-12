@@ -70,6 +70,7 @@
 #include "nrf_log_default_backends.h"
 
 #include <nrf_local_adc.h>
+#include <legacy/nrf_drv_uart.h>
 
 
 #define ADVERTISING_LED                 BSP_BOARD_LED_0                         /**< Is on when device is advertising. */
@@ -278,6 +279,8 @@ static void nrf_qwr_error_handler(uint32_t nrf_error)
 }
 
 
+nrf_drv_uart_t m_uart = NRF_DRV_UART_INSTANCE(0);
+
 /**@brief Function for handling write events to the LED characteristic.
  *
  * @param[in] p_lbs     Instance of LED Button Service to which the write applies.
@@ -288,7 +291,7 @@ static void led_write_handler(uint16_t conn_handle, ble_lbs_t * p_lbs, uint8_t l
     if (led_state)
     {
         bsp_board_led_on(LEDBUTTON_LED);
-        NRF_LOG_INFO("Received LED ON! %x", led_state);
+        nrfx_uart_tx(&m_uart.uart, &led_state, 1);
     }
     else
     {
@@ -575,13 +578,38 @@ static void idle_state_handle(void)
     }
 }
 
+void evh(nrfx_uart_event_t const * p_event,
+         void *                    p_context)
+{
+    if (p_event->type == 1) {
+    }
+  //nrfx_uart_rx(&m_uart.uart, rxx, 1);
+}
+
+void uart_init()
+{
+  nrf_drv_uart_config_t config = NRF_DRV_UART_DEFAULT_CONFIG;
+  config.pseltxd  = 6;
+  config.pselrxd  = 8;
+  config.pselcts  = NRF_UART_PSEL_DISCONNECTED;
+  config.pselrts  = NRF_UART_PSEL_DISCONNECTED;
+  config.baudrate = (nrf_uart_baudrate_t)NRFX_UART_DEFAULT_CONFIG_BAUDRATE;
+  nrfx_uart_init(&m_uart.uart,
+                 (nrfx_uart_config_t const *)&config,
+                 evh);
+  //nrfx_uart_tx(&m_uart.uart, (uint8_t  *) "init00\r\n", 8);
+  //nrfx_uart_rx_enable(&m_uart.uart);
+  //nrfx_uart_rx(&m_uart.uart, rxx, 1);
+}
+
 
 /**@brief Function for application main entry.
  */
 int main(void)
 {
     // Initialize.
-    log_init();
+    //log_init();
+    uart_init();
     leds_init();
     timers_init();
     buttons_init();
@@ -598,7 +626,7 @@ int main(void)
 
 
     // Start execution.
-    NRF_LOG_INFO("Blinky example started.");
+    //NRF_LOG_INFO("Blinky example started.");
     advertising_start();
 
     // Enter main loop.
