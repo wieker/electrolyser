@@ -2,6 +2,7 @@ package no.nordicsemi.android.blinky.ui.control.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,17 +39,57 @@ internal fun BlinkyControlView(
         ADCControlView(state = adcState)
 
 
-        Button(
-            onClick = {
-                val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
-                viewModel.viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-                    // Just like above, when this method throws an exception, it will be caught by the
-                    // exception handler and ignored.
-                    viewModel.getRepo().sendCommand('m'.code.toByte())
-                }
-                      },
-        ) {
-            Text(text = "start")
+        Row {
+            Button(
+                onClick = {
+                    val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
+                    viewModel.viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+                        // Just like above, when this method throws an exception, it will be caught by the
+                        // exception handler and ignored.
+                        viewModel.getRepo().sendCommand('m'.code.toByte())
+                    }
+                },
+            ) {
+                Text(text = "start")
+            }
+            Button(
+                onClick = {
+                    val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
+                    viewModel.viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+                        // Just like above, when this method throws an exception, it will be caught by the
+                        // exception handler and ignored.
+                        viewModel.getRepo().sendCommand('0'.code.toByte())
+                    }
+                },
+            ) {
+                Text(text = "stop")
+            }
+        }
+        Row {
+            Button(
+                onClick = {
+                    val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
+                    viewModel.viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+                        // Just like above, when this method throws an exception, it will be caught by the
+                        // exception handler and ignored.
+                        viewModel.getRepo().sendCommand('='.code.toByte())
+                    }
+                },
+            ) {
+                Text(text = "inc")
+            }
+            Button(
+                onClick = {
+                    val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
+                    viewModel.viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+                        // Just like above, when this method throws an exception, it will be caught by the
+                        // exception handler and ignored.
+                        viewModel.getRepo().sendCommand('-'.code.toByte())
+                    }
+                },
+            ) {
+                Text(text = "dec")
+            }
         }
         Button(
             onClick = {
@@ -56,34 +97,11 @@ internal fun BlinkyControlView(
                 viewModel.viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
                     // Just like above, when this method throws an exception, it will be caught by the
                     // exception handler and ignored.
-                    viewModel.getRepo().sendCommand('0'.code.toByte())
+                    viewModel.getRepo().sendCommand('g'.code.toByte())
                 }
-                      },
+            },
         ) {
-            Text(text = "stop")
-        }
-        Button(
-            onClick = {
-                val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
-                viewModel.viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-                    // Just like above, when this method throws an exception, it will be caught by the
-                    // exception handler and ignored.
-                    viewModel.getRepo().sendCommand('='.code.toByte())
-                }
-                      },
-        ) {
-            Text(text = "inc")
-        }
-        Button(
-            onClick = {
-                val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
-                viewModel.viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-                    // Just like above, when this method throws an exception, it will be caught by the
-                    // exception handler and ignored.
-                    viewModel.getRepo().sendCommand('-'.code.toByte())
-                } },
-        ) {
-            Text(text = "dec")
+            Text(text = "cal")
         }
     }
 }
