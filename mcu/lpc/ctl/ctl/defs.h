@@ -63,8 +63,6 @@ extern float cumulativeG;
 extern float cumulativeX;
 extern float cumulativeY;
 
-extern int chState;
-
 uint32_t micros(void);
 void getEstimatedAttitude(void);
 

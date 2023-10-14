@@ -187,6 +187,7 @@ static void pidMultiWii(void)
 }
 
 int32_t startTime;
+int32_t chState = 0;
 
 void loop(void)
 {
@@ -218,7 +219,6 @@ void loop(void)
         writeMotors();
     }
 }
-int chState = 0;
 
 void parse_ctl() {
 
@@ -288,10 +288,34 @@ void parse_ctl() {
             }
             case 'm': {
                 throttle = 30000;
+                chState = 1;
                 startTime = millis();
                 break;
             }
         }
+}
+
+void logic() {
+    if ((chState == 1) && (millis() - startTime > 300)) {
+        throttle = 35000;
+        chState ++;
+    }
+    if ((chState == 2) && (millis() - startTime > 600)) {
+        throttle = 40000;
+        chState ++;
+    }
+    if ((chState == 3) && (millis() - startTime > 4000)) {
+        throttle = 35000;
+        chState ++;
+    }
+    if ((chState == 4) && (millis() - startTime > 5000)) {
+        throttle = 30000;
+        chState ++;
+    }
+    if (millis() - startTime > 6000) {
+        stopMotors();
+        chState = 0;
+    }
 }
 
 int main2(void)
@@ -313,9 +337,6 @@ int main2(void)
     while (1) {
         loop();
         parse_ctl();
-        if (millis() - startTime > 3000) {
-            stopMotors();
-        }
     }
 }
 

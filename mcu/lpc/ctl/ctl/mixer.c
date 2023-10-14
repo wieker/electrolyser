@@ -124,14 +124,6 @@ void writeMotors(void)
         cumulativeG = 0.0f;
         cumulativeX = 0.0f;
         cumulativeY = 0.0f;
-        if (chState == 2) {
-            stopMotors();
-            chState = 0;
-        }
-        if (chState == 1) {
-            throttle += 5000;
-            chState = 2;
-        }
     }
 }
 
