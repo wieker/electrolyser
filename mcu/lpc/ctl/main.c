@@ -337,6 +337,7 @@ int main2(void)
     while (1) {
         loop();
         parse_ctl();
+        logic();
     }
 }
 
