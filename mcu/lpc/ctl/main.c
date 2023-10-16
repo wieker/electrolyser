@@ -113,9 +113,9 @@ static void pidMultiWii(void)
     int32_t PTerm, ITerm, DTerm;
     static int32_t lastError[3] = { 0, 0, 0 };
     int32_t AngleRateTmp, RateError;
-    int32_t cfgP8 = 200;
-    int32_t cfgI8 = 200;
-    int32_t cfgD8 = 100;
+    int32_t cfgP8 = 150;
+    int32_t cfgI8 = 150;
+    int32_t cfgD8 = 75;
     int32_t cfgP8PIDLEVEL = 15;
 
     acc_delta[2] = 0;
@@ -304,15 +304,15 @@ void logic() {
         throttle = 40000;
         chState ++;
     }
-    if ((chState == 3) && (millis() - startTime > 4000)) {
+    if ((chState == 3) && (millis() - startTime > 2600)) {
         throttle = 35000;
         chState ++;
     }
-    if ((chState == 4) && (millis() - startTime > 5000)) {
+    if ((chState == 4) && (millis() - startTime > 3600)) {
         throttle = 30000;
         chState ++;
     }
-    if (millis() - startTime > 6000) {
+    if (millis() - startTime > 5000) {
         stopMotors();
         chState = 0;
     }
