@@ -23,13 +23,13 @@ set(application_name "STM32F4Template")
 project (${application_name} C CXX ASM)
 
 # STM32-specific settings
-set(DEVICE_FAMILY STM32F40_41xxx)
+set(DEVICE_FAMILY STM32F401xx)
 
 # Speed of external resonator
-set(HSE_VALUE 8000000)
+set(HSE_VALUE 25000000)
 
 # Used linker file (just for testing)
-get_filename_component(LINKER_SCRIPT linker/stm32f407vgt.ld ABSOLUTE)
+get_filename_component(LINKER_SCRIPT linker/stm32f401.ld ABSOLUTE)
 
 # Use LTO? WARNING: This might break the code
 #set(ADDITIONAL_CORE_FLAGS -flto)
