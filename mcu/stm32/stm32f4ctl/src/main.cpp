@@ -2,7 +2,9 @@
 
 extern "C" int main()
 {
+#include "ctl/defs.h"
   // Switch on blue LED on STM32F407Discovery
+  sysInit();
 
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 
@@ -19,16 +21,12 @@ extern "C" int main()
 
    while (1)
   {
-
-  GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_SET);
-    int count = 4800000;
-    for (int i = 0; i < count; ++i) {
-        count--;
-    }
-  GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_RESET);
-    for (int i = 0; i < count; ++i) {
-        count--;
-    }
+    GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_SET);
+    int count = millis();
+    while ((millis() - count) < 1000) ;
+    GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_RESET);
+    count = millis();
+    while ((millis() - count) < 1000) ;
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
   }

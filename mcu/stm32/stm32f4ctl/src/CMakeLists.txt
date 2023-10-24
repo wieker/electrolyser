@@ -3,6 +3,7 @@ set(sources
     main.cpp
     system_stm32f4xx.c
     startup_stm32f401xx.s
+    ctl/systime.c
 )
 
 # GCC optimization level: use -O0 in debug build, otherwise -O2
