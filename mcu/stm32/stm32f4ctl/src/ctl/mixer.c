@@ -2,6 +2,8 @@
 #include <math.h>
 #include "defs.h"
 
+#include <stdio.h>
+
 uint32_t motor[MAX_MOTORS];
 
 #define ENGINE_1_GPIO_PORT GPIOD
