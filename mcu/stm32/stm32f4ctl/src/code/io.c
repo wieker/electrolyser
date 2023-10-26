@@ -31,6 +31,7 @@ void USART1Init(void)
 int _write(int handle, char* data, int size) {
 	unsigned int i;
 	for (i = 0; i < size; i++) {
+        while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
 		USART_SendData(USART1, data[i]);
 	}
 
