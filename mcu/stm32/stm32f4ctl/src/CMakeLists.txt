@@ -4,6 +4,9 @@ set(sources
     system_stm32f4xx.c
     startup_stm32f401xx.s
     ctl/systime.c
+    ctl/sensors.c
+    ctl/imu.c
+    ctl/mixer.c
 )
 
 # GCC optimization level: use -O0 in debug build, otherwise -O2

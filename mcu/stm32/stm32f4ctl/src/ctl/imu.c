@@ -1,4 +1,4 @@
-#include "board.h"
+#include "stdint.h"
 #include <math.h>
 #include "defs.h"
 

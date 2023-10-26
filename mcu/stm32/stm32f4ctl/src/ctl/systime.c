@@ -38,3 +38,13 @@ void SysTick_Handler(void)
 {
     sysTickUptime++;
 }
+
+
+
+void delay(uint32_t duration)
+{
+	uint32_t i;
+
+	for (i = 0; i < duration; i++)
+		__asm__("nop");
+}

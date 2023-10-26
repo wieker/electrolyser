@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdint.h>
 #include "defs.h"
 
 #include "stm32f4xx.h"
@@ -27,36 +28,48 @@ static const uint8_t DIR_READ = 0x80;
 
 int Mag_getADC(void);
 
-uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
-	static Chip_SSP_DATA_SETUP_T xf_setup;
-	xf_setup.length = 2;
-	xf_setup.tx_data = Tx_Buf;
-	Tx_Buf[0] = reg;
-	Tx_Buf[1] = dt;
-	Tx_Buf[2] = 0x04;
-	Tx_Buf[2] = 0x08;
-	xf_setup.rx_data = Rx_Buf;
-	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
-	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
-    return Rx_Buf[1];
+void spi_txrx(SPI_TypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size)
+{
+    int TxXferCount = Size, RxXferCount = Size, txallowed = 1;
+	GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_RESET);
+
+    while((TxXferCount > 0U) || (RxXferCount > 0U))
+    {
+      /* check TXE flag */
+      if(txallowed && (TxXferCount > 0U) && SPI_I2S_GetFlagStatus(spi, SPI_I2S_FLAG_TXE))
+      {
+        *(__IO uint8_t *)&spi->DR = (*pTxData++);
+        TxXferCount--;
+        /* Next Data is a reception (Rx). Tx not allowed */
+        txallowed = 0U;
+      }
+
+      /* Wait until RXNE flag is reset */
+      if((RxXferCount > 0U) && (SPI_I2S_GetFlagStatus(spi, SPI_FLAG_RXNE)))
+      {
+        (*(uint8_t *)pRxData++) = spi->DR;
+        RxXferCount--;
+        /* Next Data is a Transmission (Tx). Tx is allowed */
+        txallowed = 1U;
+      }
+    }
+
+    GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_SET);
 }
 
-uint8_t* spi_xfer6(uint8_t reg) {
-	static Chip_SSP_DATA_SETUP_T xf_setup;
-	xf_setup.length = 15;
-	xf_setup.tx_data = Tx_Buf;
-	Tx_Buf[0] = reg;
-	Tx_Buf[1] = 0x00;
-	Tx_Buf[2] = 0x00;
-	Tx_Buf[2] = 0x00;
-	xf_setup.rx_data = Rx_Buf;
-	xf_setup.rx_cnt = xf_setup.tx_cnt = 0;
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) false);
-	Chip_SSP_RWFrames_Blocking(LPC_SSP, &xf_setup);
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT, 1, 8, (bool) true);
-    return &Rx_Buf[1];
+uint8_t txrx[16];
+
+uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
+    txrx[0] = reg;
+    txrx[1] = dt;
+    spi_txrx(SPI2, txrx, txrx, 2);
+    return txrx[1];
+}
+
+uint8_t* spi_xfer15(uint8_t reg) {
+    txrx[0] = reg;
+    spi_txrx(SPI2, txrx, txrx, 15);
+    return &txrx[1];
 }
 
 
@@ -99,7 +112,7 @@ void imuInit(void)
     delay(20000000);
     spi_xfer(WHO_AM_I | DIR_READ, 0x80);
     delay(20000000);
-    DEBUGOUT("PWM write res=%02x expected=%02x\r\n", Rx_Buf[1], WHOAMI);
+    printf("PWM write res=%02x expected=%02x\r\n", Rx_Buf[1], WHOAMI);
     spi_xfer(MPU_RA_SIGNAL_PATH_RESET, 0x03);
     delay(20000000);
     spi_xfer(MPU_RA_PWR_MGMT_1, INV_CLK_PLL);
@@ -124,7 +137,7 @@ static void mpuGyroRead(int16_t *gyroData)
     static uint32_t ptime = 0;
     int16_t tmp[3];
     //printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
-    uint8_t* val = spi_xfer6(MPU_RA_ACCEL_XOUT_H | DIR_READ);
+    uint8_t* val = spi_xfer15(MPU_RA_ACCEL_XOUT_H | DIR_READ);
     //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[8], val[9], val[10], val[11], val[12], val[13]);
     tmp[0] = (int16_t)((val[8] << 8) | val[9]) / 4;
     tmp[1] = (int16_t)((val[10] << 8) | val[11]) / 4;
@@ -230,118 +243,4 @@ void computeIMU(void)
 
     getEstimatedAttitude();
 
-}
-
-int init_i2c();
-uint8_t *read_data(int slaveAddr, unsigned int addr);
-
-#define QMC5883L_MAG_I2C_ADDRESS     0x0D
-
-// Registers
-#define QMC5883L_REG_CONF1 0x09
-#define QMC5883L_REG_CONF2 0x0A
-
-// data output rates for 5883L
-#define QMC5883L_ODR_10HZ (0x00 << 2)
-#define QMC5883L_ODR_50HZ  (0x01 << 2)
-#define QMC5883L_ODR_100HZ (0x02 << 2)
-#define QMC5883L_ODR_200HZ (0x03 << 2)
-
-// Sensor operation modes
-#define QMC5883L_MODE_STANDBY 0x00
-#define QMC5883L_MODE_CONTINUOUS 0x01
-
-#define QMC5883L_RNG_2G (0x00 << 4)
-#define QMC5883L_RNG_8G (0x01 << 4)
-
-#define QMC5883L_OSR_512 (0x00 << 6)
-#define QMC5883L_OSR_256 (0x01 << 6)
-#define QMC5883L_OSR_128	(0x10 << 6)
-#define QMC5883L_OSR_64	(0x11	<< 6)
-
-#define QMC5883L_RST 0x80
-
-#define QMC5883L_REG_DATA_OUTPUT_X 0x00
-#define QMC5883L_REG_STATUS 0x06
-
-#define QMC5883L_REG_ID 0x0D
-#define QMC5883_ID_VAL 0xFF
-
-void xxx() {
-    uint8_t txd[] = {QMC5883L_REG_DATA_OUTPUT_X};
-    uint8_t rxd[6];
-
-    static I2C_XFER_T xfer;
-    (xfer).slaveAddr = 0x0d;
-    (xfer).rxBuff = rxd;
-    (xfer).txBuff = txd;
-    (xfer).txSz = 1;
-    (xfer).rxSz = 6;
-    Chip_I2C_MasterTransfer(I2C0, &xfer);
-    // DEBUGOUT("Master transfer : %s\r\n",
-    //          (xfer).status == I2C_STATUS_DONE ? "SUCCESS" : "FAILURE");
-    // DEBUGOUT("Received %d bytes from slave 0x%02X\r\n", 6 - (xfer).rxSz, (xfer).slaveAddr);
-
-    magADC[0] = (int16_t)(rxd[1] << 8 | rxd[0]);
-    magADC[1] = (int16_t)(rxd[3] << 8 | rxd[2]);
-    magADC[2] = (int16_t)(rxd[5] << 8 | rxd[4]);
-
-    // printf("gyr %d %d %d\r\n", magADC[YAW], magADC[ROLL], magADC[PITCH]);
-}
-
-int magInit = 1;
-int magcal = 1;
-
-int Mag_getADC(void)
-{
-    static uint32_t t, tCal = 0;
-    static int16_t magZeroTempMin[3];
-    static int16_t magZeroTempMax[3];
-    static int16_t magZero[3] = {371 - 180, -967 + 700, -730};
-    uint32_t axis;
-
-    if ((int32_t)(currentTime - t) < 0)
-        return 0;                 //each read is spaced by 100ms
-    t = currentTime + 100000;
-
-    // Read mag sensor
-    xxx();
-
-    if (!magcal) {
-        tCal = t;
-        for (axis = 0; axis < 3; axis++) {
-            magZero[axis] = 0;
-            magZeroTempMin[axis] = magADC[axis];
-            magZeroTempMax[axis] = magADC[axis];
-        }
-        magcal = 1;
-    }
-
-    if (magInit) {              // we apply offset only once mag calibration is done
-        magADC[0] -= magZero[0];
-        magADC[1] -= magZero[1];
-        magADC[2] -= magZero[2];
-        //printf("zero %d %d %d\r\n", magZero[0], magZero[1], magZero[2]);
-    }
-
-    if (tCal != 0) {
-        if ((t - tCal) < 60000000) {    // 30s: you have 30s to turn the multi in all directions
-            for (axis = 0; axis < 3; axis++) {
-                if (magADC[axis] < magZeroTempMin[axis])
-                    magZeroTempMin[axis] = magADC[axis];
-                if (magADC[axis] > magZeroTempMax[axis])
-                    magZeroTempMax[axis] = magADC[axis];
-            }
-        } else {
-            tCal = 0;
-            for (axis = 0; axis < 3; axis++)
-                magZero[axis] = (magZeroTempMin[axis] + magZeroTempMax[axis]) / 2; // Calculate offsets
-            magInit = 1;
-        }
-    }
-    float hd = (atan2f(magADC[0], magADC[1]) * 1800.0f / M_PI) / 10.0f;
-    head = lrintf(hd);
-    //printf("head: %d\r\n", head);
-
-    return 1;
 }

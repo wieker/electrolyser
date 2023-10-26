@@ -29,6 +29,8 @@ typedef enum {
 #define CALIBRATING_GYRO_CYCLES             1000
 #define MAX_MOTORS             4
 
+#define bool int
+
 extern int16_t angle[2];
 extern int16_t angleACC[2];
 extern int32_t axisPID[3];
@@ -77,3 +79,4 @@ void stopMotors();
 extern void sysInit();
 uint32_t micros(void);
 uint32_t millis(void);
+void delay(uint32_t duration);

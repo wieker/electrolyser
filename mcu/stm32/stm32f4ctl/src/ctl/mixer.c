@@ -92,6 +92,9 @@ static uint8_t numberMotor = 0;
 static motorMixer_t currentMixer[MAX_MOTORS];
 int16_t motor_disarmed[MAX_MOTORS];
 
+#define LOW_PWM 1000
+#define INIT_THR (-300)
+
 int32_t throttle = INIT_THR;
 
 void mixerResetMotors(void)
