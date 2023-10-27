@@ -38,3 +38,10 @@ int _write(int handle, char* data, int size) {
 	return size;
 }
 
+int _read() {
+	if (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == SET) {
+		return (int) USART_ReceiveData(USART1);
+	}
+	return EOF;
+}
+
