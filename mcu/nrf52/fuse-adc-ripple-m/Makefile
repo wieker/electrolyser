@@ -62,6 +62,7 @@ SRC_FILES += \
   $(SDK_ROOT)/external/utf_converter/utf.c \
   ble_lbs.c \
   ../common/nrf_local_adc.c \
+  periph/uart.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_ble.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_soc.c \
