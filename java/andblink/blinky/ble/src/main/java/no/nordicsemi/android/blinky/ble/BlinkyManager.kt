@@ -35,8 +35,9 @@ private class BlinkyManagerImpl(
     private val scope = CoroutineScope(Dispatchers.IO)
 
     private var ledCharacteristic: BluetoothGattCharacteristic? = null
-    private var buttonCharacteristic: BluetoothGattCharacteristic? = null
     private var adcCharacteristic: BluetoothGattCharacteristic? = null
+    private var rxCharacteristic: BluetoothGattCharacteristic? = null
+    private var txCharacteristic: BluetoothGattCharacteristic? = null
 
     private val _ledState = MutableStateFlow(false)
     override val ledState = _ledState.asStateFlow()
@@ -138,9 +139,16 @@ private class BlinkyManagerImpl(
                 // change the property to BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE.
                 BluetoothGattCharacteristic.PROPERTY_WRITE
             )
+            txCharacteristic = getCharacteristic(
+                BlinkySpec.BLINKY_TX_CHARACTERISTIC_UUID,
+                // Mind, that below we pass required properties.
+                // If your implementation supports only WRITE_NO_RESPONSE,
+                // change the property to BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE.
+                BluetoothGattCharacteristic.PROPERTY_WRITE
+            )
             // Get the Button characteristic.
-            buttonCharacteristic = getCharacteristic(
-                BlinkySpec.BLINKY_BUTTON_CHARACTERISTIC_UUID,
+            rxCharacteristic = getCharacteristic(
+                BlinkySpec.BLINKY_RX_CHARACTERISTIC_UUID,
                 BluetoothGattCharacteristic.PROPERTY_NOTIFY
             )
             // Get the Button characteristic.
@@ -150,7 +158,9 @@ private class BlinkyManagerImpl(
             )
 
             // Return true if all required characteristics are supported.
-            return ledCharacteristic != null && buttonCharacteristic != null && adcCharacteristic != null
+            return ledCharacteristic != null && txCharacteristic != null &&
+                    rxCharacteristic != null &&
+                    adcCharacteristic != null
         }
         return false
     }
@@ -158,7 +168,7 @@ private class BlinkyManagerImpl(
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun initialize() {
         // Enable notifications for the button characteristic.
-        val flow: Flow<ButtonState> = setNotificationCallback(buttonCharacteristic)
+        val flow: Flow<ButtonState> = setNotificationCallback(this.rxCharacteristic)
             .asValidResponseFlow()
 
         // Forward the button state to the buttonState flow.
@@ -166,11 +176,11 @@ private class BlinkyManagerImpl(
             flow.map { it.state }.collect { _buttonState.tryEmit(it) }
         }
 
-        enableNotifications(buttonCharacteristic)
+        enableNotifications(this.rxCharacteristic)
             .enqueue()
 
         // Read the initial value of the button characteristic.
-        readCharacteristic(buttonCharacteristic)
+        readCharacteristic(this.rxCharacteristic)
             .with(buttonCallback)
             .enqueue()
 
@@ -199,7 +209,8 @@ private class BlinkyManagerImpl(
 
     override fun onServicesInvalidated() {
         ledCharacteristic = null
-        buttonCharacteristic = null
+        rxCharacteristic = null
+        txCharacteristic = null
         adcCharacteristic = null
     }
 }
