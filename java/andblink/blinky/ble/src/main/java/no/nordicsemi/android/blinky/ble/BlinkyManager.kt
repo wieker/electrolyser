@@ -109,7 +109,7 @@ private class BlinkyManagerImpl(
     override suspend fun turnLed(state: Boolean) {
         // Write the value to the characteristic.
         writeCharacteristic(
-            ledCharacteristic,
+            txCharacteristic,
             LedData.from(state),
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
         ).suspend()
