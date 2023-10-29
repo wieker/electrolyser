@@ -62,6 +62,7 @@ internal fun BlinkyScreen(
                     val ledState by viewModel.ledState.collectAsStateWithLifecycle()
                     val buttonState by viewModel.buttonState.collectAsStateWithLifecycle()
                     val adcState by viewModel.adcState.collectAsStateWithLifecycle()
+                    val dump by viewModel.dump.collectAsStateWithLifecycle()
 
                     BlinkyControlView(
                         ledState = ledState,
@@ -71,7 +72,8 @@ internal fun BlinkyScreen(
                         modifier = Modifier
                             .widthIn(max = 460.dp)
                             .verticalScroll(rememberScrollState())
-                            .padding(16.dp)
+                            .padding(16.dp),
+                        dump
                     )
                 }
                 Blinky.State.NOT_AVAILABLE -> {

@@ -8,6 +8,7 @@ import android.util.Log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import no.nordicsemi.android.ble.BleManager
+import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.ktx.asValidResponseFlow
 import no.nordicsemi.android.ble.ktx.getCharacteristic
 import no.nordicsemi.android.ble.ktx.state.ConnectionState
@@ -47,6 +48,9 @@ private class BlinkyManagerImpl(
 
     private val _adcState = MutableStateFlow(0)
     override val adcState = _adcState.asStateFlow()
+
+    var dumpV = MutableStateFlow("s")
+    override val dump = dumpV.asStateFlow()
 
     override val state = stateAsFlow()
         .map {
@@ -110,7 +114,7 @@ private class BlinkyManagerImpl(
         // Write the value to the characteristic.
         writeCharacteristic(
             txCharacteristic,
-            LedData.from(state),
+            if (state) Data.from("g") else Data.from("f"),
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
         ).suspend()
 
@@ -165,16 +169,19 @@ private class BlinkyManagerImpl(
         return false
     }
 
+    fun here(data: Data)
+    {
+        dumpV.tryEmit(if (data.value == null) "nn" else String(data.value!!, Charsets.UTF_8))
+        Timber.log(10, "here");
+
+    }
+
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun initialize() {
         // Enable notifications for the button characteristic.
-        val flow: Flow<ButtonState> = setNotificationCallback(this.rxCharacteristic)
-            .asValidResponseFlow()
-
-        // Forward the button state to the buttonState flow.
-        scope.launch {
-            flow.map { it.state }.collect { _buttonState.tryEmit(it) }
-        }
+        setNotificationCallback(this.rxCharacteristic)
+            .with { device, data -> here(data)
+            }
 
         enableNotifications(this.rxCharacteristic)
             .enqueue()
