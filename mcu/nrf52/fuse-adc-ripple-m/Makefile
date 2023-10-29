@@ -1,16 +1,16 @@
-PROJECT_NAME     := ble_app_blinky_pca10040_s132
-TARGETS          := nrf52832_xxaa
+PROJECT_NAME     := ble_app_blinky_pca10040e_s112
+TARGETS          := nrf52810_xxaa
 OUTPUT_DIRECTORY := _build
 
 SDK_ROOT := /home/wieker/Projects/
 PROJ_DIR := .
 
-$(OUTPUT_DIRECTORY)/nrf52832_xxaa.out: \
+$(OUTPUT_DIRECTORY)/nrf52810_xxaa.out: \
   LINKER_SCRIPT  := ble_app_blinky_gcc_nrf52.ld
 
 # Source files common to all targets
 SRC_FILES += \
-  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52.S \
+  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52810.S \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_serial.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_default_backends.c \
@@ -38,7 +38,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/experimental_section_vars/nrf_section_iter.c \
   $(SDK_ROOT)/components/libraries/sortlist/nrf_sortlist.c \
   $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
-  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52.c \
+  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52810.c \
   $(SDK_ROOT)/components/boards/boards.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_clock.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_uart.c \
@@ -47,7 +47,6 @@ SRC_FILES += \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_gpiote.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/prs/nrfx_prs.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_uart.c \
-  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_uarte.c \
   $(PROJ_DIR)/main.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
@@ -68,41 +67,31 @@ SRC_FILES += \
   ${SDK_ROOT}/modules/nrfx/drivers/src/nrfx_timer.c \
   ${SDK_ROOT}/modules/nrfx/drivers/src/nrfx_ppi.c \
   ${SDK_ROOT}/integration/nrfx/legacy/nrf_drv_ppi.c \
-  ${SDK_ROOT}/modules/nrfx/drivers/src/nrfx_uart.c \
 
 # Include folders common to all targets
 INC_FOLDERS += \
-  $(SDK_ROOT)/components/nfc/ndef/generic/message \
-  $(SDK_ROOT)/components/nfc/t2t_lib \
-  $(SDK_ROOT)/components/nfc/t4t_parser/hl_detection_procedure \
   $(SDK_ROOT)/components/ble/ble_services/ble_ancs_c \
   $(SDK_ROOT)/components/ble/ble_services/ble_ias_c \
   $(SDK_ROOT)/components/libraries/pwm \
-  $(SDK_ROOT)/components/softdevice/s132/headers/nrf52 \
+  $(SDK_ROOT)/components/softdevice/s112/headers/nrf52 \
   $(SDK_ROOT)/components/libraries/usbd/class/cdc/acm \
   $(SDK_ROOT)/components/libraries/usbd/class/hid/generic \
   $(SDK_ROOT)/components/libraries/usbd/class/msc \
   $(SDK_ROOT)/components/libraries/usbd/class/hid \
   $(SDK_ROOT)/modules/nrfx/hal \
-  $(SDK_ROOT)/components/nfc/ndef/conn_hand_parser/le_oob_rec_parser \
   $(SDK_ROOT)/components/libraries/log \
   $(SDK_ROOT)/components/ble/ble_services/ble_gls \
   $(SDK_ROOT)/components/libraries/fstorage \
-  $(SDK_ROOT)/components/nfc/ndef/text \
   $(SDK_ROOT)/components/libraries/mutex \
   $(SDK_ROOT)/components/libraries/gpiote \
   $(SDK_ROOT)/components/libraries/bootloader/ble_dfu \
-  $(SDK_ROOT)/components/nfc/ndef/connection_handover/common \
   $(SDK_ROOT)/components/boards \
-  $(SDK_ROOT)/components/nfc/ndef/generic/record \
-  $(SDK_ROOT)/components/nfc/t4t_parser/cc_file \
   $(SDK_ROOT)/components/ble/ble_advertising \
   $(SDK_ROOT)/external/utf_converter \
   $(SDK_ROOT)/components/ble/ble_services/ble_bas_c \
   $(SDK_ROOT)/modules/nrfx/drivers/include \
   $(SDK_ROOT)/components/libraries/experimental_task_manager \
   $(SDK_ROOT)/components/ble/ble_services/ble_hrs_c \
-  $(SDK_ROOT)/components/nfc/ndef/connection_handover/le_oob_rec \
   $(SDK_ROOT)/components/libraries/queue \
   $(SDK_ROOT)/components/libraries/pwr_mgmt \
   $(SDK_ROOT)/components/ble/ble_dtm \
@@ -110,12 +99,9 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_rscs_c \
   $(SDK_ROOT)/components/ble/common \
   $(SDK_ROOT)/components/ble/ble_services/ble_lls \
-  $(SDK_ROOT)/components/nfc/platform \
-  $(SDK_ROOT)/components/nfc/ndef/connection_handover/ac_rec \
   $(SDK_ROOT)/components/ble/ble_services/ble_bas \
   $(SDK_ROOT)/components/libraries/mpu \
   $(SDK_ROOT)/components/libraries/experimental_section_vars \
-  $(SDK_ROOT)/components/softdevice/s132/headers \
   $(SDK_ROOT)/components/ble/ble_services/ble_ans_c \
   $(SDK_ROOT)/components/libraries/slip \
   $(SDK_ROOT)/components/libraries/delay \
@@ -126,7 +112,6 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_ias \
   $(SDK_ROOT)/components/libraries/usbd/class/hid/mouse \
   $(SDK_ROOT)/components/libraries/low_power_pwm \
-  $(SDK_ROOT)/components/nfc/ndef/conn_hand_parser/ble_oob_advdata_parser \
   $(SDK_ROOT)/components/ble/ble_services/ble_dfu \
   $(SDK_ROOT)/external/fprintf \
   $(SDK_ROOT)/components/libraries/svc \
@@ -137,7 +122,6 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_lbs \
   $(SDK_ROOT)/components/ble/ble_services/ble_hts \
   $(SDK_ROOT)/components/libraries/crc16 \
-  $(SDK_ROOT)/components/nfc/t4t_parser/apdu \
   $(SDK_ROOT)/components/libraries/util \
   . \
   ../common/ \
@@ -150,13 +134,11 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/hci \
   $(SDK_ROOT)/components/libraries/timer \
   $(SDK_ROOT)/integration/nrfx \
-  $(SDK_ROOT)/components/nfc/t4t_parser/tlv \
   $(SDK_ROOT)/components/libraries/sortlist \
   $(SDK_ROOT)/components/libraries/spi_mngr \
+  $(SDK_ROOT)/components/softdevice/s112/headers \
   $(SDK_ROOT)/components/libraries/led_softblink \
-  $(SDK_ROOT)/components/nfc/ndef/conn_hand_parser \
   $(SDK_ROOT)/components/libraries/sdcard \
-  $(SDK_ROOT)/components/nfc/ndef/parser/record \
   $(SDK_ROOT)/modules/nrfx/mdk \
   $(SDK_ROOT)/components/ble/ble_services/ble_cts_c \
   $(SDK_ROOT)/components/ble/ble_services/ble_nus \
@@ -164,18 +146,12 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_hids \
   $(SDK_ROOT)/components/libraries/strerror \
   $(SDK_ROOT)/components/libraries/crc32 \
-  $(SDK_ROOT)/components/nfc/ndef/connection_handover/ble_oob_advdata \
-  $(SDK_ROOT)/components/nfc/t2t_parser \
-  $(SDK_ROOT)/components/nfc/ndef/connection_handover/ble_pair_msg \
   $(SDK_ROOT)/components/libraries/usbd/class/audio \
-  $(SDK_ROOT)/components/nfc/t4t_lib \
   $(SDK_ROOT)/components/ble/peer_manager \
   $(SDK_ROOT)/components/libraries/mem_manager \
   $(SDK_ROOT)/components/libraries/ringbuf \
   $(SDK_ROOT)/components/ble/ble_services/ble_tps \
-  $(SDK_ROOT)/components/nfc/ndef/parser/message \
   $(SDK_ROOT)/components/ble/ble_services/ble_dis \
-  $(SDK_ROOT)/components/nfc/ndef/uri \
   $(SDK_ROOT)/components/ble/nrf_ble_gatt \
   $(SDK_ROOT)/components/ble/nrf_ble_qwr \
   $(SDK_ROOT)/components/libraries/gfx \
@@ -184,21 +160,16 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/twi_sensor \
   $(SDK_ROOT)/integration/nrfx/legacy \
   $(SDK_ROOT)/components/libraries/usbd/class/hid/kbd \
-  $(SDK_ROOT)/components/nfc/ndef/connection_handover/ep_oob_rec \
   $(SDK_ROOT)/external/segger_rtt \
   $(SDK_ROOT)/components/libraries/atomic_fifo \
   $(SDK_ROOT)/components/ble/ble_services/ble_lbs_c \
-  $(SDK_ROOT)/components/nfc/ndef/connection_handover/ble_pair_lib \
   $(SDK_ROOT)/components/libraries/crypto \
   $(SDK_ROOT)/components/ble/ble_racp \
   $(SDK_ROOT)/components/libraries/fds \
-  $(SDK_ROOT)/components/nfc/ndef/launchapp \
   $(SDK_ROOT)/components/libraries/atomic_flags \
   $(SDK_ROOT)/components/ble/ble_services/ble_hrs \
   $(SDK_ROOT)/components/ble/ble_services/ble_rscs \
-  $(SDK_ROOT)/components/nfc/ndef/connection_handover/hs_rec \
   $(SDK_ROOT)/components/libraries/usbd \
-  $(SDK_ROOT)/components/nfc/ndef/conn_hand_parser/ac_rec_parser \
   $(SDK_ROOT)/components/libraries/stack_guard \
   $(SDK_ROOT)/components/libraries/log/src \
 
@@ -206,7 +177,7 @@ INC_FOLDERS += \
 LIB_FILES += \
 
 # Optimization flags
-OPT = -O3 -g3
+OPT = -Os -g3
 # Uncomment the line below to enable link time optimization
 #OPT += -flto
 
@@ -216,17 +187,17 @@ CFLAGS += -DAPP_TIMER_V2
 CFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 CFLAGS += -DBOARD_PCA10040
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
-CFLAGS += -DFLOAT_ABI_HARD
-CFLAGS += -DNRF52
-CFLAGS += -DNRF52832_XXAA
+CFLAGS += -DFLOAT_ABI_SOFT
+CFLAGS += -DNRF52810_XXAA
 CFLAGS += -DNRF52_PAN_74
+CFLAGS += -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
-CFLAGS += -DS132
+CFLAGS += -DS112
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs
-CFLAGS += -Wall #-Werror
-CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+CFLAGS += -Wall
+CFLAGS += -mfloat-abi=soft
 # keep every function in a separate section, this allows linker to discard unused ones
 CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums
@@ -237,33 +208,32 @@ CXXFLAGS += $(OPT)
 ASMFLAGS += -g3
 ASMFLAGS += -mcpu=cortex-m4
 ASMFLAGS += -mthumb -mabi=aapcs
-ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ASMFLAGS += -mfloat-abi=soft
 ASMFLAGS += -DAPP_TIMER_V2
 ASMFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 ASMFLAGS += -DBOARD_PCA10040
 ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
-ASMFLAGS += -DFLOAT_ABI_HARD
-ASMFLAGS += -DNRF52
-ASMFLAGS += -DNRF52832_XXAA
+ASMFLAGS += -DFLOAT_ABI_SOFT
+ASMFLAGS += -DNRF52810_XXAA
 ASMFLAGS += -DNRF52_PAN_74
+ASMFLAGS += -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
-ASMFLAGS += -DS132
+ASMFLAGS += -DS112
 ASMFLAGS += -DSOFTDEVICE_PRESENT
 
 # Linker flags
 LDFLAGS += $(OPT)
 LDFLAGS += -mthumb -mabi=aapcs -L$(SDK_ROOT)/modules/nrfx/mdk -T$(LINKER_SCRIPT)
 LDFLAGS += -mcpu=cortex-m4
-LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # let linker dump unused sections
 LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
 
-nrf52832_xxaa: CFLAGS += -D__HEAP_SIZE=8192
-nrf52832_xxaa: CFLAGS += -D__STACK_SIZE=8192
-nrf52832_xxaa: ASMFLAGS += -D__HEAP_SIZE=8192
-nrf52832_xxaa: ASMFLAGS += -D__STACK_SIZE=8192
+nrf52810_xxaa: CFLAGS += -D__HEAP_SIZE=2048
+nrf52810_xxaa: CFLAGS += -D__STACK_SIZE=2048
+nrf52810_xxaa: ASMFLAGS += -D__HEAP_SIZE=2048
+nrf52810_xxaa: ASMFLAGS += -D__STACK_SIZE=2048
 
 # Add standard libraries at the very end of the linker input, after all objects
 # that may need symbols provided by these libraries.
@@ -273,12 +243,12 @@ LIB_FILES += -lc -lnosys -lm
 .PHONY: default help
 
 # Default target - first one defined
-default: nrf52832_xxaa
+default: nrf52810_xxaa
 
 # Print all targets that can be built
 help:
 	@echo following targets are available:
-	@echo		nrf52832_xxaa
+	@echo		nrf52810_xxaa
 	@echo		flash_softdevice
 	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		flash      - flashing binary
@@ -295,15 +265,15 @@ $(foreach target, $(TARGETS), $(call define_target, $(target)))
 # Flash the program
 flash: default
 	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex
-	openocd -f openocd-old.cfg -c "program _build/nrf52832_xxaa.hex reset exit"
+	openocd -f openocd-old.cfg -c "program _build/nrf52810_xxaa.hex reset exit"
 
 # Flash softdevice
 flash_softdevice:
 	@echo Flashing: s132_nrf52_7.0.1_softdevice.hex
-	openocd -f openocd-old.cfg -c "program /home/wieker/Projects//components/softdevice/s132/hex/s132_nrf52_7.0.1_softdevice.hex reset exit"
+	openocd -f openocd-old.cfg -c "program /home/wieker/Projects/components/softdevice/s112/hex/s112_nrf52_7.0.1_softdevice.hex reset exit"
 
 erase:
-	/home/wieker/Downloads/nrf-command-line-tools/bin/nrfjprog -f nrf52 --eraseall
+	nrfjprog -f nrf52 --eraseall
 
 SDK_CONFIG_FILE := ../config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
