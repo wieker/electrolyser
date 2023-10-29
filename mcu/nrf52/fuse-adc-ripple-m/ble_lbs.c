@@ -52,11 +52,10 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
 {
     ble_gatts_evt_write_t const * p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
 
-    if (   (p_evt_write->handle == p_lbs->led_char_handles.value_handle)
-        && (p_evt_write->len == 1)
-        && (p_lbs->led_write_handler != NULL))
+    if ((p_evt_write->handle == p_lbs->uart_tx_handles.value_handle)
+        && (p_lbs->uart_tx_handler != NULL))
     {
-        p_lbs->led_write_handler(p_ble_evt->evt.gap_evt.conn_handle, p_lbs, p_evt_write->data[0]);
+        p_lbs->uart_tx_handler(p_ble_evt->evt.gap_evt.conn_handle, p_lbs, p_evt_write->len, p_evt_write->data);
     }
 }
 
@@ -77,6 +76,14 @@ void ble_lbs_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context)
     }
 }
 
+#define OPCODE_LENGTH        1
+#define HANDLE_LENGTH        2
+#if defined(NRF_SDH_BLE_GATT_MAX_MTU_SIZE) && (NRF_SDH_BLE_GATT_MAX_MTU_SIZE != 0)
+    #define BLE_NUS_MAX_DATA_LEN (NRF_SDH_BLE_GATT_MAX_MTU_SIZE - OPCODE_LENGTH - HANDLE_LENGTH)
+#else
+    #define BLE_NUS_MAX_DATA_LEN (BLE_GATT_MTU_SIZE_DEFAULT - OPCODE_LENGTH - HANDLE_LENGTH)
+    #warning NRF_SDH_BLE_GATT_MAX_MTU_SIZE is not defined.
+#endif
 
 uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
 {
@@ -85,7 +92,7 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     ble_add_char_params_t add_char_params;
 
     // Initialize service structure.
-    p_lbs->led_write_handler = p_lbs_init->led_write_handler;
+    p_lbs->uart_tx_handler = p_lbs_init->uart_tx_handler;
 
     // Add service.
     ble_uuid128_t base_uuid = {LBS_UUID_BASE};
@@ -98,12 +105,13 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY, &ble_uuid, &p_lbs->service_handle);
     VERIFY_SUCCESS(err_code);
 
-    // Add Button characteristic.
+    // Add UART RX characteristic.
     memset(&add_char_params, 0, sizeof(add_char_params));
-    add_char_params.uuid              = LBS_UUID_BUTTON_CHAR;
+    add_char_params.uuid              = LBS_UUID_RX_CHAR;
     add_char_params.uuid_type         = p_lbs->uuid_type;
     add_char_params.init_len          = sizeof(uint8_t);
-    add_char_params.max_len           = sizeof(uint8_t);
+    add_char_params.max_len           = BLE_NUS_MAX_DATA_LEN;
+    add_char_params.is_var_len        = true;
     add_char_params.char_props.read   = 1;
     add_char_params.char_props.notify = 1;
 
@@ -112,7 +120,7 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
 
     err_code = characteristic_add(p_lbs->service_handle,
                                   &add_char_params,
-                                  &p_lbs->button_char_handles);
+                                  &p_lbs->uart_rx_handles);
     if (err_code != NRF_SUCCESS)
     {
         return err_code;
@@ -150,19 +158,43 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     add_char_params.read_access  = SEC_OPEN;
     add_char_params.write_access = SEC_OPEN;
 
-    return characteristic_add(p_lbs->service_handle, &add_char_params, &p_lbs->led_char_handles);
+    err_code = characteristic_add(p_lbs->service_handle, &add_char_params, &p_lbs->led_char_handles);
+    if (err_code != NRF_SUCCESS)
+    {
+        return err_code;
+    }
+
+    // Add UART TX characteristic.
+    memset(&add_char_params, 0, sizeof(add_char_params));
+    add_char_params.uuid             = LBS_UUID_TX_CHAR;
+    add_char_params.uuid_type        = p_lbs->uuid_type;
+    add_char_params.init_len         = sizeof(uint8_t);
+    add_char_params.max_len          = BLE_NUS_MAX_DATA_LEN;
+    add_char_params.is_var_len       = true;
+    add_char_params.char_props.read  = 1;
+    add_char_params.char_props.write = 1;
+
+    add_char_params.read_access  = SEC_OPEN;
+    add_char_params.write_access = SEC_OPEN;
+
+    err_code = characteristic_add(p_lbs->service_handle, &add_char_params, &p_lbs->uart_tx_handles);
+    if (err_code != NRF_SUCCESS)
+    {
+        return err_code;
+    }
+
+    return err_code;
 }
 
 
-uint32_t ble_lbs_on_button_change(uint16_t conn_handle, ble_lbs_t * p_lbs, uint8_t button_state)
+uint32_t ble_lbs_on_uart_rx(uint16_t conn_handle, ble_lbs_t * p_lbs, uint16_t len, uint8_t * data)
 {
     ble_gatts_hvx_params_t params;
-    uint16_t len = sizeof(button_state);
 
     memset(&params, 0, sizeof(params));
     params.type   = BLE_GATT_HVX_NOTIFICATION;
-    params.handle = p_lbs->button_char_handles.value_handle;
-    params.p_data = &button_state;
+    params.handle = p_lbs->uart_rx_handles.value_handle;
+    params.p_data = data;
     params.p_len  = &len;
 
     return sd_ble_gatts_hvx(conn_handle, &params);
@@ -177,7 +209,7 @@ uint32_t ble_lbs_on_adc_timer(uint16_t conn_handle, ble_lbs_t * p_lbs, int16_t a
     memset(&params, 0, sizeof(params));
     params.type   = BLE_GATT_HVX_NOTIFICATION;
     params.handle = p_lbs->adc_char_handles.value_handle;
-    params.p_data = (uint8_t *) &adc_value;
+    params.p_data = &adc_value;
     params.p_len  = &len;
 
     return sd_ble_gatts_hvx(conn_handle, &params);

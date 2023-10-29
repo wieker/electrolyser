@@ -70,6 +70,7 @@
 #include "nrf_log_default_backends.h"
 
 #include <nrf_local_adc.h>
+#include <legacy/nrf_drv_uart.h>
 
 
 #define ADVERTISING_LED                 BSP_BOARD_LED_0                         /**< Is on when device is advertising. */
@@ -278,23 +279,16 @@ static void nrf_qwr_error_handler(uint32_t nrf_error)
 }
 
 
+nrf_drv_uart_t m_uart = NRF_DRV_UART_INSTANCE(0);
+
 /**@brief Function for handling write events to the LED characteristic.
  *
  * @param[in] p_lbs     Instance of LED Button Service to which the write applies.
  * @param[in] led_state Written/desired state of the LED.
  */
-static void led_write_handler(uint16_t conn_handle, ble_lbs_t * p_lbs, uint8_t led_state)
+static void uart_tx_handler(uint16_t conn_handle, ble_lbs_t * p_lbs, int len, uint8_t * data)
 {
-    if (led_state)
-    {
-        bsp_board_led_on(LEDBUTTON_LED);
-        NRF_LOG_INFO("Received LED ON!");
-    }
-    else
-    {
-        bsp_board_led_off(LEDBUTTON_LED);
-        NRF_LOG_INFO("Received LED OFF!");
-    }
+    nrfx_uart_tx(&m_uart.uart, data, len);
 }
 
 
@@ -313,7 +307,7 @@ static void services_init(void)
     APP_ERROR_CHECK(err_code);
 
     // Initialize LBS.
-    init.led_write_handler = led_write_handler;
+    init.uart_tx_handler = uart_tx_handler;
 
     err_code = ble_lbs_init(&m_lbs, &init);
     APP_ERROR_CHECK(err_code);
@@ -495,63 +489,6 @@ static void ble_stack_init(void)
     NRF_SDH_BLE_OBSERVER(m_ble_observer, APP_BLE_OBSERVER_PRIO, ble_evt_handler, NULL);
 }
 
-int counter = 17;
-/**@brief Function for handling events from the button handler module.
- *
- * @param[in] pin_no        The pin that the event applies to.
- * @param[in] button_action The button action (press/release).
- */
-static void button_event_handler(uint8_t pin_no, uint8_t button_action)
-{
-    ret_code_t err_code;
-
-    switch (pin_no)
-    {
-        case LEDBUTTON_BUTTON:
-            NRF_LOG_INFO("Send button state change.");
-            err_code = ble_lbs_on_button_change(m_conn_handle, &m_lbs, button_action);
-            if (err_code != NRF_SUCCESS &&
-                err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
-                err_code != NRF_ERROR_INVALID_STATE &&
-                err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING)
-            {
-                APP_ERROR_CHECK(err_code);
-            }
-            break;
-
-        default:
-            APP_ERROR_HANDLER(pin_no);
-            break;
-    }
-}
-
-
-/**@brief Function for initializing the button handler module.
- */
-static void buttons_init(void)
-{
-    ret_code_t err_code;
-
-    //The array must be static because a pointer to it will be saved in the button handler module.
-    static app_button_cfg_t buttons[] =
-    {
-        {LEDBUTTON_BUTTON, false, BUTTON_PULL, button_event_handler}
-    };
-
-    err_code = app_button_init(buttons, ARRAY_SIZE(buttons),
-                               BUTTON_DETECTION_DELAY);
-    APP_ERROR_CHECK(err_code);
-}
-
-
-static void log_init(void)
-{
-    ret_code_t err_code = NRF_LOG_INIT(NULL);
-    APP_ERROR_CHECK(err_code);
-
-    NRF_LOG_DEFAULT_BACKENDS_INIT();
-}
-
 
 /**@brief Function for initializing power management.
  */
@@ -575,16 +512,41 @@ static void idle_state_handle(void)
     }
 }
 
+uint8_t rx_data[100];
+
+void evh(nrfx_uart_event_t const * p_event,
+         void *                    p_context)
+{
+    if (p_event->type == 1) {
+        ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, p_event->data.rxtx.bytes, p_event->data.rxtx.p_data);
+    }
+    nrfx_uart_rx(&m_uart.uart, rx_data, 1);
+}
+
+void uart_init()
+{
+  nrf_drv_uart_config_t config = NRF_DRV_UART_DEFAULT_CONFIG;
+  config.pseltxd  = 13;
+  config.pselrxd  = 8;
+  config.pselcts  = NRF_UART_PSEL_DISCONNECTED;
+  config.pselrts  = NRF_UART_PSEL_DISCONNECTED;
+  config.baudrate = (nrf_uart_baudrate_t)NRFX_UART_DEFAULT_CONFIG_BAUDRATE;
+  nrfx_uart_init(&m_uart.uart,
+                 (nrfx_uart_config_t const *)&config,
+                 evh);
+  nrfx_uart_rx_enable(&m_uart.uart);
+  nrfx_uart_rx(&m_uart.uart, rx_data, 1);
+}
+
 
 /**@brief Function for application main entry.
  */
 int main(void)
 {
     // Initialize.
-    log_init();
+    uart_init();
     leds_init();
     timers_init();
-    buttons_init();
     power_management_init();
     ble_stack_init();
     gap_params_init();
@@ -598,7 +560,7 @@ int main(void)
 
 
     // Start execution.
-    NRF_LOG_INFO("Blinky example started.");
+    //NRF_LOG_INFO("Blinky example started.");
     advertising_start();
 
     // Enter main loop.
