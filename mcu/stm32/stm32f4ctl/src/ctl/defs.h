@@ -82,3 +82,4 @@ uint32_t millis(void);
 void delay(uint32_t duration);
 
 void USART1Init(void);
+int _read();

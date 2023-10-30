@@ -154,7 +154,7 @@ void loop(void)
 
 void parse_ctl() {
 
-        char ch = 's';
+        char ch = getchar();
         switch (ch) {
             case '=': {
                 throttle += 5000;
@@ -295,6 +295,7 @@ extern "C" int main()
   USART1Init();
   //main2();
 
+  char ch = EOF;
    while (1)
   {
     GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_SET);
@@ -302,7 +303,13 @@ extern "C" int main()
     while ((millis() - count) < 1000) ;
     GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_RESET);
     printf("hel\r\n");
-    //USART_SendData(USART1, 'd');
+    char n = _read();
+    if (EOF != n) {
+        ch = n;
+    }
+    if (EOF != ch) {
+        USART_SendData(USART1, ch);
+    }
     count = millis();
     while ((millis() - count) < 1000) ;
     /* USER CODE END WHILE */

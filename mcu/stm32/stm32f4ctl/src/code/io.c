@@ -14,7 +14,7 @@ void USART1Init(void)
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
     //Configure USART1 Tx (PA.09) as alternate function push-pull
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_OType  = GPIO_OType_PP;
@@ -26,6 +26,7 @@ void USART1Init(void)
     //GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1);
 
     //USART_ClockStructInit(&USART_ClockInitStructure);
     //USART_ClockInit(USART1, &USART_ClockInitStructure);
@@ -43,6 +44,7 @@ int _write(int handle, char* data, int size) {
         while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
 		USART_SendData(USART1, data[i]);
 	}
+    while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
 
 	return size;
 }
