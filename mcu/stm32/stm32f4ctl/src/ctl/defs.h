@@ -80,3 +80,5 @@ extern void sysInit();
 uint32_t micros(void);
 uint32_t millis(void);
 void delay(uint32_t duration);
+
+void USART1Init(void);

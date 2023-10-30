@@ -3,6 +3,7 @@
 extern "C" {
 
 #include "ctl/defs.h"
+#include <stdio.h>
 
 
 uint32_t currentTime = 0;
@@ -291,7 +292,8 @@ extern "C" int main()
   GPIO_Init(GPIOC, &gpio_out);
   GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_SET);
 
-  main2();
+  USART1Init();
+  //main2();
 
    while (1)
   {
@@ -299,6 +301,8 @@ extern "C" int main()
     int count = millis();
     while ((millis() - count) < 1000) ;
     GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_RESET);
+    printf("hel\r\n");
+    //USART_SendData(USART1, 'd');
     count = millis();
     while ((millis() - count) < 1000) ;
     /* USER CODE END WHILE */
