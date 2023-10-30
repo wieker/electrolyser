@@ -115,7 +115,7 @@ private class BlinkyManagerImpl(
         // Write the value to the characteristic.
         writeCharacteristic(
             txCharacteristic,
-            if (state) Data.from("g" + System.lineSeparator()) else Data.from("f"),
+            if (state) Data.from("gg") else Data.from("f"),
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
         ).suspend()
 
