@@ -278,7 +278,7 @@ static void nrf_qwr_error_handler(uint32_t nrf_error)
     APP_ERROR_HANDLER(nrf_error);
 }
 
-
+uint8_t tx_buf[100];
 nrf_drv_uart_t m_uart = NRF_DRV_UART_INSTANCE(0);
 
 /**@brief Function for handling write events to the LED characteristic.
@@ -288,7 +288,12 @@ nrf_drv_uart_t m_uart = NRF_DRV_UART_INSTANCE(0);
  */
 static void uart_tx_handler(uint16_t conn_handle, ble_lbs_t * p_lbs, int len, uint8_t * data)
 {
-    nrfx_uart_tx(&m_uart.uart, data, len);
+    int i = 0;
+    while (i < len) {
+        tx_buf[i] = data[i];
+        i ++;
+    }
+    nrfx_uart_tx(&m_uart.uart, tx_buf, len);
 }
 
 
