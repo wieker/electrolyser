@@ -51,6 +51,7 @@ private class BlinkyManagerImpl(
 
     var dumpV = MutableStateFlow("s")
     override val dump = dumpV.asStateFlow()
+    var cv = ""
 
     override val state = stateAsFlow()
         .map {
@@ -114,7 +115,7 @@ private class BlinkyManagerImpl(
         // Write the value to the characteristic.
         writeCharacteristic(
             txCharacteristic,
-            if (state) Data.from("g") else Data.from("f"),
+            if (state) Data.from("g" + System.lineSeparator()) else Data.from("f"),
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
         ).suspend()
 
@@ -171,7 +172,9 @@ private class BlinkyManagerImpl(
 
     fun here(data: Data)
     {
-        dumpV.tryEmit(if (data.value == null) "nn" else String(data.value!!, Charsets.UTF_8))
+        val receivedValue = if (data.value == null) "nn" else String(data.value!!, Charsets.UTF_8)
+        cv += receivedValue;
+        dumpV.tryEmit(cv)
         Timber.log(10, "here");
 
     }
