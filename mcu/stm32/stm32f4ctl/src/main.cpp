@@ -280,6 +280,7 @@ extern "C" int main()
   sysInit();
 
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+  //RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
   GPIO_InitTypeDef gpio_out = {
     .GPIO_Pin = GPIO_Pin_13,
@@ -294,6 +295,7 @@ extern "C" int main()
 
   USART1Init();
   //main2();
+  imuInit();
 
   char ch = EOF;
    while (1)
