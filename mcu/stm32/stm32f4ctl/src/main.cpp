@@ -41,8 +41,9 @@ extern "C" int main()
         ch = n;
     }
     if (EOF != ch) {
-        USART_SendData(USART1, ch);
+      printf("PWM =%02x\r\n", ch);
     }
+    computeIMU();
     count = millis();
     while ((millis() - count) < 1000) ;
     /* USER CODE END WHILE */

@@ -61,5 +61,12 @@ void icm20689_read(int16_t *gyroData)
     accADC[1] = tmp[2];
     accADC[2] = - tmp[1];
     //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
-    //printf("test %f %f %f\r\n", accADC[0] * 4.0f / 2048.0f, accADC[1] * 4.0f / 2048.0f, accADC[2] * 4.0f / 2048.0f);
+    printf("accRW ");
+    delay(20000);
+    printf(".%d ", accADC[0]);
+    delay(20000);
+    printf(".%d ", accADC[1]);
+    delay(20000);
+    printf(".%d\r\n", accADC[2]);
+    delay(20000);
 }

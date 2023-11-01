@@ -11,12 +11,10 @@ void spi_txrx(SPI_TypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Siz
 
     while(i < Size)
     {
-        printf("pointR\r\n");
       /* check TXE flag */
         while (SPI_I2S_GetFlagStatus(spi, SPI_I2S_FLAG_TXE) == RESET) {}
         SPI_I2S_SendData(spi, pTxData[i]);
 
-        printf("pointW\\r\n");
       /* Wait until RXNE flag is reset */
         while (SPI_I2S_GetFlagStatus(spi, SPI_FLAG_RXNE) == RESET) {}
         pRxData[i] = SPI_I2S_ReceiveData(spi);
