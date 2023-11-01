@@ -10,6 +10,7 @@ set(sources
     code/io.c
     code/spi.c
     ctl/control.c
+    ctl/icm20689.c
 )
 
 # GCC optimization level: use -O0 in debug build, otherwise -O2

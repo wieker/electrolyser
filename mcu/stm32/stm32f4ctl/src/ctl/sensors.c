@@ -3,9 +3,6 @@
 #include "defs.h"
 #include <stdio.h>
 
-#include "../../../../lpc/ctl/icm20689/accgyro_icm20689.h"
-#include "../../../../lpc/ctl/icm20689/accgyro_mpu.h"
-
 int16_t gyroADC[3];
 uint16_t calibratingG = 0;
 int16_t gyroZero[3] = { 0, 0, 0 };
@@ -15,64 +12,14 @@ int16_t magADC[3];
 int16_t accSmooth[3];
 int head;
 
-static const uint8_t WHOAMI = 0x98;
-static const uint8_t WHO_AM_I = 0x75;
-static const uint8_t PWR_MGMT_1 = 0x6B;
-static const uint8_t DIR_READ = 0x80;
-
-
 void imuInit(void)
 {
-    spiInit();
-
-    spi_xfer(PWR_MGMT_1, 0x80);
-    printf("point3\r\n");
-    delay(20000000);
-    uint8_t rxv = spi_xfer(WHO_AM_I | DIR_READ, 0xAB);
-    delay(20000000);
-    printf("PWM write res=%02x expected=%02x\r\n", rxv, WHOAMI);
-    spi_xfer(MPU_RA_SIGNAL_PATH_RESET, 0x03);
-    delay(20000000);
-    spi_xfer(MPU_RA_PWR_MGMT_1, INV_CLK_PLL);
-    delay(20000000);
-    spi_xfer(0x6A, 0x10);
-    delay(200);
-    spi_xfer(MPU_RA_GYRO_CONFIG, INV_FSR_2000DPS << 3);
-    delay(200);
-    spi_xfer(MPU_RA_ACCEL_CONFIG, INV_FSR_16G << 3);
-    delay(200);
-    spi_xfer(0x1D, 0x05);
-    delay(200);
-    spi_xfer(MPU_RA_CONFIG, MPU_DLPF_10HZ);
-    delay(200);
-    spi_xfer(MPU_RA_SMPLRT_DIV, 0);
-    delay(200);
+    icm20689_init();
 }
 
 static void mpuGyroRead(int16_t *gyroData)
 {
-    //delay(20000000);
-    static uint32_t ptime = 0;
-    int16_t tmp[3];
-    //printf("test %02x\r\n", spi_xfer(WHO_AM_I | DIR_READ, 0x00));
-    uint8_t* val = spi_xfer15(MPU_RA_ACCEL_XOUT_H | DIR_READ);
-    //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[8], val[9], val[10], val[11], val[12], val[13]);
-    tmp[0] = (int16_t)((val[8] << 8) | val[9]) / 4;
-    tmp[1] = (int16_t)((val[10] << 8) | val[11]) / 4;
-    tmp[2] = (int16_t)((val[12] << 8) | val[13]) / 4;
-    gyroData[0] = tmp[0];
-    gyroData[1] = tmp[2];
-    gyroData[2] = - tmp[1];
-    uint32_t ctime = millis();
-    //printf("test %d\r\n", ctime);
-    tmp[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
-    tmp[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
-    tmp[2] = (int16_t)((val[4] << 8) | val[5]) / 4;
-    accADC[0] = tmp[0];
-    accADC[1] = tmp[2];
-    accADC[2] = - tmp[1];
-    //printf("test %02x%02x %02x%02x %02x%02x\r\n", val[0], val[1], val[2], val[3], val[4], val[5]);
-    //printf("test %f %f %f\r\n", accADC[0] * 4.0f / 2048.0f, accADC[1] * 4.0f / 2048.0f, accADC[2] * 4.0f / 2048.0f);
+    icm20689_read(gyroData);
 }
 
 typedef struct stdev_t {
@@ -109,7 +56,7 @@ static float devStandardDeviation(stdev_t *dev)
     return sqrtf(devVariance(dev));
 }
 
-static void GYRO_Common(void)
+static void applyGyroAccCalibration(void)
 {
     int axis;
     static int32_t g[3];
@@ -150,9 +97,8 @@ static void GYRO_Common(void)
 
 void Gyro_getADC(void)
 {
-    // range: +/- 8192; +/- 2000 deg/sec
     mpuGyroRead(gyroADC);
-    GYRO_Common();
+    applyGyroAccCalibration();
 }
 
 void computeIMU(void)
