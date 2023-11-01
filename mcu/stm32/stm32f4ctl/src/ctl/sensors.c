@@ -3,8 +3,6 @@
 #include "defs.h"
 #include <stdio.h>
 
-#include "stm32f4xx.h"
-
 #include "../../../../lpc/ctl/icm20689/accgyro_icm20689.h"
 #include "../../../../lpc/ctl/icm20689/accgyro_mpu.h"
 
@@ -17,99 +15,22 @@ int16_t magADC[3];
 int16_t accSmooth[3];
 int head;
 
-#define LPC_SSP           LPC_SSP1
-#define SSP_DATA_BITS                       (SSP_BITS_8)
-
 static const uint8_t WHOAMI = 0x98;
 static const uint8_t WHO_AM_I = 0x75;
 static const uint8_t PWR_MGMT_1 = 0x6B;
 static const uint8_t DIR_READ = 0x80;
 
-int Mag_getADC(void);
-
-void spi_txrx(SPI_TypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size)
-{
-    int i = 0;
-	GPIO_WriteBit(GPIOA, GPIO_Pin_4, Bit_RESET);
-
-    while(i < Size)
-    {
-        printf("pointR\r\n");
-      /* check TXE flag */
-        while (SPI_I2S_GetFlagStatus(spi, SPI_I2S_FLAG_TXE) == RESET) {}
-        SPI_I2S_SendData(spi, pTxData[i]);
-
-        printf("pointW\\r\n");
-      /* Wait until RXNE flag is reset */
-        while (SPI_I2S_GetFlagStatus(spi, SPI_FLAG_RXNE) == RESET) {}
-        pRxData[i] = SPI_I2S_ReceiveData(spi);
-
-        i ++;
-    }
-
-    GPIO_WriteBit(GPIOA, GPIO_Pin_4, Bit_SET);
-}
-
-uint8_t txrx[16];
-
-uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
-    txrx[0] = reg;
-    txrx[1] = dt;
-    spi_txrx(SPI1, txrx, txrx, 2);
-    return txrx[1];
-}
-
-uint8_t* spi_xfer15(uint8_t reg) {
-    txrx[0] = reg;
-    spi_txrx(SPI1, txrx, txrx, 15);
-    return &txrx[1];
-}
-
 
 void imuInit(void)
 {
-    printf("point1\r\n");
-	/* SSP initialization */
-    SPI_InitTypeDef spi;
-	GPIO_InitTypeDef            GPIO_InitStructure;
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-
-	GPIO_InitStructure.GPIO_Pin    = GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;
-	GPIO_InitStructure.GPIO_Mode   = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_Speed  = GPIO_Speed_100MHz;
-	GPIO_InitStructure.GPIO_OType  = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd   = GPIO_PuPd_UP;
-
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource4, GPIO_AF_SPI1);
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource5, GPIO_AF_SPI1);
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource6, GPIO_AF_SPI1);
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource7, GPIO_AF_SPI1);
-
-    spi.SPI_Mode = SPI_Mode_Master;
-    spi.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
-    spi.SPI_DataSize = SPI_DataSize_8b;
-    spi.SPI_NSS = SPI_NSS_Soft;
-    spi.SPI_FirstBit = SPI_FirstBit_MSB;
-    spi.SPI_CRCPolynomial = 7;
-    spi.SPI_CPOL = SPI_CPOL_Low;
-    spi.SPI_CPHA = SPI_CPHA_1Edge;
-    spi.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;
-    SPI_Init(SPI1, &spi);
-    SPI_Cmd(SPI1, ENABLE);
-
-    printf("point2\r\n");
-
+    spiInit();
 
     spi_xfer(PWR_MGMT_1, 0x80);
     printf("point3\r\n");
     delay(20000000);
-    spi_xfer(WHO_AM_I | DIR_READ, 0xAB);
+    uint8_t rxv = spi_xfer(WHO_AM_I | DIR_READ, 0xAB);
     delay(20000000);
-    printf("PWM write res=%02x expected=%02x\r\n", txrx[1], WHOAMI);
+    printf("PWM write res=%02x expected=%02x\r\n", rxv, WHOAMI);
     spi_xfer(MPU_RA_SIGNAL_PATH_RESET, 0x03);
     delay(20000000);
     spi_xfer(MPU_RA_PWR_MGMT_1, INV_CLK_PLL);

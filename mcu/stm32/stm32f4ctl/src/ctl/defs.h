@@ -1,6 +1,6 @@
 
 #pragma once
-
+#include <stdint.h>
 
 
 enum {
@@ -83,3 +83,7 @@ void delay(uint32_t duration);
 
 void USART1Init(void);
 int _read();
+
+void spiInit(void);
+uint8_t* spi_xfer15(uint8_t reg);
+uint8_t spi_xfer(uint8_t reg, uint8_t dt);

@@ -8,6 +8,7 @@ set(sources
     ctl/imu.c
     ctl/mixer.c
     code/io.c
+    code/spi.c
 )
 
 # GCC optimization level: use -O0 in debug build, otherwise -O2
