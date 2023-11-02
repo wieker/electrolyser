@@ -51,8 +51,6 @@ extern int cycles;
 
 extern int16_t gyroADC[3], accADC[3], accSmooth[3], magADC[3];
 extern int32_t errorGyroI[3];
-extern int32_t errorP[3];
-extern int32_t wannaP[3];
 extern uint32_t motor[MAX_MOTORS];
 extern float accMomLPF[3];
 
@@ -95,3 +93,6 @@ void icm20689_read(int16_t *gyroData);
 
 void configure_pwm();
 void writePWM(void);
+
+void logic();
+void parse_ctl();

@@ -7,9 +7,6 @@ uint32_t previousTime = 0;
 uint16_t cycleTime = 0;
 
 int32_t errorGyroI[3] = { 0, 0, 0 };
-int32_t errorP[3] = { 0, 0, 0 };
-int32_t wannaP[3] = { 0, 0, 0 };
-static int32_t errorAngleI[2] = { 0, 0 };
 
 #define GYRO_I_MAX 500
 
@@ -83,7 +80,6 @@ static void pidMultiWii(void)
 
         // -----calculate P component
         PTerm = (RateError * cfgP8) >> 7;
-        errorP[axis] = PTerm;
         // -----calculate I component
         // there should be no division before accumulating the error to integrator, because the precision would be reduced.
         // Precision is critical, as I prevents from long-time drift. Thus, 32 bits integrator is used.
@@ -114,29 +110,15 @@ static void pidMultiWii(void)
     }
 }
 
-int32_t startTime;
-int32_t chState = 0;
-
 void loop(void)
 {
-    static uint32_t rcTime = 0;
-    static uint32_t loopTime;
-    static uint32_t t;
-    uint32_t auxState = 0;
-
-    // if ((micros() - t > 100000)) {
-    //     t = micros();
-    //     Mag_getADC();
-    // }
+    if (throttle < 0) {
+        errorGyroI[0] = errorGyroI[1] = errorGyroI[2] = 0;
+    }
 
     computeIMU();
 	// Measure loop rate just afer reading the sensors
     while ((cycleTime = (int32_t)((int32_t)(currentTime = micros()) - (int32_t)previousTime)) <= 0) {}
-
-
-    if (throttle < 0) {
-        errorGyroI[0] = errorGyroI[1] = errorGyroI[2] = 0;
-    }
 
     if (cycleTime > 10000) {
         previousTime = currentTime;
@@ -144,104 +126,6 @@ void loop(void)
 
         mixTable();
         writeMotors();
-    }
-}
-
-void parse_ctl() {
-
-        char ch = getchar();
-        switch (ch) {
-            case '=': {
-                throttle += 5000;
-                //chState = 1;
-                break;
-            }
-            case '-': {
-                throttle -= 1000;
-                break;
-            }
-            case '0': {
-                stopMotors();
-                chState = 0;
-                break;
-            }
-            case 'a': {
-                desiredX --;
-                break;
-            }
-            case 's': {
-                desiredY --;
-                break;
-            }
-            case 'd': {
-                desiredX ++;
-                break;
-            }
-            case 'w': {
-                desiredY ++;
-                break;
-            }
-            case '1': {
-                cMode = 0;
-                break;
-            }
-            case '2': {
-                cMode = 1;
-                break;
-            }
-            case '3': {
-                cMode = 2;
-                break;
-            }
-            case '4': {
-                cMode = 3;
-                break;
-            }
-            case '5': {
-                cMode = 4;
-                break;
-            }
-            case '6': {
-                cMode = 5;
-                break;
-            }
-            case 'g': {
-                calibratingG = CALIBRATING_GYRO_CYCLES;
-                break;
-            }
-            case 'v': {
-                throttle = 0;
-                break;
-            }
-            case 'm': {
-                throttle = 30000;
-                chState = 1;
-                startTime = millis();
-                break;
-            }
-        }
-}
-
-void logic() {
-    if ((chState == 1) && (millis() - startTime > 300)) {
-        throttle = 35000;
-        chState ++;
-    }
-    if ((chState == 2) && (millis() - startTime > 600)) {
-        throttle = 40000;
-        chState ++;
-    }
-    if ((chState == 3) && (millis() - startTime > 2600)) {
-        throttle = 35000;
-        chState ++;
-    }
-    if ((chState == 4) && (millis() - startTime > 3600)) {
-        throttle = 30000;
-        chState ++;
-    }
-    if (millis() - startTime > 5000) {
-        stopMotors();
-        chState = 0;
     }
 }
 
@@ -257,9 +141,6 @@ int main_loop(void)
     previousTime = micros();
     calibratingG = CALIBRATING_GYRO_CYCLES;
 
-    int32_t ping_time;
-    int32_t prev_time;
-    int32_t chTime;
     // loopy
     while (1) {
         loop();
