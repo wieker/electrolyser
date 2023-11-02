@@ -28,7 +28,6 @@ float fc_acc;// correction of throttle in lateral wind,
 float magneticDeclination = 0.0f;
 float absAngle[3] = { 0, 0, 0 };
 float relAngle[3] = { 0, 0, 0 };
-int cycles = 0;
 
 int cMode = 0;
 float cumulativeG = 0.0f;

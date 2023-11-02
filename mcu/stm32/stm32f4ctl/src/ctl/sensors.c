@@ -8,7 +8,6 @@ uint16_t calibratingG = 0;
 int16_t gyroZero[3] = { 0, 0, 0 };
 int16_t accADC[3];
 int16_t accZero[3] = { 0, 0, 0 };
-int16_t magADC[3];
 int16_t accSmooth[3];
 int head;
 

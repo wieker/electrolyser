@@ -74,7 +74,6 @@ void writeMotors(void)
         //        (int32_t) angle[odd],
         //        (int)(100 * cumulativeG));
         odd = (odd + 1) % 2;
-        cycles = 0;
         ptime = ctime;
         cumulativeG = 0.0f;
         cumulativeX = 0.0f;

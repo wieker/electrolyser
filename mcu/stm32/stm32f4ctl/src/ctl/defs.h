@@ -39,24 +39,15 @@ extern uint16_t acc_1G;
 extern float absAngle[3];
 extern float relAngle[3];
 
-extern uint32_t currentTime;
 extern uint16_t calibratingG;
-extern int16_t magADC[3];
-extern int16_t accADC[3];
 
 extern int32_t throttle;
 
-extern float accAbsAngle[2];
-extern int cycles;
-
 extern int16_t gyroADC[3], accADC[3], accSmooth[3], magADC[3];
-extern int32_t errorGyroI[3];
 extern uint32_t motor[MAX_MOTORS];
-extern float accMomLPF[3];
 
 extern int32_t desiredX;
 extern int32_t desiredY;
-extern int32_t acc_delta[3];
 
 extern int cMode;
 extern float cumulativeG;
