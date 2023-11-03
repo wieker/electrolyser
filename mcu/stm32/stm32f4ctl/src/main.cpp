@@ -11,7 +11,6 @@ extern "C" int main()
   sysInit();
 
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
   GPIO_InitTypeDef gpio_out = {
     .GPIO_Pin = GPIO_Pin_15,
@@ -23,29 +22,21 @@ extern "C" int main()
 
   GPIO_Init(GPIOC, &gpio_out);
 
-  gpio_out = {
-    .GPIO_Pin = GPIO_Pin_0,
-    .GPIO_Mode = GPIO_Mode_OUT,
-    .GPIO_Speed = GPIO_High_Speed,
-    .GPIO_OType = GPIO_OType_PP,
-    .GPIO_PuPd = GPIO_PuPd_NOPULL
-  };
-
-  GPIO_Init(GPIOA, &gpio_out);
   GPIO_WriteBit(GPIOC, GPIO_Pin_15, Bit_RESET);
-  GPIO_WriteBit(GPIOA, GPIO_Pin_0, Bit_SET);
 
   USART1Init();
   //main2();
   imuInit();
+  configure_pwm();
+
+  TIM2->CCR1 = 10000;
 
   char ch = EOF;
    while (1)
   {
-    GPIO_WriteBit(GPIOA, GPIO_Pin_0, Bit_SET);
     int count = millis();
+    TIM2->CCR1 = 5000;
     while ((millis() - count) < 1000) ;
-    GPIO_WriteBit(GPIOA, GPIO_Pin_0, Bit_RESET);
     printf("hel\r\n");
     char n = _read();
     if (EOF != n) {
@@ -55,6 +46,7 @@ extern "C" int main()
       printf("PWM =%02x\r\n", ch);
     }
     computeIMU();
+    TIM2->CCR1 = 15000;
     count = millis();
     while ((millis() - count) < 1000) ;
     /* USER CODE END WHILE */
