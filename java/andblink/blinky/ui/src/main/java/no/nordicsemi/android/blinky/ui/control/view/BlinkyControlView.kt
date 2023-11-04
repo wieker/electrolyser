@@ -4,8 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.currentComposer
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.longdo.mjpegviewer.MjpegView
 
 @Composable
 internal fun BlinkyControlView(
@@ -30,6 +33,12 @@ internal fun BlinkyControlView(
         )
 
         ADCControlView(state = adcState)
+
+        AndroidView(factory = {context ->
+            MjpegView(context).apply {
+                setUrl("http://localhost:8080")
+            }
+        })
 
         Text(text = dump)
     }
