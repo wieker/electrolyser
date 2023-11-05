@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentComposer
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -36,7 +35,8 @@ internal fun BlinkyControlView(
 
         AndroidView(factory = {context ->
             MjpegView(context).apply {
-                setUrl("http://localhost:8080")
+                setUrl("http://192.168.43.1:8080")
+                startStream()
             }
         })
 
