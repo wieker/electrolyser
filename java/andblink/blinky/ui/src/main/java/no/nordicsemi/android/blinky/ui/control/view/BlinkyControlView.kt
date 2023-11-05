@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.longdo.mjpegviewer.MjpegView
+import com.longdo.mjpegviewer.MjpegViewUDP
 
 @Composable
 internal fun BlinkyControlView(
@@ -34,7 +35,7 @@ internal fun BlinkyControlView(
         ADCControlView(state = adcState)
 
         AndroidView(factory = {context ->
-            MjpegView(context).apply {
+            MjpegViewUDP(context).apply {
                 setUrl("http://192.168.43.1:8080")
                 setAdjustHeight(true)
                 setMode(MjpegView.MODE_FIT_WIDTH)

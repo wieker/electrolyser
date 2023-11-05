@@ -26,7 +26,7 @@ public class MjpegUDP implements Runnable {
                 Log.w("udpSender", "run: sent", null);
 
                 if (frame != null) {
-                    DatagramPacket packet = new DatagramPacket(frame, frame.length, InetAddress.getByName("192.168.43.46"), 4477);
+                    DatagramPacket packet = new DatagramPacket(frame, frame.length, InetAddress.getByName("192.168.43.123"), 4477);
                     socket.send(packet);
                 }
             }
