@@ -36,6 +36,9 @@ internal fun BlinkyControlView(
         AndroidView(factory = {context ->
             MjpegView(context).apply {
                 setUrl("http://192.168.43.1:8080")
+                setAdjustHeight(true)
+                setMode(MjpegView.MODE_FIT_WIDTH)
+                setRecycleBitmap(true)
                 startStream()
             }
         })
