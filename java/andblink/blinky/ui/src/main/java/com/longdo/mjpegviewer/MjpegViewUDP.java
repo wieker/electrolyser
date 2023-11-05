@@ -29,7 +29,7 @@ import timber.log.Timber;
  * Metamedia Technology
  * Created by perth on 6/5/2558.
  */
-public class MjpegViewUDP extends View {
+public class MjpegViewUDP extends View implements InvalidateListener {
     public static final int MODE_ORIGINAL = 0;
     public static final int MODE_FIT_WIDTH = 1;
     public static final int MODE_FIT_HEIGHT = 2;
@@ -42,13 +42,13 @@ public class MjpegViewUDP extends View {
 
     private final String tag = getClass().getSimpleName();
     private final Context context;
-    private final Object lockBitmap = new Object();
+    private static final Object lockBitmap = new Object();
     private final PointF touchStart = new PointF();
     private final Rect stateStart = new Rect();
     private MjpegViewStateChangeListener listener = null;
     private String url;
-    private Bitmap lastBitmap;
-    private MjpegDownloader downloader;
+    private static Bitmap lastBitmap;
+    private static MjpegDownloader downloader;
     private Paint paint;
     private Rect dst;
     private int mode = MODE_ORIGINAL;
@@ -60,6 +60,8 @@ public class MjpegViewUDP extends View {
     private boolean isUserForceConfigRecycle;
     private boolean isSupportPinchZoomAndPan;
     private boolean isTouchDown;
+
+    private static InvalidateListener invalidateListener;
     private final ScaleGestureDetector.OnScaleGestureListener scaleGestureListener = new ScaleGestureDetector.OnScaleGestureListener() {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
@@ -134,12 +136,14 @@ public class MjpegViewUDP extends View {
     public MjpegViewUDP(Context context) {
         super(context);
         this.context = context;
+        invalidateListener = this;
         init();
     }
 
     public MjpegViewUDP(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
+        invalidateListener = this;
         init();
     }
 
@@ -193,17 +197,7 @@ public class MjpegViewUDP extends View {
             lastBitmap = bm;
         }
 
-        if (context instanceof Activity) {
-            ((Activity) context).runOnUiThread(() -> {
-                invalidate();
-                requestLayout();
-            });
-        } else {
-            Log.e(tag, "Can not request Canvas's redraw. Context is not an instance of Activity");
-            if (listener != null) {
-                listener.onError(new MjpegViewError(MjpegViewError.ERROR_CODE_INVALID_CONTEXT));
-            }
-        }
+        invalidateListener.invalidateThis();
     }
 
     @Override
@@ -414,6 +408,21 @@ public class MjpegViewUDP extends View {
         return true;
     }
 
+    @Override
+    public void invalidateThis() {
+        if (context instanceof Activity) {
+            ((Activity) context).runOnUiThread(() -> {
+                invalidate();
+                requestLayout();
+            });
+        } else {
+            Log.e(tag, "Can not request Canvas's redraw. Context is not an instance of Activity");
+            if (listener != null) {
+                listener.onError(new MjpegViewError(MjpegViewError.ERROR_CODE_INVALID_CONTEXT));
+            }
+        }
+    }
+
     class MjpegDownloader extends Thread {
         byte[] currentImageBody = new byte[(int) 1e6];
         int currentImageBodyLength = 0;
@@ -453,6 +462,8 @@ public class MjpegViewUDP extends View {
 
                         packet.setLength(buffer.length);
                     }
+
+                    dsocket.close();
                 } catch (Exception e) {
                     Timber.tag(tag).e(e, "Read image error");
                     e.printStackTrace();

@@ -176,7 +176,7 @@ private class BlinkyManagerImpl(
         val receivedValue = if (data.value == null) "nn" else String(data.value!!, Charsets.UTF_8)
         val lines = receivedValue.split("\n")
         cs += lines[0];
-        for (i in 1..(lines.size))  {
+        for (i in 1..(lines.size - 1))  {
             cv = cs + '\n' + cv
             cs = lines[i]
         }
