@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private static Thread ssdpThread = new Thread(ssdpAdvertiser);
     private static MjpegServer mjpegServer = new MjpegServer();
     private static Thread serverThread = new Thread(mjpegServer);
+    private static Thread udpThread;
     private static HashMap<Integer, List<Camera.Size>> cameraSizes = new HashMap<>();
     private static ReentrantReadWriteLock frameLock = new ReentrantReadWriteLock();
     private static byte[] jpegFrame;
@@ -124,7 +127,15 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         openCamAndPreview();
 
         if (!ssdpThread.isAlive()) ssdpThread.start();
-        if (!serverThread.isAlive()) serverThread.start();
+        if (udpThread == null) {
+            try {
+                udpThread = new Thread(new MjpegUDP(new DatagramSocket()));
+                udpThread.start();
+            } catch (IOException e){
+
+            }
+        }
+
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
