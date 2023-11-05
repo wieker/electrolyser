@@ -52,6 +52,7 @@ private class BlinkyManagerImpl(
     var dumpV = MutableStateFlow("s")
     override val dump = dumpV.asStateFlow()
     var cv = ""
+    var cs = ""
 
     override val state = stateAsFlow()
         .map {
@@ -173,8 +174,13 @@ private class BlinkyManagerImpl(
     fun here(data: Data)
     {
         val receivedValue = if (data.value == null) "nn" else String(data.value!!, Charsets.UTF_8)
-        cv += receivedValue;
-        dumpV.tryEmit(cv)
+        val lines = receivedValue.split("\n")
+        cs += lines[0];
+        for (i in 1..(lines.size))  {
+            cv = cs + '\n' + cv
+            cs = lines[i]
+        }
+        dumpV.tryEmit(cs + '\n' + cv)
         Timber.log(10, "here");
 
     }
