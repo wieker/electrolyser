@@ -74,7 +74,8 @@ internal fun BlinkyScreen(
                             .verticalScroll(rememberScrollState())
                             .padding(16.dp),
                         dump = dump,
-                        throttleValue =  { viewModel.turnThrottle(it) }
+                        throttleValue =  { viewModel.turnThrottle(it) },
+                        commandValue = { str -> viewModel.cmdSend(str) }
                     )
                 }
                 Blinky.State.NOT_AVAILABLE -> {

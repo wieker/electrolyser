@@ -26,6 +26,7 @@ internal fun BlinkyControlView(
     modifier: Modifier = Modifier,
     dump: String,
     throttleValue: (Float) -> Unit,
+    commandValue: (String) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -37,28 +38,51 @@ internal fun BlinkyControlView(
         )
 
         Row {
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Calib")
+            Button(onClick = { commandValue("g") }) {
+                Text(text = "g")
             }
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { commandValue("1") }) {
                 Text(text = "1")
             }
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { commandValue("2") }) {
                 Text(text = "2")
             }
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { commandValue("3") }) {
                 Text(text = "3")
             }
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { commandValue("4") }) {
                 Text(text = "4")
-            }
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Run")
             }
         }
         Row {
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Trim")
+            Button(onClick = { commandValue("m") }) {
+                Text(text = "Seq")
+            }
+            Button(onClick = { commandValue("v") }) {
+                Text(text = "Zero")
+            }
+            Button(onClick = { commandValue("v") }) {
+                Text(text = "Stop")
+            }
+            Button(onClick = { commandValue("-") }) {
+                Text(text = "-10")
+            }
+            Button(onClick = { commandValue("=") }) {
+                Text(text = "+50")
+            }
+        }
+        Row {
+            Button(onClick = { commandValue("a") }) {
+                Text(text = "a")
+            }
+            Button(onClick = { commandValue("s") }) {
+                Text(text = "s")
+            }
+            Button(onClick = { commandValue("d") }) {
+                Text(text = "d")
+            }
+            Button(onClick = { commandValue("w") }) {
+                Text(text = "w")
             }
         }
 

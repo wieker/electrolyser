@@ -144,7 +144,6 @@ int main_loop(void)
     // loopy
     while (1) {
         loop();
-        parse_ctl();
-        logic();
+        manual();
     }
 }

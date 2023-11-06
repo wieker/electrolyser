@@ -82,6 +82,14 @@ class BlinkyViewModel @Inject constructor(
             repository.turnThrottle(v)
         }
     }
+    fun cmdSend(str: String) {
+        val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            // Just like above, when this method throws an exception, it will be caught by the
+            // exception handler and ignored.
+            repository.sendCmd(str)
+        }
+    }
 
     /**
      * Opens nRF Logger app with the log or Google Play if the app is not installed.

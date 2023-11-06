@@ -10,12 +10,12 @@ void parse_ctl() {
         char ch = _read();
         switch (ch) {
             case '=': {
-                throttle += 5000;
+                throttle += 50;
                 //chState = 1;
                 break;
             }
             case '-': {
-                throttle -= 1000;
+                throttle -= 10;
                 break;
             }
             case '0': {
@@ -72,7 +72,7 @@ void parse_ctl() {
                 break;
             }
             case 'm': {
-                throttle = 30000;
+                throttle = 300;
                 chState = 1;
                 startTime = millis();
                 break;
@@ -101,4 +101,9 @@ void logic() {
         stopMotors();
         chState = 0;
     }
+}
+
+void manual() {
+    parse_ctl();
+    logic();
 }

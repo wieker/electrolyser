@@ -85,5 +85,4 @@ void icm20689_read(int16_t *gyroData);
 void configure_pwm();
 void writePWM(void);
 
-void logic();
-void parse_ctl();
+void manual();
