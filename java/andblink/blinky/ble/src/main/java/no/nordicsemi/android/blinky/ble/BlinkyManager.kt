@@ -53,6 +53,9 @@ private class BlinkyManagerImpl(
     private val _sliderPos = MutableStateFlow(0.5f)
     override val sliderPos = _sliderPos.asStateFlow()
 
+    private val _sliderProcess = MutableStateFlow(true)
+    override val sliderProcess = _sliderProcess.asStateFlow()
+
     var dumpV = MutableStateFlow("s")
     override val dump = dumpV.asStateFlow()
     var cv = ""
@@ -133,6 +136,15 @@ private class BlinkyManagerImpl(
         writeCharacteristic(
             txCharacteristic,
             Data.from(cmd),
+            BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+        ).suspend()
+    }
+
+    override suspend fun sendCmd(cmd: ByteArray) {
+        // Write the value to the characteristic.
+        writeCharacteristic(
+            txCharacteristic,
+            Data(cmd),
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
         ).suspend()
     }

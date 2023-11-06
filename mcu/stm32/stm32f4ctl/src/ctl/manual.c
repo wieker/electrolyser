@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "defs.h"
+#include <stdio.h>
 
 int32_t startTime;
 int32_t chState = 0;
@@ -8,6 +9,9 @@ int32_t chState = 0;
 void parse_ctl() {
 
         char ch = _read();
+        if (0xff != ch) {
+            printf("char: %c\n, ch");
+        }
         switch (ch) {
             case '=': {
                 throttle += 50;

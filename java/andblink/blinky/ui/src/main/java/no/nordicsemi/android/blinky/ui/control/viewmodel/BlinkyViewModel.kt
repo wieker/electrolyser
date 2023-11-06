@@ -35,6 +35,8 @@ class BlinkyViewModel @Inject constructor(
     /** The LED state. */
     val ledState = repository.loggedLedState
         .stateIn(viewModelScope, SharingStarted.Lazily, false)
+    val sliderProcess = repository.sliderProcess
+        .stateIn(viewModelScope, SharingStarted.Lazily, true)
     /** The button state. */
     val buttonState = repository.loggedButtonState
         .stateIn(viewModelScope, SharingStarted.Lazily, false)

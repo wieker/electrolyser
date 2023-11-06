@@ -27,6 +27,7 @@ internal fun BlinkyControlView(
     dump: String,
     throttleValue: (Float) -> Unit,
     commandValue: (String) -> Unit,
+    sliderProcess: Boolean,
 ) {
     Column(
         modifier = modifier,
@@ -106,7 +107,9 @@ internal fun BlinkyControlView(
                 .rotate(270f)
                 .align(
                     AbsoluteAlignment.TopRight
-                ))
+                ),
+                enabled = sliderProcess
+            )
         }
     }
 }
