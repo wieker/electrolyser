@@ -6,7 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.AbsoluteAlignment
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.longdo.mjpegviewer.MjpegView
@@ -21,23 +25,22 @@ internal fun BlinkyControlView(
     modifier: Modifier = Modifier,
     dump: String,
 ) {
-    Box {
-        Slider(value = 0.5f, onValueChange = {})
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            LedControlView(
-                state = ledState,
-                onStateChanged = onStateChanged,
-            )
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        LedControlView(
+            state = ledState,
+            onStateChanged = onStateChanged,
+        )
 
-            ButtonControlView(
-                state = buttonState
-            )
+        ButtonControlView(
+            state = buttonState
+        )
 
-            ADCControlView(state = adcState)
+        ADCControlView(state = adcState)
 
+        Box {
             AndroidView(factory = {context ->
                 MjpegViewUDP(context).apply {
                     setUrl("http://192.168.43.1:8080")
@@ -46,9 +49,13 @@ internal fun BlinkyControlView(
                     setRecycleBitmap(true)
                     startStream()
                 }
-            })
+            },
+                modifier = Modifier.alpha(0.5f))
 
             Text(text = dump)
+
+            Slider(value = 0.5f, onValueChange = {}, modifier = Modifier.rotate(270f).align(
+                AbsoluteAlignment.TopRight))
         }
     }
 }
