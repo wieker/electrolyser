@@ -525,7 +525,7 @@ void evh(nrfx_uart_event_t const * p_event,
     if (p_event->type == 1) {
         ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, p_event->data.rxtx.bytes, p_event->data.rxtx.p_data);
     }
-    nrfx_uart_rx(&m_uart.uart, rx_data, 5);
+    nrfx_uart_rx(&m_uart.uart, p_event->data.rxtx.p_data, 20);
 }
 
 void uart_init()
@@ -540,7 +540,8 @@ void uart_init()
                  (nrfx_uart_config_t const *)&config,
                  evh);
   nrfx_uart_rx_enable(&m_uart.uart);
-  nrfx_uart_rx(&m_uart.uart, rx_data, 5);
+  nrfx_uart_rx(&m_uart.uart, rx_data, 20);
+  nrfx_uart_rx(&m_uart.uart, rx_data + 20, 20);
 }
 
 
