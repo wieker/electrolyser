@@ -36,6 +36,7 @@ interface Blinky {
     val buttonState: StateFlow<Boolean>
     val adcState: StateFlow<Int>
     val dump: StateFlow<String>
+    val sliderPos: StateFlow<Float>
 
     /**
      * Controls the LED state.
@@ -43,4 +44,6 @@ interface Blinky {
      * @param state the new state of the LED.
      */
     suspend fun turnLed(state: Boolean)
+    suspend fun sendCmd(cmd: String)
+    suspend fun turnThrottle(v: Float)
 }

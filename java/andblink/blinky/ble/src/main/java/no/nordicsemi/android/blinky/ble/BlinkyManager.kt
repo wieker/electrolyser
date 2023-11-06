@@ -23,6 +23,7 @@ import no.nordicsemi.android.blinky.ble.data.LedData
 import no.nordicsemi.android.blinky.spec.Blinky
 import no.nordicsemi.android.blinky.spec.BlinkySpec
 import timber.log.Timber
+import kotlin.math.floor
 
 class BlinkyManager(
     context: Context,
@@ -48,6 +49,9 @@ private class BlinkyManagerImpl(
 
     private val _adcState = MutableStateFlow(0)
     override val adcState = _adcState.asStateFlow()
+
+    private val _sliderPos = MutableStateFlow(0.5f)
+    override val sliderPos = _sliderPos.asStateFlow()
 
     var dumpV = MutableStateFlow("s")
     override val dump = dumpV.asStateFlow()
@@ -122,6 +126,22 @@ private class BlinkyManagerImpl(
 
         // Update the state flow with the new value.
         _ledState.value = state
+    }
+
+    override suspend fun sendCmd(cmd: String) {
+        // Write the value to the characteristic.
+        writeCharacteristic(
+            txCharacteristic,
+            Data.from(cmd),
+            BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+        ).suspend()
+    }
+
+    override suspend fun turnThrottle(v: Float) {
+        // Write the value to the characteristic.
+        sendCmd("t" + floor(v * 100))
+
+        _sliderPos.value = v
     }
 
     override fun log(priority: Int, message: String) {

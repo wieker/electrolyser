@@ -15,6 +15,7 @@ import no.nordicsemi.android.blinky.ui.control.repository.BlinkyRepository
 import no.nordicsemi.android.common.logger.LoggerLauncher
 import javax.inject.Inject
 import javax.inject.Named
+import kotlin.math.floor
 
 /**
  * The view model for the Blinky screen.
@@ -37,6 +38,8 @@ class BlinkyViewModel @Inject constructor(
     /** The button state. */
     val buttonState = repository.loggedButtonState
         .stateIn(viewModelScope, SharingStarted.Lazily, false)
+    val sliderPos = repository.sliderPos
+        .stateIn(viewModelScope, SharingStarted.Lazily, 0.5f)
     val adcState = repository.loggedADCState
         .stateIn(viewModelScope, SharingStarted.Lazily, 10)
     val dump = repository.dump.stateIn(viewModelScope, SharingStarted.Lazily, "v")
@@ -69,6 +72,14 @@ class BlinkyViewModel @Inject constructor(
             // Just like above, when this method throws an exception, it will be caught by the
             // exception handler and ignored.
             repository.turnLed(on)
+        }
+    }
+    fun turnThrottle(v: Float) {
+        val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            // Just like above, when this method throws an exception, it will be caught by the
+            // exception handler and ignored.
+            repository.turnThrottle(v)
         }
     }
 
