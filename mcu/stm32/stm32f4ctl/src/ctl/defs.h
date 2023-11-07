@@ -71,7 +71,7 @@ uint32_t millis(void);
 void delay(uint32_t duration);
 
 void USART1Init(void);
-int _read();
+int _read(int handle, char* data, int size);
 
 void spiInit(void);
 uint8_t* spi_xfer15(uint8_t reg);

@@ -49,10 +49,11 @@ int _write(int handle, char* data, int size) {
 	return size;
 }
 
-int _read() {
+int _read(int handle, char* data, int size) {
 	if (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == SET) {
-		return (int) USART_ReceiveData(USART1);
+        data[0] = (int) USART_ReceiveData(USART1);
+		return 1;
 	}
-	return EOF;
+	return -1;
 }
 

@@ -8,9 +8,9 @@ int32_t chState = 0;
 
 void parse_ctl() {
 
-        char ch = _read();
+        char ch = getchar();
         if (0xff != ch) {
-            printf("char: %c\n, ch");
+            printf("%c", ch);
         }
         switch (ch) {
             case '=': {

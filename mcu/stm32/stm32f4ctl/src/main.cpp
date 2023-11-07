@@ -27,25 +27,6 @@ extern "C" int main()
   USART1Init();
   main_loop();
 
-  char ch = EOF;
-   while (1)
-  {
-    int count = millis();
-    while ((millis() - count) < 1000) ;
-    printf("hel\r\n");
-    char n = _read();
-    if (EOF != n) {
-        ch = n;
-    }
-    if (EOF != ch) {
-      printf("PWM =%02x\r\n", ch);
-    }
-    computeIMU();
-    count = millis();
-    while ((millis() - count) < 1000) ;
-    /* USER CODE END WHILE */
-    /* USER CODE BEGIN 3 */
-  }
 
   return 0;
 }
