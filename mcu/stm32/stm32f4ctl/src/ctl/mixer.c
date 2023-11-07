@@ -74,8 +74,8 @@ void writeMotors(void)
         //        (int32_t) angle[odd],
         //        (int)(100 * cumulativeG));
         printf("[%7d]\n", ctime);
-        //printf("acADC %5d %5d %5d\r\n", accADC[0], accADC[1], accADC[2]);
-        //printf("grADC %5d %5d %5d\r\n", gyroADC[0], gyroADC[1], gyroADC[2]);
+        printf("acADC %5d %5d %5d\r\n", accADC[0], accADC[1], accADC[2]);
+        printf("grADC %5d %5d %5d\r\n", gyroADC[0], gyroADC[1], gyroADC[2]);
         odd = (odd + 1) % 2;
         ptime = ctime;
         cumulativeG = 0.0f;
