@@ -158,12 +158,12 @@ private class BlinkyManagerImpl(
             try {
                 // Write the value to the characteristic.
                 sendCmd("t" + floor(v * 100))
-
-                _sliderPos.value = v
             } finally {
                 lock.writeLock().unlock()
             }
         }
+
+        _sliderPos.value = v
     }
 
     override fun log(priority: Int, message: String) {

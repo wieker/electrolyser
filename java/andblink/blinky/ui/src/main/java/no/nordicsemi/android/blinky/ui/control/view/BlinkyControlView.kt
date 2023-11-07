@@ -108,7 +108,8 @@ internal fun BlinkyControlView(
                 .align(
                     AbsoluteAlignment.TopRight
                 ),
-                enabled = sliderProcess
+                enabled = sliderProcess,
+                steps = 33,
             )
         }
     }

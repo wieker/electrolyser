@@ -1,8 +1,6 @@
 #include <math.h>
 #include "defs.h"
 
-#include <stdio.h>
-
 uint32_t motor[MAX_MOTORS];
 
 typedef struct motorMixer_t {
@@ -57,31 +55,6 @@ void mixerInit(void)
 void writeMotors(void)
 {
     writePWM();
-    static uint32_t ptime = 0;
-    static int odd = 0;
-    uint32_t ctime = millis();
-    if ((ctime - ptime) > 1000) {
-        //printf("abs %f %f %f / %d\r\n", absAngle[0], absAngle[0], absAngle[0], cycles);
-        //printf("angle %d %d %d\r\n", angle[0], angle[1], heading);
-        //printf("desired %d %d\r\n", desiredX, desiredY);
-        //printf("relAngle %f %f %f d\r\n", relAngle[0], relAngle[1], relAngle[2]);
-        //printf("angle ACC %d %d\r\n", angleACC[0], angleACC[1]);
-        //printf("gyroADC %d %d %d\r\n", gyroADC[0], gyroADC[1], gyroADC[2]);
-        //printf("mixer motor %d %d %d %d\r\n", motor[0], motor[1], motor[2], motor[3]);
-        //printf("vibr motor %f %f %f\r\n", cumulativeG, cumulativeX, cumulativeY);
-        // printf("OK %d %s %d => %d %d\r\n", ctime,
-        //        odd == 0 ? "X" : "Y", odd == 0 ? desiredX : desiredY,
-        //        (int32_t) angle[odd],
-        //        (int)(100 * cumulativeG));
-        printf("[%7d]\n", ctime);
-        printf("acADC %5d %5d %5d\n", accADC[0], accADC[1], accADC[2]);
-        printf("grADC %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
-        odd = (odd + 1) % 2;
-        ptime = ctime;
-        cumulativeG = 0.0f;
-        cumulativeX = 0.0f;
-        cumulativeY = 0.0f;
-    }
 }
 
 int32_t axisPID[3];
