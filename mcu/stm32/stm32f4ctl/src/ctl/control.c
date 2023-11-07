@@ -1,5 +1,4 @@
 #include "defs.h"
-#include <stdio.h>
 
 
 uint32_t currentTime = 0;

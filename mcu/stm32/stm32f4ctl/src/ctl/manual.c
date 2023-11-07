@@ -86,19 +86,19 @@ void parse_ctl() {
 
 void logic() {
     if ((chState == 1) && (millis() - startTime > 300)) {
-        throttle = 35000;
+        throttle = 350;
         chState ++;
     }
     if ((chState == 2) && (millis() - startTime > 600)) {
-        throttle = 40000;
+        throttle = 400;
         chState ++;
     }
     if ((chState == 3) && (millis() - startTime > 2600)) {
-        throttle = 35000;
+        throttle = 350;
         chState ++;
     }
     if ((chState == 4) && (millis() - startTime > 3600)) {
-        throttle = 30000;
+        throttle = 300;
         chState ++;
     }
     if (millis() - startTime > 5000) {
@@ -114,6 +114,7 @@ void tlmtr() {
             printf("[%7d]\n", ctime);
             printf("acADC %5d %5d %5d\n", accADC[0], accADC[1], accADC[2]);
             printf("grADC %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
+            printf("throttle %d\n", throttle);
             ptime = ctime;
         }
 }

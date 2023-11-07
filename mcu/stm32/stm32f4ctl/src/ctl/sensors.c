@@ -1,7 +1,6 @@
 #include <math.h>
 #include <stdint.h>
 #include "defs.h"
-#include <stdio.h>
 
 int16_t gyroADC[3];
 uint16_t calibratingG = 0;

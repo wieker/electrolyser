@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include "stm32f4xx.h"
-
 #include "../ctl/defs.h"
+
+#include "stm32f4xx.h"
 
 void USART1Init(void)
 {
