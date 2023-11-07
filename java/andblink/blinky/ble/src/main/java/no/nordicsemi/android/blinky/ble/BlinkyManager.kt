@@ -23,6 +23,8 @@ import no.nordicsemi.android.blinky.ble.data.LedData
 import no.nordicsemi.android.blinky.spec.Blinky
 import no.nordicsemi.android.blinky.spec.BlinkySpec
 import timber.log.Timber
+import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlin.concurrent.write
 import kotlin.math.floor
 
 class BlinkyManager(
@@ -149,11 +151,19 @@ private class BlinkyManagerImpl(
         ).suspend()
     }
 
-    override suspend fun turnThrottle(v: Float) {
-        // Write the value to the characteristic.
-        sendCmd("t" + floor(v * 100))
+    val lock = ReentrantReadWriteLock()
 
-        _sliderPos.value = v
+    override suspend fun turnThrottle(v: Float) {
+        if (lock.writeLock().tryLock()) {
+            try {
+                // Write the value to the characteristic.
+                sendCmd("t" + floor(v * 100))
+
+                _sliderPos.value = v
+            } finally {
+                lock.writeLock().unlock()
+            }
+        }
     }
 
     override fun log(priority: Int, message: String) {
