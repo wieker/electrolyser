@@ -580,7 +580,7 @@ static void uart_irq_handler(NRF_UART_Type *        p_uart,
              nrf_uart_event_check(p_uart, NRF_UART_EVENT_RXDRDY))
     {
         rx_byte(p_uart, p_cb);
-        char c = p_cb->p_rx_buffer[p_cb->rx_counter];
+        char c = p_cb->p_rx_buffer[p_cb->rx_counter - 1];
         if (p_cb->rx_buffer_length == p_cb->rx_counter || c == '\n')
         {
             if (p_cb->rx_secondary_buffer_length)

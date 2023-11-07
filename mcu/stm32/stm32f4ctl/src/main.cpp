@@ -25,7 +25,24 @@ extern "C" int main()
   GPIO_WriteBit(GPIOC, GPIO_Pin_13, Bit_SET);
 
   USART1Init();
-  main_loop();
+  imuInit();
+  mixerInit();
+  //main_loop();
+   while (1)
+  {
+    int count = millis();
+    while ((millis() - count) < 1000) ;
+    printf("helllo ddddddddddddddddddddddd\r\n");
+    char n = getchar();
+    if (0xFF != n) {
+      printf("PWM =%c\r\n", n);
+    }
+    computeIMU();
+    count = millis();
+    while ((millis() - count) < 1000) ;
+    /* USER CODE END WHILE */
+    /* USER CODE BEGIN 3 */
+  }
 
 
   return 0;
