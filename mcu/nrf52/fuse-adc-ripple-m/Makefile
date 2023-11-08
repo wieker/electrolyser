@@ -59,7 +59,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/ble/nrf_ble_qwr/nrf_ble_qwr.c \
   $(SDK_ROOT)/external/utf_converter/utf.c \
   ble_lbs.c \
-  ../common/nrf_local_adc.c \
+  adc_logic.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_ble.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_soc.c \
@@ -125,7 +125,6 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/crc16 \
   $(SDK_ROOT)/components/libraries/util \
   . \
-  ../common/ \
   $(SDK_ROOT)/components/libraries/usbd/class/cdc \
   $(SDK_ROOT)/components/libraries/csense \
   $(SDK_ROOT)/components/libraries/balloc \
@@ -276,7 +275,7 @@ flash_softdevice:
 erase:
 	nrfjprog -f nrf52 --eraseall
 
-SDK_CONFIG_FILE := ../config/sdk_config.h
+SDK_CONFIG_FILE := sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
 sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)

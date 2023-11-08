@@ -69,7 +69,7 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
-#include <nrf_local_adc.h>
+#include "adc_logic.h"
 #include <legacy/nrf_drv_uart.h>
 
 
