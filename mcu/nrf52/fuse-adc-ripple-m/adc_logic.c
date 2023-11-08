@@ -27,6 +27,7 @@
 volatile uint8_t state = 1;
 
 static const nrf_drv_timer_t m_timer = NRF_DRV_TIMER_INSTANCE(1);
+static const nrf_drv_timer_t m_timer2 = NRF_DRV_TIMER_INSTANCE(2);
 nrf_saadc_value_t     m_buffer_pool[2][SAMPLES_IN_BUFFER];
 static nrf_ppi_channel_t     m_ppi_channel;
 static uint32_t              m_adc_evt_counter;
@@ -41,6 +42,7 @@ void saadc_sampling_event_init(void)
   nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
   timer_cfg.bit_width = NRF_TIMER_BIT_WIDTH_32;
   nrf_drv_timer_init(&m_timer, &timer_cfg, timer_handler);
+  nrf_drv_timer_init(&m_timer2, &timer_cfg, timer_handler);
 
   /* setup m_timer for compare event every 400ms */
   uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer, 1000);
@@ -49,13 +51,14 @@ void saadc_sampling_event_init(void)
                                  ticks,
                                  NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
                                  false);
-  ticks = nrf_drv_timer_ms_to_ticks(&m_timer, 20);
-  nrf_drv_timer_extended_compare(&m_timer,
+  ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 200);
+  nrf_drv_timer_extended_compare(&m_timer2,
                                  NRF_TIMER_CC_CHANNEL1,
                                  ticks,
                                  NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK,
                                  true);
   nrf_drv_timer_enable(&m_timer);
+  nrf_drv_timer_enable(&m_timer2);
 
   uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer,
                                                                               NRF_TIMER_CC_CHANNEL0);
@@ -85,7 +88,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
             nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
 
     int i;
-    //send_adc(m_buffer_pool[0]);
+    send_adc(m_buffer_pool[0]);
 
     for (i = 0; i < SAMPLES_IN_BUFFER; i++)
     {

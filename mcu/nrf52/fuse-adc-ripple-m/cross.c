@@ -76,6 +76,8 @@ void uart_init()
 
 void send_adc(nrf_saadc_value_t *vls)
 {
+    ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 20, "0987654321098765432\n");
+    return;
     ret_code_t err_code;
     err_code = ble_lbs_on_adc_timer(m_conn_handle, &m_lbs, vls[0]);
     if (err_code != NRF_SUCCESS &&
@@ -96,7 +98,7 @@ void timer_handler(nrf_timer_event_t event_type, void * p_context)
     switch (event_type)
     {
         case NRF_TIMER_EVENT_COMPARE1:
-            ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 20, "0987654321098765432\n");
+            ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 4, "zzz\n");
             break;
 
         default:
