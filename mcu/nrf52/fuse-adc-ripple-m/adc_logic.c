@@ -51,7 +51,7 @@ void saadc_sampling_event_init(void)
                                  ticks,
                                  NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
                                  false);
-  ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 2000);
+  ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 1000);
   nrf_drv_timer_extended_compare(&m_timer2,
                                  NRF_TIMER_CC_CHANNEL1,
                                  ticks,
@@ -84,7 +84,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 {
   if (p_event->type == NRF_DRV_SAADC_EVT_DONE)
   {
-            //nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
+            nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
 
             send_adc(m_buffer_pool[0]);
   }
