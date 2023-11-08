@@ -151,18 +151,7 @@ private class BlinkyManagerImpl(
         ).suspend()
     }
 
-    val lock = ReentrantReadWriteLock()
-
     override suspend fun turnThrottle(v: Float) {
-        if (lock.writeLock().tryLock()) {
-            try {
-                // Write the value to the characteristic.
-                sendCmd("t" + floor(v * 100))
-            } finally {
-                lock.writeLock().unlock()
-            }
-        }
-
         _sliderPos.value = v
     }
 
@@ -263,6 +252,22 @@ private class BlinkyManagerImpl(
         readCharacteristic(ledCharacteristic)
             .with(ledCallback)
             .enqueue()
+
+        Thread {
+            while (true) {
+
+                try {
+                    writeCharacteristic(
+                        txCharacteristic,
+                        Data.from("t" + floor(_sliderPos.value * 100)),
+                        BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+                    ).enqueue()
+
+                    Thread.sleep(100)
+                } finally {
+                }
+            }
+        }.start()
     }
 
     override fun onServicesInvalidated() {
