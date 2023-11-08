@@ -49,6 +49,7 @@ void saadc_sampling_event_init(void)
                                  ticks,
                                  NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
                                  false);
+  ticks = nrf_drv_timer_ms_to_ticks(&m_timer, 20);
   nrf_drv_timer_extended_compare(&m_timer,
                                  NRF_TIMER_CC_CHANNEL1,
                                  ticks,
