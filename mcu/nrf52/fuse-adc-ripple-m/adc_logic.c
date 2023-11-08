@@ -31,12 +31,7 @@ nrf_saadc_value_t     m_buffer_pool[2][SAMPLES_IN_BUFFER];
 static nrf_ppi_channel_t     m_ppi_channel;
 static uint32_t              m_adc_evt_counter;
 
-
-void timer_handler(nrf_timer_event_t event_type, void * p_context)
-{
-
-}
-
+timer_handler(nrf_timer_event_t event_type, void * p_context);
 
 void saadc_sampling_event_init(void)
 {
@@ -54,6 +49,11 @@ void saadc_sampling_event_init(void)
                                  ticks,
                                  NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
                                  false);
+  nrf_drv_timer_extended_compare(&m_timer,
+                                 NRF_TIMER_CC_CHANNEL1,
+                                 ticks,
+                                 NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK,
+                                 true);
   nrf_drv_timer_enable(&m_timer);
 
   uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer,
@@ -84,7 +84,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
             nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
 
     int i;
-    send_adc(m_buffer_pool[0]);
+    //send_adc(m_buffer_pool[0]);
 
     for (i = 0; i < SAMPLES_IN_BUFFER; i++)
     {

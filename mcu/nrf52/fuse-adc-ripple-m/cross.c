@@ -53,7 +53,7 @@ static void evh(nrfx_uart_event_t const * p_event,
          void *                    p_context)
 {
     if (p_event->type == 1) {
-        ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, p_event->data.rxtx.bytes, p_event->data.rxtx.p_data);
+        //ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, p_event->data.rxtx.bytes, p_event->data.rxtx.p_data);
     }
     nrfx_uart_rx(&m_uart.uart, p_event->data.rxtx.p_data, 20);
 }
@@ -84,5 +84,23 @@ void send_adc(nrf_saadc_value_t *vls)
         err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING)
     {
         APP_ERROR_CHECK(err_code);
+    }
+}
+
+
+#include "nrf_drv_timer.h"
+void timer_handler(nrf_timer_event_t event_type, void * p_context)
+{
+    static uint32_t i;
+
+    switch (event_type)
+    {
+        case NRF_TIMER_EVENT_COMPARE1:
+            ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 20, "0987654321098765432\n");
+            break;
+
+        default:
+            //Do nothing.
+            break;
     }
 }
