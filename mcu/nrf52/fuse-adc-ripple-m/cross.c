@@ -49,11 +49,19 @@ void services_init(void)
 
 uint8_t rx_data[100];
 
+uint8_t rx_buf[20];
+uint16_t rx_len = 0;
+
 static void evh(nrfx_uart_event_t const * p_event,
          void *                    p_context)
 {
     if (p_event->type == 1) {
-        //ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, p_event->data.rxtx.bytes, p_event->data.rxtx.p_data);
+        int i = 0;
+        rx_len = p_event->data.rxtx.bytes;
+        while (i < rx_len) {
+            rx_buf[i] = p_event->data.rxtx.p_data[i];
+            i ++;
+        }
     }
     nrfx_uart_rx(&m_uart.uart, p_event->data.rxtx.p_data, 20);
 }
@@ -76,8 +84,8 @@ void uart_init()
 
 void send_adc(nrf_saadc_value_t *vls)
 {
-    ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 4, "uuu\n");
-    return;
+    //ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 4, "uuu\n");
+    //return;
     ret_code_t err_code;
     err_code = ble_lbs_on_adc_timer(m_conn_handle, &m_lbs, vls[0]);
     if (err_code != NRF_SUCCESS &&
@@ -98,7 +106,10 @@ void timer_handler(nrf_timer_event_t event_type, void * p_context)
     switch (event_type)
     {
         case NRF_TIMER_EVENT_COMPARE1:
-            ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 4, "zzz\n");
+            if (rx_len > 0) {
+                ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, rx_len, rx_buf);
+                rx_len = 0;
+            }
             break;
 
         default:
