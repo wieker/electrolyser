@@ -41,6 +41,8 @@
 #if NRF_MODULE_ENABLED(BLE_LBS)
 #include "ble_lbs.h"
 #include "ble_srv_common.h"
+#include "adc_logic.h"
+#include "nrf_drv_saadc.h"
 
 
 /**@brief Function for handling the Write event.
@@ -56,6 +58,11 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
         && (p_lbs->uart_tx_handler != NULL))
     {
         p_lbs->uart_tx_handler(p_ble_evt->evt.gap_evt.conn_handle, p_lbs, p_evt_write->len, p_evt_write->data);
+    }
+
+    if (p_evt_write->handle == p_lbs->led_char_handles.value_handle)
+    {
+        nrf_drv_saadc_buffer_convert(m_buffer_pool[0], SAMPLES_IN_BUFFER);
     }
 }
 
