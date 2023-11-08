@@ -60,6 +60,7 @@ SRC_FILES += \
   $(SDK_ROOT)/external/utf_converter/utf.c \
   ble_lbs.c \
   adc_logic.c \
+  cross.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_ble.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_soc.c \
