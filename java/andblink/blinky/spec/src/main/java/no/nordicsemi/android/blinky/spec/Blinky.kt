@@ -44,7 +44,7 @@ interface Blinky {
      *
      * @param state the new state of the LED.
      */
-    suspend fun turnLed(state: Boolean)
+    suspend fun turnADC(state: Boolean)
     suspend fun sendCmd(cmd: String)
     suspend fun sendCmd(cmd: ByteArray)
     suspend fun turnThrottle(v: Float)

@@ -121,7 +121,7 @@ private class BlinkyManagerImpl(
         }
     }
 
-    override suspend fun turnLed(state: Boolean) {
+    override suspend fun turnADC(state: Boolean) {
         // Write the value to the characteristic.
         writeCharacteristic(
             ledCharacteristic,

@@ -15,7 +15,6 @@ import no.nordicsemi.android.blinky.ui.control.repository.BlinkyRepository
 import no.nordicsemi.android.common.logger.LoggerLauncher
 import javax.inject.Inject
 import javax.inject.Named
-import kotlin.math.floor
 
 /**
  * The view model for the Blinky screen.
@@ -68,12 +67,12 @@ class BlinkyViewModel @Inject constructor(
      * Sends a command to the device to toggle the LED state.
      * @param on The new state of the LED.
      */
-    fun turnLed(on: Boolean) {
+    fun turnADC(on: Boolean) {
         val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             // Just like above, when this method throws an exception, it will be caught by the
             // exception handler and ignored.
-            repository.turnLed(on)
+            repository.turnADC(on)
         }
     }
     fun turnThrottle(v: Float) {

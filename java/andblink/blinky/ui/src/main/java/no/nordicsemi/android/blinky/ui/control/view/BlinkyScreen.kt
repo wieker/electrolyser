@@ -69,7 +69,7 @@ internal fun BlinkyScreen(
                         ledState = ledState,
                         sliderPosition = sliderPosition,
                         adcState = adcState,
-                        onStateChanged = { viewModel.turnLed(it) },
+                        turnADC = { viewModel.turnADC(it) },
                         modifier = Modifier
                             .widthIn(max = 460.dp)
                             .verticalScroll(rememberScrollState())

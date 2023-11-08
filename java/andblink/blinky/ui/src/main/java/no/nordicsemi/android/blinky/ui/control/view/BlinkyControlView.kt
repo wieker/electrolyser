@@ -22,7 +22,7 @@ internal fun BlinkyControlView(
     ledState: Boolean,
     sliderPosition: Float,
     adcState: Int,
-    onStateChanged: (Boolean) -> Unit,
+    turnADC: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     dump: String,
     throttleValue: (Float) -> Unit,
@@ -35,7 +35,7 @@ internal fun BlinkyControlView(
     ) {
         LedControlView(
             state = ledState,
-            onStateChanged = onStateChanged,
+            turnADC = turnADC,
         )
 
         Row {
