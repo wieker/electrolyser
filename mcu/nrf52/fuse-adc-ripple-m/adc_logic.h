@@ -7,7 +7,7 @@
 
 #include <hal/nrf_saadc.h>
 
-#define SAMPLES_IN_BUFFER 5
+#define SAMPLES_IN_BUFFER 6
 
 extern nrf_saadc_value_t     m_buffer_pool[2][SAMPLES_IN_BUFFER];
 
