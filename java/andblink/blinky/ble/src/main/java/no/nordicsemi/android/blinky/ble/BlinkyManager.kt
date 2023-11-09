@@ -262,10 +262,13 @@ private class BlinkyManagerImpl(
                         Timber.log(10, "trylock");
                         if (lock.tryAcquire()) {
                             try {
+                                var a = ByteArray(2)
+                                a[0] = 't'.code.toByte()
+                                a[1] = floor(_sliderPos.value * 100).toInt().toByte()
                                 Timber.log(10, "locked");
                                 writeCharacteristic(
                                     txCharacteristic,
-                                    Data.from("t" + (floor(_sliderPos.value * 100)).toInt() + ".\n"),
+                                    Data(a),
                                     BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
                                 )
                                     .then { lock.release() }

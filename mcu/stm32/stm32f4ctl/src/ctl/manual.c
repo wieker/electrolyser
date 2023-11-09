@@ -83,14 +83,12 @@ void read_throttle() {
     int nt = 0;
     while (millis() - ctime < 1000) {
         char ch = getchar();
-        if ('.' == ch) {
-            break;
-        }
-        if (ch >= '0' && ch <= '9') {
-            nt = nt * 10 + (ch - '0');
+        if (ch >= 0 && ch <= 100) {
+            throttle = ch * 10;
+            return;
         }
     }
-    throttle = nt * 10;
+    stopMotors();
 }
 
 void parse_ctl() {
