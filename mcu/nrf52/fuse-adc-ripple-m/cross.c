@@ -64,6 +64,8 @@ static void evh(nrfx_uart_event_t const * p_event,
             rx_buf[buf_index][i] = p_event->data.rxtx.p_data[i];
             i ++;
         }
+        rx_buf[buf_index][0] = '0' + buf_index;
+        rx_buf[buf_index][1] = 'Z';
         buf_index = (buf_index + 1) % 20;
     }
     nrfx_uart_rx(&m_uart.uart, p_event->data.rxtx.p_data, 20);
