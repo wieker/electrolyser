@@ -49,19 +49,22 @@ void services_init(void)
 
 uint8_t rx_data[100];
 
-uint8_t rx_buf[20];
-uint16_t rx_len = 0;
+uint8_t rx_buf[20][20];
+uint16_t rx_len[20];
+int buf_index = 0;
+int buf_read_index = 0;
 
 static void evh(nrfx_uart_event_t const * p_event,
          void *                    p_context)
 {
     if (p_event->type == 1) {
         int i = 0;
-        rx_len = p_event->data.rxtx.bytes;
-        while (i < rx_len) {
-            rx_buf[i] = p_event->data.rxtx.p_data[i];
+        rx_len[buf_index] = p_event->data.rxtx.bytes;
+        while (i < p_event->data.rxtx.bytes) {
+            rx_buf[buf_index][i] = p_event->data.rxtx.p_data[i];
             i ++;
         }
+        buf_index = (buf_index + 1) % 20;
     }
     nrfx_uart_rx(&m_uart.uart, p_event->data.rxtx.p_data, 20);
 }
@@ -106,10 +109,11 @@ void timer_handler(nrf_timer_event_t event_type, void * p_context)
     switch (event_type)
     {
         case NRF_TIMER_EVENT_COMPARE1:
-            if (rx_len > 0) {
-                ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, rx_len, rx_buf);
-                rx_len = 0;
+            if (rx_len[buf_read_index] > 0) {
+                ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, rx_len[buf_read_index], rx_buf[buf_read_index]);
+                rx_len[buf_read_index] = 0;
             }
+            buf_read_index = (buf_read_index + 1) % 20;
             break;
 
         default:
