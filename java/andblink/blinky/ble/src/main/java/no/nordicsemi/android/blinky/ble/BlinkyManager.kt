@@ -261,14 +261,19 @@ private class BlinkyManagerImpl(
                     if (oldV != _sliderPos.value) {
                         Timber.log(10, "trylock");
                         if (lock.tryAcquire()) {
-                            Timber.log(10, "locked");
-                            writeCharacteristic(
-                                txCharacteristic,
-                                Data.from("t" + floor(_sliderPos.value * 100) + "\n"),
-                                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-                            )
-                                .then { lock.release() }
-                                .enqueue()
+                            try {
+                                Timber.log(10, "locked");
+                                writeCharacteristic(
+                                    txCharacteristic,
+                                    Data.from("t" + floor(_sliderPos.value * 100) + "\n"),
+                                    BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+                                )
+                                    .then { lock.release() }
+                                    .invalid { lock.release() }
+                                    .enqueue()
+                            } finally {
+
+                            }
                             oldV = _sliderPos.value
                         }
                     }
