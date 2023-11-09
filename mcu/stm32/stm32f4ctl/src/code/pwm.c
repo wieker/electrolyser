@@ -42,7 +42,7 @@ void configure_pwm() {
     uint8_t mhz = 1;
 	uint8_t freq = 50;
     uint16_t period = mhz * 1000000 / freq;
-	uint16_t PrescalerValue = (uint16_t)(SystemCoreClock / 2 / ((uint32_t)mhz * 1000000)) - 1;;
+	uint16_t PrescalerValue = (uint16_t)(SystemCoreClock / ((uint32_t)mhz * 1000000)) - 1;;
 
 	TIM_TimeBaseInitStructure.TIM_Period = period - 1;
 	TIM_TimeBaseInitStructure.TIM_Prescaler = PrescalerValue;

@@ -70,7 +70,7 @@ void big_switch(char ch) {
             break;
         }
         case 'm': {
-            throttle = 300;
+            throttle = -10;
             chState = 1;
             startTime = millis();
             break;
