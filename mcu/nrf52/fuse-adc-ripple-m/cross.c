@@ -112,8 +112,8 @@ void timer_handler(nrf_timer_event_t event_type, void * p_context)
             if (rx_len[buf_read_index] > 0) {
                 ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, rx_len[buf_read_index], rx_buf[buf_read_index]);
                 rx_len[buf_read_index] = 0;
+                buf_read_index = (buf_read_index + 1) % 20;
             }
-            buf_read_index = (buf_read_index + 1) % 20;
             break;
 
         default:
