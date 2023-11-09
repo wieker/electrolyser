@@ -81,21 +81,24 @@ void big_switch(char ch) {
 void read_throttle() {
     int ctime = millis();
     int nt = 0;
-    // while (millis() - ctime < 1000) {
-    //     char ch = getchar();
-    //     if ('.' == ch) {
-    //         break;
-    //     }
-    //     if (ch >= '0' && ch <= '9') {
-    //         nt = nt * 10 + (ch - '0');
-    //     }
-    // }
+    while (millis() - ctime < 1000) {
+        char ch = getchar();
+        if ('.' == ch) {
+            break;
+        }
+        if (ch >= '0' && ch <= '9') {
+            nt = nt * 10 + (ch - '0');
+        }
+    }
     throttle = nt * 10;
 }
 
 void parse_ctl() {
 
         char ch = getchar();
+        if (0xFF != ch) {
+            printf("%c", ch);
+        }
         if ('t' == ch) {
             read_throttle();
         }
@@ -103,10 +106,10 @@ void parse_ctl() {
 }
 
 void logic() {
-    if (millis() - startTime > 5000) {
-        stopMotors();
-        chState = 0;
-    }
+    // if (millis() - startTime > 5000) {
+    //     stopMotors();
+    //     chState = 0;
+    // }
 }
 
 void tlmtr() {
@@ -114,8 +117,8 @@ void tlmtr() {
         static uint32_t ptime = 0;
         if (ctime - ptime > 1000) {
             printf("[%7d]\n", ctime);
-            printf("acADC %5d %5d %5d\n", accADC[0], accADC[1], accADC[2]);
-            printf("grADC %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
+            //printf("acADC %5d %5d %5d\n", accADC[0], accADC[1], accADC[2]);
+            //printf("grADC %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
             printf("throttle %d\n", throttle);
             ptime = ctime;
         }
