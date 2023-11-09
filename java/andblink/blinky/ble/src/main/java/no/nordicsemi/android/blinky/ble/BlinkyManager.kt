@@ -7,6 +7,7 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.sync.Semaphore
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.ktx.asValidResponseFlow
@@ -17,14 +18,12 @@ import no.nordicsemi.android.ble.ktx.suspend
 import no.nordicsemi.android.blinky.ble.data.ADCState
 import no.nordicsemi.android.blinky.ble.data.AdcCallback
 import no.nordicsemi.android.blinky.ble.data.ButtonCallback
-import no.nordicsemi.android.blinky.ble.data.ButtonState
 import no.nordicsemi.android.blinky.ble.data.LedCallback
 import no.nordicsemi.android.blinky.ble.data.LedData
 import no.nordicsemi.android.blinky.spec.Blinky
 import no.nordicsemi.android.blinky.spec.BlinkySpec
 import timber.log.Timber
 import java.util.concurrent.locks.ReentrantReadWriteLock
-import kotlin.concurrent.write
 import kotlin.math.floor
 
 class BlinkyManager(
@@ -54,6 +53,7 @@ private class BlinkyManagerImpl(
 
     private val _sliderPos = MutableStateFlow(0.5f)
     override val sliderPos = _sliderPos.asStateFlow()
+    var oldV = 0.5f
 
     private val _sliderProcess = MutableStateFlow(true)
     override val sliderProcess = _sliderProcess.asStateFlow()
@@ -215,6 +215,7 @@ private class BlinkyManagerImpl(
         Timber.log(10, "here");
 
     }
+    val lock = Semaphore(1)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun initialize() {
@@ -257,11 +258,20 @@ private class BlinkyManagerImpl(
             while (true) {
 
                 try {
-                    writeCharacteristic(
-                        txCharacteristic,
-                        Data.from("t" + floor(_sliderPos.value * 100)),
-                        BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-                    ).enqueue()
+                    Timber.log(10, "trylock");
+                    if (oldV != _sliderPos.value) {
+                        if (lock.tryAcquire()) {
+                            Timber.log(10, "locked");
+                            writeCharacteristic(
+                                txCharacteristic,
+                                Data.from("t" + floor(_sliderPos.value * 100)),
+                                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+                            )
+                                .then { lock.release() }
+                                .enqueue()
+                            oldV = _sliderPos.value
+                        }
+                    }
 
                     Thread.sleep(100)
                 } finally {
