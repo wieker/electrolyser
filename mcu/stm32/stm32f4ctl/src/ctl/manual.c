@@ -104,19 +104,19 @@ void parse_ctl() {
 }
 
 void logic() {
-    // if (millis() - startTime > 5000) {
-    //     stopMotors();
-    //     chState = 0;
-    // }
+    if (millis() - startTime > 5000) {
+        stopMotors();
+        chState = 0;
+    }
 }
 
 void tlmtr() {
         uint32_t ctime = millis();
         static uint32_t ptime = 0;
         if (ctime - ptime > 1000) {
-            printf("[%7d]\n", ctime);
-            //printf("acADC %5d %5d %5d\n", accADC[0], accADC[1], accADC[2]);
-            //printf("grADC %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
+            printf("[%3d]\n", ctime / 1000);
+            printf("acc %5d %5d %5d\n", accADC[0], accADC[1], accADC[2]);
+            printf("gyr %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
             printf("throttle %d\n", throttle);
             ptime = ctime;
         }
