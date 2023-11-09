@@ -265,7 +265,7 @@ private class BlinkyManagerImpl(
                                 Timber.log(10, "locked");
                                 writeCharacteristic(
                                     txCharacteristic,
-                                    Data.from("t" + floor(_sliderPos.value * 100) + "\n"),
+                                    Data.from("t" + (floor(_sliderPos.value * 100)).toInt() + ".\n"),
                                     BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
                                 )
                                     .then { lock.release() }
