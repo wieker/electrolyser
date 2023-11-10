@@ -52,8 +52,6 @@ void icm20689_read(int16_t *gyroData)
     gyroData[0] = tmp[0];
     gyroData[1] = tmp[2];
     gyroData[2] = - tmp[1];
-    uint32_t ctime = millis();
-    //printf("test %d\r\n", ctime);
     tmp[0] = (int16_t)((val[0] << 8) | val[1]) / 4;
     tmp[1] = (int16_t)((val[2] << 8) | val[3]) / 4;
     tmp[2] = (int16_t)((val[4] << 8) | val[5]) / 4;

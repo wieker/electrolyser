@@ -25,6 +25,7 @@ void spi_txrx(SPI_TypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Siz
 }
 
 uint8_t txrx[16];
+uint8_t txcmd[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 
 uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
     txrx[0] = reg;
@@ -34,8 +35,8 @@ uint8_t spi_xfer(uint8_t reg, uint8_t dt) {
 }
 
 uint8_t* spi_xfer15(uint8_t reg) {
-    txrx[0] = reg;
-    spi_txrx(SPI1, txrx, txrx, 15);
+    txcmd[0] = reg;
+    spi_txrx(SPI1, txcmd, txrx, 15);
     return &txrx[1];
 }
 
