@@ -110,7 +110,7 @@ void logic() {
         stopMotors();
         chState = 0;
     }
-    if (millis() - thTime > 500) {
+    if (millis() - thTime > 1000) {
         stopMotors();
         chState = 0;
     }
@@ -124,10 +124,9 @@ void tlmtr() {
         static uint32_t ptime = 0;
         if (ctime - ptime > 1000) {
             //printf("[%3d]\n", ctime / 1000);
-            //printf("angle %d %d\n", angle[0], angle[1]);
+            printf("angle %d %d\n", angle[0], angle[1]);
             //printf("gyr %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
-            //printf("throttle %d\n", throttle);
-            printf("\n");
+            printf("throttle %d\n", throttle);
             ptime = ctime;
         }
 }
