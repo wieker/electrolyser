@@ -4,6 +4,7 @@
 
 int32_t startTime;
 int32_t chState = 0;
+int32_t thTime = 0;
 
 void big_switch(char ch) {
     switch (ch) {
@@ -85,6 +86,7 @@ void read_throttle() {
         char ch = getchar();
         if (ch >= 0 && ch <= 100) {
             throttle = ch * 10;
+            thTime = millis();
             return;
         }
     }
@@ -107,6 +109,13 @@ void logic() {
     if (millis() - startTime > 30000) {
         stopMotors();
         chState = 0;
+    }
+    if (millis() - thTime > 500) {
+        stopMotors();
+        chState = 0;
+    }
+    if (chState == 0) {
+        stopMotors();
     }
 }
 

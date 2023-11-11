@@ -51,9 +51,9 @@ private class BlinkyManagerImpl(
     private val _adcState = MutableStateFlow(0)
     override val adcState = _adcState.asStateFlow()
 
-    private val _sliderPos = MutableStateFlow(0.5f)
+    private val _sliderPos = MutableStateFlow(0.0f)
     override val sliderPos = _sliderPos.asStateFlow()
-    var oldV = 0.5f
+    var oldV = 0.0f
 
     private val _sliderProcess = MutableStateFlow(true)
     override val sliderProcess = _sliderProcess.asStateFlow()
@@ -258,30 +258,27 @@ private class BlinkyManagerImpl(
             while (true) {
 
                 try {
-                    if (oldV != _sliderPos.value) {
-                        Timber.log(10, "trylock");
-                        if (lock.tryAcquire()) {
-                            try {
-                                var a = ByteArray(2)
-                                a[0] = 't'.code.toByte()
-                                a[1] = floor(_sliderPos.value * 100).toInt().toByte()
-                                Timber.log(10, "locked");
-                                writeCharacteristic(
-                                    txCharacteristic,
-                                    Data(a),
-                                    BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-                                )
-                                    .then { lock.release() }
-                                    .invalid { lock.release() }
-                                    .enqueue()
-                            } finally {
+                    if (lock.tryAcquire()) {
+                        try {
+                            var a = ByteArray(2)
+                            a[0] = 't'.code.toByte()
+                            a[1] = floor(_sliderPos.value * 100).toInt().toByte()
+                            Timber.log(10, "locked");
+                            writeCharacteristic(
+                                txCharacteristic,
+                                Data(a),
+                                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+                            )
+                                .then { lock.release() }
+                                .invalid { lock.release() }
+                                .enqueue()
+                        } finally {
 
-                            }
-                            oldV = _sliderPos.value
                         }
+                        oldV = _sliderPos.value
                     }
 
-                    Thread.sleep(10)
+                    Thread.sleep(100)
                 } finally {
                 }
             }

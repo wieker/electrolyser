@@ -40,7 +40,7 @@ class BlinkyViewModel @Inject constructor(
     val buttonState = repository.loggedButtonState
         .stateIn(viewModelScope, SharingStarted.Lazily, false)
     val sliderPos = repository.sliderPos
-        .stateIn(viewModelScope, SharingStarted.Lazily, 0.5f)
+        .stateIn(viewModelScope, SharingStarted.Lazily, 0.0f)
     val adcState = repository.loggedADCState
         .stateIn(viewModelScope, SharingStarted.Lazily, 10)
     val dump = repository.dump.stateIn(viewModelScope, SharingStarted.Lazily, "v")
