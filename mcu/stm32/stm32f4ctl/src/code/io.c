@@ -56,3 +56,10 @@ int _read(int handle, char* data, int size) {
 	return -1;
 }
 
+int uart_read() {
+	if (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == SET) {
+        return (int) USART_ReceiveData(USART1);
+	}
+	return 0xFF;
+}
+

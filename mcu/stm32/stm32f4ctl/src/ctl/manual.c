@@ -83,7 +83,7 @@ void read_throttle() {
     int ctime = millis();
     int nt = 0;
     while (millis() - ctime < 1000) {
-        char ch = getchar();
+        char ch = uart_read();
         if (ch >= 0 && ch <= 100) {
             throttle = ch * 10;
             thTime = millis();
@@ -95,7 +95,7 @@ void read_throttle() {
 
 void parse_ctl() {
 
-        char ch = getchar();
+        char ch = uart_read();
         if (0xFF != ch) {
             printf("%c", ch);
         }
@@ -124,9 +124,10 @@ void tlmtr() {
         static uint32_t ptime = 0;
         if (ctime - ptime > 1000) {
             //printf("[%3d]\n", ctime / 1000);
-            printf("angle %d %d\n", angle[0], angle[1]);
+            //printf("angle %d %d\n", angle[0], angle[1]);
             //printf("gyr %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
-            printf("throttle %d\n", throttle);
+            //printf("throttle %d\n", throttle);
+            printf("\n");
             ptime = ctime;
         }
 }
