@@ -86,5 +86,3 @@ void configure_pwm();
 void writePWM(void);
 
 void manual();
-
-int uart_read();

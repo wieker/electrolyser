@@ -83,7 +83,7 @@ void read_throttle() {
     int ctime = millis();
     int nt = 0;
     while (millis() - ctime < 1000) {
-        char ch = uart_read();
+        char ch = getchar();
         if (ch >= 0 && ch <= 100) {
             throttle = ch * 10;
             thTime = millis();
@@ -95,7 +95,7 @@ void read_throttle() {
 
 void parse_ctl() {
 
-        char ch = uart_read();
+        char ch = getchar();
         if (0xFF != ch) {
             printf("%c", ch);
         }
