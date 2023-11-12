@@ -49,6 +49,9 @@ int _write(int handle, char* data, int size) {
 }
 
 int _read(int handle, char* data, int size) {
+    if (USART_GetFlagStatus(USART1, USART_FLAG_ORE) == SET) {
+        data[0] = (int) USART_ReceiveData(USART1);
+    }
 	if (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == SET) {
         data[0] = (int) USART_ReceiveData(USART1);
 		return 1;
