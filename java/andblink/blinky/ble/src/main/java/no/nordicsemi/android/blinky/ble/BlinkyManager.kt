@@ -211,6 +211,7 @@ private class BlinkyManagerImpl(
             cv = cs + '\n' + cv
             cs = lines[i]
         }
+        cv = cv.substring(0, 200)
         dumpV.tryEmit(cs + '\n' + cv)
         Timber.log(10, "here");
 
