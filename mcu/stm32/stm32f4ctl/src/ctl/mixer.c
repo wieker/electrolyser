@@ -23,7 +23,7 @@ static motorMixer_t currentMixer[MAX_MOTORS];
 int16_t motor_disarmed[MAX_MOTORS];
 
 #define LOW_PWM 1000
-#define INIT_THR (-300)
+#define INIT_THR (-10)
 
 int32_t throttle = INIT_THR;
 
@@ -67,10 +67,11 @@ void mixTable(void)
     // motors for non-servo mixes
     if (numberMotor > 1) {
         for (i = 0; i < numberMotor; i++) {
-            motor[i] = LOW_PWM + throttle * mixerQuadX[i].throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
-            //motor[i] = Chip_SCTPWM_GetTicksPerCycle(SCT_PWM)/25;
-            //DEBUGOUT("PWM write %d: %d %f %f %f\r\n", i, throttle, axisPID[PITCH] * mixerQuadX[i].pitch,
-            //         axisPID[ROLL] * mixerQuadX[i].roll, axisPID[YAW] * mixerQuadX[i].yaw);
+            if (throttle >= 0) {
+                motor[i] = LOW_PWM + throttle * mixerQuadX[i].throttle + axisPID[PITCH] * mixerQuadX[i].pitch + axisPID[ROLL] * mixerQuadX[i].roll + axisPID[YAW] * mixerQuadX[i].yaw;
+            } else {
+                motor[i] = LOW_PWM + throttle;
+            }
         }
     }
 }

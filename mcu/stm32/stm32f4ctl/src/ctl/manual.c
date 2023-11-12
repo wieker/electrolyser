@@ -10,7 +10,6 @@ void big_switch(char ch) {
     switch (ch) {
         case '=': {
             throttle += 50;
-            //chState = 1;
             break;
         }
         case '-': {

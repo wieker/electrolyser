@@ -62,7 +62,7 @@ internal fun BlinkyControlView(
             Button(onClick = { commandValue("v") }) {
                 Text(text = "Zero")
             }
-            Button(onClick = { commandValue("v") }) {
+            Button(onClick = { commandValue("0") }) {
                 Text(text = "Stop")
             }
             Button(onClick = { commandValue("-") }) {
