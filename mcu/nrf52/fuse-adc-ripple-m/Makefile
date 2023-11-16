@@ -61,6 +61,7 @@ SRC_FILES += \
   ble_lbs.c \
   adc_logic.c \
   cross.c \
+  timer_logic.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_ble.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_soc.c \

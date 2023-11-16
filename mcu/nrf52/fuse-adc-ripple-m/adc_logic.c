@@ -64,58 +64,6 @@ void saadc_sampling_event_init(void)
                              saadc_sample_task_addr);
 }
 
-// Peripheral channel assignments
-#define PWM0_GPIOTE_CH      0
-#define PWM0_PPI_CH_A       0
-#define PWM0_PPI_CH_B       1
-#define PWM0_TIMER_CC_NUM   0
-
-#define PWM1_GPIOTE_CH      1
-#define PWM1_PPI_CH_A       2
-#define PWM1_TIMER_CC_NUM   1
-
-#define PWMN_GPIOTE_CH      {PWM0_GPIOTE_CH, PWM1_GPIOTE_CH, 2, 3, 4}
-#define PWMN_PPI_CH_A       {PWM0_PPI_CH_A, PWM1_PPI_CH_A, 3, 5, 6}
-#define PWMN_PPI_CH_B       {PWM0_PPI_CH_B, PWM0_PPI_CH_B, 4, 4, 7}
-#define PWMN_TIMER_CC_NUM   {PWM0_TIMER_CC_NUM, PWM1_TIMER_CC_NUM, 2, 3, 4}
-
-static uint32_t pwmN_gpiote_ch[]    = PWMN_GPIOTE_CH;
-static uint32_t pwmN_ppi_ch_a[]     = PWMN_PPI_CH_A;
-static uint32_t pwmN_ppi_ch_b[]     = PWMN_PPI_CH_B;
-static uint32_t pwmN_timer_cc_num[] = PWMN_TIMER_CC_NUM;
-
-// TIMER3 reload value. The PWM frequency equals '16000000 / TIMER_RELOAD'
-#define TIMER_RELOAD        (500 * 16000ULL)
-// The timer CC register used to reset the timer. Be aware that not all timers in the nRF52 have 6 CC registers.
-#define TIMER_RELOAD_CC_NUM 5
-
-void burst_mode_init(void)
-{
-    NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos;
-    NRF_TIMER1->PRESCALER               = 0;
-    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE0_CLEAR_Msk << TIMER_RELOAD_CC_NUM;
-    NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
-    NRF_TIMER1->CC[TIMER_RELOAD_CC_NUM] = TIMER_RELOAD;
-
-    NRF_P0->DIRSET = 1 << 17 | 1 << 18 | 1 << 19 | 1 << 20;
-
-    NRF_GPIOTE->CONFIG[PWM0_GPIOTE_CH] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
-                                         GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-                                         17 << GPIOTE_CONFIG_PSEL_Pos |
-                                         GPIOTE_CONFIG_OUTINIT_High << GPIOTE_CONFIG_OUTINIT_Pos;
-
-    NRF_PPI->CH[PWM0_PPI_CH_A].EEP = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[PWM0_TIMER_CC_NUM];
-    NRF_PPI->CH[PWM0_PPI_CH_A].TEP = (uint32_t)&NRF_GPIOTE->TASKS_CLR[PWM0_GPIOTE_CH];
-    NRF_PPI->CH[PWM0_PPI_CH_B].EEP = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[TIMER_RELOAD_CC_NUM];
-    NRF_PPI->CH[PWM0_PPI_CH_B].TEP = (uint32_t)&NRF_GPIOTE->TASKS_SET[PWM0_GPIOTE_CH];
-
-    NRF_PPI->CHENSET               = (1 << PWM0_PPI_CH_A) | (1 << PWM0_PPI_CH_B);
-
-    NRF_TIMER1->TASKS_START = 1;
-
-    NRF_TIMER1->CC[PWM0_TIMER_CC_NUM] = 50 * 16000ULL;
-}
-
 void uart_buf_timer_init(void)
 {
 
