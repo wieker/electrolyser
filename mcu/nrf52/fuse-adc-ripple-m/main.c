@@ -467,6 +467,7 @@ int main(void)
     saadc_init();
     saadc_sampling_event_init();
     saadc_sampling_event_enable();
+    uart_buf_timer_init();
 
 
     // Start execution.

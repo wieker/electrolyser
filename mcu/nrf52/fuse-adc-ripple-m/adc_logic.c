@@ -89,14 +89,29 @@ void saadc_sampling_event_enable(void)
 
 void send_adc(nrf_saadc_value_t *vls);
 
+int mode = 0;
+/*
+ * Two modes:
+ * 1. continous 1-sec shoot.
+ * Store values for 1-sec, 1-min, 10-minutes, last hour, 6-hour, 24 hour
+ * 2. fast 20-ms timer2 burst for 500 ms
+ * use timer1 CC1 / CC2 to switch on / off GPIO during the ADC interval
+ * */
+
 void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 {
   if (p_event->type == NRF_DRV_SAADC_EVT_DONE)
   {
-            nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
+            if (mode == 0) {
+              nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
+            }
 
             send_adc(m_buffer_pool[0]);
   }
+}
+
+void change_mode(int new_mode) {
+
 }
 
 
@@ -115,7 +130,7 @@ void saadc_init(void)
 
   nrfx_saadc_channel_init(0, &channel_config_V);
 
-  nrfx_saadc_channel_init(1, &channel_config_I);
+  //nrfx_saadc_channel_init(1, &channel_config_I);
 
   nrfx_saadc_buffer_convert(m_buffer_pool[0], SAMPLES_IN_BUFFER);
 

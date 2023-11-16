@@ -15,4 +15,6 @@ void saadc_sampling_event_init(void);
 void saadc_sampling_event_enable(void);
 void saadc_init(void);
 
+void uart_buf_timer_init(void);
+
 #endif //RF_UART_NRF_LOCAL_ADC_H
