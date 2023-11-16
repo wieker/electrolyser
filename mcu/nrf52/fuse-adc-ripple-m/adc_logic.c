@@ -42,7 +42,6 @@ void saadc_sampling_event_init(void)
   nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
   timer_cfg.bit_width = NRF_TIMER_BIT_WIDTH_32;
   nrf_drv_timer_init(&m_timer, &timer_cfg, timer_handler);
-  nrf_drv_timer_init(&m_timer2, &timer_cfg, timer_handler);
 
   /* setup m_timer for compare event every 400ms */
   uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer, 1000);
@@ -51,14 +50,7 @@ void saadc_sampling_event_init(void)
                                  ticks,
                                  NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
                                  false);
-  ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 20);
-  nrf_drv_timer_extended_compare(&m_timer2,
-                                 NRF_TIMER_CC_CHANNEL1,
-                                 ticks,
-                                 NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK,
-                                 true);
   nrf_drv_timer_enable(&m_timer);
-  nrf_drv_timer_enable(&m_timer2);
 
   uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer,
                                                                               NRF_TIMER_CC_CHANNEL0);
@@ -70,6 +62,23 @@ void saadc_sampling_event_init(void)
   nrf_drv_ppi_channel_assign(m_ppi_channel,
                              timer_compare_event_addr,
                              saadc_sample_task_addr);
+}
+
+void uart_buf_timer_init(void)
+{
+
+  nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
+  timer_cfg.bit_width = NRF_TIMER_BIT_WIDTH_32;
+  nrf_drv_timer_init(&m_timer2, &timer_cfg, timer_handler);
+
+  /* setup m_timer for compare event every 400ms */
+  uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 20);
+  nrf_drv_timer_extended_compare(&m_timer2,
+                                 NRF_TIMER_CC_CHANNEL1,
+                                 ticks,
+                                 NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK,
+                                 true);
+  nrf_drv_timer_enable(&m_timer2);
 }
 
 
