@@ -33,25 +33,33 @@ static uint32_t pwmN_timer_cc_num[] = PWMN_TIMER_CC_NUM;
 
 static const nrf_drv_timer_t timer = NRF_DRV_TIMER_INSTANCE(1);
 
-#define GPIO_OUTPUT_PIN_NUMBER 17
+#define GPIO_OUTPUT_PIN_NUMBER 18
 
 static timer_dummy_handler(nrf_timer_event_t event_type, void * p_context) {}
 
-void burst_mode_init(void)
-{
+static void gpiote_init() {
     nrf_drv_gpiote_init();
 
+    nrf_drv_gpiote_out_config_t config = GPIOTE_CONFIG_OUT_TASK_TOGGLE(false);
+    nrf_drv_gpiote_out_init(GPIO_OUTPUT_PIN_NUMBER, &config);
+}
+
+static void timer_init() {
     nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
     nrf_drv_timer_init(&timer, &timer_cfg, timer_dummy_handler);
 
+    nrf_drv_timer_extended_compare(&timer, NRF_TIMER_CC_CHANNEL0,
+                                   nrf_drv_timer_ms_to_ticks(&timer,
+                                                             500),
+                                   NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, false);
+
+    nrf_drv_timer_enable(&timer);
+}
+
+static void task_enable() {
     uint32_t compare_evt_addr;
     uint32_t gpiote_task_addr;
     nrf_ppi_channel_t ppi_channel;
-    nrf_drv_gpiote_out_config_t config = GPIOTE_CONFIG_OUT_TASK_TOGGLE(false);
-
-    nrf_drv_gpiote_out_init(GPIO_OUTPUT_PIN_NUMBER, &config);
-
-    nrf_drv_timer_extended_compare(&timer, (nrf_timer_cc_channel_t)0, 200 * 1000UL, NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, false);
 
     nrf_drv_ppi_channel_alloc(&ppi_channel);
 
@@ -63,8 +71,13 @@ void burst_mode_init(void)
     nrf_drv_ppi_channel_enable(ppi_channel);
 
     nrf_drv_gpiote_out_task_enable(GPIO_OUTPUT_PIN_NUMBER);
+}
 
-    nrf_drv_timer_enable(&timer);
+void burst_mode_init(void)
+{
+    gpiote_init();
+    timer_init();
+    task_enable();
 
-    NRF_TIMER1->CC[PWM0_TIMER_CC_NUM] = 50 * 16000ULL;
+    //NRF_TIMER1->CC[PWM0_TIMER_CC_NUM] = 50 * 16000ULL;
 }
