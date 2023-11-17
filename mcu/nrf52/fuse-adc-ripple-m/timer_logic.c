@@ -38,39 +38,44 @@ static const nrf_drv_timer_t timer = NRF_DRV_TIMER_INSTANCE(1);
 static timer_dummy_handler(nrf_timer_event_t event_type, void * p_context) {}
 
 static void gpiote_init() {
-    nrf_drv_gpiote_init();
+    NRF_P0->DIRSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
 
-    nrf_drv_gpiote_out_config_t config = GPIOTE_CONFIG_OUT_TASK_TOGGLE(false);
-    nrf_drv_gpiote_out_init(GPIO_OUTPUT_PIN_NUMBER, &config);
+    NRF_GPIOTE->CONFIG[PWM0_GPIOTE_CH] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
+        GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
+        GPIO_OUTPUT_PIN_NUMBER << GPIOTE_CONFIG_PSEL_Pos |
+        GPIOTE_CONFIG_OUTINIT_High << GPIOTE_CONFIG_OUTINIT_Pos;
 }
 
 static void timer_init() {
-    nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
-    nrf_drv_timer_init(&timer, &timer_cfg, timer_dummy_handler);
+    NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_24Bit << TIMER_BITMODE_BITMODE_Pos;
+    NRF_TIMER1->PRESCALER               = 0;
+    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE2_CLEAR_Msk;
+    NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL2] = 500 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 150 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = 250 * 16000;
 
-    nrf_drv_timer_extended_compare(&timer, NRF_TIMER_CC_CHANNEL0,
-                                   nrf_drv_timer_ms_to_ticks(&timer,
-                                                             500),
-                                   NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, false);
-
-    nrf_drv_timer_enable(&timer);
+    NRF_TIMER1->TASKS_START = 1;
 }
 
 static void task_enable() {
-    uint32_t compare_evt_addr;
-    uint32_t gpiote_task_addr;
-    nrf_ppi_channel_t ppi_channel;
+    uint32_t evt_set, evt_clr, task_set, task_clr;
+    nrf_ppi_channel_t ppi_channel_set;
+    nrf_ppi_channel_t ppi_channel_clr;
 
-    nrf_drv_ppi_channel_alloc(&ppi_channel);
+    nrf_drv_ppi_channel_alloc(&ppi_channel_set);
+    nrf_drv_ppi_channel_alloc(&ppi_channel_clr);
 
-    compare_evt_addr = nrf_drv_timer_event_address_get(&timer, NRF_TIMER_EVENT_COMPARE0);
-    gpiote_task_addr = nrf_drv_gpiote_out_task_addr_get(GPIO_OUTPUT_PIN_NUMBER);
+    evt_set = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1];
+    task_set = (uint32_t)&NRF_GPIOTE->TASKS_CLR[PWM0_GPIOTE_CH];
+    evt_clr = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0];
+    task_clr = (uint32_t)&NRF_GPIOTE->TASKS_SET[PWM0_GPIOTE_CH];
 
-    nrf_drv_ppi_channel_assign(ppi_channel, compare_evt_addr, gpiote_task_addr);
+    nrf_drv_ppi_channel_assign(ppi_channel_set, evt_set, task_set);
+    nrf_drv_ppi_channel_assign(ppi_channel_clr, evt_clr, task_clr);
 
-    nrf_drv_ppi_channel_enable(ppi_channel);
-
-    nrf_drv_gpiote_out_task_enable(GPIO_OUTPUT_PIN_NUMBER);
+    nrf_drv_ppi_channel_enable(ppi_channel_set);
+    nrf_drv_ppi_channel_enable(ppi_channel_clr);
 }
 
 void burst_mode_init(void)
