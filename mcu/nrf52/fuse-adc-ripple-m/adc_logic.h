@@ -9,7 +9,7 @@
 
 #define SAMPLES_IN_BUFFER 6
 
-extern nrf_saadc_value_t     m_buffer_pool[2][SAMPLES_IN_BUFFER];
+extern int16_t     adc_buffer[SAMPLES_IN_BUFFER];
 
 void saadc_sampling_event_init(void);
 void saadc_sampling_event_enable(void);

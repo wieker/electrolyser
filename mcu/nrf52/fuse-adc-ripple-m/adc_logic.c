@@ -28,7 +28,7 @@ volatile uint8_t state = 1;
 
 static const nrf_drv_timer_t m_timer = NRF_DRV_TIMER_INSTANCE(1);
 static const nrf_drv_timer_t m_timer2 = NRF_DRV_TIMER_INSTANCE(2);
-nrf_saadc_value_t     m_buffer_pool[2][SAMPLES_IN_BUFFER];
+nrf_saadc_value_t     adc_buffer[SAMPLES_IN_BUFFER];
 static nrf_ppi_channel_t     m_ppi_channel;
 static uint32_t              m_adc_evt_counter;
 
@@ -98,15 +98,21 @@ int mode = 0;
  * use timer1 CC1 / CC2 to switch on / off GPIO during the ADC interval
  * */
 
+float minuteV, min10V, hourV, hour6V, hour24V;
+
 void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 {
   if (p_event->type == NRF_DRV_SAADC_EVT_DONE)
   {
-            if (mode == 0) {
-              nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
-            }
-
-            send_adc(m_buffer_pool[0]);
+    if (mode == 0) {
+      nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, 1);
+      minuteV = (minuteV * 59 + (float) (adc_buffer[0])) / 60;
+      min10V = (min10V * 599 + (float) (adc_buffer[0])) / 600;
+      hourV = (hourV * 3599 + (float) (adc_buffer[0])) / 3600;
+      hour6V = (hour6V * 21599 + (float) (adc_buffer[0])) / 21600;
+      hour24V = (hour24V * 86399 + (float) (adc_buffer[0])) / 86400;
+      send_adc(adc_buffer);
+    }
   }
 }
 
@@ -132,7 +138,7 @@ void saadc_init(void)
 
   //nrfx_saadc_channel_init(1, &channel_config_I);
 
-  nrfx_saadc_buffer_convert(m_buffer_pool[0], SAMPLES_IN_BUFFER);
+  nrfx_saadc_buffer_convert(adc_buffer, 1);
 
 }
 

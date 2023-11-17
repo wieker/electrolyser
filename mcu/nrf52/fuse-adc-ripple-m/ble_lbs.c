@@ -62,7 +62,6 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
 
     if (p_evt_write->handle == p_lbs->led_char_handles.value_handle)
     {
-        nrf_drv_saadc_buffer_convert(m_buffer_pool[0], SAMPLES_IN_BUFFER);
     }
 }
 
