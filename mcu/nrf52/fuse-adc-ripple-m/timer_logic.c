@@ -52,7 +52,7 @@ static void gpiote_init() {
 }
 
 static void timer_init() {
-    NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_24Bit << TIMER_BITMODE_BITMODE_Pos;
+    NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos;
     NRF_TIMER1->PRESCALER               = 0;
     NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE3_STOP_Msk;
     NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
@@ -98,6 +98,11 @@ void burst_mode_init(void)
 {
     //gpiote_init();
     saadc_sampling_event_disable();
+    nrf_drv_ppi_channel_disable(ppi_channel_set);
+    nrf_drv_ppi_channel_disable(ppi_channel_clr);
+    nrf_drv_ppi_channel_disable(ppi_channel_timer);
+    saadc_disable_fast();
+
     stop_uart_timer();
     timer_init();
     task_enable();
@@ -108,6 +113,7 @@ void burst_mode_init(void)
 
 void burst_mode_deinit(void)
 {
+    saadc_sampling_event_disable();
     nrf_drv_ppi_channel_disable(ppi_channel_set);
     nrf_drv_ppi_channel_disable(ppi_channel_clr);
     nrf_drv_ppi_channel_disable(ppi_channel_timer);

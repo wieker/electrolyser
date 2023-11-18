@@ -40,17 +40,11 @@ void saadc_sampling_event_init(void)
 
   nrf_drv_ppi_init();
 
-  nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
-  timer_cfg.bit_width = NRF_TIMER_BIT_WIDTH_32;
-  nrf_drv_timer_init(&m_timer, &timer_cfg, timer_handler);
-
-  /* setup m_timer for compare event every 400ms */
-  uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer, 1000);
-  nrf_drv_timer_extended_compare(&m_timer,
-                                 NRF_TIMER_CC_CHANNEL0,
-                                 ticks,
-                                 NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
-                                 false);
+    NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos;
+    NRF_TIMER1->PRESCALER               = 0;
+    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE0_CLEAR_Msk;
+    NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 1000 * 16000;
   nrf_drv_timer_enable(&m_timer);
 
   uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer,
@@ -155,8 +149,8 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
       send_adc(adc_buffer, 6);
     }
     if (mode == 2) {
-        burst_mode_deinit();
         dump_adc("finished\n", 9);
+        burst_mode_deinit();
         mode = 0;
         nrfx_saadc_buffer_convert(adc_buffer, 1);
     }
@@ -164,7 +158,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
       dump_adc("started\n", 9);
       burst_mode_init();
       nrf_drv_saadc_buffer_convert(bmode, 15);
-      //mode = 2;
+      mode = 2;
     }
   }
 }
