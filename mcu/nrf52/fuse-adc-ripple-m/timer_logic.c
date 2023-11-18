@@ -110,4 +110,9 @@ void burst_mode_deinit(void)
     nrf_drv_ppi_channel_disable(ppi_channel_set);
     nrf_drv_ppi_channel_disable(ppi_channel_clr);
     nrf_drv_ppi_channel_disable(ppi_channel_timer);
+    saadc_disable_fast();
+
+    saadc_sampling_event_init();
+    uart_buf_timer_init();
+    saadc_sampling_event_enable();
 }

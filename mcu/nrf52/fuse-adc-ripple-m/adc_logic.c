@@ -109,7 +109,7 @@ void saadc_enable_fast() {
 }
 
 void saadc_disable_fast() {
-  nrf_drv_ppi_channel_disble(m_ppi_channel_fast);
+  nrf_drv_ppi_channel_disable(m_ppi_channel_fast);
 }
 
 void stop_uart_timer() {
@@ -149,9 +149,11 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
       send_adc(adc_buffer, 6);
     }
     if (mode == 2) {
-      dump_adc("finished\n", 9);
+        burst_mode_deinit();
+        dump_adc("finished\n", 9);
     }
     if (mode == 1) {
+      dump_adc("started\n", 9);
       burst_mode_init();
       nrf_drv_saadc_buffer_convert(bmode, 15);
     }
@@ -171,7 +173,7 @@ void ble_adc_cmd(int adc_cmd) {
           dump_adc(nus_string, bytes_to_send);
         }
   }
-  if (adc_cmd = 0x01) {
+  if (adc_cmd == 0x01) {
     mode = 1;
   }
 }
