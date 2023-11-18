@@ -31,7 +31,7 @@ static const nrf_drv_timer_t m_timer2 = NRF_DRV_TIMER_INSTANCE(2);
 nrf_saadc_value_t     adc_buffer[SAMPLES_IN_BUFFER];
 static nrf_ppi_channel_t     m_ppi_channel_slow;
 static nrf_ppi_channel_t     m_ppi_channel_fast;
-static uint32_t              m_adc_evt_counter;
+static uint32_t              m_adc_evt_counter = 0;
 
 timer_handler(nrf_timer_event_t event_type, void * p_context);
 
@@ -135,7 +135,6 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
   if (p_event->type == NRF_DRV_SAADC_EVT_DONE)
   {
     if (mode == 0) {
-      nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, 1);
       minuteV = (minuteV * 59 + (float) (adc_buffer[0])) / 60;
       min10V = (min10V * 599 + (float) (adc_buffer[0])) / 600;
       hourV = (hourV * 3599 + (float) (adc_buffer[0])) / 3600;
@@ -147,22 +146,24 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
       adc_buffer[4] = (int16_t) hour6V;
       adc_buffer[5] = (int16_t) hour24V;
       send_adc(adc_buffer, 6);
+      m_adc_evt_counter ++;
+      nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, 1);
     }
     if (mode == 2) {
         dump_adc("finished\n", 9);
         burst_mode_deinit();
         mode = 0;
-        nrfx_saadc_buffer_convert(adc_buffer, 1);
         uint8_t nus_string[50];
         for (int i = 0; i< 15; i ++) {
-        int bytes_to_send = sprintf(nus_string,
+            int bytes_to_send = sprintf(nus_string,
                                 "CH%d: %d\r\n",
                                 i,
                                 p_event->data.done.p_buffer[i]
                                 );
 
-          dump_adc(nus_string, bytes_to_send);
+            dump_adc(nus_string, bytes_to_send);
         }
+        nrfx_saadc_buffer_convert(adc_buffer, 1);
     }
     if (mode == 1) {
       dump_adc("started\n", 9);
@@ -177,7 +178,7 @@ void ble_adc_cmd(int adc_cmd) {
   if (adc_cmd == 0x00) {
         uint8_t nus_string[50];
         for (int i = 0; i< 6; i ++) {
-        int bytes_to_send = sprintf(nus_string,
+          int bytes_to_send = sprintf(nus_string,
                                 "CH%d: %d\r\n",
                                 i,
                                 adc_buffer[i]
@@ -185,6 +186,8 @@ void ble_adc_cmd(int adc_cmd) {
 
           dump_adc(nus_string, bytes_to_send);
         }
+        int bytes_to_send = sprintf(nus_string, "time: %d\r\n", m_adc_evt_counter);
+        dump_adc(nus_string, bytes_to_send);
   }
   if (adc_cmd == 0x01) {
     mode = 1;
