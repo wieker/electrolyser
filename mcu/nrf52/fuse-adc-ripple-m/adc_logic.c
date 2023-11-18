@@ -119,7 +119,7 @@ void saadc_disable_fast() {
 }
 
 void stop_uart_timer() {
-    NRF_TIMER1->TASKS_STOP = 1;
+    NRF_TIMER2->TASKS_STOP = 1;
 }
 
 void send_adc(nrf_saadc_value_t *vls, int size);
@@ -164,7 +164,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
       dump_adc("started\n", 9);
       burst_mode_init();
       nrf_drv_saadc_buffer_convert(bmode, 15);
-      mode = 2;
+      //mode = 2;
     }
   }
 }
