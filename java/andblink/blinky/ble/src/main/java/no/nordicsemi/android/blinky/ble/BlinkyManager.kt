@@ -248,7 +248,7 @@ private class BlinkyManagerImpl(
                             writeCharacteristic(
                                 txCharacteristic,
                                 Data(a),
-                                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+                                BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE
                             )
                                 .then { lock.release() }
                                 .invalid { lock.release() }
