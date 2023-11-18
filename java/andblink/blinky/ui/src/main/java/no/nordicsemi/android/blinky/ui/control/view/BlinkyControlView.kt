@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.MobileAnarchy.Android.Widgets.Joystick.JoystickView
 import com.longdo.mjpegviewer.MjpegView
 import com.longdo.mjpegviewer.MjpegViewUDP
 
@@ -109,6 +110,11 @@ internal fun BlinkyControlView(
                 enabled = sliderProcess,
                 steps = 33,
             )
+
+            AndroidView(factory = {context ->
+                JoystickView(context)
+            },
+                modifier = Modifier.alpha(0.5f))
         }
     }
 }
