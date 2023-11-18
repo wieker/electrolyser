@@ -153,6 +153,16 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
         burst_mode_deinit();
         mode = 0;
         nrfx_saadc_buffer_convert(adc_buffer, 1);
+        uint8_t nus_string[50];
+        for (int i = 0; i< 15; i ++) {
+        int bytes_to_send = sprintf(nus_string,
+                                "CH%d: %d\r\n",
+                                i,
+                                p_event->data.done.p_buffer[i]
+                                );
+
+          dump_adc(nus_string, bytes_to_send);
+        }
     }
     if (mode == 1) {
       dump_adc("started\n", 9);
