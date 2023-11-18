@@ -19,6 +19,9 @@ void saadc_disable_fast(void);
 void stop_uart_timer(void);
 void saadc_init(void);
 
+void slow_event_init();
+void fast_event_init();
+
 void uart_buf_timer_init(void);
 void burst_mode_init(void);
 

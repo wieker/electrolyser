@@ -113,6 +113,5 @@ void burst_mode_deinit(void)
     saadc_disable_fast();
 
     saadc_sampling_event_init();
-    uart_buf_timer_init();
     saadc_sampling_event_enable();
 }

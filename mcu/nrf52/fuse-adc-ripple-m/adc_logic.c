@@ -52,7 +52,10 @@ void saadc_sampling_event_init(void)
                                  NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
                                  false);
   nrf_drv_timer_enable(&m_timer);
+}
 
+void slow_event_init(void)
+{
   uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer,
                                                                               NRF_TIMER_CC_CHANNEL0);
   uint32_t saadc_sample_task_addr   = nrf_drv_saadc_sample_task_get();
@@ -80,7 +83,10 @@ void uart_buf_timer_init(void)
                                  NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK,
                                  true);
   nrf_drv_timer_enable(&m_timer2);
+}
 
+void fast_event_init(void)
+{
   uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer2,
                                                                               NRF_TIMER_CC_CHANNEL1);
   uint32_t saadc_sample_task_addr   = nrf_drv_saadc_sample_task_get();
@@ -113,7 +119,7 @@ void saadc_disable_fast() {
 }
 
 void stop_uart_timer() {
-  nrf_drv_timer_disable(&m_timer2);
+    NRF_TIMER1->TASKS_STOP = 1;
 }
 
 void send_adc(nrf_saadc_value_t *vls, int size);
@@ -151,11 +157,14 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
     if (mode == 2) {
         burst_mode_deinit();
         dump_adc("finished\n", 9);
+        mode = 0;
+        nrfx_saadc_buffer_convert(adc_buffer, 1);
     }
     if (mode == 1) {
       dump_adc("started\n", 9);
       burst_mode_init();
       nrf_drv_saadc_buffer_convert(bmode, 15);
+      mode = 2;
     }
   }
 }

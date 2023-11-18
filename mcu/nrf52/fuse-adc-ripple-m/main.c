@@ -466,8 +466,10 @@ int main(void)
     conn_params_init();
     saadc_init();
     saadc_sampling_event_init();
+    slow_event_init();
     saadc_sampling_event_enable();
     uart_buf_timer_init();
+    fast_event_init();
 
 
     // Start execution.
