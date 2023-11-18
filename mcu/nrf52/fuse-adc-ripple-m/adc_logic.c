@@ -52,20 +52,20 @@ void saadc_sampling_event_init(void)
                                  NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
                                  false);
   nrf_drv_timer_enable(&m_timer);
-}
 
-void slow_event_init(void)
-{
   uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer,
                                                                               NRF_TIMER_CC_CHANNEL0);
   uint32_t saadc_sample_task_addr   = nrf_drv_saadc_sample_task_get();
 
-  /* setup ppi channel so that timer compare event is triggering sample task in SAADC */
-  nrf_drv_ppi_channel_alloc(&m_ppi_channel_slow);
-
   nrf_drv_ppi_channel_assign(m_ppi_channel_slow,
                              timer_compare_event_addr,
                              saadc_sample_task_addr);
+}
+
+void slow_event_init(void)
+{
+  /* setup ppi channel so that timer compare event is triggering sample task in SAADC */
+  nrf_drv_ppi_channel_alloc(&m_ppi_channel_slow);
 }
 
 void uart_buf_timer_init(void)
@@ -83,20 +83,20 @@ void uart_buf_timer_init(void)
                                  NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK,
                                  true);
   nrf_drv_timer_enable(&m_timer2);
-}
 
-void fast_event_init(void)
-{
   uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer2,
                                                                               NRF_TIMER_CC_CHANNEL1);
   uint32_t saadc_sample_task_addr   = nrf_drv_saadc_sample_task_get();
 
-  /* setup ppi channel so that timer compare event is triggering sample task in SAADC */
-  nrf_drv_ppi_channel_alloc(&m_ppi_channel_fast);
-
   nrf_drv_ppi_channel_assign(m_ppi_channel_fast,
                              timer_compare_event_addr,
                              saadc_sample_task_addr);
+}
+
+void fast_event_init(void)
+{
+  /* setup ppi channel so that timer compare event is triggering sample task in SAADC */
+  nrf_drv_ppi_channel_alloc(&m_ppi_channel_fast);
 }
 
 

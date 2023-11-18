@@ -67,19 +67,7 @@ static nrf_ppi_channel_t ppi_channel_clr;
 static nrf_ppi_channel_t ppi_channel_timer;
 
 static void task_enable() {
-    nrf_drv_ppi_channel_enable(ppi_channel_set);
-    nrf_drv_ppi_channel_enable(ppi_channel_clr);
-    nrf_drv_ppi_channel_enable(ppi_channel_timer);
-}
-
-void burst_prepare() {
-    //gpiote_init();
     uint32_t evt_set, evt_clr, task_set, task_clr;
-
-    nrf_drv_ppi_channel_alloc(&ppi_channel_set);
-    nrf_drv_ppi_channel_alloc(&ppi_channel_clr);
-    nrf_drv_ppi_channel_alloc(&ppi_channel_timer);
-
     evt_set = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1];
     task_set = (uint32_t)&NRF_GPIOTE->TASKS_CLR[PWM0_GPIOTE_CH];
     evt_clr = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0];
@@ -92,15 +80,26 @@ void burst_prepare() {
     task_clr = (uint32_t)&NRF_TIMER2->TASKS_START;
 
     nrf_drv_ppi_channel_assign(ppi_channel_timer, evt_clr, task_clr);
+
+    nrf_drv_ppi_channel_enable(ppi_channel_set);
+    nrf_drv_ppi_channel_enable(ppi_channel_clr);
+    nrf_drv_ppi_channel_enable(ppi_channel_timer);
+}
+
+void burst_prepare() {
+    gpiote_init();
+
+    nrf_drv_ppi_channel_alloc(&ppi_channel_set);
+    nrf_drv_ppi_channel_alloc(&ppi_channel_clr);
+    nrf_drv_ppi_channel_alloc(&ppi_channel_timer);
 }
 
 void burst_mode_init(void)
 {
-    gpiote_init();
+    //gpiote_init();
     saadc_sampling_event_disable();
     stop_uart_timer();
     timer_init();
-    burst_prepare();
     task_enable();
     saadc_enable_fast();
 
