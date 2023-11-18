@@ -29,7 +29,8 @@ volatile uint8_t state = 1;
 static const nrf_drv_timer_t m_timer = NRF_DRV_TIMER_INSTANCE(1);
 static const nrf_drv_timer_t m_timer2 = NRF_DRV_TIMER_INSTANCE(2);
 nrf_saadc_value_t     adc_buffer[SAMPLES_IN_BUFFER];
-static nrf_ppi_channel_t     m_ppi_channel;
+static nrf_ppi_channel_t     m_ppi_channel_slow;
+static nrf_ppi_channel_t     m_ppi_channel_fast;
 static uint32_t              m_adc_evt_counter;
 
 timer_handler(nrf_timer_event_t event_type, void * p_context);
@@ -57,9 +58,9 @@ void saadc_sampling_event_init(void)
   uint32_t saadc_sample_task_addr   = nrf_drv_saadc_sample_task_get();
 
   /* setup ppi channel so that timer compare event is triggering sample task in SAADC */
-  nrf_drv_ppi_channel_alloc(&m_ppi_channel);
+  nrf_drv_ppi_channel_alloc(&m_ppi_channel_slow);
 
-  nrf_drv_ppi_channel_assign(m_ppi_channel,
+  nrf_drv_ppi_channel_assign(m_ppi_channel_slow,
                              timer_compare_event_addr,
                              saadc_sample_task_addr);
 }
@@ -79,12 +80,40 @@ void uart_buf_timer_init(void)
                                  NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK,
                                  true);
   nrf_drv_timer_enable(&m_timer2);
+
+  uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer2,
+                                                                              NRF_TIMER_CC_CHANNEL1);
+  uint32_t saadc_sample_task_addr   = nrf_drv_saadc_sample_task_get();
+
+  /* setup ppi channel so that timer compare event is triggering sample task in SAADC */
+  nrf_drv_ppi_channel_alloc(&m_ppi_channel_fast);
+
+  nrf_drv_ppi_channel_assign(m_ppi_channel_fast,
+                             timer_compare_event_addr,
+                             saadc_sample_task_addr);
 }
 
 
 void saadc_sampling_event_enable(void)
 {
-  nrf_drv_ppi_channel_enable(m_ppi_channel);
+  nrf_drv_ppi_channel_enable(m_ppi_channel_slow);
+}
+
+void saadc_sampling_event_disable(void)
+{
+  nrf_drv_ppi_channel_disable(m_ppi_channel_slow);
+}
+
+void saadc_enable_fast() {
+  nrf_drv_ppi_channel_enable(m_ppi_channel_fast);
+}
+
+void saadc_disable_fast() {
+  nrf_drv_ppi_channel_disble(m_ppi_channel_fast);
+}
+
+void stop_uart_timer() {
+  nrf_drv_timer_disable(&m_timer2);
 }
 
 void send_adc(nrf_saadc_value_t *vls, int size);
@@ -99,6 +128,7 @@ int mode = 0;
  * */
 
 float minuteV, min10V, hourV, hour6V, hour24V;
+nrf_saadc_value_t     bmode[100];
 
 void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 {
@@ -118,6 +148,13 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
       adc_buffer[5] = (int16_t) hour24V;
       send_adc(adc_buffer, 6);
     }
+    if (mode == 2) {
+      dump_adc("finished\n", 9);
+    }
+    if (mode == 1) {
+      burst_mode_init();
+      nrf_drv_saadc_buffer_convert(bmode, 15);
+    }
   }
 }
 
@@ -133,6 +170,9 @@ void ble_adc_cmd(int adc_cmd) {
 
           dump_adc(nus_string, bytes_to_send);
         }
+  }
+  if (adc_cmd = 0x01) {
+    mode = 1;
   }
 }
 

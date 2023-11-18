@@ -468,7 +468,6 @@ int main(void)
     saadc_sampling_event_init();
     saadc_sampling_event_enable();
     uart_buf_timer_init();
-    burst_mode_init();
 
 
     // Start execution.

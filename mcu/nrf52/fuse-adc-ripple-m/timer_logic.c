@@ -54,20 +54,20 @@ static void gpiote_init() {
 static void timer_init() {
     NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_24Bit << TIMER_BITMODE_BITMODE_Pos;
     NRF_TIMER1->PRESCALER               = 0;
-    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE5_CLEAR_Msk;
+    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE3_STOP_Msk;
     NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
     NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 150 * 16000;
     NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = 250 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL2] = 330 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 360 * 16000;
-
-    NRF_TIMER1->TASKS_START = 1;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL2] = 50 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 350 * 16000;
 }
+
+static nrf_ppi_channel_t ppi_channel_set;
+static nrf_ppi_channel_t ppi_channel_clr;
+static nrf_ppi_channel_t ppi_channel_timer;
 
 static void task_enable() {
     uint32_t evt_set, evt_clr, task_set, task_clr;
-    nrf_ppi_channel_t ppi_channel_set;
-    nrf_ppi_channel_t ppi_channel_clr;
 
     nrf_drv_ppi_channel_alloc(&ppi_channel_set);
     nrf_drv_ppi_channel_alloc(&ppi_channel_clr);
@@ -83,26 +83,31 @@ static void task_enable() {
     nrf_drv_ppi_channel_enable(ppi_channel_set);
     nrf_drv_ppi_channel_enable(ppi_channel_clr);
 
-    nrf_drv_ppi_channel_alloc(&ppi_channel_set);
-    nrf_drv_ppi_channel_alloc(&ppi_channel_clr);
+    nrf_drv_ppi_channel_alloc(&ppi_channel_timer);
 
-    evt_set = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL3];
-    task_set = (uint32_t)&NRF_GPIOTE->TASKS_CLR[PWM1_GPIOTE_CH];
     evt_clr = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL2];
-    task_clr = (uint32_t)&NRF_GPIOTE->TASKS_SET[PWM1_GPIOTE_CH];
+    task_clr = (uint32_t)&NRF_TIMER2->TASKS_START;
 
-    nrf_drv_ppi_channel_assign(ppi_channel_set, evt_set, task_set);
-    nrf_drv_ppi_channel_assign(ppi_channel_clr, evt_clr, task_clr);
+    nrf_drv_ppi_channel_assign(ppi_channel_timer, evt_set, task_set);
 
-    nrf_drv_ppi_channel_enable(ppi_channel_set);
-    nrf_drv_ppi_channel_enable(ppi_channel_clr);
+    nrf_drv_ppi_channel_enable(ppi_channel_timer);
 }
 
 void burst_mode_init(void)
 {
+    saadc_sampling_event_disable();
+    stop_uart_timer();
     gpiote_init();
     timer_init();
     task_enable();
+    saadc_enable_fast();
 
-    //NRF_TIMER1->CC[PWM0_TIMER_CC_NUM] = 50 * 16000ULL;
+    NRF_TIMER1->TASKS_START = 1;
+}
+
+void burst_mode_deinit(void)
+{
+    nrf_drv_ppi_channel_disable(ppi_channel_set);
+    nrf_drv_ppi_channel_disable(ppi_channel_clr);
+    nrf_drv_ppi_channel_disable(ppi_channel_timer);
 }
