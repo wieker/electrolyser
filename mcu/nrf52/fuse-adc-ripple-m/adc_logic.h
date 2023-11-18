@@ -18,6 +18,7 @@ void saadc_init(void);
 void uart_buf_timer_init(void);
 void burst_mode_init(void);
 
-void change_mode(int new_mode);
+void ble_adc_cmd(int adc_cmd);
+void dump_adc(uint8_t* value, int len);
 
 #endif //RF_UART_NRF_LOCAL_ADC_H

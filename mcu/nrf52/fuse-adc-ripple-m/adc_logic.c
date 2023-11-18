@@ -121,9 +121,19 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
   }
 }
 
-void change_mode(int new_mode) {
+void ble_adc_cmd(int adc_cmd) {
+  if (adc_cmd == 0x00) {
+        uint8_t nus_string[50];
+        for (int i = 0; i< 6; i ++) {
+        int bytes_to_send = sprintf(nus_string,
+                                "CH%d: %d\r\n",
+                                i,
+                                adc_buffer[i]
+                                );
 
-  mode = new_mode;
+          dump_adc(nus_string, bytes_to_send);
+        }
+  }
 }
 
 

@@ -62,8 +62,8 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
 
     if (p_evt_write->handle == p_lbs->modctl_char_handles.value_handle)
     {
-        int mode = p_evt_write->data;
-        change_mode(mode);
+        int mode = p_evt_write->data[0];
+        ble_adc_cmd(mode);
     }
 }
 
