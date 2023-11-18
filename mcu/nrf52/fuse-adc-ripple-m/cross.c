@@ -85,7 +85,7 @@ void uart_init()
   nrfx_uart_rx(&m_uart.uart, rx_data + 20, 20);
 }
 
-void send_adc(nrf_saadc_value_t *vls)
+void send_adc(nrf_saadc_value_t *vls, int size)
 {
     //ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 4, "uuu\n");
     //return;

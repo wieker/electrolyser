@@ -87,7 +87,7 @@ void saadc_sampling_event_enable(void)
   nrf_drv_ppi_channel_enable(m_ppi_channel);
 }
 
-void send_adc(nrf_saadc_value_t *vls);
+void send_adc(nrf_saadc_value_t *vls, int size);
 
 int mode = 0;
 /*
@@ -111,13 +111,19 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
       hourV = (hourV * 3599 + (float) (adc_buffer[0])) / 3600;
       hour6V = (hour6V * 21599 + (float) (adc_buffer[0])) / 21600;
       hour24V = (hour24V * 86399 + (float) (adc_buffer[0])) / 86400;
-      send_adc(adc_buffer);
+      adc_buffer[1] = (int16_t) minuteV;
+      adc_buffer[2] = (int16_t) min10V;
+      adc_buffer[3] = (int16_t) hourV;
+      adc_buffer[4] = (int16_t) hour6V;
+      adc_buffer[5] = (int16_t) hour24V;
+      send_adc(adc_buffer, 6);
     }
   }
 }
 
 void change_mode(int new_mode) {
 
+  mode = new_mode;
 }
 
 
