@@ -26,11 +26,6 @@ interface Blinky {
     val state: StateFlow<State>
 
     /**
-     * The current state of the LED.
-     */
-    val ledState: StateFlow<Boolean>
-
-    /**
      * The current state of the button.
      */
     val buttonState: StateFlow<Boolean>
@@ -44,7 +39,7 @@ interface Blinky {
      *
      * @param state the new state of the LED.
      */
-    suspend fun turnADC(state: Boolean)
+    suspend fun turnADC(cmdCode: Int)
     suspend fun sendCmd(cmd: String)
     suspend fun sendCmd(cmd: ByteArray)
     suspend fun turnThrottle(v: Float)

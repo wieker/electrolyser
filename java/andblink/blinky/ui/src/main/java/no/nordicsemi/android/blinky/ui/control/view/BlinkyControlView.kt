@@ -19,10 +19,9 @@ import com.longdo.mjpegviewer.MjpegViewUDP
 
 @Composable
 internal fun BlinkyControlView(
-    ledState: Boolean,
     sliderPosition: Float,
     adcState: Int,
-    turnADC: (Boolean) -> Unit,
+    turnADC: (Int) -> Unit,
     modifier: Modifier = Modifier,
     dump: String,
     throttleValue: (Float) -> Unit,
@@ -33,8 +32,7 @@ internal fun BlinkyControlView(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        LedControlView(
-            state = ledState,
+        ModCtlControlView(
             turnADC = turnADC,
         )
 

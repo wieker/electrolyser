@@ -59,14 +59,12 @@ internal fun BlinkyScreen(
                     }
                 }
                 Blinky.State.READY -> {
-                    val ledState by viewModel.ledState.collectAsStateWithLifecycle()
                     val sliderProcess by viewModel.sliderProcess.collectAsStateWithLifecycle()
                     val sliderPosition by viewModel.sliderPos.collectAsStateWithLifecycle()
                     val adcState by viewModel.adcState.collectAsStateWithLifecycle()
                     val dump by viewModel.dump.collectAsStateWithLifecycle()
 
                     BlinkyControlView(
-                        ledState = ledState,
                         sliderPosition = sliderPosition,
                         adcState = adcState,
                         turnADC = { viewModel.turnADC(it) },

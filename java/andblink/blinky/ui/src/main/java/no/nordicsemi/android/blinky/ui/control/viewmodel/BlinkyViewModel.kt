@@ -31,9 +31,6 @@ class BlinkyViewModel @Inject constructor(
 ) : AndroidViewModel(context as Application) {
     /** The connection state of the device. */
     val state = repository.state
-    /** The LED state. */
-    val ledState = repository.loggedLedState
-        .stateIn(viewModelScope, SharingStarted.Lazily, false)
     val sliderProcess = repository.sliderProcess
         .stateIn(viewModelScope, SharingStarted.Lazily, true)
     /** The button state. */
@@ -67,12 +64,12 @@ class BlinkyViewModel @Inject constructor(
      * Sends a command to the device to toggle the LED state.
      * @param on The new state of the LED.
      */
-    fun turnADC(on: Boolean) {
+    fun turnADC(cmdCode: Int) {
         val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             // Just like above, when this method throws an exception, it will be caught by the
             // exception handler and ignored.
-            repository.turnADC(on)
+            repository.turnADC(cmdCode)
         }
     }
     fun turnThrottle(v: Float) {

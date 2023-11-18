@@ -60,8 +60,10 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
         p_lbs->uart_tx_handler(p_ble_evt->evt.gap_evt.conn_handle, p_lbs, p_evt_write->len, p_evt_write->data);
     }
 
-    if (p_evt_write->handle == p_lbs->led_char_handles.value_handle)
+    if (p_evt_write->handle == p_lbs->modctl_char_handles.value_handle)
     {
+        int mode = p_evt_write->data;
+        change_mode(mode);
     }
 }
 
@@ -152,9 +154,9 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
         return err_code;
     }
 
-    // Add LED characteristic.
+    // Add mode ctl characteristic.
     memset(&add_char_params, 0, sizeof(add_char_params));
-    add_char_params.uuid             = LBS_UUID_LED_CHAR;
+    add_char_params.uuid             = LBS_UUID_MOD_CTL_CHAR;
     add_char_params.uuid_type        = p_lbs->uuid_type;
     add_char_params.init_len         = sizeof(uint8_t);
     add_char_params.max_len          = sizeof(uint8_t);
@@ -164,7 +166,7 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     add_char_params.read_access  = SEC_OPEN;
     add_char_params.write_access = SEC_OPEN;
 
-    err_code = characteristic_add(p_lbs->service_handle, &add_char_params, &p_lbs->led_char_handles);
+    err_code = characteristic_add(p_lbs->service_handle, &add_char_params, &p_lbs->modctl_char_handles);
     if (err_code != NRF_SUCCESS)
     {
         return err_code;

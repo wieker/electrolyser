@@ -18,12 +18,9 @@ import no.nordicsemi.android.ble.ktx.suspend
 import no.nordicsemi.android.blinky.ble.data.ADCState
 import no.nordicsemi.android.blinky.ble.data.AdcCallback
 import no.nordicsemi.android.blinky.ble.data.ButtonCallback
-import no.nordicsemi.android.blinky.ble.data.LedCallback
-import no.nordicsemi.android.blinky.ble.data.LedData
 import no.nordicsemi.android.blinky.spec.Blinky
 import no.nordicsemi.android.blinky.spec.BlinkySpec
 import timber.log.Timber
-import java.util.concurrent.locks.ReentrantReadWriteLock
 import kotlin.math.floor
 
 class BlinkyManager(
@@ -41,9 +38,6 @@ private class BlinkyManagerImpl(
     private var adcCharacteristic: BluetoothGattCharacteristic? = null
     private var rxCharacteristic: BluetoothGattCharacteristic? = null
     private var txCharacteristic: BluetoothGattCharacteristic? = null
-
-    private val _ledState = MutableStateFlow(false)
-    override val ledState = _ledState.asStateFlow()
 
     private val _buttonState = MutableStateFlow(false)
     override val buttonState = _buttonState.asStateFlow()
@@ -92,14 +86,6 @@ private class BlinkyManagerImpl(
         }
     }
 
-    private val ledCallback by lazy {
-        object : LedCallback() {
-            override fun onLedStateChanged(device: BluetoothDevice, state: Boolean) {
-                _ledState.tryEmit(state)
-            }
-        }
-    }
-
     override suspend fun connect() = connect(device)
         .retry(3, 300)
         .useAutoConnect(false)
@@ -121,16 +107,15 @@ private class BlinkyManagerImpl(
         }
     }
 
-    override suspend fun turnADC(state: Boolean) {
+    override suspend fun turnADC(cmdCode: Int) {
+        val arr = ByteArray(1)
+        arr[0] = cmdCode.toByte()
         // Write the value to the characteristic.
         writeCharacteristic(
             ledCharacteristic,
-            LedData.from(state),
+            Data(arr),
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
         ).suspend()
-
-        // Update the state flow with the new value.
-        _ledState.value = state
     }
 
     override suspend fun sendCmd(cmd: String) {
@@ -248,11 +233,6 @@ private class BlinkyManagerImpl(
         // Read the initial value of the button characteristic.
         readCharacteristic(adcCharacteristic)
             .with(adcCallback)
-            .enqueue()
-
-        // Read the initial value of the LED characteristic.
-        readCharacteristic(ledCharacteristic)
-            .with(ledCallback)
             .enqueue()
 
         Thread {

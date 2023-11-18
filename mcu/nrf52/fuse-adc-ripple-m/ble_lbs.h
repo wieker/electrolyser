@@ -93,7 +93,7 @@ NRF_SDH_BLE_OBSERVER(_name ## _obs,                                             
                               0xDE, 0xEF, 0x12, 0x12, 0x00, 0x00, 0x00, 0x00}
 #define LBS_UUID_SERVICE     0x1523
 #define LBS_UUID_BUTTON_CHAR 0x1524
-#define LBS_UUID_LED_CHAR    0x1525
+#define LBS_UUID_MOD_CTL_CHAR    0x1525
 #define LBS_UUID_ADC_CHAR    0x1526
 #define LBS_UUID_TX_CHAR     0x1527
 #define LBS_UUID_RX_CHAR     0x1528
@@ -115,7 +115,7 @@ typedef struct
 struct ble_lbs_s
 {
     uint16_t                    service_handle;      /**< Handle of LED Button Service (as provided by the BLE stack). */
-    ble_gatts_char_handles_t    led_char_handles;    /**< Handles related to the LED Characteristic. */
+    ble_gatts_char_handles_t    modctl_char_handles;    /**< Handles related to the LED Characteristic. */
     ble_gatts_char_handles_t    uart_rx_handles; /**< Handles related to the Button Characteristic. */
     ble_gatts_char_handles_t    adc_char_handles; /**< Handles related to the Button Characteristic. */
     ble_gatts_char_handles_t    uart_tx_handles; /**< Handles related to the ADC Characteristic. */
