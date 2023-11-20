@@ -60,8 +60,6 @@ include_directories(
         ${NRF52_SDK}/components/libraries/experimental_section_vars
         ${NRF52_SDK}/components/libraries/strerror
         ${NRF52_SDK}/components/libraries/log/src
-
-        ../common
 )
 
 set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
