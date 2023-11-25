@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "defs.h"
+#include "../ctl/defs.h"
 #include <stdio.h>
 
 int32_t startTime;
