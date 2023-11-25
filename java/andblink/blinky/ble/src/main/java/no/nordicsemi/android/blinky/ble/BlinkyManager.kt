@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -241,7 +242,7 @@ private class BlinkyManagerImpl(
                 try {
                     if (lock.tryAcquire()) {
                         try {
-                            var a = ByteArray(2)
+                            val a = ByteArray(2)
                             a[0] = 't'.code.toByte()
                             a[1] = floor(_sliderPos.value * 100).toInt().toByte()
                             Timber.log(10, "locked");

@@ -2,11 +2,15 @@
 
 #include "stm32f4xx.h"
 
+static char buf[32];
+static int b = 0, e = 0;
+
 void USART1Init(void)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
     USART_InitTypeDef USART_InitStructure;
     USART_ClockInitTypeDef  USART_ClockInitStructure;
+    NVIC_InitTypeDef NVIC_InitStructure;
     //enable bus clocks
     /* Enable USART1 and GPIOA clock */
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
@@ -33,6 +37,15 @@ void USART1Init(void)
     //Configure USART1 basic and asynchronous paramters
     USART_InitStructure.USART_BaudRate = 115200;
     USART_Init(USART1, &USART_InitStructure);
+
+    // Configure Rx buffer not empty interrupt
+    NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 5;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
+    USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+
     //Enable USART1
     USART_Cmd(USART1, ENABLE);
 }
@@ -49,11 +62,17 @@ int _write(int handle, char* data, int size) {
 }
 
 int _read(int handle, char* data, int size) {
-	if (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == SET) {
-        data[0] = (int) USART_ReceiveData(USART1);
+	if (e != b) {
+        data[0] = buf[b];
+        b = (b + 1) % 32;
 		return 1;
 	}
-    USART_ReceiveData(USART1);
 	return -1;
+}
+
+void __attribute__((used)) USART1_IRQHandler(void)
+{
+    buf[e] = (int) USART_ReceiveData(USART1);
+    e = (e + 1) % 32;
 }
 
