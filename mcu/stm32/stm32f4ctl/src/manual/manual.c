@@ -85,23 +85,45 @@ void read_throttle() {
         char ch = getchar();
         if (ch >= 0 && ch <= 100) {
             throttle = ch * 10;
-            thTime = millis();
             return;
         }
     }
     stopMotors();
 }
 
-void parse_ctl() {
+char cmd_string[10];
+int wpos = 0;
 
+int check_string(char ch) {
+    return ch == 'e';
+}
+
+void parse_ctl() {
+    for (;;) {
         char ch = getchar();
-        if (0xFF != ch) {
-            printf("%c", ch);
+        if (0xFF == ch) {
+            return;
         }
-        if ('t' == ch) {
-            read_throttle();
+        if (wpos == 0 && ch == 't') {
+            wpos = 1;
+        } else if (wpos == 1 && ch == 'q') {
+            wpos = 2;
+        } else if (wpos >= 2 && wpos < 8) {
+            cmd_string[wpos] = ch;
+            wpos ++;
+        } else if (wpos == 8 && check_string(ch)) {
+            wpos = 0;
+            thTime = millis();
+            printf("c");
+            big_switch(cmd_string[2]);
+            char u = cmd_string[3];
+            if (u >= 0 && u <= 100) {
+                throttle = u * 10;
+            }
+        } else {
+            wpos = 0;
         }
-        big_switch(ch);
+    }
 }
 
 void logic() {

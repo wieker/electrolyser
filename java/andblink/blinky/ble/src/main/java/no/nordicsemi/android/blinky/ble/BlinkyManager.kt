@@ -121,12 +121,10 @@ private class BlinkyManagerImpl(
 
     override suspend fun sendCmd(cmd: String) {
         // Write the value to the characteristic.
-        writeCharacteristic(
-            txCharacteristic,
-            Data.from(cmd),
-            BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-        ).suspend()
+        cc = cmd
     }
+
+    var cc = "0"
 
     override suspend fun sendCmd(cmd: ByteArray) {
         // Write the value to the characteristic.
@@ -242,9 +240,16 @@ private class BlinkyManagerImpl(
                 try {
                     if (lock.tryAcquire()) {
                         try {
-                            val a = ByteArray(2)
+                            val a = ByteArray(10)
                             a[0] = 't'.code.toByte()
-                            a[1] = floor(_sliderPos.value * 100).toInt().toByte()
+                            a[1] = 'q'.code.toByte()
+                            a[2] = cc[0].code.toByte()
+                            a[3] = floor(_sliderPos.value * 100).toInt().toByte()
+                            a[4] = '0'.code.toByte()
+                            a[5] = '0'.code.toByte()
+                            a[6] = '0'.code.toByte()
+                            a[7] = '0'.code.toByte()
+                            a[8] = 'e'.code.toByte()
                             Timber.log(10, "locked");
                             writeCharacteristic(
                                 txCharacteristic,
