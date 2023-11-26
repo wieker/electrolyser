@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import Joystick.JoystickMovedListener;
+
 public class JoystickView extends View {
     public static final int INVALID_POINTER_ID = -1;
     private static final String TAG = "JoystickView";

@@ -1,5 +1,6 @@
 package no.nordicsemi.android.blinky.ui.control.view
 
+import Joystick.JoystickMovedListener
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ internal fun BlinkyControlView(
     throttleValue: (Float) -> Unit,
     commandValue: (String) -> Unit,
     sliderProcess: Boolean,
+    joy: JoystickMovedListener,
 ) {
     Column(
         modifier = modifier,
@@ -112,7 +114,9 @@ internal fun BlinkyControlView(
             )
 
             AndroidView(factory = {context ->
-                JoystickView(context)
+                JoystickView(context).apply {
+                    setOnJoystickMovedListener(joy)
+                }
             },
                 modifier = Modifier.alpha(0.5f))
         }

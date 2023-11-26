@@ -75,6 +75,10 @@ void big_switch(char ch) {
             startTime = millis();
             break;
         }
+        case 'c': {
+            thTime = millis();
+            break;
+        }
     }
 }
 
@@ -113,13 +117,14 @@ void parse_ctl() {
             wpos ++;
         } else if (wpos == 8 && check_string(ch)) {
             wpos = 0;
-            thTime = millis();
             printf("c");
             big_switch(cmd_string[2]);
             char u = cmd_string[3];
             if (u >= 0 && u <= 100) {
                 throttle = u * 10;
             }
+            desiredX = cmd_string[4] / 10;
+            desiredY = cmd_string[5] / 10;
         } else {
             wpos = 0;
         }
@@ -145,7 +150,8 @@ void tlmtr() {
         static uint32_t ptime = 0;
         if (ctime - ptime > 1000) {
             //printf("[%3d]\n", ctime / 1000);
-            printf("angle %d %d\n", angle[0], angle[1]);
+            //printf("angle %d %d\n", angle[0], angle[1]);
+            printf("des %d %d\n", desiredX, desiredY);
             //printf("gyr %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
             printf("throttle %d\n", throttle);
             ptime = ctime;

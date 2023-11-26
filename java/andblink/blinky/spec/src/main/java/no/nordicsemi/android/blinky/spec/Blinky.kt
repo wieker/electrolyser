@@ -1,5 +1,6 @@
 package no.nordicsemi.android.blinky.spec
 
+import Joystick.JoyValues
 import kotlinx.coroutines.flow.StateFlow
 
 interface Blinky {
@@ -33,6 +34,7 @@ interface Blinky {
     val dump: StateFlow<String>
     val sliderPos: StateFlow<Float>
     val sliderProcess: StateFlow<Boolean>
+    val joy: JoyValues
 
     /**
      * Controls the LED state.

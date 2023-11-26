@@ -1,5 +1,6 @@
 package no.nordicsemi.android.blinky.ble
 
+import Joystick.JoyValues
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
@@ -57,6 +58,8 @@ private class BlinkyManagerImpl(
     override val dump = dumpV.asStateFlow()
     var cv = ""
     var cs = ""
+
+    override val joy = JoyValues()
 
     override val state = stateAsFlow()
         .map {
@@ -245,12 +248,13 @@ private class BlinkyManagerImpl(
                             a[1] = 'q'.code.toByte()
                             a[2] = cc[0].code.toByte()
                             a[3] = floor(_sliderPos.value * 100).toInt().toByte()
-                            a[4] = '0'.code.toByte()
-                            a[5] = '0'.code.toByte()
+                            a[4] = joy.x.toByte()
+                            a[5] = joy.y.toByte()
                             a[6] = '0'.code.toByte()
                             a[7] = '0'.code.toByte()
                             a[8] = 'e'.code.toByte()
                             Timber.log(10, "locked");
+                            cc = "c";
                             writeCharacteristic(
                                 txCharacteristic,
                                 Data(a),
