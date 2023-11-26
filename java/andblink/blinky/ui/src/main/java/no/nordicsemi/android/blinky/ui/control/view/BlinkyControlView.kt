@@ -22,6 +22,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.MobileAnarchy.Android.Widgets.Joystick.JoystickView
 import com.longdo.mjpegviewer.MjpegView
 import com.longdo.mjpegviewer.MjpegViewUDP
+import com.manalkaff.jetstick.JoyStick
+import no.nordicsemi.android.blinky.ui.R
 
 @Composable
 internal fun BlinkyControlView(
@@ -95,12 +97,11 @@ internal fun BlinkyControlView(
         ADCControlView(state = adcState)
 
         Box (Modifier.requiredHeight(Dp(500f))) {
-            AndroidView(factory = {context ->
-                JoystickView(context).apply {
-                    setOnJoystickMovedListener(joy)
-                }
-            },
-                modifier = Modifier.alpha(0.5f).size(Dp(250f), Dp(250f)))
+            JoyStick(backgroundImage = R.drawable.joystick_background_1,
+                dotImage = R.drawable.joystick_dot_1,
+                size = 300.dp,
+                modifier = Modifier.alpha(0.5f),
+                moved = {x, y -> joy.OnMoved(x, y)})
 
             Slider(value = sliderPosition, onValueChange = throttleValue, modifier = Modifier
                 .rotate(270f).offset(Dp(-200f), Dp(150f)),
