@@ -2,12 +2,15 @@ package Joystick;
 
 import static java.lang.Math.floor;
 
+import android.util.Log;
+
 public class JoyValues implements JoystickMovedListener {
     private int X, Y;
     @Override
     public void OnMoved(float pan, float tilt) {
         X = Double.valueOf(floor(pan * 100)).intValue();
         Y = Double.valueOf(floor(tilt * 100)).intValue();
+        //Log.d("JoystickView", String.format("moveListener.OnMoved(%d,%d)", X, Y));
     }
 
     @Override

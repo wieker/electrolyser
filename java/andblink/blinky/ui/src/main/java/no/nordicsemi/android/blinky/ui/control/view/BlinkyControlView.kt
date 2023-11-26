@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
@@ -13,6 +16,7 @@ import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.MobileAnarchy.Android.Widgets.Joystick.JoystickView
@@ -90,7 +94,20 @@ internal fun BlinkyControlView(
 
         ADCControlView(state = adcState)
 
-        Box {
+        Box (Modifier.requiredHeight(Dp(500f))) {
+            AndroidView(factory = {context ->
+                JoystickView(context).apply {
+                    setOnJoystickMovedListener(joy)
+                }
+            },
+                modifier = Modifier.alpha(0.5f).size(Dp(250f), Dp(250f)))
+
+            Slider(value = sliderPosition, onValueChange = throttleValue, modifier = Modifier
+                .rotate(270f).offset(Dp(-200f), Dp(150f)),
+                enabled = sliderProcess,
+                steps = 33,
+            )
+
             AndroidView(factory = {context ->
                 MjpegViewUDP(context).apply {
                     setUrl("http://192.168.43.1:8080")
@@ -103,22 +120,6 @@ internal fun BlinkyControlView(
                 modifier = Modifier.alpha(0.5f))
 
             Text(text = dump)
-
-            Slider(value = sliderPosition, onValueChange = throttleValue, modifier = Modifier
-                .rotate(270f)
-                .align(
-                    AbsoluteAlignment.TopRight
-                ),
-                enabled = sliderProcess,
-                steps = 33,
-            )
-
-            AndroidView(factory = {context ->
-                JoystickView(context).apply {
-                    setOnJoystickMovedListener(joy)
-                }
-            },
-                modifier = Modifier.alpha(0.5f))
         }
     }
 }

@@ -95,7 +95,7 @@ void read_throttle() {
     stopMotors();
 }
 
-char cmd_string[10];
+int8_t cmd_string[10];
 int wpos = 0;
 
 int check_string(char ch) {
@@ -104,8 +104,8 @@ int check_string(char ch) {
 
 void parse_ctl() {
     for (;;) {
-        char ch = getchar();
-        if (0xFF == ch) {
+        int8_t ch = getchar();
+        if (-1 == ch) {
             return;
         }
         if (wpos == 0 && ch == 't') {
@@ -119,7 +119,7 @@ void parse_ctl() {
             wpos = 0;
             printf("c");
             big_switch(cmd_string[2]);
-            char u = cmd_string[3];
+            int8_t u = cmd_string[3];
             if (u >= 0 && u <= 100) {
                 throttle = u * 10;
             }

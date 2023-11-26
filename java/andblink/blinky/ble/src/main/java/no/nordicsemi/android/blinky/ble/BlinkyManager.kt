@@ -198,7 +198,7 @@ private class BlinkyManagerImpl(
             cv = cs + '\n' + cv
             cs = lines[i]
         }
-        cv = cv.substring(0, 200)
+        cv = cv.substring(0, Integer.min(200, cv.length))
         dumpV.tryEmit(cs + '\n' + cv)
         Timber.log(10, "here");
 
@@ -253,7 +253,7 @@ private class BlinkyManagerImpl(
                             a[6] = '0'.code.toByte()
                             a[7] = '0'.code.toByte()
                             a[8] = 'e'.code.toByte()
-                            Timber.log(10, "locked");
+                            Timber.log(10, "locked " + a[5]);
                             cc = "c";
                             writeCharacteristic(
                                 txCharacteristic,

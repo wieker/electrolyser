@@ -276,6 +276,7 @@ public class JoystickView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         final int action = ev.getAction();
+        Log.d(TAG, "touch");
         switch (action & MotionEvent.ACTION_MASK) {
         case MotionEvent.ACTION_MOVE: {
             return processMoveEvent(ev);
@@ -364,7 +365,7 @@ public class JoystickView extends View {
                 this.reportX = touchX;
                 this.reportY = touchY;
 
-                // Log.d(TAG, String.format("moveListener.OnMoved(%d,%d)", (int)userX, (int)userY));
+                //Log.d(TAG, String.format("moveListener.OnMoved(%f,%f)", userX, userY));
                 moveListener.OnMoved(userX, userY);
             }
         }
