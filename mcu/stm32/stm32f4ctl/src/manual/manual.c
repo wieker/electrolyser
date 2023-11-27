@@ -159,7 +159,7 @@ void tlmtr() {
             //printf("des %d %d\n", desiredX, desiredY);
             printf("up %d\n", millis() / 1000);
             //printf("gyr %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
-            printf("th %d %d %d %d %d\n", throttle, angle[0], angle[1], desiredX, desiredY);
+            printf("th %d %d=>%d %d=>%d\n", throttle, desiredX, angle[0], desiredY, angle[1]);
             ptime = ctime;
         }
 }
