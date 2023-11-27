@@ -238,10 +238,27 @@ private class BlinkyManagerImpl(
             .enqueue()
 
         Thread {
+            var started = false
+            var autoCommand = 0
+            var specCmd = "c"
             while (true) {
 
                 try {
                     if (lock.tryAcquire()) {
+                        if (!started && _sliderPos.value >= 0.3f) {
+                            autoCommand = 10
+                            specCmd = "m"
+                            started = true
+                        }
+                        if (started && _sliderPos.value < 0.2f) {
+                            autoCommand = 10
+                            specCmd = "0"
+                            started = false
+                        }
+                        if (cc.equals("c") && autoCommand > 0) {
+                            cc = specCmd
+                            autoCommand --
+                        }
                         try {
                             val a = ByteArray(10)
                             a[0] = 't'.code.toByte()
