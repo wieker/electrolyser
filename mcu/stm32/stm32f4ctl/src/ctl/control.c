@@ -22,6 +22,8 @@ int constrain(int amt, int low, int high)
 int32_t yawUI = 0;
 int32_t desiredX = 0;
 int32_t desiredY = 0;
+int32_t adjustX = 10;
+int32_t adjustY = 0;
 int32_t acc_delta[3];
 int32_t lastAngle[3];
 float lastAngleDiff[3];
@@ -46,8 +48,8 @@ static void pidMultiWii(void)
     acc_delta[2] = 0;
     //acc_delta[0] = 10 * desiredX - angle[0];
     //acc_delta[1] = 10 * desiredY - angle[1];
-    acc_delta[0] = 10 + desiredX;
-    acc_delta[1] = desiredY;
+    acc_delta[0] = adjustX + desiredX;
+    acc_delta[1] = adjustY + desiredY;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {

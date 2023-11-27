@@ -48,6 +48,8 @@ extern uint32_t motor[MAX_MOTORS];
 
 extern int32_t desiredX;
 extern int32_t desiredY;
+extern int32_t adjustX;
+extern int32_t adjustY;
 
 extern int cMode;
 extern float cumulativeG;

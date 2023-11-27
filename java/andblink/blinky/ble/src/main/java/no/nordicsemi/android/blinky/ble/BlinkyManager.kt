@@ -269,7 +269,7 @@ private class BlinkyManagerImpl(
                         oldV = _sliderPos.value
                     }
 
-                    Thread.sleep(10)
+                    Thread.sleep(30)
                 } finally {
                 }
             }

@@ -66,31 +66,22 @@ internal fun BlinkyControlView(
             Button(onClick = { commandValue("m") }) {
                 Text(text = "Seq")
             }
-            Button(onClick = { commandValue("v") }) {
-                Text(text = "Zero")
-            }
             Button(onClick = { commandValue("0") }) {
                 Text(text = "Stop")
-            }
-            Button(onClick = { commandValue("-") }) {
-                Text(text = "-10")
-            }
-            Button(onClick = { commandValue("=") }) {
-                Text(text = "+50")
             }
         }
         Row {
             Button(onClick = { commandValue("a") }) {
-                Text(text = "a")
+                Text(text = "X-")
             }
             Button(onClick = { commandValue("s") }) {
-                Text(text = "s")
+                Text(text = "Y-")
             }
             Button(onClick = { commandValue("d") }) {
-                Text(text = "d")
+                Text(text = "X+")
             }
             Button(onClick = { commandValue("w") }) {
-                Text(text = "w")
+                Text(text = "Y+")
             }
         }
 

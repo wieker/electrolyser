@@ -8,33 +8,25 @@ int32_t thTime = 0;
 
 void big_switch(char ch) {
     switch (ch) {
-        case '=': {
-            throttle += 50;
-            break;
-        }
-        case '-': {
-            throttle -= 10;
-            break;
-        }
         case '0': {
             stopMotors();
             chState = 0;
             break;
         }
         case 'a': {
-            desiredX --;
+            adjustX --;
             break;
         }
         case 's': {
-            desiredY --;
+            adjustY --;
             break;
         }
         case 'd': {
-            desiredX ++;
+            adjustX ++;
             break;
         }
         case 'w': {
-            desiredY ++;
+            adjustY ++;
             break;
         }
         case '1': {
@@ -62,11 +54,8 @@ void big_switch(char ch) {
             break;
         }
         case 'g': {
+            printf("calibration\r\n");
             calibratingG = CALIBRATING_GYRO_CYCLES;
-            break;
-        }
-        case 'v': {
-            throttle = 0;
             break;
         }
         case 'm': {
@@ -159,7 +148,7 @@ void tlmtr() {
             //printf("des %d %d\n", desiredX, desiredY);
             printf("up %d\n", millis() / 1000);
             //printf("gyr %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
-            printf("th %d %d=>%d %d=>%d\n", throttle, desiredX, angle[0], desiredY, angle[1]);
+            printf("th %d %d=>%d %d=>%d\n", throttle, adjustX, angle[0], adjustY, angle[1]);
             ptime = ctime;
         }
 }
