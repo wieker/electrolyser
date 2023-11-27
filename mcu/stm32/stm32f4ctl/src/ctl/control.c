@@ -46,7 +46,7 @@ static void pidMultiWii(void)
     acc_delta[2] = 0;
     //acc_delta[0] = 10 * desiredX - angle[0];
     //acc_delta[1] = 10 * desiredY - angle[1];
-    acc_delta[0] = desiredX;
+    acc_delta[0] = 10 + desiredX;
     acc_delta[1] = desiredY;
 
     // ----------PID controller----------
