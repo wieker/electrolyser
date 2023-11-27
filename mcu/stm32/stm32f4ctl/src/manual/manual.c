@@ -151,7 +151,8 @@ void tlmtr() {
         if (ctime - ptime > 1000) {
             //printf("[%3d]\n", ctime / 1000);
             //printf("angle %d %d\n", angle[0], angle[1]);
-            printf("des %d %d\n", desiredX, desiredY);
+            //printf("des %d %d\n", desiredX, desiredY);
+            printf("uptime %d\n", millis());
             //printf("gyr %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
             printf("throttle %d\n", throttle);
             ptime = ctime;
