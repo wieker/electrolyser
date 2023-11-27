@@ -117,14 +117,19 @@ void parse_ctl() {
             wpos ++;
         } else if (wpos == 8 && check_string(ch)) {
             wpos = 0;
-            printf("c");
             big_switch(cmd_string[2]);
             int8_t u = cmd_string[3];
             if (u >= 0 && u <= 100) {
                 throttle = u * 10;
             }
-            desiredX = cmd_string[4] / 10;
-            desiredY = cmd_string[5] / 10;
+            if (cmd_string[4] < 0) {
+                cmd_string[4] ++;
+            }
+            if (cmd_string[5] < 0) {
+                cmd_string[5] ++;
+            }
+            desiredX = cmd_string[4];
+            desiredY = cmd_string[5];
         } else {
             wpos = 0;
         }
@@ -152,9 +157,9 @@ void tlmtr() {
             //printf("[%3d]\n", ctime / 1000);
             //printf("angle %d %d\n", angle[0], angle[1]);
             //printf("des %d %d\n", desiredX, desiredY);
-            printf("uptime %d\n", millis());
+            printf("up %d\n", millis() / 1000);
             //printf("gyr %5d %5d %5d\n", gyroADC[0], gyroADC[1], gyroADC[2]);
-            printf("throttle %d\n", throttle);
+            printf("th %d %d %d %d %d\n", throttle, angle[0], angle[1], desiredX, desiredY);
             ptime = ctime;
         }
 }

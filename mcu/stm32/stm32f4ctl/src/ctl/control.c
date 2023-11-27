@@ -63,7 +63,7 @@ static void pidMultiWii(void)
             } else if (cMode == 5) {
                 AngleRateTmp = gyroADC[axis];
             } else {
-                errorAngle = 10 * acc_delta[axis] - angle[axis];
+                errorAngle = acc_delta[axis] - angle[axis];
                 AngleRateTmp = (errorAngle * cfgP8PIDLEVEL) >> 4;
             }
         }
