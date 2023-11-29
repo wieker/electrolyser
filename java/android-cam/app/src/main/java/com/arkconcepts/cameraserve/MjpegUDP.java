@@ -19,8 +19,8 @@ public class MjpegUDP implements Runnable {
     public void run() {
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
 
-        try {
-            while(true) {
+        while(true) {
+            try {
                 byte[] frame = MainActivity.getJpegFrame();
 
                 Log.w("udpSender", "run: sent", null);
@@ -29,11 +29,10 @@ public class MjpegUDP implements Runnable {
                     DatagramPacket packet = new DatagramPacket(frame, frame.length, InetAddress.getByName("192.168.43.123"), 4477);
                     socket.send(packet);
                 }
+            } catch (Exception e) {
+                Log.w("udpSender", "run: error", e);
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-            Log.w("udpSender", "run: error", e);
-            e.printStackTrace();
         }
     }
 }
