@@ -68,6 +68,11 @@ void big_switch(char ch) {
             thTime = millis();
             break;
         }
+        case 'y': {
+            yawMode = (yawMode + 1) % 2;
+            printf("yawMode: %d\r\n", yawMode);
+            break;
+        }
     }
 }
 

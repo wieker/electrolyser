@@ -27,6 +27,7 @@ int32_t adjustY = 0;
 int32_t acc_delta[3];
 int32_t lastAngle[3];
 float lastAngleDiff[3];
+int yawMode = 0;
 
 float lastSpeed[3];
 float accMomLPF[3] = {0.0f, 0.0f, 0.0f};
@@ -45,17 +46,17 @@ static void pidMultiWii(void)
     int32_t cfgD8 = 10;
     int32_t cfgP8PIDLEVEL = 9;
 
-    acc_delta[2] = 0;
+    acc_delta[2] = 0 == yawMode ? 0 : desiredX;
     //acc_delta[0] = 10 * desiredX - angle[0];
     //acc_delta[1] = 10 * desiredY - angle[1];
-    acc_delta[0] = adjustX + desiredX;
+    acc_delta[0] = adjustX + 0 == yawMode ? desiredX : 0;
     acc_delta[1] = adjustY + desiredY;
 
     // ----------PID controller----------
     for (axis = 0; axis < 3; axis++) {
         // -----Get the desired angle rate depending on flight mode
         if (axis == 2) { // YAW is always gyro-controlled (MAG correction is applied to rcCommand)
-            AngleRateTmp = 0;
+            AngleRateTmp = acc_delta[2] / 10;
         } else {
             // calculate error and limit the angle to 50 degrees max inclination
             if (cMode == 3) {
