@@ -267,7 +267,7 @@ private class BlinkyManagerImpl(
                             a[3] = floor(_sliderPos.value * 100).toInt().toByte()
                             a[4] = joy.x.toByte()
                             a[5] = joy.y.toByte()
-                            a[6] = '0'.code.toByte()
+                            a[6] = 0
                             a[7] = '0'.code.toByte()
                             a[8] = 'e'.code.toByte()
                             Timber.log(10, "locked " + a[5]);

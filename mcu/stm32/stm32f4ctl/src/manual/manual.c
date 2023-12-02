@@ -68,25 +68,7 @@ void big_switch(char ch) {
             thTime = millis();
             break;
         }
-        case 'y': {
-            yawMode = (yawMode + 1) % 2;
-            printf("yawMode: %d\r\n", yawMode);
-            break;
-        }
     }
-}
-
-void read_throttle() {
-    int ctime = millis();
-    int nt = 0;
-    while (millis() - ctime < 1000) {
-        char ch = getchar();
-        if (ch >= 0 && ch <= 100) {
-            throttle = ch * 10;
-            return;
-        }
-    }
-    stopMotors();
 }
 
 int8_t cmd_string[10];
@@ -122,8 +104,12 @@ void parse_ctl() {
             if (cmd_string[5] < 0) {
                 cmd_string[5] ++;
             }
+            if (cmd_string[6] < 0) {
+                cmd_string[6] ++;
+            }
             desiredX = cmd_string[4];
             desiredY = cmd_string[5];
+            desiredYAW = cmd_string[6];
         } else {
             wpos = 0;
         }

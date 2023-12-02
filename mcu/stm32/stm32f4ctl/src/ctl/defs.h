@@ -50,7 +50,7 @@ extern int32_t desiredX;
 extern int32_t desiredY;
 extern int32_t adjustX;
 extern int32_t adjustY;
-extern int yawMode;
+extern int desiredYAW;
 
 extern int cMode;
 extern float cumulativeG;
