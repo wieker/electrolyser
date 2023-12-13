@@ -33,7 +33,7 @@ static uint32_t pwmN_timer_cc_num[] = PWMN_TIMER_CC_NUM;
 
 static const nrf_drv_timer_t timer = NRF_DRV_TIMER_INSTANCE(1);
 
-#define GPIO_OUTPUT_PIN_NUMBER 18
+#define GPIO_OUTPUT_PIN_NUMBER 2
 
 static timer_dummy_handler(nrf_timer_event_t event_type, void * p_context) {}
 
