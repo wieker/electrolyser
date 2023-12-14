@@ -70,7 +70,7 @@ void uart_buf_timer_init(void)
   nrf_drv_timer_init(&m_timer2, &timer_cfg, timer_handler);
 
   /* setup m_timer for compare event every 400ms */
-  uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 10);
+  uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 20);
   nrf_drv_timer_extended_compare(&m_timer2,
                                  NRF_TIMER_CC_CHANNEL1,
                                  ticks,
@@ -157,11 +157,12 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
         burst_mode_deinit();
         mode = 0;
         uint8_t nus_string[50];
-        for (int i = 0; i< 30; i ++) {
+        for (int i = 0; i< 30; i += 2) {
             int bytes_to_send = sprintf(nus_string,
-                                "CH%d: %d\r\n",
+                                "CH%d: %d %d\r\n",
                                 i,
-                                p_event->data.done.p_buffer[i]
+                                p_event->data.done.p_buffer[i],
+                                p_event->data.done.p_buffer[i + 1]
                                 );
 
             dump_adc(nus_string, bytes_to_send);
