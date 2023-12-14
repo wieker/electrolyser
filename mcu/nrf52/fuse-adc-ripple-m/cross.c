@@ -49,8 +49,8 @@ void services_init(void)
 
 uint8_t rx_data[100];
 
-uint8_t rx_buf[20][20];
-uint16_t rx_len[20];
+uint8_t rx_buf[40][20];
+uint16_t rx_len[40];
 int buf_index = 0;
 int buf_read_index = 0;
 
@@ -61,7 +61,7 @@ static void copy_data(int len, uint8_t* dt) {
         rx_buf[buf_index][i] = dt[i];
         i ++;
     }
-    buf_index = (buf_index + 1) % 20;
+    buf_index = (buf_index + 1) % 40;
 }
 
 static void evh(nrfx_uart_event_t const * p_event,
@@ -116,7 +116,7 @@ void timer_handler(nrf_timer_event_t event_type, void * p_context)
             if (rx_len[buf_read_index] > 0) {
                 ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, rx_len[buf_read_index], rx_buf[buf_read_index]);
                 rx_len[buf_read_index] = 0;
-                buf_read_index = (buf_read_index + 1) % 20;
+                buf_read_index = (buf_read_index + 1) % 40;
             }
             break;
 
