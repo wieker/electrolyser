@@ -158,15 +158,16 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
         hourV = hourV + (int16_t) (minuteV / 60) - ring_hour[min_counter % 60];
         ring_hour[min_counter % 60] = (int16_t) (minuteV / 60);
         min_counter ++;
+
+        if (min_counter % 60 == 0) {
+          hourV6 = hourV6 + (int16_t) (hourV / 60) - ring_hour6[hour_counter % 6];
+          ring_hour6[hour_counter % 6] = (int16_t) (hourV / 60);
+          hourV24 = hourV24 + (int16_t) (hourV / 60) - ring_hour24[hour_counter % 24];
+          ring_hour24[hour_counter % 24] = (int16_t) (hourV / 60);
+          hour_counter ++;
+        }
       }
 
-      if (min_counter % 60 == 0) {
-        hourV6 = hourV6 + (int16_t) (hourV / 60) - ring_hour6[hour_counter % 6];
-        ring_hour6[hour_counter % 6] = (int16_t) (hourV / 60);
-        hourV24 = hourV24 + (int16_t) (hourV / 60) - ring_hour24[hour_counter % 24];
-        ring_hour24[hour_counter % 24] = (int16_t) (hourV / 60);
-        hour_counter ++;
-      }
       adc_buffer[1] = (int16_t) (minuteV / 60);
       adc_buffer[2] = (int16_t) (minuteV10 / 10);
       adc_buffer[3] = (int16_t) (hourV / 60);
