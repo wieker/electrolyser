@@ -31,7 +31,6 @@ static const nrf_drv_timer_t m_timer2 = NRF_DRV_TIMER_INSTANCE(2);
 nrf_saadc_value_t     adc_buffer[SAMPLES_IN_BUFFER];
 static nrf_ppi_channel_t     m_ppi_channel_slow;
 static nrf_ppi_channel_t     m_ppi_channel_fast;
-static uint32_t              m_adc_evt_counter = 0;
 
 timer_handler(nrf_timer_event_t event_type, void * p_context);
 
@@ -127,10 +126,22 @@ int mode = 0;
  * use timer1 CC1 / CC2 to switch on / off GPIO during the ADC interval
  * */
 
-float min10V, hourV, hour6V, hour24V;
 int32_t minuteV = 0;
+int32_t minuteV10 = 0;
+int32_t hourV = 0;
+int32_t hourV6 = 0;
+int32_t hourV24 = 0;
+
+static uint32_t              m_adc_evt_counter = 0;
+static uint32_t              min_counter = 0;
+static uint32_t              hour_counter = 0;
+
 nrf_saadc_value_t     bmode[100];
 nrf_saadc_value_t     ring_minute[60] = {0};
+nrf_saadc_value_t     ring_min10[10] = {0};
+nrf_saadc_value_t     ring_hour[60] = {0};
+nrf_saadc_value_t     ring_hour6[6] = {0};
+nrf_saadc_value_t     ring_hour24[24] = {0};
 
 void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 {
@@ -139,17 +150,29 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
     if (mode == 0) {
       minuteV = minuteV + adc_buffer[0] - ring_minute[m_adc_evt_counter % 60];
       ring_minute[m_adc_evt_counter % 60] = adc_buffer[0];
-      min10V = (min10V * 599 + (float) (adc_buffer[0])) / 600;
-      hourV = (hourV * 3599 + (float) (adc_buffer[0])) / 3600;
-      hour6V = (hour6V * 21599 + (float) (adc_buffer[0])) / 21600;
-      hour24V = (hour24V * 86399 + (float) (adc_buffer[0])) / 86400;
-      adc_buffer[1] = (int16_t) (minuteV / 60);
-      adc_buffer[2] = (int16_t) min10V;
-      adc_buffer[3] = (int16_t) hourV;
-      adc_buffer[4] = (int16_t) hour6V;
-      adc_buffer[5] = (int16_t) hour24V;
-      send_adc(adc_buffer, 6);
       m_adc_evt_counter ++;
+
+      if (m_adc_evt_counter % 60 == 0) {
+        minuteV10 = minuteV10 + (int16_t) (minuteV / 60) - ring_min10[min_counter % 10];
+        ring_min10[min_counter % 10] = (int16_t) (minuteV / 60);
+        hourV = minuteV10 + (int16_t) (minuteV / 60) - ring_hour[min_counter % 60];
+        ring_hour[min_counter % 60] = (int16_t) (minuteV / 60);
+        min_counter ++;
+      }
+
+      if (min_counter % 60 == 0) {
+        hourV6 = minuteV10 + (int16_t) (hourV / 60) - ring_hour6[hour_counter % 6];
+        ring_hour6[hour_counter % 6] = (int16_t) (hourV / 60);
+        hourV24 = minuteV10 + (int16_t) (hourV / 60) - ring_hour24[hour_counter % 24];
+        ring_hour24[hour_counter % 24] = (int16_t) (hourV / 60);
+        hour_counter ++;
+      }
+      adc_buffer[1] = (int16_t) (minuteV / 60);
+      adc_buffer[2] = (int16_t) (minuteV10 / 10);
+      adc_buffer[3] = (int16_t) (hourV / 60);
+      adc_buffer[4] = (int16_t) (hourV6 / 6);
+      adc_buffer[5] = (int16_t) (hourV24 / 24);
+      send_adc(adc_buffer, 6);
       nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, 1);
     }
     if (mode == 2) {
