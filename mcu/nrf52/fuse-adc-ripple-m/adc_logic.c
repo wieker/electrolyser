@@ -155,15 +155,15 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
       if (m_adc_evt_counter % 60 == 0) {
         minuteV10 = minuteV10 + (int16_t) (minuteV / 60) - ring_min10[min_counter % 10];
         ring_min10[min_counter % 10] = (int16_t) (minuteV / 60);
-        hourV = minuteV10 + (int16_t) (minuteV / 60) - ring_hour[min_counter % 60];
+        hourV = hourV + (int16_t) (minuteV / 60) - ring_hour[min_counter % 60];
         ring_hour[min_counter % 60] = (int16_t) (minuteV / 60);
         min_counter ++;
       }
 
       if (min_counter % 60 == 0) {
-        hourV6 = minuteV10 + (int16_t) (hourV / 60) - ring_hour6[hour_counter % 6];
+        hourV6 = hourV6 + (int16_t) (hourV / 60) - ring_hour6[hour_counter % 6];
         ring_hour6[hour_counter % 6] = (int16_t) (hourV / 60);
-        hourV24 = minuteV10 + (int16_t) (hourV / 60) - ring_hour24[hour_counter % 24];
+        hourV24 = hourV24 + (int16_t) (hourV / 60) - ring_hour24[hour_counter % 24];
         ring_hour24[hour_counter % 24] = (int16_t) (hourV / 60);
         hour_counter ++;
       }
