@@ -110,21 +110,25 @@ int evsk;
 #include "nrf_drv_timer.h"
 void timer_handler(nrf_timer_event_t event_type, void * p_context)
 {
+    uint32_t       err_code;
+
     if (mode > 0) {
         return;
     }
-    evsk = (evsk + 1) % 20;
-    if (0 != evsk) {
-        return;
-    }
+    // evsk = (evsk + 1) % 20;
+    // if (0 != evsk) {
+    //     return;
+    // }
 
     switch (event_type)
     {
         case NRF_TIMER_EVENT_COMPARE1:
             if (rx_len[buf_read_index] > 0) {
-                ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, rx_len[buf_read_index], rx_buf[buf_read_index]);
-                rx_len[buf_read_index] = 0;
-                buf_read_index = (buf_read_index + 1) % 40;
+                err_code = ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, rx_len[buf_read_index], rx_buf[buf_read_index]);
+                if (err_code != NRF_ERROR_RESOURCES) {
+                    rx_len[buf_read_index] = 0;
+                    buf_read_index = (buf_read_index + 1) % 40;
+                }
             }
             break;
 
