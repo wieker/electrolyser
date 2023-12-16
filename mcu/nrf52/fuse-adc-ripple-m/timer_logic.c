@@ -59,10 +59,10 @@ static void timer_init() {
     NRF_TIMER1->PRESCALER               = 0;
     NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE3_STOP_Msk;
     NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 150 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = 250 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL2] = 50 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 350 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 15 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = 25 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL2] = 5 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 35 * 16000;
 }
 
 static nrf_ppi_channel_t ppi_channel_set;
@@ -97,6 +97,8 @@ void burst_prepare() {
     nrf_drv_ppi_channel_alloc(&ppi_channel_timer);
 }
 
+void saadc_ch_init(void);
+
 void burst_mode_init(void)
 {
     //gpiote_init();
@@ -109,10 +111,13 @@ void burst_mode_init(void)
     stop_uart_timer();
     timer_init();
     task_enable();
+    saadc_ch_init();
     saadc_enable_fast();
 
     NRF_TIMER1->TASKS_START = 1;
 }
+
+void saadc_ch_uninit(void);
 
 void burst_mode_deinit(void)
 {
@@ -121,6 +126,7 @@ void burst_mode_deinit(void)
     nrf_drv_ppi_channel_disable(ppi_channel_clr);
     nrf_drv_ppi_channel_disable(ppi_channel_timer);
     saadc_disable_fast();
+    saadc_ch_uninit();
 
     saadc_sampling_event_init();
     saadc_sampling_event_enable();

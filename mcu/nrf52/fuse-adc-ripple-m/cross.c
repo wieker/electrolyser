@@ -104,11 +104,19 @@ void send_adc(nrf_saadc_value_t *vls, int size)
     }
 }
 
+extern int mode;
+int evsk;
 
 #include "nrf_drv_timer.h"
 void timer_handler(nrf_timer_event_t event_type, void * p_context)
 {
-    static uint32_t i;
+    if (mode > 0) {
+        return;
+    }
+    evsk = (evsk + 1) % 20;
+    if (0 != evsk) {
+        return;
+    }
 
     switch (event_type)
     {
