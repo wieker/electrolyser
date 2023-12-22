@@ -227,11 +227,11 @@ void saadc_init(void)
 {
   nrf_saadc_channel_config_t channel_config_V =
           NRFX_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN4);
-  channel_config_V.gain = SAADC_CH_CONFIG_GAIN_Gain1_4;
+  channel_config_V.gain = SAADC_CH_CONFIG_GAIN_Gain1;
   channel_config_V.reference = SAADC_CH_CONFIG_REFSEL_Internal;
   nrf_saadc_channel_config_t channel_config_I =
           NRFX_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN5);
-  channel_config_I.gain = SAADC_CH_CONFIG_GAIN_Gain1_4;
+  channel_config_I.gain = SAADC_CH_CONFIG_GAIN_Gain1;
   channel_config_I.reference = SAADC_CH_CONFIG_REFSEL_Internal;
 
   nrf_drv_saadc_init(NULL, saadc_callback);
