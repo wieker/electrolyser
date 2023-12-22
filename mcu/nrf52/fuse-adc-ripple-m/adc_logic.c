@@ -69,7 +69,7 @@ void uart_buf_timer_init(void)
   nrf_drv_timer_init(&m_timer2, &timer_cfg, timer_handler);
 
   /* setup m_timer for compare event every 400ms */
-  uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 2);
+  uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer2, 20);
   nrf_drv_timer_extended_compare(&m_timer2,
                                  NRF_TIMER_CC_CHANNEL1,
                                  ticks,
