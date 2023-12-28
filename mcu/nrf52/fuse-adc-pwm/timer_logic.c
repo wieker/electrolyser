@@ -47,22 +47,16 @@ static void gpiote_init() {
         GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
         GPIO_OUTPUT_PIN_NUMBER << GPIOTE_CONFIG_PSEL_Pos |
         GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
-
-    NRF_GPIOTE->CONFIG[PWM1_GPIOTE_CH] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
-        GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-        20 << GPIOTE_CONFIG_PSEL_Pos |
-        GPIOTE_CONFIG_OUTINIT_High << GPIOTE_CONFIG_OUTINIT_Pos;
 }
 
 static void timer_init() {
     NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos;
     NRF_TIMER1->PRESCALER               = 0;
-    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE3_STOP_Msk;
+    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE3_CLEAR_Msk;
     NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 150 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = 250 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL2] = 50 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 350 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 1 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = 6 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 10 * 16000;
 }
 
 static nrf_ppi_channel_t ppi_channel_set;
@@ -79,14 +73,8 @@ static void task_enable() {
     nrf_drv_ppi_channel_assign(ppi_channel_set, evt_set, task_set);
     nrf_drv_ppi_channel_assign(ppi_channel_clr, evt_clr, task_clr);
 
-    evt_clr = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL2];
-    task_clr = (uint32_t)&NRF_TIMER2->TASKS_START;
-
-    nrf_drv_ppi_channel_assign(ppi_channel_timer, evt_clr, task_clr);
-
     nrf_drv_ppi_channel_enable(ppi_channel_set);
     nrf_drv_ppi_channel_enable(ppi_channel_clr);
-    nrf_drv_ppi_channel_enable(ppi_channel_timer);
 }
 
 void burst_prepare() {
@@ -94,40 +82,19 @@ void burst_prepare() {
 
     nrf_drv_ppi_channel_alloc(&ppi_channel_set);
     nrf_drv_ppi_channel_alloc(&ppi_channel_clr);
-    nrf_drv_ppi_channel_alloc(&ppi_channel_timer);
 }
-
-void saadc_ch_init(void);
 
 void burst_mode_init(void)
 {
-    //gpiote_init();
-    saadc_sampling_event_disable();
+    NRF_TIMER1->TASKS_STOP = 1;
     nrf_drv_ppi_channel_disable(ppi_channel_set);
     nrf_drv_ppi_channel_disable(ppi_channel_clr);
-    nrf_drv_ppi_channel_disable(ppi_channel_timer);
-    saadc_disable_fast();
 
-    stop_uart_timer();
     timer_init();
     task_enable();
-    saadc_ch_init();
-    saadc_enable_fast();
-
     NRF_TIMER1->TASKS_START = 1;
 }
 
-void saadc_ch_uninit(void);
-
 void burst_mode_deinit(void)
 {
-    saadc_sampling_event_disable();
-    nrf_drv_ppi_channel_disable(ppi_channel_set);
-    nrf_drv_ppi_channel_disable(ppi_channel_clr);
-    nrf_drv_ppi_channel_disable(ppi_channel_timer);
-    saadc_disable_fast();
-    saadc_ch_uninit();
-
-    saadc_sampling_event_init();
-    saadc_sampling_event_enable();
 }
