@@ -52,13 +52,13 @@ static void gpiote_init() {
 }
 
 static void timer_init() {
-    NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos;
-    NRF_TIMER1->PRESCALER               = 0;
-    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE3_CLEAR_Msk;
-    NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 0 * 16000 + 1;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = pwm * 16000 + 2;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 10 * 16000;
+    NRF_TIMER2->BITMODE                 = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos;
+    NRF_TIMER2->PRESCALER               = 0;
+    NRF_TIMER2->SHORTS                  = TIMER_SHORTS_COMPARE3_CLEAR_Msk;
+    NRF_TIMER2->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
+    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL0] = 0 * 16000 + 1;
+    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL1] = pwm * 16000 + 2;
+    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL3] = 10 * 16000;
 }
 
 static nrf_ppi_channel_t ppi_channel_set;
@@ -67,9 +67,9 @@ static nrf_ppi_channel_t ppi_channel_timer;
 
 static void task_enable() {
     uint32_t evt_set, evt_clr, task_set, task_clr;
-    evt_set = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1];
+    evt_set = (uint32_t)&NRF_TIMER2->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1];
     task_set = (uint32_t)&NRF_GPIOTE->TASKS_CLR[PWM0_GPIOTE_CH];
-    evt_clr = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0];
+    evt_clr = (uint32_t)&NRF_TIMER2->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0];
     task_clr = (uint32_t)&NRF_GPIOTE->TASKS_SET[PWM0_GPIOTE_CH];
 
     nrf_drv_ppi_channel_assign(ppi_channel_set, evt_set, task_set);
@@ -88,13 +88,13 @@ void burst_prepare() {
 
 void burst_mode_init(void)
 {
-    NRF_TIMER1->TASKS_STOP = 1;
+    NRF_TIMER2->TASKS_STOP = 1;
     nrf_drv_ppi_channel_disable(ppi_channel_set);
     nrf_drv_ppi_channel_disable(ppi_channel_clr);
 
     timer_init();
     task_enable();
-    NRF_TIMER1->TASKS_START = 1;
+    NRF_TIMER2->TASKS_START = 1;
 }
 
 void burst_mode_pwm(int _pwm)

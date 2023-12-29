@@ -178,7 +178,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
     }
     if (mode == 2) {
         dump_adc("finished\n", 9);
-        burst_mode_deinit();
+        //burst_mode_deinit();
         mode = 0;
         uint8_t nus_string[50];
         for (int i = 0; i< 30; i += 2) {

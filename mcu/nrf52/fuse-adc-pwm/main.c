@@ -461,10 +461,14 @@ int main(void)
     ble_stack_init();
     gap_params_init();
     gatt_init();
+    slow_event_init();
     burst_prepare();
     services_init();
     advertising_init();
     conn_params_init();
+    saadc_init();
+    saadc_sampling_event_init();
+    saadc_sampling_event_enable();
     burst_mode_init();
 
 
