@@ -35,6 +35,8 @@ static const nrf_drv_timer_t timer = NRF_DRV_TIMER_INSTANCE(1);
 
 #define GPIO_OUTPUT_PIN_NUMBER 2
 
+int pwm = 0;
+
 static timer_dummy_handler(nrf_timer_event_t event_type, void * p_context) {}
 
 static void gpiote_init() {
@@ -54,8 +56,8 @@ static void timer_init() {
     NRF_TIMER1->PRESCALER               = 0;
     NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE3_CLEAR_Msk;
     NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 1 * 16000;
-    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = 6 * 16000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 0 * 16000 + 1;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = pwm * 16000 + 2;
     NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 10 * 16000;
 }
 
@@ -95,6 +97,7 @@ void burst_mode_init(void)
     NRF_TIMER1->TASKS_START = 1;
 }
 
-void burst_mode_deinit(void)
+void burst_mode_pwm(int _pwm)
 {
+    pwm = _pwm;
 }

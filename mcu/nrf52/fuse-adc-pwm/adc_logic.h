@@ -29,4 +29,6 @@ void burst_mode_init(void);
 void ble_adc_cmd(int adc_cmd);
 void dump_adc(uint8_t* value, int len);
 
+void burst_mode_pwm(int _pwm);
+
 #endif //RF_UART_NRF_LOCAL_ADC_H
