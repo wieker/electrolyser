@@ -43,7 +43,7 @@ private class BlinkyManagerImpl(
     private val _buttonState = MutableStateFlow(false)
     override val buttonState = _buttonState.asStateFlow()
 
-    private val _adcState = MutableStateFlow(0)
+    private val _adcState = MutableStateFlow(IntArray(6))
     override val adcState = _adcState.asStateFlow()
 
     private val _sliderPos = MutableStateFlow(0.0f)
@@ -83,7 +83,7 @@ private class BlinkyManagerImpl(
 
     private val adcCallback by lazy {
         object : AdcCallback() {
-            override fun onButtonStateChanged(device: BluetoothDevice, state: Int) {
+            override fun onButtonStateChanged(device: BluetoothDevice, state: IntArray) {
                 _adcState.tryEmit(state)
             }
         }

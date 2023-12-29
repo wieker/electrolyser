@@ -22,7 +22,7 @@ import no.nordicsemi.android.common.theme.NordicTheme
 
 @Composable
 internal fun ADCControlView(
-    state: Int,
+    state: IntArray,
     modifier: Modifier = Modifier,
 ) {
     OutlinedCard(
@@ -32,19 +32,24 @@ internal fun ADCControlView(
             modifier = Modifier
                 .padding(16.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = stringResource(R.string.blinky_button_descr),
-                    modifier = Modifier.weight(1f)
-                )
-                Text(
-                    text = state.toString(),
-                )
+            var i = 0;
+            while (i < 6) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "ADC: #" + i,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(
+                        text = state[i].toString(),
+                    )
+                }
+
+                i ++
             }
         }
     }

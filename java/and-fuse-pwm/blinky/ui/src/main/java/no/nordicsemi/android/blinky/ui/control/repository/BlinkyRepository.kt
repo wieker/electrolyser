@@ -47,7 +47,7 @@ class BlinkyRepository @Inject constructor(
             }
         }
 
-    val loggedADCState: Flow<Int>
+    val loggedADCState: Flow<IntArray>
         get() = blinky.adcState.onEach {
             // The same applies here.
         }

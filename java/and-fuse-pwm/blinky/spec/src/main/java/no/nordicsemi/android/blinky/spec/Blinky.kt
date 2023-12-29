@@ -30,7 +30,7 @@ interface Blinky {
      * The current state of the button.
      */
     val buttonState: StateFlow<Boolean>
-    val adcState: StateFlow<Int>
+    val adcState: StateFlow<IntArray>
     val dump: StateFlow<String>
     val sliderPos: StateFlow<Float>
     val sliderProcess: StateFlow<Boolean>
