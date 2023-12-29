@@ -156,7 +156,7 @@ void ble_lbs_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context);
  */
 uint32_t ble_lbs_on_uart_rx(uint16_t conn_handle, ble_lbs_t * p_lbs, uint16_t len, uint8_t * data);
 
-uint32_t ble_lbs_on_adc_timer(uint16_t conn_handle, ble_lbs_t * p_lbs, int16_t adc_value);
+uint32_t ble_lbs_on_adc_timer(uint16_t conn_handle, ble_lbs_t * p_lbs, int16_t *adc_value);
 
 
 #ifdef __cplusplus

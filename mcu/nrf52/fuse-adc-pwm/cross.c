@@ -94,7 +94,7 @@ void send_adc(nrf_saadc_value_t *vls, int size)
     //ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 4, "uuu\n");
     //return;
     ret_code_t err_code;
-    err_code = ble_lbs_on_adc_timer(m_conn_handle, &m_lbs, vls[0]);
+    err_code = ble_lbs_on_adc_timer(m_conn_handle, &m_lbs, vls);
     if (err_code != NRF_SUCCESS &&
         err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
         err_code != NRF_ERROR_INVALID_STATE &&

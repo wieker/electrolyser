@@ -138,8 +138,8 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     memset(&add_char_params, 0, sizeof(add_char_params));
     add_char_params.uuid              = LBS_UUID_ADC_CHAR;
     add_char_params.uuid_type         = p_lbs->uuid_type;
-    add_char_params.init_len          = sizeof(int16_t);
-    add_char_params.max_len           = sizeof(int16_t);
+    add_char_params.init_len          = sizeof(int16_t) * 6;
+    add_char_params.max_len           = sizeof(int16_t) * 6;
     add_char_params.char_props.read   = 1;
     add_char_params.char_props.notify = 1;
 
@@ -209,15 +209,15 @@ uint32_t ble_lbs_on_uart_rx(uint16_t conn_handle, ble_lbs_t * p_lbs, uint16_t le
 }
 
 
-uint32_t ble_lbs_on_adc_timer(uint16_t conn_handle, ble_lbs_t * p_lbs, int16_t adc_value)
+uint32_t ble_lbs_on_adc_timer(uint16_t conn_handle, ble_lbs_t * p_lbs, int16_t *adc_value)
 {
     ble_gatts_hvx_params_t params;
-    uint16_t len = sizeof(adc_value);
+    uint16_t len = sizeof(int16_t) * 6;
 
     memset(&params, 0, sizeof(params));
     params.type   = BLE_GATT_HVX_NOTIFICATION;
     params.handle = p_lbs->adc_char_handles.value_handle;
-    params.p_data = &adc_value;
+    params.p_data = adc_value;
     params.p_len  = &len;
 
     return sd_ble_gatts_hvx(conn_handle, &params);
