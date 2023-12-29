@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.content.Context
-import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -36,7 +35,7 @@ private class BlinkyManagerImpl(
 ): BleManager(context), Blinky {
     private val scope = CoroutineScope(Dispatchers.IO)
 
-    private var ledCharacteristic: BluetoothGattCharacteristic? = null
+    private var pwmCharacteristic: BluetoothGattCharacteristic? = null
     private var adcCharacteristic: BluetoothGattCharacteristic? = null
     private var rxCharacteristic: BluetoothGattCharacteristic? = null
     private var txCharacteristic: BluetoothGattCharacteristic? = null
@@ -116,7 +115,7 @@ private class BlinkyManagerImpl(
         arr[0] = cmdCode.toByte()
         // Write the value to the characteristic.
         writeCharacteristic(
-            ledCharacteristic,
+            pwmCharacteristic,
             Data(arr),
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
         ).suspend()
@@ -156,8 +155,8 @@ private class BlinkyManagerImpl(
         // Get the LBS Service from the gatt object.
         gatt.getService(BlinkySpec.BLINKY_SERVICE_UUID)?.apply {
             // Get the LED characteristic.
-            ledCharacteristic = getCharacteristic(
-                BlinkySpec.BLINKY_LED_CHARACTERISTIC_UUID,
+            pwmCharacteristic = getCharacteristic(
+                BlinkySpec.BLINKY_PWM_CHARACTERISTIC_UUID,
                 // Mind, that below we pass required properties.
                 // If your implementation supports only WRITE_NO_RESPONSE,
                 // change the property to BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE.
@@ -182,7 +181,7 @@ private class BlinkyManagerImpl(
             )
 
             // Return true if all required characteristics are supported.
-            return ledCharacteristic != null && txCharacteristic != null &&
+            return pwmCharacteristic != null && txCharacteristic != null &&
                     rxCharacteristic != null &&
                     adcCharacteristic != null
         }
@@ -260,22 +259,13 @@ private class BlinkyManagerImpl(
                             autoCommand --
                         }
                         try {
-                            val a = ByteArray(10)
-                            a[0] = 't'.code.toByte()
-                            a[1] = 'q'.code.toByte()
-                            a[2] = cc[0].code.toByte()
-                            a[3] = floor(_sliderPos.value * 100).toInt().toByte()
-                            a[4] = joy.x.toByte()
-                            a[5] = joy.y.toByte()
-                            a[6] = 0
-                            a[7] = '0'.code.toByte()
-                            a[8] = 'e'.code.toByte()
-                            Timber.log(10, "locked " + a[5]);
-                            cc = "c";
+                            val arr = ByteArray(1)
+                            arr[0] = floor(_sliderPos.value * 9).toInt().toByte()
+                            // Write the value to the characteristic.
                             writeCharacteristic(
-                                txCharacteristic,
-                                Data(a),
-                                BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE
+                                pwmCharacteristic,
+                                Data(arr),
+                                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
                             )
                                 .then { lock.release() }
                                 .invalid { lock.release() }
@@ -294,7 +284,7 @@ private class BlinkyManagerImpl(
     }
 
     override fun onServicesInvalidated() {
-        ledCharacteristic = null
+        pwmCharacteristic = null
         rxCharacteristic = null
         txCharacteristic = null
         adcCharacteristic = null
