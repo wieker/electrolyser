@@ -100,4 +100,5 @@ void burst_mode_init(void)
 void burst_mode_pwm(int _pwm)
 {
     pwm = _pwm;
+    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL1] = pwm * 16000 + 2;
 }
