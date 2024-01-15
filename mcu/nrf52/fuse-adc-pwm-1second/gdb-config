@@ -1,0 +1,18 @@
+target remote localhost:3333
+
+# monitor arm semihosting enable
+mon reset halt
+# openocd must be running in the correct dir for the relative paths to work
+
+# Flash
+mon flash write_image erase unlock _build/nrf52810_xxaa.hex 0x08000000
+# mon verify_image _build/nrf52810_xxaa.hex 0x08000000
+mon reset halt
+
+
+# Not sure why but this is needed for KDevelop
+file _build/nrf52810_xxaa.out
+load
+mon reset halt
+disconnect
+target remote localhost:3333
