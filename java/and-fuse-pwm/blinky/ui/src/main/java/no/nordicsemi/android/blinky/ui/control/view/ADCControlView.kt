@@ -45,7 +45,7 @@ internal fun ADCControlView(
                         modifier = Modifier.weight(1f)
                     )
                     Text(
-                        text = "I="  + (state[i].toFloat() * 0.6f * 10 / 1024).toString() + " A",
+                        text = "I="  + (state[i].toFloat() * 0.6f * 10 * 4/ 1024).toString() + " A",
                     )
                 }
 
