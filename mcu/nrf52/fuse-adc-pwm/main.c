@@ -462,7 +462,7 @@ int main(void)
     gap_params_init();
     gatt_init();
     slow_event_init();
-    burst_prepare();
+    gpiote_init();
     services_init();
     advertising_init();
     conn_params_init();

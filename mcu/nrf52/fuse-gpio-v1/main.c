@@ -462,14 +462,13 @@ int main(void)
     gap_params_init();
     gatt_init();
     slow_event_init();
-    burst_prepare();
+    gpiote_init();
     services_init();
     advertising_init();
     conn_params_init();
     saadc_init();
     saadc_sampling_event_init();
     saadc_sampling_event_enable();
-    burst_mode_init();
 
 
     // Start execution.

@@ -195,7 +195,6 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
     }
     if (mode == 1) {
       dump_adc("started\n", 9);
-      burst_mode_init();
       nrf_drv_saadc_buffer_convert(bmode, 30);
       mode = 2;
     }
