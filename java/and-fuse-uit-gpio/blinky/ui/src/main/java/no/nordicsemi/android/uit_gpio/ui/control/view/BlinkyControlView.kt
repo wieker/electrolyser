@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.material3.Button
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,15 +17,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun BlinkyControlView(
-    sliderPosition: Float,
     adcState: IntArray,
-    turnADC: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    dump: String,
-    throttleValue: (Float) -> Unit,
-    commandValue: (String) -> Unit,
-    sliderProcess: Boolean,
-    joy: JoystickMovedListener,
+    gpioValue: (Int) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -32,16 +27,11 @@ internal fun BlinkyControlView(
     ) {
 
         ADCControlView(state = adcState)
-
-        Box (Modifier.requiredHeight(Dp(500f))) {
-
-            Slider(value = sliderPosition, onValueChange = throttleValue, modifier = Modifier
-                .rotate(270f).offset(Dp(-200f), Dp(150f)),
-                enabled = sliderProcess,
-                steps = 33,
-            )
-
-            Text(text = dump)
+        Button(onClick = { gpioValue(1) }) {
+            Text(text = "ON")
+        }
+        Button(onClick = { gpioValue(0) }) {
+            Text(text = "OFF")
         }
     }
 }

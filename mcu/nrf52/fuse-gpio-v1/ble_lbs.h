@@ -91,7 +91,7 @@ NRF_SDH_BLE_OBSERVER(_name ## _obs,                                             
 
 #define LBS_UUID_BASE        {0x23, 0xD1, 0xBC, 0xEA, 0x5F, 0x78, 0x23, 0x15, \
                               0xDE, 0xEF, 0x12, 0x12, 0x00, 0x00, 0x00, 0x00}
-#define LBS_UUID_SERVICE     0x1523
+#define LBS_UUID_SERVICE     0x1623
 #define LBS_UUID_BUTTON_CHAR 0x1524
 #define LBS_UUID_MOD_CTL_CHAR    0x1525
 #define LBS_UUID_ADC_CHAR    0x1526

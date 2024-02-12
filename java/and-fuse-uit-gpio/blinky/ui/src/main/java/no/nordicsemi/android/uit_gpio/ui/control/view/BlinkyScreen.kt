@@ -59,25 +59,15 @@ internal fun BlinkyScreen(
                     }
                 }
                 Blinky.State.READY -> {
-                    val sliderProcess by viewModel.sliderProcess.collectAsStateWithLifecycle()
-                    val sliderPosition by viewModel.sliderPos.collectAsStateWithLifecycle()
                     val adcState by viewModel.adcState.collectAsStateWithLifecycle()
-                    val dump by viewModel.dump.collectAsStateWithLifecycle()
-                    val joy = viewModel.joy
 
                     BlinkyControlView(
-                        sliderPosition = sliderPosition,
                         adcState = adcState,
-                        turnADC = { viewModel.turnADC(it) },
                         modifier = Modifier
                             .widthIn(max = 460.dp)
                             .verticalScroll(rememberScrollState())
                             .padding(16.dp),
-                        dump = dump,
-                        throttleValue =  { viewModel.turnThrottle(it) },
-                        commandValue = { str -> viewModel.cmdSend(str) },
-                        sliderProcess = sliderProcess,
-                        joy,
+                        gpioValue = {v -> viewModel.turnGPIO(v)},
                     )
                 }
                 Blinky.State.NOT_AVAILABLE -> {

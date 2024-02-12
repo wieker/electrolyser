@@ -31,17 +31,8 @@ class BlinkyViewModel @Inject constructor(
 ) : AndroidViewModel(context as Application) {
     /** The connection state of the device. */
     val state = repository.state
-    val sliderProcess = repository.sliderProcess
-        .stateIn(viewModelScope, SharingStarted.Lazily, true)
-    /** The button state. */
-    val buttonState = repository.loggedButtonState
-        .stateIn(viewModelScope, SharingStarted.Lazily, false)
-    val sliderPos = repository.sliderPos
-        .stateIn(viewModelScope, SharingStarted.Lazily, 0.0f)
     val adcState = repository.loggedADCState
         .stateIn(viewModelScope, SharingStarted.Lazily, IntArray(6))
-    val dump = repository.dump.stateIn(viewModelScope, SharingStarted.Lazily, "v")
-    val joy = repository.joy
 
     init {
         // In this sample we want to connect to the device as soon as the view model is created.
@@ -65,28 +56,12 @@ class BlinkyViewModel @Inject constructor(
      * Sends a command to the device to toggle the LED state.
      * @param on The new state of the LED.
      */
-    fun turnADC(cmdCode: Int) {
+    fun turnGPIO(cmdCode: Int) {
         val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             // Just like above, when this method throws an exception, it will be caught by the
             // exception handler and ignored.
             repository.turnADC(cmdCode)
-        }
-    }
-    fun turnThrottle(v: Float) {
-        val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            // Just like above, when this method throws an exception, it will be caught by the
-            // exception handler and ignored.
-            repository.turnThrottle(v)
-        }
-    }
-    fun cmdSend(str: String) {
-        val exceptionHandler = CoroutineExceptionHandler { _, _ -> }
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            // Just like above, when this method throws an exception, it will be caught by the
-            // exception handler and ignored.
-            repository.sendCmd(str)
         }
     }
 

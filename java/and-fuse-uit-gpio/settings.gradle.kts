@@ -20,7 +20,7 @@ dependencyResolutionManagement {
         }
     }
 }
-rootProject.name = "nRF Blinky"
+rootProject.name = "nRF UIt"
 
 include(":app")
 include(":scanner")

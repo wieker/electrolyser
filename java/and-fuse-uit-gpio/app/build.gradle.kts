@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "no.nordicsemi.android.blinky"
     defaultConfig {
-        applicationId = "no.nordicsemi.android.nrfblinky"
+        applicationId = "no.nordicsemi.android.uit_gpio"
         resourceConfigurations.add("en")
     }
 }
