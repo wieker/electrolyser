@@ -235,52 +235,6 @@ private class BlinkyManagerImpl(
         readCharacteristic(adcCharacteristic)
             .with(adcCallback)
             .enqueue()
-
-        Thread {
-            var started = false
-            var autoCommand = 0
-            var specCmd = "c"
-            while (true) {
-
-                try {
-                    if (lock.tryAcquire()) {
-                        if (!started && _sliderPos.value >= 0.3f) {
-                            autoCommand = 10
-                            specCmd = "m"
-                            started = true
-                        }
-                        if (started && _sliderPos.value < 0.2f) {
-                            autoCommand = 10
-                            specCmd = "0"
-                            started = false
-                        }
-                        if (cc.equals("c") && autoCommand > 0) {
-                            cc = specCmd
-                            autoCommand --
-                        }
-                        try {
-                            val arr = ByteArray(1)
-                            arr[0] = floor(_sliderPos.value * 9).toInt().toByte()
-                            // Write the value to the characteristic.
-                            writeCharacteristic(
-                                pwmCharacteristic,
-                                Data(arr),
-                                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-                            )
-                                .then { lock.release() }
-                                .invalid { lock.release() }
-                                .enqueue()
-                        } finally {
-
-                        }
-                        oldV = _sliderPos.value
-                    }
-
-                    Thread.sleep(30)
-                } finally {
-                }
-            }
-        }.start()
     }
 
     override fun onServicesInvalidated() {
