@@ -229,6 +229,7 @@ void saadc_init(void)
   channel_config_V.gain = SAADC_CH_CONFIG_GAIN_Gain1_4;
   channel_config_V.reference = SAADC_CH_CONFIG_REFSEL_Internal;
   channel_config_V.pin_n = NRF_SAADC_INPUT_AIN5;
+  channel_config_V.mode = NRF_SAADC_MODE_DIFFERENTIAL;
 
   nrf_drv_saadc_init(NULL, saadc_callback);
 
