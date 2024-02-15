@@ -57,6 +57,7 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
     if (p_evt_write->handle == p_lbs->modctl_char_handles.value_handle)
     {
         int pwm = p_evt_write->data[0];
+        saadc_init();
         toggle_io(pwm);
     }
 }

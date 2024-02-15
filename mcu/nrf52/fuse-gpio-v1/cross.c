@@ -41,22 +41,3 @@ void send_adc(nrf_saadc_value_t *vls, int size)
         APP_ERROR_CHECK(err_code);
     }
 }
-
-uint8_t rx_buf[40][20];
-uint16_t rx_len[40];
-int buf_index = 0;
-
-static void copy_data(int len, uint8_t* dt) {
-    int i = 0;
-    rx_len[buf_index] = len;
-    while (i < len) {
-        rx_buf[buf_index][i] = dt[i];
-        i ++;
-    }
-    buf_index = (buf_index + 1) % 40;
-}
-
-
-void dump_adc(uint8_t* value, int len) {
-    copy_data(len, value);
-}

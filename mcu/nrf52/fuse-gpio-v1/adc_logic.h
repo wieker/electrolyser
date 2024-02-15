@@ -7,7 +7,7 @@
 
 #include <hal/nrf_saadc.h>
 
-#define SAMPLES_IN_BUFFER 100
+#define SAMPLES_IN_BUFFER 1024
 
 extern int16_t     adc_buffer[SAMPLES_IN_BUFFER];
 

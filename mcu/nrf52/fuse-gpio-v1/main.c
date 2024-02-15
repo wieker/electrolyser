@@ -464,7 +464,6 @@ int main(void)
     services_init();
     advertising_init();
     conn_params_init();
-    saadc_init();
 
 
     // Start execution.
