@@ -54,12 +54,6 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
 {
     ble_gatts_evt_write_t const * p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
 
-    if ((p_evt_write->handle == p_lbs->uart_tx_handles.value_handle)
-        && (p_lbs->uart_tx_handler != NULL))
-    {
-        p_lbs->uart_tx_handler(p_ble_evt->evt.gap_evt.conn_handle, p_lbs, p_evt_write->len, p_evt_write->data);
-    }
-
     if (p_evt_write->handle == p_lbs->modctl_char_handles.value_handle)
     {
         int pwm = p_evt_write->data[0];
@@ -100,7 +94,6 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     ble_add_char_params_t add_char_params;
 
     // Initialize service structure.
-    p_lbs->uart_tx_handler = p_lbs_init->uart_tx_handler;
 
     // Add service.
     ble_uuid128_t base_uuid = {LBS_UUID_BASE};

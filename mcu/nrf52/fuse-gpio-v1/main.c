@@ -454,21 +454,17 @@ static void idle_state_handle(void)
 int main(void)
 {
     // Initialize.
-    uart_init();
     leds_init();
     timers_init();
     power_management_init();
     ble_stack_init();
     gap_params_init();
     gatt_init();
-    slow_event_init();
     gpiote_init();
     services_init();
     advertising_init();
     conn_params_init();
     saadc_init();
-    saadc_sampling_event_init();
-    saadc_sampling_event_enable();
 
 
     // Start execution.

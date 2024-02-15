@@ -6,26 +6,7 @@
 #include "cross.h"
 
 BLE_LBS_DEF(m_lbs);                                                             /**< LED Button Service instance. */
-NRF_BLE_QWR_DEF(m_qwr);                                                         /**< Context for the Queued Write module.*/
-
-uint8_t tx_buf[100];
-nrf_drv_uart_t m_uart = NRF_DRV_UART_INSTANCE(0);
-
-/**@brief Function for handling write events to the LED characteristic.
- *
- * @param[in] p_lbs     Instance of LED Button Service to which the write applies.
- * @param[in] led_state Written/desired state of the LED.
- */
-static void uart_tx_handler(uint16_t conn_handle, ble_lbs_t * p_lbs, int len, uint8_t * data)
-{
-    int i = 0;
-    while (i < len) {
-        tx_buf[i] = data[i];
-        i ++;
-    }
-    nrfx_uart_tx(&m_uart.uart, tx_buf, len);
-}
-
+NRF_BLE_QWR_DEF(m_qwr);
 
 
 /**@brief Function for initializing services that will be used by the application.
@@ -41,52 +22,9 @@ void services_init(void)
     APP_ERROR_CHECK(err_code);
 
     // Initialize LBS.
-    init.uart_tx_handler = uart_tx_handler;
 
     err_code = ble_lbs_init(&m_lbs, &init);
     APP_ERROR_CHECK(err_code);
-}
-
-uint8_t rx_data[100];
-
-uint8_t rx_buf[40][20];
-uint16_t rx_len[40];
-int buf_index = 0;
-int buf_read_index = 0;
-
-static void copy_data(int len, uint8_t* dt) {
-    int i = 0;
-    rx_len[buf_index] = len;
-    while (i < len) {
-        rx_buf[buf_index][i] = dt[i];
-        i ++;
-    }
-    buf_index = (buf_index + 1) % 40;
-}
-
-static void evh(nrfx_uart_event_t const * p_event,
-         void *                    p_context)
-{
-    if (p_event->type == 1) {
-        copy_data(p_event->data.rxtx.bytes, p_event->data.rxtx.p_data);
-    }
-    nrfx_uart_rx(&m_uart.uart, p_event->data.rxtx.p_data, 20);
-}
-
-void uart_init()
-{
-  nrf_drv_uart_config_t config = NRF_DRV_UART_DEFAULT_CONFIG;
-  config.pseltxd  = 0;
-  config.pselrxd  = 1;
-  config.pselcts  = NRF_UART_PSEL_DISCONNECTED;
-  config.pselrts  = NRF_UART_PSEL_DISCONNECTED;
-  config.baudrate = (nrf_uart_baudrate_t)NRFX_UART_DEFAULT_CONFIG_BAUDRATE;
-  nrfx_uart_init(&m_uart.uart,
-                 (nrfx_uart_config_t const *)&config,
-                 evh);
-  nrfx_uart_rx_enable(&m_uart.uart);
-  nrfx_uart_rx(&m_uart.uart, rx_data, 20);
-  nrfx_uart_rx(&m_uart.uart, rx_data + 20, 20);
 }
 
 void send_adc(nrf_saadc_value_t *vls, int size)
@@ -104,38 +42,18 @@ void send_adc(nrf_saadc_value_t *vls, int size)
     }
 }
 
-extern int mode;
-int evsk;
+uint8_t rx_buf[40][20];
+uint16_t rx_len[40];
+int buf_index = 0;
 
-#include "nrf_drv_timer.h"
-void timer_handler(nrf_timer_event_t event_type, void * p_context)
-{
-    uint32_t       err_code;
-
-    if (mode > 0) {
-        return;
+static void copy_data(int len, uint8_t* dt) {
+    int i = 0;
+    rx_len[buf_index] = len;
+    while (i < len) {
+        rx_buf[buf_index][i] = dt[i];
+        i ++;
     }
-    // evsk = (evsk + 1) % 20;
-    // if (0 != evsk) {
-    //     return;
-    // }
-
-    switch (event_type)
-    {
-        case NRF_TIMER_EVENT_COMPARE1:
-            if (rx_len[buf_read_index] > 0) {
-                err_code = ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, rx_len[buf_read_index], rx_buf[buf_read_index]);
-                if (err_code != NRF_ERROR_RESOURCES) {
-                    rx_len[buf_read_index] = 0;
-                    buf_read_index = (buf_read_index + 1) % 40;
-                }
-            }
-            break;
-
-        default:
-            //Do nothing.
-            break;
-    }
+    buf_index = (buf_index + 1) % 40;
 }
 
 
