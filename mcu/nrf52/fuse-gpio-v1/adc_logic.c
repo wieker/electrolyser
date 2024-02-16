@@ -52,7 +52,7 @@ void saadc_init(void)
   nrfx_saadc_channel_init(0, &channel_config_V);
 
   nrf_saadc_continuous_mode_enable(2000);
-  nrfx_saadc_buffer_convert(adc_buffer, 80);
+  nrfx_saadc_buffer_convert(adc_buffer, SAMPLES_IN_BUFFER);
   nrfx_saadc_sample();
 }
 
