@@ -1,6 +1,5 @@
 package no.nordicsemi.android.uit_gpio.ble
 
-import Joystick.JoyValues
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
@@ -11,18 +10,13 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Semaphore
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.data.Data
-import no.nordicsemi.android.ble.ktx.asValidResponseFlow
 import no.nordicsemi.android.ble.ktx.getCharacteristic
 import no.nordicsemi.android.ble.ktx.state.ConnectionState
 import no.nordicsemi.android.ble.ktx.stateAsFlow
 import no.nordicsemi.android.ble.ktx.suspend
-import no.nordicsemi.android.uit_gpio.ble.data.ADCState
-import no.nordicsemi.android.uit_gpio.ble.data.AdcCallback
-import no.nordicsemi.android.uit_gpio.ble.data.ButtonCallback
 import no.nordicsemi.android.uit_gpio.spec.Blinky
 import no.nordicsemi.android.uit_gpio.spec.BlinkySpec
 import timber.log.Timber
-import kotlin.math.floor
 
 class BlinkyManager(
     context: Context,
@@ -37,28 +31,11 @@ private class BlinkyManagerImpl(
 
     private var pwmCharacteristic: BluetoothGattCharacteristic? = null
     private var adcCharacteristic: BluetoothGattCharacteristic? = null
-    private var rxCharacteristic: BluetoothGattCharacteristic? = null
-    private var txCharacteristic: BluetoothGattCharacteristic? = null
-
-    private val _buttonState = MutableStateFlow(false)
-    override val buttonState = _buttonState.asStateFlow()
-
-    private val _adcState = MutableStateFlow(IntArray(6))
-    override val adcState = _adcState.asStateFlow()
-
-    private val _sliderPos = MutableStateFlow(0.0f)
-    override val sliderPos = _sliderPos.asStateFlow()
-    var oldV = 0.0f
-
-    private val _sliderProcess = MutableStateFlow(true)
-    override val sliderProcess = _sliderProcess.asStateFlow()
 
     var dumpV = MutableStateFlow("s")
     override val dump = dumpV.asStateFlow()
     var cv = ""
     var cs = ""
-
-    override val joy = JoyValues()
 
     override val state = stateAsFlow()
         .map {
@@ -71,23 +48,6 @@ private class BlinkyManagerImpl(
             }
         }
         .stateIn(scope, SharingStarted.Lazily, Blinky.State.NOT_AVAILABLE)
-
-
-    private val buttonCallback by lazy {
-        object : ButtonCallback() {
-            override fun onButtonStateChanged(device: BluetoothDevice, state: Boolean) {
-                _buttonState.tryEmit(state)
-            }
-        }
-    }
-
-    private val adcCallback by lazy {
-        object : AdcCallback() {
-            override fun onButtonStateChanged(device: BluetoothDevice, state: IntArray) {
-                _adcState.tryEmit(state)
-            }
-        }
-    }
 
     override suspend fun connect() = connect(device)
         .retry(3, 300)
@@ -121,26 +81,6 @@ private class BlinkyManagerImpl(
         ).suspend()
     }
 
-    override suspend fun sendCmd(cmd: String) {
-        // Write the value to the characteristic.
-        cc = cmd
-    }
-
-    var cc = "0"
-
-    override suspend fun sendCmd(cmd: ByteArray) {
-        // Write the value to the characteristic.
-        writeCharacteristic(
-            txCharacteristic,
-            Data(cmd),
-            BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-        ).suspend()
-    }
-
-    override suspend fun turnThrottle(v: Float) {
-        _sliderPos.value = v
-    }
-
     override fun log(priority: Int, message: String) {
         Timber.log(priority, message)
     }
@@ -162,18 +102,6 @@ private class BlinkyManagerImpl(
                 // change the property to BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE.
                 BluetoothGattCharacteristic.PROPERTY_WRITE
             )
-            txCharacteristic = getCharacteristic(
-                BlinkySpec.BLINKY_TX_CHARACTERISTIC_UUID,
-                // Mind, that below we pass required properties.
-                // If your implementation supports only WRITE_NO_RESPONSE,
-                // change the property to BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE.
-                BluetoothGattCharacteristic.PROPERTY_WRITE
-            )
-            // Get the Button characteristic.
-            rxCharacteristic = getCharacteristic(
-                BlinkySpec.BLINKY_RX_CHARACTERISTIC_UUID,
-                BluetoothGattCharacteristic.PROPERTY_NOTIFY
-            )
             // Get the Button characteristic.
             adcCharacteristic = getCharacteristic(
                 BlinkySpec.BLINKY_ADC_CHARACTERISTIC_UUID,
@@ -181,8 +109,7 @@ private class BlinkyManagerImpl(
             )
 
             // Return true if all required characteristics are supported.
-            return pwmCharacteristic != null && txCharacteristic != null &&
-                    rxCharacteristic != null &&
+            return pwmCharacteristic != null &&
                     adcCharacteristic != null
         }
         return false
@@ -190,57 +117,33 @@ private class BlinkyManagerImpl(
 
     fun here(data: Data)
     {
-        val receivedValue = if (data.value == null) "nn" else String(data.value!!, Charsets.UTF_8)
-        val lines = receivedValue.split("\n")
-        cs += lines[0];
-        for (i in 1..(lines.size - 1))  {
-            cv = cs + '\n' + cv
-            cs = lines[i]
+        val state = IntArray(6)
+        if (data.size() == 2 * 6) {
+            var i = 0
+            while (i < 6) {
+                val buttonState = data.getIntValue(Data.FORMAT_SINT16, i * 2)
+                buttonState?.let { state[i] = it }
+                cv += state[i].toString() + "\n"
+                i ++
+            }
         }
-        cv = cv.substring(0, Integer.min(200, cv.length))
-        dumpV.tryEmit(cs + '\n' + cv)
+        dumpV.tryEmit(cv)
         Timber.log(10, "here");
 
     }
-    val lock = Semaphore(1)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun initialize() {
         // Enable notifications for the button characteristic.
-        setNotificationCallback(this.rxCharacteristic)
+        setNotificationCallback(this.adcCharacteristic)
             .with { device, data -> here(data)
             }
 
-        enableNotifications(this.rxCharacteristic)
-            .enqueue()
-
-        // Read the initial value of the button characteristic.
-        readCharacteristic(this.rxCharacteristic)
-            .with(buttonCallback)
-            .enqueue()
-
-        // Enable notifications for the ADC characteristic.
-        val adcFlow: Flow<ADCState> = setNotificationCallback(adcCharacteristic)
-            .asValidResponseFlow()
-
-        // Forward the button state to the buttonState flow.
-        scope.launch {
-            adcFlow.map { it.state }.collect { _adcState.tryEmit(it) }
-        }
-
         enableNotifications(adcCharacteristic)
-            .enqueue()
-
-        // Read the initial value of the button characteristic.
-        readCharacteristic(adcCharacteristic)
-            .with(adcCallback)
             .enqueue()
     }
 
     override fun onServicesInvalidated() {
         pwmCharacteristic = null
-        rxCharacteristic = null
-        txCharacteristic = null
         adcCharacteristic = null
     }
 }

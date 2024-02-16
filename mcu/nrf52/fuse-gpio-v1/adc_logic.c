@@ -25,19 +25,14 @@
 #include "ble_lbs.h"
 
 nrf_saadc_value_t     adc_buffer[SAMPLES_IN_BUFFER];
-nrf_saadc_value_t     bfr_to_send[6];
-
-void send_adc(nrf_saadc_value_t *vls, int size);
+int csend = -1;
 
 void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 {
   if (p_event->type == NRF_DRV_SAADC_EVT_DONE)
   {
-    bfr_to_send[0] = adc_buffer[0];
-    bfr_to_send[1] = adc_buffer[20];
-    bfr_to_send[2] = adc_buffer[50];
-    bfr_to_send[3] = adc_buffer[79];
-      send_adc(bfr_to_send, 6);
+    send_adc(adc_buffer, 6);
+    csend = 6;
   }
 }
 

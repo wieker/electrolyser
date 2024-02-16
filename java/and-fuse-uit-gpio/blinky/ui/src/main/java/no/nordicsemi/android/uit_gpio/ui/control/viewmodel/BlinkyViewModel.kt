@@ -31,8 +31,8 @@ class BlinkyViewModel @Inject constructor(
 ) : AndroidViewModel(context as Application) {
     /** The connection state of the device. */
     val state = repository.state
-    val adcState = repository.loggedADCState
-        .stateIn(viewModelScope, SharingStarted.Lazily, IntArray(6))
+    val dump = repository.dump.stateIn(viewModelScope, SharingStarted.Lazily, "v")
+
 
     init {
         // In this sample we want to connect to the device as soon as the view model is created.

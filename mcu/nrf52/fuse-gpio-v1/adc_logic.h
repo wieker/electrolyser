@@ -10,6 +10,9 @@
 #define SAMPLES_IN_BUFFER 1024
 
 extern int16_t     adc_buffer[SAMPLES_IN_BUFFER];
+extern int csend;
+
+void send_adc(nrf_saadc_value_t *vls, int size);
 
 void saadc_sampling_event_init(void);
 void saadc_sampling_event_enable(void);
