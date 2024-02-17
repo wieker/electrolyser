@@ -7,6 +7,7 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.sync.Semaphore
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.ktx.getCharacteristic
@@ -35,6 +36,7 @@ private class BlinkyManagerImpl(
     val dumpMagicVar = MutableStateFlow(IntArray(1000))
     override val dump = dumpMagicVar.asStateFlow()
     var pos = 0
+    val lock = Semaphore(1)
 
     override val state = stateAsFlow()
         .map {
@@ -70,15 +72,17 @@ private class BlinkyManagerImpl(
     }
 
     override suspend fun turnADC(cmdCode: Int) {
-        pos = 0
-        val arr = ByteArray(1)
-        arr[0] = cmdCode.toByte()
-        // Write the value to the characteristic.
-        writeCharacteristic(
-            pwmCharacteristic,
-            Data(arr),
-            BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-        ).suspend()
+        if (lock.tryAcquire()) {
+            pos = 0
+            val arr = ByteArray(1)
+            arr[0] = cmdCode.toByte()
+            // Write the value to the characteristic.
+            writeCharacteristic(
+                pwmCharacteristic,
+                Data(arr),
+                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+            ).suspend()
+        }
     }
 
     override fun log(priority: Int, message: String) {
@@ -129,6 +133,7 @@ private class BlinkyManagerImpl(
         }
         if (pos >= 1000) {
             dumpMagicVar.tryEmit(dumpV)
+            lock.release()
         }
         Timber.log(10, "here");
 
