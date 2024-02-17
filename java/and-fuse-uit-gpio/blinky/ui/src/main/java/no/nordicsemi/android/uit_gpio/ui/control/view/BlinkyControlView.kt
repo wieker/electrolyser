@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun BlinkyControlView(
-    dump: String,
+    adcState: IntArray,
     modifier: Modifier = Modifier,
     gpioValue: (Int) -> Unit,
 ) {
@@ -21,12 +21,12 @@ internal fun BlinkyControlView(
         horizontalAlignment = Alignment.Start
     ) {
 
-        Text(text = dump)
         Button(onClick = { gpioValue(1) }) {
             Text(text = "ON")
         }
         Button(onClick = { gpioValue(0) }) {
             Text(text = "OFF")
         }
+        ADCControlView(state = adcState)
     }
 }

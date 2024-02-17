@@ -26,7 +26,7 @@ internal fun ADCControlView(
                 .padding(16.dp)
         ) {
             var i = 0;
-            while (i < 6) {
+            while (i < 1000) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

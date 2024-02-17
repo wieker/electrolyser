@@ -7,7 +7,6 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.sync.Semaphore
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.ktx.getCharacteristic
@@ -32,10 +31,10 @@ private class BlinkyManagerImpl(
     private var pwmCharacteristic: BluetoothGattCharacteristic? = null
     private var adcCharacteristic: BluetoothGattCharacteristic? = null
 
-    var dumpV = MutableStateFlow("s")
-    override val dump = dumpV.asStateFlow()
-    var cv = ""
-    var cs = ""
+    var dumpV = IntArray(1000)
+    val dumpMagicVar = MutableStateFlow(IntArray(1000))
+    override val dump = dumpMagicVar.asStateFlow()
+    var pos = 0
 
     override val state = stateAsFlow()
         .map {
@@ -71,6 +70,7 @@ private class BlinkyManagerImpl(
     }
 
     override suspend fun turnADC(cmdCode: Int) {
+        pos = 0
         val arr = ByteArray(1)
         arr[0] = cmdCode.toByte()
         // Write the value to the characteristic.
@@ -117,17 +117,19 @@ private class BlinkyManagerImpl(
 
     fun here(data: Data)
     {
-        val state = IntArray(6)
         if (data.size() == 2 * 6) {
             var i = 0
             while (i < 6) {
                 val buttonState = data.getIntValue(Data.FORMAT_SINT16, i * 2)
-                buttonState?.let { state[i] = it }
-                cv += state[i].toString() + "\n"
+                if (pos < 1000) {
+                    buttonState?.let { dumpV[pos++] = it }
+                }
                 i ++
             }
         }
-        dumpV.tryEmit(cv)
+        if (pos >= 1000) {
+            dumpMagicVar.tryEmit(dumpV)
+        }
         Timber.log(10, "here");
 
     }

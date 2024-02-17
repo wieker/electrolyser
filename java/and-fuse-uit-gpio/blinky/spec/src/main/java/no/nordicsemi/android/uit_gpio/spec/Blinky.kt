@@ -25,7 +25,7 @@ interface Blinky {
      */
     val state: StateFlow<State>
 
-    val dump: StateFlow<String>
+    val dump: StateFlow<IntArray>
 
     /**
      * Controls the LED state.
