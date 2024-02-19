@@ -33,9 +33,9 @@ static void timer_init() {
     NRF_TIMER2->PRESCALER               = 0;
     NRF_TIMER2->SHORTS                  = TIMER_SHORTS_COMPARE3_CLEAR_Msk;
     NRF_TIMER2->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
-    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL0] = 1200;
-    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL1] = 1600;
-    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL3] = 2000;
+    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL0] = 75;
+    //NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL1] = 1600;
+    NRF_TIMER2->CC[NRF_TIMER_CC_CHANNEL3] = 170;
 }
 
 static void task_enable() {
@@ -57,7 +57,7 @@ static void task_enable() {
 
     nrf_drv_ppi_channel_enable(ppi_channel_set);
     nrf_drv_ppi_channel_enable(ppi_channel_clr);
-    nrf_drv_ppi_channel_enable(ppi_channel_adc);
+    //nrf_drv_ppi_channel_enable(ppi_channel_adc);
 }
 
 void toggle_io(int sta)
