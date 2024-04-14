@@ -6,6 +6,9 @@
 #include "nrf_drv_timer.h"
 #include "nrf_drv_saadc.h"
 
+
+#include "nrf_delay.h"
+
 #define GPIO_OUTPUT_PIN_NUMBER 2
 
 const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(2);
@@ -89,13 +92,19 @@ static uint32_t timer_capture_value_get(void)
     }
 }
 
-void toggle_io(int sta)
+uint32_t toggle_io(int sta)
 {
     if (sta == 0) {
         NRF_P0->OUTCLR = 1 << GPIO_OUTPUT_PIN_NUMBER;
         //NRF_TIMER2->TASKS_STOP = 1;
     } else {
+
+
+        gpiote_capture_init();
+        nrf_delay_ms(5);
         NRF_P0->OUTSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
+        nrf_delay_ms(5);
+        uint32_t captured_pulse_length = timer_capture_value_get();
         //timer_init();
         //task_enable();
         //NRF_TIMER2->TASKS_START = 1;

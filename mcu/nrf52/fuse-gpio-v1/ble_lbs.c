@@ -44,6 +44,7 @@
 #include "adc_logic.h"
 #include "nrf_drv_saadc.h"
 
+uint32_t captured_pulse_length;
 
 /**@brief Function for handling the Write event.
  *
@@ -58,7 +59,7 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
     {
         int pwm = p_evt_write->data[0];
         saadc_init();
-        toggle_io(pwm);
+        captured_pulse_length = toggle_io(pwm);
     }
 }
 

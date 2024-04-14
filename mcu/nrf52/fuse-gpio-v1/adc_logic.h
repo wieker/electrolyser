@@ -31,6 +31,6 @@ void uart_buf_timer_init(void);
 void ble_adc_cmd(int adc_cmd);
 void dump_adc(uint8_t* value, int len);
 
-void toggle_io(int _pwm);
+uint32_t toggle_io(int _pwm);
 
 #endif //RF_UART_NRF_LOCAL_ADC_H
