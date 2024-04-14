@@ -29,10 +29,21 @@ void services_init(void)
 
 void send_adc(nrf_saadc_value_t *vls, int size)
 {
-    //ble_lbs_on_uart_rx(m_conn_handle, &m_lbs, 4, "uuu\n");
-    //return;
     ret_code_t err_code;
     err_code = ble_lbs_on_adc_timer(m_conn_handle, &m_lbs, vls);
+    if (err_code != NRF_SUCCESS &&
+        err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
+        err_code != NRF_ERROR_INVALID_STATE &&
+        err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING)
+    {
+        APP_ERROR_CHECK(err_code);
+    }
+}
+
+void send_timer_value(uint32_t cdata)
+{
+    ret_code_t err_code;
+    err_code = ble_lbs_update_tmrv(m_conn_handle, &m_lbs, cdata);
     if (err_code != NRF_SUCCESS &&
         err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
         err_code != NRF_ERROR_INVALID_STATE &&

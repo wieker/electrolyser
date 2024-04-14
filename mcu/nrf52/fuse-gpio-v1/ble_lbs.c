@@ -43,8 +43,13 @@
 #include "ble_srv_common.h"
 #include "adc_logic.h"
 #include "nrf_drv_saadc.h"
+#include "app_timer.h"
+
 
 uint32_t captured_pulse_length;
+APP_TIMER_DEF(m_single_shot_timer_id);  /**< Handler for single shot timer used to light LED 2. */
+
+void send_timer_value(uint32_t cdata);
 
 /**@brief Function for handling the Write event.
  *
@@ -60,7 +65,14 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
         int pwm = p_evt_write->data[0];
         saadc_init();
         captured_pulse_length = toggle_io(pwm);
+
+        app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(1000), NULL);
     }
+}
+
+static void timer_handler_send_dt(void * p_context)
+{
+    send_timer_value(captured_pulse_length);
 }
 
 
@@ -186,6 +198,30 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
         return err_code;
     }
 
+    err_code = app_timer_create(&m_single_shot_timer_id,
+                                APP_TIMER_MODE_SINGLE_SHOT,
+                                timer_handler_send_dt);
+    APP_ERROR_CHECK(err_code);
+
+    // Add TIMER characteristic.
+    memset(&add_char_params, 0, sizeof(add_char_params));
+    add_char_params.uuid             = LBS_UUID_TMR_CHAR;
+    add_char_params.uuid_type        = p_lbs->uuid_type;
+    add_char_params.init_len         = 2 * sizeof(uint32_t);
+    add_char_params.max_len          = 2 * sizeof(uint32_t);
+    add_char_params.is_var_len       = false;
+    add_char_params.char_props.read  = 1;
+    add_char_params.char_props.write = 1;
+
+    add_char_params.read_access  = SEC_OPEN;
+    add_char_params.write_access = SEC_OPEN;
+
+    err_code = characteristic_add(p_lbs->service_handle, &add_char_params, &p_lbs->uart_timer_handles);
+    if (err_code != NRF_SUCCESS)
+    {
+        return err_code;
+    }
+
     return err_code;
 }
 
@@ -199,6 +235,23 @@ uint32_t ble_lbs_on_uart_rx(uint16_t conn_handle, ble_lbs_t * p_lbs, uint16_t le
     params.handle = p_lbs->uart_rx_handles.value_handle;
     params.p_data = data;
     params.p_len  = &len;
+
+    return sd_ble_gatts_hvx(conn_handle, &params);
+}
+
+static int plen = 2 * sizeof(uint32_t);
+static uint32_t pdata = 0;
+
+uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t cdata)
+{
+    ble_gatts_hvx_params_t params;
+
+    memset(&params, 0, sizeof(params));
+    params.type   = BLE_GATT_HVX_NOTIFICATION;
+    params.handle = p_lbs->uart_timer_handles.value_handle;
+    pdata = cdata;
+    params.p_data = &pdata;
+    params.p_len  = &plen;
 
     return sd_ble_gatts_hvx(conn_handle, &params);
 }
