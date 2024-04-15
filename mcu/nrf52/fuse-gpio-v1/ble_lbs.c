@@ -63,16 +63,17 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
     if (p_evt_write->handle == p_lbs->modctl_char_handles.value_handle)
     {
         int pwm = p_evt_write->data[0];
-        saadc_init();
-        captured_pulse_length = toggle_io(pwm);
+        //saadc_init();
+        //captured_pulse_length = toggle_io(pwm);
 
-        app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(1000), NULL);
+        send_timer_value(15);
+        //app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(1000), NULL);
     }
 }
 
 static void timer_handler_send_dt(void * p_context)
 {
-    send_timer_value(captured_pulse_length);
+    send_timer_value(15);
 }
 
 
@@ -211,10 +212,10 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     add_char_params.max_len          = 2 * sizeof(uint32_t);
     add_char_params.is_var_len       = false;
     add_char_params.char_props.read  = 1;
-    add_char_params.char_props.write = 1;
+    add_char_params.char_props.notify = 1;
 
     add_char_params.read_access  = SEC_OPEN;
-    add_char_params.write_access = SEC_OPEN;
+    add_char_params.cccd_write_access = SEC_OPEN;
 
     err_code = characteristic_add(p_lbs->service_handle, &add_char_params, &p_lbs->uart_timer_handles);
     if (err_code != NRF_SUCCESS)

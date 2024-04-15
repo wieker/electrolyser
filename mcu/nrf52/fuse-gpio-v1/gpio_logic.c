@@ -100,11 +100,9 @@ uint32_t toggle_io(int sta)
     } else {
 
 
-        gpiote_capture_init();
-        nrf_delay_ms(5);
+        //gpiote_capture_init();
         NRF_P0->OUTSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
-        nrf_delay_ms(5);
-        uint32_t captured_pulse_length = timer_capture_value_get();
+        //uint32_t captured_pulse_length = timer_capture_value_get();
         //timer_init();
         //task_enable();
         //NRF_TIMER2->TASKS_START = 1;
