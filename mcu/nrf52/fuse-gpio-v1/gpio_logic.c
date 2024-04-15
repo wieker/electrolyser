@@ -88,7 +88,7 @@ static uint32_t timer_capture_value_get(void)
     else
     {
         // In case no capture occured, return 0
-        return 0;
+        return 33;
     }
 }
 
@@ -96,15 +96,12 @@ uint32_t toggle_io(int sta)
 {
     if (sta == 0) {
         NRF_P0->OUTCLR = 1 << GPIO_OUTPUT_PIN_NUMBER;
-        //NRF_TIMER2->TASKS_STOP = 1;
+        return 0;
     } else {
-
-
-        //gpiote_capture_init();
+        gpiote_capture_init();
+        nrf_delay_ms(5);
         NRF_P0->OUTSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
-        //uint32_t captured_pulse_length = timer_capture_value_get();
-        //timer_init();
-        //task_enable();
-        //NRF_TIMER2->TASKS_START = 1;
+        nrf_delay_ms(5);
+        return timer_capture_value_get();
     }
 }
