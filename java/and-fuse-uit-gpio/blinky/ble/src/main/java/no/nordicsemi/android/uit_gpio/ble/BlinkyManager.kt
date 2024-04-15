@@ -157,8 +157,8 @@ private class BlinkyManagerImpl(
             .enqueue()
 
         setNotificationCallback(this.timerCharacteristic).with { device, data -> data.getIntValue(Data.FORMAT_UINT32, 0)?.let { _timer.tryEmit(it) } }
-        //enableNotifications(timerCharacteristic)
-          //  .enqueue()
+        enableNotifications(timerCharacteristic)
+            .enqueue()
     }
 
     override fun onServicesInvalidated() {

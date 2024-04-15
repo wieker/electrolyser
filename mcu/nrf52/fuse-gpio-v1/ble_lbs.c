@@ -66,8 +66,8 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
         //saadc_init();
         //captured_pulse_length = toggle_io(pwm);
 
-        send_timer_value(15);
-        //app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(1000), NULL);
+        //send_timer_value(15);
+        app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(1000), NULL);
     }
 }
 
