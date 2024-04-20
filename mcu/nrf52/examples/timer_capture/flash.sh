@@ -1,2 +1,2 @@
 
-openocd -f ../fuse-adc-ripple-m/openocd-old.cfg -c "program ../../../..//mtaskbld/rf_uart reset exit"
+openocd -f openocd-old.cfg -c "program build/timer_capture reset exit"

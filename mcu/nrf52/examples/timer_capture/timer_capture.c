@@ -4,8 +4,8 @@
 #include "nrf.h"
 #include "nrf_delay.h"
 #include "app_error.h"
-#include "nrf_drv_ppi.h"
-#include "nrf_drv_timer.h"
+#include <nrf_drv_ppi.h>
+#include <nrf_drv_timer.h>
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
