@@ -19,47 +19,6 @@ const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(3);
 #define TIMER_PRESCALER                 NRF_TIMER_FREQ_1MHz
 #define GPIOTE_CH_CAPTURE               0
 #define GPIOTE_CH_RESTART               1
-#define GPIOTE_CH_SELFTEST              2
-
-#define SELF_TEST                       1
-
-#if SELF_TEST
-const nrf_drv_timer_t test_timer = NRF_DRV_TIMER_INSTANCE(4);
-
-static void run_self_test_pin(uint32_t pin_no, uint32_t us_on, uint32_t us_off)
-{
-    uint32_t err_code;
-    static nrf_ppi_channel_t ppi_ch_test_pin_run, ppi_ch_test_pin_run2;
-
-    nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
-    timer_cfg.frequency = NRF_TIMER_FREQ_1MHz;
-    timer_cfg.bit_width = NRF_TIMER_BIT_WIDTH_32;
-    err_code = nrf_drv_timer_init(&test_timer, &timer_cfg, 0);
-    APP_ERROR_CHECK(err_code);
-
-    nrf_drv_timer_extended_compare(&test_timer, 0, us_on,          0,                               false);
-    nrf_drv_timer_extended_compare(&test_timer, 1, us_on + us_off, TIMER_SHORTS_COMPARE1_CLEAR_Msk, false);
-
-    NRF_GPIOTE->CONFIG[GPIOTE_CH_SELFTEST] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
-                                             GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-                                             pin_no << GPIOTE_CONFIG_PSEL_Pos;
-
-    nrfx_ppi_channel_alloc(&ppi_ch_test_pin_run);
-    nrfx_ppi_channel_assign(ppi_ch_test_pin_run,
-                            nrf_drv_timer_compare_event_address_get(&test_timer, 0),
-                            (uint32_t)&NRF_GPIOTE->TASKS_CLR[GPIOTE_CH_SELFTEST]);
-    nrfx_ppi_channel_enable(ppi_ch_test_pin_run);
-
-    nrfx_ppi_channel_alloc(&ppi_ch_test_pin_run2);
-    nrfx_ppi_channel_assign(ppi_ch_test_pin_run2,
-                            nrf_drv_timer_compare_event_address_get(&test_timer, 1),
-                            (uint32_t)&NRF_GPIOTE->TASKS_SET[GPIOTE_CH_SELFTEST]);
-    nrfx_ppi_channel_enable(ppi_ch_test_pin_run2);
-
-    nrf_drv_timer_clear(&test_timer);
-    nrf_drv_timer_resume(&test_timer);
-}
-#endif
 
 static void gpiote_capture_init(void)
 {
@@ -83,10 +42,10 @@ static void gpiote_capture_init(void)
 
     // The GPIOTE driver doesn't support two GPIOTE channels on the same pin, so direct register access is necessary
     NRF_GPIOTE->CONFIG[GPIOTE_CH_CAPTURE] = GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos |
-                                            GPIOTE_CONFIG_POLARITY_HiToLo << GPIOTE_CONFIG_POLARITY_Pos |
+                                            GPIOTE_CONFIG_POLARITY_LoToHi << GPIOTE_CONFIG_POLARITY_Pos |
                                             SAMPLE_PIN << GPIOTE_CONFIG_PSEL_Pos;
     NRF_GPIOTE->CONFIG[GPIOTE_CH_RESTART] = GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos |
-                                            GPIOTE_CONFIG_POLARITY_LoToHi << GPIOTE_CONFIG_POLARITY_Pos |
+                                            GPIOTE_CONFIG_POLARITY_HiToLo << GPIOTE_CONFIG_POLARITY_Pos |
                                             SAMPLE_PIN << GPIOTE_CONFIG_PSEL_Pos;
 
     // Assign a PPI channel to capture the current timer state and store it in CC register 0
@@ -131,32 +90,36 @@ static uint32_t timer_capture_value_get(void)
 
 /** @brief Function for main application entry.
  */
-int main(void)
+int measure(void)
 {
-    APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
-    NRF_LOG_DEFAULT_BACKENDS_INIT();
+    //APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
+    //NRF_LOG_DEFAULT_BACKENDS_INIT();
 
     NRF_LOG_INFO("Pulse capture example started");
 
+    NRF_P0->DIRSET = 1 << 4;
+    NRF_P0->OUTCLR = 1 << 4;
+
     gpiote_capture_init();
 
-#if SELF_TEST
-    run_self_test_pin(4, 678, 10);
-#endif
 
-    while (true)
+
+
+    nrf_delay_ms(5);
+    NRF_P0->OUTSET = 1 << 4;
+    nrf_delay_ms(5);
+
+    uint32_t captured_pulse_length = timer_capture_value_get();
+
+    if(captured_pulse_length > 0)
     {
-        uint32_t captured_pulse_length = timer_capture_value_get();
-
-        if(captured_pulse_length > 0)
-        {
-            NRF_LOG_INFO("Capture value: %i us", (captured_pulse_length * (1 << TIMER_PRESCALER) / 16));
-        }
-        else NRF_LOG_INFO("No capture detected");
-
-        nrf_delay_ms(500);
-        NRF_LOG_FLUSH();
+        NRF_LOG_INFO("Capture value: %i us", (captured_pulse_length * (1 << TIMER_PRESCALER) / 16));
     }
+    else NRF_LOG_INFO("No capture detected");
+
+    NRF_LOG_FLUSH();
+
+    return captured_pulse_length;
 }
 
 

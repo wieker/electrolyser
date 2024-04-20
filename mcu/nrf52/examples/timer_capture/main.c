@@ -459,6 +459,7 @@ static void idle_state_handle(void)
     }
 }
 
+int measure(void);
 
 /**@brief Function for application main entry.
  */
@@ -471,6 +472,7 @@ int main(void)
     // Initialize.
     leds_init();
     timers_init();
+    measure();
     power_management_init();
     ble_stack_init();
     gap_params_init();

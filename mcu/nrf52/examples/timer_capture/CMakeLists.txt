@@ -185,6 +185,7 @@ set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -o <TARG
 
 add_executable(${CMAKE_PROJECT_NAME}
         main.c
+        timer_capture.c
         cross.c
         adc_logic.c
         ble_lbs.c
