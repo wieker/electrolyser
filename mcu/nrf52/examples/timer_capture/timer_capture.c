@@ -13,14 +13,14 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
-const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(3);
+const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(1);
 
 #define SAMPLE_PIN                      3
 #define TIMER_PRESCALER                 NRF_TIMER_FREQ_1MHz
 #define GPIOTE_CH_CAPTURE               0
 #define GPIOTE_CH_RESTART               1
 
-static void gpiote_capture_init(void)
+void gpiote_capture_init(void)
 {
     uint32_t err_code;
     static nrf_ppi_channel_t ppi_ch_gpiote_capture;
@@ -100,14 +100,9 @@ int measure(void)
     NRF_P0->DIRSET = 1 << 4;
     NRF_P0->OUTCLR = 1 << 4;
 
-    gpiote_capture_init();
-
-
-
-
-    nrf_delay_ms(5);
+    nrf_delay_us(50);
     NRF_P0->OUTSET = 1 << 4;
-    nrf_delay_ms(5);
+    nrf_delay_us(50);
 
     uint32_t captured_pulse_length = timer_capture_value_get();
 
@@ -116,6 +111,7 @@ int measure(void)
         NRF_LOG_INFO("Capture value: %i us", (captured_pulse_length * (1 << TIMER_PRESCALER) / 16));
     }
     else NRF_LOG_INFO("No capture detected");
+    return 6;
 
     NRF_LOG_FLUSH();
 

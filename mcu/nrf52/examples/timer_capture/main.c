@@ -459,6 +459,7 @@ static void idle_state_handle(void)
     }
 }
 
+void gpiote_capture_init(void);
 int measure(void);
 
 /**@brief Function for application main entry.
@@ -472,10 +473,13 @@ int main(void)
     // Initialize.
     leds_init();
     timers_init();
+    gpiote_capture_init();
+    measure();
     measure();
     power_management_init();
     ble_stack_init();
     gap_params_init();
+    measure();
     gatt_init();
     gpiote_init();
     services_init();
@@ -486,6 +490,7 @@ int main(void)
     // Start execution.
     NRF_LOG_INFO("Blinky example started.");
     advertising_start();
+    measure();
 
     // Enter main loop.
     for (;;)
