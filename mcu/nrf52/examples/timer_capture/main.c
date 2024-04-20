@@ -49,6 +49,7 @@
 #include "nordic_common.h"
 #include "nrf.h"
 #include "app_error.h"
+#include "boards.h"
 #include "ble.h"
 #include "ble_err.h"
 #include "ble_hci.h"
@@ -57,7 +58,6 @@
 #include "ble_conn_params.h"
 #include "nrf_sdh.h"
 #include "nrf_sdh_ble.h"
-#include "boards.h"
 #include "app_timer.h"
 #include "app_button.h"
 #include "ble_lbs.h"
@@ -464,6 +464,10 @@ static void idle_state_handle(void)
  */
 int main(void)
 {
+    APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
+    NRF_LOG_DEFAULT_BACKENDS_INIT();
+
+    NRF_LOG_INFO("Pulse capture example started");
     // Initialize.
     leds_init();
     timers_init();
@@ -478,7 +482,7 @@ int main(void)
 
 
     // Start execution.
-    //NRF_LOG_INFO("Blinky example started.");
+    NRF_LOG_INFO("Blinky example started.");
     advertising_start();
 
     // Enter main loop.

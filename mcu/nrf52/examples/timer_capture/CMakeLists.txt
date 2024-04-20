@@ -25,12 +25,13 @@ set(GLOBAL_FLAGS "${ARCH_FLAGS} \
         -DBOARD_CUSTOM \
         -DAPP_UART_ENABLED \
         -DSOFTDEVICE_PRESENT \
-        -DS112 \
+        -DS132 \
         -DNRF_SD_BLE_API_VERSION=7 \
         -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3 \
         -DNRF52_PAN_74 \
         -DAPP_TIMER_V2_RTC1_ENABLED \
         -DAPP_TIMER_V2 \
+        -DFLOAT_ABI_HARD \
 ")
 
 set(CMAKE_ASM_FLAGS "${GLOBAL_FLAGS} \
@@ -57,7 +58,6 @@ include_directories(
         ${NRF52_SDK}/modules/nrfx/templates/nRF52832  # nrfx_config.h
         ${NRF52_SDK}/integration/nrfx
         ${NRF52_SDK}/components/libraries/util
-        ${NRF52_SDK}/components/drivers_nrf/nrf_soc_nosd  # nrf_error.h (alternative: components/softdevice/s132/headers)
 
         ${NRF52_SDK}/modules/nrfx/drivers/include
         ${NRF52_SDK}/modules/nrfx/hal
@@ -133,7 +133,7 @@ include_directories(
         ${NRF52_SDK}/integration/nrfx
         ${NRF52_SDK}/components/libraries/sortlist
         ${NRF52_SDK}/components/libraries/spi_mngr
-        ${NRF52_SDK}/components/softdevice/s112/headers
+        ${NRF52_SDK}/components/softdevice/s132/headers
         ${NRF52_SDK}/components/libraries/led_softblink
         ${NRF52_SDK}/components/libraries/sdcard
         ${NRF52_SDK}/modules/nrfx/mdk
@@ -221,4 +221,52 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_timer.c
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_systick.c
         ${NRF52_SDK}/components/libraries/ringbuf/nrf_ringbuf.c
+
+
+        ${NRF52_SDK}/components/softdevice/common/nrf_sdh.c
+        ${NRF52_SDK}/components/softdevice/common/nrf_sdh_ble.c
+        ${NRF52_SDK}/components/softdevice/common/nrf_sdh_soc.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_saadc.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_timer.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_ppi.c
+        ${NRF52_SDK}/integration/nrfx/legacy/nrf_drv_ppi.c
+        ${NRF52_SDK}/external/segger_rtt/SEGGER_RTT.c
+        ${NRF52_SDK}/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c
+        ${NRF52_SDK}/external/segger_rtt/SEGGER_RTT_printf.c
+        ${NRF52_SDK}/components/ble/common/ble_advdata.c
+        ${NRF52_SDK}/components/ble/common/ble_conn_params.c
+        ${NRF52_SDK}/components/ble/common/ble_conn_state.c
+        ${NRF52_SDK}/components/ble/common/ble_srv_common.c
+        ${NRF52_SDK}/components/ble/nrf_ble_gatt/nrf_ble_gatt.c
+        ${NRF52_SDK}/components/ble/nrf_ble_qwr/nrf_ble_qwr.c
+        ${NRF52_SDK}/external/utf_converter/utf.c
+        ${NRF52_SDK}/components/boards/boards.c
+        ${NRF52_SDK}/integration/nrfx/legacy/nrf_drv_clock.c
+        ${NRF52_SDK}/integration/nrfx/legacy/nrf_drv_uart.c
+        ${NRF52_SDK}/modules/nrfx/soc/nrfx_atomic.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_clock.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_gpiote.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/prs/nrfx_prs.c
+        ${NRF52_SDK}/components/libraries/button/app_button.c
+        ${NRF52_SDK}/components/libraries/util/app_error.c
+        ${NRF52_SDK}/components/libraries/util/app_error_handler_gcc.c
+        ${NRF52_SDK}/components/libraries/util/app_error_weak.c
+        ${NRF52_SDK}/components/libraries/scheduler/app_scheduler.c
+        ${NRF52_SDK}/components/libraries/timer/app_timer2.c
+        ${NRF52_SDK}/components/libraries/util/app_util_platform.c
+        ${NRF52_SDK}/components/libraries/timer/drv_rtc.c
+        ${NRF52_SDK}/components/libraries/hardfault/hardfault_implementation.c
+        ${NRF52_SDK}/components/libraries/util/nrf_assert.c
+        ${NRF52_SDK}/components/libraries/atomic_fifo/nrf_atfifo.c
+        ${NRF52_SDK}/components/libraries/atomic_flags/nrf_atflags.c
+        ${NRF52_SDK}/components/libraries/atomic/nrf_atomic.c
+        ${NRF52_SDK}/components/libraries/balloc/nrf_balloc.c
+        ${NRF52_SDK}/external/fprintf/nrf_fprintf.c
+        ${NRF52_SDK}/external/fprintf/nrf_fprintf_format.c
+        ${NRF52_SDK}/components/libraries/memobj/nrf_memobj.c
+        ${NRF52_SDK}/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c
+        ${NRF52_SDK}/components/libraries/ringbuf/nrf_ringbuf.c
+        ${NRF52_SDK}/components/libraries/experimental_section_vars/nrf_section_iter.c
+        ${NRF52_SDK}/components/libraries/sortlist/nrf_sortlist.c
+        ${NRF52_SDK}/components/libraries/strerror/nrf_strerror.c
 )
