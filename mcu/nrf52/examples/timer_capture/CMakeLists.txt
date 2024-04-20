@@ -24,6 +24,13 @@ set(GLOBAL_FLAGS "${ARCH_FLAGS} \
         -DNRF52832_XXAA \
         -DBOARD_CUSTOM \
         -DAPP_UART_ENABLED \
+        -DSOFTDEVICE_PRESENT \
+        -DS112 \
+        -DNRF_SD_BLE_API_VERSION=7 \
+        -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3 \
+        -DNRF52_PAN_74 \
+        -DAPP_TIMER_V2_RTC1_ENABLED \
+        -DAPP_TIMER_V2 \
 ")
 
 set(CMAKE_ASM_FLAGS "${GLOBAL_FLAGS} \
@@ -177,7 +184,11 @@ set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
 set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -o <TARGET>")
 
 add_executable(${CMAKE_PROJECT_NAME}
-        timer_capture.c
+        main.c
+        cross.c
+        adc_logic.c
+        ble_lbs.c
+        gpio_logic.c
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
 
