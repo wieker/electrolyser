@@ -5,6 +5,7 @@
 #include "nrf_delay.h"
 #include "app_error.h"
 #include <nrf_drv_ppi.h>
+#include <nrf_drv_uart.h>
 #include <nrf_drv_timer.h>
 
 #include "nrf_log.h"
@@ -87,6 +88,7 @@ static uint32_t timer_capture_value_get(void)
     }
 }
 
+extern nrf_drv_uart_t m_uart;
 /** @brief Function for main application entry.
  */
 int main(void)
@@ -96,7 +98,7 @@ int main(void)
 
     NRF_LOG_INFO("Pulse capture example started");
 
-
+    nrf_drv_uart_tx(&m_uart, (uint8_t  *) "init00\r\n", 8);
     gpiote_capture_init();
 
 #if SELF_TEST

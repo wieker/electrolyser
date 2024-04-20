@@ -179,6 +179,7 @@ set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -o <TARG
 add_executable(${CMAKE_PROJECT_NAME}
         timer_capture.c
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
+        ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
 
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uart.c
         ${NRF52_SDK}/modules/nrfx/drivers/src/prs/nrfx_prs.c
@@ -204,4 +205,8 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uarte.c
         ${NRF52_SDK}/components/libraries/atomic/nrf_atomic.c
         ${NRF52_SDK}/components/libraries/balloc/nrf_balloc.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_ppi.c
+        ${NRF52_SDK}/integration/nrfx/legacy/nrf_drv_ppi.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_timer.c
+        ${NRF52_SDK}/components/libraries/ringbuf/nrf_ringbuf.c
 )
