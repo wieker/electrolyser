@@ -208,5 +208,6 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_ppi.c
         ${NRF52_SDK}/integration/nrfx/legacy/nrf_drv_ppi.c
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_timer.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_systick.c
         ${NRF52_SDK}/components/libraries/ringbuf/nrf_ringbuf.c
 )
