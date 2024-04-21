@@ -4,8 +4,6 @@ project(timer_capture C ASM)
 set(CMAKE_VERBOSE_MAKEFILE 1)
 
 set(NRF52_SDK "/home/wieker/Projects/")
-# or
-# -DNRF52_SDK=...
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_COMPILER "/usr/bin/arm-none-eabi-gcc")
@@ -182,8 +180,6 @@ set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
 ")
 
 set(common_sources
-        ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
-        ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
 
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uart.c
         ${NRF52_SDK}/modules/nrfx/drivers/src/prs/nrfx_prs.c
@@ -263,7 +259,12 @@ set(common_sources
         ${NRF52_SDK}/components/libraries/sortlist/nrf_sortlist.c
         ${NRF52_SDK}/components/libraries/strerror/nrf_strerror.c
 )
-add_library(commonlib ${common_sources})
+
+
+add_library(commonlib
+        ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
+        ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
+        ${common_sources})
 target_compile_options(commonlib PRIVATE "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16"
 )
 target_include_directories(commonlib PUBLIC
