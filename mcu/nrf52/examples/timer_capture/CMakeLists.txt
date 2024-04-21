@@ -13,11 +13,11 @@ set(CMAKE_ASM_COMPILER "/usr/bin/arm-none-eabi-gcc")
 set(CMAKE_AR "/usr/bin/arm-none-eabi-ar")
 set(CMAKE_RANLIB "/usr/bin/arm-none-eabi-ranlib")
 
+set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -L. -lcommonlib -o <TARGET>")
+
 set(ARCH_FLAGS "\
         -mabi=aapcs \
         -mcpu=cortex-m4 \
-        -mfloat-abi=hard \
-        -mfpu=fpv4-sp-d16 \
         -mthumb \
 ")
 
@@ -183,8 +183,6 @@ set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
         -lm \
 ")
 
-set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -L. -lcommonlib -o <TARGET>")
-
 add_library(commonlib
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
@@ -267,6 +265,8 @@ add_library(commonlib
         ${NRF52_SDK}/components/libraries/sortlist/nrf_sortlist.c
         ${NRF52_SDK}/components/libraries/strerror/nrf_strerror.c
 )
+target_compile_options(commonlib PRIVATE "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16"
+)
 add_executable(${CMAKE_PROJECT_NAME}
         main.c
         timer_capture.c
@@ -278,3 +278,6 @@ add_executable(${CMAKE_PROJECT_NAME}
 target_link_libraries(${CMAKE_PROJECT_NAME}
         commonlib
 )
+
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16")
+target_link_options(${CMAKE_PROJECT_NAME} PRIVATE "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16")
