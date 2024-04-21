@@ -21,7 +21,6 @@ set(ARCH_FLAGS "\
 
 set(GLOBAL_FLAGS "${ARCH_FLAGS} \
         -DBOARD_CUSTOM \
-        -DAPP_UART_ENABLED \
         -DSOFTDEVICE_PRESENT \
         -DNRF_SD_BLE_API_VERSION=7 \
         -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3 \
@@ -46,123 +45,107 @@ set(CMAKE_C_FLAGS "${GLOBAL_FLAGS} \
 ")
 
 include_directories(
-        ${NRF52_SDK}/components/toolchain/cmsis/include
-        ${NRF52_SDK}/modules/nrfx/mdk
-
-        ${NRF52_SDK}/components/libraries/delay
-        ${NRF52_SDK}/modules/nrfx
-        ${NRF52_SDK}/modules/nrfx/templates/nRF52832  # nrfx_config.h
-        ${NRF52_SDK}/integration/nrfx
-        ${NRF52_SDK}/components/libraries/util
-
-        ${NRF52_SDK}/modules/nrfx/drivers/include
-        ${NRF52_SDK}/modules/nrfx/hal
-        ble_config
-        ${NRF52_SDK}/components/libraries/log
-        ${NRF52_SDK}/components/libraries/experimental_section_vars
-        ${NRF52_SDK}/components/libraries/strerror
-        ${NRF52_SDK}/components/libraries/log/src
-        ./
-
-        ${NRF52_SDK}/components/ble/ble_services/ble_ancs_c
-        ${NRF52_SDK}/components/ble/ble_services/ble_ias_c
-        ${NRF52_SDK}/components/libraries/pwm
-        ${NRF52_SDK}/components/libraries/usbd/class/cdc/acm
-        ${NRF52_SDK}/components/libraries/usbd/class/hid/generic
-        ${NRF52_SDK}/components/libraries/usbd/class/msc
-        ${NRF52_SDK}/components/libraries/usbd/class/hid
-        ${NRF52_SDK}/modules/nrfx/hal
-        ${NRF52_SDK}/components/libraries/log
-        ${NRF52_SDK}/components/ble/ble_services/ble_gls
-        ${NRF52_SDK}/components/libraries/fstorage
-        ${NRF52_SDK}/components/libraries/mutex
-        ${NRF52_SDK}/components/libraries/gpiote
-        ${NRF52_SDK}/components/libraries/bootloader/ble_dfu
-        ${NRF52_SDK}/components/boards
-        ${NRF52_SDK}/components/ble/ble_advertising
-        ${NRF52_SDK}/external/utf_converter
-        ${NRF52_SDK}/components/ble/ble_services/ble_bas_c
-        ${NRF52_SDK}/modules/nrfx/drivers/include
-        ${NRF52_SDK}/modules/nrfx/drivers/src/prs/
-        ${NRF52_SDK}/components/libraries/experimental_task_manager
-        ${NRF52_SDK}/components/ble/ble_services/ble_hrs_c
-        ${NRF52_SDK}/components/libraries/queue
-        ${NRF52_SDK}/components/libraries/pwr_mgmt
-        ${NRF52_SDK}/components/ble/ble_dtm
-        ${NRF52_SDK}/components/toolchain/cmsis/include
-        ${NRF52_SDK}/components/ble/ble_services/ble_rscs_c
-        ${NRF52_SDK}/components/ble/common
-        ${NRF52_SDK}/components/ble/ble_services/ble_lls
-        ${NRF52_SDK}/components/ble/ble_services/ble_bas
-        ${NRF52_SDK}/components/libraries/mpu
-        ${NRF52_SDK}/components/libraries/experimental_section_vars
-        ${NRF52_SDK}/components/ble/ble_services/ble_ans_c
-        ${NRF52_SDK}/components/libraries/slip
-        ${NRF52_SDK}/components/libraries/delay
-        ${NRF52_SDK}/components/libraries/csense_drv
-        ${NRF52_SDK}/components/libraries/memobj
-        ${NRF52_SDK}/components/ble/ble_services/ble_nus_c
-        ${NRF52_SDK}/components/softdevice/common
-        ${NRF52_SDK}/components/ble/ble_services/ble_ias
-        ${NRF52_SDK}/components/libraries/usbd/class/hid/mouse
-        ${NRF52_SDK}/components/libraries/low_power_pwm
-        ${NRF52_SDK}/components/ble/ble_services/ble_dfu
-        ${NRF52_SDK}/external/fprintf
-        ${NRF52_SDK}/components/libraries/svc
-        ${NRF52_SDK}/components/libraries/atomic
-        ${NRF52_SDK}/components
-        ${NRF52_SDK}/components/libraries/scheduler
-        ${NRF52_SDK}/components/libraries/cli
-        ${NRF52_SDK}/components/ble/ble_services/ble_lbs
-        ${NRF52_SDK}/components/ble/ble_services/ble_hts
-        ${NRF52_SDK}/components/libraries/crc16
-        ${NRF52_SDK}/components/libraries/util
-        ${NRF52_SDK}/components/libraries/usbd/class/cdc
-        ${NRF52_SDK}/components/libraries/csense
-        ${NRF52_SDK}/components/libraries/balloc
-        ${NRF52_SDK}/components/libraries/ecc
-        ${NRF52_SDK}/components/libraries/hardfault
-        ${NRF52_SDK}/components/ble/ble_services/ble_csc
-        ${NRF52_SDK}/components/libraries/hci
-        ${NRF52_SDK}/components/libraries/timer
-        ${NRF52_SDK}/integration/nrfx
-        ${NRF52_SDK}/components/libraries/sortlist
-        ${NRF52_SDK}/components/libraries/spi_mngr
-        ${NRF52_SDK}/components/libraries/led_softblink
-        ${NRF52_SDK}/components/libraries/sdcard
-        ${NRF52_SDK}/modules/nrfx/mdk
-        ${NRF52_SDK}/components/ble/ble_services/ble_cts_c
-        ${NRF52_SDK}/components/ble/ble_services/ble_nus
-        ${NRF52_SDK}/components/libraries/twi_mngr
-        ${NRF52_SDK}/components/ble/ble_services/ble_hids
-        ${NRF52_SDK}/components/libraries/strerror
-        ${NRF52_SDK}/components/libraries/crc32
-        ${NRF52_SDK}/components/libraries/usbd/class/audio
-        ${NRF52_SDK}/components/ble/peer_manager
-        ${NRF52_SDK}/components/libraries/mem_manager
-        ${NRF52_SDK}/components/libraries/ringbuf
-        ${NRF52_SDK}/components/ble/ble_services/ble_tps
-        ${NRF52_SDK}/components/ble/ble_services/ble_dis
-        ${NRF52_SDK}/components/ble/nrf_ble_gatt
-        ${NRF52_SDK}/components/ble/nrf_ble_qwr
-        ${NRF52_SDK}/components/libraries/gfx
-        ${NRF52_SDK}/components/libraries/button
-        ${NRF52_SDK}/modules/nrfx
-        ${NRF52_SDK}/components/libraries/twi_sensor
-        ${NRF52_SDK}/integration/nrfx/legacy
-        ${NRF52_SDK}/components/libraries/usbd/class/hid/kbd
-        ${NRF52_SDK}/external/segger_rtt
-        ${NRF52_SDK}/components/libraries/atomic_fifo
-        ${NRF52_SDK}/components/ble/ble_services/ble_lbs_c
-        ${NRF52_SDK}/components/libraries/crypto
-        ${NRF52_SDK}/components/ble/ble_racp
-        ${NRF52_SDK}/components/libraries/fds
-        ${NRF52_SDK}/components/libraries/atomic_flags
-        ${NRF52_SDK}/components/ble/ble_services/ble_hrs
-        ${NRF52_SDK}/components/ble/ble_services/ble_rscs
-        ${NRF52_SDK}/components/libraries/usbd
-        ${NRF52_SDK}/components/libraries/stack_guard
-        ${NRF52_SDK}/components/libraries/log/src
+  ${NRF52_SDK}/components/ble/ble_services/ble_ancs_c
+  ${NRF52_SDK}/components/ble/ble_services/ble_ias_c
+  ${NRF52_SDK}/components/libraries/pwm
+  ${NRF52_SDK}/components/softdevice/s112/headers/nrf52
+  ${NRF52_SDK}/components/libraries/usbd/class/cdc/acm
+  ${NRF52_SDK}/components/libraries/usbd/class/hid/generic
+  ${NRF52_SDK}/components/libraries/usbd/class/msc
+  ${NRF52_SDK}/components/libraries/usbd/class/hid
+  ${NRF52_SDK}/modules/nrfx/hal
+  ${NRF52_SDK}/components/libraries/log
+  ${NRF52_SDK}/components/ble/ble_services/ble_gls
+  ${NRF52_SDK}/components/libraries/fstorage
+  ${NRF52_SDK}/components/libraries/mutex
+  ${NRF52_SDK}/components/libraries/gpiote
+  ${NRF52_SDK}/components/libraries/bootloader/ble_dfu
+  ${NRF52_SDK}/components/boards
+  ${NRF52_SDK}/components/ble/ble_advertising
+  ${NRF52_SDK}/external/utf_converter
+  ${NRF52_SDK}/components/ble/ble_services/ble_bas_c
+  ${NRF52_SDK}/modules/nrfx/drivers/include
+  ${NRF52_SDK}/modules/nrfx/drivers/src/prs/
+  ${NRF52_SDK}/components/libraries/experimental_task_manager
+  ${NRF52_SDK}/components/ble/ble_services/ble_hrs_c
+  ${NRF52_SDK}/components/libraries/queue
+  ${NRF52_SDK}/components/libraries/pwr_mgmt
+  ${NRF52_SDK}/components/ble/ble_dtm
+  ${NRF52_SDK}/components/toolchain/cmsis/include
+  ${NRF52_SDK}/components/ble/ble_services/ble_rscs_c
+  ${NRF52_SDK}/components/ble/common
+  ${NRF52_SDK}/components/ble/ble_services/ble_lls
+  ${NRF52_SDK}/components/ble/ble_services/ble_bas
+  ${NRF52_SDK}/components/libraries/mpu
+  ${NRF52_SDK}/components/libraries/experimental_section_vars
+  ${NRF52_SDK}/components/ble/ble_services/ble_ans_c
+  ${NRF52_SDK}/components/libraries/slip
+  ${NRF52_SDK}/components/libraries/delay
+  ${NRF52_SDK}/components/libraries/csense_drv
+  ${NRF52_SDK}/components/libraries/memobj
+  ${NRF52_SDK}/components/ble/ble_services/ble_nus_c
+  ${NRF52_SDK}/components/softdevice/common
+  ${NRF52_SDK}/components/ble/ble_services/ble_ias
+  ${NRF52_SDK}/components/libraries/usbd/class/hid/mouse
+  ${NRF52_SDK}/components/libraries/low_power_pwm
+  ${NRF52_SDK}/components/ble/ble_services/ble_dfu
+  ${NRF52_SDK}/external/fprintf
+  ${NRF52_SDK}/components/libraries/svc
+  ${NRF52_SDK}/components/libraries/atomic
+  ${NRF52_SDK}/components
+  ${NRF52_SDK}/components/libraries/scheduler
+  ${NRF52_SDK}/components/libraries/cli
+  ${NRF52_SDK}/components/ble/ble_services/ble_lbs
+  ${NRF52_SDK}/components/ble/ble_services/ble_hts
+  ${NRF52_SDK}/components/libraries/crc16
+  ${NRF52_SDK}/components/libraries/util
+  .
+  ${NRF52_SDK}/components/libraries/usbd/class/cdc
+  ${NRF52_SDK}/components/libraries/csense
+  ${NRF52_SDK}/components/libraries/balloc
+  ${NRF52_SDK}/components/libraries/ecc
+  ${NRF52_SDK}/components/libraries/hardfault
+  ${NRF52_SDK}/components/ble/ble_services/ble_cscs
+  ${NRF52_SDK}/components/libraries/hci
+  ${NRF52_SDK}/components/libraries/timer
+  ${NRF52_SDK}/integration/nrfx
+  ${NRF52_SDK}/components/libraries/sortlist
+  ${NRF52_SDK}/components/libraries/spi_mngr
+  ${NRF52_SDK}/components/libraries/led_softblink
+  ${NRF52_SDK}/components/libraries/sdcard
+  ${NRF52_SDK}/modules/nrfx/mdk
+  ${NRF52_SDK}/components/ble/ble_services/ble_cts_c
+  ${NRF52_SDK}/components/ble/ble_services/ble_nus
+  ${NRF52_SDK}/components/libraries/twi_mngr
+  ${NRF52_SDK}/components/ble/ble_services/ble_hids
+  ${NRF52_SDK}/components/libraries/strerror
+  ${NRF52_SDK}/components/libraries/crc32
+  ${NRF52_SDK}/components/libraries/usbd/class/audio
+  ${NRF52_SDK}/components/ble/peer_manager
+  ${NRF52_SDK}/components/libraries/mem_manager
+  ${NRF52_SDK}/components/libraries/ringbuf
+  ${NRF52_SDK}/components/ble/ble_services/ble_tps
+  ${NRF52_SDK}/components/ble/ble_services/ble_dis
+  ${NRF52_SDK}/components/ble/nrf_ble_gatt
+  ${NRF52_SDK}/components/ble/nrf_ble_qwr
+  ${NRF52_SDK}/components/libraries/gfx
+  ${NRF52_SDK}/components/libraries/button
+  ${NRF52_SDK}/modules/nrfx
+  ${NRF52_SDK}/components/libraries/twi_sensor
+  ${NRF52_SDK}/integration/nrfx/legacy
+  ${NRF52_SDK}/components/libraries/usbd/class/hid/kbd
+  ${NRF52_SDK}/external/segger_rtt
+  ${NRF52_SDK}/components/libraries/atomic_fifo
+  ${NRF52_SDK}/components/ble/ble_services/ble_lbs_c
+  ${NRF52_SDK}/components/libraries/crypto
+  ${NRF52_SDK}/components/ble/ble_racp
+  ${NRF52_SDK}/components/libraries/fds
+  ${NRF52_SDK}/components/libraries/atomic_flags
+  ${NRF52_SDK}/components/ble/ble_services/ble_hrs
+  ${NRF52_SDK}/components/ble/ble_services/ble_rscs
+  ${NRF52_SDK}/components/libraries/usbd
+  ${NRF52_SDK}/components/libraries/stack_guard
+  ${NRF52_SDK}/components/libraries/log/src
 )
 
 set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
@@ -176,7 +159,6 @@ set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
 
 set(common_sources
 
-        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uart.c
         ${NRF52_SDK}/modules/nrfx/drivers/src/prs/nrfx_prs.c
         ${NRF52_SDK}/components/libraries/util/app_util_platform.c
 
@@ -197,7 +179,6 @@ set(common_sources
         ${NRF52_SDK}/components/libraries/memobj/nrf_memobj.c
         ${NRF52_SDK}/integration/nrfx/legacy/nrf_drv_uart.c
         ${NRF52_SDK}/modules/nrfx/soc/nrfx_atomic.c
-        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uarte.c
         ${NRF52_SDK}/components/libraries/atomic/nrf_atomic.c
         ${NRF52_SDK}/components/libraries/balloc/nrf_balloc.c
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_ppi.c
@@ -266,10 +247,13 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
         ${common_sources}
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uart.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uarte.c
 )
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
         ${NRF52_SDK}/components/softdevice/s132/headers
         ${NRF52_SDK}/components/softdevice/s132/headers/nrf52
+        ble_config
 )
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
         "-mfloat-abi=hard"
@@ -283,4 +267,30 @@ target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
         "-mfloat-abi=hard"
         "-mfpu=fpv4-sp-d16"
         "-T${PROJECT_SOURCE_DIR}/link-s132.ld"
+)
+
+add_executable(${CMAKE_PROJECT_NAME}lite
+        main.c
+        timer_capture.c
+        cross.c
+        adc_logic.c
+        ble_lbs.c
+        gpio_logic.c
+        ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52810.c
+        ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52810.S
+        ${common_sources}
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uarte.c
+)
+target_include_directories(${CMAKE_PROJECT_NAME}lite PUBLIC
+        ${NRF52_SDK}/components/softdevice/s112/headers
+        ${NRF52_SDK}/components/softdevice/s112/headers/nrf52
+        ble112_config
+)
+target_compile_options(${CMAKE_PROJECT_NAME}lite PRIVATE
+        "-DFLOAT_ABI_SOFT"
+        "-DNRF52810_XXAA"
+        "-DS112"
+)
+target_link_options(${CMAKE_PROJECT_NAME}lite PRIVATE
+        "-T${PROJECT_SOURCE_DIR}/link-s112.ld"
 )
