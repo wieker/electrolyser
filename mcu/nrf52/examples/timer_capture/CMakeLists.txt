@@ -234,6 +234,7 @@ set(common_sources
         ${NRF52_SDK}/components/libraries/experimental_section_vars/nrf_section_iter.c
         ${NRF52_SDK}/components/libraries/sortlist/nrf_sortlist.c
         ${NRF52_SDK}/components/libraries/strerror/nrf_strerror.c
+        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uarte.c
 )
 
 
@@ -248,7 +249,6 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
         ${common_sources}
         ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uart.c
-        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uarte.c
 )
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
         ${NRF52_SDK}/components/softdevice/s132/headers
@@ -279,7 +279,6 @@ add_executable(${CMAKE_PROJECT_NAME}lite
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52810.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52810.S
         ${common_sources}
-        ${NRF52_SDK}/modules/nrfx/drivers/src/nrfx_uarte.c
 )
 target_include_directories(${CMAKE_PROJECT_NAME}lite PUBLIC
         ${NRF52_SDK}/components/softdevice/s112/headers
