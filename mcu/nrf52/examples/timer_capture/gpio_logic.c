@@ -24,8 +24,7 @@ uint32_t toggle_io(int sta)
         NRF_P0->OUTCLR = 1 << GPIO_OUTPUT_PIN_NUMBER;
         return 0;
     } else {
-        measure();
         NRF_P0->OUTSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
-        return 0;
+        return measure();
     }
 }

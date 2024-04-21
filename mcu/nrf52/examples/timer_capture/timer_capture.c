@@ -111,9 +111,6 @@ int measure(void)
         NRF_LOG_INFO("Capture value: %i us", (captured_pulse_length * (1 << TIMER_PRESCALER) / 16));
     }
     else NRF_LOG_INFO("No capture detected");
-    return 6;
-
-    NRF_LOG_FLUSH();
 
     return captured_pulse_length;
 }
