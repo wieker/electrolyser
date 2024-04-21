@@ -11,7 +11,7 @@ set(CMAKE_ASM_COMPILER "/usr/bin/arm-none-eabi-gcc")
 set(CMAKE_AR "/usr/bin/arm-none-eabi-ar")
 set(CMAKE_RANLIB "/usr/bin/arm-none-eabi-ranlib")
 
-set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -L. -lcommonlib -o <TARGET>")
+set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -o <TARGET>")
 
 set(ARCH_FLAGS "\
         -mabi=aapcs \
@@ -256,22 +256,6 @@ set(common_sources
 )
 
 
-add_library(commonlib
-        ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
-        ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
-        ${common_sources})
-target_compile_options(commonlib PRIVATE
-        "-mfloat-abi=hard"
-        "-mfpu=fpv4-sp-d16"
-        "-DFLOAT_ABI_HARD"
-        "-DNRF52"
-        "-DNRF52832_XXAA"
-        "-DS132"
-)
-target_include_directories(commonlib PUBLIC
-        ${NRF52_SDK}/components/softdevice/s132/headers
-        ${NRF52_SDK}/components/softdevice/s132/headers/nrf52
-)
 add_executable(${CMAKE_PROJECT_NAME}
         main.c
         timer_capture.c
@@ -279,11 +263,14 @@ add_executable(${CMAKE_PROJECT_NAME}
         adc_logic.c
         ble_lbs.c
         gpio_logic.c
-        )
-target_link_libraries(${CMAKE_PROJECT_NAME}
-        commonlib
+        ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
+        ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
+        ${common_sources}
 )
-
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
+        ${NRF52_SDK}/components/softdevice/s132/headers
+        ${NRF52_SDK}/components/softdevice/s132/headers/nrf52
+)
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
         "-mfloat-abi=hard"
         "-mfpu=fpv4-sp-d16"
