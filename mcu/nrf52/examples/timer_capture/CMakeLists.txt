@@ -282,5 +282,5 @@ target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
 target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
         "-mfloat-abi=hard"
         "-mfpu=fpv4-sp-d16"
-        "-T${PROJECT_SOURCE_DIR}/blinky.ld"
+        "-T${PROJECT_SOURCE_DIR}/link-s132.ld"
 )
