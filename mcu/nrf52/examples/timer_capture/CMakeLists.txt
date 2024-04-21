@@ -20,18 +20,14 @@ set(ARCH_FLAGS "\
 ")
 
 set(GLOBAL_FLAGS "${ARCH_FLAGS} \
-        -DNRF52 \
-        -DNRF52832_XXAA \
         -DBOARD_CUSTOM \
         -DAPP_UART_ENABLED \
         -DSOFTDEVICE_PRESENT \
-        -DS132 \
         -DNRF_SD_BLE_API_VERSION=7 \
         -DNRFX_COREDEP_DELAY_US_LOOP_CYCLES=3 \
         -DNRF52_PAN_74 \
         -DAPP_TIMER_V2_RTC1_ENABLED \
         -DAPP_TIMER_V2 \
-        -DFLOAT_ABI_HARD \
 ")
 
 set(CMAKE_ASM_FLAGS "${GLOBAL_FLAGS} \
@@ -171,7 +167,6 @@ include_directories(
 
 set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
         --specs=nano.specs \
-        -T${PROJECT_SOURCE_DIR}/blinky.ld \
         -Wl,--gc-sections \
         -L${NRF52_SDK}/modules/nrfx/mdk \
         -lc \
@@ -265,7 +260,13 @@ add_library(commonlib
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
         ${common_sources})
-target_compile_options(commonlib PRIVATE "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16"
+target_compile_options(commonlib PRIVATE
+        "-mfloat-abi=hard"
+        "-mfpu=fpv4-sp-d16"
+        "-DFLOAT_ABI_HARD"
+        "-DNRF52"
+        "-DNRF52832_XXAA"
+        "-DS132"
 )
 target_include_directories(commonlib PUBLIC
         ${NRF52_SDK}/components/softdevice/s132/headers
@@ -283,5 +284,16 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         commonlib
 )
 
-target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16")
-target_link_options(${CMAKE_PROJECT_NAME} PRIVATE "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16")
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
+        "-mfloat-abi=hard"
+        "-mfpu=fpv4-sp-d16"
+        "-DFLOAT_ABI_HARD"
+        "-DNRF52"
+        "-DNRF52832_XXAA"
+        "-DS132"
+)
+target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
+        "-mfloat-abi=hard"
+        "-mfpu=fpv4-sp-d16"
+        "-T${PROJECT_SOURCE_DIR}/blinky.ld"
+)
