@@ -73,7 +73,6 @@ include_directories(
         ${NRF52_SDK}/components/ble/ble_services/ble_ancs_c
         ${NRF52_SDK}/components/ble/ble_services/ble_ias_c
         ${NRF52_SDK}/components/libraries/pwm
-        ${NRF52_SDK}/components/softdevice/s112/headers/nrf52
         ${NRF52_SDK}/components/libraries/usbd/class/cdc/acm
         ${NRF52_SDK}/components/libraries/usbd/class/hid/generic
         ${NRF52_SDK}/components/libraries/usbd/class/msc
@@ -135,7 +134,6 @@ include_directories(
         ${NRF52_SDK}/integration/nrfx
         ${NRF52_SDK}/components/libraries/sortlist
         ${NRF52_SDK}/components/libraries/spi_mngr
-        ${NRF52_SDK}/components/softdevice/s132/headers
         ${NRF52_SDK}/components/libraries/led_softblink
         ${NRF52_SDK}/components/libraries/sdcard
         ${NRF52_SDK}/modules/nrfx/mdk
@@ -183,7 +181,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
         -lm \
 ")
 
-add_library(commonlib
+set(common_sources
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
 
@@ -265,7 +263,12 @@ add_library(commonlib
         ${NRF52_SDK}/components/libraries/sortlist/nrf_sortlist.c
         ${NRF52_SDK}/components/libraries/strerror/nrf_strerror.c
 )
+add_library(commonlib ${common_sources})
 target_compile_options(commonlib PRIVATE "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16"
+)
+target_include_directories(commonlib PUBLIC
+        ${NRF52_SDK}/components/softdevice/s132/headers
+        ${NRF52_SDK}/components/softdevice/s132/headers/nrf52
 )
 add_executable(${CMAKE_PROJECT_NAME}
         main.c
