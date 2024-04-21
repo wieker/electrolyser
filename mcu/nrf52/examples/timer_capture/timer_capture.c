@@ -15,7 +15,7 @@
 
 const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(1);
 
-#define SAMPLE_PIN                      3
+#define SAMPLE_PIN                      5
 #define TIMER_PRESCALER                 NRF_TIMER_FREQ_1MHz
 #define GPIOTE_CH_CAPTURE               0
 #define GPIOTE_CH_RESTART               1
