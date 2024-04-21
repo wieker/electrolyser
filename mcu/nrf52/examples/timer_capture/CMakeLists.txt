@@ -10,6 +10,8 @@ set(NRF52_SDK "/home/wieker/Projects/")
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_COMPILER "/usr/bin/arm-none-eabi-gcc")
 set(CMAKE_ASM_COMPILER "/usr/bin/arm-none-eabi-gcc")
+set(CMAKE_AR "/usr/bin/arm-none-eabi-ar")
+set(CMAKE_RANLIB "/usr/bin/arm-none-eabi-ranlib")
 
 set(ARCH_FLAGS "\
         -mabi=aapcs \
@@ -181,15 +183,9 @@ set(CMAKE_EXE_LINKER_FLAGS "${ARCH_FLAGS} \
         -lm \
 ")
 
-set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -o <TARGET>")
+set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <LINK_FLAGS> <OBJECTS> -L. -lcommonlib -o <TARGET>")
 
-add_executable(${CMAKE_PROJECT_NAME}
-        main.c
-        timer_capture.c
-        cross.c
-        adc_logic.c
-        ble_lbs.c
-        gpio_logic.c
+add_library(commonlib
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52.S
 
@@ -270,4 +266,15 @@ add_executable(${CMAKE_PROJECT_NAME}
         ${NRF52_SDK}/components/libraries/experimental_section_vars/nrf_section_iter.c
         ${NRF52_SDK}/components/libraries/sortlist/nrf_sortlist.c
         ${NRF52_SDK}/components/libraries/strerror/nrf_strerror.c
+)
+add_executable(${CMAKE_PROJECT_NAME}
+        main.c
+        timer_capture.c
+        cross.c
+        adc_logic.c
+        ble_lbs.c
+        gpio_logic.c
+        )
+target_link_libraries(${CMAKE_PROJECT_NAME}
+        commonlib
 )
