@@ -293,3 +293,31 @@ target_compile_options(${CMAKE_PROJECT_NAME}lite PRIVATE
 target_link_options(${CMAKE_PROJECT_NAME}lite PRIVATE
         "-T${PROJECT_SOURCE_DIR}/link-s112.ld"
 )
+
+
+add_executable(${CMAKE_PROJECT_NAME}test
+        main.c
+        timer_capture.c
+        cross.c
+        adc_logic.c
+        ble_lbs.c
+        gpio_logic.c
+        ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52810.c
+        ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52810.S
+        ${common_sources}
+)
+target_include_directories(${CMAKE_PROJECT_NAME}test PUBLIC
+        ${NRF52_SDK}/components/softdevice/s112/headers
+        ${NRF52_SDK}/components/softdevice/s112/headers/nrf52
+        ble112_config
+)
+target_compile_options(${CMAKE_PROJECT_NAME}test PRIVATE
+        "-DFLOAT_ABI_SOFT"
+        "-DNRF52810_XXAA"
+        "-DS112"
+        "-DDEVELOP_IN_NRF52832"
+)
+target_link_options(${CMAKE_PROJECT_NAME}test PRIVATE
+        "-T${PROJECT_SOURCE_DIR}/link-s112.ld"
+        "-DDEVELOP_IN_NRF52832"
+)
