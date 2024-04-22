@@ -163,7 +163,7 @@ static void led_blinking_setup()
         .task_pin       = true,                                                                       \
         .action         = NRF_GPIOTE_POLARITY_TOGGLE
     };
-    APP_ERROR_CHECK(nrf_drv_gpiote_out_init(17, &output_config));
+    APP_ERROR_CHECK(nrf_drv_gpiote_out_init(4, &output_config));
 
     // Configure GPIOTE OUT task
     nrf_drv_gpiote_out_config_t output_config2 =
@@ -177,22 +177,22 @@ static void led_blinking_setup()
     // Configure GPIOTE IN event
     nrf_drv_gpiote_in_config_t  in_config = GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
     in_config.pull = NRF_GPIO_PIN_PULLUP;
-    APP_ERROR_CHECK(nrf_drv_gpiote_in_init(13, &in_config, in_pin_handler));
+    APP_ERROR_CHECK(nrf_drv_gpiote_in_init(3, &in_config, in_pin_handler));
 
     APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi1));
-    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi1, nrf_drv_gpiote_in_event_addr_get(13), (uint32_t)&NRF_TIMER1->TASKS_START));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi1, nrf_drv_gpiote_in_event_addr_get(3), (uint32_t)&NRF_TIMER1->TASKS_START));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi1));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi2));
-    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi2, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0], nrf_drv_gpiote_out_task_addr_get(17)));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi2, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0], nrf_drv_gpiote_out_task_addr_get(4)));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi2));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi3));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi3, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1], nrf_drv_gpiote_out_task_addr_get(18)));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi3));
 
     // Enable OUT task and IN event
-    nrf_drv_gpiote_out_task_enable(17);
+    nrf_drv_gpiote_out_task_enable(4);
     nrf_drv_gpiote_out_task_enable(18);
-    nrf_drv_gpiote_in_event_enable(13, true);
+    nrf_drv_gpiote_in_event_enable(3, true);
 }
 
 /** @brief Function for main application entry.
