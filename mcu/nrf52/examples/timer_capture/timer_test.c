@@ -139,6 +139,12 @@ static uint32_t timer_capture_value_get(void)
 }
 
 
+void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
+{
+    NRF_LOG_INFO("Int");
+    NRF_LOG_FLUSH();
+}
+
 static void led_blinking_setup()
 {
     uint32_t input_evt_addr;
@@ -169,14 +175,9 @@ static void led_blinking_setup()
     APP_ERROR_CHECK(nrf_drv_gpiote_out_init(18, &output_config2));
 
     // Configure GPIOTE IN event
-    nrf_drv_gpiote_in_config_t input_config =
-    {
-        .is_watcher     = false,
-        .hi_accuracy    = true,
-        .pull           = NRF_GPIO_PIN_PULLUP,
-        .sense          = NRF_GPIOTE_POLARITY_TOGGLE
-    };
-    APP_ERROR_CHECK(nrf_drv_gpiote_in_init(13, &input_config, NULL));
+    nrf_drv_gpiote_in_config_t  in_config = GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
+    in_config.pull = NRF_GPIO_PIN_PULLUP;
+    APP_ERROR_CHECK(nrf_drv_gpiote_in_init(13, &in_config, in_pin_handler));
 
     APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi1));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi1, nrf_drv_gpiote_in_event_addr_get(13), (uint32_t)&NRF_TIMER1->TASKS_START));
@@ -191,7 +192,7 @@ static void led_blinking_setup()
     // Enable OUT task and IN event
     nrf_drv_gpiote_out_task_enable(17);
     nrf_drv_gpiote_out_task_enable(18);
-    nrf_drv_gpiote_in_event_enable(13, false);
+    nrf_drv_gpiote_in_event_enable(13, true);
 }
 
 /** @brief Function for main application entry.
@@ -216,7 +217,7 @@ int main(void)
 
     for (;;)
     {
-    nrf_delay_us(50);
+        __WFI();
     }
 }
 
