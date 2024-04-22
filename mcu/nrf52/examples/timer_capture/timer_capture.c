@@ -26,7 +26,8 @@ void send_timer_value(uint32_t cdata);
 
 void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 {
-    send_timer_value(nrf_drv_timer_capture_get(&capture_timer, 0));
+    send_timer_value(66);
+//    send_timer_value(nrf_drv_timer_capture_get(&capture_timer, 0));
 }
 
 void gpiote_capture_init(void)
@@ -40,25 +41,10 @@ void gpiote_capture_init(void)
     APP_ERROR_CHECK(nrf_drv_gpiote_init());
 
     // Optionally, enable pullup or pulldown on the input pin
-    nrf_drv_gpiote_in_config_t  in_config = GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
+
+    nrf_drv_gpiote_in_config_t  in_config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
     in_config.pull = NRF_GPIO_PIN_PULLUP;
     APP_ERROR_CHECK(nrf_drv_gpiote_in_init(4, &in_config, in_pin_handler));
-
-
-    // Configure the capture timer
-    nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
-    timer_cfg.frequency = TIMER_PRESCALER;
-    timer_cfg.bit_width = NRF_TIMER_BIT_WIDTH_32;
-    err_code = nrf_drv_timer_init(&capture_timer, &timer_cfg, 0);
-    APP_ERROR_CHECK(err_code);
-
-
-    APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi_ch_gpiote_ca1));
-    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi_ch_gpiote_ca1,
-                                               nrf_drv_gpiote_in_event_addr_get(4),
-                                               nrf_drv_timer_capture_task_address_get(&capture_timer, 0)));
-    APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi_ch_gpiote_ca1));
-
     nrf_drv_gpiote_in_event_enable(4, true);
 }
 

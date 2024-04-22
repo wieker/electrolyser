@@ -66,14 +66,12 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
         //saadc_init();
         captured_pulse_length = toggle_io(pwm);
 
-        send_timer_value(captured_pulse_length);
         //app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(1000), NULL);
     }
 }
 
 static void timer_handler_send_dt(void * p_context)
 {
-    send_timer_value(captured_pulse_length);
 }
 
 
