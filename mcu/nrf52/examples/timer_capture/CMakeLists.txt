@@ -323,12 +323,7 @@ target_link_options(${CMAKE_PROJECT_NAME}test PRIVATE
 )
 
 add_executable(timer_test
-        main.c
-        timer_capture.c
-        cross.c
-        adc_logic.c
-        ble_lbs.c
-        gpio_logic.c
+        timer_test.c
         ${NRF52_SDK}/modules/nrfx/mdk/system_nrf52810.c
         ${NRF52_SDK}/modules/nrfx/mdk/gcc_startup_nrf52810.S
         ${common_sources}

@@ -22,54 +22,101 @@ const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(1);
 
 #define GPIO_OUTPUT_PIN_NUMBER 2
 
+
+// Peripheral channel assignments
+#define PWM0_GPIOTE_CH      0
+#define PWM0_PPI_CH_A       0
+#define PWM0_PPI_CH_B       1
+#define PWM0_TIMER_CC_NUM   0
+
+#define PWM1_GPIOTE_CH      1
+#define PWM1_PPI_CH_A       2
+#define PWM1_TIMER_CC_NUM   1
+
+#define PWMN_GPIOTE_CH      {PWM0_GPIOTE_CH, PWM1_GPIOTE_CH, 2, 3, 4}
+#define PWMN_PPI_CH_A       {PWM0_PPI_CH_A, PWM1_PPI_CH_A, 3, 5, 6}
+#define PWMN_PPI_CH_B       {PWM0_PPI_CH_B, PWM0_PPI_CH_B, 4, 4, 7}
+#define PWMN_TIMER_CC_NUM   {PWM0_TIMER_CC_NUM, PWM1_TIMER_CC_NUM, 2, 3, 4}
+
+static uint32_t pwmN_gpiote_ch[]    = PWMN_GPIOTE_CH;
+static uint32_t pwmN_ppi_ch_a[]     = PWMN_PPI_CH_A;
+static uint32_t pwmN_ppi_ch_b[]     = PWMN_PPI_CH_B;
+static uint32_t pwmN_timer_cc_num[] = PWMN_TIMER_CC_NUM;
+
+// TIMER3 reload value. The PWM frequency equals '16000000 / TIMER_RELOAD'
+#define TIMER_RELOAD        (500 * 16000ULL)
+// The timer CC register used to reset the timer. Be aware that not all timers in the nRF52 have 6 CC registers.
+#define TIMER_RELOAD_CC_NUM 5
+
+static const nrf_drv_timer_t timer = NRF_DRV_TIMER_INSTANCE(1);
+
+#define GPIO_OUTPUT_PIN_NUMBER 2
+
+static timer_dummy_handler(nrf_timer_event_t event_type, void * p_context) {}
+
+static void gpiote_init() {
+    NRF_GPIOTE->CONFIG[PWM0_GPIOTE_CH] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
+        GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
+        17 << GPIOTE_CONFIG_PSEL_Pos |
+        GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
+
+    NRF_GPIOTE->CONFIG[PWM1_GPIOTE_CH] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
+        GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
+        18 << GPIOTE_CONFIG_PSEL_Pos |
+        GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
+}
+
+static void timer_init() {
+    NRF_TIMER1->BITMODE                 = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos;
+    NRF_TIMER1->PRESCALER               = NRF_TIMER_FREQ_1MHz;
+    NRF_TIMER1->SHORTS                  = TIMER_SHORTS_COMPARE3_STOP_Msk;
+    NRF_TIMER1->MODE                    = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL0] = 2 * 1000000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL1] = 5 * 1000000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL2] = 50 * 1000000;
+    NRF_TIMER1->CC[NRF_TIMER_CC_CHANNEL3] = 7 * 1000000;
+}
+
+static nrf_ppi_channel_t ppi_channel_set;
+static nrf_ppi_channel_t ppi_channel_clr;
+static nrf_ppi_channel_t ppi_channel_timer;
+
+static void task_enable() {
+    nrfx_ppi_channel_alloc(&ppi_channel_set);
+    nrfx_ppi_channel_alloc(&ppi_channel_clr);
+    nrfx_ppi_channel_alloc(&ppi_channel_timer);
+    uint32_t evt_set, evt_clr, task_set, task_clr;
+    //evt_set = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0];
+    //task_set = (uint32_t)&NRF_GPIOTE->TASKS_SET[PWM0_GPIOTE_CH];
+    //evt_clr = (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1];
+    //task_clr = (uint32_t)&NRF_GPIOTE->TASKS_SET[PWM1_GPIOTE_CH];
+
+    //nrf_drv_ppi_channel_assign(ppi_channel_set, evt_set, task_set);
+    //nrf_drv_ppi_channel_assign(ppi_channel_clr, evt_clr, task_clr);
+
+    evt_clr = (uint32_t)&NRF_GPIOTE->EVENTS_IN[GPIOTE_CH_RESTART];
+    //task_clr = (uint32_t)&NRF_TIMER1->TASKS_START;
+    task_clr = (uint32_t)&NRF_GPIOTE->TASKS_SET[PWM1_GPIOTE_CH];
+
+    nrf_drv_ppi_channel_assign(ppi_channel_timer, evt_clr, task_clr);
+
+    //nrf_drv_ppi_channel_enable(ppi_channel_set);
+    //nrf_drv_ppi_channel_enable(ppi_channel_clr);
+    nrf_drv_ppi_channel_enable(ppi_channel_timer);
+}
+
 void gpiote_capture_init(void)
 {
-    uint32_t err_code;
-    static nrf_ppi_channel_t ppi_ch_gpiote_capture;
-    static nrf_ppi_channel_t ppi_ch_gpiote_restart;
-
     // Optionally, enable pullup or pulldown on the input pin
-    nrf_gpio_cfg_input(SAMPLE_PIN, NRF_GPIO_PIN_PULLUP);
-
-    // Allocate two PPI channels
-    nrfx_ppi_channel_alloc(&ppi_ch_gpiote_capture);
-    nrfx_ppi_channel_alloc(&ppi_ch_gpiote_restart);
-
-    // Configure the capture timer
-    nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
-    timer_cfg.frequency = TIMER_PRESCALER;
-    timer_cfg.bit_width = NRF_TIMER_BIT_WIDTH_32;
-    err_code = nrf_drv_timer_init(&capture_timer, &timer_cfg, 0);
-    APP_ERROR_CHECK(err_code);
+    nrf_gpio_cfg_input(13, NRF_GPIO_PIN_PULLUP);
 
     // The GPIOTE driver doesn't support two GPIOTE channels on the same pin, so direct register access is necessary
-    NRF_GPIOTE->CONFIG[GPIOTE_CH_CAPTURE] = GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos |
-                                            GPIOTE_CONFIG_POLARITY_LoToHi << GPIOTE_CONFIG_POLARITY_Pos |
-                                            SAMPLE_PIN << GPIOTE_CONFIG_PSEL_Pos;
     NRF_GPIOTE->CONFIG[GPIOTE_CH_RESTART] = GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos |
-                                            GPIOTE_CONFIG_POLARITY_LoToHi << GPIOTE_CONFIG_POLARITY_Pos |
-                                            GPIO_OUTPUT_PIN_NUMBER << GPIOTE_CONFIG_PSEL_Pos;
-
-    // Assign a PPI channel to capture the current timer state and store it in CC register 0
-    nrfx_ppi_channel_assign(ppi_ch_gpiote_capture,
-                            (uint32_t)&NRF_GPIOTE->EVENTS_IN[GPIOTE_CH_CAPTURE],
-                            nrf_drv_timer_capture_task_address_get(&capture_timer, 0));
-
-    // Assign a second PPI channel to restart the timer when a new pulse is detected
-    nrfx_ppi_channel_assign(ppi_ch_gpiote_restart,
-                            (uint32_t)&NRF_GPIOTE->EVENTS_IN[GPIOTE_CH_RESTART],
-                            //nrf_drv_timer_task_address_get(&capture_timer, NRF_TIMER_TASK_START));
-                            nrf_drv_timer_task_address_get(&capture_timer, NRF_TIMER_TASK_CLEAR));
-
-    // Enable both PPI channels
-    nrfx_ppi_channel_enable(ppi_ch_gpiote_capture);
-    nrfx_ppi_channel_enable(ppi_ch_gpiote_restart);
+                                            GPIOTE_CONFIG_POLARITY_HiToLo << GPIOTE_CONFIG_POLARITY_Pos |
+                                            13 << GPIOTE_CONFIG_PSEL_Pos;
 
     // Make sure the GPIOTE capture in event is cleared. This will be  used to detect if a capture has occured.
-    NRF_GPIOTE->EVENTS_IN[GPIOTE_CH_CAPTURE] = 0;
-
-    // Start the timer
-    nrfx_timer_resume(&capture_timer);
+    NRF_GPIOTE->EVENTS_IN[GPIOTE_CH_RESTART] = 0;
 }
 
 
@@ -91,6 +138,62 @@ static uint32_t timer_capture_value_get(void)
     }
 }
 
+
+static void led_blinking_setup()
+{
+    uint32_t input_evt_addr;
+    uint32_t gpiote_task_addr;
+    nrf_ppi_channel_t ppi1, ppi2, ppi3;
+    // Initialize PPI driver
+    APP_ERROR_CHECK(nrf_drv_ppi_init());
+
+    // Initialize the GPIOTE driver
+    APP_ERROR_CHECK(nrf_drv_gpiote_init());
+
+    // Configure GPIOTE OUT task
+    nrf_drv_gpiote_out_config_t output_config =
+    {
+        .init_state     = NRF_GPIOTE_INITIAL_VALUE_HIGH,
+        .task_pin       = true,                                                                       \
+        .action         = NRF_GPIOTE_POLARITY_TOGGLE
+    };
+    APP_ERROR_CHECK(nrf_drv_gpiote_out_init(17, &output_config));
+
+    // Configure GPIOTE OUT task
+    nrf_drv_gpiote_out_config_t output_config2 =
+    {
+        .init_state     = NRF_GPIOTE_INITIAL_VALUE_HIGH,
+        .task_pin       = true,                                                                       \
+        .action         = NRF_GPIOTE_POLARITY_TOGGLE
+    };
+    APP_ERROR_CHECK(nrf_drv_gpiote_out_init(18, &output_config2));
+
+    // Configure GPIOTE IN event
+    nrf_drv_gpiote_in_config_t input_config =
+    {
+        .is_watcher     = false,
+        .hi_accuracy    = true,
+        .pull           = NRF_GPIO_PIN_PULLUP,
+        .sense          = NRF_GPIOTE_POLARITY_TOGGLE
+    };
+    APP_ERROR_CHECK(nrf_drv_gpiote_in_init(13, &input_config, NULL));
+
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi1));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi1, nrf_drv_gpiote_in_event_addr_get(13), (uint32_t)&NRF_TIMER1->TASKS_START));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi1));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi2));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi2, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0], nrf_drv_gpiote_out_task_addr_get(17)));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi2));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi3));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi3, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1], nrf_drv_gpiote_out_task_addr_get(18)));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi3));
+
+    // Enable OUT task and IN event
+    nrf_drv_gpiote_out_task_enable(17);
+    nrf_drv_gpiote_out_task_enable(18);
+    nrf_drv_gpiote_in_event_enable(13, false);
+}
+
 /** @brief Function for main application entry.
  */
 int main(void)
@@ -98,25 +201,23 @@ int main(void)
     APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
     NRF_LOG_DEFAULT_BACKENDS_INIT();
 
+
+    NRF_LOG_INFO("Pulse capture example init");
+    NRF_LOG_FLUSH();
+    //gpiote_capture_init();
+    //gpiote_init();
+    //timer_init();
+    //task_enable();
+    timer_init();
+    led_blinking_setup();
     NRF_LOG_INFO("Pulse capture example started");
+    NRF_LOG_FLUSH();
 
-    NRF_P0->DIRSET = 1 << 4;
-    NRF_P0->OUTCLR = 1 << 4;
 
-    nrf_delay_us(50);
-    NRF_P0->OUTSET = 1 << 4;
-    nrf_delay_us(50);
-
-    //uint32_t captured_pulse_length = nrf_gpio_pin_read(5);
-    uint32_t captured_pulse_length = timer_capture_value_get();
-
-    if(captured_pulse_length > 0)
+    for (;;)
     {
-        NRF_LOG_INFO("Capture value: %i us", (captured_pulse_length * (1 << TIMER_PRESCALER) / 16));
+    nrf_delay_us(50);
     }
-    else NRF_LOG_INFO("No capture detected");
-
-    return captured_pulse_length;
 }
 
 
