@@ -22,12 +22,15 @@ const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(1);
 
 #define GPIO_OUTPUT_PIN_NUMBER 2
 
-void send_timer_value(uint32_t cdata);
+void send_timer_value(uint32_t cdata0, uint32_t cdata1);
 
 void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 {
     //send_timer_value(66);
-    send_timer_value(nrf_drv_timer_capture_get(&capture_timer, 0));
+    send_timer_value(
+        nrf_drv_timer_capture_get(&capture_timer, 1),
+        nrf_drv_timer_capture_get(&capture_timer, 0)
+    );
 }
 
 void gpiote_capture_init(void)

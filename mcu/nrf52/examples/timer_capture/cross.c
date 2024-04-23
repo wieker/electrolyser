@@ -40,10 +40,10 @@ void send_adc(nrf_saadc_value_t *vls, int size)
     }
 }
 
-void send_timer_value(uint32_t cdata)
+void send_timer_value(uint32_t cdata0, uint32_t cdata1)
 {
     ret_code_t err_code;
-    err_code = ble_lbs_update_tmrv(m_conn_handle, &m_lbs, cdata);
+    err_code = ble_lbs_update_tmrv(m_conn_handle, &m_lbs, cdata0, cdata1);
     if (err_code != NRF_SUCCESS &&
         err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
         err_code != NRF_ERROR_INVALID_STATE &&

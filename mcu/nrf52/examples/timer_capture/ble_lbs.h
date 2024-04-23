@@ -160,7 +160,7 @@ uint32_t ble_lbs_on_uart_rx(uint16_t conn_handle, ble_lbs_t * p_lbs, uint16_t le
 
 uint32_t ble_lbs_on_adc_timer(uint16_t conn_handle, ble_lbs_t * p_lbs, int16_t *adc_value);
 
-uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t cdata);
+uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t* p_lbs, uint32_t cdata0, uint32_t cdata1);
 
 
 #ifdef __cplusplus

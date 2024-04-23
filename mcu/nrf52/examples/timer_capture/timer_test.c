@@ -64,7 +64,7 @@ static void led_blinking_setup()
         .task_pin       = true,                                                                       \
         .action         = GPIOTE_CONFIG_POLARITY_HiToLo
     };
-    APP_ERROR_CHECK(nrf_drv_gpiote_out_init(18, &output_config2));
+    APP_ERROR_CHECK(nrf_drv_gpiote_out_init(28, &output_config2));
 
     // Configure GPIOTE IN event
     nrf_drv_gpiote_in_config_t  in_config = GPIOTE_CONFIG_IN_SENSE_LOTOHI(true);
@@ -78,7 +78,7 @@ static void led_blinking_setup()
     APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi2, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL0], nrf_drv_gpiote_out_task_addr_get(4)));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi2));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi3));
-    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi3, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1], nrf_drv_gpiote_out_task_addr_get(18)));
+    APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi3, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL1], nrf_drv_gpiote_out_task_addr_get(28)));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi3));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_alloc(&ppi4));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_assign(ppi4, (uint32_t)&NRF_TIMER1->EVENTS_COMPARE[NRF_TIMER_CC_CHANNEL2], (uint32_t)&NRF_TIMER1->TASKS_CLEAR));
@@ -86,7 +86,7 @@ static void led_blinking_setup()
 
     // Enable OUT task and IN event
     nrf_drv_gpiote_out_task_enable(4);
-    nrf_drv_gpiote_out_task_enable(18);
+    nrf_drv_gpiote_out_task_enable(28);
     nrf_drv_gpiote_in_event_enable(3, true);
 }
 

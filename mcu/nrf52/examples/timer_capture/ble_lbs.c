@@ -49,8 +49,6 @@
 uint32_t captured_pulse_length;
 APP_TIMER_DEF(m_single_shot_timer_id);  /**< Handler for single shot timer used to light LED 2. */
 
-void send_timer_value(uint32_t cdata);
-
 /**@brief Function for handling the Write event.
  *
  * @param[in] p_lbs      LED Button Service structure.
@@ -239,16 +237,17 @@ uint32_t ble_lbs_on_uart_rx(uint16_t conn_handle, ble_lbs_t * p_lbs, uint16_t le
 }
 
 static int plen = 2 * sizeof(uint32_t);
-static uint32_t pdata = 0;
+static uint32_t pdata[2];
 
-uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t cdata)
+uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t cdata0, uint32_t cdata1)
 {
     ble_gatts_hvx_params_t params;
 
     memset(&params, 0, sizeof(params));
     params.type   = BLE_GATT_HVX_NOTIFICATION;
     params.handle = p_lbs->uart_timer_handles.value_handle;
-    pdata = cdata;
+    pdata[0] = cdata0;
+    pdata[1] = cdata1;
     params.p_data = &pdata;
     params.p_len  = &plen;
 
