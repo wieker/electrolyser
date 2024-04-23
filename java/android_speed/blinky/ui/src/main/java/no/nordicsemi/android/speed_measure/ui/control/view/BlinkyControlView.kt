@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun BlinkyControlView(
-    adcState: IntArray,
     modifier: Modifier = Modifier,
     gpioValue: (Int) -> Unit,
     timerVALUE: Int,
@@ -29,6 +28,5 @@ internal fun BlinkyControlView(
             Text(text = "OFF")
         }
         Text(text = timerVALUE.toString())
-        ADCControlView(state = adcState)
     }
 }

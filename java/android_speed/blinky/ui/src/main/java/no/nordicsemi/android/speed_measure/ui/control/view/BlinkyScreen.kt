@@ -59,11 +59,9 @@ internal fun BlinkyScreen(
                     }
                 }
                 Blinky.State.READY -> {
-                    val adcState by viewModel.adcState.collectAsStateWithLifecycle()
                     val timerState by viewModel.timerState.collectAsStateWithLifecycle()
 
                     BlinkyControlView(
-                        adcState = adcState,
                         modifier = Modifier
                             .widthIn(max = 460.dp)
                             .verticalScroll(rememberScrollState())

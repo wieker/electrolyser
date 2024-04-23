@@ -30,16 +30,11 @@ private class BlinkyManagerImpl(
     private val scope = CoroutineScope(Dispatchers.IO)
 
     private var pwmCharacteristic: BluetoothGattCharacteristic? = null
-    private var adcCharacteristic: BluetoothGattCharacteristic? = null
     private var timerCharacteristic: BluetoothGattCharacteristic? = null
 
-    var dumpV = IntArray(1000)
-    val dumpMagicVar = MutableStateFlow(IntArray(1000))
-    override val dump = dumpMagicVar.asStateFlow()
     private val _timer = MutableStateFlow(8)
     override val timer = _timer.asStateFlow()
     var pos = 0
-    val lock = Semaphore(1)
 
     override val state = stateAsFlow()
         .map {
@@ -75,17 +70,15 @@ private class BlinkyManagerImpl(
     }
 
     override suspend fun turnADC(cmdCode: Int) {
-        if (lock.tryAcquire()) {
-            pos = 0
-            val arr = ByteArray(1)
-            arr[0] = cmdCode.toByte()
-            // Write the value to the characteristic.
-            writeCharacteristic(
-                pwmCharacteristic,
-                Data(arr),
-                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-            ).suspend()
-        }
+        pos = 0
+        val arr = ByteArray(1)
+        arr[0] = cmdCode.toByte()
+        // Write the value to the characteristic.
+        writeCharacteristic(
+            pwmCharacteristic,
+            Data(arr),
+            BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+        ).suspend()
     }
 
     override fun log(priority: Int, message: String) {
@@ -109,11 +102,6 @@ private class BlinkyManagerImpl(
                 // change the property to BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE.
                 BluetoothGattCharacteristic.PROPERTY_WRITE
             )
-            // Get the Button characteristic.
-            adcCharacteristic = getCharacteristic(
-                BlinkySpec.BLINKY_ADC_CHARACTERISTIC_UUID,
-                BluetoothGattCharacteristic.PROPERTY_NOTIFY
-            )
             // Get the Timer characteristic.
             timerCharacteristic = getCharacteristic(
                 BlinkySpec.BLINKY_TIMER_CHARACTERISTIC_UUID,
@@ -121,41 +109,12 @@ private class BlinkyManagerImpl(
             )
 
             // Return true if all required characteristics are supported.
-            return pwmCharacteristic != null &&
-                    adcCharacteristic != null && timerCharacteristic != null
+            return pwmCharacteristic != null && timerCharacteristic != null
         }
         return false
     }
 
-    fun here(data: Data)
-    {
-        if (data.size() == 2 * 6) {
-            var i = 0
-            while (i < 6) {
-                val buttonState = data.getIntValue(Data.FORMAT_SINT16, i * 2)
-                if (pos < 1000) {
-                    buttonState?.let { dumpV[pos++] = it }
-                }
-                i ++
-            }
-        }
-        if (pos >= 1000) {
-            dumpMagicVar.tryEmit(dumpV)
-            lock.release()
-        }
-        Timber.log(10, "here");
-
-    }
-
     override fun initialize() {
-        // Enable notifications for the button characteristic.
-        setNotificationCallback(this.adcCharacteristic)
-            .with { device, data -> here(data)
-            }
-
-        enableNotifications(adcCharacteristic)
-            .enqueue()
-
         setNotificationCallback(this.timerCharacteristic).with { device, data -> data.getIntValue(Data.FORMAT_UINT32, 0)?.let { _timer.tryEmit(it) } }
         enableNotifications(timerCharacteristic)
             .enqueue()
@@ -163,7 +122,6 @@ private class BlinkyManagerImpl(
 
     override fun onServicesInvalidated() {
         pwmCharacteristic = null
-        adcCharacteristic = null
         timerCharacteristic = null
     }
 }
