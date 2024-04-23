@@ -121,7 +121,7 @@ private class BlinkyManagerImpl(
             .with { device, data ->
                 data.getIntValue(Data.FORMAT_UINT32, 0)
                     ?.let { _timer.tryEmit(it) }
-                data.getIntValue(Data.FORMAT_UINT32, 1)
+                data.getIntValue(Data.FORMAT_UINT32, 4)
                     ?.let { _timer0.tryEmit(it) }
             }
         enableNotifications(timerCharacteristic)
