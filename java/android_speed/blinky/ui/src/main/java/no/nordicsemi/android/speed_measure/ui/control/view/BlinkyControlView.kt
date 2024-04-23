@@ -2,6 +2,7 @@ package no.nordicsemi.android.speed_measure.ui.control.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ internal fun BlinkyControlView(
     modifier: Modifier = Modifier,
     gpioValue: (Int) -> Unit,
     timerVALUE: Int,
+    timer0VALUE: Int,
 ) {
     Column(
         modifier = modifier,
@@ -27,6 +29,11 @@ internal fun BlinkyControlView(
         Button(onClick = { gpioValue(0) }) {
             Text(text = "OFF")
         }
-        Text(text = timerVALUE.toString())
+        Row {
+            Text(text = timerVALUE.toString())
+        }
+        Row {
+            Text(text = timer0VALUE.toString())
+        }
     }
 }

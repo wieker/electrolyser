@@ -34,6 +34,8 @@ private class BlinkyManagerImpl(
 
     private val _timer = MutableStateFlow(8)
     override val timer = _timer.asStateFlow()
+    private val _timer0 = MutableStateFlow(8)
+    override val timer0 = _timer0.asStateFlow()
     var pos = 0
 
     override val state = stateAsFlow()
@@ -115,7 +117,13 @@ private class BlinkyManagerImpl(
     }
 
     override fun initialize() {
-        setNotificationCallback(this.timerCharacteristic).with { device, data -> data.getIntValue(Data.FORMAT_UINT32, 0)?.let { _timer.tryEmit(it) } }
+        setNotificationCallback(this.timerCharacteristic)
+            .with { device, data ->
+                data.getIntValue(Data.FORMAT_UINT32, 0)
+                    ?.let { _timer.tryEmit(it) }
+                data.getIntValue(Data.FORMAT_UINT32, 1)
+                    ?.let { _timer0.tryEmit(it) }
+            }
         enableNotifications(timerCharacteristic)
             .enqueue()
     }

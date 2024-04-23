@@ -30,6 +30,7 @@ class BlinkyViewModel @Inject constructor(
     /** The connection state of the device. */
     val state = repository.state
     val timerState = repository.timer
+    val timer0State = repository.timer0
 
 
     init {
