@@ -71,6 +71,9 @@ void gpiote_capture_init(void)
                                                nrf_drv_gpiote_in_event_addr_get(5),
                                                nrf_drv_timer_capture_task_address_get(&capture_timer, 1)));
     APP_ERROR_CHECK(nrf_drv_ppi_channel_enable(ppi_ch_gpiote_ca2));
+
+
+    nrfx_timer_resume(&capture_timer);
 }
 
 
@@ -83,8 +86,7 @@ int measure(void)
 
     NRF_LOG_INFO("Pulse capture example started");
 
-
-    nrfx_timer_resume(&capture_timer);
+    nrfx_timer_clear(&capture_timer);
 
     return 0;
 }

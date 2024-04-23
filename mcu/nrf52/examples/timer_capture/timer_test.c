@@ -53,7 +53,7 @@ static void led_blinking_setup()
     {
         .init_state     = NRF_GPIOTE_INITIAL_VALUE_HIGH,
         .task_pin       = true,                                                                       \
-        .action         = GPIOTE_CONFIG_POLARITY_HiToLo
+        .action         = GPIOTE_CONFIG_POLARITY_Toggle
     };
     APP_ERROR_CHECK(nrf_drv_gpiote_out_init(4, &output_config));
 
@@ -62,12 +62,12 @@ static void led_blinking_setup()
     {
         .init_state     = NRF_GPIOTE_INITIAL_VALUE_HIGH,
         .task_pin       = true,                                                                       \
-        .action         = GPIOTE_CONFIG_POLARITY_HiToLo
+        .action         = GPIOTE_CONFIG_POLARITY_Toggle
     };
     APP_ERROR_CHECK(nrf_drv_gpiote_out_init(28, &output_config2));
 
     // Configure GPIOTE IN event
-    nrf_drv_gpiote_in_config_t  in_config = GPIOTE_CONFIG_IN_SENSE_LOTOHI(true);
+    nrf_drv_gpiote_in_config_t  in_config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
     in_config.pull = NRF_GPIO_PIN_PULLUP;
     APP_ERROR_CHECK(nrf_drv_gpiote_in_init(3, &in_config, in_pin_handler));
 
