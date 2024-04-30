@@ -23,14 +23,21 @@ const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(1);
 #define GPIO_OUTPUT_PIN_NUMBER 2
 
 void send_timer_value(uint32_t cdata0, uint32_t cdata1);
+void send_gpio_toggle(uint32_t cdata0, uint32_t cdata1);
+
+int msr_activated = 0;
 
 void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 {
-    //send_timer_value(66);
-    send_timer_value(
-        nrf_drv_timer_capture_get(&capture_timer, 1),
-        nrf_drv_timer_capture_get(&capture_timer, 0)
-    );
+    if (1 == msr_activated) {
+        send_timer_value(
+            nrf_drv_timer_capture_get(&capture_timer, 1),
+            nrf_drv_timer_capture_get(&capture_timer, 0)
+        );
+        msr_activated = 0;
+    } else {
+        send_gpio_toggle(nrf_gpio_pin_read(4), nrf_gpio_pin_read(5));
+    }
 }
 
 void gpiote_capture_init(void)
@@ -50,7 +57,7 @@ void gpiote_capture_init(void)
     APP_ERROR_CHECK(nrf_drv_gpiote_in_init(4, &in_config, in_pin_handler));
     nrf_drv_gpiote_in_event_enable(4, true);
     APP_ERROR_CHECK(nrf_drv_gpiote_in_init(5, &in_config, NULL));
-    nrf_drv_gpiote_in_event_enable(5, false);
+    nrf_drv_gpiote_in_event_enable(5, true);
 
 
     // Configure the capture timer
@@ -83,6 +90,7 @@ int measure(void)
 {
     //APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
     //NRF_LOG_DEFAULT_BACKENDS_INIT();
+    msr_activated = 1;
 
     NRF_LOG_INFO("Pulse capture example started");
 

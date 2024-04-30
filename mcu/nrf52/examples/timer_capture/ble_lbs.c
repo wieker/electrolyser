@@ -219,6 +219,25 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
         return err_code;
     }
 
+    // Add GPIO characteristic.
+    memset(&add_char_params, 0, sizeof(add_char_params));
+    add_char_params.uuid             = LBS_UUID_GPIO_CHAR;
+    add_char_params.uuid_type        = p_lbs->uuid_type;
+    add_char_params.init_len         = 2 * sizeof(uint32_t);
+    add_char_params.max_len          = 2 * sizeof(uint32_t);
+    add_char_params.is_var_len       = false;
+    add_char_params.char_props.read  = 1;
+    add_char_params.char_props.notify = 1;
+
+    add_char_params.read_access  = SEC_OPEN;
+    add_char_params.cccd_write_access = SEC_OPEN;
+
+    err_code = characteristic_add(p_lbs->service_handle, &add_char_params, &p_lbs->gpio_handles);
+    if (err_code != NRF_SUCCESS)
+    {
+        return err_code;
+    }
+
     return err_code;
 }
 
@@ -246,6 +265,21 @@ uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t c
     memset(&params, 0, sizeof(params));
     params.type   = BLE_GATT_HVX_NOTIFICATION;
     params.handle = p_lbs->uart_timer_handles.value_handle;
+    pdata[0] = cdata0;
+    pdata[1] = cdata1;
+    params.p_data = &pdata;
+    params.p_len  = &plen;
+
+    return sd_ble_gatts_hvx(conn_handle, &params);
+}
+
+uint32_t ble_lbs_update_gpio(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t cdata0, uint32_t cdata1)
+{
+    ble_gatts_hvx_params_t params;
+
+    memset(&params, 0, sizeof(params));
+    params.type   = BLE_GATT_HVX_NOTIFICATION;
+    params.handle = p_lbs->gpio_handles.value_handle;
     pdata[0] = cdata0;
     pdata[1] = cdata1;
     params.p_data = &pdata;

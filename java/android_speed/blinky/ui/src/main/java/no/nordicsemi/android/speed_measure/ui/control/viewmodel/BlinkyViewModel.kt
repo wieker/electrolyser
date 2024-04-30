@@ -31,6 +31,8 @@ class BlinkyViewModel @Inject constructor(
     val state = repository.state
     val timerState = repository.timer
     val timer0State = repository.timer0
+    val gpio0State = repository.gpio0
+    val gpio1State = repository.gpio1
 
 
     init {

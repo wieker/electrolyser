@@ -31,12 +31,16 @@ private class BlinkyManagerImpl(
 
     private var pwmCharacteristic: BluetoothGattCharacteristic? = null
     private var timerCharacteristic: BluetoothGattCharacteristic? = null
+    private var gpioCharacteristic: BluetoothGattCharacteristic? = null
 
     private val _timer = MutableStateFlow(8)
     override val timer = _timer.asStateFlow()
     private val _timer0 = MutableStateFlow(8)
     override val timer0 = _timer0.asStateFlow()
-    var pos = 0
+    private val _gpio0 = MutableStateFlow(8)
+    override val gpio0 = _gpio0.asStateFlow()
+    private val _gpio1 = MutableStateFlow(8)
+    override val gpio1 = _gpio1.asStateFlow()
 
     override val state = stateAsFlow()
         .map {
@@ -72,7 +76,6 @@ private class BlinkyManagerImpl(
     }
 
     override suspend fun turnADC(cmdCode: Int) {
-        pos = 0
         val arr = ByteArray(1)
         arr[0] = cmdCode.toByte()
         // Write the value to the characteristic.
@@ -109,14 +112,29 @@ private class BlinkyManagerImpl(
                 BlinkySpec.BLINKY_TIMER_CHARACTERISTIC_UUID,
                 BluetoothGattCharacteristic.PROPERTY_NOTIFY
             )
+            // Get the GPIO characteristic.
+            gpioCharacteristic = getCharacteristic(
+                BlinkySpec.BLINKY_GPIO_CHARACTERISTIC_UUID,
+                BluetoothGattCharacteristic.PROPERTY_NOTIFY
+            )
 
             // Return true if all required characteristics are supported.
-            return pwmCharacteristic != null && timerCharacteristic != null
+            return pwmCharacteristic != null && timerCharacteristic != null &&
+                    gpioCharacteristic != null
         }
         return false
     }
 
     override fun initialize() {
+        setNotificationCallback(this.gpioCharacteristic)
+            .with { device, data ->
+                data.getIntValue(Data.FORMAT_UINT32, 0)
+                    ?.let { _gpio0.tryEmit(it) }
+                data.getIntValue(Data.FORMAT_UINT32, 4)
+                    ?.let { _gpio1.tryEmit(it) }
+            }
+        enableNotifications(gpioCharacteristic)
+            .enqueue()
         setNotificationCallback(this.timerCharacteristic)
             .with { device, data ->
                 data.getIntValue(Data.FORMAT_UINT32, 0)
@@ -131,5 +149,6 @@ private class BlinkyManagerImpl(
     override fun onServicesInvalidated() {
         pwmCharacteristic = null
         timerCharacteristic = null
+        gpioCharacteristic = null
     }
 }

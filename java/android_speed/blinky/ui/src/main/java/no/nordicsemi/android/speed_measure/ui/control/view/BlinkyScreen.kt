@@ -61,6 +61,8 @@ internal fun BlinkyScreen(
                 Blinky.State.READY -> {
                     val timerState by viewModel.timerState.collectAsStateWithLifecycle()
                     val timer0State by viewModel.timer0State.collectAsStateWithLifecycle()
+                    val gpio0State by viewModel.gpio0State.collectAsStateWithLifecycle()
+                    val gpio1State by viewModel.gpio1State.collectAsStateWithLifecycle()
 
                     BlinkyControlView(
                         modifier = Modifier
@@ -70,6 +72,8 @@ internal fun BlinkyScreen(
                         gpioValue = {v -> viewModel.turnGPIO(v)},
                         timerState,
                         timer0State,
+                        gpio0State,
+                        gpio1State,
                     )
                 }
                 Blinky.State.NOT_AVAILABLE -> {

@@ -27,6 +27,8 @@ interface Blinky {
 
     val timer: StateFlow<Int>
     val timer0: StateFlow<Int>
+    val gpio0: StateFlow<Int>
+    val gpio1: StateFlow<Int>
 
     /**
      * Controls the LED state.
