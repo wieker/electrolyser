@@ -33,4 +33,6 @@ void dump_adc(uint8_t* value, int len);
 
 uint32_t toggle_io(int _pwm);
 
+void dispatch_gpio();
+
 #endif //RF_UART_NRF_LOCAL_ADC_H

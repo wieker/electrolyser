@@ -395,13 +395,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
 
         case BLE_GATTS_EVT_HVN_TX_COMPLETE:
             // Disconnect on GATT Server timeout event.
-                if (csend > 0) {
-                    send_adc(adc_buffer + csend, 6);
-                    csend += 6;
-                    if (csend >= 1000) {
-                        csend = -1;
-                    }
-                }
+                dispatch_gpio();
             break;
 
         default:

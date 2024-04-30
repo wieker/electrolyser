@@ -26,6 +26,8 @@ void send_timer_value(uint32_t cdata0, uint32_t cdata1);
 void send_gpio_toggle(uint32_t cdata0, uint32_t cdata1);
 
 int msr_activated = 0;
+volatile int gpio_queued = 0;
+volatile int dispatched = 0;
 
 void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 {
@@ -36,7 +38,12 @@ void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
         );
         msr_activated = 0;
     } else {
-        send_gpio_toggle(nrf_gpio_pin_read(4), nrf_gpio_pin_read(5));
+        if (0 == gpio_queued) {
+            gpio_queued = 1;
+            send_gpio_toggle(nrf_gpio_pin_read(4), nrf_gpio_pin_read(5));
+        } else {
+            dispatched = 1;
+        }
     }
 }
 
@@ -56,7 +63,7 @@ void gpiote_capture_init(void)
     in_config.pull = NRF_GPIO_PIN_PULLUP;
     APP_ERROR_CHECK(nrf_drv_gpiote_in_init(4, &in_config, in_pin_handler));
     nrf_drv_gpiote_in_event_enable(4, true);
-    APP_ERROR_CHECK(nrf_drv_gpiote_in_init(5, &in_config, NULL));
+    APP_ERROR_CHECK(nrf_drv_gpiote_in_init(5, &in_config, in_pin_handler));
     nrf_drv_gpiote_in_event_enable(5, true);
 
 
@@ -97,6 +104,14 @@ int measure(void)
     nrfx_timer_clear(&capture_timer);
 
     return 0;
+}
+
+void dispatch_gpio() {
+    if (1 == dispatched) {
+        dispatched = 0;
+        send_gpio_toggle(nrf_gpio_pin_read(4), nrf_gpio_pin_read(5));
+    }
+    gpio_queued = 0;
 }
 
 
