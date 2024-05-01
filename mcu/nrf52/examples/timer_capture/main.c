@@ -395,7 +395,6 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
 
         case BLE_GATTS_EVT_HVN_TX_COMPLETE:
             // Disconnect on GATT Server timeout event.
-                dispatch_gpio();
             break;
 
         default:
@@ -456,6 +455,7 @@ static void idle_state_handle(void)
 void gpiote_capture_init(void);
 int measure(void);
 void start_timers_ble();
+void mark_gpio_toggle();
 
 /**@brief Function for application main entry.
  */
@@ -483,6 +483,7 @@ int main(void)
     NRF_LOG_INFO("Blinky example started.");
     advertising_start();
 
+    mark_gpio_toggle();
     start_timers_ble();
 
     // Enter main loop.

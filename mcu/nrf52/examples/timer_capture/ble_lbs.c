@@ -74,7 +74,7 @@ static void timer_handler_send_dt(void * p_context)
 }
 
 void start_timers_ble() {
-    app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(10000), NULL);
+    app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(100), NULL);
 }
 
 

@@ -54,17 +54,30 @@ void send_timer_value(uint32_t cdata0, uint32_t cdata1)
     }
 }
 
+int pdata0 = 2;
+int cdata0 = 1;
+int pdata1 = 2;
+int cdata1 = 1;
+
 void send_gpio_toggle()
 {
     ret_code_t err_code;
-    uint32_t cdata0 = nrf_gpio_pin_read(4);
-    uint32_t cdata1 = nrf_gpio_pin_read(5);
-    err_code = ble_lbs_update_gpio(m_conn_handle, &m_lbs, cdata0, cdata1);
-    if (err_code != NRF_SUCCESS &&
-        err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
-        err_code != NRF_ERROR_INVALID_STATE &&
-        err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING)
-    {
-        APP_ERROR_CHECK(err_code);
+    if (pdata0 != cdata0 || pdata1 != cdata1) {
+        cdata0 = pdata0;
+        cdata1 = pdata1;
+        err_code = ble_lbs_update_gpio(m_conn_handle, &m_lbs, cdata0, cdata1);
+        if (err_code != NRF_SUCCESS &&
+            err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
+            err_code != NRF_ERROR_INVALID_STATE &&
+            err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING)
+        {
+            APP_ERROR_CHECK(err_code);
+        }
     }
+}
+
+void mark_gpio_toggle()
+{
+    pdata0 = nrf_gpio_pin_read(4);
+    pdata1 = nrf_gpio_pin_read(5);
 }
