@@ -23,7 +23,7 @@ const nrf_drv_timer_t capture_timer = NRF_DRV_TIMER_INSTANCE(1);
 #define GPIO_OUTPUT_PIN_NUMBER 2
 
 void send_timer_value(uint32_t cdata0, uint32_t cdata1);
-void send_gpio_toggle(uint32_t cdata0, uint32_t cdata1);
+void send_gpio_toggle();
 
 int msr_activated = 0;
 volatile int gpio_queued = 0;
@@ -40,7 +40,7 @@ void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
     } else {
         if (0 == gpio_queued) {
             gpio_queued = 1;
-            send_gpio_toggle(nrf_gpio_pin_read(4), nrf_gpio_pin_read(5));
+            send_gpio_toggle();
         } else {
             dispatched = 1;
         }
@@ -109,7 +109,7 @@ int measure(void)
 void dispatch_gpio() {
     if (1 == dispatched) {
         dispatched = 0;
-        send_gpio_toggle(nrf_gpio_pin_read(4), nrf_gpio_pin_read(5));
+        send_gpio_toggle();
     }
     gpio_queued = 0;
 }

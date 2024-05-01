@@ -4,6 +4,7 @@
 #include "nrf_ble_qwr.h"
 #include "adc_logic.h"
 #include "cross.h"
+#include "nrf_drv_gpiote.h"
 
 BLE_LBS_DEF(m_lbs);                                                             /**< LED Button Service instance. */
 NRF_BLE_QWR_DEF(m_qwr);
@@ -53,9 +54,11 @@ void send_timer_value(uint32_t cdata0, uint32_t cdata1)
     }
 }
 
-void send_gpio_toggle(uint32_t cdata0, uint32_t cdata1)
+void send_gpio_toggle()
 {
     ret_code_t err_code;
+    uint32_t cdata0 = nrf_gpio_pin_read(4);
+    uint32_t cdata1 = nrf_gpio_pin_read(5);
     err_code = ble_lbs_update_gpio(m_conn_handle, &m_lbs, cdata0, cdata1);
     if (err_code != NRF_SUCCESS &&
         err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
