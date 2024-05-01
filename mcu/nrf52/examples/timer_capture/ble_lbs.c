@@ -63,13 +63,18 @@ static void on_write(ble_lbs_t * p_lbs, ble_evt_t const * p_ble_evt)
         int pwm = p_evt_write->data[0];
         //saadc_init();
         captured_pulse_length = toggle_io(pwm);
-
-        //app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(1000), NULL);
     }
 }
 
+void send_gpio_toggle();
+
 static void timer_handler_send_dt(void * p_context)
 {
+    send_gpio_toggle();
+}
+
+void start_timers_ble() {
+    app_timer_start(m_single_shot_timer_id, APP_TIMER_TICKS(10000), NULL);
 }
 
 
@@ -196,7 +201,7 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     }
 
     err_code = app_timer_create(&m_single_shot_timer_id,
-                                APP_TIMER_MODE_SINGLE_SHOT,
+                                APP_TIMER_MODE_REPEATED,
                                 timer_handler_send_dt);
     APP_ERROR_CHECK(err_code);
 
