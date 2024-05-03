@@ -31,7 +31,7 @@ volatile int dispatched = 0;
 
 void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 {
-    if (1 == msr_activated) {
+    if (1 == msr_activated && 4 == pin) {
         send_timer_value(
             nrf_drv_timer_capture_get(&capture_timer, 1),
             nrf_drv_timer_capture_get(&capture_timer, 0)
