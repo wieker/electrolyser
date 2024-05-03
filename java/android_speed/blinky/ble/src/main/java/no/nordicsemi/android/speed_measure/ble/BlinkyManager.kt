@@ -128,10 +128,11 @@ private class BlinkyManagerImpl(
     override fun initialize() {
         setNotificationCallback(this.gpioCharacteristic)
             .with { device, data ->
-                data.getIntValue(Data.FORMAT_UINT32, 0)
-                    ?.let { _gpio0.tryEmit(it) }
-                data.getIntValue(Data.FORMAT_UINT32, 4)
-                    ?.let { _gpio1.tryEmit(it) }
+                data.getIntValue(Data.FORMAT_UINT8, 0)
+                    ?.let {
+                        _gpio0.tryEmit(it.shr(4))
+                        _gpio1.tryEmit(it.and(0x01))
+                    }
             }
         enableNotifications(gpioCharacteristic)
             .enqueue()

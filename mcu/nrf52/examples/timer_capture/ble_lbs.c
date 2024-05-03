@@ -228,8 +228,8 @@ uint32_t ble_lbs_init(ble_lbs_t * p_lbs, const ble_lbs_init_t * p_lbs_init)
     memset(&add_char_params, 0, sizeof(add_char_params));
     add_char_params.uuid             = LBS_UUID_GPIO_CHAR;
     add_char_params.uuid_type        = p_lbs->uuid_type;
-    add_char_params.init_len         = 2 * sizeof(uint32_t);
-    add_char_params.max_len          = 2 * sizeof(uint32_t);
+    add_char_params.init_len          = sizeof(uint8_t);
+    add_char_params.max_len           = sizeof(uint8_t);
     add_char_params.is_var_len       = false;
     add_char_params.char_props.read  = 1;
     add_char_params.char_props.notify = 1;
@@ -260,8 +260,8 @@ uint32_t ble_lbs_on_uart_rx(uint16_t conn_handle, ble_lbs_t * p_lbs, uint16_t le
     return sd_ble_gatts_hvx(conn_handle, &params);
 }
 
-static int plen = 2 * sizeof(uint32_t);
-static uint32_t pdata[2];
+int plen = 2 * sizeof(uint32_t);
+uint32_t pdata[2];
 
 uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t cdata0, uint32_t cdata1)
 {
@@ -278,17 +278,16 @@ uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t c
     return sd_ble_gatts_hvx(conn_handle, &params);
 }
 
-uint32_t ble_lbs_update_gpio(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t cdata0, uint32_t cdata1)
+uint32_t ble_lbs_update_gpio(uint16_t conn_handle, ble_lbs_t * p_lbs, uint8_t button_state)
 {
     ble_gatts_hvx_params_t params;
+    uint16_t len = sizeof(button_state);
 
     memset(&params, 0, sizeof(params));
     params.type   = BLE_GATT_HVX_NOTIFICATION;
     params.handle = p_lbs->gpio_handles.value_handle;
-    pdata[0] = cdata0;
-    pdata[1] = cdata1;
-    params.p_data = &pdata;
-    params.p_len  = &plen;
+    params.p_data = &button_state;
+    params.p_len  = &len;
 
     return sd_ble_gatts_hvx(conn_handle, &params);
 }

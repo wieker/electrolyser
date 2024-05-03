@@ -164,7 +164,7 @@ uint32_t ble_lbs_on_adc_timer(uint16_t conn_handle, ble_lbs_t * p_lbs, int16_t *
 
 uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t* p_lbs, uint32_t cdata0, uint32_t cdata1);
 
-uint32_t ble_lbs_update_gpio(uint16_t conn_handle, ble_lbs_t* p_lbs, uint32_t cdata0, uint32_t cdata1);
+uint32_t ble_lbs_update_gpio(uint16_t conn_handle, ble_lbs_t* p_lbs, uint8_t button_state);
 
 
 #ifdef __cplusplus

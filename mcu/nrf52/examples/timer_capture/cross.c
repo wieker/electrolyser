@@ -65,7 +65,7 @@ void send_gpio_toggle()
     if (pdata0 != cdata0 || pdata1 != cdata1) {
         cdata0 = pdata0;
         cdata1 = pdata1;
-        err_code = ble_lbs_update_gpio(m_conn_handle, &m_lbs, cdata0, cdata1);
+        err_code = ble_lbs_update_gpio(m_conn_handle, &m_lbs, cdata0 << 4 | cdata1);
         if (err_code != NRF_SUCCESS &&
             err_code != BLE_ERROR_INVALID_CONN_HANDLE &&
             err_code != NRF_ERROR_INVALID_STATE &&
