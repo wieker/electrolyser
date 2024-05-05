@@ -97,7 +97,6 @@ NRF_SDH_BLE_OBSERVER(_name ## _obs,                                             
 #define LBS_UUID_ADC_CHAR    0x1526
 #define LBS_UUID_TX_CHAR     0x1527
 #define LBS_UUID_RX_CHAR     0x1528
-#define LBS_UUID_TMR_CHAR     0x1529
 
 
 // Forward declaration of the ble_lbs_t type.
@@ -120,7 +119,6 @@ struct ble_lbs_s
     ble_gatts_char_handles_t    uart_rx_handles; /**< Handles related to the Button Characteristic. */
     ble_gatts_char_handles_t    adc_char_handles; /**< Handles related to the Button Characteristic. */
     ble_gatts_char_handles_t    uart_tx_handles; /**< Handles related to the ADC Characteristic. */
-    ble_gatts_char_handles_t    uart_timer_handles; /**< Handles related to the ADC Characteristic. */
     uint8_t                     uuid_type;           /**< UUID type for the LED Button Service. */
     ble_lbs_uart_tx_handler_t uart_tx_handler;   /**< Event handler to be called when the LED Characteristic is written. */
 };
@@ -159,8 +157,6 @@ void ble_lbs_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context);
 uint32_t ble_lbs_on_uart_rx(uint16_t conn_handle, ble_lbs_t * p_lbs, uint16_t len, uint8_t * data);
 
 uint32_t ble_lbs_on_adc_timer(uint16_t conn_handle, ble_lbs_t * p_lbs, int16_t *adc_value);
-
-uint32_t ble_lbs_update_tmrv(uint16_t conn_handle, ble_lbs_t * p_lbs, uint32_t cdata);
 
 
 #ifdef __cplusplus

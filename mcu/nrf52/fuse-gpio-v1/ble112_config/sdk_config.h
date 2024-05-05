@@ -1951,7 +1951,7 @@
 // <e> NRFX_GPIOTE_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRFX_GPIOTE_CONFIG_LOG_ENABLED
-#define NRFX_GPIOTE_CONFIG_LOG_ENABLED 0
+#define NRFX_GPIOTE_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRFX_GPIOTE_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -5848,7 +5848,7 @@
 
 
 #ifndef UART_LEGACY_SUPPORT
-#define UART_LEGACY_SUPPORT 1
+#define UART_LEGACY_SUPPORT 0
 #endif
 
 // <e> UART0_ENABLED - Enable UART0 instance
@@ -7542,7 +7542,7 @@
 // <e> NRF_LOG_BACKEND_UART_ENABLED - nrf_log_backend_uart - Log UART backend
 //==========================================================
 #ifndef NRF_LOG_BACKEND_UART_ENABLED
-#define NRF_LOG_BACKEND_UART_ENABLED 0
+#define NRF_LOG_BACKEND_UART_ENABLED 1
 #endif
 // <o> NRF_LOG_BACKEND_UART_TX_PIN - UART TX pin
 #ifndef NRF_LOG_BACKEND_UART_TX_PIN
@@ -8056,7 +8056,7 @@
 // <e> GPIOTE_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef GPIOTE_CONFIG_LOG_ENABLED
-#define GPIOTE_CONFIG_LOG_ENABLED 0
+#define GPIOTE_CONFIG_LOG_ENABLED 1
 #endif
 // <o> GPIOTE_CONFIG_LOG_LEVEL  - Default Severity level
 
