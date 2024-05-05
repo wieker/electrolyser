@@ -14,7 +14,6 @@ internal fun BlinkyControlView(
     adcState: IntArray,
     modifier: Modifier = Modifier,
     gpioValue: (Int) -> Unit,
-    timerVALUE: Int,
 ) {
     Column(
         modifier = modifier,
@@ -28,7 +27,6 @@ internal fun BlinkyControlView(
         Button(onClick = { gpioValue(0) }) {
             Text(text = "OFF")
         }
-        Text(text = timerVALUE.toString())
         ADCControlView(state = adcState)
     }
 }

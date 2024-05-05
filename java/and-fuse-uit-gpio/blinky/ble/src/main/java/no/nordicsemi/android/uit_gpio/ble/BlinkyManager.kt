@@ -31,13 +31,10 @@ private class BlinkyManagerImpl(
 
     private var pwmCharacteristic: BluetoothGattCharacteristic? = null
     private var adcCharacteristic: BluetoothGattCharacteristic? = null
-    private var timerCharacteristic: BluetoothGattCharacteristic? = null
 
     var dumpV = IntArray(1000)
     val dumpMagicVar = MutableStateFlow(IntArray(1000))
     override val dump = dumpMagicVar.asStateFlow()
-    private val _timer = MutableStateFlow(8)
-    override val timer = _timer.asStateFlow()
     var pos = 0
     val lock = Semaphore(1)
 
@@ -114,15 +111,10 @@ private class BlinkyManagerImpl(
                 BlinkySpec.BLINKY_ADC_CHARACTERISTIC_UUID,
                 BluetoothGattCharacteristic.PROPERTY_NOTIFY
             )
-            // Get the Timer characteristic.
-            timerCharacteristic = getCharacteristic(
-                BlinkySpec.BLINKY_TIMER_CHARACTERISTIC_UUID,
-                BluetoothGattCharacteristic.PROPERTY_NOTIFY
-            )
 
             // Return true if all required characteristics are supported.
             return pwmCharacteristic != null &&
-                    adcCharacteristic != null && timerCharacteristic != null
+                    adcCharacteristic != null
         }
         return false
     }
@@ -155,15 +147,10 @@ private class BlinkyManagerImpl(
 
         enableNotifications(adcCharacteristic)
             .enqueue()
-
-        setNotificationCallback(this.timerCharacteristic).with { device, data -> data.getIntValue(Data.FORMAT_UINT32, 0)?.let { _timer.tryEmit(it) } }
-        enableNotifications(timerCharacteristic)
-            .enqueue()
     }
 
     override fun onServicesInvalidated() {
         pwmCharacteristic = null
         adcCharacteristic = null
-        timerCharacteristic = null
     }
 }
