@@ -14,12 +14,12 @@ static nrf_ppi_channel_t ppi_channel_clr;
 static nrf_ppi_channel_t ppi_channel_adc;
 
 void gpiote_init() {
-    //NRF_P0->DIRSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
-    //NRF_P0->OUTCLR = 1 << GPIO_OUTPUT_PIN_NUMBER;
+    NRF_P0->DIRSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
+    NRF_P0->OUTCLR = 1 << GPIO_OUTPUT_PIN_NUMBER;
 
     NRF_GPIOTE->CONFIG[PWM0_GPIOTE_CH] = GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos |
     GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos |
-    GPIO_OUTPUT_PIN_NUMBER << GPIOTE_CONFIG_PSEL_Pos |
+    4 << GPIOTE_CONFIG_PSEL_Pos |
     GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
 
     nrf_drv_ppi_channel_alloc(&ppi_channel_set);
