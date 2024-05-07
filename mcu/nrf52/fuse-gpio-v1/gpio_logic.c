@@ -63,12 +63,12 @@ static void task_enable() {
 void toggle_io(int sta)
 {
     if (sta == 0) {
-        //NRF_P0->OUTCLR = 1 << GPIO_OUTPUT_PIN_NUMBER;
-        NRF_TIMER2->TASKS_STOP = 1;
+        NRF_P0->OUTCLR = 1 << GPIO_OUTPUT_PIN_NUMBER;
+        //NRF_TIMER2->TASKS_STOP = 1;
     } else {
-        //NRF_P0->OUTSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
-        timer_init();
-        task_enable();
-        NRF_TIMER2->TASKS_START = 1;
+        NRF_P0->OUTSET = 1 << GPIO_OUTPUT_PIN_NUMBER;
+        //timer_init();
+        //task_enable();
+        //NRF_TIMER2->TASKS_START = 1;
     }
 }
