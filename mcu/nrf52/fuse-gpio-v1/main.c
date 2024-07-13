@@ -464,6 +464,12 @@ static void idle_state_handle(void)
  */
 int main(void)
 {
+    APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
+    NRF_LOG_DEFAULT_BACKENDS_INIT();
+
+
+    NRF_LOG_INFO("Pulse capture example init");
+    NRF_LOG_FLUSH();
     // Initialize.
     leds_init();
     timers_init();
@@ -478,7 +484,7 @@ int main(void)
 
 
     // Start execution.
-    //NRF_LOG_INFO("Blinky example started.");
+    NRF_LOG_INFO("Blinky example started.");
     advertising_start();
 
     // Enter main loop.
