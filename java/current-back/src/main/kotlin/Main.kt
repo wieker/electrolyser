@@ -2,6 +2,7 @@ package org.example
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -22,9 +23,14 @@ import org.koin.dsl.module
 import org.koin.ktor.ext.inject
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
+import java.awt.image.BufferedImage
+import java.awt.image.BufferedImage.TYPE_INT_RGB
+import javax.imageio.ImageIO
+import javax.imageio.ImageTypeSpecifier
 import javax.sql.DataSource
 
 fun main() {
+    System.setProperty("java.awt.headless", "true")
     println("Hello World!")
     embeddedServer(Netty, port = 8082, module = Application::prodModules).start(true)
 }
@@ -47,6 +53,20 @@ fun Application.prodModules() {
         route("/check") {
             get {
                 call.respond("Test")
+            }
+        }
+
+        route("/png") {
+            get {
+                call.response.header("Content-Type", "image/png")
+                val image = BufferedImage(100, 100, TYPE_INT_RGB)
+
+                val graphics = image.graphics
+                graphics.drawArc(10, 20, 30, 40, 50, 60)
+
+                call.respondOutputStream(ContentType.Application.OctetStream) {
+                    ImageIO.write(image, "png", this)
+                }
             }
         }
     }
