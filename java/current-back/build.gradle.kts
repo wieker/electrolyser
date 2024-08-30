@@ -30,6 +30,7 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:$ktor_version")
     implementation("io.ktor:ktor-server-auth:$ktor_version")
     implementation("io.ktor:ktor-server-cors:$ktor_version")
+    implementation("io.ktor:ktor-server-thymeleaf-jvm")
 
     // koin
     implementation("io.insert-koin:koin-ktor:$koin_version")
@@ -41,6 +42,8 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.1.0")
     implementation ("org.mybatis:mybatis:3.5.16")
     implementation ("org.mybatis.dynamic-sql:mybatis-dynamic-sql:1.5.1")
+
+    implementation("ch.qos.logback:logback-classic:1.5.7")
 
     testImplementation(kotlin("test"))
 }

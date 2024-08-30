@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html >
+        <html xmlns:th="http://www.thymeleaf.org">
+        <head>
+        <meta charset="UTF-8">
+        <title>All Current Tasks</title>
+</head>
+<body>
+<h1>All Current Tasks</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th><th>Description</th><th>Priority</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="measure: ${measures}">
+        <td th:text="${measure.type}"></td>
+        <td th:text="${measure.date}"></td>
+        <td th:text="${measure.value}"></td>
+        <td th:text="${measure.duration}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
