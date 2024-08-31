@@ -53,11 +53,11 @@ fun dataSource(): DataSource {
 
 private fun hikariConfig() = HikariConfig().apply {
     isAutoCommit = false
-    jdbcUrl = "jdbc:h2:mem:testdb"
+    jdbcUrl = "jdbc:postgresql://localhost:5432/current_mon"
     poolName = "name"
-    driverClassName = "org.h2.Driver"
+    driverClassName = "org.postgresql.Driver"
     connectionTestQuery = "select 1"
-    username = "sa"
-    password = ""
+    username = "current_mon"
+    password = "current_mon"
     validate()
 }
