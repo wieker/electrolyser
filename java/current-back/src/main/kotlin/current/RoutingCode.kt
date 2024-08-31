@@ -6,10 +6,11 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.thymeleaf.*
+import org.example.current.enterprise.MyBatisEnterpriseXMLMapper
 import org.example.dto.Measure
+import org.koin.ktor.ext.inject
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
-import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.imageio.ImageIO
 
@@ -38,11 +39,12 @@ fun Application.configureRouting() {
         }
 
         route("/measures") {
+            val dbModule: DbModule by inject<DbModule>()
             get {
                 call.respond(
                     ThymeleafContent("measures",
                         mapOf(
-                            "measures" to listOf(Measure("t,", LocalDate.now(), 0.1, 0.2)),
+                            "measures" to listOf(Measure("t,", LocalDateTime.now(), 0.1, 0.2)),
                             "someValue" to "none",
                             "curDate" to LocalDateTime.now()
                         ))
@@ -51,13 +53,23 @@ fun Application.configureRouting() {
         }
 
         route("/measure/add") {
+            val dbModule: DbModule by inject<DbModule>()
             post {
-                val someValue = call.receiveParameters()["type"]
+                val receiveParameters = call.receiveParameters()
+                val type = receiveParameters["type"]
+                val measure = Measure(type,
+                    LocalDateTime.parse( receiveParameters["localDate"]!!),
+                    receiveParameters["value"]!!.toDouble(),
+                    receiveParameters["duration"]!!.toDouble())
+                dbModule.session().let { s ->
+                    s.getMapper(MyBatisEnterpriseXMLMapper::class.java).insertMeasure(measure)
+                    s.commit()
+                }
                 call.respond(
                     ThymeleafContent("measures",
                         mapOf(
-                                "measures" to listOf(Measure("t,", LocalDate.now(), 0.1, 0.2)),
-                                "someValue" to someValue!!,
+                                "measures" to listOf(measure),
+                                "someValue" to type!!,
                                 "curDate" to LocalDateTime.now()
                             ))
                 )

@@ -11,6 +11,7 @@ import org.apache.ibatis.session.Configuration
 import org.apache.ibatis.session.SqlSession
 import org.apache.ibatis.session.SqlSessionFactoryBuilder
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory
+import org.example.current.enterprise.MyBatisEnterpriseXMLMapper
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import org.koin.ktor.ext.inject
@@ -26,7 +27,7 @@ fun Application.initDB() {
         )
             .update("dev")
     }
-    loadKoinModules(module { DbModule(database) })
+    loadKoinModules(module { single { DbModule(database) } })
 }
 
 class DbModule(ds: DataSource) {
@@ -39,6 +40,7 @@ class DbModule(ds: DataSource) {
             ds
         )
         config = Configuration(environment)
+        config.addMapper(MyBatisEnterpriseXMLMapper::class.java)
     }
 
     fun session(): SqlSession {
