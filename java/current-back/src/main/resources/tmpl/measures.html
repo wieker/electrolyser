@@ -9,6 +9,29 @@
         <title>All Current Tasks</title>
 </head>
 <body>
+
+<form method="post" action="/measure/add">
+    <div>
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" size="10">
+    </div>
+    <div>
+        <label for="description">Description: </label>
+        <input type="text" id="description"
+               name="description" size="20">
+    </div>
+    <div>
+        <label for="priority">Priority: </label>
+        <select id="priority" name="priority">
+            <option name="Low">Low</option>
+            <option name="Medium">Medium</option>
+            <option name="High">High</option>
+            <option name="Vital">Vital</option>
+        </select>
+    </div>
+    <input type="submit">
+</form>
+<div>[(${someValue})]</div>
 <h1>All Current Tasks</h1>
 <table>
     <thead>
@@ -25,10 +48,5 @@
     </tr>
     </tbody>
 </table>
-</body>
-</html></title>
-</head>
-<body>
-
 </body>
 </html>
