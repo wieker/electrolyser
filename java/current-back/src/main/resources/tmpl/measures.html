@@ -12,22 +12,26 @@
 
 <form method="post" action="/measure/add">
     <div>
-        <label for="name">Name: </label>
-        <input type="text" id="name" name="name" size="10">
-    </div>
-    <div>
-        <label for="description">Description: </label>
-        <input type="text" id="description"
-               name="description" size="20">
-    </div>
-    <div>
-        <label for="priority">Priority: </label>
-        <select id="priority" name="priority">
-            <option name="Low">Low</option>
-            <option name="Medium">Medium</option>
-            <option name="High">High</option>
-            <option name="Vital">Vital</option>
+        <label for="type">Type: </label>
+        <select id="type" name="type">
+            <option name="Current">Current</option>
+            <option name="Density">Density</option>
+            <option name="Temperature">Temperature</option>
+            <option name="Weight">Weight</option>
         </select>
+    </div>
+    <div>
+        <label for="localDate">LocalDate: </label>
+        <input type="text" id="localDate" name="localDate" size="20" th:value="${curDate}">
+    </div>
+    <div>
+        <label for="value">Value: </label>
+        <input type="text" id="value" name="value" size="10">
+    </div>
+    <div>
+        <label for="duration">Duration: </label>
+        <input type="text" id="duration"
+               name="duration" size="20">
     </div>
     <input type="submit">
 </form>

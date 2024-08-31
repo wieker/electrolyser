@@ -10,6 +10,7 @@ import org.example.dto.Measure
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_INT_RGB
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.imageio.ImageIO
 
 fun Application.configureRouting() {
@@ -39,19 +40,25 @@ fun Application.configureRouting() {
         route("/measures") {
             get {
                 call.respond(
-                    ThymeleafContent("measures", mapOf("measures" to listOf(Measure("t,", LocalDate.now(), 0.1, 0.2))))
+                    ThymeleafContent("measures",
+                        mapOf(
+                            "measures" to listOf(Measure("t,", LocalDate.now(), 0.1, 0.2)),
+                            "someValue" to "none",
+                            "curDate" to LocalDateTime.now()
+                        ))
                 )
             }
         }
 
         route("/measure/add") {
             post {
-                val someValue = call.receiveParameters()["priority"]
+                val someValue = call.receiveParameters()["type"]
                 call.respond(
                     ThymeleafContent("measures",
                         mapOf(
                                 "measures" to listOf(Measure("t,", LocalDate.now(), 0.1, 0.2)),
-                                "someValue" to someValue!!
+                                "someValue" to someValue!!,
+                                "curDate" to LocalDateTime.now()
                             ))
                 )
             }
