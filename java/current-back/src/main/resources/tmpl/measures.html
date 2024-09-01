@@ -37,10 +37,10 @@
 </form>
 <div>[(${someValue})]</div>
 <h1>All Current Tasks</h1>
-<table>
+<table width="100%" border="1">
     <thead>
     <tr>
-        <th>Name</th><th>Description</th><th>Priority</th>
+        <th width="15%">Type</th><th width="20%">Date Time</th><th width="10%">Value</th><th width="20%">Duration</th><th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -49,6 +49,7 @@
         <td th:text="${measure.date}"></td>
         <td th:text="${measure.value}"></td>
         <td th:text="${measure.duration}"></td>
+        <td th:text="${measure.id}"></td>
     </tr>
     </tbody>
 </table>

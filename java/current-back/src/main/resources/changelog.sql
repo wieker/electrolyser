@@ -7,3 +7,7 @@ date timestamp,
 value numeric,
 duration numeric
 );
+
+
+--changeset author:ch2
+alter table measure add column id bigserial primary key;

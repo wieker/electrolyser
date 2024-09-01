@@ -44,7 +44,7 @@ fun Application.configureRouting() {
                 call.respond(
                     ThymeleafContent("measures",
                         mapOf(
-                            "measures" to listOf(Measure("t,", LocalDateTime.now(), 0.1, 0.2)),
+                            "measures" to dbModule.session().getMapper(MyBatisEnterpriseXMLMapper::class.java).getMeasures(),
                             "someValue" to "none",
                             "curDate" to LocalDateTime.now()
                         ))
@@ -57,7 +57,7 @@ fun Application.configureRouting() {
             post {
                 val receiveParameters = call.receiveParameters()
                 val type = receiveParameters["type"]
-                val measure = Measure(type,
+                val measure = Measure(null, type,
                     LocalDateTime.parse( receiveParameters["localDate"]!!),
                     receiveParameters["value"]!!.toDouble(),
                     receiveParameters["duration"]!!.toDouble())
@@ -68,7 +68,7 @@ fun Application.configureRouting() {
                 call.respond(
                     ThymeleafContent("measures",
                         mapOf(
-                                "measures" to listOf(measure),
+                                "measures" to dbModule.session().getMapper(MyBatisEnterpriseXMLMapper::class.java).getMeasures(),
                                 "someValue" to type!!,
                                 "curDate" to LocalDateTime.now()
                             ))
