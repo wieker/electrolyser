@@ -58,7 +58,7 @@ fun Application.configureRouting() {
                 val receiveParameters = call.receiveParameters()
                 val type = receiveParameters["type"]
                 val measure = Measure(null, type,
-                    LocalDateTime.parse( receiveParameters["localDate"]!!),
+                    LocalDateTime.now(),
                     receiveParameters["value"]!!.toDouble(),
                     receiveParameters["duration"]!!.toDouble())
                 dbModule.session().let { s ->
