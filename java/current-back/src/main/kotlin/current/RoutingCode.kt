@@ -44,7 +44,9 @@ fun Application.configureRouting() {
                 call.respond(
                     ThymeleafContent("measures",
                         mapOf(
-                            "measures" to dbModule.session().getMapper(MyBatisEnterpriseXMLMapper::class.java).getMeasures(),
+                            "measures" to dbModule.session().use {
+                                it.getMapper(MyBatisEnterpriseXMLMapper::class.java).getMeasures()
+                            },
                             "someValue" to "none",
                             "curDate" to LocalDateTime.now()
                         ))
@@ -61,14 +63,16 @@ fun Application.configureRouting() {
                     LocalDateTime.now(),
                     receiveParameters["value"]!!.toDouble(),
                     receiveParameters["duration"]!!.toDouble())
-                dbModule.session().let { s ->
+                dbModule.session().use { s ->
                     s.getMapper(MyBatisEnterpriseXMLMapper::class.java).insertMeasure(measure)
                     s.commit()
                 }
                 call.respond(
                     ThymeleafContent("measures",
                         mapOf(
-                                "measures" to dbModule.session().getMapper(MyBatisEnterpriseXMLMapper::class.java).getMeasures(),
+                                "measures" to dbModule.session().use {
+                                    it.getMapper(MyBatisEnterpriseXMLMapper::class.java).getMeasures()
+                                },
                                 "someValue" to type!!,
                                 "curDate" to LocalDateTime.now()
                             ))
