@@ -67,15 +67,9 @@ fun Application.configureRouting() {
                     s.getMapper(MyBatisEnterpriseXMLMapper::class.java).insertMeasure(measure)
                     s.commit()
                 }
+                call.response.header("Location", "/measures")
                 call.respond(
-                    ThymeleafContent("measures",
-                        mapOf(
-                                "measures" to dbModule.session().use {
-                                    it.getMapper(MyBatisEnterpriseXMLMapper::class.java).getMeasures()
-                                },
-                                "someValue" to type!!,
-                                "curDate" to LocalDateTime.now()
-                            ))
+                    HttpStatusCode.SeeOther
                 )
             }
         }
