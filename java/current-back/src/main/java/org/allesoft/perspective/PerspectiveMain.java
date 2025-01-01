@@ -34,5 +34,19 @@ public class PerspectiveMain {
         // (c * c - a * a - b * b) / 2 / a = h
         System.out.println("hMed = " + (cMed * cMed - 2 * 2 - 3.5 * 3.5) / 2 / 2);
         System.out.println("lMed = " + Math.sqrt(3.5 * 3.5 - 2.5 * 2.5));
+
+        double bVal = 1.0;
+        while (bVal < 7.3) {
+            System.out.println("=============");
+            System.out.println("calc for " + bVal);
+            double cVal = bVal * cosALPHA + Math.sqrt(4 - bVal*bVal * siALPHA);
+            System.out.println("cVal = " + cVal);
+            System.out.println("A = " + Math.sqrt(bVal * bVal + cVal * cVal - 2 * bVal * cVal * cosALPHA));
+            double h = (cVal * cVal - 2 * 2 - bVal * bVal) / 2 / 2;
+            System.out.println("hMed = " + h);
+            System.out.println("lMed = " + Math.sqrt(bVal * bVal - h * h));
+
+            bVal += 0.1;
+        }
     }
 }
