@@ -48,5 +48,9 @@ public class PerspectiveMain {
 
             bVal += 0.1;
         }
+
+        System.out.println("cos 18 = " + Math.cos(Math.toRadians(18)));
+        System.out.println("ALPHA = " + Math.toDegrees(Math.acos(cosALPHA)));
+        System.out.println("dist 18 degrees = " + 1.7 * Math.cos(Math.toRadians(18)) / Math.sin(Math.toRadians(18)));
     }
 }
