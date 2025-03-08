@@ -22,6 +22,6 @@ module top(
     );
 
     assign LED1 = counter[24];
-    assign LED2 = ~counter1[24];
+    assign LED2 = ~counter1[23];
 
 endmodule
