@@ -313,6 +313,7 @@ public class LabSigXGraUp5
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setSize(1500, 900);
     }
 
     private static void send78(DeviceHandle handle, JScrollBar sendVal) {
