@@ -23,6 +23,6 @@ module top(
     );
 
     assign LED1 = counter[24];
-    assign LED2 = xclk | pwdn | reset | sda | scl;
+    assign LED2 = xclk & pwdn & reset & sda & scl;
 
 endmodule
