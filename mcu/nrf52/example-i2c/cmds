@@ -1,0 +1,4 @@
+openocd -f openocd-old.cfg -c program /home/wieker/Projects/components/softdevice/s112/hex/s112_nrf52_7.0.1_softdevice.hex reset exit
+openocd -f openocd-old.cfg -c program /home/wieker/Projects/components/softdevice/s132/hex/s132_nrf52_7.0.1_softdevice.hex reset exit
+openocd -f openocd-old.cfg -c program build/timer_capturelite reset exit
+openocd -f openocd-old.cfg -c program build/timer_capturetest reset exit
