@@ -1,7 +1,7 @@
 module top(
     output LED1, LED2,
     input xtal_in,
-    input xclk, pwdn, reset, sda, scl,
+    output xclk, pwdn, reset, sda, scl,
 );
 
     reg [24:0] counter;
@@ -22,7 +22,8 @@ module top(
       .CLKHF(clk)
     );
 
-    assign LED1 = counter[24];
-    assign LED2 = xclk & pwdn & reset & sda & scl;
+    assign xclk = counter1[1];
+    assign pwdn = 0;
+    assign reset = 1;
 
 endmodule
