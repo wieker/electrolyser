@@ -11,7 +11,25 @@ public class Lambda {
     }
 
     public boolean parseLiteral(InputSeq input) {
-        return false;
+        int letterStart = -1;
+        for (int i = input.pos; i < input.str.length(); i ++) {
+            if (input.str.charAt(i) == ' ' && letterStart == -1) {
+                input.pos ++;
+                continue;
+            }
+            if (!Character.isLetter(input.str.charAt(i)) && letterStart != -1) {
+                return true;
+            }
+            if (Character.isLetter(input.str.charAt(i)) && letterStart == -1) {
+                letterStart = input.pos;
+                continue;
+            }
+            if (Character.isLetter(input.str.charAt(i))) {
+                continue;
+            }
+            return false;
+        }
+        return letterStart != -1;
     }
 
     public boolean parseLambda(InputSeq input) {
