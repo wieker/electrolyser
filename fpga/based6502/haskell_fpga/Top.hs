@@ -26,75 +26,22 @@ import Data.Monoid
 topEntity
     :: Clock System
     -> Reset System
-    -> Enable System
+    -> Signal System Bit
     -> ( Signal System Bit
        )
-topEntity = exposeClockResetEnable $ let
-    cpuIn  = pure CPUIn{ cpuInMem = 0x00 } :: Signal System CPUIn
-    cpuOut = mealyState (runCPU defaultOut cpu) initState cpuIn
-    output = boolToBit . (== 0x00) . cpuOutMemAddr <$> cpuOut
- in output
+topEntity clk rst = exposeClockResetEnable comb clk rst enableGen
+    where
+        comb input = mealy blinkerT (0, 0) input
 
-mealyState
-  :: ( HiddenClockResetEnable tag
-     , NFDataX s )
-  => (i -> State s o)
-  -> s
-  -> (Signal tag i -> Signal tag o)
-mealyState f = mealy $ \s x -> let (y, s') = runState (f x) s in (s', y)
-
-data Phase
-    = Init
-    | Fetch1
-    | Exec
-    deriving (Generic, NFDataX)
-
-data CPUIn = CPUIn
-    { cpuInMem :: Word8
-    }
-
-data CPUState = CPUState
-    { pc :: Word8
-    , phase :: Phase
-    }
-    deriving (Generic, NFDataX)
-
-initState :: CPUState
-initState = CPUState
-    { pc = 0x20
-    , phase = Init
-    }
-
-data CPUOut = CPUOut
-    { cpuOutMemAddr :: Word8
-    }
-
-defaultOut :: CPUState -> CPUOut
-defaultOut CPUState{..} = CPUOut{..}
+blinkerT :: (BitVector 32, Bit) -> Bit -> (((BitVector 32), Bit), Bit)
+blinkerT (cntr, leds) _ = ((cntr', leds'),leds)
   where
-    cpuOutMemAddr = pc
+    -- clock frequency = 100e6  (100 MHz)
+    -- led update rate = 333e-3 (every 333ms)
+    cnt_max = 48000000
 
-cpu :: CPU CPUIn CPUState CPUOut ()
-cpu = do
-    CPUIn{..} <- input
-    CPUState{..} <- get
+    cntr' | cntr == cnt_max = 0
+          | otherwise       = cntr + 1
 
-    case phase of
-        Init -> goto Fetch1
-        Fetch1 -> goto Init
-  where
-    goto ph = modify $ \s -> s{ phase = ph }
-
-newtype CPU i s o a = CPU{ unCPU :: RWS i (Endo o) s a }
-                    deriving newtype (Functor, Applicative, Monad, MonadState s)
-
-input :: CPU i s o i
-input = CPU ask
-
-runCPU :: (s -> o) -> CPU i s o () -> (i -> State s o)
-runCPU mkDef cpu inp = do
-    s <- get
-    let (s', f) = execRWS (unCPU cpu) inp s
-    put s'
-    def <- gets mkDef
-    return $ appEndo f def
+    leds' | cntr == 0       = 1 + leds
+          | otherwise       = leds
