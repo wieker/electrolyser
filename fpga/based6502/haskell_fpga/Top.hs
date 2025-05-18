@@ -36,12 +36,5 @@ topEntity clk rst = exposeClockResetEnable comb clk rst enableGen
 blinkerT :: (BitVector 32, Bit) -> Bit -> (((BitVector 32), Bit), Bit)
 blinkerT (cntr, leds) _ = ((cntr', leds'),leds)
   where
-    -- clock frequency = 100e6  (100 MHz)
-    -- led update rate = 333e-3 (every 333ms)
-    cnt_max = 48000000
-
-    cntr' | cntr == cnt_max = 0
-          | otherwise       = cntr + 1
-
-    leds' | cntr == 0       = 1 + leds
-          | otherwise       = leds
+    cntr' = cntr + 1
+    leds' = cntr ! 25
