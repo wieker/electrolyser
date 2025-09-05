@@ -26,5 +26,13 @@ public class HyperFocalMain {
                 System.out.println();
             }
         }
+
+        double angle = Math.toRadians(40);
+        double height = 1.8;
+        double c = height / Math.sin(angle);
+        double b = height / Math.tan(angle);
+        System.out.println("b = " + b);
+        System.out.println("c = " + c);
+        System.out.println("diff = " + (c - b));
     }
 }
