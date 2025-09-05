@@ -23,6 +23,7 @@ public class HyperFocalMain {
             } else {
                 System.out.println("focus at H/" + i + "= " + hfocal / i);
                 System.out.println("from H/" + (i + 1) + " = " + hfocal / (i + 1) + " to " + hfocal / (i - 1));
+                System.out.println("depth = " + ( - hfocal / (i + 1) + hfocal / (i - 1)) / 1000);
                 System.out.println();
             }
         }
@@ -31,6 +32,14 @@ public class HyperFocalMain {
         double height = 1.8;
         double c = height / Math.sin(angle);
         double b = height / Math.tan(angle);
+        System.out.println("b = " + b);
+        System.out.println("c = " + c);
+        System.out.println("diff = " + (c - b));
+
+        angle = Math.toRadians(20);
+        height = 0.9;
+        c = height / Math.sin(angle);
+        b = height / Math.tan(angle);
         System.out.println("b = " + b);
         System.out.println("c = " + c);
         System.out.println("diff = " + (c - b));
