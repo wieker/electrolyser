@@ -7,11 +7,11 @@ public class HyperFocalMain {
 
     public static void main(String[] args) {
         double focalLength = 50.0;
-        double apertureFnumber = 8;
+        double apertureFnumber = 1.8;
         double circleCoC = 0.03;
         double hfocal = focalLength * focalLength / apertureFnumber / circleCoC + focalLength;
 
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 0; i < 20; i ++) {
             if (i == 0) {
                 System.out.println("focus at inf = inf");
                 System.out.println("from H/" + (i + 1) + " = " + hfocal / 1 + " to inf");
