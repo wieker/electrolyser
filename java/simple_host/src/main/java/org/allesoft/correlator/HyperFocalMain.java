@@ -7,7 +7,7 @@ public class HyperFocalMain {
 
     public static void main(String[] args) {
         double focalLength = 50.0;
-        double apertureFnumber = 1.8;
+        double apertureFnumber = 16;
         double circleCoC = 0.03;
         double hfocal = focalLength * focalLength / apertureFnumber / circleCoC + focalLength;
 
@@ -25,6 +25,9 @@ public class HyperFocalMain {
                 System.out.println("from H/" + (i + 1) + " = " + hfocal / (i + 1) + " to " + hfocal / (i - 1));
                 System.out.println("depth = " + ( - hfocal / (i + 1) + hfocal / (i - 1)) / 1000);
                 System.out.println();
+            }
+            if ((hfocal / (i + 1)) / 1000 < 2.145156466669578) {
+                break;
             }
         }
 
