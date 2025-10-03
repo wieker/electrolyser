@@ -7,7 +7,7 @@ public class HyperFocalMain {
 
     public static void main(String[] args) {
         double focalLength = 50.0;
-        double apertureFnumber = 16;
+        double apertureFnumber = 4.0;
         double circleCoC = 0.03;
         double hfocal = focalLength * focalLength / apertureFnumber / circleCoC + focalLength;
 
@@ -46,5 +46,13 @@ public class HyperFocalMain {
         System.out.println("b = " + b);
         System.out.println("c = " + c);
         System.out.println("diff = " + (c - b));
+
+        System.out.println("Blur point calculation");
+        double subjectDistance = 2400;
+        double focusDistance = 2500;
+
+        double cocCalculated = Math.abs((subjectDistance - focusDistance) / subjectDistance) *
+                (focalLength * focalLength / (apertureFnumber * (focusDistance - focalLength)));
+        System.out.println("Calculated CoC: " + cocCalculated);
     }
 }
