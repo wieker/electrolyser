@@ -68,5 +68,11 @@ public class HyperFocalMain {
         double reverseFnumber = Math.abs((subjectDistance - focusDistance) / subjectDistance) *
                 (focalLength * focalLength / (canonR8pixelSize * (focusDistance - focalLength)));
         System.out.println("Calculated f-number: " + reverseFnumber);
+
+        focalLength = 50.0 / 6;
+        double honor8pixelSize = (6.0 / 4000);
+        reverseFnumber = Math.abs((subjectDistance - focusDistance) / subjectDistance) *
+                (focalLength * focalLength / (honor8pixelSize * (focusDistance - focalLength)));
+        System.out.println("Calculated f-number: " + reverseFnumber);
     }
 }
