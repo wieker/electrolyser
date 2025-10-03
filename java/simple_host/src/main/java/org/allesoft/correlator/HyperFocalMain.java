@@ -7,7 +7,7 @@ public class HyperFocalMain {
 
     public static void main(String[] args) {
         double focalLength = 50.0;
-        double apertureFnumber = 4.0;
+        double apertureFnumber = 2.8;
         double circleCoC = 0.03;
         double hfocal = focalLength * focalLength / apertureFnumber / circleCoC + focalLength;
 
@@ -54,5 +54,6 @@ public class HyperFocalMain {
         double cocCalculated = Math.abs((subjectDistance - focusDistance) / subjectDistance) *
                 (focalLength * focalLength / (apertureFnumber * (focusDistance - focalLength)));
         System.out.println("Calculated CoC: " + cocCalculated);
+        System.out.println("Pixel size = " + (36.0 / 6000));
     }
 }
