@@ -53,8 +53,11 @@ public class HyperFocalMain {
 
         double cocCalculated = Math.abs((subjectDistance - focusDistance) / subjectDistance) *
                 (focalLength * focalLength / (apertureFnumber * (focusDistance - focalLength)));
+        double cocReCalculated = Math.abs(1.0 / focusDistance - 1.0 / subjectDistance) *
+                (focalLength * focalLength / apertureFnumber);
         System.out.println("Calculated CoC: " + cocCalculated);
         System.out.println("Canon R8 Pixel size = " + (36.0 / 6000));
+        System.out.println("cocReCalculated CoC: " + cocReCalculated);
 
         focalLength = 4.5;
         apertureFnumber = 2.2;
