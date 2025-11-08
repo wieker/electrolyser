@@ -1,5 +1,14 @@
 cmake_minimum_required (VERSION 2.8.12)
 
+set(CMAKE_SYSTEM_PROCESSOR arm)
+
+set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
+set (CMAKE_C_COMPILER arm-none-eabi-gcc)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+
+SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -mcpu=cortex-m3 -mthumb -mno-thumb-interwork -mfpu=vfp -msoft-float -mfix-cortex-m3-ldrd")
+
+
 # set the build type
 if(NOT CMAKE_BUILD_TYPE) 
     set(CMAKE_BUILD_TYPE Release)
