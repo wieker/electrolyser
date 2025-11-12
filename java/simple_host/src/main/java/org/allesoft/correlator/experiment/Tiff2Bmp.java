@@ -52,6 +52,12 @@ public class Tiff2Bmp {
             System.out.println("- " + format);
         }
 
+        // WB matrix apply
+        // check exposure / highlights
+        // demosaic as below
+        // apply XYZ calibration
+        // apply gamma tone curve calibration
+
 
         BufferedImage resizedImage = new BufferedImage(image.getWidth() / 2, image.getHeight() / 2, BufferedImage.TYPE_INT_RGB);
         System.out.println(image.getType());
