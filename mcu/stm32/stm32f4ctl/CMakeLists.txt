@@ -10,6 +10,7 @@ set (CMAKE_CXX_COMPILER arm-none-eabi-g++)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -mcpu=cortex-m3 -mthumb -mno-thumb-interwork -mfpu=vfp -msoft-float -mfix-cortex-m3-ldrd")
+SET(CMAKE_CXX_FLAGS  "${CMAKE_C_FLAGS} -mcpu=cortex-m3 -mthumb -mno-thumb-interwork -mfpu=vfp -msoft-float -mfix-cortex-m3-ldrd")
 
 
 # set the build type
