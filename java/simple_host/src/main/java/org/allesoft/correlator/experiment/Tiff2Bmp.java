@@ -4,7 +4,11 @@ import mil.nga.tiff.FileDirectory;
 import mil.nga.tiff.Rasters;
 import mil.nga.tiff.TIFFImage;
 import mil.nga.tiff.TiffReader;
+import org.ejml.data.DMatrix3;
+import org.ejml.data.DMatrix3x3;
+import org.ejml.data.DMatrixRMaj;
 import org.ejml.dense.fixed.CommonOps_DDF3;
+import org.ejml.dense.row.CommonOps_DDRM;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -71,15 +75,37 @@ public class Tiff2Bmp {
 
         BufferedImage resizedImage = new BufferedImage(image.getWidth() / 2, image.getHeight() / 2, BufferedImage.TYPE_INT_RGB);
         System.out.println(image.getType());
+        DMatrixRMaj M = new DMatrixRMaj(3, 3);
+        DMatrixRMaj a = new DMatrixRMaj(3, 1);
+        DMatrixRMaj x = new DMatrixRMaj(3, 1);
+
+        M.set(0, 0, 1);
+        M.set(0, 1, 0);
+        M.set(0, 2, 0);
+        M.set(1, 0, 0);
+        M.set(1, 1, 1);
+        M.set(1, 2, 0);
+        M.set(2, 0, 0);
+        M.set(2, 1, 0);
+        M.set(2, 2, 1);
+
         for (int i = 0; i < resizedImage.getWidth(); i ++) {
             for (int j = 0; j < resizedImage.getHeight(); j ++) {
                 int redVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2, j * 2, (Object) null))[0]) >> 8;
                 int greenVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2 + 1, j * 2, (Object) null))[0]) >> 8;
                 int blueVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2 + 1, j * 2 + 1, (Object) null))[0]) >> 8;
+
+                DMatrixRMaj copy = x.copy();
+                CommonOps_DDRM.solve(M.copy(), a.copy(), copy);
+
+                a.set(0, 0, redVal);
+                a.set(1, 0, greenVal);
+                a.set(2, 0, blueVal);
+
                 resizedImage.setRGB(i, j, new Color(
-                        redVal,
-                        greenVal,
-                        blueVal)
+                        (int) copy.get(0, 0),
+                        (int) copy.get(1, 0),
+                        (int) copy.get(2, 0))
                         .getRGB());
             }
         }
