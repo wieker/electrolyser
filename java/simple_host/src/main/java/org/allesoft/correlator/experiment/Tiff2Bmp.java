@@ -115,6 +115,30 @@ public class Tiff2Bmp {
                     int newGreenVal = (int) (x.get(1, 0) * 255);
                     int newBlueVal = (int) (x.get(2, 0) * 255);
 
+                    if (newRedVal < 0) {
+                        newRedVal = 0;
+                    }
+
+                    if (newRedVal > 255) {
+                        newRedVal = 255;
+                    }
+
+                    if (newGreenVal < 0) {
+                        newGreenVal = 0;
+                    }
+
+                    if (newGreenVal > 255) {
+                        newGreenVal = 255;
+                    }
+
+                    if (newBlueVal < 0) {
+                        newBlueVal = 0;
+                    }
+
+                    if (newBlueVal > 255) {
+                        newBlueVal = 255;
+                    }
+
                     if (newRedVal < 0 || newRedVal > 255 ||
                             newGreenVal < 0 || newGreenVal > 255 ||
                             newBlueVal < 0 || newBlueVal > 255
