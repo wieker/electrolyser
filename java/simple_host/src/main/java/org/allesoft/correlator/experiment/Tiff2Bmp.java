@@ -4,6 +4,7 @@ import mil.nga.tiff.FileDirectory;
 import mil.nga.tiff.Rasters;
 import mil.nga.tiff.TIFFImage;
 import mil.nga.tiff.TiffReader;
+import org.ejml.dense.fixed.CommonOps_DDF3;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -25,7 +26,10 @@ public class Tiff2Bmp {
         //ByteReader input = ...
         File tiffFile = new File(
                 //"/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
-                "/home/wieker/Pictures/colors/darktable_exported/grey_5600K.tif"
+                //"/home/wieker/Pictures/colors/darktable_exported/grey_5600K.tif"
+                //"/home/wieker/Pictures/colors/darktable_exported/red.tif"
+                //"/home/wieker/Pictures/colors/darktable_exported/green.tif"
+                "/home/wieker/Pictures/colors/darktable_exported/blue.tif"
         );
 
 
@@ -80,12 +84,31 @@ public class Tiff2Bmp {
             }
         }
         boolean success = ImageIO.write(resizedImage, "BMP", new File(
-                "/home/wieker/output-5600K.bmp"
+                //"/home/wieker/output-5600K.bmp"
+                //"/home/wieker/output-red.bmp"
+                //"/home/wieker/output-green.bmp"
+                "/home/wieker/output-blue.bmp"
         ));
         if (success) {
             System.out.println("BMP image saved successfully.");
         } else {
             System.out.println("Failed to save BMP image. Check image type compatibility.");
         }
+
+        //CommonOps_DDF3.invert()
+
+
+        int redVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000, 2000, (Object) null))[0]) >> 8;
+        int greenVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1, 2000, (Object) null))[0]) >> 8;
+        int blueVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1, 2000 + 1, (Object) null))[0]) >> 8;
+        System.out.println("Mid point RGB = " + redVal + " " + greenVal + " " + blueVal);
+        // grey 5600K:
+        // Mid point RGB = 61 83 74
+        // red:
+        // Mid point RGB = 106 66 35
+        // green:
+        // Mid point RGB = 58 93 42
+        // blue
+        // Mid point RGB = 27 85 133
     }
 }
