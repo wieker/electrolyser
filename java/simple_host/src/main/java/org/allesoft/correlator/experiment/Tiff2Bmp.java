@@ -17,10 +17,16 @@ import java.util.List;
 public class Tiff2Bmp {
     public static void main(String[] args) throws Exception {
         //File input = ...
-        InputStream input = new FileInputStream("/home/wieker/Downloads/darktable_exported/IMG_7030.tif");
+        InputStream input = new FileInputStream(
+                //"/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
+                "/home/wieker/Pictures/colors/darktable_exported/red.tif"
+        );
         //byte[] input = ...
         //ByteReader input = ...
-        File tiffFile = new File("/home/wieker/Downloads/darktable_exported/IMG_7030.tif");
+        File tiffFile = new File(
+                //"/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
+                "/home/wieker/Pictures/colors/darktable_exported/grey_5600K.tif"
+        );
 
 
         BufferedImage image = ImageIO.read(tiffFile);
@@ -73,7 +79,9 @@ public class Tiff2Bmp {
                         .getRGB());
             }
         }
-        boolean success = ImageIO.write(resizedImage, "BMP", new File("/home/wieker/output.bmp"));
+        boolean success = ImageIO.write(resizedImage, "BMP", new File(
+                "/home/wieker/output-5600K.bmp"
+        ));
         if (success) {
             System.out.println("BMP image saved successfully.");
         } else {
