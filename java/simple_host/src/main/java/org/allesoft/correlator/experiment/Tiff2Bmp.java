@@ -29,8 +29,8 @@ public class Tiff2Bmp {
         //byte[] input = ...
         //ByteReader input = ...
         File tiffFile = new File(
-                "/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
-                //"/home/wieker/Pictures/colors/darktable_exported/grey_5600K.tif"
+                //"/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
+                "/home/wieker/Pictures/colors/darktable_exported/grey_5600K.tif"
                 //"/home/wieker/Pictures/colors/darktable_exported/red.tif"
                 //"/home/wieker/Pictures/colors/darktable_exported/green.tif"
                 //"/home/wieker/Pictures/colors/darktable_exported/blue.tif"
