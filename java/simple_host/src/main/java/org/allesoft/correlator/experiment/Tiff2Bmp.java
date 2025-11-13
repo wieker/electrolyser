@@ -79,7 +79,7 @@ public class Tiff2Bmp {
         DMatrixRMaj a = new DMatrixRMaj(3, 1);
         DMatrixRMaj x = new DMatrixRMaj(3, 1);
 
-        M.set(0, 0, 1);
+        M.set(0, 0, 1 / 1.943);
         M.set(0, 1, 0);
         M.set(0, 2, 0);
         M.set(1, 0, 0);
@@ -87,7 +87,7 @@ public class Tiff2Bmp {
         M.set(1, 2, 0);
         M.set(2, 0, 0);
         M.set(2, 1, 0);
-        M.set(2, 2, 1);
+        M.set(2, 2, 1 / 1.367);
 
         for (int i = 0; i < resizedImage.getWidth(); i ++) {
             for (int j = 0; j < resizedImage.getHeight(); j ++) {
@@ -95,18 +95,32 @@ public class Tiff2Bmp {
                 int greenVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2 + 1, j * 2, (Object) null))[0]) >> 8;
                 int blueVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2 + 1, j * 2 + 1, (Object) null))[0]) >> 8;
 
-                DMatrixRMaj copy = x.copy();
-                CommonOps_DDRM.solve(M.copy(), a.copy(), copy);
+                CommonOps_DDRM.solve(M, a, x);
 
                 a.set(0, 0, redVal);
                 a.set(1, 0, greenVal);
                 a.set(2, 0, blueVal);
 
-                resizedImage.setRGB(i, j, new Color(
-                        (int) copy.get(0, 0),
-                        (int) copy.get(1, 0),
-                        (int) copy.get(2, 0))
-                        .getRGB());
+                int newRedVal = (int) x.get(0, 0);
+                int newGreenVal = (int) x.get(1, 0);
+                int newBlueVal = (int) x.get(2, 0);
+
+                if (newRedVal < 0 || newRedVal > 255 ||
+                        newGreenVal < 0 || newGreenVal > 255 ||
+                        newBlueVal < 0 || newBlueVal > 255
+                ) {
+                    resizedImage.setRGB(i, j, new Color(
+                            0,
+                            0,
+                            0)
+                            .getRGB());
+                } else {
+                    resizedImage.setRGB(i, j, new Color(
+                            newRedVal,
+                            newGreenVal,
+                            newBlueVal)
+                            .getRGB());
+                }
             }
         }
         boolean success = ImageIO.write(resizedImage, "BMP", new File(
