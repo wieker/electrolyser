@@ -30,7 +30,9 @@ public class Tiff2Bmp {
                 "red.tif",
                 "green.tif",
                 "blue.tif",
-                "t1.tif"
+                "t1.tif",
+                "t2.tif",
+                "t3.tif"
         );
         tiffFiles.forEach( file -> {
             File tiffFile = new File(
