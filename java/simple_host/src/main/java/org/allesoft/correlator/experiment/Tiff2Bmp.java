@@ -89,15 +89,15 @@ public class Tiff2Bmp {
             DMatrixRMaj a = new DMatrixRMaj(3, 1);
             DMatrixRMaj x = new DMatrixRMaj(3, 1);
 
-            M.set(0, 0, 1);
-            M.set(0, 1, 0);
-            M.set(0, 2, 0);
-            M.set(1, 0, 0);
-            M.set(1, 1, 1);
-            M.set(1, 2, 0);
-            M.set(2, 0, 0);
-            M.set(2, 1, 0);
-            M.set(2, 2, 1);
+            M.set(0, 0, 106);
+            M.set(0, 1, 58);
+            M.set(0, 2, 27);
+            M.set(1, 0, 66);
+            M.set(1, 1, 93);
+            M.set(1, 2, 85);
+            M.set(2, 0, 35);
+            M.set(2, 1, 42);
+            M.set(2, 2, 133);
 
             for (int i = 0; i < resizedImage.getWidth(); i++) {
                 for (int j = 0; j < resizedImage.getHeight(); j++) {
@@ -111,9 +111,9 @@ public class Tiff2Bmp {
                     a.set(1, 0, greenVal);
                     a.set(2, 0, blueVal);
 
-                    int newRedVal = (int) x.get(0, 0);
-                    int newGreenVal = (int) x.get(1, 0);
-                    int newBlueVal = (int) x.get(2, 0);
+                    int newRedVal = (int) (x.get(0, 0) * 255);
+                    int newGreenVal = (int) (x.get(1, 0) * 255);
+                    int newBlueVal = (int) (x.get(2, 0) * 255);
 
                     if (newRedVal < 0 || newRedVal > 255 ||
                             newGreenVal < 0 || newGreenVal > 255 ||
