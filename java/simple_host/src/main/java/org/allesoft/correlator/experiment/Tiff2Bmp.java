@@ -29,7 +29,8 @@ public class Tiff2Bmp {
         List<String> tiffFiles = Arrays.asList(
                 "red.tif",
                 "green.tif",
-                "blue.tif"
+                "blue.tif",
+                "t1.tif"
         );
         tiffFiles.forEach( file -> {
             File tiffFile = new File(
@@ -38,7 +39,7 @@ public class Tiff2Bmp {
                     //"/home/wieker/Pictures/colors/darktable_exported/red.tif"
                     //"/home/wieker/Pictures/colors/darktable_exported/green.tif"
                     //"/home/wieker/Pictures/colors/darktable_exported/blue.tif"
-                    "/home/wieker/Pictures/colors/darktable_exported/" + file
+                    "/home/wieker/Pictures/colors2/darktable_exported/" + file
             );
 
 
@@ -89,15 +90,15 @@ public class Tiff2Bmp {
             DMatrixRMaj a = new DMatrixRMaj(3, 1);
             DMatrixRMaj x = new DMatrixRMaj(3, 1);
 
-            M.set(0, 0, 106);
-            M.set(0, 1, 58);
-            M.set(0, 2, 27);
-            M.set(1, 0, 66);
-            M.set(1, 1, 93);
-            M.set(1, 2, 85);
-            M.set(2, 0, 35);
-            M.set(2, 1, 42);
-            M.set(2, 2, 133);
+            M.set(0, 0, 60);
+            M.set(0, 1, 56);
+            M.set(0, 2, 14);
+            M.set(1, 0, 34);
+            M.set(1, 1, 91);
+            M.set(1, 2, 55);
+            M.set(2, 0, 19);
+            M.set(2, 1, 45);
+            M.set(2, 2, 86);
 
             for (int i = 0; i < resizedImage.getWidth(); i++) {
                 for (int j = 0; j < resizedImage.getHeight(); j++) {
