@@ -27,12 +27,18 @@ public class Tiff2Bmp {
         //byte[] input = ...
         //ByteReader input = ...
         List<String> tiffFiles = Arrays.asList(
-                "red.tif",
-                "green.tif",
-                "blue.tif",
-                "t1.tif",
-                "t2.tif",
-                "t3.tif"
+                //"red.tif",
+                //"green.tif",
+                //"blue.tif",
+                //"t1.tif",
+                //"t2.tif",
+                //"t3.tif",
+                //"t4.tif",
+                "grey-5600.tif",
+                "wall.tif",
+                "lamp.tif",
+                "paint1.tif",
+                "paint2.tif"
         );
         tiffFiles.forEach( file -> {
             File tiffFile = new File(
