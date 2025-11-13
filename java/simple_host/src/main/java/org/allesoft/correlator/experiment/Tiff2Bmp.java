@@ -25,11 +25,11 @@ public class Tiff2Bmp {
         //byte[] input = ...
         //ByteReader input = ...
         File tiffFile = new File(
-                //"/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
+                "/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
                 //"/home/wieker/Pictures/colors/darktable_exported/grey_5600K.tif"
                 //"/home/wieker/Pictures/colors/darktable_exported/red.tif"
                 //"/home/wieker/Pictures/colors/darktable_exported/green.tif"
-                "/home/wieker/Pictures/colors/darktable_exported/blue.tif"
+                //"/home/wieker/Pictures/colors/darktable_exported/blue.tif"
         );
 
 
@@ -84,10 +84,10 @@ public class Tiff2Bmp {
             }
         }
         boolean success = ImageIO.write(resizedImage, "BMP", new File(
-                //"/home/wieker/output-5600K.bmp"
+                "/home/wieker/output-5600K.bmp"
                 //"/home/wieker/output-red.bmp"
                 //"/home/wieker/output-green.bmp"
-                "/home/wieker/output-blue.bmp"
+                //"/home/wieker/output-blue.bmp"
         ));
         if (success) {
             System.out.println("BMP image saved successfully.");
@@ -110,5 +110,9 @@ public class Tiff2Bmp {
         // Mid point RGB = 58 93 42
         // blue
         // Mid point RGB = 27 85 133
+
+        System.out.println(27 / 4 + 58 / 2 + 106 / 6);
+        System.out.println(85 / 4 + 93 / 2 + 66 / 6);
+        System.out.println(133 / 4 + 42 / 2 + 35 / 6);
     }
 }
