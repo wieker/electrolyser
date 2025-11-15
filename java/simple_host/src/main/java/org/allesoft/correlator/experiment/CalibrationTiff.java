@@ -19,11 +19,15 @@ public class CalibrationTiff {
                 "red.tif",
                 "green.tif",
                 "blue.tif",
-                "grey.tif"
+                "grey1.tif",
+                "grey2.tif",
+                "yellow.tif",
+                "magenta.tif",
+                "cyan.tif"
         );
         tiffFiles.forEach( file -> {
             File tiffFile = new File(
-                    "/home/wieker/Pictures/colors3/darktable_exported/" + file
+                    "/home/wieker/Pictures/colors4/darktable_exported/" + file
             );
 
 
@@ -78,9 +82,9 @@ public class CalibrationTiff {
                     a.set(1, 0, greenVal);
                     a.set(2, 0, blueVal);
 
-                    int newRedVal = (int) (x.get(0, 0) * 255);
-                    int newGreenVal = (int) (x.get(1, 0) * 255);
-                    int newBlueVal = (int) (x.get(2, 0) * 255);
+                    int newRedVal = (int) (Math.pow(x.get(0, 0), 1/2.2) * 255);
+                    int newGreenVal = (int) (Math.pow(x.get(1, 0), 1/2.2) * 255);
+                    int newBlueVal = (int) (Math.pow(x.get(2, 0), 1/2.2) * 255);
 
                     if (i == 1500 && j == 1000) {
                         System.out.println("grey val = " + newRedVal + " " + newGreenVal + " " + newBlueVal);
