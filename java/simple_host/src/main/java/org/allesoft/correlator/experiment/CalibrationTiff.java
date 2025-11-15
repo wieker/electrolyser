@@ -82,29 +82,33 @@ public class CalibrationTiff {
                     int newGreenVal = (int) (x.get(1, 0) * 255);
                     int newBlueVal = (int) (x.get(2, 0) * 255);
 
-//                    if (newRedVal < 0) {
-//                        newRedVal = 0;
-//                    }
-//
-//                    if (newRedVal > 255) {
-//                        newRedVal = 255;
-//                    }
-//
-//                    if (newGreenVal < 0) {
-//                        newGreenVal = 0;
-//                    }
-//
-//                    if (newGreenVal > 255) {
-//                        newGreenVal = 255;
-//                    }
-//
-//                    if (newBlueVal < 0) {
-//                        newBlueVal = 0;
-//                    }
-//
-//                    if (newBlueVal > 255) {
-//                        newBlueVal = 255;
-//                    }
+                    if (i == 1500 && j == 1000) {
+                        System.out.println("grey val = " + newRedVal + " " + newGreenVal + " " + newBlueVal);
+                    }
+
+                    if (newRedVal < 0) {
+                        newRedVal = 0;
+                    }
+
+                    if (newRedVal > 255) {
+                        newRedVal = 255;
+                    }
+
+                    if (newGreenVal < 0) {
+                        newGreenVal = 0;
+                    }
+
+                    if (newGreenVal > 255) {
+                        newGreenVal = 255;
+                    }
+
+                    if (newBlueVal < 0) {
+                        newBlueVal = 0;
+                    }
+
+                    if (newBlueVal > 255) {
+                        newBlueVal = 255;
+                    }
 
                     if (newRedVal < 0 || newRedVal > 255 ||
                             newGreenVal < 0 || newGreenVal > 255 ||
