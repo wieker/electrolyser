@@ -15,13 +15,6 @@ import java.util.List;
 
 public class CalibrationTiff {
     public static void main(String[] args) throws Exception {
-        //File input = ...
-        InputStream input = new FileInputStream(
-                //"/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
-                "/home/wieker/Pictures/colors/darktable_exported/red.tif"
-        );
-        //byte[] input = ...
-        //ByteReader input = ...
         List<String> tiffFiles = Arrays.asList(
                 "red.tif",
                 "green.tif",
@@ -29,11 +22,6 @@ public class CalibrationTiff {
         );
         tiffFiles.forEach( file -> {
             File tiffFile = new File(
-                    //"/home/wieker/Downloads/darktable_exported/IMG_7030.tif"
-                    //"/home/wieker/Pictures/colors/darktable_exported/grey_5600K.tif"
-                    //"/home/wieker/Pictures/colors/darktable_exported/red.tif"
-                    //"/home/wieker/Pictures/colors/darktable_exported/green.tif"
-                    //"/home/wieker/Pictures/colors/darktable_exported/blue.tif"
                     "/home/wieker/Pictures/colors3/darktable_exported/" + file
             );
 
@@ -51,26 +39,8 @@ public class CalibrationTiff {
                 System.out.println("Could not read TIFF image with ImageIO.");
             }
 
-//        TIFFImage tiffImage = TiffReader.readTiff(input);
-//        List<FileDirectory> directories = tiffImage.getFileDirectories();
-//        FileDirectory directory = directories.get(0);
-//        Rasters rasters = directory.readRasters();
-
             System.out.println(image.getHeight());
             System.out.println(image.getWidth());
-
-
-            System.out.println("Supported Read Formats:");
-            String[] readerFormats = ImageIO.getReaderFormatNames();
-            for (String format : readerFormats) {
-                System.out.println("- " + format);
-            }
-
-            System.out.println("\nSupported Write Formats:");
-            String[] writerFormats = ImageIO.getWriterFormatNames();
-            for (String format : writerFormats) {
-                System.out.println("- " + format);
-            }
 
             // WB matrix apply
             // check exposure / highlights
@@ -85,15 +55,15 @@ public class CalibrationTiff {
             DMatrixRMaj a = new DMatrixRMaj(3, 1);
             DMatrixRMaj x = new DMatrixRMaj(3, 1);
 
-            M.set(0, 0, 60);
-            M.set(0, 1, 56);
-            M.set(0, 2, 14);
-            M.set(1, 0, 34);
-            M.set(1, 1, 91);
-            M.set(1, 2, 55);
-            M.set(2, 0, 19);
-            M.set(2, 1, 45);
-            M.set(2, 2, 86);
+            M.set(0, 0, 80);
+            M.set(0, 1, 80);
+            M.set(0, 2, 22);
+            M.set(1, 0, 52);
+            M.set(1, 1, 131);
+            M.set(1, 2, 79);
+            M.set(2, 0, 28);
+            M.set(2, 1, 62);
+            M.set(2, 2, 119);
 
             for (int i = 0; i < resizedImage.getWidth(); i++) {
                 for (int j = 0; j < resizedImage.getHeight(); j++) {
@@ -157,9 +127,6 @@ public class CalibrationTiff {
             try {
                 success = ImageIO.write(resizedImage, "BMP", new File(
                         "/home/wieker/calib-output-" + file + ".bmp"
-                        //"/home/wieker/output-red.bmp"
-                        //"/home/wieker/output-green.bmp"
-                        //"/home/wieker/output-blue.bmp"
                 ));
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -172,10 +139,19 @@ public class CalibrationTiff {
 
             //CommonOps_DDF3.invert()
 
-
-            int redVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000, 2000, (Object) null))[0]) >> 8;
-            int greenVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1, 2000, (Object) null))[0]) >> 8;
-            int blueVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1, 2000 + 1, (Object) null))[0]) >> 8;
+            int redVal = 0;
+            int greenVal = 0;
+            int blueVal = 0;
+            for (int i = -16; i <= 16; i += 2) {
+                for (int j = -16; j <= 16; j += 2) {
+                    redVal += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + i, 2000 + j, (Object) null))[0]) >> 8;
+                    greenVal += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1 + i, 2000 + j, (Object) null))[0]) >> 8;
+                    blueVal += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1 + i, 2000 + 1 + j, (Object) null))[0]) >> 8;
+                }
+            }
+            redVal = redVal / 17 / 17;
+            greenVal = greenVal / 17 / 17;
+            blueVal = blueVal / 17 / 17;
             System.out.println("Mid point RGB = " + redVal + " " + greenVal + " " + blueVal);
             // grey 5600K:
             // Mid point RGB = 61 83 74
@@ -185,10 +161,6 @@ public class CalibrationTiff {
             // Mid point RGB = 58 93 42
             // blue
             // Mid point RGB = 27 85 133
-
-            System.out.println(27 / 4 + 58 / 2 + 106 / 6);
-            System.out.println(85 / 4 + 93 / 2 + 66 / 6);
-            System.out.println(133 / 4 + 42 / 2 + 35 / 6);
         });
     }
 }
