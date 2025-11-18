@@ -39,7 +39,8 @@ public class CalibrationTiff {
                 "yellow.tif",
                 "magenta.tif",
                 "cyan.tif",
-                "girl.tif"
+                "girl.tif",
+                "girl0.tif"
         );
         AtomicInteger iter = new AtomicInteger();
         tiffFiles.forEach( file -> {
