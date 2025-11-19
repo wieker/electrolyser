@@ -39,5 +39,20 @@ class DrawingPanel extends JPanel {
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("Arial", Font.BOLD, 20));
         g2d.drawString("Hello Swing Drawing!", 20, 200);
+
+
+
+        // Example: Draw a blue rectangle
+        g2d.setColor(new Color(255, 0, 0));
+        g2d.fillRect(0, 0, 1000, 500);
+        // Example: Draw a blue rectangle
+        g2d.setColor(new Color(0, 255, 0));
+        g2d.fillRect(0, 500, 1000, 1000);
+        // Example: Draw a blue rectangle
+        g2d.setColor(new Color(255, 255, 0));
+        g2d.fillRect(1000, 0, 2000, 500);
+        // Example: Draw a blue rectangle
+        g2d.setColor(new Color(255, 255, 255));
+        g2d.fillRect(1000, 500, 2000, 1000);
     }
 }
