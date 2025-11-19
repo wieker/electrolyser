@@ -17,7 +17,16 @@ public class DrawTiff {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Power dumper");
 
-        frame.add(new DrawTiffPanel());
+
+        // 2. Create the JScrollPane with the content panel
+        JScrollPane scrollPane = new JScrollPane(new DrawTiffPanel());
+
+        // Optional: Customize scroll bar policies
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+
+        frame.add(scrollPane);
 
         frame.setMinimumSize(new Dimension(1920, 1080));
         frame.setVisible(true);
@@ -30,6 +39,8 @@ class DrawTiffPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Call super to ensure proper painting
+
+        setPreferredSize(new Dimension(3000, 2000));
 
         // Cast Graphics to Graphics2D for more advanced drawing features
         Graphics2D g2d = (Graphics2D) g;
