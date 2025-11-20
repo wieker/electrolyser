@@ -40,6 +40,8 @@ class DrawTiffPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Call super to ensure proper painting
 
+        int SHIFT_CONST = 6;
+
         setPreferredSize(new Dimension(3000, 2000));
 
         // Cast Graphics to Graphics2D for more advanced drawing features
@@ -57,7 +59,8 @@ class DrawTiffPanel extends JPanel {
         M.set(2, 2, 119);
 
         File tiffFile = new File(
-                "/home/wieker/Pictures/colors4/darktable_exported/" + "girl.tif"
+                //"/home/wieker/Pictures/colors4/darktable_exported/" + "girl.tif"
+                "/home/wieker/Pictures/daylight0/IMG_6344.CR3.tiff"
         );
 
 
@@ -82,9 +85,9 @@ class DrawTiffPanel extends JPanel {
         int blueVal_ = 0;
         for (int i = -16; i <= 16; i += 2) {
             for (int j = -16; j <= 16; j += 2) {
-                redVal_ += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + i, 2000 + j, (Object) null))[0]) >> 8;
-                greenVal_ += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1 + i, 2000 + j, (Object) null))[0]) >> 8;
-                blueVal_ += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1 + i, 2000 + 1 + j, (Object) null))[0]) >> 8;
+                redVal_ += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + i, 2000 + j, (Object) null))[0]) >> SHIFT_CONST;
+                greenVal_ += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1 + i, 2000 + j, (Object) null))[0]) >> SHIFT_CONST;
+                blueVal_ += Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(3000 + 1 + i, 2000 + 1 + j, (Object) null))[0]) >> SHIFT_CONST;
             }
         }
         redVal_ = redVal_ / 17 / 17;
@@ -114,9 +117,9 @@ class DrawTiffPanel extends JPanel {
 
         for (int i = 0; i < resizedImage.getWidth(); i++) {
             for (int j = 0; j < resizedImage.getHeight(); j++) {
-                int redVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2, j * 2, (Object) null))[0]) >> 8;
-                int greenVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2 + 1, j * 2, (Object) null))[0]) >> 8;
-                int blueVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2 + 1, j * 2 + 1, (Object) null))[0]) >> 8;
+                int redVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2, j * 2, (Object) null))[0]) >> SHIFT_CONST;
+                int greenVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2 + 1, j * 2, (Object) null))[0]) >> SHIFT_CONST;
+                int blueVal = Short.toUnsignedInt(((short[]) image.getRaster().getDataElements(i * 2 + 1, j * 2 + 1, (Object) null))[0]) >> SHIFT_CONST;
 
                 CommonOps_DDRM.solve(M, a, x);
 
