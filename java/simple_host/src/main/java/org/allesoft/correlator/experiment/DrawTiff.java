@@ -41,6 +41,7 @@ class DrawTiffPanel extends JPanel {
         super.paintComponent(g); // Call super to ensure proper painting
 
         int SHIFT_CONST = 6;
+        double gamma = 1 / 2.5;
 
         setPreferredSize(new Dimension(3000, 2000));
 
@@ -128,9 +129,9 @@ class DrawTiffPanel extends JPanel {
                 a.set(1, 0, greenVal);
                 a.set(2, 0, blueVal);
 
-                int newRedVal = (int) (Math.pow(x.get(0, 0), 1/2.2) * 255);
-                int newGreenVal = (int) (Math.pow(x.get(1, 0), 1/2.2) * 255);
-                int newBlueVal = (int) (Math.pow(x.get(2, 0), 1/2.2) * 255);
+                int newRedVal = (int) (Math.pow(x.get(0, 0), gamma) * 255);
+                int newGreenVal = (int) (Math.pow(x.get(1, 0), gamma) * 255);
+                int newBlueVal = (int) (Math.pow(x.get(2, 0), gamma) * 255);
 
                 if (i == 1500 && j == 1000) {
                     System.out.println("grey val = " + newRedVal + " " + newGreenVal + " " + newBlueVal);
