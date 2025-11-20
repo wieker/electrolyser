@@ -60,7 +60,8 @@ class DrawTiffPanel extends JPanel {
 
         File tiffFile = new File(
                 //"/home/wieker/Pictures/colors4/darktable_exported/" + "girl.tif"
-                "/home/wieker/Pictures/daylight0/IMG_6344.CR3.tiff"
+                //"/home/wieker/Pictures/daylight0/IMG_6344.CR3.tiff"
+                "/home/wieker/Downloads/IMG_3734.CR3.tiff"
         );
 
 
