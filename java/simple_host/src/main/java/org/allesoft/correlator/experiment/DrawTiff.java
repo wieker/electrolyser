@@ -80,8 +80,8 @@ class DrawTiffPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Call super to ensure proper painting
 
-        int SHIFT_CONST = 6;
-        double gamma = 1 / 2.5;
+        int SHIFT_CONST = 8;
+        double gamma = 1 / 2.2;
 
         setPreferredSize(new Dimension(3000, 2000));
 
@@ -100,11 +100,11 @@ class DrawTiffPanel extends JPanel {
         M.set(2, 2, 119);
 
         File tiffFile = new File(
-                //"/home/wieker/Pictures/colors4/darktable_exported/" + "girl.tif"
+                "/home/wieker/Pictures/colors4/darktable_exported/" + "girl.tif"
                 //"/home/wieker/Pictures/daylight0/IMG_6344.CR3.tiff"
                 //"/home/wieker/Pictures/colors4/IMG_6320.CR3.tiff"
                 //"/home/wieker/Pictures/colors4/IMG_6321.CR3.tiff"
-                "/home/wieker/Pictures/colors4/IMG_6322.CR3.tiff"
+                //"/home/wieker/Pictures/colors4/IMG_6322.CR3.tiff"
         );
 
 
