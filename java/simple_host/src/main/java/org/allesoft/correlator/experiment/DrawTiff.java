@@ -6,6 +6,8 @@ import org.ejml.dense.row.CommonOps_DDRM;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.File;
@@ -19,7 +21,45 @@ public class DrawTiff {
 
 
         // 2. Create the JScrollPane with the content panel
-        JScrollPane scrollPane = new JScrollPane(new DrawTiffPanel());
+        DrawTiffPanel panel = new DrawTiffPanel();
+
+        MouseAdapter ma;
+        ma = new MouseAdapter() {
+
+            private Point origin;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                origin = new Point(e.getPoint());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (origin != null) {
+                    JViewport viewPort = (JViewport) SwingUtilities.getAncestorOfClass(JViewport.class, panel);
+                    if (viewPort != null) {
+                        int deltaX = origin.x - e.getX();
+                        int deltaY = origin.y - e.getY();
+
+                        Rectangle view = viewPort.getViewRect();
+                        view.x += deltaX;
+                        view.y += deltaY;
+
+                        panel.scrollRectToVisible(view);
+                    }
+                }
+            }
+
+        };
+
+        panel.addMouseListener(ma);
+        panel.addMouseMotionListener(ma);
+
+        JScrollPane scrollPane = new JScrollPane(panel);
 
         // Optional: Customize scroll bar policies
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
