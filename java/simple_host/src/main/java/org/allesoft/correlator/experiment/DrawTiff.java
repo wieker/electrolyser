@@ -75,18 +75,25 @@ public class DrawTiff {
 }
 
 class DrawTiffPanel extends JPanel {
+    BufferedImage resizedImage = getImageProcessingResult();
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Call super to ensure proper painting
+        Graphics2D g2d = (Graphics2D) g;
 
-        int SHIFT_CONST = 8;
+        // Example: Draw a blue rectangle
+        g2d.drawImage(resizedImage, 0, 0, this);
+        // Example: Draw a blue rectangle
+    }
+
+    private BufferedImage getImageProcessingResult() {
+        int SHIFT_CONST = 6;
         double gamma = 1 / 2.2;
 
         setPreferredSize(new Dimension(3000, 2000));
 
         // Cast Graphics to Graphics2D for more advanced drawing features
-        Graphics2D g2d = (Graphics2D) g;
         DMatrixRMaj M = new DMatrixRMaj(3, 3);
 
         M.set(0, 0, 80);
@@ -221,8 +228,6 @@ class DrawTiffPanel extends JPanel {
                 }
             }
         }
-        // Example: Draw a blue rectangle
-        g2d.drawImage(resizedImage, 0, 0, this);
-        // Example: Draw a blue rectangle
+        return resizedImage;
     }
 }
