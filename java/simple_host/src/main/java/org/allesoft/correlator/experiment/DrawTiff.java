@@ -107,11 +107,12 @@ class DrawTiffPanel extends JPanel {
         M.set(2, 2, 119);
 
         File tiffFile = new File(
-                "/home/wieker/Pictures/colors4/darktable_exported/" + "girl.tif"
+                //"/home/wieker/Pictures/colors4/darktable_exported/" + "girl.tif"
                 //"/home/wieker/Pictures/daylight0/IMG_6344.CR3.tiff"
                 //"/home/wieker/Pictures/colors4/IMG_6320.CR3.tiff"
                 //"/home/wieker/Pictures/colors4/IMG_6321.CR3.tiff"
                 //"/home/wieker/Pictures/colors4/IMG_6322.CR3.tiff"
+                "/home/wieker/Downloads/IMG_1046.CR3.tiff"
         );
 
 
