@@ -6,6 +6,8 @@ import org.ejml.dense.row.CommonOps_DDRM;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -27,6 +29,11 @@ public class DrawTiff {
         ma = new MouseAdapter() {
 
             private Point origin;
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+            }
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -68,6 +75,18 @@ public class DrawTiff {
 
         frame.add(scrollPane);
 
+
+        // Add listener to the frame
+        frame.addKeyListener(new KeyAdapter() {
+            // Key Pressed method
+            public void keyPressed(KeyEvent e) {
+                // Check if an up key was pressed
+                if(e.getKeyCode() == KeyEvent.VK_R){
+                    //panel.getImage().getRGB()
+                }
+            }
+        });
+
         frame.setMinimumSize(new Dimension(1920, 1080));
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -76,6 +95,10 @@ public class DrawTiff {
 
 class DrawTiffPanel extends JPanel {
     BufferedImage resizedImage = getImageProcessingResult();
+
+    public BufferedImage getImage() {
+        return resizedImage;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -112,7 +135,8 @@ class DrawTiffPanel extends JPanel {
                 //"/home/wieker/Pictures/colors4/IMG_6320.CR3.tiff"
                 //"/home/wieker/Pictures/colors4/IMG_6321.CR3.tiff"
                 //"/home/wieker/Pictures/colors4/IMG_6322.CR3.tiff"
-                "/home/wieker/Downloads/IMG_1046.CR3.tiff"
+                //"/home/wieker/Downloads/IMG_1046.CR3.tiff"
+                "/home/wieker/Downloads/IMG_6245.CR3.tiff"
         );
 
 
