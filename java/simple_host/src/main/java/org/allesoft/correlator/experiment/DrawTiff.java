@@ -119,15 +119,15 @@ class DrawTiffPanel extends JPanel {
         // Cast Graphics to Graphics2D for more advanced drawing features
         DMatrixRMaj M = new DMatrixRMaj(3, 3);
 
-        M.set(0, 0, 80);
-        M.set(0, 1, 80);
-        M.set(0, 2, 22);
-        M.set(1, 0, 52);
-        M.set(1, 1, 131);
-        M.set(1, 2, 79);
-        M.set(2, 0, 28);
-        M.set(2, 1, 62);
-        M.set(2, 2, 119);
+        M.set(0, 0, 120);
+        M.set(0, 1, 0);
+        M.set(0, 2, 0);
+        M.set(1, 0, 0);
+        M.set(1, 1, 120);
+        M.set(1, 2, 0);
+        M.set(2, 0, 0);
+        M.set(2, 1, 0);
+        M.set(2, 2, 120);
 
         File tiffFile = new File(
                 //"/home/wieker/Pictures/colors4/darktable_exported/" + "girl.tif"
