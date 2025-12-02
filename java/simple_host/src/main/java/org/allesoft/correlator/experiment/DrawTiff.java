@@ -136,7 +136,8 @@ class DrawTiffPanel extends JPanel {
                 //"/home/wieker/Pictures/colors4/IMG_6321.CR3.tiff"
                 //"/home/wieker/Pictures/colors4/IMG_6322.CR3.tiff"
                 //"/home/wieker/Downloads/IMG_1046.CR3.tiff"
-                "/home/wieker/Downloads/IMG_6245.CR3.tiff"
+                //"/home/wieker/Downloads/IMG_6245.CR3.tiff"
+                "/home/wieker/Pictures/colors5/IMG_6352.CR3.tiff"
         );
 
 
