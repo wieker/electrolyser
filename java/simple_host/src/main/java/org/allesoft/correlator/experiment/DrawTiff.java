@@ -82,7 +82,21 @@ public class DrawTiff {
             public void keyPressed(KeyEvent e) {
                 // Check if an up key was pressed
                 if(e.getKeyCode() == KeyEvent.VK_R){
+                    boolean success = false;
                     //panel.getImage().getRGB()
+
+                    try {
+                        success = ImageIO.write(panel.resizedImage, "BMP", new File(
+                                "/home/wieker/calib-output-" + "file" + ".bmp"
+                        ));
+                    } catch (IOException e1) {
+                        throw new RuntimeException(e1);
+                    }
+                    if (success) {
+                        System.out.println("BMP image saved successfully.");
+                    } else {
+                        System.out.println("Failed to save BMP image. Check image type compatibility.");
+                    }
                 }
             }
         });
@@ -95,6 +109,7 @@ public class DrawTiff {
 
 class DrawTiffPanel extends JPanel {
     BufferedImage resizedImage = getImageProcessingResult();
+    BufferedImage originalImage;
 
     public BufferedImage getImage() {
         return resizedImage;
@@ -156,6 +171,8 @@ class DrawTiffPanel extends JPanel {
         } else {
             System.out.println("Could not read TIFF image with ImageIO.");
         }
+
+        originalImage = image;
 
         System.out.println(image.getHeight());
         System.out.println(image.getWidth());
