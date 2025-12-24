@@ -19,7 +19,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class DrawTiff {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Power dumper");
+        JFrame frame = new JFrame("Camera RAW viewer");
 
 
         // 2. Create the JScrollPane with the content panel
