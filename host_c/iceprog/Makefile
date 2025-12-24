@@ -15,7 +15,7 @@ all: $(PROGRAM_PREFIX)iceprog$(EXE)
 
 $(PROGRAM_PREFIX)iceprog$(EXE): iceprog.o mpsse.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LDLIBS)
-	$(CC) -shared -o libHelloWorld.so -fPIC HelloWorld.c -I/usr/lib/jvm/java-25-openjdk-amd64/include -I/usr/lib/jvm/java-25-openjdk-amd64/include/linux
+	$(CC) -shared -o libHelloWorld.so -fPIC java_bridge.c -I/usr/lib/jvm/java-25-openjdk-amd64/include -I/usr/lib/jvm/java-25-openjdk-amd64/include/linux
 
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
