@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "spi_lib.h"
+#include <error.h>
 
 static struct ftdi_context ftdic;
 static int ftdic_open = 0; //false
@@ -12,7 +13,7 @@ static void send_byte(uint8_t data)
   int rc = ftdi_write_data(&ftdic, &data, 1);
   if (rc != 1) {
      fprintf(stderr, "Write error (single byte, rc=%d, expected %d) data: 0x%x.\n", rc, 1, data);
-     error(2);
+     error(2, 2, "");
   }
 }
 
@@ -23,7 +24,7 @@ static uint8_t recv_byte()
      int rc = ftdi_read_data(&ftdic, &data, 1);
      if (rc < 0) {
         fprintf(stderr, "Read error.\n");
-        error(2);
+        error(2, 2, "");
      }
      if (rc == 1)
         break;
@@ -45,7 +46,7 @@ static void send_spi(uint8_t *data, int n)
   int rc = ftdi_write_data(&ftdic, data, n);
   if (rc != n) {
      fprintf(stderr, "Write error (chunk, rc=%d, expected %d).\n", rc, n);
-     error(2);
+     error(2, 2, "");
   }
 }
 
@@ -75,7 +76,7 @@ static void xfer_spi(uint8_t *data, int n)
   int rc = ftdi_write_data(&ftdic, data, n);
   if (rc != n) {
      fprintf(stderr, "Write error (chunk, rc=%d, expected %d).\n", rc, n);
-     error(2);
+     error(2, 2, "");
   }
 
   for (int i = 0; i < n; i++)
@@ -177,7 +178,7 @@ int spi_init()
 	/* Enter MPSSE (Multi-Protocol Synchronous Serial Engine) mode. Set all pins to output. */
 	if (ftdi_set_bitmode(&ftdic, 0xff, BITMODE_MPSSE) < 0) {
 		fprintf(stderr, "Failed to set BITMODE_MPSSE on iCE FTDI USB device.\n");
-		error(2);
+        error(2, 2, "");
 	}
 
    //enable clock divide by 5 ==> 6MHz
