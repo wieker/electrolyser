@@ -1,4 +1,6 @@
-class HelloWorld {
+package org.allesoft.correlator.experiment;
+
+class JavaBridge {
     static {
         System.loadLibrary("HelloWorld");
     }
@@ -9,6 +11,6 @@ class HelloWorld {
     public static void main(String[] args) {
 
         //invoke non-static print method
-        new HelloWorld().print();
+        new JavaBridge().print();
     }
 }
