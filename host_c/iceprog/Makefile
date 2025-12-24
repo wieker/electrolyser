@@ -9,10 +9,13 @@ LDLIBS += $(shell for pkg in libftdi1 libftdi; do $(PKG_CONFIG) --silence-errors
 CFLAGS += $(shell for pkg in libftdi1 libftdi; do $(PKG_CONFIG) --silence-errors --cflags $$pkg && exit; done; )
 endif
 
+CFLAGS += -fPIC
+
 all: $(PROGRAM_PREFIX)iceprog$(EXE)
 
 $(PROGRAM_PREFIX)iceprog$(EXE): iceprog.o mpsse.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LDLIBS)
+	$(CC) -shared -o libHelloWorld.so -fPIC HelloWorld.c -I/usr/lib/jvm/java-25-openjdk-amd64/include -I/usr/lib/jvm/java-25-openjdk-amd64/include/linux
 
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
