@@ -2,7 +2,7 @@ package org.allesoft.correlator.experiment;
 
 class JavaBridge {
     static {
-        System.loadLibrary("HelloWorld");
+        System.loadLibrary("iceprog");
     }
 
     private native void print();

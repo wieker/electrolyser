@@ -14,8 +14,8 @@ CFLAGS += -fPIC
 all: $(PROGRAM_PREFIX)iceprog$(EXE)
 
 $(PROGRAM_PREFIX)iceprog$(EXE): iceprog.o mpsse.o
+	$(CC) -shared -o lib$@.so -fPIC java_bridge.c $^ $(LDLIBS) -I/usr/lib/jvm/java-25-openjdk-amd64/include -I/usr/lib/jvm/java-25-openjdk-amd64/include/linux
 	$(CC) -o $@ $(LDFLAGS) $^ $(LDLIBS)
-	$(CC) -shared -o libHelloWorld.so -fPIC java_bridge.c -I/usr/lib/jvm/java-25-openjdk-amd64/include -I/usr/lib/jvm/java-25-openjdk-amd64/include/linux
 
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
