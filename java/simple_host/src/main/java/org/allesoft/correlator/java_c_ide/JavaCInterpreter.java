@@ -11,5 +11,11 @@ public class JavaCInterpreter {
         1. Run C Interpreter from https://github.com/wieker/java-c-interpreter
         2. Read compile_commands.json
         3. Port to IDEA GUI => PSI
+
+        scope:
+        1. C99 parser/interpreter written in Java (based on CDT/Cover)
+        2. read cmake/bear compile_commands.json as entry point
+        3. integrate into the IntelliJ UI / PSI
+        4. add IntelliJ GDB support a-la Borland Turbo Debugger / C++ Builder for this C99 engine
      */
 }
