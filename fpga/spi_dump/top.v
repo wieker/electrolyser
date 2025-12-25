@@ -89,7 +89,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
       if(handle_data == 1) begin
          led[2:0] <= ~led[2:0];
          spi_wr_en <= 1;
-         spi_wr_data[31:0] <= ~spi_recv_data_reg[31:0];
+         spi_wr_data[31:0] <= spi_recv_data_reg[31:0];
          handle_data <= 0;
       end
    end
