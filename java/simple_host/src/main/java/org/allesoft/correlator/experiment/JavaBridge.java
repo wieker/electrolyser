@@ -3,7 +3,7 @@ package org.allesoft.correlator.experiment;
 class JavaBridge {
     static {
         System.loadLibrary("iceprog");
-        System.loadLibrary("spihost");
+        //System.loadLibrary("spihost");
     }
 
     private native void print();
@@ -14,6 +14,6 @@ class JavaBridge {
 
         //invoke non-static print method
         new JavaBridge().print();
-        new JavaBridge().spi();
+        //new JavaBridge().spi();
     }
 }

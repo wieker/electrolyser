@@ -1085,3 +1085,15 @@ int main(int argc, char **argv)
 	mpsse_close();
 	return 0;
 }
+
+void spi_dump_main() {
+	fprintf(stderr, "init..\n");
+
+	mpsse_init(0, NULL, false);
+		usleep(100);
+
+		sram_chip_select();
+		usleep(2000);
+
+		sram_reset();
+}
