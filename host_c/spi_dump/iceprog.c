@@ -1091,6 +1091,7 @@ void spi_dump_main() {
 
 	mpsse_init(0, NULL, false);
 		usleep(100);
+		usleep(2000000);
 
 		sram_chip_select();
 		usleep(2000);

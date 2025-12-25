@@ -8,8 +8,8 @@ void spi_dump_main();
 
 JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_print(JNIEnv *env, jobject obj) {
     printf("Printing from native\\n");
-    char *args[3] = {"./iceprog", "-S", "/home/wieker/Projects/electrolyser/fpga/test_spi/top.bin"};
-    //main(3, args);
+    char *args[3] = {"./iceprog", "-S", "/home/wieker/Projects/electrolyser/fpga/spi_dump/top.bin"};
+    main(3, args);
     spi_dump_main();
 }
 
