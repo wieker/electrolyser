@@ -15,7 +15,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    reg spi_reset;
    wire spi_wr_buffer_free;
    reg spi_wr_en;
-   reg [23:0] spi_wr_data;
+   reg [31:0] spi_wr_data;
    wire spi_rd_data_available;
    reg spi_rd_data_available_buf;
    reg spi_rd_ack;
