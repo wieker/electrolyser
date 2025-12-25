@@ -1091,7 +1091,7 @@ void spi_dump_main() {
 
 	mpsse_init(0, NULL, false);
     usleep(100);
-    sram_chip_select();
+    set_cs_creset(0, 1);
     usleep(2000000);
 
 
@@ -1104,10 +1104,14 @@ void spi_dump_main() {
         status = init[0];
     //}
 
+    set_cs_creset(1, 1);
+    //set_cs_creset(0, 1);
+
     //while (retries < 100 && status != (0x1<<6)) {
         uint8_t bytes[] = {0x04, 0x0, 0x0, 0x3};
         mpsse_xfer_spi(bytes, 4);
         printf("send yellow led, status: 0x%x\n", bytes[0]);
         status = bytes[0];
     //}
+    set_cs_creset(1, 1);
 }
