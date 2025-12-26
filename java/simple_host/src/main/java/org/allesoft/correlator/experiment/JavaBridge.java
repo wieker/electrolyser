@@ -26,7 +26,7 @@ class JavaBridge {
 
         byte[] array = new byte[2048];
         for (int i = 0; i < array.length; i++) {
-            array[i] = (byte) (Math.random() * 256 - 128);
+            array[i] = (byte) 0x44;
         }
         byte[] copy = Arrays.copyOf(array, 2048);
         new JavaBridge().spi(copy);
