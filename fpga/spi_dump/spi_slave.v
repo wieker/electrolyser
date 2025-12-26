@@ -29,7 +29,7 @@ module spi_slave(input wire clk, input wire reset,
    //states
    parameter IDLE = 0, INIT=IDLE+1, RD_WAIT_DATA=INIT+1, RD_WAIT_ACK=RD_WAIT_DATA+1, WR_WAIT_DATA=RD_WAIT_ACK+1, WR_WAIT_ACK=WR_WAIT_DATA+1;
 
-   assign SPI_MISO = miso_out_reg;
+   assign SPI_MISO = mosi_reg[1] && ~ spi_ss_reg[1];
    wire spi_clk_rising_edge;
    wire spi_clk_falling_edge;
    assign spi_clk_rising_edge = (spi_clk_reg[1:0] == 2'b01);

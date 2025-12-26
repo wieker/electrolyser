@@ -48,7 +48,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
 
    assign LED_R = SPI_SCK;
    assign LED_G = SPI_MOSI;
-   assign LED_B = SPI_MISO;
+   assign LED_B = 1;
 
    integer i;
 
