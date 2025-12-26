@@ -89,7 +89,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
         .WADDR(ram_wr_addr),
         .WCLK(clk),
         .WCLKE(1),
-        .WDATA(snap_data),
+        .WDATA({~snap_data[0:7], ~snap_data[15:8]}),
         .WE(snap_ok)
     );
 
@@ -121,9 +121,9 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
          ram_wr_addr <= ram_wr_addr + 1;
          snap <= 0;
          snap_ok <= 1;
-         snap_data = {snap_ok, snap_data[15:1]};
+         snap_data = {SPI_SCK, snap_data[15:1]};
       end else begin
-         snap_data = {snap_ok, snap_data[15:1]};
+         snap_data = {SPI_SCK, snap_data[15:1]};
          snap <= snap + 1;
          snap_ok <= 0;
       end

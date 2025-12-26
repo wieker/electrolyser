@@ -369,7 +369,7 @@ void mpsse_init(int ifnum, const char *devstr, bool slow_clock)
 	} else {
 		// set 6 MHz clock
 		mpsse_send_byte(MC_SET_CLK_DIV);
-		mpsse_send_byte(0x00);
+		mpsse_send_byte(0x01);
 		mpsse_send_byte(0x00);
 	}
 }
