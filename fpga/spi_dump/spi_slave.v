@@ -29,7 +29,7 @@ module spi_slave(input wire clk, input wire reset,
    //states
    parameter IDLE = 0, INIT=IDLE+1, RD_WAIT_DATA=INIT+1, RD_WAIT_ACK=RD_WAIT_DATA+1, WR_WAIT_DATA=RD_WAIT_ACK+1, WR_WAIT_ACK=WR_WAIT_DATA+1;
 
-   assign SPI_MISO = mosi_reg[1] && ~ spi_ss_reg[1];
+   assign SPI_MISO = wr_data_reg[0];
    wire spi_clk_rising_edge;
    wire spi_clk_falling_edge;
    assign spi_clk_rising_edge = (spi_clk_reg[1:0] == 2'b01);
@@ -76,7 +76,11 @@ module spi_slave(input wire clk, input wire reset,
          end
 
             if(spi_clk_falling_edge == 1'b1) begin
-               rd_data[31:0] <= {SPI_MOSI, rd_data[31:1]};
+               wr_data_reg[31:0] <= {wr_data_reg[0], wr_data_reg[31:1]};
+            end
+
+            if(spi_clk_rising_edge == 1'b1) begin
+               rd_data[31:0] <= {mosi_reg[1], rd_data[31:1]};
                counter_read <= counter_read + 1;
 
                if(counter_read >= 15) begin //finish recv
@@ -84,13 +88,6 @@ module spi_slave(input wire clk, input wire reset,
                   rd_data_available <= 1;
                   wr_buffer_free <= 1;
                end
-
-               miso_out_reg <= 0;
-            end
-
-            if(spi_clk_rising_edge == 1'b1) begin
-               wr_data_reg[31:0] <= {wr_data_reg[0], wr_data_reg[31:1]};
-               miso_out_reg <= mosi_reg[1];
             end
 
             if (rd_data_available == 1) begin
