@@ -9,7 +9,7 @@ void spi_dump_main();
 void spi_comm(uint8_t* data, int size);
 
 JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_print(JNIEnv *env, jobject obj) {
-    printf("Printing from native\\n");
+    //printf("Printing from native\\n");
     char *args[3] = {"./iceprog", "-S", "/home/wieker/Projects/electrolyser/fpga/spi_dump/top.bin"};
     main(3, args);
 }
@@ -24,7 +24,7 @@ JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_spi(JN
     jsize length = (*env)->GetArrayLength(env, data);
 
 
-    printf("Printing from native\\n");
+    //printf("Printing from native\\n");
     spi_comm(cData, length);
 
     (*env)->ReleaseByteArrayElements(env, data, cData, JNI_COMMIT);

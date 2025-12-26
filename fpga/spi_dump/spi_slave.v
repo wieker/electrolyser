@@ -76,7 +76,7 @@ module spi_slave(input wire clk, input wire reset,
          end
 
             if(spi_clk_rising_edge == 1'b1) begin
-               rd_data[31:0] <= {mosi_reg[0], rd_data[31:1]};
+               rd_data[31:0] <= {SPI_MOSI, rd_data[31:1]};
                counter_read <= counter_read + 1;
 
                if(counter_read >= 15) begin //finish recv

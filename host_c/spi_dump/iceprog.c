@@ -1133,7 +1133,7 @@ void spi_dump_main() {
 }
 
 void spi_comm(uint8_t* data, int size) {
-	fprintf(stderr, "init..\n");
+	//fprintf(stderr, "init..\n");
 
 	mpsse_init(0, NULL, false);
 	set_cs_creset(0, 1);

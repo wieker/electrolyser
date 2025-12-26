@@ -16,20 +16,23 @@ class JavaBridge {
 
         //invoke non-static print method
         new JavaBridge().print();
-        byte[] array = new byte[1024];
-        for (int i = 0; i < array.length; i ++) {
-            array[i] = (byte)(Math.random() * 256 - 128);
-        }
-        byte[] copy = Arrays.copyOf(array, 1024);
-        new JavaBridge().spi(copy);
 
-        for (int i = 18; i < array.length; i ++) {
-            if (array[i - 18] != copy[i]) {
-                System.out.printf("Assertion %d %x %x\n\n", i, array[i - 18], copy[i]);
-                throw new AssertionError();
+        outer: while (true) {
+            byte[] array = new byte[2048];
+            for (int i = 0; i < array.length; i++) {
+                array[i] = (byte) (Math.random() * 256 - 128);
             }
-        }
+            byte[] copy = Arrays.copyOf(array, 2048);
+            new JavaBridge().spi(copy);
 
-        System.out.println("Arrays are identical");
+            for (int i = 18; i < array.length; i++) {
+                if (array[i - 18] != copy[i]) {
+                    System.out.printf("Assertion %d %x %x\n\n", i, array[i - 18], copy[i]);
+                    continue outer;
+                }
+            }
+
+            System.out.println("Arrays are identical");
+        }
     }
 }
