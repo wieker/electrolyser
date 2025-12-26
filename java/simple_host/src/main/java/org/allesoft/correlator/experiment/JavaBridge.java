@@ -23,8 +23,11 @@ class JavaBridge {
         byte[] copy = Arrays.copyOf(array, 1024);
         new JavaBridge().spi(copy);
 
-        for (int i = 8; i < array.length; i ++) {
-            assert array[i - 8] == copy[i];
+        for (int i = 18; i < array.length; i ++) {
+            if (array[i - 18] != copy[i]) {
+                System.out.printf("Assertion %d %d %d", i, array[i - 18], copy[i]);
+                throw new AssertionError();
+            }
         }
 
         System.out.println("Arrays are identical");
