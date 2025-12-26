@@ -85,12 +85,12 @@ module spi_slave(input wire clk, input wire reset,
                   wr_buffer_free <= 1;
                end
 
-               miso_out_reg <= SPI_MOSI;
+               miso_out_reg <= 0;
             end
 
             if(spi_clk_rising_edge == 1'b1) begin
                wr_data_reg[31:0] <= {wr_data_reg[0], wr_data_reg[31:1]};
-               miso_out_reg <= ~ SPI_MOSI;
+               miso_out_reg <= mosi_reg[1];
             end
 
             if (rd_data_available == 1) begin
