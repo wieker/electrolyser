@@ -28,6 +28,7 @@ uint8_t mpsse_recv_byte(void);
 void mpsse_send_byte(uint8_t data);
 void mpsse_send_spi(uint8_t *data, int n);
 void mpsse_xfer_spi(uint8_t *data, int n);
+void mpsse_xfer_spi_icn(uint8_t *data, int n);
 uint8_t mpsse_xfer_spi_bits(uint8_t data, int n);
 void mpsse_set_gpio(uint8_t gpio, uint8_t direction);
 int mpsse_readb_low(void);

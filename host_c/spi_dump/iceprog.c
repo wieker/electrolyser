@@ -1096,18 +1096,18 @@ void spi_dump_main() {
 
 
     uint8_t init[] = {0x01, 0x0, 0x0, 0x3};
-    mpsse_xfer_spi(init, 4);
+    mpsse_xfer_spi_icn(init, 4);
     printf("send yellow led, status: 0x%x 0x%x 0x%x\n\n", init[0], init[1], init[3]);
 
 
     uint8_t bytes[] = {0xAA, 0xE5, 0x41, 0x1C};
-    mpsse_xfer_spi(bytes, 4);
+    mpsse_xfer_spi_icn(bytes, 4);
     printf("send yellow led, status: 0x%x 0x%x 0x%x 0x%x\n\n", bytes[0], bytes[1], bytes[2], bytes[3]);
 
 
     for (int i = 0; i < 10; i ++) {
-        uint8_t bytes2[] = {0xAA, 0x0, 0x0 + i, 0x1C};
-        mpsse_xfer_spi(bytes2, 4);
+        uint8_t bytes2[] = {0xAA, 0x0 - i, 0x0 + i, 0x1C};
+        mpsse_xfer_spi_icn(bytes2, 4);
         printf("send yellow led, status: 0x%x 0x%x 0x%x 0x%x\n\n", bytes2[0], bytes2[1], bytes2[2], bytes2[3]);
 
         usleep(100);
