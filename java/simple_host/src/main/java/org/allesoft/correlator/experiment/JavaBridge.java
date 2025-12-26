@@ -25,7 +25,7 @@ class JavaBridge {
 
         for (int i = 18; i < array.length; i ++) {
             if (array[i - 18] != copy[i]) {
-                System.out.printf("Assertion %d %d %d", i, array[i - 18], copy[i]);
+                System.out.printf("Assertion %d %x %x\n\n", i, array[i - 18], copy[i]);
                 throw new AssertionError();
             }
         }
