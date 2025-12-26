@@ -12,8 +12,19 @@ JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_print(
     main(3, args);
 }
 
-JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_spi(JNIEnv *env, jobject obj) {
+JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_spi(JNIEnv *env, jobject obj, jbyteArray data) {
+    jboolean isCopy;
+    jbyte *cData = (*env)->GetByteArrayElements(env, data, &isCopy);
+    if (cData == NULL) {
+        return; // Error handling
+    }
+
+    jsize length = (*env)->GetArrayLength(env, data);
+
+
     printf("Printing from native\\n");
     spi_dump_main();
+
+    (*env)->ReleaseByteArrayElements(env, data, cData, JNI_COMMIT);
 }
 

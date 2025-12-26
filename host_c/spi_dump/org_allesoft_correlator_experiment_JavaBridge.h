@@ -20,7 +20,7 @@ JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_print
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_spi
-(JNIEnv *, jobject);
+(JNIEnv *, jobject, jbyteArray data);
 
 #ifdef __cplusplus
 }
