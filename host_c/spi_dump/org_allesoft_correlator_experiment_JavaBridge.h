@@ -13,7 +13,14 @@ extern "C" {
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_print
-  (JNIEnv *, jobject);
+(JNIEnv *, jobject);
+/*
+ * Class:     org_allesoft_correlator_experiment_JavaBridge
+ * Method:    print
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_spi
+(JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

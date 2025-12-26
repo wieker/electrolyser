@@ -10,6 +10,10 @@ JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_print(
     printf("Printing from native\\n");
     char *args[3] = {"./iceprog", "-S", "/home/wieker/Projects/electrolyser/fpga/spi_dump/top.bin"};
     main(3, args);
+}
+
+JNIEXPORT void JNICALL Java_org_allesoft_correlator_experiment_JavaBridge_spi(JNIEnv *env, jobject obj) {
+    printf("Printing from native\\n");
     spi_dump_main();
 }
 

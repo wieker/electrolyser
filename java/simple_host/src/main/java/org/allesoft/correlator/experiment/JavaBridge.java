@@ -14,6 +14,7 @@ class JavaBridge {
 
         //invoke non-static print method
         new JavaBridge().print();
-        //new JavaBridge().spi();
+        new JavaBridge().spi();
+        new JavaBridge().spi();
     }
 }

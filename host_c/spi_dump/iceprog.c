@@ -1112,4 +1112,6 @@ void spi_dump_main() {
 
         usleep(100);
     }
+
+	mpsse_close();
 }
