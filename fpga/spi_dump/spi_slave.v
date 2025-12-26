@@ -75,7 +75,7 @@ module spi_slave(input wire clk, input wire reset,
             counter_read <= 0;
          end
 
-            if(spi_clk_rising_edge == 1'b1) begin
+            if(spi_clk_falling_edge == 1'b1) begin
                rd_data[31:0] <= {SPI_MOSI, rd_data[31:1]};
                counter_read <= counter_read + 1;
 
@@ -86,7 +86,7 @@ module spi_slave(input wire clk, input wire reset,
                end
             end
 
-            if(spi_clk_falling_edge == 1'b1) begin
+            if(spi_clk_rising_edge == 1'b1) begin
                wr_data_reg[31:0] <= {wr_data_reg[0], wr_data_reg[31:1]};
             end
 
