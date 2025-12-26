@@ -1131,3 +1131,15 @@ void spi_dump_main() {
 
 	mpsse_close();
 }
+
+void spi_comm(uint8_t* data, int size) {
+	fprintf(stderr, "init..\n");
+
+	mpsse_init(0, NULL, false);
+	set_cs_creset(0, 1);
+
+	mpsse_xfer_spi_icn(data, size);
+
+
+	mpsse_close();
+}
