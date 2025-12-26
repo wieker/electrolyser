@@ -71,6 +71,24 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
       handle_data = 0;
    end
 
+
+    reg [2:0] ram_wr_addr;
+    reg [2:0] ram_rd_addr;
+    wire [15:0] ram_data_out;
+
+    SB_RAM40_4K SB_RAM40_4K_inst (
+        .RDATA(ram_data_out),
+        .RADDR(ram_rd_addr),
+        .RCLK(clk),
+        .RCLKE(1),
+        .RE(1),
+        .WADDR(ram_wr_addr),
+        .WCLK(clk),
+        .WCLKE(1),
+        .WDATA(spi_recv_data_reg[31:16]),
+        .WE(handle_data)
+    );
+
    always @(posedge clk)
    begin
 
@@ -89,8 +107,10 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
       if(handle_data == 1) begin
          led[2:0] <= ~led[2:0];
          spi_wr_en <= 1;
-         spi_wr_data[31:0] <= spi_recv_data_reg[31:0];
+         spi_wr_data[15:0] <= ram_data_out;
          handle_data <= 0;
+         ram_rd_addr <= ram_rd_addr + 1;
+         ram_wr_addr <= ram_wr_addr + 1;
       end
    end
 

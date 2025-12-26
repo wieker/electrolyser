@@ -81,7 +81,7 @@ module spi_slave(input wire clk, input wire reset,
                rd_data[31:0] <= {mosi_reg[0], rd_data[31:1]};
                counter_read <= counter_read + 1;
 
-               if(counter_read >= 31) begin //finish recv
+               if(counter_read >= 15) begin //finish recv
                   counter_read <= 0;
                   rd_data_available <= 1;
                   wr_buffer_free <= 1;
