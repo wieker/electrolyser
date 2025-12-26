@@ -21,13 +21,13 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    reg spi_rd_ack;
    wire [31:0] spi_rd_data;
 
-   assign SPI_MISO = SPI_MOSI;
+   //assign SPI_MISO = SPI_MOSI;
    wire tmp;
 
    parameter NOP=0, INIT=1, WR_INVERTED=2, RD_INVERTED=3, WR_LEDS=4, RD_LEDS=5, WR_VEC=6, RD_VEC=7;
 
    spi_slave spi_slave_inst(.clk(clk), .reset(spi_reset),
-      .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(tmp),
+      .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
       .wr_buffer_free(spi_wr_buffer_free), .wr_en(spi_wr_en), .wr_data(spi_wr_data),
       .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data),
       .cnt(cnt)
@@ -46,9 +46,9 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    reg [7:0] vec_ptr;
    reg sending_vector;
 
-   assign LED_R = ~led[0];
-   assign LED_G = ~led[1];
-   assign LED_B = ~led[2];
+   assign LED_R = SPI_SCK;
+   assign LED_G = SPI_MOSI;
+   assign LED_B = SPI_MISO;
 
    integer i;
 
