@@ -80,6 +80,16 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
     reg [15:0] ram_rd_addr;
     wire [15:0] ram_data_out;
 
+    function [7:0] fbit_reverse ( input [7:0] data );
+    integer i;
+    begin
+      for ( i=0; i<8; i=i+1 )
+        begin
+          fbit_reverse[7-i] = data[i];
+        end
+      end
+    endfunction
+
     SB_RAM40_4K SB_RAM40_4K_inst (
         .RDATA(ram_data_out),
         .RADDR(ram_rd_addr),
@@ -89,7 +99,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
         .WADDR(ram_wr_addr),
         .WCLK(clk),
         .WCLKE(1),
-        .WDATA({~snap_data[0:7], ~snap_data[15:8]}),
+        .WDATA({8'h55, 8'h58}),
         .WE(snap_ok)
     );
 
@@ -111,7 +121,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
       if(handle_data == 1) begin
          led[2:0] <= ~led[2:0];
          spi_wr_en <= 1;
-         spi_wr_data[15:0] <= 16'haaaa;
+         spi_wr_data <= ram_data_out;
          handle_data <= 0;
          ram_rd_addr <= ram_rd_addr + 1;
          //ram_wr_addr <= ram_wr_addr + 1;
@@ -121,9 +131,9 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
          ram_wr_addr <= ram_wr_addr + 1;
          snap <= 0;
          snap_ok <= 1;
-         snap_data = {SPI_SCK, snap_data[15:1]};
+         snap_data = {1, snap_data[15:1]};
       end else begin
-         snap_data = {SPI_SCK, snap_data[15:1]};
+         snap_data = {0, snap_data[15:1]};
          snap <= snap + 1;
          snap_ok <= 0;
       end
