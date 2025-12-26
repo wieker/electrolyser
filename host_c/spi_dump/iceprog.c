@@ -1105,8 +1105,8 @@ void spi_dump_main() {
     printf("send yellow led, status: 0x%x 0x%x 0x%x 0x%x\n\n", bytes[0], bytes[1], bytes[2], bytes[3]);
 
 
-    for (int i = 0; i < 8; i ++) {
-        uint8_t bytes2[] = {0xAA, 0x0, 0x0, 0x1C};
+    for (int i = 0; i < 10; i ++) {
+        uint8_t bytes2[] = {0xAA, 0x0, 0x0 + i, 0x1C};
         mpsse_xfer_spi(bytes2, 4);
         printf("send yellow led, status: 0x%x 0x%x 0x%x 0x%x\n\n", bytes2[0], bytes2[1], bytes2[2], bytes2[3]);
 
