@@ -19,7 +19,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    wire spi_rd_data_available;
    reg spi_rd_data_available_buf;
    reg spi_rd_ack;
-   wire [31:0] spi_rd_data;
+   wire [0:15] spi_rd_data;
 
    //assign SPI_MISO = SPI_MOSI;
    wire tmp;

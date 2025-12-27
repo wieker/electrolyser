@@ -15,11 +15,14 @@ module spi_slave(input wire clk, input wire reset,
   reg [1:0] spi_ss_reg;
   wire spi_ss_falling_edge;
   wire spi_ss_rising_edge;
+  wire spi_clk_rising_edge;
+  wire spi_clk_falling_edge;
 
    assign spi_clk_rising_edge = (spi_clk_reg[1:0] == 2'b01);
    assign spi_clk_falling_edge = (spi_clk_reg[1:0] == 2'b10);
 
-   assign SPI_MISO = counter_read[0];
+    reg rs;
+   assign SPI_MISO = wr_reg[0];
 
 
    always @(posedge clk)
@@ -28,28 +31,14 @@ module spi_slave(input wire clk, input wire reset,
          rd_data <= 0;
          rd_data_available <= 0;
       end else begin
-               spi_clk_reg <= {spi_clk_reg[0], SPI_SCK};
+         spi_clk_reg <= {spi_clk_reg[0], SPI_SCK};
 
-
-         if (spi_ss_falling_edge == 1 || spi_ss_rising_edge == 1) begin
-            counter_read <= 0;
+         if(spi_clk_falling_edge == 1'b1) begin
+            rs <= ~rs;
          end
-
 
          if(spi_clk_rising_edge == 1'b1) begin
-            rd_data <= {SPI_MOSI, rd_data[0:14]};
-            counter_read <= counter_read + 1;
-         end
-
-         if (counter_read == 16) begin
-            counter_read <= 0;
-            rd_data_available <= 1;
-         end else begin
-            rd_data_available <= 0;
-         end
-
-         if (wr_en) begin
-            wr_reg <= wr_data;
+            wr_reg <= {wr_reg[1:15], SPI_MOSI};
          end
       end
    end
