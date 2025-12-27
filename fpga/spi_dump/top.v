@@ -47,7 +47,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    reg sending_vector;
 
    assign LED_R = SPI_SCK;
-   assign LED_G = SPI_MOSI;
+   assign LED_G = 1;
    assign LED_B = 1;
 
    integer i;
@@ -105,9 +105,8 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
       end
 
       if(handle_data == 1) begin
-         led[2:0] <= ~led[2:0];
          spi_wr_en <= 1;
-         spi_wr_data <= ram_data_out;
+         spi_wr_data <= spi_recv_data_reg;
          handle_data <= 0;
          ram_rd_addr <= ram_rd_addr + 1;
          ram_wr_addr <= ram_wr_addr + 1;
