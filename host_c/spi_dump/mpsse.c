@@ -204,7 +204,7 @@ void mpsse_xfer_spi(uint8_t *data, int n)
 		return;
 
 	/* Input and output, update data on negative edge read on positive. */
-	mpsse_send_byte(MC_DATA_IN | MC_DATA_OUT | MC_DATA_OCN);
+	mpsse_send_byte(MC_DATA_IN | MC_DATA_OUT | MC_DATA_LSB | MC_DATA_OCN);
 	mpsse_send_byte(n - 1);
 	mpsse_send_byte((n - 1) >> 8);
 

@@ -24,11 +24,11 @@ class JavaBridge {
 
         JFrame frame = new JFrame("SPI dumper");
 
-        byte[] array = new byte[2048];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = (byte) 0x01;
-        }
-        byte[] copy = Arrays.copyOf(array, 2048);
+        byte[] array = {0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x03};
+//        for (int i = 0; i < array.length; i++) {
+//            array[i] = (byte) 0x01;
+//        }
+        byte[] copy = Arrays.copyOf(array, array.length);
         new JavaBridge().spi(copy);
 
         DrawSigPanel panel = new DrawSigPanel();
