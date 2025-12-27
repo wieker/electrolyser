@@ -25,19 +25,30 @@ class JavaBridge {
         JFrame frame = new JFrame("SPI dumper");
 
         byte[] array = new byte[2048];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = (byte) 0x81;
-        }
-        byte[] copy = Arrays.copyOf(array, array.length);
-        new JavaBridge().spi(copy);
+        outer: while (true) {
+            for (int i = 0; i < array.length; i++) {
+                array[i] = (byte) (Math.random() * 256 - 128);
+            }
+            byte[] copy = Arrays.copyOf(array, array.length);
+            new JavaBridge().spi(copy);
 
-        DrawSigPanel panel = new DrawSigPanel();
+            for (int i = 2; i < array.length; i++) {
+                if (array[i - 2] != copy[i]) {
+                    System.out.printf("Assertion %d %x %x\n\n", i, array[i - 2], copy[i]);
+                    continue outer;
+                }
+            }
+
+            System.out.println("Arrays are identical");
+        }
+
+        /*DrawSigPanel panel = new DrawSigPanel();
         panel.array = copy;
         frame.add(panel);
 
         frame.setMinimumSize(new Dimension(1920, 1080));
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);*/
     }
 }
 
