@@ -10,6 +10,7 @@ module spi_slave(input wire clk, input wire reset,
 
    reg [4:0] counter_read; //max 32
    reg [0:15] wr_reg;
+   reg [0:15] rd_reg;
 
   reg [1:0] spi_clk_reg;
   reg [1:0] spi_ss_reg;
@@ -18,10 +19,12 @@ module spi_slave(input wire clk, input wire reset,
   wire spi_clk_rising_edge;
   wire spi_clk_falling_edge;
 
+  assign cnt = counter;
+
    assign spi_clk_rising_edge = (spi_clk_reg[1:0] == 2'b01);
    assign spi_clk_falling_edge = (spi_clk_reg[1:0] == 2'b10);
 
-    reg rs;
+    reg [0:4] counter;
    assign SPI_MISO = wr_reg[0];
 
 
@@ -33,12 +36,12 @@ module spi_slave(input wire clk, input wire reset,
       end else begin
          spi_clk_reg <= {spi_clk_reg[0], SPI_SCK};
 
-         if(spi_clk_falling_edge == 1'b1) begin
-            rs <= ~rs;
-         end
-
          if(spi_clk_rising_edge == 1'b1) begin
             wr_reg <= {wr_reg[1:15], SPI_MOSI};
+            counter <= counter + 1;
+         end else if (counter == 16) begin
+            counter <= 0;
+            rd_reg <= wr_reg;
          end
       end
    end

@@ -46,9 +46,9 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    reg [7:0] vec_ptr;
    reg sending_vector;
 
-   assign LED_R = SPI_SCK;
-   assign LED_G = 1;
-   assign LED_B = 1;
+   assign LED_R = cnt[0];
+   assign LED_G = cnt[1];
+   assign LED_B = cnt[2];
 
    integer i;
 
