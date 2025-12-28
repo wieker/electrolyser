@@ -33,9 +33,9 @@ class JavaBridge {
             byte[] copy = Arrays.copyOf(array, array.length);
             new JavaBridge().spi(copy);
 
-            for (int i = 2; i < array.length; i++) {
-                if (array[i - 2] != copy[i]) {
-                    System.out.printf("Assertion %d %x %x\n\n", i, array[i - 2], copy[i]);
+            for (int i = 18; i < array.length; i++) {
+                if (array[i - 18] != copy[i]) {
+                    System.out.printf("Assertion %d %x %x\n\n", i, array[i - 18], copy[i]);
                     throw new RuntimeException();
                 }
             }

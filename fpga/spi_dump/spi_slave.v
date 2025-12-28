@@ -53,7 +53,17 @@ module spi_slave(input wire clk, input wire reset,
 
          if (counter[0] == 1) begin
             counter <= 0;
-            wr_reg <= rd_reg;
+            rd_data_available <= 1;
+            rd_data <= rd_reg;
+         end
+
+         if (rd_data_available == 1) begin
+            rd_data_available <= 0;
+         end
+
+         if (wr_en == 1) begin
+            counter <= 0;
+            wr_reg <= wr_data;
          end
       end
    end

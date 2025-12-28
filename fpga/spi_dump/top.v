@@ -15,7 +15,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    reg spi_reset;
    wire spi_wr_buffer_free;
    reg spi_wr_en;
-   reg [31:0] spi_wr_data;
+   reg [0:15] spi_wr_data;
    wire spi_rd_data_available;
    reg spi_rd_data_available_buf;
    reg spi_rd_ack;
@@ -28,7 +28,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
 
    spi_slave spi_slave_inst(.clk(clk), .reset(spi_reset),
       .SPI_SCK(SPI_SCK), .SPI_SS(SPI_SS), .SPI_MOSI(SPI_MOSI), .SPI_MISO(SPI_MISO),
-      .wr_buffer_free(spi_wr_buffer_free), .wr_en(spi_rd_data_available), .wr_data(spi_rd_data),
+      .wr_buffer_free(spi_wr_buffer_free), .wr_en(spi_wr_en), .wr_data(spi_wr_data),
       .rd_data_available(spi_rd_data_available), .rd_ack(spi_rd_ack), .rd_data(spi_rd_data),
       .cnt(cnt)
    );
@@ -106,7 +106,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
 
       if(handle_data == 1) begin
          spi_wr_en <= 1;
-         spi_wr_data <= spi_recv_data_reg;
+         spi_wr_data <= ram_data_out;
          handle_data <= 0;
          ram_rd_addr <= ram_rd_addr + 1;
          ram_wr_addr <= ram_wr_addr + 1;
