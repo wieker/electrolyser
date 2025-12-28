@@ -27,16 +27,15 @@ class JavaBridge {
         byte[] array = new byte[2048];
         outer: while (true) {
             for (int i = 0; i < array.length; i++) {
-                array[i] = (byte) 0;
+                array[i] = (byte) (Math.random() * 256 - 128);
             }
             array[0] = -127;
             byte[] copy = Arrays.copyOf(array, array.length);
             new JavaBridge().spi(copy);
 
-            byte[] cmp = {(byte) 0xaa, (byte) 0xaa, (byte) 0xaa, (byte) 0xaa};
-            for (int i = 1; i < array.length; i++) {
-                if (cmp[(i - 1) % 4] != copy[i]) {
-                    System.out.printf("Assertion %d %x %x\n\n", i, cmp[(i - 1) % 4], copy[i]);
+            for (int i = 2; i < array.length; i++) {
+                if (array[i - 2] != copy[i]) {
+                    System.out.printf("Assertion %d %x %x\n\n", i, array[i - 2], copy[i]);
                     throw new RuntimeException();
                 }
             }

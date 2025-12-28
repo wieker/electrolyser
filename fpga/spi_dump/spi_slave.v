@@ -28,7 +28,7 @@ module spi_slave(input wire clk, input wire reset,
    assign spi_ss_falling_edge = (spi_ss_reg[1:0] == 2'b10);
 
     reg [0:4] counter;
-   assign SPI_MISO = counter[4];
+   assign SPI_MISO = wr_reg[15];
 
 
    always @(posedge clk)
@@ -47,6 +47,13 @@ module spi_slave(input wire clk, input wire reset,
 
          if(spi_clk_rising_edge == 1'b1) begin
             counter <= counter + 1;
+            rd_reg <= {spi_mosi_reg[1], rd_reg[0:14]};
+            wr_reg <= {0, wr_reg[0:14]};
+         end
+
+         if (counter[0] == 1) begin
+            counter <= 0;
+            wr_reg <= rd_reg;
          end
       end
    end
