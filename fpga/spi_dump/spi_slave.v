@@ -46,24 +46,20 @@ module spi_slave(input wire clk, input wire reset,
          end
 
          if(spi_clk_rising_edge == 1'b1) begin
-            counter <= counter + 1;
             rd_reg <= {spi_mosi_reg[1], rd_reg[0:14]};
-            wr_reg <= {0, wr_reg[0:14]};
-         end
-
-         if (counter[0] == 1) begin
-            counter <= 0;
-            rd_data_available <= 1;
-            rd_data <= rd_reg;
+            if (counter == 15) begin
+                counter <= 0;
+                rd_data_available <= 1;
+                wr_reg <= wr_data;
+                rd_data <= {spi_mosi_reg[1], rd_reg[0:14]};
+            end else begin
+                counter <= counter + 1;
+                wr_reg <= {0, wr_reg[0:14]};
+            end
          end
 
          if (rd_data_available == 1) begin
             rd_data_available <= 0;
-         end
-
-         if (wr_en == 1) begin
-            counter <= 0;
-            wr_reg <= wr_data;
          end
       end
    end
