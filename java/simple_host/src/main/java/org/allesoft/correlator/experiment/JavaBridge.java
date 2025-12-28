@@ -33,7 +33,7 @@ class JavaBridge {
             byte[] copy = Arrays.copyOf(array, array.length);
             new JavaBridge().spi(copy);
 
-            byte[] cmp = {0, 0, -1, -1};
+            byte[] cmp = {(byte) 0xaa, (byte) 0xaa, (byte) 0xaa, (byte) 0xaa};
             for (int i = 1; i < array.length; i++) {
                 if (cmp[(i - 1) % 4] != copy[i]) {
                     System.out.printf("Assertion %d %x %x\n\n", i, cmp[(i - 1) % 4], copy[i]);
