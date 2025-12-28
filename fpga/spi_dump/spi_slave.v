@@ -14,6 +14,7 @@ module spi_slave(input wire clk, input wire reset,
 
   reg [1:0] spi_clk_reg;
   reg [1:0] spi_ss_reg;
+  reg [1:0] spi_mosi_reg;
   wire spi_ss_falling_edge;
   wire spi_ss_rising_edge;
   wire spi_clk_rising_edge;
@@ -35,9 +36,14 @@ module spi_slave(input wire clk, input wire reset,
          rd_data_available <= 0;
       end else begin
          spi_clk_reg <= {spi_clk_reg[0], SPI_SCK};
+         spi_mosi_reg <= {spi_mosi_reg[0], SPI_MOSI};
 
          if(spi_clk_rising_edge == 1'b1) begin
-            counter <= counter + 1;
+            if (spi_mosi_reg[1] == 1) begin
+                counter <= 0;
+            end else begin
+                counter <= counter + 1;
+            end
          end
       end
    end
