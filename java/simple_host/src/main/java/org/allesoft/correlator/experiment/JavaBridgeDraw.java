@@ -2,6 +2,8 @@ package org.allesoft.correlator.experiment;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -15,19 +17,53 @@ class JavaBridgeDraw {
 
         JFrame frame = new JFrame("SPI dumper");
 
-        byte[] array = new byte[2048];
-        array[0] = -127;
-        array[2] = (byte) 0x01;
-        array[3] = 4;
-        array[4] = (byte) 0x01;
-        array[5] = (byte) 0x1a;
-        byte[] copy = Arrays.copyOf(array, array.length);
-        new JavaBridge().spi(copy);
-
 
         DrawSigPanel panel = new DrawSigPanel();
-        panel.array = copy;
+        panel.array = new byte[2048];
         frame.add(panel);
+        panel.setLayout(null);
+
+        JButton testButton = new JButton("Read dump");
+        panel.add(testButton);
+        testButton.setBounds(900, 0, 100, 100);
+        testButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                byte[] array = new byte[2048];
+                array[0] = -127;
+                byte[] copy = Arrays.copyOf(array, array.length);
+                new JavaBridge().spi(copy);
+                panel.array = copy;
+                panel.repaint();
+            }
+        });
+
+        JButton flashButton = new JButton("Flash");
+        panel.add(flashButton);
+        flashButton.setBounds(1000, 0, 100, 100);
+        flashButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new JavaBridge().print();
+            }
+        });
+
+        JButton runLVDSButton = new JButton("Run LVDS");
+        panel.add(runLVDSButton);
+        runLVDSButton.setBounds(1100, 0, 100, 100);
+        runLVDSButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                byte[] array = new byte[6];
+                array[0] = -127;
+                array[2] = (byte) 0x01;
+                array[3] = 4;
+                array[4] = (byte) 0x01;
+                array[5] = (byte) 0x1a;
+                byte[] copy = Arrays.copyOf(array, array.length);
+                new JavaBridge().spi(copy);
+            }
+        });
 
         frame.setMinimumSize(new Dimension(1920, 1080));
         frame.setVisible(true);
