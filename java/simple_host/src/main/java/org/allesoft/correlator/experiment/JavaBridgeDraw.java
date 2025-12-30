@@ -19,6 +19,8 @@ class JavaBridgeDraw {
         array[0] = -127;
         array[2] = (byte) 0x01;
         array[3] = 4;
+        array[4] = (byte) 0x01;
+        array[5] = (byte) 0x1a;
         byte[] copy = Arrays.copyOf(array, array.length);
         new JavaBridge().spi(copy);
 

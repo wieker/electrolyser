@@ -57,7 +57,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    end
 
 
-    reg [7:0] ram_wr_addr;
+    reg [8:0] ram_wr_addr;
     reg [7:0] ram_rd_addr;
     wire [0:15] ram_data_out;
 
@@ -80,6 +80,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
     reg [0:15] ram_wr_data;
     reg [0:15] shift_sig_reg;
     reg ram_wr_en;
+    reg sram_mode;
 
    always @(posedge clk)
    begin
@@ -88,17 +89,24 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
          ram_rd_addr <= ram_rd_addr + 1;
          if (spi_rd_data[8:15] == 8'h01) begin
             led[0:2] <= spi_rd_data[5:7];
+            if (spi_rd_data[3] == 1) begin
+                sram_mode <= spi_rd_data[4];
+                ram_wr_addr <= 0;
+            end
+
          end
       end
 
-      if (counter == 15) begin
-         counter <= 0;
-         ram_wr_addr <= ram_wr_addr + 1;
-         ram_wr_en <= 1;
-         ram_wr_data <= shift_sig_reg;
-      end else begin
-         counter <= counter + 1;
-         ram_wr_en <= 0;
+      if (sram_mode == 1 && ram_wr_addr[8] == 0) begin
+          if (counter == 15) begin
+             counter <= 0;
+             ram_wr_addr <= ram_wr_addr + 1;
+             ram_wr_en <= 1;
+             ram_wr_data <= shift_sig_reg;
+          end else begin
+             counter <= counter + 1;
+             ram_wr_en <= 0;
+          end
       end
 
       shift_sig_reg <= {shift_sig_reg[1:15], i_code};
