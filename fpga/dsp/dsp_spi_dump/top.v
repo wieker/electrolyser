@@ -57,8 +57,8 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
    end
 
 
-    reg [2:0] ram_wr_addr;
-    reg [2:0] ram_rd_addr;
+    reg [7:0] ram_wr_addr;
+    reg [7:0] ram_rd_addr;
     wire [0:15] ram_data_out;
 
     SB_RAM40_4K SB_RAM40_4K_inst (
