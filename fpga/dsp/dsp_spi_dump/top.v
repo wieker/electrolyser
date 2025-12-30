@@ -86,8 +86,8 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
 
       if(spi_rd_data_available == 1) begin // rising edge
          ram_rd_addr <= ram_rd_addr + 1;
-         if (spi_rd_data[15] == 1) begin
-            led[0] <= spi_rd_data[7];
+         if (spi_rd_data[8:15] == 8'h01) begin
+            led[0:2] <= spi_rd_data[5:7];
          end
       end
 
