@@ -70,17 +70,35 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
         .WADDR(ram_wr_addr),
         .WCLK(clk),
         .WCLKE(1),
-        .WDATA(spi_rd_data),
-        .WE(spi_rd_data_available)
+        .WDATA(ram_wr_data),
+        .WE(ram_wr_en)
     );
+
+    wire i_code;
+    nco i_nco(.clk(clk), .rst(0), .control_word(16'h1000), .i_code(i_code), .phase_control_word(16'h0000));
+    reg [0:5] counter;
+    reg [0:15] ram_wr_data;
+    reg [0:15] shift_sig_reg;
+    reg ram_wr_en;
 
    always @(posedge clk)
    begin
 
       if(spi_rd_data_available == 1) begin // rising edge
          ram_rd_addr <= ram_rd_addr + 1;
-         ram_wr_addr <= ram_wr_addr + 1;
       end
+
+      if (counter == 15) begin
+         counter <= 0;
+         ram_wr_addr <= ram_wr_addr + 1;
+         ram_wr_en <= 1;
+         ram_wr_data <= shift_sig_reg;
+      end else begin
+         counter <= counter + 1;
+         ram_wr_en <= 0;
+      end
+
+      shift_sig_reg <= {shift_sig_reg[1:15], i_code};
    end
 
 endmodule
