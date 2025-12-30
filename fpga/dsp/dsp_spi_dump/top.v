@@ -31,9 +31,9 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
 
    reg [2:0] led;
 
-   assign LED_R = cnt[0];
-   assign LED_G = cnt[1];
-   assign LED_B = cnt[2];
+   assign LED_R = led[0];
+   assign LED_G = led[1];
+   assign LED_B = led[2];
 
    integer i;
 
@@ -86,6 +86,9 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
 
       if(spi_rd_data_available == 1) begin // rising edge
          ram_rd_addr <= ram_rd_addr + 1;
+         if (spi_rd_data[15] == 1) begin
+            led[0] <= spi_rd_data[7];
+         end
       end
 
       if (counter == 15) begin
