@@ -1,6 +1,6 @@
 module tx(
-    output tx_out, tx_en,
-    input xtal_in, tx_stb,
+    output tx_out,
+    input xtal_in,
 );
 
 	SB_IO #(
@@ -11,23 +11,8 @@ module tx(
 		.D_OUT_0(pll_out)
     );
 
-    reg pll_enable;
-    reg [10:0] pll_samples;
     wire pll_out;
     ipll ipll(.xtal_in(xtal_in), .clk(pll_out));
 
-    always@(posedge xtal_in)
-    begin
-        if (pll_samples[9] == 1) begin
-            pll_enable <= 0;
-            pll_samples <= 0;
-        end else if (pll_enable == 1) begin
-            pll_samples <= pll_samples + 1;
-        end else if (tx_stb == 1) begin
-            pll_enable <= 1;
-        end
-    end
-
-    assign tx_en = pll_samples[8];
 
 endmodule

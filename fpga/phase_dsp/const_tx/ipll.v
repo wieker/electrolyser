@@ -55,33 +55,19 @@ module ipll(
 
 
 
-   SB_PLL40_CORE #(
+   SB_PLL40_PAD #(
           .FEEDBACK_PATH("SIMPLE"),
           .PLLOUT_SELECT("GENCLK"),
-          .DIVR(4'b0001),
-          .DIVF(7'b0011000),
-          .DIVQ(3'b010),
-          .FILTER_RANGE(3'b010),
+          .DIVR(4'b0000),
+          .DIVF(7'b0111100),
+          .DIVQ(3'b101),
+          .FILTER_RANGE(3'b001),
         ) SB_PLL40_CORE_inst (
           .RESETB(1'b1),
           .BYPASS(1'b0),
           .PLLOUTCORE(clk),
-          .REFERENCECLK(xtal_in)
+          .PACKAGEPIN(xtal_in)
     );
 
-    reg [3:0] startup;
-    assign rst = !startup[3];
-
-    SB_HFOSC inthosc (
-      .CLKHFPU(1'b1),
-      .CLKHFEN(1'b1),
-      .CLKHF(ttt)
-    );
-
-    always@(posedge xtal_in)
-    begin
-      if (rst)
-        startup <= startup + 1;
-    end
 
 endmodule
