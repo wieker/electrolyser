@@ -10,7 +10,9 @@
 //0x06 write vector, the computer will send 4 * 24bit values
 //0x07 read vector, the fpga will send 4 * 24bit values
 
-module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, input SPI_SCK, input SPI_SS, input SPI_MOSI, output SPI_MISO, input [3:0] SW);
+module top(
+    input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, input SPI_SCK, input SPI_SS, input SPI_MOSI, output SPI_MISO, input [3:0] SW,
+    input lvds_in);
 
    reg spi_reset;
    wire spi_rd_data_available;
@@ -74,6 +76,9 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
         .WE(ram_wr_en)
     );
 
+    wire sig_in;
+	digitizer digitizer(.clk(clk), .rst(0), .lvds_in(lvds_in), .sig(sig_in));
+
     wire i_code;
     nco i_nco(.clk(clk), .rst(0), .control_word(16'h2100), .i_code(i_code), .phase_control_word(16'h0000));
     reg [0:5] counter;
@@ -109,7 +114,7 @@ module top(input [3:0] SW, input clk, output LED_R, output LED_G, output LED_B, 
           end
       end
 
-      shift_sig_reg <= {shift_sig_reg[1:15], i_code};
+      shift_sig_reg <= {shift_sig_reg[1:15], sig_in};
    end
 
 endmodule
