@@ -22,7 +22,7 @@
         }
       },
       "cells": {
-        "$specify$654": {
+        "$specify$655": {
           "hide_name": 1,
           "type": "$specify2",
           "parameters": {
@@ -4627,6 +4627,7 @@
     "SB_IO": {
       "attributes": {
         "blackbox": "00000000000000000000000000000001",
+        "cells_not_processed": "00000000000000000000000000000001",
         "src": "/usr/bin/../share/yosys/ice40/cells_sim.v:17.1-121.10"
       },
       "parameter_default_values": {
@@ -5359,9 +5360,8 @@
     },
     "SB_LUT4": {
       "attributes": {
-        "blackbox": "00000000000000000000000000000001",
         "abc9_lut": "00000000000000000000000000000001",
-        "cells_not_processed": "00000000000000000000000000000001",
+        "blackbox": "00000000000000000000000000000001",
         "src": "/usr/bin/../share/yosys/ice40/cells_sim.v:177.1-225.10"
       },
       "parameter_default_values": {
@@ -9976,16 +9976,20 @@
       "attributes": {
         "hdlname": "top",
         "top": "00000000000000000000000000000001",
-        "src": "top.v:1.1-9.10"
+        "src": "top.v:1.1-14.10"
       },
       "ports": {
         "tx_out": {
           "direction": "output",
           "bits": [ 2 ]
         },
+        "tx_out_n": {
+          "direction": "output",
+          "bits": [ 3 ]
+        },
         "xtal_in": {
           "direction": "input",
-          "bits": [ 3 ]
+          "bits": [ 4 ]
         }
       },
       "cells": {
@@ -9997,10 +10001,10 @@
           },
           "attributes": {
             "cell_module_not_derived": "00000000000000000000000000000001",
-            "cell_src": "top.v:6.8-6.46",
+            "cell_src": "top.v:8.8-8.43",
             "module": "tx",
             "module_hdlname": "tx",
-            "module_src": "tx.v:1.1-18.10"
+            "module_src": "tx.v:1.1-10.10"
           },
           "port_directions": {
           },
@@ -10015,7 +10019,7 @@
           },
           "attributes": {
             "cell_module_not_derived": "00000000000000000000000000000001",
-            "cell_src": "tx.v:15.10-15.48",
+            "cell_src": "tx.v:7.10-7.47",
             "hdlname": "tx ipll",
             "module": "ipll",
             "module_hdlname": "ipll",
@@ -10050,40 +10054,41 @@
           },
           "connections": {
             "BYPASS": [ "0" ],
-            "PACKAGEPIN": [ 3 ],
-            "PLLOUTCORE": [ 4 ],
+            "PACKAGEPIN": [ 4 ],
+            "PLLOUTCORE": [ 2 ],
             "RESETB": [ "1" ]
           }
         },
-        "tx.lp_tx_out": {
+        "tx_out_n_SB_LUT4_O": {
           "hide_name": 0,
-          "type": "SB_IO",
+          "type": "SB_LUT4",
           "parameters": {
-            "PIN_TYPE": "101001"
+            "LUT_INIT": "0000000011111111"
           },
           "attributes": {
-            "hdlname": "tx lp_tx_out",
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "tx.v:8.4-12.6"
+            "src": "/usr/bin/../share/yosys/ice40/cells_map.v:12.34-13.52"
           },
           "port_directions": {
-            "CLOCK_ENABLE": "input",
-            "D_OUT_0": "input",
-            "OUTPUT_ENABLE": "input",
-            "PACKAGE_PIN": "inout"
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
           },
           "connections": {
-            "CLOCK_ENABLE": [ "1" ],
-            "D_OUT_0": [ 4 ],
-            "OUTPUT_ENABLE": [ "1" ],
-            "PACKAGE_PIN": [ 2 ]
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ "0" ],
+            "I3": [ 2 ],
+            "O": [ 3 ]
           }
         }
       },
       "netnames": {
         "tx.ipll.clk": {
           "hide_name": 0,
-          "bits": [ 4 ],
+          "bits": [ 2 ],
           "attributes": {
             "hdlname": "tx ipll clk",
             "src": "ipll.v:3.17-3.20"
@@ -10091,18 +10096,10 @@
         },
         "tx.ipll.xtal_in": {
           "hide_name": 0,
-          "bits": [ 3 ],
+          "bits": [ 4 ],
           "attributes": {
             "hdlname": "tx ipll xtal_in",
             "src": "ipll.v:2.11-2.18"
-          }
-        },
-        "tx.pll_out": {
-          "hide_name": 0,
-          "bits": [ 4 ],
-          "attributes": {
-            "hdlname": "tx pll_out",
-            "src": "tx.v:14.10-14.17"
           }
         },
         "tx.tx_out": {
@@ -10115,7 +10112,7 @@
         },
         "tx.xtal_in": {
           "hide_name": 0,
-          "bits": [ 3 ],
+          "bits": [ 4 ],
           "attributes": {
             "hdlname": "tx xtal_in",
             "src": "tx.v:3.11-3.18"
@@ -10128,9 +10125,23 @@
             "src": "top.v:2.12-2.18"
           }
         },
-        "xtal_in": {
+        "tx_out_n": {
           "hide_name": 0,
           "bits": [ 3 ],
+          "attributes": {
+            "src": "top.v:2.20-2.28"
+          }
+        },
+        "txc": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "top.v:6.10-6.13"
+          }
+        },
+        "xtal_in": {
+          "hide_name": 0,
+          "bits": [ 4 ],
           "attributes": {
             "src": "top.v:3.11-3.18"
           }
