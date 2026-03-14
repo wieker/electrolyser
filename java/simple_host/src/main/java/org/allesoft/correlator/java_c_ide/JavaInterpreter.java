@@ -8,125 +8,130 @@ import java.io.InputStream;
 import java.io.*;
 
 public class JavaInterpreter {
+
+    public static void main(String[] args) {
+        TokenInput input = new TokenInput("hello world");
+        TokenReader helloReader = new SimpleTokenReader("hello");
+        TokenReader worldReader = new SimpleTokenReader("world");
+
+        Token t1 = helloReader.tryGet(input);
+        System.out.println(t1.getText()); // "hello"
+        System.out.println(input.getPos()); // 5 (after "hello")
+
+        // Skip space manually (or you could have a whitespace reader)
+        input.read(); // consumes space
+
+        Token t2 = worldReader.tryGet(input);
+        System.out.println(t2.getText()); // "world"
+        System.out.println(input.getPos()); // 11
+
+        // Attempt to read "hello" again – fails and leaves position unchanged
+        Token t3 = helloReader.tryGet(input);
+        System.out.println(t3); // null
+        System.out.println(input.getPos()); // still 11 (unchanged)
+    }
+}
+/**
+ * Holds the source text and a mutable position pointer.
+ * Token readers use this to read characters and advance the position.
+ */
+class TokenInput {
+    private final String text;
+    private int pos;
+
+    public TokenInput(String text) {
+        this.text = text;
+        this.pos = 0;
+    }
+
+    /** Returns the current position (0‑based index). */
+    public int getPos() {
+        return pos;
+    }
+
+    /** Sets the current position (used for backtracking). */
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
+    /** Returns the underlying source text. */
+    public String getText() {
+        return text;
+    }
+
+    /** Peeks at the next character without advancing. Returns -1 at EOF. */
+    public int peek() {
+        return pos < text.length() ? text.charAt(pos) : -1;
+    }
+
+    /** Reads the next character and advances. Returns -1 at EOF. */
+    public int read() {
+        return pos < text.length() ? text.charAt(pos++) : -1;
+    }
+
+    /** Checks if the end of input has been reached. */
+    public boolean isEOF() {
+        return pos >= text.length();
+    }
 }
 
 /**
- * Represents a token produced by a TokenReader.
+ * Represents a token. Stores its start position and the matched text.
  */
 interface Token {
+    /** The start position in the source (0‑based index). */
+    int getPos();
+
+    /** The exact text that was matched. */
     String getText();
-    int getType();
-    int getLine();
-    int getColumn();
 }
 
 /**
- * Reads tokens from a TokenInputStream.
+ * A reader that attempts to extract a token from the input.
+ * If successful, it returns a token and advances the input position.
+ * If not, it returns null and leaves the input unchanged.
  */
 interface TokenReader {
-    /**
-     * Reads the next token from the input stream. The stream is expected to be
-     * positioned at the start of a token. The implementation may use mark/reset
-     * for lookahead.
-     * @param input the stream to read from
-     * @return the next token, or null if end of input
-     * @throws IOException if an I/O error occurs
-     */
-    Token read(TokenInputStream input) throws IOException;
+    Token tryGet(TokenInput input);
 }
 
 /**
- * An input stream that wraps a byte-oriented stream and supports mark/reset
- * for token-level backtracking. It also tracks line and column numbers.
+ * A token reader that tries to match a fixed literal string.
+ * For example, new SimpleTokenReader("if") tries to read the keyword "if".
  */
-class TokenInputStream extends InputStream {
-    private final InputStream in;
-    private int line = 1;
-    private int column = 0;
-    private int markedLine = 1;
-    private int markedColumn = 0;
+class SimpleTokenReader implements TokenReader {
+    private final String literal;
 
-    /**
-     * Creates a TokenInputStream from a byte array.
-     */
-    public TokenInputStream(byte[] data) {
-        this(new ByteArrayInputStream(data));
+    public SimpleTokenReader(String literal) {
+        this.literal = literal;
     }
 
-    /**
-     * Creates a TokenInputStream from an existing InputStream. The stream must
-     * support mark/reset (e.g., BufferedInputStream).
-     */
-    public TokenInputStream(InputStream in) {
-        // Ensure the underlying stream supports mark/reset
-        if (!in.markSupported()) {
-            this.in = new BufferedInputStream(in);
-        } else {
-            this.in = in;
+    @Override
+    public Token tryGet(TokenInput input) {
+        int startPos = input.getPos();
+        // Try to match character by character
+        for (int i = 0; i < literal.length(); i++) {
+            int ch = input.read();
+            if (ch == -1 || ch != literal.charAt(i)) {
+                // Mismatch or EOF: restore position and return null
+                input.setPos(startPos);
+                return null;
+            }
         }
-    }
+        // Success: return a token
+        return new Token() {
+            private final int pos = startPos;
+            private final String text = literal;
 
-    @Override
-    public int read() throws IOException {
-        int b = in.read();
-        if (b == '\n') {
-            line++;
-            column = 0;
-        } else if (b != -1) {
-            column++;
-        }
-        return b;
-    }
+            @Override
+            public int getPos() {
+                return pos;
+            }
 
-    /**
-     * Marks the current position in the stream. After calling this method,
-     * the stream can be reset to this position using {@link #resetToMark()}.
-     * The readlimit specifies the maximum number of bytes that can be read
-     * before the mark becomes invalid.
-     */
-    public void markTokenPosition(int readlimit) {
-        in.mark(readlimit);
-        markedLine = line;
-        markedColumn = column;
-    }
-
-    /**
-     * Resets the stream to the last marked position. The line and column
-     * counters are also restored.
-     */
-    public void resetToMark() throws IOException {
-        in.reset();
-        line = markedLine;
-        column = markedColumn;
-    }
-
-    /**
-     * Returns the current line number (1‑based).
-     */
-    public int getLine() {
-        return line;
-    }
-
-    /**
-     * Returns the current column number (1‑based).
-     */
-    public int getColumn() {
-        return column;
-    }
-
-    // Delegate other required methods of InputStream if necessary
-    @Override
-    public int available() throws IOException {
-        return in.available();
-    }
-
-    @Override
-    public void close() throws IOException {
-        in.close();
-    }
-
-    @Override
-    public boolean markSupported() {
-        return true;
+            @Override
+            public String getText() {
+                return text;
+            }
+        };
     }
 }
