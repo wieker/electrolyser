@@ -78,19 +78,21 @@ public class JavaInterpreter {
             tests.check(t2 != null && t2.getText().equals("while") && t2.getType() == TokenType.IDENTIFIER, "second identifier");
         });
 
-        // ---------- Test MoreParser ----------
+        // ---------- Test MoreParser with lazy resolution ----------
         tests.test("MoreParser", () -> {
-            // Build a parser for digits (select of single digits)
-            TokenReader digitParser = new SelectParser(null, // context not needed for these basic parsers
-                    new KeywordTokenizer("0"), new KeywordTokenizer("1"), new KeywordTokenizer("2"),
-                    new KeywordTokenizer("3"), new KeywordTokenizer("4"), new KeywordTokenizer("5"),
-                    new KeywordTokenizer("6"), new KeywordTokenizer("7"), new KeywordTokenizer("8"),
-                    new KeywordTokenizer("9")
-            );
-            // Wrap in MoreParser – we need a context; create a dummy context that contains digitParser
             ParserContext ctx = new ParserContext();
-            ctx.define("digit", digitParser);
-            TokenReader moreDigits = new MoreParser(ctx, "digit");
+            // Define digit parsers (0-9) as keywords
+            for (int i = 0; i <= 9; i++) {
+                ctx.define("digit" + i, new KeywordTokenizer(String.valueOf(i)));
+            }
+            // Create a select parser that chooses among digits
+            String[] digitNames = new String[10];
+            for (int i = 0; i <= 9; i++) digitNames[i] = "digit" + i;
+            ctx.define("digit", new SelectParser(ctx, digitNames));
+            // Define a more parser that repeats digit
+            ctx.define("moreDigits", new MoreParser(ctx, "digit"));
+
+            TokenReader moreDigits = ctx.get("moreDigits");
             TokenInput input = new TokenInput("  123abc");
             Token t1 = moreDigits.tryGet(input);
             tests.check(t1 != null && t1.getType() == TokenType.COMPOSITE && t1.getText().equals("123"), "more digits");
@@ -175,7 +177,6 @@ public class JavaInterpreter {
             TokenInput recTest = new TokenInput("1+2+3");
             Token tRec = expr.tryGet(recTest);
             tests.check(tRec != null, "recursive expr should parse");
-            // The exact parse tree is ambiguous, but we just check that something was parsed
             tests.check(tRec.getText().length() > 0, "expr produced non-empty text");
         });
 
@@ -463,28 +464,51 @@ class IdentifierTokenizer implements TokenReader {
     private boolean isDigit(int c) { return c >= '0' && c <= '9'; }
 }
 
-// ---------- LinearParser (with lazy resolution) ----------
+// ---------- LinearParser (with both static and lazy constructors) ----------
 class LinearParser implements TokenReader {
-    private final ParserContext context;
+    private final ParserContext context; // null for static mode
     private final String[] subParserNames;
+    private final TokenReader[] subParsers; // used in static mode
 
+    // Static constructor (no context, direct parsers)
+    public LinearParser(TokenReader... subParsers) {
+        this.context = null;
+        this.subParserNames = null;
+        this.subParsers = subParsers;
+    }
+
+    // Lazy constructor (with context and names)
     public LinearParser(ParserContext context, String... subParserNames) {
         this.context = context;
         this.subParserNames = subParserNames;
+        this.subParsers = null;
     }
 
     @Override
     public Token tryGet(TokenInput input) {
         int originalPos = input.getPos();
         List<Token> tokens = new ArrayList<>();
-        for (String name : subParserNames) {
-            TokenReader parser = context.get(name);
-            Token t = parser.tryGet(input);
-            if (t == null) {
-                input.setPos(originalPos);
-                return null;
+        if (context != null) {
+            // Lazy mode: resolve names
+            for (String name : subParserNames) {
+                TokenReader parser = context.get(name);
+                Token t = parser.tryGet(input);
+                if (t == null) {
+                    input.setPos(originalPos);
+                    return null;
+                }
+                tokens.add(t);
             }
-            tokens.add(t);
+        } else {
+            // Static mode: use direct parsers
+            for (TokenReader parser : subParsers) {
+                Token t = parser.tryGet(input);
+                if (t == null) {
+                    input.setPos(originalPos);
+                    return null;
+                }
+                tokens.add(t);
+            }
         }
         int startPos = tokens.get(0).getPos();
         StringBuilder combinedText = new StringBuilder();
@@ -501,39 +525,71 @@ class LinearParser implements TokenReader {
     }
 }
 
-// ---------- SelectParser (with lazy resolution) ----------
+// ---------- SelectParser (with both static and lazy constructors) ----------
 class SelectParser implements TokenReader {
-    private final ParserContext context;
+    private final ParserContext context; // null for static mode
     private final String[] subParserNames;
+    private final TokenReader[] subParsers; // used in static mode
 
+    // Static constructor
+    public SelectParser(TokenReader... subParsers) {
+        this.context = null;
+        this.subParserNames = null;
+        this.subParsers = subParsers;
+    }
+
+    // Lazy constructor
     public SelectParser(ParserContext context, String... subParserNames) {
         this.context = context;
         this.subParserNames = subParserNames;
+        this.subParsers = null;
     }
 
     @Override
     public Token tryGet(TokenInput input) {
         int originalPos = input.getPos();
-        for (String name : subParserNames) {
-            TokenReader parser = context.get(name);
-            Token t = parser.tryGet(input);
-            if (t != null) {
-                return t;
+        if (context != null) {
+            // Lazy mode
+            for (String name : subParserNames) {
+                TokenReader parser = context.get(name);
+                Token t = parser.tryGet(input);
+                if (t != null) {
+                    return t;
+                }
+                input.setPos(originalPos);
             }
-            input.setPos(originalPos);
+        } else {
+            // Static mode
+            for (TokenReader parser : subParsers) {
+                Token t = parser.tryGet(input);
+                if (t != null) {
+                    return t;
+                }
+                input.setPos(originalPos);
+            }
         }
         return null;
     }
 }
 
-// ---------- MoreParser (with lazy resolution) ----------
+// ---------- MoreParser (with both static and lazy constructors) ----------
 class MoreParser implements TokenReader {
-    private final ParserContext context;
+    private final ParserContext context; // null for static mode
     private final String subParserName;
+    private final TokenReader subParser; // used in static mode
 
+    // Static constructor
+    public MoreParser(TokenReader subParser) {
+        this.context = null;
+        this.subParserName = null;
+        this.subParser = subParser;
+    }
+
+    // Lazy constructor
     public MoreParser(ParserContext context, String subParserName) {
         this.context = context;
         this.subParserName = subParserName;
+        this.subParser = null;
     }
 
     @Override
@@ -542,8 +598,13 @@ class MoreParser implements TokenReader {
         List<Token> tokens = new ArrayList<>();
         while (true) {
             int beforeAttempt = input.getPos();
-            TokenReader parser = context.get(subParserName);
-            Token t = parser.tryGet(input);
+            Token t;
+            if (context != null) {
+                TokenReader parser = context.get(subParserName);
+                t = parser.tryGet(input);
+            } else {
+                t = subParser.tryGet(input);
+            }
             if (t == null) {
                 input.setPos(beforeAttempt);
                 break;
@@ -607,7 +668,8 @@ class GrammarParser {
         TokenInput input = new TokenInput(grammar);
         List<ParserDef> defs = new ArrayList<>();
 
-        TokenReader typeParser = new SelectParser(null,
+        // Use static SelectParser to combine keyword tokenizers
+        TokenReader typeParser = new SelectParser(
                 new KeywordTokenizer("integer"),
                 new KeywordTokenizer("float"),
                 new KeywordTokenizer("string"),
