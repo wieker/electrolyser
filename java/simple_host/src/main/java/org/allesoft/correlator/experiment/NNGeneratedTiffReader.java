@@ -42,6 +42,136 @@ Explanation of the Processing Steps
 
     Clamping & Output – Ensures values stay in 0–255 range and writes the result as a standard bitmap.
  */
+
+    /*
+    Hmm, the user previously got Java code to process RAW TIFFs and now wants to know how to actually get that color correction matrix - specifically asking if they can use their LCD display showing R,G,B patches. This is a practical calibration question that moves from theory to implementation.
+
+Let me plan my answer structure. First, I need to validate whether their LCD approach works - and explain why it's actually a great idea. Then I need to provide step-by-step instructions with formulas they can implement. I'll organize this logically: concept explanation, prerequisites, capture process, matrix calculation steps, and finally integration into their Java code.
+
+Looking at the search results, I find several highly relevant sources. A patent document explains the mathematical foundation of color correction matrices and how RGB values relate to XYZ tristimulus values
+. This is authoritative and gives me the core theory. The academic paper from KCI specifically describes using polynomial regression with color chart digital values and standard tristimulus data for camera characterization
+
+- this directly supports using display-generated colors as targets.
+
+The MATLAB discussions are particularly useful - one user discusses the importance of linear data for matrix calculation
+, which matches what the Imatest reference emphasizes about linearity. Another MATLAB thread mentions applying gamma after correction , confirming the correct order of operations. The Google Patents document about display calibration using cameras
+
+is highly relevant as it describes the same concept of capturing test patterns from displays.
+
+Some search results are less useful - the Magic Lantern forum discussions about LCD calibration are about adjusting displays, not camera calibration. The MatRaw and ColorChecker extraction toolboxes are relevant but more about MATLAB implementation than the core concept.
+
+For the practical steps, I'll combine the matrix calculation theory from
+with the implementation advice from about working in linear space. The LCD approach is actually validated by
+
+which discusses using cameras to calibrate displays - the reverse process works just as well.
+
+I need to provide clear mathematical formulas - the least squares solution for M where M * cameraRGB = targetXYZ. I'll explain that solving M = targetXYZ * pinv(cameraRGB) gives the 3x3 matrix. Then I'll show how to convert XYZ to sRGB for validation, with formulas for gamma correction and clipping.
+
+For integration, I'll reference back to their previous code structure - replacing the placeholder diagonal matrix with the calculated one, and emphasize the importance of working on linear data before gamma.
+
+Yes, you can absolutely use your LCD display showing pure red, green, and blue patches to calibrate a color correction matrix for your camera. This is actually a clever DIY approach to what's formally known as camera characterization
+
+. The core idea is to establish a mathematical relationship between the RGB values your camera records and the known, "perfect" RGB values your display intended to show.
+
+Here's the key insight: You're using your display as a known light source
+
+. By photographing its primaries, you can calculate how to transform your camera's device-specific RGB into a standard, device-independent color space (like sRGB).
+📸 Step-by-Step Calibration Process
+
+Follow these steps to capture your data and calculate the matrix.
+1. Prerequisites & Preparation
+
+    Stable Setup: Mount your camera on a tripod facing your LCD display in a dark room. You want zero ambient light interfering.
+
+    Linear Capture: This is critical. Configure your camera to save RAW files and ensure you convert them to TIFFs without any automatic white balance, color, or gamma correction. Your RAW processor must output linear, un-gamma-corrected data
+
+    . Your provided DrawTiff.java code does this by subtracting a black level and working with the raw pixel values.
+
+    Known Target Values: You need to know the exact RGB values your display is sending to its pixels. For an ideal calibration, assume the display primaries are the standard sRGB primaries:
+
+        Red: (255, 0, 0)
+
+        Green: (0, 255, 0)
+
+        Blue: (0, 0, 255)
+
+        (Optional but recommended) Gray: (255, 255, 255) and (128, 128, 128). These help with white balance and verifying linearity.
+
+2. Capture Your Test Images
+
+    On your LCD, display a full-screen, pure red patch (R=255, G=0, B=0).
+
+    Take a photo with your camera, saving the RAW file.
+
+    Repeat this process for the pure green and pure blue patches. Ensure your camera settings (aperture, shutter speed, ISO) are identical for all shots. You want the only variable to be the color on the screen.
+
+3. Extract Linear RGB Values from RAW TIFFs
+
+Use your Java code (or a modified version of it) to process the three TIFF files and extract the average raw pixel values from the center of each image. Remember, you must skip the gamma correction and black level subtraction steps for this calibration data.
+
+Let's say you get these average linear values from a small patch in the center of each image:
+
+    From the Red patch photo: Your camera records (r_cam, g_cam, b_cam) as (12000, 3000, 500)
+
+    From the Green patch photo: Your camera records (r_cam, g_cam, b_cam) as (3500, 11000, 4000)
+
+    From the Blue patch photo: Your camera records (r_cam, g_cam, b_cam) as (800, 4000, 13000)
+
+These numbers are the "Response" of your camera's sensor to the known stimuli.
+4. Calculate the Color Correction Matrix (CCM)
+
+You are looking for a 3x3 matrix M that, when multiplied with your camera's response values, gives you the target display values. The equation is:
+
+M * Camera_RGB = Target_RGB
+
+You can solve for M using linear least squares. Here's a way to think about it with the data from step 3. We'll first normalize the target RGB values to a 0-1 range by dividing by 255. We'll also normalize the camera responses so the white balance is roughly correct. A more robust method is to use the gray patches to find scaling factors for each channel, but for a first matrix, we can work directly with the primary colors.
+
+A simpler approach to get a first matrix is to assume your goal is to make the camera's recorded primaries match the ideal ones as closely as possible. This can be done by setting up a system of equations.
+
+For example, for the red patch, we want:
+M * [12000, 3000, 500]^T = [1, 0, 0]^T (after normalizing target red to 1)
+
+Doing this for all three primaries gives you 9 equations (3 equations per patch). Solving this system will yield your 3x3 matrix M. This is a well-known technique in color science
+
+.
+
+For a practical implementation, you would assemble the camera responses into a 3x3 matrix C (where each column is the RGB response for a patch) and the target values into a 3x3 matrix T. You then solve M * C = T for M, which is M = T * inv(C).
+5. Apply and Validate the Matrix
+
+Once you have your 3x3 matrix, you can integrate it into your RawTiffToBitmap.java code. Replace the placeholder diagonal matrix with your newly calculated one. The critical step is to apply this matrix to the linear camera RGB values (after black level subtraction but before gamma correction)
+
+.
+
+Your processing pipeline in Java would then look like this:
+
+    Read RAW TIFF: Get the 16-bit linear sensor data.
+
+    Subtract Black Level: As you do with (pixel - BLACK_LEVEL).
+
+    Apply your Calibrated Color Correction Matrix: Multiply the linear RGB values by your new 3x3 matrix M.
+
+    Apply Gamma Correction: Finally, apply the gamma curve (e.g., value^0.45) to map the linear values to a display-ready, non-linear sRGB space
+
+    .
+
+💡 Tips for a Better Result
+
+    Include Gray: Photographing a neutral gray (like 128,128,128) alongside the primaries helps you verify if your white balance is correct after applying the matrix. The R, G, and B values for the gray patch should be equal.
+
+    LCD Limitations: Be aware that LCDs are not perfect light sources. Their color output can vary with viewing angle and brightness
+
+. Shoot from a direct, perpendicular angle.
+
+Polynomial Model: For even higher accuracy, you can use a polynomial model instead of a simple linear 3x3 matrix
+
+    . This can account for some of the non-linearities in the camera and display, but a 3x3 matrix is an excellent and standard starting point.
+
+To sum up, using your LCD to display red, green, and blue is a totally valid way to get a calibration matrix. The key is to keep everything linear, capture the data carefully, and solve for the 3x3 transformation. It's the same principle used in professional display calibration, just in reverse
+
+.
+
+Would you like help with the mathematical details of solving the system of equations to get your 3x3 matrix?
+     */
 public class NNGeneratedTiffReader {
 
     // Default processing parameters (adjust as needed)
