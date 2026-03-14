@@ -226,10 +226,10 @@ public class JavaInterpreter {
                 + "select factor number lparen_expr;\n"
                 + "linear lparen_expr lparen expr rparen;\n"
                 + "linear term factor term_tail;\n"
-                + "select term_tail empty term_tail_mul;\n"
+                + "select term_tail term_tail_mul empty;\n"          // mul first, then empty
                 + "linear term_tail_mul op_mul factor term_tail;\n"
                 + "linear expr term expr_tail;\n"
-                + "select expr_tail empty expr_tail_add;\n"
+                + "select expr_tail expr_tail_add expr_tail_sub empty;\n" // add/sub first, then empty
                 + "linear expr_tail_add op_add term expr_tail;\n"
                 + "linear expr_tail_sub op_sub term expr_tail;\n";
 
@@ -898,59 +898,57 @@ class CalculatorEvaluator {
         List<Token> children = ct.getChildren();
         if (children.isEmpty()) return Double.NaN;
 
-        // Determine production by looking at first child
+        // Handle parenthesized expression: lparen expr rparen
         Token first = children.get(0);
-        if (first.getType() == TokenType.KEYWORD) {
-            String kw = first.getText();
-            switch (kw) {
-                case "+":
-                    return evaluate(children.get(1)) + evaluate(children.get(2));
-                case "-":
-                    return evaluate(children.get(1)) - evaluate(children.get(2));
-                case "*":
-                    return evaluate(children.get(1)) * evaluate(children.get(2));
-                case "/":
-                    double right = evaluate(children.get(2));
-                    if (right == 0) throw new ArithmeticException("division by zero");
-                    return evaluate(children.get(1)) / right;
-                case "(":
-                    return evaluate(children.get(1)); // ( expr ) → child[1] is expr
-                default:
-                    throw new RuntimeException("Unknown operator: " + kw);
-            }
-        } else {
-            // factor → number or lparen_expr
-            if (children.size() == 1) {
-                return evaluate(children.get(0));
-            }
-            // term: factor term_tail
-            double val = evaluate(children.get(0));
-            if (children.size() > 1) {
-                val = applyTail(val, children.get(1));
-            }
-            return val;
+        if (first.getType() == TokenType.KEYWORD && first.getText().equals("(")) {
+            return evaluate(children.get(1));
+        }
+
+        // If this composite directly represents an operation (e.g., from a tail)
+        if (first.getType() == TokenType.KEYWORD && isOperator(first.getText())) {
+            double left = evaluate(children.get(1));
+            double right = evaluate(children.get(2));
+            return applyOperator(first.getText(), left, right);
+        }
+
+        // Otherwise, it's either a single child (factor) or a head/tail pair (expr or term)
+        if (children.size() == 1) {
+            return evaluate(children.get(0));
+        }
+
+        // Must be head + tail
+        double headVal = evaluate(children.get(0));
+        return processTail(headVal, children.get(1));
+    }
+
+    private static boolean isOperator(String s) {
+        return s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/");
+    }
+
+    private static double applyOperator(String op, double left, double right) {
+        switch (op) {
+            case "+": return left + right;
+            case "-": return left - right;
+            case "*": return left * right;
+            case "/":
+                if (right == 0) throw new ArithmeticException("division by zero");
+                return left / right;
+            default: throw new RuntimeException("Unknown operator: " + op);
         }
     }
 
-    private static double applyTail(double left, Token tail) {
+    private static double processTail(double left, Token tail) {
         if (tail.getType() != TokenType.COMPOSITE) return left;
         CompositeToken ct = (CompositeToken) tail;
         List<Token> children = ct.getChildren();
         if (children.isEmpty()) return left;
+
         Token first = children.get(0);
-        if (first.getText().equals("*")) {
+        if (first.getType() == TokenType.KEYWORD && isOperator(first.getText())) {
             double right = evaluate(children.get(1));
-            double newLeft = left * right;
+            double newLeft = applyOperator(first.getText(), left, right);
             if (children.size() > 2) {
-                return applyTail(newLeft, children.get(2));
-            }
-            return newLeft;
-        } else if (first.getText().equals("/")) {
-            double right = evaluate(children.get(1));
-            if (right == 0) throw new ArithmeticException("division by zero");
-            double newLeft = left / right;
-            if (children.size() > 2) {
-                return applyTail(newLeft, children.get(2));
+                return processTail(newLeft, children.get(2));
             }
             return newLeft;
         }
