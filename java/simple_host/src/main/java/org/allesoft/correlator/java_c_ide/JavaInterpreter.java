@@ -8,7 +8,7 @@ public class JavaInterpreter {
     public static void main(String[] args) {
         TestSuite tests = new TestSuite();
 
-        // ---------- Test KeywordTokenizer ----------
+        // ---------- Existing Tests ----------
         tests.test("KeywordTokenizer", () -> {
             TokenInput input = new TokenInput("  hello world");
             TokenReader helloReader = new KeywordTokenizer("hello");
@@ -31,13 +31,11 @@ public class JavaInterpreter {
             tests.check(input.getPos() == 13, "position should remain 13");
         });
 
-        // ---------- Test IntegerTokenizer ----------
         tests.test("IntegerTokenizer", () -> {
             TokenInput input = new TokenInput("   123 456");
             TokenReader intReader = new IntegerTokenizer();
             Token t1 = intReader.tryGet(input);
             tests.check(t1 != null && t1.getText().equals("123") && t1.getType() == TokenType.INTEGER, "first integer");
-            // After three leading spaces and three digits, position should be 6
             tests.check(input.getPos() == 6, "position after 123 should be 6");
 
             Token t2 = intReader.tryGet(input);
@@ -45,7 +43,6 @@ public class JavaInterpreter {
             //tests.check(input.getPos() == 6, "position unchanged");
         });
 
-        // ---------- Test FloatTokenizer (with sign support) ----------
         tests.test("FloatTokenizer", () -> {
             TokenReader floatReader = new FloatTokenizer();
             String[] cases = {"  3.14", "  .5", "  2e10", "  -1.2e-3"};
@@ -58,18 +55,15 @@ public class JavaInterpreter {
             }
         });
 
-        // ---------- Test StringTokenizer ----------
         tests.test("StringTokenizer", () -> {
             TokenInput input = new TokenInput("  \"hello\\nworld\\\"escaped\\\\\"  ");
             TokenReader strReader = new StringTokenizer();
             Token t = strReader.tryGet(input);
             tests.check(t != null && t.getType() == TokenType.STRING, "string token");
             tests.check(t.getText().equals("hello\nworld\"escaped\\"), "unescaped content");
-            // After two leading spaces, the quoted string ends at index 26, so next position is 27
             tests.check(input.getPos() == 27, "position after string should be 27");
         });
 
-        // ---------- Test IdentifierTokenizer ----------
         tests.test("IdentifierTokenizer", () -> {
             TokenInput input = new TokenInput("  _myVar123  while");
             TokenReader idReader = new IdentifierTokenizer();
@@ -80,7 +74,6 @@ public class JavaInterpreter {
             tests.check(t2 != null && t2.getText().equals("while") && t2.getType() == TokenType.IDENTIFIER, "second identifier");
         });
 
-        // ---------- Test MoreParser with lazy resolution ----------
         tests.test("MoreParser", () -> {
             ParserContext ctx = new ParserContext();
             for (int i = 0; i <= 9; i++) {
@@ -101,7 +94,6 @@ public class JavaInterpreter {
             tests.check(input.getPos() == 5, "position unchanged");
         });
 
-        // ---------- Test Grammar Definition Parser (including recursion) ----------
         tests.test("GrammarParser", () -> {
             String grammar = ""
                     + "integer intParser;\n"
@@ -115,7 +107,6 @@ public class JavaInterpreter {
                     + "linear helloWorld kwHello kwWorld;\n"
                     + "select choice kwIf kwHello;\n"
                     + "more stars kwStar;\n"
-                    // Recursive grammar: expr = num | sum ; sum = expr plus expr
                     + "integer num;\n"
                     + "keyword plus +;\n"
                     + "linear sum expr plus expr;\n"
@@ -127,7 +118,6 @@ public class JavaInterpreter {
             ParserContext context = new ParserContext();
             GrammarParser.buildParsers(defs, context);
 
-            // Test each built parser
             TokenReader intParser = context.get("intParser");
             TokenInput intTest = new TokenInput("  456");
             Token tInt = intParser.tryGet(intTest);
@@ -171,13 +161,15 @@ public class JavaInterpreter {
             Token tStars = stars.tryGet(starsTest);
             tests.check(tStars != null && tStars.getType() == TokenType.COMPOSITE && tStars.getText().equals("starstarstar"), "stars");
 
-            // Test recursive expr parser
             TokenReader expr = context.get("expr");
             TokenInput recTest = new TokenInput("1+2+3");
             Token tRec = expr.tryGet(recTest);
             tests.check(tRec != null, "recursive expr should parse");
             tests.check(tRec.getText().length() > 0, "expr produced non-empty text");
         });
+
+        // ---------- New Calculator Tests ----------
+        calculatorTests(tests);
 
         tests.summarize();
     }
@@ -219,6 +211,91 @@ public class JavaInterpreter {
             }
         }
     }
+
+    // ---------- Calculator Grammar and Evaluator ----------
+    private static void calculatorTests(TestSuite tests) {
+        String calcGrammar = ""
+                + "float number;\n"
+                + "keyword op_add +;\n"
+                + "keyword op_sub -;\n"
+                + "keyword op_mul *;\n"
+                + "keyword op_div /;\n"
+                + "keyword lparen (;\n"
+                + "keyword rparen );\n"
+                + "empty empty;\n"
+                + "select factor number lparen_expr;\n"
+                + "linear lparen_expr lparen expr rparen;\n"
+                + "linear term factor term_tail;\n"
+                + "select term_tail empty term_tail_mul;\n"
+                + "linear term_tail_mul op_mul factor term_tail;\n"
+                + "linear expr term expr_tail;\n"
+                + "select expr_tail empty expr_tail_add;\n"
+                + "linear expr_tail_add op_add term expr_tail;\n"
+                + "linear expr_tail_sub op_sub term expr_tail;\n";
+
+        tests.test("Calculator grammar parsing and evaluation", () -> {
+            List<ParserDef> defs = GrammarParser.parse(calcGrammar);
+            // We expect 15 definitions (count manually: number, op_add, op_sub, op_mul, op_div, lparen, rparen, empty, factor, lparen_expr, term, term_tail, term_tail_mul, expr, expr_tail, expr_tail_add, expr_tail_sub) – let's check later.
+            ParserContext ctx = new ParserContext();
+            GrammarParser.buildParsers(defs, ctx);
+
+            TokenReader exprParser = ctx.get("expr");
+
+            String[] expressions = {
+                    "3 + 5", "10 - 4", "6 * 7", "15 / 3",
+                    "2 + 3 * 4", "(2 + 3) * 4", "2 * (3 + 4)",
+                    "3.5 * 2", "1.2 + 2.3", "10 / 4", "2.5e-1 * 4",
+                    " 1+2  ", "  (  3 + 4  )  * 5 "
+            };
+            double[] expected = {
+                    8, 6, 42, 5,
+                    14, 20, 14,
+                    7.0, 3.5, 2.5, 1.0,
+                    3, 35
+            };
+
+            for (int i = 0; i < expressions.length; i++) {
+                TokenInput input = new TokenInput(expressions[i]);
+                Token token = exprParser.tryGet(input);
+                tests.check(token != null, "Parsing failed: " + expressions[i]);
+                // Ensure full consumption
+                while (!input.isEOF() && Character.isWhitespace(input.peek())) input.read();
+                tests.check(input.isEOF(), "Leftover chars: " + expressions[i]);
+                double result = CalculatorEvaluator.evaluate(token);
+                tests.check(Math.abs(result - expected[i]) < 1e-9,
+                        expressions[i] + " → " + result + " (expected " + expected[i] + ")");
+            }
+        });
+
+        tests.test("Calculator division by zero", () -> {
+            List<ParserDef> defs = GrammarParser.parse(calcGrammar);
+            ParserContext ctx = new ParserContext();
+            GrammarParser.buildParsers(defs, ctx);
+            TokenReader exprParser = ctx.get("expr");
+            TokenInput input = new TokenInput("1/0");
+            Token token = exprParser.tryGet(input);
+            tests.check(token != null, "Parsing 1/0 failed");
+            try {
+                CalculatorEvaluator.evaluate(token);
+                tests.check(false, "Should throw ArithmeticException");
+            } catch (ArithmeticException e) {
+                // expected
+            }
+        });
+
+        tests.test("Calculator syntax errors", () -> {
+            List<ParserDef> defs = GrammarParser.parse(calcGrammar);
+            ParserContext ctx = new ParserContext();
+            GrammarParser.buildParsers(defs, ctx);
+            TokenReader exprParser = ctx.get("expr");
+            String[] badExprs = {"2+", "(2+3", "abc"};
+            for (String bad : badExprs) {
+                TokenInput input = new TokenInput(bad);
+                Token token = exprParser.tryGet(input);
+                tests.check(token == null, "Should not parse: " + bad);
+            }
+        });
+    }
 }
 
 // ---------- TokenType and Token ----------
@@ -230,6 +307,26 @@ interface Token {
     int getPos();
     String getText();
     TokenType getType();
+}
+
+// ---------- CompositeToken ----------
+class CompositeToken implements Token {
+    private final int pos;
+    private final List<Token> children;
+    private final String text;
+
+    CompositeToken(int pos, List<Token> children) {
+        this.pos = pos;
+        this.children = children;
+        StringBuilder sb = new StringBuilder();
+        for (Token t : children) sb.append(t.getText());
+        this.text = sb.toString();
+    }
+
+    @Override public int getPos() { return pos; }
+    @Override public String getText() { return text; }
+    @Override public TokenType getType() { return TokenType.COMPOSITE; }
+    public List<Token> getChildren() { return children; }
 }
 
 // ---------- TokenInput ----------
@@ -324,7 +421,6 @@ class FloatTokenizer implements TokenReader {
             input.read();
         }
         int startPos = input.getPos();
-        int beforeParse = input.getPos();
 
         // Optional leading sign
         boolean hasSign = false;
@@ -556,17 +652,7 @@ class LinearParser implements TokenReader {
             }
         }
         int startPos = tokens.get(0).getPos();
-        StringBuilder combinedText = new StringBuilder();
-        for (Token t : tokens) {
-            combinedText.append(t.getText());
-        }
-        return new Token() {
-            private final int pos = startPos;
-            private final String text = combinedText.toString();
-            @Override public int getPos() { return pos; }
-            @Override public String getText() { return text; }
-            @Override public TokenType getType() { return TokenType.COMPOSITE; }
-        };
+        return new CompositeToken(startPos, tokens);
     }
 }
 
@@ -651,26 +737,18 @@ class MoreParser implements TokenReader {
             tokens.add(t);
         }
         if (tokens.isEmpty()) {
-            return new Token() {
-                private final int pos = originalPos;
-                private final String text = "";
-                @Override public int getPos() { return pos; }
-                @Override public String getText() { return text; }
-                @Override public TokenType getType() { return TokenType.COMPOSITE; }
-            };
+            // Return empty composite token
+            return new CompositeToken(originalPos, Collections.emptyList());
         }
         int start = tokens.get(0).getPos();
-        StringBuilder sb = new StringBuilder();
-        for (Token t : tokens) {
-            sb.append(t.getText());
-        }
-        return new Token() {
-            private final int pos = start;
-            private final String text = sb.toString();
-            @Override public int getPos() { return pos; }
-            @Override public String getText() { return text; }
-            @Override public TokenType getType() { return TokenType.COMPOSITE; }
-        };
+        return new CompositeToken(start, tokens);
+    }
+}
+
+// ---------- EmptyParser ----------
+class EmptyParser implements TokenReader {
+    @Override public Token tryGet(TokenInput input) {
+        return new CompositeToken(input.getPos(), Collections.emptyList());
     }
 }
 
@@ -715,7 +793,8 @@ class GrammarParser {
                 new KeywordTokenizer("keyword"),
                 new KeywordTokenizer("linear"),
                 new KeywordTokenizer("select"),
-                new KeywordTokenizer("more")
+                new KeywordTokenizer("more"),
+                new KeywordTokenizer("empty")
         );
         TokenReader argTokenizer = new SymbolTokenizer(); // for arguments like "+"
         TokenReader semiParser = new KeywordTokenizer(";");
@@ -795,10 +874,86 @@ class GrammarParser {
                     }
                     parser = new MoreParser(context, def.args.get(0));
                     break;
+                case "empty":
+                    parser = new EmptyParser();
+                    break;
                 default:
                     throw new RuntimeException("Unknown parser type: " + def.type);
             }
             context.define(def.name, parser);
         }
+    }
+}
+
+// ---------- Calculator Evaluator ----------
+class CalculatorEvaluator {
+    static double evaluate(Token token) {
+        if (token.getType() == TokenType.FLOAT || token.getType() == TokenType.INTEGER) {
+            return Double.parseDouble(token.getText());
+        }
+        if (token.getType() != TokenType.COMPOSITE) {
+            throw new RuntimeException("Unexpected token: " + token.getText());
+        }
+        CompositeToken ct = (CompositeToken) token;
+        List<Token> children = ct.getChildren();
+        if (children.isEmpty()) return Double.NaN;
+
+        // Determine production by looking at first child
+        Token first = children.get(0);
+        if (first.getType() == TokenType.KEYWORD) {
+            String kw = first.getText();
+            switch (kw) {
+                case "+":
+                    return evaluate(children.get(1)) + evaluate(children.get(2));
+                case "-":
+                    return evaluate(children.get(1)) - evaluate(children.get(2));
+                case "*":
+                    return evaluate(children.get(1)) * evaluate(children.get(2));
+                case "/":
+                    double right = evaluate(children.get(2));
+                    if (right == 0) throw new ArithmeticException("division by zero");
+                    return evaluate(children.get(1)) / right;
+                case "(":
+                    return evaluate(children.get(1)); // ( expr ) → child[1] is expr
+                default:
+                    throw new RuntimeException("Unknown operator: " + kw);
+            }
+        } else {
+            // factor → number or lparen_expr
+            if (children.size() == 1) {
+                return evaluate(children.get(0));
+            }
+            // term: factor term_tail
+            double val = evaluate(children.get(0));
+            if (children.size() > 1) {
+                val = applyTail(val, children.get(1));
+            }
+            return val;
+        }
+    }
+
+    private static double applyTail(double left, Token tail) {
+        if (tail.getType() != TokenType.COMPOSITE) return left;
+        CompositeToken ct = (CompositeToken) tail;
+        List<Token> children = ct.getChildren();
+        if (children.isEmpty()) return left;
+        Token first = children.get(0);
+        if (first.getText().equals("*")) {
+            double right = evaluate(children.get(1));
+            double newLeft = left * right;
+            if (children.size() > 2) {
+                return applyTail(newLeft, children.get(2));
+            }
+            return newLeft;
+        } else if (first.getText().equals("/")) {
+            double right = evaluate(children.get(1));
+            if (right == 0) throw new ArithmeticException("division by zero");
+            double newLeft = left / right;
+            if (children.size() > 2) {
+                return applyTail(newLeft, children.get(2));
+            }
+            return newLeft;
+        }
+        return left;
     }
 }
