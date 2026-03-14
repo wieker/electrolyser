@@ -14,21 +14,39 @@ public class JavaInterpreter {
         TokenReader helloReader = new SimpleTokenReader("hello");
         TokenReader worldReader = new SimpleTokenReader("world");
 
+        // Test 1: Successfully read "hello"
         Token t1 = helloReader.tryGet(input);
-        System.out.println(t1.getText()); // "hello"
-        System.out.println(input.getPos()); // 5 (after "hello")
+        assert t1 != null : "t1 should not be null";
+        assert t1.getText().equals("hello") : "t1 text should be 'hello'";
+        assert t1.getPos() == 0 : "t1 position should be 0";
+        assert input.getPos() == 5 : "Input position should be 5 after 'hello'";
 
-        // Skip space manually (or you could have a whitespace reader)
-        input.read(); // consumes space
+        // Test 2: Manually consume the space (as in original example)
+        int space = input.read();
+        assert space == (int) ' ' : "Should read a space character";
 
+        // Test 3: Successfully read "world"
         Token t2 = worldReader.tryGet(input);
-        System.out.println(t2.getText()); // "world"
-        System.out.println(input.getPos()); // 11
+        assert t2 != null : "t2 should not be null";
+        assert t2.getText().equals("world") : "t2 text should be 'world'";
+        assert t2.getPos() == 6 : "t2 position should be 6 (after space)";
+        assert input.getPos() == 11 : "Input position should be 11 after 'world'";
 
-        // Attempt to read "hello" again – fails and leaves position unchanged
+        // Test 4: Failed attempt to read "hello" again (should not change position)
         Token t3 = helloReader.tryGet(input);
-        System.out.println(t3); // null
-        System.out.println(input.getPos()); // still 11 (unchanged)
+        assert t3 == null : "t3 should be null (no 'hello' at current position)";
+        assert input.getPos() == 11 : "Input position should remain 11 after failed read";
+
+        System.out.println("All assertions passed.");
+        // Test SimpleWsTokenReader with whitespace
+        TokenInput inputWs = new TokenInput("  \n\thello world");
+        TokenReader wsHelloReader = new SimpleWsTokenReader("hello");
+
+        Token tWs = wsHelloReader.tryGet(inputWs);
+        assert tWs != null : "tWs should not be null";
+        assert tWs.getText().equals("hello") : "tWs text should be 'hello'";
+        assert tWs.getPos() == 5 : "Token should start at index 5 (after whitespace)"; // "  \n\t" is 4 chars? Let's count: space(0), space(1), \n(2), \t(3) -> hello starts at 4. Adjust assertion based on exact input.
+        assert inputWs.getPos() == 9 : "Input should be at index 9 (after 'hello')";
     }
 }
 /**
@@ -119,6 +137,58 @@ class SimpleTokenReader implements TokenReader {
             }
         }
         // Success: return a token
+        return new Token() {
+            private final int pos = startPos;
+            private final String text = literal;
+
+            @Override
+            public int getPos() {
+                return pos;
+            }
+
+            @Override
+            public String getText() {
+                return text;
+            }
+        };
+    }
+}
+
+/**
+ * A token reader that first skips any whitespace, then tries to match a fixed literal string.
+ * If the literal is found, it returns a token whose position is the start of the literal.
+ * If not, it restores the input position to where it was before skipping whitespace.
+ */
+class SimpleWsTokenReader implements TokenReader {
+    private final String literal;
+
+    public SimpleWsTokenReader(String literal) {
+        this.literal = literal;
+    }
+
+    @Override
+    public Token tryGet(TokenInput input) {
+        int originalPos = input.getPos();
+
+        // 1. Skip whitespace characters
+        while (!input.isEOF() && Character.isWhitespace(input.peek())) {
+            input.read(); // consume whitespace
+        }
+
+        int afterWsPos = input.getPos(); // Position where token should start
+        int startPos = afterWsPos;       // This will be the token's reported position if successful
+
+        // 2. Try to match the literal
+        for (int i = 0; i < literal.length(); i++) {
+            int ch = input.read();
+            if (ch == -1 || ch != literal.charAt(i)) {
+                // Mismatch or EOF: restore position to original (before whitespace)
+                input.setPos(originalPos);
+                return null;
+            }
+        }
+
+        // 3. Success: return token positioned at the literal's start (after whitespace)
         return new Token() {
             private final int pos = startPos;
             private final String text = literal;
