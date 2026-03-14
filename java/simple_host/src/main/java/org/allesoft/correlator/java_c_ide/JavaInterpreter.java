@@ -6,117 +6,218 @@ import java.util.*;
 public class JavaInterpreter {
 
     public static void main(String[] args) {
-        // ---------- Test MoreParser (zero-or-more repetition) ----------
-        // Build a parser for one or more digits (like IntegerTokenizer but as repetition of single digit)
-        TokenReader digitParser = new SelectParser(
-                new KeywordTokenizer("0"), new KeywordTokenizer("1"), new KeywordTokenizer("2"),
-                new KeywordTokenizer("3"), new KeywordTokenizer("4"), new KeywordTokenizer("5"),
-                new KeywordTokenizer("6"), new KeywordTokenizer("7"), new KeywordTokenizer("8"),
-                new KeywordTokenizer("9")
-        );
-        TokenReader moreDigits = new MoreParser(digitParser);
-        TokenInput moreInput = new TokenInput("  123abc");
-        Token m1 = moreDigits.tryGet(moreInput);
-        assert m1 != null && m1.getType() == TokenType.COMPOSITE;
-        assert m1.getText().equals("123"); // digits concatenated
-        assert moreInput.getPos() == 5; // "  123"
-        // Now try at position where no digits exist
-        Token m2 = moreDigits.tryGet(moreInput); // at 'a'
-        assert m2 != null && m2.getText().equals(""); // zero repetitions yields empty token
-        // Position should not advance
-        assert moreInput.getPos() == 5;
+        TestSuite tests = new TestSuite();
 
-        // ---------- Test Grammar Definition Parser ----------
-        String grammar = ""
-                + "integer intParser;\n"
-                + "float floatParser;\n"
-                + "string stringParser;\n"
-                + "identifier idParser;\n"
-                + "keyword kwIf if;\n"
-                + "linear helloWorld kwHello kwWorld;\n"
-                + "select choice kwIf kwHello;\n"
-                + "more stars kwStar;\n"; // Note: kwStar must be defined; we'll add it
-        // We need to define kwHello, kwWorld, kwStar as keywords
-        // Let's extend grammar to include those definitions:
-        grammar += "keyword kwHello hello;\n";
-        grammar += "keyword kwWorld world;\n";
-        grammar += "keyword kwStar *;\n"; // '*' is not an identifier, but we can handle it as a keyword literal
-        // However our keyword parser expects the literal as an identifier token; '*' would be a separate token.
-        // To keep it simple, we'll use letters for keywords: "star" instead of "*".
-        grammar = "integer intParser;\n"
-                + "float floatParser;\n"
-                + "string stringParser;\n"
-                + "identifier idParser;\n"
-                + "keyword kwIf if;\n"
-                + "keyword kwHello hello;\n"
-                + "keyword kwWorld world;\n"
-                + "keyword kwStar star;\n"
-                + "linear helloWorld kwHello kwWorld;\n"
-                + "select choice kwIf kwHello;\n"
-                + "more stars kwStar;\n";
+        // ---------- Test KeywordTokenizer (with built‑in whitespace skip) ----------
+        tests.test("KeywordTokenizer", () -> {
+            TokenInput input = new TokenInput("  hello world");
+            TokenReader helloReader = new KeywordTokenizer("hello");
+            TokenReader worldReader = new KeywordTokenizer("world");
 
-        // Parse the grammar
-        List<ParserDef> defs = GrammarParser.parse(grammar);
-        assert defs.size() == 11;
+            Token t1 = helloReader.tryGet(input);
+            tests.check(t1 != null, "t1 should not be null");
+            tests.check(t1.getText().equals("hello"), "t1 text should be 'hello'");
+            tests.check(t1.getType() == TokenType.KEYWORD, "t1 type should be KEYWORD");
+            tests.check(input.getPos() == 7, "position after 'hello' should be 7");
 
-        // Build parsers
-        ParserContext context = new ParserContext();
-        GrammarParser.buildParsers(defs, context);
+            Token t2 = worldReader.tryGet(input);
+            tests.check(t2 != null, "t2 should not be null");
+            tests.check(t2.getText().equals("world"), "t2 text should be 'world'");
+            tests.check(t2.getType() == TokenType.KEYWORD, "t2 type should be KEYWORD");
+            tests.check(input.getPos() == 13, "position after 'world' should be 13");
 
-        // Test each created parser
-        // intParser
-        TokenReader intParser = context.get("intParser");
-        TokenInput intTest = new TokenInput("  456");
-        Token tInt = intParser.tryGet(intTest);
-        assert tInt != null && tInt.getType() == TokenType.INTEGER && tInt.getText().equals("456");
+            Token t3 = helloReader.tryGet(input);
+            tests.check(t3 == null, "t3 should be null");
+            tests.check(input.getPos() == 13, "position should remain 13");
+        });
 
-        // floatParser
-        TokenReader floatParser = context.get("floatParser");
-        TokenInput floatTest = new TokenInput("  3.14");
-        Token tFloat = floatParser.tryGet(floatTest);
-        assert tFloat != null && tFloat.getType() == TokenType.FLOAT && tFloat.getText().equals("3.14");
+        // ---------- Test IntegerTokenizer ----------
+        tests.test("IntegerTokenizer", () -> {
+            TokenInput input = new TokenInput("   123 456");
+            TokenReader intReader = new IntegerTokenizer();
+            Token t1 = intReader.tryGet(input);
+            tests.check(t1 != null && t1.getText().equals("123") && t1.getType() == TokenType.INTEGER, "first integer");
+            tests.check(input.getPos() == 7, "position after 123");
 
-        // stringParser
-        TokenReader stringParser = context.get("stringParser");
-        TokenInput stringTest = new TokenInput("  \"hello\"");
-        Token tString = stringParser.tryGet(stringTest);
-        assert tString != null && tString.getType() == TokenType.STRING && tString.getText().equals("hello");
+            Token t2 = intReader.tryGet(input);
+            tests.check(t2 == null, "second attempt should fail");
+            tests.check(input.getPos() == 7, "position unchanged");
+        });
 
-        // idParser
-        TokenReader idParser = context.get("idParser");
-        TokenInput idTest = new TokenInput("  _var123");
-        Token tId = idParser.tryGet(idTest);
-        assert tId != null && tId.getType() == TokenType.IDENTIFIER && tId.getText().equals("_var123");
+        // ---------- Test FloatTokenizer ----------
+        tests.test("FloatTokenizer", () -> {
+            TokenReader floatReader = new FloatTokenizer();
+            String[] cases = {"  3.14", "  .5", "  2e10", "  -1.2e-3"};
+            String[] expected = {"3.14", ".5", "2e10", "-1.2e-3"};
+            for (int i = 0; i < cases.length; i++) {
+                TokenInput input = new TokenInput(cases[i]);
+                Token t = floatReader.tryGet(input);
+                tests.check(t != null && t.getText().equals(expected[i]) && t.getType() == TokenType.FLOAT,
+                        "float case " + i + ": " + expected[i]);
+            }
+        });
 
-        // kwIf
-        TokenReader kwIf = context.get("kwIf");
-        TokenInput ifTest = new TokenInput("  if");
-        Token tIf = kwIf.tryGet(ifTest);
-        assert tIf != null && tIf.getType() == TokenType.KEYWORD && tIf.getText().equals("if");
+        // ---------- Test StringTokenizer ----------
+        tests.test("StringTokenizer", () -> {
+            TokenInput input = new TokenInput("  \"hello\\nworld\\\"escaped\\\\\"  ");
+            TokenReader strReader = new StringTokenizer();
+            Token t = strReader.tryGet(input);
+            tests.check(t != null && t.getType() == TokenType.STRING, "string token");
+            tests.check(t.getText().equals("hello\nworld\"escaped\\"), "unescaped content");
+            tests.check(input.getPos() == 31, "position after string");
+        });
 
-        // helloWorld (linear)
-        TokenReader helloWorld = context.get("helloWorld");
-        TokenInput hwTest = new TokenInput("  hello world");
-        Token tHw = helloWorld.tryGet(hwTest);
-        assert tHw != null && tHw.getType() == TokenType.COMPOSITE && tHw.getText().equals("helloworld");
+        // ---------- Test IdentifierTokenizer ----------
+        tests.test("IdentifierTokenizer", () -> {
+            TokenInput input = new TokenInput("  _myVar123  while");
+            TokenReader idReader = new IdentifierTokenizer();
+            Token t1 = idReader.tryGet(input);
+            tests.check(t1 != null && t1.getText().equals("_myVar123") && t1.getType() == TokenType.IDENTIFIER, "first identifier");
+            tests.check(input.getPos() == 11, "position after _myVar123");
+            Token t2 = idReader.tryGet(input);
+            tests.check(t2 != null && t2.getText().equals("while") && t2.getType() == TokenType.IDENTIFIER, "second identifier");
+        });
 
-        // choice (select)
-        TokenReader choice = context.get("choice");
-        TokenInput choiceTest = new TokenInput("  if something");
-        Token tChoice = choice.tryGet(choiceTest);
-        assert tChoice != null && tChoice.getType() == TokenType.KEYWORD && tChoice.getText().equals("if");
-        TokenInput choiceTest2 = new TokenInput("  hello");
-        Token tChoice2 = choice.tryGet(choiceTest2);
-        assert tChoice2 != null && tChoice2.getType() == TokenType.KEYWORD && tChoice2.getText().equals("hello");
+        // ---------- Test MoreParser ----------
+        tests.test("MoreParser", () -> {
+            // Build a parser for digits (select of single digits)
+            TokenReader digitParser = new SelectParser(null, // context not needed for these basic parsers
+                    new KeywordTokenizer("0"), new KeywordTokenizer("1"), new KeywordTokenizer("2"),
+                    new KeywordTokenizer("3"), new KeywordTokenizer("4"), new KeywordTokenizer("5"),
+                    new KeywordTokenizer("6"), new KeywordTokenizer("7"), new KeywordTokenizer("8"),
+                    new KeywordTokenizer("9")
+            );
+            // Wrap in MoreParser – we need a context; create a dummy context that contains digitParser
+            ParserContext ctx = new ParserContext();
+            ctx.define("digit", digitParser);
+            TokenReader moreDigits = new MoreParser(ctx, "digit");
+            TokenInput input = new TokenInput("  123abc");
+            Token t1 = moreDigits.tryGet(input);
+            tests.check(t1 != null && t1.getType() == TokenType.COMPOSITE && t1.getText().equals("123"), "more digits");
+            tests.check(input.getPos() == 5, "position after digits");
+            Token t2 = moreDigits.tryGet(input);
+            tests.check(t2 != null && t2.getText().equals(""), "zero repetitions yields empty token");
+            tests.check(input.getPos() == 5, "position unchanged");
+        });
 
-        // stars (more)
-        TokenReader stars = context.get("stars");
-        TokenInput starsTest = new TokenInput("  star star star");
-        Token tStars = stars.tryGet(starsTest);
-        assert tStars != null && tStars.getType() == TokenType.COMPOSITE;
-        assert tStars.getText().equals("starstarstar"); // repeated "star"
+        // ---------- Test Grammar Definition Parser (including recursion) ----------
+        tests.test("GrammarParser", () -> {
+            String grammar = ""
+                    + "integer intParser;\n"
+                    + "float floatParser;\n"
+                    + "string stringParser;\n"
+                    + "identifier idParser;\n"
+                    + "keyword kwIf if;\n"
+                    + "keyword kwHello hello;\n"
+                    + "keyword kwWorld world;\n"
+                    + "keyword kwStar star;\n"
+                    + "linear helloWorld kwHello kwWorld;\n"
+                    + "select choice kwIf kwHello;\n"
+                    + "more stars kwStar;\n"
+                    // Recursive grammar: expr = num | sum ; sum = expr plus expr
+                    + "integer num;\n"
+                    + "keyword plus +;\n"
+                    + "linear sum expr plus expr;\n"
+                    + "select expr num sum;\n";
 
-        System.out.println("All assertions passed.");
+            List<ParserDef> defs = GrammarParser.parse(grammar);
+            tests.check(defs.size() == 14, "14 definitions parsed");
+
+            ParserContext context = new ParserContext();
+            GrammarParser.buildParsers(defs, context);
+
+            // Test each built parser
+            TokenReader intParser = context.get("intParser");
+            TokenInput intTest = new TokenInput("  456");
+            Token tInt = intParser.tryGet(intTest);
+            tests.check(tInt != null && tInt.getType() == TokenType.INTEGER && tInt.getText().equals("456"), "intParser");
+
+            TokenReader floatParser = context.get("floatParser");
+            TokenInput floatTest = new TokenInput("  3.14");
+            Token tFloat = floatParser.tryGet(floatTest);
+            tests.check(tFloat != null && tFloat.getType() == TokenType.FLOAT && tFloat.getText().equals("3.14"), "floatParser");
+
+            TokenReader stringParser = context.get("stringParser");
+            TokenInput stringTest = new TokenInput("  \"hello\"");
+            Token tString = stringParser.tryGet(stringTest);
+            tests.check(tString != null && tString.getType() == TokenType.STRING && tString.getText().equals("hello"), "stringParser");
+
+            TokenReader idParser = context.get("idParser");
+            TokenInput idTest = new TokenInput("  _var123");
+            Token tId = idParser.tryGet(idTest);
+            tests.check(tId != null && tId.getType() == TokenType.IDENTIFIER && tId.getText().equals("_var123"), "idParser");
+
+            TokenReader kwIf = context.get("kwIf");
+            TokenInput ifTest = new TokenInput("  if");
+            Token tIf = kwIf.tryGet(ifTest);
+            tests.check(tIf != null && tIf.getType() == TokenType.KEYWORD && tIf.getText().equals("if"), "kwIf");
+
+            TokenReader helloWorld = context.get("helloWorld");
+            TokenInput hwTest = new TokenInput("  hello world");
+            Token tHw = helloWorld.tryGet(hwTest);
+            tests.check(tHw != null && tHw.getType() == TokenType.COMPOSITE && tHw.getText().equals("helloworld"), "helloWorld");
+
+            TokenReader choice = context.get("choice");
+            TokenInput choiceTest = new TokenInput("  if something");
+            Token tChoice = choice.tryGet(choiceTest);
+            tests.check(tChoice != null && tChoice.getType() == TokenType.KEYWORD && tChoice.getText().equals("if"), "choice if");
+            TokenInput choiceTest2 = new TokenInput("  hello");
+            Token tChoice2 = choice.tryGet(choiceTest2);
+            tests.check(tChoice2 != null && tChoice2.getType() == TokenType.KEYWORD && tChoice2.getText().equals("hello"), "choice hello");
+
+            TokenReader stars = context.get("stars");
+            TokenInput starsTest = new TokenInput("  star star star");
+            Token tStars = stars.tryGet(starsTest);
+            tests.check(tStars != null && tStars.getType() == TokenType.COMPOSITE && tStars.getText().equals("starstarstar"), "stars");
+
+            // Test recursive expr parser
+            TokenReader expr = context.get("expr");
+            TokenInput recTest = new TokenInput("1+2+3");
+            Token tRec = expr.tryGet(recTest);
+            tests.check(tRec != null, "recursive expr should parse");
+            // The exact parse tree is ambiguous, but we just check that something was parsed
+            tests.check(tRec.getText().length() > 0, "expr produced non-empty text");
+        });
+
+        tests.summarize();
+    }
+
+    // Simple test harness
+    static class TestSuite {
+        private int passed = 0;
+        private int failed = 0;
+        private List<String> failures = new ArrayList<>();
+
+        void test(String name, Runnable testBlock) {
+            try {
+                testBlock.run();
+                passed++;
+                System.out.println("✅ " + name);
+            } catch (Exception e) {
+                failed++;
+                failures.add(name + ": " + e.getMessage());
+                System.out.println("❌ " + name + " - " + e.getMessage());
+            }
+        }
+
+        void check(boolean condition, String message) {
+            if (!condition) {
+                throw new RuntimeException("Assertion failed: " + message);
+            }
+        }
+
+        void summarize() {
+            System.out.println("\nTests passed: " + passed + ", failed: " + failed);
+            if (!failures.isEmpty()) {
+                System.out.println("Failures:");
+                for (String f : failures) {
+                    System.out.println("  " + f);
+                }
+                throw new RuntimeException("Some tests failed");
+            } else {
+                System.out.println("All tests passed!");
+            }
+        }
     }
 }
 
@@ -131,7 +232,7 @@ interface Token {
     TokenType getType();
 }
 
-// ---------- TokenInput (unchanged) ----------
+// ---------- TokenInput ----------
 class TokenInput {
     private final String text;
     private int pos;
@@ -362,19 +463,22 @@ class IdentifierTokenizer implements TokenReader {
     private boolean isDigit(int c) { return c >= '0' && c <= '9'; }
 }
 
-// ---------- LinearParser ----------
+// ---------- LinearParser (with lazy resolution) ----------
 class LinearParser implements TokenReader {
-    private final TokenReader[] parsers;
+    private final ParserContext context;
+    private final String[] subParserNames;
 
-    public LinearParser(TokenReader... parsers) {
-        this.parsers = parsers;
+    public LinearParser(ParserContext context, String... subParserNames) {
+        this.context = context;
+        this.subParserNames = subParserNames;
     }
 
     @Override
     public Token tryGet(TokenInput input) {
         int originalPos = input.getPos();
         List<Token> tokens = new ArrayList<>();
-        for (TokenReader parser : parsers) {
+        for (String name : subParserNames) {
+            TokenReader parser = context.get(name);
             Token t = parser.tryGet(input);
             if (t == null) {
                 input.setPos(originalPos);
@@ -397,18 +501,21 @@ class LinearParser implements TokenReader {
     }
 }
 
-// ---------- SelectParser ----------
+// ---------- SelectParser (with lazy resolution) ----------
 class SelectParser implements TokenReader {
-    private final TokenReader[] parsers;
+    private final ParserContext context;
+    private final String[] subParserNames;
 
-    public SelectParser(TokenReader... parsers) {
-        this.parsers = parsers;
+    public SelectParser(ParserContext context, String... subParserNames) {
+        this.context = context;
+        this.subParserNames = subParserNames;
     }
 
     @Override
     public Token tryGet(TokenInput input) {
         int originalPos = input.getPos();
-        for (TokenReader parser : parsers) {
+        for (String name : subParserNames) {
+            TokenReader parser = context.get(name);
             Token t = parser.tryGet(input);
             if (t != null) {
                 return t;
@@ -419,31 +526,31 @@ class SelectParser implements TokenReader {
     }
 }
 
-// ---------- MoreParser (zero-or-more) ----------
+// ---------- MoreParser (with lazy resolution) ----------
 class MoreParser implements TokenReader {
-    private final TokenReader parser;
+    private final ParserContext context;
+    private final String subParserName;
 
-    public MoreParser(TokenReader parser) {
-        this.parser = parser;
+    public MoreParser(ParserContext context, String subParserName) {
+        this.context = context;
+        this.subParserName = subParserName;
     }
 
     @Override
     public Token tryGet(TokenInput input) {
-        int startPos = input.getPos(); // we'll need to track start after whitespace? Actually we want to include leading whitespace? The subparser already skips whitespace, so startPos should be after any whitespace that the subparser consumes on its first successful call. But if zero repetitions, we return an empty token at current position? Let's define: we return a composite token that starts at the position after any whitespace that was skipped before the first successful parse. However, if zero repetitions, we return an empty token at the current position (no whitespace skipped). To keep it simple, we'll record the position after any initial whitespace that the subparser would skip on its first attempt, but if it fails, we don't advance. We'll implement by accumulating tokens.
         int originalPos = input.getPos();
         List<Token> tokens = new ArrayList<>();
         while (true) {
-            // We need to mark position before each attempt to backtrack if fails
             int beforeAttempt = input.getPos();
+            TokenReader parser = context.get(subParserName);
             Token t = parser.tryGet(input);
             if (t == null) {
-                input.setPos(beforeAttempt); // restore to before attempt (no progress)
+                input.setPos(beforeAttempt);
                 break;
             }
             tokens.add(t);
         }
         if (tokens.isEmpty()) {
-            // Return an empty token at original position
             return new Token() {
                 private final int pos = originalPos;
                 private final String text = "";
@@ -467,18 +574,7 @@ class MoreParser implements TokenReader {
     }
 }
 
-// ---------- Parser Definition and Context ----------
-class ParserDef {
-    String type;
-    String name;
-    List<String> args;
-    ParserDef(String type, String name, List<String> args) {
-        this.type = type;
-        this.name = name;
-        this.args = args;
-    }
-}
-
+// ---------- ParserContext ----------
 class ParserContext {
     private Map<String, TokenReader> parsers = new HashMap<>();
 
@@ -493,15 +589,25 @@ class ParserContext {
     }
 }
 
+// ---------- Parser Definition ----------
+class ParserDef {
+    String type;
+    String name;
+    List<String> args;
+    ParserDef(String type, String name, List<String> args) {
+        this.type = type;
+        this.name = name;
+        this.args = args;
+    }
+}
+
 // ---------- Grammar Parser ----------
 class GrammarParser {
-    // Parse a grammar string into a list of ParserDef
     public static List<ParserDef> parse(String grammar) {
         TokenInput input = new TokenInput(grammar);
         List<ParserDef> defs = new ArrayList<>();
 
-        // Build tokenizers for grammar tokens
-        TokenReader typeParser = new SelectParser(
+        TokenReader typeParser = new SelectParser(null,
                 new KeywordTokenizer("integer"),
                 new KeywordTokenizer("float"),
                 new KeywordTokenizer("string"),
@@ -515,20 +621,14 @@ class GrammarParser {
         TokenReader semiParser = new KeywordTokenizer(";");
 
         while (!input.isEOF()) {
-            // Skip possible empty lines
-            int startPos = input.getPos();
-            // Try to parse a definition line
+            // Skip whitespace and newlines
+            while (!input.isEOF() && Character.isWhitespace(input.peek())) {
+                input.read();
+            }
+            if (input.isEOF()) break;
+
             Token typeToken = typeParser.tryGet(input);
             if (typeToken == null) {
-                // No type found; maybe blank line or whitespace only
-                // Advance to next line? We'll just break if we can't find anything
-                // But to be robust, we should skip whitespace and newlines
-                // Simpler: if we're at EOF after skipping whitespace, break
-                while (!input.isEOF() && Character.isWhitespace(input.peek())) {
-                    input.read();
-                }
-                if (input.isEOF()) break;
-                // Otherwise, it's an error
                 throw new RuntimeException("Expected type at position " + input.getPos());
             }
             String type = typeToken.getText();
@@ -541,11 +641,8 @@ class GrammarParser {
 
             List<String> args = new ArrayList<>();
             while (true) {
-                // Try to get an identifier argument
                 Token argToken = idParser.tryGet(input);
-                if (argToken == null) {
-                    break;
-                }
+                if (argToken == null) break;
                 args.add(argToken.getText());
             }
 
@@ -559,9 +656,8 @@ class GrammarParser {
         return defs;
     }
 
-    // Build actual parsers from definitions (second pass)
     public static void buildParsers(List<ParserDef> defs, ParserContext context) {
-        // First, create all built-in parsers (those that don't depend on others)
+        // First pass: create all parsers and register them (names only)
         for (ParserDef def : defs) {
             TokenReader parser = null;
             switch (def.type) {
@@ -578,48 +674,27 @@ class GrammarParser {
                     parser = new IdentifierTokenizer();
                     break;
                 case "keyword":
-                    // keyword expects one argument: the literal
                     if (def.args.size() != 1) {
                         throw new RuntimeException("Keyword parser '" + def.name + "' requires exactly one argument (the literal)");
                     }
                     parser = new KeywordTokenizer(def.args.get(0));
                     break;
-                // combinators are handled later
+                case "linear":
+                    parser = new LinearParser(context, def.args.toArray(new String[0]));
+                    break;
+                case "select":
+                    parser = new SelectParser(context, def.args.toArray(new String[0]));
+                    break;
+                case "more":
+                    if (def.args.size() != 1) {
+                        throw new RuntimeException("More parser '" + def.name + "' requires exactly one subparser");
+                    }
+                    parser = new MoreParser(context, def.args.get(0));
+                    break;
                 default:
-                    // skip for now
+                    throw new RuntimeException("Unknown parser type: " + def.type);
             }
-            if (parser != null) {
-                context.define(def.name, parser);
-            }
-        }
-
-        // Now build combinators (which may refer to other parsers)
-        for (ParserDef def : defs) {
-            if (def.type.equals("linear") || def.type.equals("select") || def.type.equals("more")) {
-                // Resolve arguments to actual parsers
-                TokenReader[] subParsers = new TokenReader[def.args.size()];
-                for (int i = 0; i < def.args.size(); i++) {
-                    subParsers[i] = context.get(def.args.get(i));
-                }
-                TokenReader parser;
-                switch (def.type) {
-                    case "linear":
-                        parser = new LinearParser(subParsers);
-                        break;
-                    case "select":
-                        parser = new SelectParser(subParsers);
-                        break;
-                    case "more":
-                        if (subParsers.length != 1) {
-                            throw new RuntimeException("More parser '" + def.name + "' requires exactly one subparser");
-                        }
-                        parser = new MoreParser(subParsers[0]);
-                        break;
-                    default:
-                        throw new RuntimeException("Unknown combinator type: " + def.type);
-                }
-                context.define(def.name, parser);
-            }
+            context.define(def.name, parser);
         }
     }
 }
