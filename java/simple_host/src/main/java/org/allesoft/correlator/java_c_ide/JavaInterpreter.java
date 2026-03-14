@@ -226,8 +226,9 @@ public class JavaInterpreter {
                 + "select factor number lparen_expr;\n"
                 + "linear lparen_expr lparen expr rparen;\n"
                 + "linear term factor term_tail;\n"
-                + "select term_tail term_tail_mul empty;\n"          // mul first, then empty
                 + "linear term_tail_mul op_mul factor term_tail;\n"
+                + "linear term_tail_div op_div factor term_tail;\n"
+                + "select term_tail term_tail_mul term_tail_div empty;\n"
                 + "linear expr term expr_tail;\n"
                 + "select expr_tail expr_tail_add expr_tail_sub empty;\n" // add/sub first, then empty
                 + "linear expr_tail_add op_add term expr_tail;\n"
