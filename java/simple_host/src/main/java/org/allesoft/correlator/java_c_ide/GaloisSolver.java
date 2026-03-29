@@ -13,4 +13,9 @@ public class GaloisSolver {
     class Irratio {
         byte[] a;
     }
+
+    /*
+    1. 5 complex numerics solver with epsilon E
+    2. torrelate to something
+     */
 }
