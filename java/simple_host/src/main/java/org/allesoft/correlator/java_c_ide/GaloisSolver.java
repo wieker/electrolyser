@@ -1,9 +1,6 @@
 package org.allesoft.correlator.java_c_ide;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,10 +72,10 @@ public class GaloisSolver {
 }
 
 class EquationSolver {
-    private static final double EPSILON = 1e-12;
-    private static final int MAX_ITERATIONS = 100;
+    private static final double EPSILON = 1e-14;
+    private static final int MAX_ITERATIONS = 200;
 
-    // Метод Лагерра для нахождения одного корня
+    // Метод Лагерра с улучшенной сходимостью
     public static Complex laguerreMethod(Polynomial poly, Complex initialGuess) {
         Complex z = initialGuess;
         int degree = poly.degree();
@@ -97,20 +94,22 @@ class EquationSolver {
             Complex G = fp.divide(f);
             Complex H = G.multiply(G).subtract(fpp.divide(f));
 
-            // Вычисляем дискриминант
+            // Вычисляем дискриминант: n*(n-1)*H - n*(n-1)*G^2
             int n = degree;
-            double temp = (n - 1) * (n * H.abs() - G.multiply(G).abs());
-            Complex sqrtTerm = temp >= 0 ?
-                    new Complex(Math.sqrt(temp), 0) :
-                    new Complex(0, Math.sqrt(-temp));
+            double factor = n * (n - 1);
+            Complex discriminant = H.multiply(Complex.fromReal(factor))
+                    .subtract(G.multiply(G).multiply(Complex.fromReal(n - 1)));
+
+            // Квадратный корень из комплексного числа
+            Complex sqrtDiscriminant = sqrt(discriminant);
 
             // Два возможных знаменателя
-            Complex denominator1 = G.add(sqrtTerm);
-            Complex denominator2 = G.subtract(sqrtTerm);
+            Complex denominator1 = G.add(sqrtDiscriminant);
+            Complex denominator2 = G.subtract(sqrtDiscriminant);
 
-            // Выбираем лучший шаг
-            Complex delta1 = new Complex(n, 0).divide(denominator1);
-            Complex delta2 = new Complex(n, 0).divide(denominator2);
+            // Выбираем лучший шаг (с большим модулем)
+            Complex delta1 = Complex.fromReal(n).divide(denominator1);
+            Complex delta2 = Complex.fromReal(n).divide(denominator2);
 
             Complex delta = delta1.abs() > delta2.abs() ? delta1 : delta2;
             z = z.subtract(delta);
@@ -120,6 +119,16 @@ class EquationSolver {
         return z;
     }
 
+    // Квадратный корень из комплексного числа
+    private static Complex sqrt(Complex z) {
+        double r = z.abs();
+        double theta = z.getImag() >= 0 ? Math.acos(z.getReal() / r) : -Math.acos(z.getReal() / r);
+        double sqrtR = Math.sqrt(r);
+        double realPart = sqrtR * Math.cos(theta / 2);
+        double imagPart = sqrtR * Math.sin(theta / 2);
+        return new Complex(realPart, imagPart);
+    }
+
     // Нахождение всех корней полинома
     public static List<Complex> findAllRoots(Polynomial poly) {
         List<Complex> roots = new ArrayList<>();
@@ -127,10 +136,11 @@ class EquationSolver {
 
         int degree = poly.degree();
         for (int i = 0; i < degree; i++) {
-            // Начальное приближение — случайная точка в ограниченной области
+            // Улучшенные начальные приближения
+            double angle = 2 * Math.PI * i / degree;
             Complex initialGuess = new Complex(
-                    (Math.random() - 0.5) * 4,
-                    (Math.random() - 0.5) * 4
+                    Math.cos(angle),
+                    Math.sin(angle)
             );
 
             Complex root = laguerreMethod(currentPoly, initialGuess);
@@ -153,25 +163,31 @@ class EquationSolver {
 
         return roots;
     }
-
     // Синтетическое деление полинома на (x - root) с учётом комплексных корней
     private static Polynomial deflatePolynomial(Polynomial poly, Complex root) {
         double[] coeffs = poly.getCoefficients();
         int n = coeffs.length;
+
+        // Создаём массив комплексных коэффициентов для работы с комплексными корнями
         Complex[] newCoeffs = new Complex[n - 1];
 
-        // Синтетическое деление для комплексных чисел
         newCoeffs[0] = Complex.fromReal(coeffs[0]);
+
+
         for (int i = 1; i < n - 1; i++) {
-            newCoeffs[i] = Complex.fromReal(coeffs[i]).add(newCoeffs[i - 1].multiply(root));
+            newCoeffs[i] = Complex.fromReal(coeffs[i])
+                    .add(newCoeffs[i - 1].multiply(root));
         }
 
-        // Преобразуем обратно в вещественные коэффициенты (если возможно)
+        // Преобразуем обратно в вещественные коэффициенты с округлением
         double[] resultCoeffs = new double[n - 1];
         for (int i = 0; i < n - 1; i++) {
             resultCoeffs[i] = newCoeffs[i].getReal();
+            // Если мнимая часть незначительна, игнорируем её
+            if (Math.abs(newCoeffs[i].getImag()) > 1e-10) {
+                throw new RuntimeException("Ошибка: комплексный коэффициент после дефляции");
+            }
         }
-
         return new Polynomial(resultCoeffs);
     }
 }
@@ -180,10 +196,17 @@ class Polynomial {
     private final double[] coefficients;
 
     public Polynomial(double... coeffs) {
-        this.coefficients = coeffs.clone();
+        // Удаляем ведущие нули
+        int start = 0;
+        while (start < coeffs.length && Math.abs(coeffs[start]) < 1e-10) start++;
+        if (start == coeffs.length) {
+            this.coefficients = new double[]{0};
+        } else {
+            this.coefficients = Arrays.copyOfRange(coeffs, start, coeffs.length);
+        }
     }
 
-    // Вычисление значения полинома в точке (схема Горнера)
+    // Схема Горнера для вычисления значения полинома
     public Complex evaluate(Complex z) {
         Complex result = Complex.fromReal(coefficients[0]);
         for (int i = 1; i < coefficients.length; i++) {
@@ -257,8 +280,8 @@ class Complex {
 
     @Override
     public String toString() {
-        if (Math.abs(imag) < 1e-10) return String.format("%.6f", real);
-        if (Math.abs(real) < 1e-10) return String.format("%.6fi", imag);
+        if (Math.abs(imag) < 1e-8) return String.format("%.6f", real);
+        if (Math.abs(real) < 1e-8) return String.format("%.6fi", imag);
         String sign = imag < 0 ? "-" : "+";
         return String.format("%.6f %s %.6fi", real, sign, Math.abs(imag));
     }
