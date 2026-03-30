@@ -75,7 +75,7 @@ public class GaloisSolver {
 }
 
 class EquationSolver {
-    private static final double EPSILON = 1e-10;
+    private static final double EPSILON = 1e-12;
     private static final int MAX_ITERATIONS = 100;
 
     // Метод Лагерра для нахождения одного корня
@@ -97,17 +97,21 @@ class EquationSolver {
             Complex G = fp.divide(f);
             Complex H = G.multiply(G).subtract(fpp.divide(f));
 
-            // Вычисляем квадратный корень
-            double discriminant = degree * (degree - 1) * H.abs();
-            double sqrtDiscriminant = Math.sqrt(discriminant);
+            // Вычисляем дискриминант
+            int n = degree;
+            double temp = (n - 1) * (n * H.abs() - G.multiply(G).abs());
+            Complex sqrtTerm = temp >= 0 ?
+                    new Complex(Math.sqrt(temp), 0) :
+                    new Complex(0, Math.sqrt(-temp));
 
-            Complex denominator1 = G.add(new Complex(sqrtDiscriminant, 0));
-            Complex denominator2 = G.subtract(new Complex(sqrtDiscriminant, 0));
-
-            Complex delta1 = new Complex(degree, 0).divide(denominator1);
-            Complex delta2 = new Complex(degree, 0).divide(denominator2);
+            // Два возможных знаменателя
+            Complex denominator1 = G.add(sqrtTerm);
+            Complex denominator2 = G.subtract(sqrtTerm);
 
             // Выбираем лучший шаг
+            Complex delta1 = new Complex(n, 0).divide(denominator1);
+            Complex delta2 = new Complex(n, 0).divide(denominator2);
+
             Complex delta = delta1.abs() > delta2.abs() ? delta1 : delta2;
             z = z.subtract(delta);
 
@@ -123,10 +127,10 @@ class EquationSolver {
 
         int degree = poly.degree();
         for (int i = 0; i < degree; i++) {
-            // Начальное приближение — случайная точка в комплексной плоскости
+            // Начальное приближение — случайная точка в ограниченной области
             Complex initialGuess = new Complex(
-                    Math.random() * 2 - 1,
-                    Math.random() * 2 - 1
+                    (Math.random() - 0.5) * 4,
+                    (Math.random() - 0.5) * 4
             );
 
             Complex root = laguerreMethod(currentPoly, initialGuess);
@@ -134,7 +138,7 @@ class EquationSolver {
             // Проверяем, не нашли ли мы уже этот корень
             boolean isNewRoot = true;
             for (Complex existingRoot : roots) {
-                if (root.subtract(existingRoot).abs() < EPSILON * 10) {
+                if (root.subtract(existingRoot).abs() < EPSILON * 100) {
                     isNewRoot = false;
                     break;
                 }
@@ -142,7 +146,7 @@ class EquationSolver {
 
             if (isNewRoot) {
                 roots.add(root);
-                // Делим полином на (x - root) — синтетическое деление
+                // Делим полином на (x - root)
                 currentPoly = deflatePolynomial(currentPoly, root);
             }
         }
@@ -150,40 +154,40 @@ class EquationSolver {
         return roots;
     }
 
-    // Синтетическое деление полинома на (x - root)
+    // Синтетическое деление полинома на (x - root) с учётом комплексных корней
     private static Polynomial deflatePolynomial(Polynomial poly, Complex root) {
-        double[] coeffs = poly.coefficients;
+        double[] coeffs = poly.getCoefficients();
         int n = coeffs.length;
-        double[] newCoeffs = new double[n - 1];
+        Complex[] newCoeffs = new Complex[n - 1];
 
-        // Синтетическое деление
-        newCoeffs[0] = coeffs[0];
+        // Синтетическое деление для комплексных чисел
+        newCoeffs[0] = Complex.fromReal(coeffs[0]);
         for (int i = 1; i < n - 1; i++) {
-            newCoeffs[i] = coeffs[i] + newCoeffs[i - 1] * root.getReal();
+            newCoeffs[i] = Complex.fromReal(coeffs[i]).add(newCoeffs[i - 1].multiply(root));
         }
 
-        return new Polynomial(newCoeffs);
+        // Преобразуем обратно в вещественные коэффициенты (если возможно)
+        double[] resultCoeffs = new double[n - 1];
+        for (int i = 0; i < n - 1; i++) {
+            resultCoeffs[i] = newCoeffs[i].getReal();
+        }
+
+        return new Polynomial(resultCoeffs);
     }
 }
 
 class Polynomial {
-    public double[] coefficients; // коэффициенты от старшей степени к младшей
+    private final double[] coefficients;
 
     public Polynomial(double... coeffs) {
         this.coefficients = coeffs.clone();
     }
 
-    // Вычисление значения полинома в точке
+    // Вычисление значения полинома в точке (схема Горнера)
     public Complex evaluate(Complex z) {
-        Complex result = Complex.fromReal(0);
-        int n = coefficients.length - 1;
-        for (int i = 0; i <= n; i++) {
-            double coeff = coefficients[i];
-            Complex term = Complex.fromReal(coeff);
-            for (int j = 0; j < n - i; j++) {
-                term = term.multiply(z);
-            }
-            result = result.add(term);
+        Complex result = Complex.fromReal(coefficients[0]);
+        for (int i = 1; i < coefficients.length; i++) {
+            result = result.multiply(z).add(Complex.fromReal(coefficients[i]));
         }
         return result;
     }
@@ -203,11 +207,15 @@ class Polynomial {
     public int degree() {
         return coefficients.length - 1;
     }
+
+    public double[] getCoefficients() {
+        return coefficients;
+    }
 }
 
 class Complex {
-    private double real;
-    private double imag;
+    private final double real;
+    private final double imag;
 
     public Complex(double real, double imag) {
         this.real = real;
@@ -237,6 +245,7 @@ class Complex {
 
     public Complex divide(Complex other) {
         double denom = other.real * other.real + other.imag * other.imag;
+        if (denom == 0) throw new ArithmeticException("Деление на ноль");
         double newReal = (real * other.real + imag * other.imag) / denom;
         double newImag = (imag * other.real - real * other.imag) / denom;
         return new Complex(newReal, newImag);
@@ -246,14 +255,10 @@ class Complex {
         return Math.sqrt(real * real + imag * imag);
     }
 
-    public double arg() {
-        return Math.atan2(imag, real);
-    }
-
     @Override
     public String toString() {
-        if (imag == 0) return String.format("%.6f", real);
-        if (real == 0) return String.format("%.6fi", imag);
+        if (Math.abs(imag) < 1e-10) return String.format("%.6f", real);
+        if (Math.abs(real) < 1e-10) return String.format("%.6fi", imag);
         String sign = imag < 0 ? "-" : "+";
         return String.format("%.6f %s %.6fi", real, sign, Math.abs(imag));
     }
