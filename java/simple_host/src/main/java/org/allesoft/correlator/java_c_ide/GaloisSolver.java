@@ -24,6 +24,10 @@ class GaSo {
     correlation
     binary stream cross correlation
     rational and algebraic values
+
+    it seems P = NP
+    just apply correlator to the rotated irrational number N times
+    and you can decipher top level of the cipher.
      */
 }
 
