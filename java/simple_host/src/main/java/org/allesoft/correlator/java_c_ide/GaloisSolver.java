@@ -28,6 +28,14 @@ class GaSo {
     it seems P = NP
     just apply correlator to the rotated irrational number N times
     and you can decipher top level of the cipher.
+
+    a = Q * b, where a, b - irrational, Q - rational
+    Q = a.(c)
+    length(a.c) amount of correlators will solve this task
+    it will give you Q
+
+    ow to avoid nonce?
+    it seems it is only the equation?
      */
 }
 
