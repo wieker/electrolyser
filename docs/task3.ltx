@@ -10,7 +10,12 @@
 \usepackage{amsmath}
 \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
 
-\setstretch{1.15}
+\setstretch{1.05} % Уменьшенный межстрочный интервал
+
+% Уменьшаем отступы вокруг заголовков
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{*0}{*0}
+\titlespacing*{\subsection}{0pt}{*0}{*0}
 
 \title{Индуктивная логика, когнитивные ограничения и теорема о невозможности экономического расчёта Мизеса}
 \author{}
@@ -22,7 +27,7 @@
 
 \section*{Основные тезисы}
 
-\begin{enumerate}[label=\arabic*.,leftmargin=*,nosep]
+\begin{enumerate}[label=\arabic*.,leftmargin=*,nosep,itemsep=0pt,parsep=0pt]
   \item \textbf{Понимание других людей и информации как индуктивный процесс:}
   \begin{itemize}[label=--]
     \item Восприятие и интерпретация сообщений (отчётов, инструкций, данных) — это задача индуктивного вывода: мы строим гипотезы о намерениях и содержании на основе неполных данных.
