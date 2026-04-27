@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"media_embed_enabled":1,"ctx_popup":1,"esn_async":1,"ctx_popup_userhead":1,"statprefix":"https://www.dreamwidth.org/stc","user_domain":"dreamwidth.org","inbox_update_poll":1,"has_remote":0,"currentJournal":"transitional_writes","cmax_comment":16000,"siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1,"imgprefix":"https://www.dreamwidth.org/img","currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org"});
+                Site = Object.assign(Site, {"ctx_popup_icons":1,"statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","has_remote":0,"media_embed_enabled":1,"imgprefix":"https://www.dreamwidth.org/img","ctx_popup":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_userhead":1,"cmax_comment":16000,"inbox_update_poll":1,"user_domain":"dreamwidth.org","esn_async":1,"iconprefix":"https://v2.dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1756585241" />
@@ -91,7 +91,7 @@ metart моделей ну т.е. гербарий пестиков и
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1777226400:446:86400:fjWWQJKlri-0-MV8ITI4ymcFv2jE:967f40836067c9bebaf39e09d431afa6" /><input type='hidden' name="replyto" value="185" /><input type='hidden' name="parenttalkid" value="185" /><input type='hidden' name="itemid" value="42319" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="46671" /><input type='hidden' name="chrp1" value="42319-4255543-1777226400-NOicTEngXwV187LgK5tS-116167bb13c548f3d6e0abb1d71b7589" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1777284000:151:86400:rWSol4EvFN-0-fOmEIDbgk6EBepr:496ad30db9a1cf836c4feb575bc52add" /><input type='hidden' name="replyto" value="185" /><input type='hidden' name="parenttalkid" value="185" /><input type='hidden' name="itemid" value="42319" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="46671" /><input type='hidden' name="chrp1" value="42319-4255543-1777284000-Jxl7LSnrmc39ayY1D3mz-42f7c1ba2ca1ab9f3e944d6fa685a8e7" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -118,9 +118,9 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" value="" name="oidurl" id="oidurl" maxlength="60" class="text" size="53" />      </div>
+        <input type="text" maxlength="60" class="text" value="" size="53" name="oidurl" id="oidurl" />      </div>
 
-      <div><input type='checkbox' id="oidlogincheck" class="checkbox" name="oiddo_login" />
+      <div><input type='checkbox' class="checkbox" id="oidlogincheck" name="oiddo_login" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -142,13 +142,13 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="username" >
             Account name
         </label>
-        <input type="text" maxlength="25" name="userpost" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" value="" class="text" id="username" size="13" />      </div>
+        <input type="text" maxlength="25" id="username" class="text" value="" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" size="13" name="userpost" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" maxlength="72" size="18" class="text" id="password" name="password" value="" />      </div>
+        <input type="password" maxlength="72" id="password" value="" class="text" name="password" size="18" />      </div>
 
       <div><input type='checkbox' class="checkbox" id="logincheck" name="do_login" />
         <label for="logincheck" class="checkboxlabel">
@@ -169,7 +169,7 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" id="subject" class="text" value="" placeholder="Subject" name="subject" size="50" maxlength="100" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" placeholder="Subject" class="text" value="" size="50" name="subject" maxlength="100" id="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -185,13 +185,13 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select id="prop_editor" class="select" name="prop_editor">
+        <select class="select" name="prop_editor" id="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
 <option value="rte0">Rich Text Editor</option>
 </select>
-    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' style="vertical-align: middle;" title="More info about formatting" /></a>
+    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' title="More info about formatting" style="vertical-align: middle;" /></a>
   </div>
 
   <div class="qr-markup-controls">
@@ -207,7 +207,7 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea rows="10" wrap="soft" cols="80" class="text" id="body" name="body"></textarea></div>
+        <textarea cols="80" id="body" rows="10" wrap="soft" name="body" class="text"></textarea></div>
 
 
 
