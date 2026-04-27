@@ -12,14 +12,14 @@
 <link rel="canonical" href="41333.html?thread=34165#cmt34165" />
 <script>
 // don't crawl this.  read http://www.livejournal.com/developer/exporting
-var LJ_cmtinfo = {"34165":{"u":"transitional_writes","full":1,"parent":33909,"screened":0,"rc":["34421"],"deleted":0},"canSpam":"1","remote":"","34421":{"u":"transitional_writes","full":1,"parent":34165,"screened":0,"deleted":0,"rc":[]},"canAdmin":null,"journal":"transitional_writes","form_auth":"c0:1776265200:3135:86400:ZH7EAYbIzX-0-4wiBc71FjayU3jz:d9181689043e1fee42e612c0ba336ec1"}
+var LJ_cmtinfo = {"remote":"","34165":{"full":1,"screened":0,"deleted":0,"rc":["34421"],"parent":33909,"u":"transitional_writes"},"canSpam":"1","34421":{"screened":0,"deleted":0,"full":1,"u":"transitional_writes","parent":34165,"rc":[]},"form_auth":"c0:1777222800:2667:86400:bSLjPufe2R-0-MV8ITI4ymcFv2jE:dc3007134d4d6499fbab5d41ffaf1f3c","journal":"transitional_writes","canAdmin":null}
 </script>
             <script type="text/javascript">
                 var Site;
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup_icons":1,"ctx_popup":1,"esn_async":1,"user_domain":"dreamwidth.org","ctx_popup_userhead":1,"statprefix":"https://www.dreamwidth.org/stc","siteroot":"https://www.dreamwidth.org","has_remote":0,"cmax_comment":16000,"currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1,"imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1});
+                Site = Object.assign(Site, {"imgprefix":"https://www.dreamwidth.org/img","media_embed_enabled":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup":1,"esn_async":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","has_remote":0,"ctx_popup_userhead":1,"inbox_update_poll":1,"cmax_comment":16000,"user_domain":"dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery.commentmanage.css,controlstrip.css,controlstrip-dark.css,canary.css?v=1756585241" />
@@ -37,18 +37,18 @@ var LJ_cmtinfo = {"34165":{"u":"transitional_writes","full":1,"parent":33909,"sc
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" value="" class="text" tabindex="1" placeholder="Account name:" size="7" maxlength="27" id="xc_user" name="user" />
+        <input type="text" tabindex="1" id="xc_user" name="user" value="" size="7" maxlength="27" placeholder="Account name:" class="text" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" id="xc_password" name="password" size="7" placeholder="Password" class="lj_login_password" tabindex="2" value="" />
-      <input type='submit' value="Log in" class="submit" tabindex="4" />
+        <input type="password" tabindex="2" id="xc_password" name="password" value="" size="7" placeholder="Password" class="lj_login_password" />
+      <input type='submit' value="Log in" tabindex="4" class="submit" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' id="xc_remember" name="remember_me" class="checkbox" tabindex="3" value="1" />
+        <input type='checkbox' class="checkbox" tabindex="3" id="xc_remember" name="remember_me" value="1" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -60,9 +60,9 @@ var LJ_cmtinfo = {"34165":{"u":"transitional_writes","full":1,"parent":33909,"sc
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_375'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_90'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" name="q" title="Search" id="search" class="text" size="20" /> <select name="type" class="select">
+<input type="text" size="20" class="text" name="q" id="search" title="Search" /> <select class="select" name="type">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -260,7 +260,7 @@ var LJ_cmtinfo = {"34165":{"u":"transitional_writes","full":1,"parent":33909,"sc
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Apr. 15th, 2026 03:52 pm</span></div>
+<span id="load-time">Page generated Apr. 26th, 2026 05:44 pm</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>

@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup":1,"statprefix":"https://www.dreamwidth.org/stc","cmax_comment":16000,"inbox_update_poll":1,"esn_async":1,"ctx_popup_icons":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","has_remote":0,"imgprefix":"https://www.dreamwidth.org/img","currentJournal":"transitional_writes","user_domain":"dreamwidth.org","media_embed_enabled":1,"ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org"});
+                Site = Object.assign(Site, {"iconprefix":"https://v2.dreamwidth.org","inbox_update_poll":1,"ctx_popup_icons":1,"imgprefix":"https://www.dreamwidth.org/img","cmax_comment":16000,"ctx_popup_userhead":1,"currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","esn_async":1,"ctx_popup":1,"media_embed_enabled":1,"has_remote":0,"user_domain":"dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","siteroot":"https://www.dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.theme.smoothness.css,controlstrip.css,controlstrip-dark.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,canary.css?v=1756585241" />
@@ -33,18 +33,18 @@
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" tabindex="1" maxlength="27" value="" class="text" id="xc_user" size="7" placeholder="Account name:" name="user" />
+        <input type="text" size="7" placeholder="Account name:" class="text" name="user" value="" maxlength="27" id="xc_user" tabindex="1" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" tabindex="2" placeholder="Password" name="password" class="lj_login_password" id="xc_password" size="7" value="" />
+        <input type="password" value="" name="password" class="lj_login_password" placeholder="Password" size="7" tabindex="2" id="xc_password" />
       <input type='submit' value="Log in" tabindex="4" class="submit" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' tabindex="3" name="remember_me" class="checkbox" id="xc_remember" value="1" />
+        <input type='checkbox' id="xc_remember" tabindex="3" name="remember_me" value="1" class="checkbox" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -56,9 +56,9 @@
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_436'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_54'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" name="q" size="20" id="search" title="Search" class="text" /> <select name="type" class="select">
+<input type="text" name="q" id="search" title="Search" class="text" size="20" /> <select name="type" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -98,7 +98,7 @@
 <div class="contents">
 <div class="inner">
 <div class="userpic"></div>
-<span class="poster entry-poster "><span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span></span><div class="entry-content">1. Задача на развитие логического мышления, проверки собеседника на<br />способность мыслить логически и вашей способности выявлять бред<br />нейросетей, искусственных или человеческих - неважно.<br /><br />2. Логика делится на индуктивную и дедуктивную.<br />Существуют авторитетные формализации индуктивной логики<br />см. <a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</a><br />Интерпретация входящих сенсорных и чувственных данных - также индуктивная<br />задача.<br />см. Потапов А.С. Распознавание образов и машинное восприятие: Общий подход на основе принципа минимальной длины описания<br /><br />3. Известна проблема неполноты и возможности неверной индукции.<br />Всегда возможно неверно догадаться, что происходит. [1]<br /><br />4. За благими пожеланиями, что логика важна, часто скрывается то,<br />что ее совершенно не используют и не понимают. В качестве<br />иллюстрации этого тезиса давайте применим логическое мышление<br />к старой истории с попыткой построить социализм и новой<br />истории с искусственными нейросетями.<br /><br />5. Давайте попробуем доказать теорему Мизеса о невозможности<br />экономического расчета при социализме. [2]<br /><br />6. В качестве допущения, не сводимого к логике примем, что у<br />нас имеется несколько, вообще говоря большое количество агентов<br />(людей), которые воспринимают и перерабатывают информацию.<br /><br />7. Условная колмогоровская сложность поведения этих агентов<br />ограничена. То есть один агент не в состоянии увидеть или<br />сделать все один.<br /><br />8. Разберем два случая. В первом агенты не используют<br />деньги для координации.<br />Во втором введем рынок.<br />Деньги здесь - физически сохранный товар, закон сохранения<br />которго следует из статистически многократно проверяемых<br />законов физики.<br /><br />9. В первом случае, за счет того, что при любом общении<br />между людьми без использования денег всегда есть вероятность<br />неверной догадки, пропорциональная количеству обращающейся<br />между людьми информации, всегда возможно лавинообразное<br />нарастание<br />количества ошибок. Ошибки могут накапливаться.<br /><br />10. Без денег исправить можно только те ошибки, которые<br />ты можешь протестировать непосредственно. Т.к. колмогоровская<br />сложность агента ограничена, то количество таких тестов невелико.<br />Сведения о происходящем за пределами твоих возможностей по<br />проверке, циркулирующие между людьми имеют тенденцию к<br />накоплению ошибок.<br /><br />11. Единственная информация, которая не подвержена накоплению<br />ошибок, это стоимость тех или иных товаров или услуг,<br />выраженная в деньгах, подчиняющихся законам сохранения.<br />Без твердых денег экономический расчет в системе с большой<br />колмогоровской сложностью невозможен.<br /><br />12. В код искусственных нейросетей, да и в обучение естественных<br />можно вставить закладку, if() {}, по аналогии с закладкой в ARM<br />TrustZone, Intel ME, Verilog для фабрик TSCM и подобным вещам.<br /><br />13. Наиболее гарантированный способ избежать вызванных этим проблем -<br />проверять весь вывод и всю работу сделанную естественными или<br />искусственными нейросетями, как учительница русского языка<br />проверяет ваши домашние работы. Буквально все.<br /><br />[1] Имеется в виду следующая проблема индуктивных умозаключений:<br /><a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B0_%D0%B8%D0%BD%D0%B4%D1%83%D0%BA%D1%86%D0%B8%D0%B8">Wikipedia: Проблема индукции</a><br /><br />[2] Сформулирована здесь: <a href="https://mises.org/online-book/economic-calculation-socialist-commonwealth">https://mises.org/online-book/economic-calculation-socialist-commonwealth</a></div></div>
+<span class="poster entry-poster "><span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span></span><div class="entry-content">1. Задача на развитие логического мышления, проверки собеседника на<br />способность мыслить логически и вашей способности выявлять бред<br />нейросетей, искусственных или человеческих - неважно.<br /><br />2. Логика делится на индуктивную и дедуктивную.<br />Существуют авторитетные формализации индуктивной логики<br />см. <a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</a><br />Интерпретация входящих сенсорных и чувственных данных - также индуктивная<br />задача.<br />см. Потапов А.С. Распознавание образов и машинное восприятие: Общий подход на основе принципа минимальной длины описания<br /><br />3. Известна проблема неполноты и возможности неверной индукции.<br />Всегда возможно неверно догадаться, что происходит. [1]<br /><br />4. За благими пожеланиями, что логика важна, часто скрывается то,<br />что ее совершенно не используют и не понимают. В качестве<br />иллюстрации этого тезиса давайте применим логическое мышление<br />к старой истории с попыткой построить социализм и новой<br />истории с искусственными нейросетями.<br /><br />5. Давайте попробуем доказать теорему Мизеса о невозможности<br />экономического расчета при социализме. [2]<br /><br />6. В качестве допущения, не сводимого к логике примем, что у<br />нас имеется несколько, вообще говоря большое количество агентов<br />(людей), которые воспринимают и перерабатывают информацию.<br /><br />7. Условная колмогоровская сложность поведения этих агентов<br />ограничена. То есть один агент не в состоянии увидеть или<br />сделать все один.<br /><br />8. Разберем два случая. В первом агенты не используют<br />деньги для координации.<br />Во втором введем рынок.<br />Деньги здесь - физически сохранный товар, закон сохранения<br />которго следует из статистически многократно проверяемых<br />законов физики.<br /><br />9. В первом случае, за счет того, что при любом общении<br />между людьми без использования денег всегда есть вероятность<br />неверной догадки, пропорциональная количеству обращающейся<br />между людьми информации, всегда возможно лавинообразное<br />нарастание<br />количества ошибок. Ошибки могут накапливаться.<br /><br />10. Без денег исправить можно только те ошибки, которые<br />ты можешь протестировать непосредственно. Т.к. колмогоровская<br />сложность агента ограничена, то количество таких тестов невелико.<br />Сведения о происходящем за пределами твоих возможностей по<br />проверке, циркулирующие между людьми имеют тенденцию к<br />накоплению ошибок.<br /><br />11. Единственная информация, которая не подвержена накоплению<br />ошибок, это стоимость тех или иных товаров или услуг,<br />выраженная в деньгах, подчиняющихся законам сохранения.<br />Без твердых денег экономический расчет в системе с большой<br />колмогоровской сложностью невозможен.<br /><br />12. В код искусственных нейросетей, да и в обучение естественных<br />можно вставить закладку, if() {}, по аналогии с закладкой в ARM<br />TrustZone, Intel ME, Verilog для фабрик TSMC и подобным вещам.<br /><br />13. Наиболее гарантированный способ избежать вызванных этим проблем -<br />проверять весь вывод и всю работу сделанную естественными или<br />искусственными нейросетями, как учительница русского языка<br />проверяет ваши домашние работы. Буквально все.<br /><br />[1] Имеется в виду следующая проблема индуктивных умозаключений:<br /><a href="https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B0_%D0%B8%D0%BD%D0%B4%D1%83%D0%BA%D1%86%D0%B8%D0%B8">Wikipedia: Проблема индукции</a><br /><br />[2] Сформулирована здесь: <a href="https://mises.org/online-book/economic-calculation-socialist-commonwealth">https://mises.org/online-book/economic-calculation-socialist-commonwealth</a></div></div>
 </div>
 </div>
 <div class="footer">
@@ -109,7 +109,7 @@
 <li class="link link_next"> <a href="https://www.dreamwidth.org/go?dir=next&itemid=42319&journal=transitional_writes" ><img border='0' width="16" height="16" alt="Next Entry" title="Next Entry" src="https://www.dreamwidth.org/img/silk/entry/next.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="">
 <li class="entry-permalink first-item"><a href="42319.html">Link</a></li>
-<li class="entry-readlink"><a href="42319.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">1 comment</a></li>
+<li class="entry-readlink"><a href="42319.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">26 comments</a></li>
 </ul></div>
 </div>
 </div>
@@ -120,7 +120,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1776265200:2955:86400:hWQaIvcfZU-0-4wiBc71FjayU3jz:74d6eeec693e209f68d3b10ca5d52abf" /><input type='hidden' name="replyto" value="0" /><input type='hidden' name="parenttalkid" value="0" /><input type='hidden' name="itemid" value="42319" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="42319-4255543-1776265200-dZpcQ6FzLGQW9c1vHwaP-24d7da860cc4d64cedf23932adbfe2fc" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1777222800:2451:86400:9FRwqJvXoW-0-MV8ITI4ymcFv2jE:680f16d7e4536c167580993edeadb35c" /><input type='hidden' name="replyto" value="0" /><input type='hidden' name="parenttalkid" value="0" /><input type='hidden' name="itemid" value="42319" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="42319-4255543-1777222800-xeJcXnMafErHPzyew5tf-d0b284c906f328bb25c59e735f16204f" />
 
 
 <div id="talkform-from">
@@ -147,9 +147,9 @@
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" id="oidurl" class="text" size="53" value="" maxlength="60" name="oidurl" />      </div>
+        <input type="text" maxlength="60" size="53" class="text" name="oidurl" value="" id="oidurl" />      </div>
 
-      <div><input type='checkbox' class="checkbox" id="oidlogincheck" name="oiddo_login" />
+      <div><input type='checkbox' class="checkbox" name="oiddo_login" id="oidlogincheck" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -171,15 +171,15 @@
         <label for="username" >
             Account name
         </label>
-        <input type="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" maxlength="25" class="text" size="13" id="username" value="" name="userpost" />      </div>
+        <input type="text" class="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" size="13" name="userpost" value="" maxlength="25" id="username" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" name="password" id="password" class="text" size="18" value="" maxlength="72" />      </div>
+        <input type="password" value="" name="password" class="text" size="18" id="password" maxlength="72" />      </div>
 
-      <div><input type='checkbox' id="logincheck" class="checkbox" name="do_login" />
+      <div><input type='checkbox' class="checkbox" name="do_login" id="logincheck" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -198,7 +198,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" value="" id="subject" class="text" size="50" placeholder="Subject" name="subject" maxlength="100" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" maxlength="100" id="subject" class="text" placeholder="Subject" size="50" value="" name="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -214,13 +214,13 @@
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select name="prop_editor" id="prop_editor" class="select">
+        <select id="prop_editor" name="prop_editor" class="select">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
 <option value="rte0">Rich Text Editor</option>
 </select>
-    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' title="More info about formatting" style="vertical-align: middle;" /></a>
+    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' style="vertical-align: middle;" title="More info about formatting" /></a>
   </div>
 
   <div class="qr-markup-controls">
@@ -236,7 +236,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea rows="10" wrap="soft" id="body" class="text" cols="80" name="body"></textarea></div>
+        <textarea cols="80" name="body" rows="10" class="text" id="body" wrap="soft"></textarea></div>
 
 
 
@@ -246,7 +246,7 @@
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Post Comment" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
+<input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
 
 </div>
 
@@ -319,7 +319,7 @@
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Apr. 15th, 2026 03:49 pm</span></div>
+<span id="load-time">Page generated Apr. 26th, 2026 05:40 pm</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>

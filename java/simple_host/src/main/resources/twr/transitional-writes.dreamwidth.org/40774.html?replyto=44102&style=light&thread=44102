@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"imgprefix":"https://www.dreamwidth.org/img","media_embed_enabled":1,"currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","ctx_popup":1,"cmax_comment":16000,"has_remote":0,"user_domain":"dreamwidth.org","inbox_update_poll":1,"esn_async":1,"statprefix":"https://www.dreamwidth.org/stc"});
+                Site = Object.assign(Site, {"ctx_popup_icons":1,"imgprefix":"https://www.dreamwidth.org/img","siteroot":"https://www.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","esn_async":1,"ctx_popup_userhead":1,"ctx_popup":1,"media_embed_enabled":1,"user_domain":"dreamwidth.org","has_remote":0,"inbox_update_poll":1,"statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","cmax_comment":16000});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1756585241" />
@@ -104,12 +104,12 @@ ADATE - программа, как простейшая функция,
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<hr style="margin: 1em 0;"><div class="readlink"> (<a href="40774.html?style=light#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">36 comments</a>) </div>
+<hr style="margin: 1em 0;"><div class="readlink"> (<a href="40774.html?style=light#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">42 comments</a>) </div>
 <h1>Post a comment in response:</h1>
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1776268800:1086:86400:8oviAPskCL-0-4wiBc71FjayU3jz:a52b40ba89b26590fe21a4deb5c5b4b0" /><input type='hidden' name="replyto" value="172" /><input type='hidden' name="parenttalkid" value="172" /><input type='hidden' name="itemid" value="40774" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="44102" /><input type='hidden' name="chrp1" value="40774-4255543-1776268800-v03c01HTennJGqx9ftQO-8e5fba7ea73755ffa59592d4bb3827c0" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1777226400:1013:86400:HPZasDb4to-0-MV8ITI4ymcFv2jE:18d138c06f71df399caca1070a92e36e" /><input type='hidden' name="replyto" value="172" /><input type='hidden' name="parenttalkid" value="172" /><input type='hidden' name="itemid" value="40774" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="44102" /><input type='hidden' name="chrp1" value="40774-4255543-1777226400-NdsT7yuzda81sgEeRjDl-5de5d5265fb2db32ef3af59578205b5b" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -136,9 +136,9 @@ ADATE - программа, как простейшая функция,
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" size="53" maxlength="60" id="oidurl" value="" class="text" name="oidurl" />      </div>
+        <input type="text" name="oidurl" value="" class="text" id="oidurl" maxlength="60" size="53" />      </div>
 
-      <div><input type='checkbox' name="oiddo_login" class="checkbox" id="oidlogincheck" />
+      <div><input type='checkbox' class="checkbox" id="oidlogincheck" name="oiddo_login" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -160,15 +160,15 @@ ADATE - программа, как простейшая функция,
         <label for="username" >
             Account name
         </label>
-        <input type="text" size="13" name="userpost" class="text" id="username" value="" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" maxlength="25" />      </div>
+        <input type="text" value="" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" name="userpost" id="username" class="text" size="13" maxlength="25" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" value="" id="password" maxlength="72" name="password" class="text" size="18" />      </div>
+        <input type="password" maxlength="72" size="18" value="" name="password" id="password" class="text" />      </div>
 
-      <div><input type='checkbox' class="checkbox" name="do_login" id="logincheck" />
+      <div><input type='checkbox' name="do_login" id="logincheck" class="checkbox" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -187,7 +187,7 @@ ADATE - программа, как простейшая функция,
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" size="50" placeholder="Subject" name="subject" class="text" id="subject" value="" maxlength="100" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" class="text" id="subject" placeholder="Subject" name="subject" value="" size="50" maxlength="100" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -203,7 +203,7 @@ ADATE - программа, как простейшая функция,
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select class="select" name="prop_editor" id="prop_editor">
+        <select class="select" id="prop_editor" name="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -225,7 +225,7 @@ ADATE - программа, как простейшая функция,
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea id="body" rows="10" wrap="soft" name="body" cols="80" class="text"></textarea></div>
+        <textarea class="text" id="body" name="body" rows="10" wrap="soft" cols="80"></textarea></div>
 
 
 

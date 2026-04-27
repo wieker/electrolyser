@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"imgprefix":"https://www.dreamwidth.org/img","ctx_popup_userhead":1,"inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","has_remote":0,"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_icons":1,"esn_async":1,"cmax_comment":16000,"user_domain":"dreamwidth.org","ctx_popup":1,"siteroot":"https://www.dreamwidth.org","currentJournal":"transitional_writes","iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1});
+                Site = Object.assign(Site, {"ctx_popup_userhead":1,"ctx_popup_icons":1,"has_remote":0,"siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","currentJournal":"transitional_writes","cmax_comment":16000,"inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup":1,"statprefix":"https://www.dreamwidth.org/stc","esn_async":1,"user_domain":"dreamwidth.org","media_embed_enabled":1,"iconprefix":"https://v2.dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.theme.smoothness.css,controlstrip.css,controlstrip-dark.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,canary.css?v=1756585241" />
@@ -33,18 +33,18 @@
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" maxlength="27" size="7" id="xc_user" name="user" tabindex="1" class="text" value="" placeholder="Account name:" />
+        <input type="text" id="xc_user" size="7" tabindex="1" value="" placeholder="Account name:" maxlength="27" name="user" class="text" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" id="xc_password" size="7" name="password" value="" class="lj_login_password" tabindex="2" placeholder="Password" />
+        <input type="password" value="" placeholder="Password" size="7" id="xc_password" tabindex="2" name="password" class="lj_login_password" />
       <input type='submit' value="Log in" class="submit" tabindex="4" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' id="xc_remember" name="remember_me" tabindex="3" class="checkbox" value="1" />
+        <input type='checkbox' id="xc_remember" tabindex="3" value="1" name="remember_me" class="checkbox" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -56,9 +56,9 @@
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_88'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_72'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" class="text" id="search" title="Search" size="20" name="q" /> <select name="type" class="select">
+<input type="text" id="search" size="20" name="q" class="text" title="Search" /> <select name="type" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -98,7 +98,7 @@
 <div class="contents">
 <div class="inner">
 <div class="userpic"></div>
-<span class="poster entry-poster "><span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span></span><div class="entry-content">Кроме физики и электрохимии,<br />литературу по которой я расписал в посте про хлоратно-битумный детонатор,<br />такая базовая база еще крайне полезна:<br /><br /><a href="https://www.twirpx.com/file/2462693/">https://www.twirpx.com/file/2462693/</a><br />Пойа Джордж. Математика и правдоподобные рассуждения<br /><br /><a href="https://www.twirpx.com/file/2444174/">https://www.twirpx.com/file/2444174/</a><br />Бастиа Фредерик. Что видно и чего не видно<br />в истории экономической мысли благодаря приведенной там притче о разбитом окне — универсальной иллюстрации пагубности государственного вмешательства в экономику.<br /><br />Бернхард А. Секреты ню-фотографии. Всё о ню-фотосъемке для моделей и фотографов<br />Вы уже скачивали этот файл 12 сентября 2020 в 05:35, за повторное скачивание баллы сниматься не будут.<br /><a href="https://www.twirpx.com/file/2420199/">https://www.twirpx.com/file/2420199/</a><br /><br /><a href="https://www.twirpx.com/file/183567/">https://www.twirpx.com/file/183567/</a><br />Альтшуллер Г.С. Найти идею. Введение в ТРИЗ - теорию решения изобретательских задач<br /><br /><a href="https://www.twirpx.com/file/189603/">https://www.twirpx.com/file/189603/</a><br />Потапов А.С. Распознавание образов и машинное восприятие: Общий подход на основе принципа минимальной длины описания<br /><br />Ну да<br /><a href="https://www.twirpx.com/file/2492046/">https://www.twirpx.com/file/2492046/</a><br />Верещагин Н.К., Шень А. Лекции по математической логике и теории алгоритмов. Часть 3. Вычислимые функции<br /><br />Как понимать квантовую механику Иванова<br /><a href="https://techlibrary.ru/b/2q1c1a1o1p1c_2u.2k._2s1a1l_1q1p1o1j1n1a1t2d_1l1c1a1o1t1p1c1u2f_1n1f1w1a1o1j1l1u._2014.pdf">https://techlibrary.ru/b/2q1c1a1o1p1c_2u.2k._2s1a1l_1q1p1o1j1n1a1t2d_1l1c1a1o1t1p1c1u2f_1n1f1w1a1o1j1l1u._2014.pdf</a><br /><br /><a href="https://www.twirpx.com/file/731178/">https://www.twirpx.com/file/731178/</a><br />Варшавский В.И. Коллективное поведение автоматов<br /><br /><a href="https://www.twirpx.com/file/2874450/">https://www.twirpx.com/file/2874450/</a><br />Хайек Фридрих. Индивидуализм и экономический порядок<br /><br /><a href="https://www.twirpx.com/file/2444174/">https://www.twirpx.com/file/2444174/</a><br />Бастиа Фредерик. Что видно и чего не видно<br /><br /><a href="https://www.twirpx.com/file/2372558/">https://www.twirpx.com/file/2372558/</a><br />Мизес Людвиг фон. Человеческая деятельность. Трактат по экономической теории<br /><br /><a href="https://www.twirpx.com/file/40286/">https://www.twirpx.com/file/40286/</a><br />Рассел С., Норвиг П. Искусственный интеллект. Современный подход<br /><br /><a href="https://www.twirpx.com/file/2525183/">https://www.twirpx.com/file/2525183/</a><br />Верещагин Н.К., Успенский В.А., Шень А. Колмогоровская сложность и алгоритмическая случайность<br /><br /><a href="https://www.twirpx.com/file/72540/">https://www.twirpx.com/file/72540/</a><br />Лайонс Р. Цифровая обработка сигналов<br /><br />Это норм база<br /><br />+ архив журнала BYTE за 70-ые</div></div>
+<span class="poster entry-poster "><span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span></span><div class="entry-content">Кроме физики и электрохимии,<br />литературу по которой я расписал в посте про хлоратно-битумный детонатор,<br />такая базовая база еще крайне полезна:<br /><br /><a href="https://www.twirpx.com/file/2462693/">https://www.twirpx.com/file/2462693/</a><br />Пойа Джордж. Математика и правдоподобные рассуждения<br /><br /><a href="https://www.twirpx.com/file/2444174/">https://www.twirpx.com/file/2444174/</a><br />Бастиа Фредерик. Что видно и чего не видно<br />в истории экономической мысли благодаря приведенной там притче о разбитом окне — универсальной иллюстрации пагубности государственного вмешательства в экономику.<br /><br />Бернхард А. Секреты ню-фотографии. Всё о ню-фотосъемке для моделей и фотографов<br />Вы уже скачивали этот файл 12 сентября 2020 в 05:35, за повторное скачивание баллы сниматься не будут.<br /><a href="https://www.twirpx.com/file/2420199/">https://www.twirpx.com/file/2420199/</a><br /><br /><a href="https://www.twirpx.com/file/183567/">https://www.twirpx.com/file/183567/</a><br />Альтшуллер Г.С. Найти идею. Введение в ТРИЗ - теорию решения изобретательских задач<br /><br /><a href="https://www.twirpx.com/file/189603/">https://www.twirpx.com/file/189603/</a><br />Потапов А.С. Распознавание образов и машинное восприятие: Общий подход на основе принципа минимальной длины описания<br /><br />Ну да<br /><a href="https://www.twirpx.com/file/2492046/">https://www.twirpx.com/file/2492046/</a><br />Верещагин Н.К., Шень А. Лекции по математической логике и теории алгоритмов. Часть 3. Вычислимые функции<br /><br />Как понимать квантовую механику Иванова<br /><a href="https://techlibrary.ru/b/2q1c1a1o1p1c_2u.2k._2s1a1l_1q1p1o1j1n1a1t2d_1l1c1a1o1t1p1c1u2f_1n1f1w1a1o1j1l1u._2014.pdf">https://techlibrary.ru/b/2q1c1a1o1p1c_2u.2k._2s1a1l_1q1p1o1j1n1a1t2d_1l1c1a1o1t1p1c1u2f_1n1f1w1a1o1j1l1u._2014.pdf</a><br /><br /><a href="https://www.twirpx.com/file/731178/">https://www.twirpx.com/file/731178/</a><br />Варшавский В.И. Коллективное поведение автоматов<br /><br /><a href="https://www.twirpx.com/file/2874450/">https://www.twirpx.com/file/2874450/</a><br />Хайек Фридрих. Индивидуализм и экономический порядок<br /><br /><a href="https://www.twirpx.com/file/2444174/">https://www.twirpx.com/file/2444174/</a><br />Бастиа Фредерик. Что видно и чего не видно<br /><br /><a href="https://www.twirpx.com/file/2372558/">https://www.twirpx.com/file/2372558/</a><br />Мизес Людвиг фон. Человеческая деятельность. Трактат по экономической теории<br /><br /><a href="https://www.twirpx.com/file/40286/">https://www.twirpx.com/file/40286/</a><br />Рассел С., Норвиг П. Искусственный интеллект. Современный подход<br /><br /><a href="https://www.twirpx.com/file/2525183/">https://www.twirpx.com/file/2525183/</a><br />Верещагин Н.К., Успенский В.А., Шень А. Колмогоровская сложность и алгоритмическая случайность<br /><br /><a href="https://www.twirpx.com/file/72540/">https://www.twirpx.com/file/72540/</a><br />Лайонс Р. Цифровая обработка сигналов<br /><br />Варшавский В.И., Поспелов Д.А. Оркестр играет без дирижёра: размышления об эволюции некоторых технических систем и управлении ими<br /><a href="https://www.twirpx.com/file/3033030/">https://www.twirpx.com/file/3033030/</a><br /><br /><a href="https://scilla.ru/works/knigi/infl.pdf">https://scilla.ru/works/knigi/infl.pdf</a><br />В.Кизилов, Гр.Сапов. Инфляция и её последствия / под ред. Е.Михайловской. – М.: РОО «Центр «Панорама», 2006. – 146с.<br /><br /><a href="https://ngounb.ru/wp-content/uploads/2016/09/Strategiya-konflikta.-SHelling-Tomas.pdf">https://ngounb.ru/wp-content/uploads/2016/09/Strategiya-konflikta.-SHelling-Tomas.pdf</a><br />Стратегия конфликта / Томас Шеллинг; пер. с англ. Т. Даниловой<br />под ред. Ю. Кузнецова, К. Сонина. — М.: И Р И С Э Н , 2 0 0 7 . 366 с.<br />(Серия «Международные отношения»)<br /><br />Это норм база<br /><br />+ архив журнала BYTE за 70-ые</div></div>
 </div>
 </div>
 <div class="footer">
@@ -120,7 +120,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1776265200:2953:86400:xabDTSDR8g-0-4wiBc71FjayU3jz:46f87c1985d5a5c4b03c32afe97e3524" /><input type='hidden' name="replyto" value="0" /><input type='hidden' name="parenttalkid" value="0" /><input type='hidden' name="itemid" value="24717" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="24717-4255543-1776265200-1eDPhNeFPYarMYhCRU1W-819c12da9adcaa61f3c4efaea1f2f374" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1777222800:2450:86400:nbOTgnJ7HI-0-MV8ITI4ymcFv2jE:5be89f3b537117adb70e75b7d0e3de20" /><input type='hidden' name="replyto" value="0" /><input type='hidden' name="parenttalkid" value="0" /><input type='hidden' name="itemid" value="24717" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="24717-4255543-1777222800-SoqeG793i6qG8dmuJrna-17e2a61786ddf7cdc67e33ff06753718" />
 
 
 <div id="talkform-from">
@@ -147,9 +147,9 @@
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" name="oidurl" maxlength="60" size="53" class="text" id="oidurl" value="" />      </div>
+        <input type="text" value="" maxlength="60" size="53" id="oidurl" class="text" name="oidurl" />      </div>
 
-      <div><input type='checkbox' id="oidlogincheck" class="checkbox" name="oiddo_login" />
+      <div><input type='checkbox' id="oidlogincheck" name="oiddo_login" class="checkbox" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -171,15 +171,15 @@
         <label for="username" >
             Account name
         </label>
-        <input type="text" maxlength="25" size="13" id="username" name="userpost" value="" class="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" />      </div>
+        <input type="text" value="" size="13" id="username" maxlength="25" name="userpost" class="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" value="" class="text" size="18" maxlength="72" id="password" name="password" />      </div>
+        <input type="password" value="" size="18" id="password" class="text" name="password" maxlength="72" />      </div>
 
-      <div><input type='checkbox' name="do_login" id="logincheck" class="checkbox" />
+      <div><input type='checkbox' id="logincheck" name="do_login" class="checkbox" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -198,7 +198,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" maxlength="100" size="50" id="subject" name="subject" value="" class="text" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" class="text" name="subject" maxlength="100" id="subject" size="50" placeholder="Subject" value="" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -214,7 +214,7 @@
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select class="select" id="prop_editor" name="prop_editor">
+        <select id="prop_editor" class="select" name="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -236,7 +236,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea name="body" cols="80" id="body" rows="10" class="text" wrap="soft"></textarea></div>
+        <textarea class="text" name="body" id="body" rows="10" wrap="soft" cols="80"></textarea></div>
 
 
 
@@ -246,7 +246,7 @@
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Post Comment" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
+<input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
 
 </div>
 
@@ -319,7 +319,7 @@
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Apr. 15th, 2026 03:49 pm</span></div>
+<span id="load-time">Page generated Apr. 26th, 2026 05:40 pm</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
