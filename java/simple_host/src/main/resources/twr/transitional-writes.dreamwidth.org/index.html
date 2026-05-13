@@ -25,7 +25,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"media_embed_enabled":1,"currentJournal":"transitional_writes","statprefix":"https://www.dreamwidth.org/stc","esn_async":1,"imgprefix":"https://www.dreamwidth.org/img","has_remote":0,"ctx_popup_userhead":1,"ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","cmax_comment":16000,"user_domain":"dreamwidth.org","siteroot":"https://www.dreamwidth.org","inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup":1});
+                Site = Object.assign(Site, {"cmax_comment":16000,"ctx_popup":1,"ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","ctx_popup_icons":1,"currentJournal":"transitional_writes","inbox_update_poll":1,"esn_async":1,"media_embed_enabled":1,"imgprefix":"https://www.dreamwidth.org/img","has_remote":0,"iconprefix":"https://v2.dreamwidth.org","user_domain":"dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1773517503" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,controlstrip.css,controlstrip-dark.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,canary.css?v=1773517503" />
@@ -39,19 +39,19 @@
   
 </div>
   <div id='lj_controlstrip_login'><form action="https://www.dreamwidth.org/login" method="post" class="lj_login_form pkg">
-    <div id="login-form"><input type='hidden' name="lj_form_auth" value="c0:1777474800:3545:86400:p1ZujKxtlL-0-wUmndTzuc2L32xB:fda70b5e7b031731892d9de3b921d9d6" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/" />
+    <div id="login-form"><input type='hidden' name="lj_form_auth" value="c0:1778641200:544:86400:uKMHGUNFL3-0-e9Ai3lOSRTYxhKY:ab7350063407f64b5db4ab293c669438" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/" />
         <label for="login_user" class="invisible">
             Account name:
         </label>
-        <input type="text" tabindex="1" placeholder="Account name:" value="" class="text" name="user" maxlength="27" aria-required="true" size="7" id="login_user" />
+        <input type="text" maxlength="27" size="7" tabindex="1" placeholder="Account name:" aria-required="true" id="login_user" class="text" name="user" value="" />
         <label for="login_password" class="invisible">
             Password:
         </label>
-        <input type="password" class="text" value="" aria-required="true" id="login_password" size="7" name="password" tabindex="2" placeholder="Password" /><input type='submit' value="Log in" id="login_submit" class="submit" tabindex="4" />    </div>
+        <input type="password" name="password" value="" placeholder="Password" size="7" tabindex="2" id="login_password" class="text" aria-required="true" /><input type='submit' value="Log in" id="login_submit" class="submit" tabindex="4" />    </div>
     <div id="login-other">    <ul>
         <li><a href='https://www.dreamwidth.org/lostinfo' >(Forgot it?)</a></li>
         <li><a href='https://www.dreamwidth.org/openid/?returnto=https://transitional-writes.dreamwidth.org/' >(OpenID?)</a></li>
-    </ul><input type='checkbox' value="1" class="checkbox" name="remember_me" id="login_remember_me" tabindex="3" />
+    </ul><input type='checkbox' value="1" class="checkbox" id="login_remember_me" tabindex="3" name="remember_me" />
         <label for="login_remember_me" class="checkboxlabel">
             Remember me
         </label>
@@ -62,9 +62,9 @@
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_162'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_69'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" value="" class="text" name="q" title="Search" size="20" id="search" />
+<input type="text" title="Search" name="q" size="20" class="text" value="" id="search" />
 <select class="select" id="id-type-0" name="type">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
@@ -213,7 +213,7 @@
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=42319" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-42319-reply">
 <li class="entry-permalink first-item"><a href="42319.html">Link</a></li>
-<li class="entry-readlink"><a href="42319.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">26 comments</a></li>
+<li class="entry-readlink"><a href="42319.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">37 comments</a></li>
 <li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-42319-reply", 0, "",that)}(this)' href='42319.html?mode=reply' >Reply</a></li>
 </ul><div  id="ljqrtentry-transitional_writes-42319-reply" data-quickreply-container="entry-transitional_writes-42319-reply" style="display: none;"></div></div>
 </div>
@@ -387,7 +387,7 @@
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=40774" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-40774-reply">
 <li class="entry-permalink first-item"><a href="40774.html">Link</a></li>
-<li class="entry-readlink"><a href="40774.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">54 comments</a></li>
+<li class="entry-readlink"><a href="40774.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">55 comments</a></li>
 <li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-40774-reply", 0, "",that)}(this)' href='40774.html?mode=reply' >Reply</a></li>
 </ul><div  id="ljqrtentry-transitional_writes-40774-reply" data-quickreply-container="entry-transitional_writes-40774-reply" style="display: none;"></div></div>
 </div>
@@ -753,13 +753,13 @@
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-8107" title="0 comments">Верхний пост</a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-23439" title="19 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-24717" title="0 comments">Список литературы.</a></span></li>
-<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-42319" title="26 comments"><em>(no subject)</em></a></span></li>
+<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-42319" title="37 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-42226" title="4 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-41797" title="1 comment"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-41500" title="6 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-41333" title="8 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-41031" title="8 comments"><em>(no subject)</em></a></span></li>
-<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-40774" title="54 comments"><em>(no subject)</em></a></span></li>
+<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-40774" title="55 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-40488" title="0 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-40305" title="1 comment"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-40090" title="0 comments"><em>(no subject)</em></a></span></li>
@@ -792,7 +792,7 @@
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Apr. 29th, 2026 03:59 pm</span></div>
+<span id="load-time">Page generated May. 13th, 2026 03:09 am</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
