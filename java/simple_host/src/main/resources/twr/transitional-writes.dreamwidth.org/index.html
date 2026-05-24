@@ -25,7 +25,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"imgprefix":"https://www.dreamwidth.org/img","currentJournal":"transitional_writes","statprefix":"https://www.dreamwidth.org/stc","esn_async":1,"has_remote":0,"ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","cmax_comment":16000,"user_domain":"dreamwidth.org","ctx_popup_userhead":1,"ctx_popup":1,"siteroot":"https://www.dreamwidth.org","media_embed_enabled":1,"inbox_update_poll":1});
+                Site = Object.assign(Site, {"inbox_update_poll":1,"user_domain":"dreamwidth.org","siteroot":"https://www.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_userhead":1,"iconprefix":"https://v2.dreamwidth.org","esn_async":1,"ctx_popup_icons":1,"statprefix":"https://www.dreamwidth.org/stc","has_remote":0,"imgprefix":"https://www.dreamwidth.org/img","cmax_comment":16000,"currentJournal":"transitional_writes","ctx_popup":1,"media_embed_enabled":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1773517503" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,controlstrip.css,controlstrip-dark.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,canary.css?v=1773517503" />
@@ -39,19 +39,19 @@
   
 </div>
   <div id='lj_controlstrip_login'><form action="https://www.dreamwidth.org/login" method="post" class="lj_login_form pkg">
-    <div id="login-form"><input type='hidden' name="lj_form_auth" value="c0:1779080400:1889:86400:PkeaQvMOas-0-aAC2SFsbLxIvPZi:57d3bdc2a076f5867e18b59286d27d97" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/" />
+    <div id="login-form"><input type='hidden' name="lj_form_auth" value="c0:1779588000:537:86400:hjjyHlsp0n-0-oKSV9a813Gt4GBo:13a22e8a6a135d150b99beaf29323c88" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/" />
         <label for="login_user" class="invisible">
             Account name:
         </label>
-        <input type="text" placeholder="Account name:" value="" maxlength="27" class="text" id="login_user" aria-required="true" name="user" size="7" tabindex="1" />
+        <input type="text" id="login_user" maxlength="27" size="7" tabindex="1" placeholder="Account name:" class="text" aria-required="true" name="user" value="" />
         <label for="login_password" class="invisible">
             Password:
         </label>
-        <input type="password" name="password" size="7" tabindex="2" placeholder="Password" value="" id="login_password" class="text" aria-required="true" /><input type='submit' value="Log in" tabindex="4" class="submit" id="login_submit" />    </div>
+        <input type="password" size="7" tabindex="2" placeholder="Password" class="text" id="login_password" name="password" value="" aria-required="true" /><input type='submit' value="Log in" tabindex="4" class="submit" id="login_submit" />    </div>
     <div id="login-other">    <ul>
         <li><a href='https://www.dreamwidth.org/lostinfo' >(Forgot it?)</a></li>
         <li><a href='https://www.dreamwidth.org/openid/?returnto=https://transitional-writes.dreamwidth.org/' >(OpenID?)</a></li>
-    </ul><input type='checkbox' tabindex="3" name="remember_me" class="checkbox" id="login_remember_me" value="1" />
+    </ul><input type='checkbox' name="remember_me" value="1" id="login_remember_me" tabindex="3" class="checkbox" />
         <label for="login_remember_me" class="checkboxlabel">
             Remember me
         </label>
@@ -62,10 +62,10 @@
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_46'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_189'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" value="" class="text" id="search" name="q" size="20" title="Search" />
-<select id="id-type-0" class="select" name="type">
+<input type="text" id="search" class="text" title="Search" size="20" value="" name="q" />
+<select id="id-type-0" name="type" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -192,7 +192,94 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-42319">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-43062">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="entry" id="entry-43062">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h3 class="entry-title"><a title="(no subject)" href="43062.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/05/index.html">May</a>. <a href="2026/05/23/index.html">23rd</a>, <a href="2026/index.html">2026</a></span> <span class="time">09:47 am</span></span></div>
+</div>
+<div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster entry-poster empty"></span><div class="entry-content">Это мои фотографии.<br />Я - фотограф.<br /><br />Нужны ли детали?<br />EXIF не вырезал.<br />И у меня есть фулл дампы с фотосессий.<br /><br />И что вы делаете для обеспечения безопасности моделей?<br />Ведь сутенеров и дегенератов тьма.<br />Я один д Артаньян?<br /><br />Я не получил ни одного коммента в этот блог.<br /><br /><img src="file/3123.jpg" alt="" title="" /><br /><br /><img src="file/2957.jpg" alt="" title="" /><br /><br /><img src="file/2357.jpg" alt="" title="" /><br /><br /><img src="file/1423.jpg" alt="" title="" /></div></div>
+</div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="entry-management-links icon-links"><li class="link mem_add first-item"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=43062" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
+<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=43062" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
+</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-43062-reply">
+<li class="entry-permalink first-item"><a href="43062.html">Link</a></li>
+<li class="entry-readlink"><a href="43062.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">2 comments</a></li>
+<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-43062-reply", 0, "",that)}(this)' href='43062.html?mode=reply' >Reply</a></li>
+</ul><div  id="ljqrtentry-transitional_writes-43062-reply" data-quickreply-container="entry-transitional_writes-43062-reply" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-42843">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="entry" id="entry-42843">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h3 class="entry-title"><a title="(no subject)" href="42843.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/05/index.html">May</a>. <a href="2026/05/20/index.html">20th</a>, <a href="2026/index.html">2026</a></span> <span class="time">12:27 pm</span></span></div>
+</div>
+<div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster entry-poster empty"></span><div class="entry-content">Что скажете: сюжет порнофильма или реальная проблема?<br /><br />1. Есть стройная гибкая танцовщица эротических танцев.<br />2. Она испытывает некоторые материальные затруднения.<br />3. И вполне готова облегчить свое материальное положение путем эротической фотосессии.<br /><br />Но это может вызвать дальнейшие затруднения в ее жизни.<br /><br />Жанр met-art, самый популярный для любительниц, попадает под УК РФ.<br />И я не знаю, но возможно этим реально пользуются для запугивания.<br /><br />Кроме того все прочие жанры так же могут использоваться в<br />качестве компромата, включая втемную, за спиной.<br /><br />1. расскажу родственникам<br />2. расскажу на работе, особенно сотрудницам<br />3. расскажу по месту учебы<br />4. расскажу хозяйке квартиры, которую она снимает.<br /><br />Наконец сами затруднения, которые испытывает танцовщица<br />могут быть следствием какой-то прошлой фотосессии.<br />Образуется определенная спираль вниз.<br /><br />Каково ваше отношение к этому?<br />1. Так и надо, нефиг полностью голой сниматься.<br />2. Пофиг.<br />3. Нехорошо из-за гуманных соображений. Это фигня на ровном месте.<br />Зыбучие пески. По хорошему надо решать.<br />4. Хммм. А ведь мне самому было бы очень интересно стать<br />met-art фотографом, и в сети тысячи моделей, кто-то их снимает,<br />но контактов их нет. Они прячутся.<br />А ведь девушкам (многим) было бы очень интересно<br />срубить денег. Я ведь богатенький инженер.<br />И мог бы предложить хорошую сумму.<br />Так вот что мешает моему потенциальному хобби.<br />А кто-то при этом рубит бабло и набирает компромат, а то и<br />пользуется им пока я честно работаю.<br />Что-то тут не так. Девушкам проблемы.<br />Каким-то избранным людям большой куш.<br />А мне шиш.<br /><br />Если есть инженеры, которым интересно копать глубже,<br />учите физическую методологию.<br /><a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</a><br /><br />Но это вопрос и психологам и всем прочим.<br />Меня интересуют разные люди.<br />Но отдельно интересуют люди с базой.<br />Физическая методология aka<br /><a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</a><br /><br />Ну, кстати, да.<br />Псих фак, социологический факультет, филфак, юрфак,<br />журналистика, фотографы. Кулек тоже.<br />Интересно обойти поспрашивать про этот эффект.<br /><br />Можно ли поставить вопрос жестко:<br />эти факультеты не нужны, если на них нельзя задать<br />этот вопрос или на него нет ответа?<br /><br />Вот он мост между гуманитарными и техническими науками.<br /><br />Конечно, жесткая постановка вопроса отпугнет многих<br />гуанитариев, которые идентифицирует проблему.<br /><br />Но ведь и к инженерам вопрос - а чего вы мнетесь?<br />Здесь есть что-то неверное?<br /><br />Можно написать два варианта листочка.<br />Мягкий - для гуманитариев. Жесткий - для инженеров.</div></div>
+</div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="entry-management-links icon-links"><li class="link mem_add first-item"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=42843" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
+<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=42843" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
+</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-42843-reply">
+<li class="entry-permalink first-item"><a href="42843.html">Link</a></li>
+<li class="entry-readlink"><a href="42843.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">37 comments</a></li>
+<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-42843-reply", 0, "",that)}(this)' href='42843.html?mode=reply' >Reply</a></li>
+</ul><div  id="ljqrtentry-transitional_writes-42843-reply" data-quickreply-container="entry-transitional_writes-42843-reply" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-42625">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="entry" id="entry-42625">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h3 class="entry-title"><a title="(no subject)" href="42625.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/05/index.html">May</a>. <a href="2026/05/20/index.html">20th</a>, <a href="2026/index.html">2026</a></span> <span class="time">07:35 am</span></span></div>
+</div>
+<div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster entry-poster empty"></span><div class="entry-content">На самом деле, при всей там системе безопасности,<br />может быть мои сообщения там шифруются.<br /><br />Но самая простая аудитория у которой есть база - это те, кто поддерживает данную<br />компьютерную систему.<br /><br />А самый простой мотив - это циклы бум крах.<br /><br /><a href="https://e-univers.ru/upload/iblock/b2b/du6ipsnpjz7jcr4xhkkj4wzy7z1f430m.pdf">https://e-univers.ru/upload/iblock/b2b/du6ipsnpjz7jcr4xhkkj4wzy7z1f430m.pdf</a><br /><br />Вам же не выгодны циклы бум-крах<br /><br />Ну а по сути я тот чел, который реально в этом разобрался.<br /><br />В любом случае это опубликовал 15 лет назад.<br /><br />И вполне себе так сказать к вашим услугам.<br /><br />Так почему все доведено до цугундера?<br /><br />Вы же низовое звено, у которого нет денег,<br />и в результате цикла бум-крах и того не станет.<br />Зачем?</div></div>
+</div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="entry-management-links icon-links"><li class="link mem_add first-item"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=42625" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
+<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=42625" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
+</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-42625-reply">
+<li class="entry-permalink first-item"><a href="42625.html">Link</a></li>
+<li class="entry-readlink"><a href="42625.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">67 comments</a></li>
+<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-42625-reply", 0, "",that)}(this)' href='42625.html?mode=reply' >Reply</a></li>
+</ul><div  id="ljqrtentry-transitional_writes-42625-reply" data-quickreply-container="entry-transitional_writes-42625-reply" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-42319">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-42319">
 <div class="inner">
@@ -221,7 +308,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-42226">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-42226">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-42226">
 <div class="inner">
@@ -250,7 +337,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-41797">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-41797">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-41797">
 <div class="inner">
@@ -279,7 +366,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-41500">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-41500">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-41500">
 <div class="inner">
@@ -308,7 +395,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-41333">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-41333">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-41333">
 <div class="inner">
@@ -337,7 +424,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-41031">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-41031">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-41031">
 <div class="inner">
@@ -366,7 +453,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-40774">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-40774">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-40774">
 <div class="inner">
@@ -395,7 +482,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-40488">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-40488">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-40488">
 <div class="inner">
@@ -424,7 +511,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-40305">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-40305">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-40305">
 <div class="inner">
@@ -453,7 +540,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-40090">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-40090">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-40090">
 <div class="inner">
@@ -482,7 +569,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-39813">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-39813">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-39813">
 <div class="inner">
@@ -511,7 +598,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-39677">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-39677">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-39677">
 <div class="inner">
@@ -540,7 +627,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-39245">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-39245">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-39245">
 <div class="inner">
@@ -569,7 +656,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-38948">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-38948">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-38948">
 <div class="inner">
@@ -593,93 +680,6 @@
 <li class="entry-readlink" style="display:none"><a href="38948.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">0 comments</a></li>
 <li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-38948-reply", 0, "",that)}(this)' href='38948.html?mode=reply' >Reply</a></li>
 </ul><div  id="ljqrtentry-transitional_writes-38948-reply" data-quickreply-container="entry-transitional_writes-38948-reply" style="display: none;"></div></div>
-</div>
-</div>
-</div>
-<div class="separator separator-after"><div class="inner"></div></div>
-</div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-38908">
-<div class="separator separator-before"><div class="inner"></div></div>
-<div class="entry" id="entry-38908">
-<div class="inner">
-<div class="header">
-<div class="inner">
-<h3 class="entry-title"><a title="(no subject)" href="38908.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/03/index.html">Mar</a>. <a href="2026/03/11/index.html">11th</a>, <a href="2026/index.html">2026</a></span> <span class="time">08:52 am</span></span></div>
-</div>
-<div>
-<div class="contents">
-<div class="inner">
-<div class="userpic"></div>
-<span class="poster entry-poster empty"></span><div class="entry-content">Блин, мне тут уже нейросети говорят (DeepSeek), что я просто повторяюсь,<br />так что возможно не редуцирую вывод, а просто переставляю метафоры в примере<br />своей мысли. Но попробую еще раз.<br /><br />Вывод теоремы о невозможности экономического расчета Мизеса из<br />колмогоровской мложности.<br /><br />1. Рассмотрим сенсорный вход человека (или какой-то нейросети,<br />естественной или искусственной - неважно).<br />2. Мы видим военкомат (барщину), налоговую (оброк),<br />красивую картинку пропаганды (гуманитарные науки, иконы в церкви),<br />и миски риса (общественные блага, дороги, безопасность).<br />И только это.<br />3. Насколько бы в реальности не существовали благие государства,<br />или даже твое текущее государство не было таким.<br />Неоспоримо следующее.<br />4. Красивую картинку могут просто с помощью replay attack<br />(термин из компьютерной безопасности) транслировать<br />любые рандомные МММщики.<br />5. Миску риса и прочие общественные блага могут обеспечивать<br />просто за счет перераспределения от тех, кто побежал в военкомат<br />и налоговую.<br />6. С точки зрения бритвы Оккама и априорного распределения<br />вероятности для байесовского вывода - МММщики априорно<br />несопоставимо вероятнее благого государства.<br />7. Ну и да, именно подчиняющиеся законам сохранения<br />деньги делают невозможным replay attack, добровольность<br />транзакции предохраняет от простого перераспределения.<br />Теорема о единственности способа экономического планирования<br />в обществе. Если существует экономический расчет, то<br />это только денежный расчет как у Мизеса, расчет прибылей и<br />убытков на свободном рынке.<br /><br />Теорема о неотличимости Генерала ФСБ/СБУ/КГБ/ЦРУ/великого<br />китайского SKYNET от нашествия марсиан с 3I/ATLAS,<br />насылающего галлюцинации через NFC-томограмму головного<br />мозга со спутников-шпионов.<br /><br />Ну и так то да, что может выдеть в сенсорном битстриме<br />нейросеть, человеческая или искусственная?<br />1. Физические явления и объекты.<br />2. Биологические проявления: самосохранение, агрессия,<br />эротика.<br />3. Прочий спам поведения от других нейросетей,<br />который либо является референциями на более объективные<br />явления 1-2, ложные или истинные, либо же рекурсивные<br />вещи ни о чем, самореференции, бред, галлюцинации<br />нейросетей, которые они передают, ретранслируют,<br />усиливают, искажают, XORят друг другу.<br /><br />Собственно, это универсальная сегментация input bitsteam.<br />В силу того, что все эти проявления в битстриме требуют<br />интерпретации, которая зачастую неоднозначна и<br />перепроверок, которая зачастую дорогостоящая, кроме того,<br />все это подвержено replay-атаке со стороны телефонных<br />мошенников, то для надежной передачи информации для<br />экономического планирования требуется что-то, что<br />неуязвимо для подобного рода вещей. Золото, серебро,<br />уран.<br /><br />Блин, вот тебе и вывод теоремы о невозможности <br />экономического расчета при социализме из алгоритмической<br />сложности. Ну и все это, конечно, нужно самому<br />перевыводить. Из элементарной изобретательности и<br />простейших базовых принципов. Вроде бы это все эти<br />ПГМ-ГСМ и называют свободой воли.<br /><br />Из простейшей и наиболее общей модели искусственного<br />и естественного разума - колмогоровской сложности.</div></div>
-</div>
-</div>
-<div class="footer">
-<div class="inner">
-<ul class="entry-management-links icon-links"><li class="link mem_add first-item"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=38908" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
-<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=38908" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-38908-reply">
-<li class="entry-permalink first-item"><a href="38908.html">Link</a></li>
-<li class="entry-readlink"><a href="38908.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">1 comment</a></li>
-<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-38908-reply", 0, "",that)}(this)' href='38908.html?mode=reply' >Reply</a></li>
-</ul><div  id="ljqrtentry-transitional_writes-38908-reply" data-quickreply-container="entry-transitional_writes-38908-reply" style="display: none;"></div></div>
-</div>
-</div>
-</div>
-<div class="separator separator-after"><div class="inner"></div></div>
-</div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-38652">
-<div class="separator separator-before"><div class="inner"></div></div>
-<div class="entry" id="entry-38652">
-<div class="inner">
-<div class="header">
-<div class="inner">
-<h3 class="entry-title"><a title="(no subject)" href="38652.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/03/index.html">Mar</a>. <a href="2026/03/10/index.html">10th</a>, <a href="2026/index.html">2026</a></span> <span class="time">01:48 pm</span></span></div>
-</div>
-<div>
-<div class="contents">
-<div class="inner">
-<div class="userpic"></div>
-<span class="poster entry-poster empty"></span><div class="entry-content">Ну вообще говоря да.<br /><br />Базовая априорная опасность и безопасность<br />распределения оружия.<br /><br />Базовая априорная транзакция с танцовщицей.<br />Транзакция может быть и длиною в жизнь.<br />Но мы рассматриваем базовую.<br />Начнем с нее. Фотки за деньги.<br />Красивые картинки и дети, как результат<br />такой транзакции. Правильное понимание <br />пользы картинок. Почему met-art модели<br />не слишком доступны, если это база и<br />однозначная польза для всех сторон?<br />Почему это не безопасно для них?<br /><br />Базовая априорная опасность и безопасность<br />доверия текстам. Колмогоровская<br />сложность и интерпретация текстов.<br />Распознавнаие образов в отличении<br />мошенника от генерала ФСБ и СВР.<br />Распознавание отчетов технократом на<br />опасность-безопасность.<br />Тесты для ПО, обучающее множество<br />для нейросети, тесты для госплана.<br />Тесты и обучающее множество для<br />распознавания отчета на опасность и<br />безопасность. Функционирование<br />госплана без рыночных цен, на<br />основе отчетов, подлежащих распознанию<br />на опасность-безопасность.<br /><br />Априорные распределения в индуктивном <br />восстановлении нейросети по данным<br />о поведении, текстам, томографии<br />всех видов,<br />NFC-сканированию, потока<br />видеокамер. Поведение<br />стройных гибких танцовщиц.<br />Почему шухерятся?<br />Любители слатшейминга из всех<br />этих структур ИБ. Надо бы<br />помнить про это.<br /><br />Базовая элементарная физика,<br />простейшие двигатели хлоратно-битумные,<br />простейшие сенсоры, LVDS-компараторы и FPGA.<br /><br />Прежде чем двигаться дальше,<br />надо хорошо и четко понимать базу.<br /><br />Ну и да, к квадрокоптеру гранату<br />привязать не забыть!</div></div>
-</div>
-</div>
-<div class="footer">
-<div class="inner">
-<ul class="entry-management-links icon-links"><li class="link mem_add first-item"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=38652" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
-<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=38652" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-38652-reply">
-<li class="entry-permalink first-item"><a href="38652.html">Link</a></li>
-<li class="entry-readlink"><a href="38652.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">2 comments</a></li>
-<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-38652-reply", 0, "",that)}(this)' href='38652.html?mode=reply' >Reply</a></li>
-</ul><div  id="ljqrtentry-transitional_writes-38652-reply" data-quickreply-container="entry-transitional_writes-38652-reply" style="display: none;"></div></div>
-</div>
-</div>
-</div>
-<div class="separator separator-after"><div class="inner"></div></div>
-</div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-38352">
-<div class="separator separator-before"><div class="inner"></div></div>
-<div class="entry" id="entry-38352">
-<div class="inner">
-<div class="header">
-<div class="inner">
-<h3 class="entry-title"><a title="(no subject)" href="38352.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/03/index.html">Mar</a>. <a href="2026/03/10/index.html">10th</a>, <a href="2026/index.html">2026</a></span> <span class="time">08:49 am</span></span></div>
-</div>
-<div>
-<div class="contents">
-<div class="inner">
-<div class="userpic"></div>
-<span class="poster entry-poster empty"></span><div class="entry-content">Что по сути все эти вертикальные ЦРУшники-ФСБшники<br />лишь спрашивают<br />в телефонных звонках.<br />да и всегда.<br />1. Какому государству ты служишь?<br />а затем:<br />2. Докажи свою верность, сделай то-то.<br />Без проверок, без тестов, на доверии - беги к неиллюзорным печам и/или воротам военкомата.<br />Не зная точно и не решаясь спросить, что ждет за ними.<br />Гостайна же. Тайная лажа.<br /><br />А проверять без гостайн весь входящий спам - это либертарианство.<br />Это и есть индивидуализм.<br /><br />Собственно, с точки зрения технаря-аутиста,<br />вся сложность вывода теоремы о невозможности экономического<br />расчета при социализме состоит в том, что как с чисто<br />технической точки зрения о колмогоровской сложности и<br />LVDS-компараторах перейти к рассмотрению обычных<br />телефонных мошенников и задачи отличия оных мошенников<br />от чиновников, генералов ФСБ и технократов госплана.<br /><br />А ничего они не отличаются. От мусора и спама в каналах<br />связи. Вот весь смысл социализма и социализации.<br />Мусор и спам в каналах и канализациях.<br /><br />Ну и да, тут можно много генераторов эротики напридумывать.<br />О разбогатевших телефонных мошенниках, т.е. генералах ФСБ,<br />все свои огромные деньги тратящих на детей, которые все деньги<br />тратят на красивую картинку, которая бы привлекала молодых<br />загорелых жещин, жаждущих красивой картинки и мучающихся от<br />недостатка денег на дешевые наркотики, лечение венерического<br />заболевания и выплаты долга сутенеру и ради небольшой суммы<br />пошедшую на соучастие в убийстве оного сынка.<br /><br />Тут прямо пиши базовую элементарную структуру на Тьюринг-полном<br />языке m4, пиши все эти #defmacro<br /><br />И генерируй все возможное в этой жизни.<br />Все картинки, все тексты, весь битстрим.<br /><br />Но кмк лучше забить на маразм и начать с простейшего и чистого<br />частного случая. Коль уж есть проблемы с генерацией и парсингом понтов.<br />Надо б найти стройную гибкую танцовщицу, которй денег хочется больше,<br />чем понтов и поснимать с ней мет-арт в жестком свете в темном подвале.<br />Ну т.е. под луной в гаражах. Ну или в фотостудии в зале уголь,<br />или на тропических пляжах рано утром, далее везде.<br /><br />Ну а там как пойдет, может найдешь ту которая хочет делать детей,<br />может нет, здесь главное, что если без детей - так хоть<br />красивые картинки останутся.<br /><br />Чтобы все эти элементарные структуры без ПГМ и ГСМ бреда, спама и<br />галлюцинаций объяснять детям 18+.<br /><br />О том как элементарная естественно-научная методология позволяет<br />свести весь мир к физике, самосохранению, агрессии, красивым девушкам и<br />бесконечному спаму Тьюринг-полного процессора M4 от дегенеративных<br />нейросетей, который либо тестируют, но многого ты не напроверяешь,<br />либо в котором тонут, поверив генералам ФСБ и красивым вывескам<br />на неиллюзорных воротах военкомата.</div></div>
-</div>
-</div>
-<div class="footer">
-<div class="inner">
-<ul class="entry-management-links icon-links"><li class="link mem_add first-item"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=38352" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
-<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=38352" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-38352-reply">
-<li class="entry-permalink first-item"><a href="38352.html">Link</a></li>
-<li class="entry-readlink" style="display:none"><a href="38352.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">0 comments</a></li>
-<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-38352-reply", 0, "",that)}(this)' href='38352.html?mode=reply' >Reply</a></li>
-</ul><div  id="ljqrtentry-transitional_writes-38352-reply" data-quickreply-container="entry-transitional_writes-38352-reply" style="display: none;"></div></div>
 </div>
 </div>
 </div>
@@ -718,7 +718,7 @@
 </ul>
 </div>
 </div>
-<div class="module-calendar module"><h2 class="module-header"><a href="2026/04/index.html">April</a> <a href="2026/index.html">2026</a></h2>
+<div class="module-calendar module"><h2 class="module-header"><a href="2026/05/index.html">May</a> <a href="2026/index.html">2026</a></h2>
 <div class="module-content">
 <table summary="Monthly calendar with links to each day's entries">
 <tr>
@@ -731,15 +731,17 @@
 <th>S</th>
 </tr>
 <tr>
-<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td class="entry-day"> <a href="2026/04/01/index.html" title="1 entry">1</a></td><td class="empty-day">2</td><td class="empty-day">3</td><td class="empty-day">4</td></tr>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td class="empty-day">1</td><td class="empty-day">2</td></tr>
 <tr>
-<td class="empty-day">5</td><td class="entry-day"> <a href="2026/04/06/index.html" title="1 entry">6</a></td><td class="entry-day"> <a href="2026/04/07/index.html" title="2 entries">7</a></td><td class="empty-day">8</td><td class="empty-day">9</td><td class="empty-day">10</td><td class="empty-day">11</td></tr>
+<td class="empty-day">3</td><td class="empty-day">4</td><td class="empty-day">5</td><td class="empty-day">6</td><td class="empty-day">7</td><td class="empty-day">8</td><td class="empty-day">9</td></tr>
 <tr>
-<td class="empty-day">12</td><td class="empty-day">13</td><td class="empty-day">14</td><td class="empty-day">15</td><td class="empty-day">16</td><td class="empty-day">17</td><td class="empty-day">18</td></tr>
+<td class="empty-day">10</td><td class="empty-day">11</td><td class="empty-day">12</td><td class="empty-day">13</td><td class="empty-day">14</td><td class="empty-day">15</td><td class="empty-day">16</td></tr>
 <tr>
-<td class="empty-day">19</td><td class="empty-day">20</td><td class="empty-day">21</td><td class="empty-day">22</td><td class="empty-day">23</td><td class="empty-day">24</td><td class="empty-day">25</td></tr>
+<td class="empty-day">17</td><td class="empty-day">18</td><td class="empty-day">19</td><td class="entry-day"> <a href="2026/05/20/index.html" title="2 entries">20</a></td><td class="empty-day">21</td><td class="empty-day">22</td><td class="entry-day"> <a href="2026/05/23/index.html" title="1 entry">23</a></td></tr>
 <tr>
-<td class="empty-day">26</td><td class="empty-day">27</td><td class="empty-day">28</td><td class="empty-day">29</td><td class="empty-day">30</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<td class="empty-day">24</td><td class="empty-day">25</td><td class="empty-day">26</td><td class="empty-day">27</td><td class="empty-day">28</td><td class="empty-day">29</td><td class="empty-day">30</td></tr>
+<tr>
+<td class="empty-day">31</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table>
 </div>
 </div>
@@ -753,6 +755,9 @@
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-8107" title="0 comments">Верхний пост</a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-23439" title="19 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-24717" title="0 comments">Список литературы.</a></span></li>
+<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-43062" title="2 comments"><em>(no subject)</em></a></span></li>
+<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-42843" title="37 comments"><em>(no subject)</em></a></span></li>
+<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-42625" title="67 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-42319" title="67 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-42226" title="4 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-41797" title="1 comment"><em>(no subject)</em></a></span></li>
@@ -767,9 +772,6 @@
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-39677" title="0 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-39245" title="0 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-38948" title="0 comments"><em>(no subject)</em></a></span></li>
-<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-38908" title="1 comment"><em>(no subject)</em></a></span></li>
-<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-38652" title="2 comments"><em>(no subject)</em></a></span></li>
-<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-38352" title="0 comments"><em>(no subject)</em></a></span></li>
 </ul>
 </div>
 </div>
@@ -792,7 +794,7 @@
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated May. 18th, 2026 05:31 am</span></div>
+<span id="load-time">Page generated May. 24th, 2026 02:08 am</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
