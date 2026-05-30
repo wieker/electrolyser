@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","has_remote":0,"cmax_comment":16000,"ctx_popup":1,"user_domain":"dreamwidth.org","currentJournal":"transitional_writes","iconprefix":"https://v2.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","esn_async":1,"media_embed_enabled":1,"ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1});
+                Site = Object.assign(Site, {"iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1,"cmax_comment":16000,"ctx_popup_icons":1,"ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","has_remote":0,"imgprefix":"https://www.dreamwidth.org/img","ctx_popup":1,"esn_async":1,"user_domain":"dreamwidth.org","currentJournal":"transitional_writes","inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1756585241" />
@@ -91,7 +91,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1779951600:1230:86400:Sai4vueQRY-0-fKF1WTNBZUkOQwg:f286e769db5a2d8ad08a6f964a1be537" /><input type='hidden' name="replyto" value="374" /><input type='hidden' name="parenttalkid" value="374" /><input type='hidden' name="itemid" value="43062" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="95798" /><input type='hidden' name="chrp1" value="43062-4255543-1779951600-8edKJ8oRBeNp2rZAX8lV-56d05a3f896a2781639d8ae317b9e05f" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1780142400:1021:86400:WldvF8ukSg-0-O9PvhZ1Xp4clIQx:f46fde44e62efc047746bbfae3f09255" /><input type='hidden' name="replyto" value="374" /><input type='hidden' name="parenttalkid" value="374" /><input type='hidden' name="itemid" value="43062" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="95798" /><input type='hidden' name="chrp1" value="43062-4255543-1780142400-8JWvVx7DqNw3qoh3P2i2-528fa0d8962688e383c147b24fe83201" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -118,7 +118,7 @@
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" id="oidurl" maxlength="60" value="" class="text" name="oidurl" size="53" />      </div>
+        <input type="text" class="text" maxlength="60" size="53" name="oidurl" value="" id="oidurl" />      </div>
 
       <div><input type='checkbox' id="oidlogincheck" name="oiddo_login" class="checkbox" />
         <label for="oidlogincheck" class="checkboxlabel">
@@ -142,15 +142,15 @@
         <label for="username" >
             Account name
         </label>
-        <input type="text" size="13" class="text" name="userpost" maxlength="25" id="username" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" value="" />      </div>
+        <input type="text" maxlength="25" value="" id="username" class="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" name="userpost" size="13" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" maxlength="72" id="password" name="password" class="text" size="18" value="" />      </div>
+        <input type="password" maxlength="72" id="password" value="" size="18" name="password" class="text" />      </div>
 
-      <div><input type='checkbox' id="logincheck" name="do_login" class="checkbox" />
+      <div><input type='checkbox' name="do_login" class="checkbox" id="logincheck" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -169,7 +169,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" size="50" class="text" name="subject" maxlength="100" id="subject" value="" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" id="subject" value="" size="50" name="subject" class="text" placeholder="Subject" maxlength="100" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -207,7 +207,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea id="body" wrap="soft" name="body" class="text" cols="80" rows="10"></textarea></div>
+        <textarea cols="80" id="body" class="text" wrap="soft" name="body" rows="10"></textarea></div>
 
 
 
