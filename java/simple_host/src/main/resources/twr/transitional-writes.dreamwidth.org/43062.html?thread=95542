@@ -12,14 +12,14 @@
 <link rel="canonical" href="43062.html?thread=95542#cmt95542" />
 <script>
 // don't crawl this.  read http://www.livejournal.com/developer/exporting
-var LJ_cmtinfo = {"remote":"","journal":"transitional_writes","form_auth":"c0:1780603200:1779:86400:2Z2g0iC5AX-0-5cPlcPDvUFpk43a:c427e07aefaf85dab75295151cb16e08","canSpam":"1","95542":{"screened":0,"parent":90422,"deleted":0,"u":"transitional_writes","full":1,"rc":[]},"canAdmin":null}
+var LJ_cmtinfo = {"canAdmin":null,"form_auth":"c0:1780682400:2361:86400:PPen5zzl8z-0-bA8wWY57sa1mqsm:d14c099848d363c56fc1d33e67ef44a1","journal":"transitional_writes","canSpam":"1","95542":{"u":"transitional_writes","rc":[],"deleted":0,"parent":90422,"full":1,"screened":0},"remote":""}
 </script>
             <script type="text/javascript">
                 var Site;
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"user_domain":"dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","esn_async":1,"inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","currentJournal":"transitional_writes","media_embed_enabled":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1,"ctx_popup":1,"cmax_comment":16000,"has_remote":0,"ctx_popup_userhead":1,"statprefix":"https://www.dreamwidth.org/stc","imgprefix":"https://www.dreamwidth.org/img"});
+                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_icons":1,"ctx_popup_userhead":1,"inbox_update_poll":1,"currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","media_embed_enabled":1,"has_remote":0,"user_domain":"dreamwidth.org","ctx_popup":1,"iconprefix":"https://v2.dreamwidth.org","siteroot":"https://www.dreamwidth.org","esn_async":1,"cmax_comment":16000});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery.commentmanage.css,controlstrip.css,controlstrip-dark.css,canary.css?v=1756585241" />
@@ -37,18 +37,18 @@ var LJ_cmtinfo = {"remote":"","journal":"transitional_writes","form_auth":"c0:17
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" class="text" name="user" id="xc_user" size="7" placeholder="Account name:" tabindex="1" maxlength="27" value="" />
+        <input type="text" value="" class="text" name="user" maxlength="27" placeholder="Account name:" tabindex="1" size="7" id="xc_user" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" name="password" class="lj_login_password" size="7" id="xc_password" tabindex="2" placeholder="Password" value="" />
+        <input type="password" value="" class="lj_login_password" name="password" tabindex="2" placeholder="Password" size="7" id="xc_password" />
       <input type='submit' value="Log in" class="submit" tabindex="4" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' value="1" tabindex="3" id="xc_remember" class="checkbox" name="remember_me" />
+        <input type='checkbox' value="1" name="remember_me" class="checkbox" id="xc_remember" tabindex="3" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -60,9 +60,9 @@ var LJ_cmtinfo = {"remote":"","journal":"transitional_writes","form_auth":"c0:17
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_256'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_263'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" name="q" class="text" size="20" id="search" title="Search" /> <select class="select" name="type">
+<input type="text" class="text" name="q" size="20" title="Search" id="search" /> <select name="type" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -191,7 +191,7 @@ var LJ_cmtinfo = {"remote":"","journal":"transitional_writes","form_auth":"c0:17
 <th>S</th>
 </tr>
 <tr>
-<td>&nbsp;</td><td class="empty-day">1</td><td class="empty-day">2</td><td class="empty-day">3</td><td class="entry-day"> <a href="2026/06/04/index.html" title="1 entry">4</a></td><td class="empty-day">5</td><td class="empty-day">6</td></tr>
+<td>&nbsp;</td><td class="empty-day">1</td><td class="empty-day">2</td><td class="empty-day">3</td><td class="entry-day"> <a href="2026/06/04/index.html" title="1 entry">4</a></td><td class="entry-day"> <a href="2026/06/05/index.html" title="1 entry">5</a></td><td class="empty-day">6</td></tr>
 <tr>
 <td class="empty-day">7</td><td class="empty-day">8</td><td class="empty-day">9</td><td class="empty-day">10</td><td class="empty-day">11</td><td class="empty-day">12</td><td class="empty-day">13</td></tr>
 <tr>
@@ -229,7 +229,7 @@ var LJ_cmtinfo = {"remote":"","journal":"transitional_writes","form_auth":"c0:17
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 4th, 2026 08:29 pm</span></div>
+<span id="load-time">Page generated Jun. 5th, 2026 06:39 pm</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>

@@ -12,14 +12,14 @@
 <link rel="canonical" href="15383.html?thread=15127#cmt15127" />
 <script>
 // don't crawl this.  read http://www.livejournal.com/developer/exporting
-var LJ_cmtinfo = {"remote":"","15127":{"screened":0,"full":1,"u":"transitional_writes","parent":null,"deleted":0,"rc":[]},"form_auth":"c0:1780606800:2116:86400:4EMc2UZdiv-0-5cPlcPDvUFpk43a:e5acea7be3c620fc973879978a5ea8f8","canAdmin":null,"journal":"transitional_writes","canSpam":"1"}
+var LJ_cmtinfo = {"canAdmin":null,"remote":"","form_auth":"c0:1780693200:2680:86400:NdNgYYdIHN-0-bA8wWY57sa1mqsm:8032d4c44ee4c02814e8d1b347d77b02","journal":"transitional_writes","15127":{"deleted":0,"rc":[],"parent":null,"screened":0,"u":"transitional_writes","full":1},"canSpam":"1"}
 </script>
             <script type="text/javascript">
                 var Site;
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"has_remote":0,"iconprefix":"https://v2.dreamwidth.org","siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1,"ctx_popup_userhead":1,"currentJournal":"transitional_writes","media_embed_enabled":1,"user_domain":"dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","esn_async":1,"imgprefix":"https://www.dreamwidth.org/img","ctx_popup":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","inbox_update_poll":1,"cmax_comment":16000});
+                Site = Object.assign(Site, {"user_domain":"dreamwidth.org","media_embed_enabled":1,"ctx_popup_icons":1,"inbox_update_poll":1,"cmax_comment":16000,"ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","esn_async":1,"iconprefix":"https://v2.dreamwidth.org","ctx_popup":1,"statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","has_remote":0});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery.commentmanage.css,controlstrip.css,controlstrip-dark.css,canary.css?v=1756585241" />
@@ -37,18 +37,18 @@ var LJ_cmtinfo = {"remote":"","15127":{"screened":0,"full":1,"u":"transitional_w
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" name="user" maxlength="27" id="xc_user" tabindex="1" class="text" value="" placeholder="Account name:" size="7" />
+        <input type="text" value="" class="text" maxlength="27" placeholder="Account name:" size="7" name="user" tabindex="1" id="xc_user" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" value="" placeholder="Password" size="7" id="xc_password" name="password" class="lj_login_password" tabindex="2" />
+        <input type="password" class="lj_login_password" value="" placeholder="Password" size="7" name="password" tabindex="2" id="xc_password" />
       <input type='submit' value="Log in" class="submit" tabindex="4" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' value="1" name="remember_me" id="xc_remember" tabindex="3" class="checkbox" />
+        <input type='checkbox' id="xc_remember" tabindex="3" name="remember_me" value="1" class="checkbox" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -60,9 +60,9 @@ var LJ_cmtinfo = {"remote":"","15127":{"screened":0,"full":1,"u":"transitional_w
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_15'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_447'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" name="q" id="search" title="Search" class="text" size="20" /> <select name="type" class="select">
+<input type="text" size="20" title="Search" class="text" id="search" name="q" /> <select class="select" name="type">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -188,7 +188,7 @@ var LJ_cmtinfo = {"remote":"","15127":{"screened":0,"full":1,"u":"transitional_w
 <th>S</th>
 </tr>
 <tr>
-<td>&nbsp;</td><td class="empty-day">1</td><td class="empty-day">2</td><td class="empty-day">3</td><td class="entry-day"> <a href="2026/06/04/index.html" title="1 entry">4</a></td><td class="empty-day">5</td><td class="empty-day">6</td></tr>
+<td>&nbsp;</td><td class="empty-day">1</td><td class="empty-day">2</td><td class="empty-day">3</td><td class="entry-day"> <a href="2026/06/04/index.html" title="1 entry">4</a></td><td class="entry-day"> <a href="2026/06/05/index.html" title="1 entry">5</a></td><td class="empty-day">6</td></tr>
 <tr>
 <td class="empty-day">7</td><td class="empty-day">8</td><td class="empty-day">9</td><td class="empty-day">10</td><td class="empty-day">11</td><td class="empty-day">12</td><td class="empty-day">13</td></tr>
 <tr>
@@ -226,7 +226,7 @@ var LJ_cmtinfo = {"remote":"","15127":{"screened":0,"full":1,"u":"transitional_w
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 4th, 2026 09:35 pm</span></div>
+<span id="load-time">Page generated Jun. 5th, 2026 09:44 pm</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
