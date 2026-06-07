@@ -13,7 +13,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","inbox_update_poll":1,"currentJournal":"transitional_writes","ctx_popup_icons":1,"ctx_popup":1,"has_remote":0,"media_embed_enabled":1,"cmax_comment":16000,"user_domain":"dreamwidth.org","ctx_popup_userhead":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","esn_async":1,"siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img"});
+                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","has_remote":0,"currentJournalBase":"https://transitional-writes.dreamwidth.org","esn_async":1,"user_domain":"dreamwidth.org","ctx_popup_icons":1,"inbox_update_poll":1,"media_embed_enabled":1,"currentJournal":"transitional_writes","ctx_popup":1,"siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","ctx_popup_userhead":1,"iconprefix":"https://v2.dreamwidth.org","cmax_comment":16000});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/tropo/tropo-red.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css,css/components/foundation-icons.css?v=1756585241" />
@@ -85,12 +85,12 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<hr style="margin: 1em 0;"><div class="readlink"> (<a href="43509.html?style=site#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">40 comments</a>) </div>
+<hr style="margin: 1em 0;"><div class="readlink"> (<a href="43509.html?style=site#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">43 comments</a>) </div>
 <h1>Post a comment in response:</h1>
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1780743600:1527:86400:QeQlwmDXbJ-0-RwZpVtPyS2BEm79:7be3ed10695706cfe5890b902606743c" /><input type='hidden' name="replyto" value="482" /><input type='hidden' name="parenttalkid" value="482" /><input type='hidden' name="itemid" value="43509" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="43509-4255543-1780743600-fXVVeLl6HV64YYmSdtdQ-a04295e970f6178c0c6a39cb9e95d22c" /><input type='hidden' name="style" value="site" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1780812000:3061:86400:kA1sZpQ7gN-0-G9UpfkFwZy9N8up:0fc6acf5d1bd5d8bef2ca0c31e7e51d0" /><input type='hidden' name="replyto" value="482" /><input type='hidden' name="parenttalkid" value="482" /><input type='hidden' name="itemid" value="43509" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="43509-4255543-1780812000-1RA4NEdbonb9uzUshawI-c072352ddec88eb5aed86176dccb3bfd" /><input type='hidden' name="style" value="site" />
 
 
 <div id="talkform-from">
@@ -117,9 +117,9 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" class="text" maxlength="60" id="oidurl" name="oidurl" size="53" value="" />      </div>
+        <input type="text" name="oidurl" id="oidurl" size="53" maxlength="60" value="" class="text" />      </div>
 
-      <div><input type='checkbox' name="oiddo_login" class="checkbox" id="oidlogincheck" />
+      <div><input type='checkbox' name="oiddo_login" id="oidlogincheck" class="checkbox" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -141,15 +141,15 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="username" >
             Account name
         </label>
-        <input type="text" id="username" name="userpost" value="" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" class="text" maxlength="25" size="13" />      </div>
+        <input type="text" value="" id="username" name="userpost" class="text" maxlength="25" size="13" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" name="password" value="" id="password" size="18" class="text" maxlength="72" />      </div>
+        <input type="password" size="18" maxlength="72" class="text" id="password" name="password" value="" />      </div>
 
-      <div><input type='checkbox' name="do_login" class="checkbox" id="logincheck" />
+      <div><input type='checkbox' id="logincheck" name="do_login" class="checkbox" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -168,7 +168,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" size="50" maxlength="100" class="text" value="" name="subject" placeholder="Subject" id="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" class="text" maxlength="100" size="50" value="" placeholder="Subject" id="subject" name="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -206,7 +206,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea id="body" rows="10" name="body" wrap="soft" class="text" cols="80"></textarea></div>
+        <textarea rows="10" wrap="soft" cols="80" id="body" name="body" class="text"></textarea></div>
 
 
 
@@ -216,7 +216,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Post Comment" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
+<input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
 
 </div>
 
@@ -234,7 +234,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
       <div class="row"><div class="columns">
       <form action='https://www.dreamwidth.org/login?ret=1' method='post' class='lj_login_form'>
         <input type="hidden" name="returnto" value="https://transitional-writes.dreamwidth.org/43509.html?replyto=123637&amp;style=site" />
-        <input type='hidden' name='chal' class='lj_login_chal' value='c0:1780743600:1527:300:qqNilV7C3hA9kGRt2a2J:794c9e77fab1408b089251e369b8a619' />
+        <input type='hidden' name='chal' class='lj_login_chal' value='c0:1780812000:3061:300:rRqOC3K18oCVnlSrXQhu:7a41b28e2e94345ec211a4a5214c765e' />
         <input type='hidden' name='response' class='lj_login_response' value='' />
         <div class="row">
           <div class="columns medium-6">
