@@ -12,14 +12,14 @@
 <link rel="canonical" href="43509.html?thread=127221#cmt127221" />
 <script>
 // don't crawl this.  read http://www.livejournal.com/developer/exporting
-var LJ_cmtinfo = {"form_auth":"c0:1780887600:1965:86400:W3ySNgb91L-0-GAp8GsnCsv5z1Pt:2bd882132d24b3cb7807a2658df86087","127221":{"rc":[],"full":1,"u":"transitional_writes","deleted":0,"parent":123637,"screened":0},"canSpam":"1","journal":"transitional_writes","canAdmin":null,"remote":""}
+var LJ_cmtinfo = {"127477":{"deleted":0,"parent":127221,"rc":["127733"],"u":"transitional_writes","screened":0,"full":1},"journal":"transitional_writes","canAdmin":null,"127733":{"screened":0,"u":"transitional_writes","full":1,"deleted":0,"parent":127477,"rc":[]},"127221":{"parent":123637,"deleted":0,"rc":["127477"],"u":"transitional_writes","screened":0,"full":1},"form_auth":"c0:1780920000:2592:86400:9ftLJ50RcV-0-I3SSUt1BFotlcba:5918618d89aab217af3e65a006ddbb34","canSpam":"1","remote":""}
 </script>
             <script type="text/javascript">
                 var Site;
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup":1,"statprefix":"https://www.dreamwidth.org/stc","user_domain":"dreamwidth.org","esn_async":1,"currentJournal":"transitional_writes","iconprefix":"https://v2.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1,"ctx_popup_userhead":1,"ctx_popup_icons":1,"cmax_comment":16000,"media_embed_enabled":1,"has_remote":0,"siteroot":"https://www.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org"});
+                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_userhead":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","ctx_popup":1,"ctx_popup_icons":1,"media_embed_enabled":1,"siteroot":"https://www.dreamwidth.org","has_remote":0,"esn_async":1,"currentJournal":"transitional_writes","inbox_update_poll":1,"cmax_comment":16000,"user_domain":"dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery.commentmanage.css,controlstrip.css,controlstrip-dark.css,canary.css?v=1756585241" />
@@ -37,18 +37,18 @@ var LJ_cmtinfo = {"form_auth":"c0:1780887600:1965:86400:W3ySNgb91L-0-GAp8GsnCsv5
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" placeholder="Account name:" tabindex="1" name="user" value="" class="text" size="7" maxlength="27" id="xc_user" />
+        <input type="text" size="7" tabindex="1" value="" name="user" class="text" placeholder="Account name:" id="xc_user" maxlength="27" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" id="xc_password" size="7" class="lj_login_password" value="" name="password" placeholder="Password" tabindex="2" />
+        <input type="password" name="password" value="" class="lj_login_password" placeholder="Password" id="xc_password" size="7" tabindex="2" />
       <input type='submit' value="Log in" tabindex="4" class="submit" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' id="xc_remember" class="checkbox" name="remember_me" value="1" tabindex="3" />
+        <input type='checkbox' tabindex="3" id="xc_remember" class="checkbox" value="1" name="remember_me" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -60,9 +60,9 @@ var LJ_cmtinfo = {"form_auth":"c0:1780887600:1965:86400:W3ySNgb91L-0-GAp8GsnCsv5
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_405'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_1'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" name="q" class="text" id="search" title="Search" size="20" /> <select class="select" name="type">
+<input type="text" title="Search" id="search" name="q" size="20" class="text" /> <select name="type" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -111,7 +111,7 @@ var LJ_cmtinfo = {"form_auth":"c0:1780887600:1965:86400:W3ySNgb91L-0-GAp8GsnCsv5
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=43509" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=43509" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
 <li class="link link_next"> <a href="https://www.dreamwidth.org/go?dir=next&itemid=43509&journal=transitional_writes" ><img border='0' width="16" height="16" alt="Next Entry" title="Next Entry" src="https://www.dreamwidth.org/img/silk/entry/next.png"  /></a></li>
-</ul><hr class="above-entry-interaction-links" /><ul class="entry-interaction-links text-links"><li class="entry-readlink first-item"><a href="43509.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">49 comments</a></li>
+</ul><hr class="above-entry-interaction-links" /><ul class="entry-interaction-links text-links"><li class="entry-readlink first-item"><a href="43509.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">51 comments</a></li>
 <li class="entry-replylink"><a onclick='return function(that) {return quickreply("topcomment", 0, "",that)}(this)' href='43509.html?mode=reply' >Reply</a></li>
 </ul><div  id="ljqrttopcomment" data-quickreply-container="topcomment" style="display: none;"></div><hr class="below-reply-container" /></div>
 </div>
@@ -142,18 +142,82 @@ var LJ_cmtinfo = {"form_auth":"c0:1780887600:1965:86400:W3ySNgb91L-0-GAp8GsnCsv5
 <li class="link reply first-item"><a onclick='return function(that) {return quickreply("127221", 496, "",that)}(this)' href='43509.html?replyto=127221&amp;thread=127221' >Reply</a></li>
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=127221">Thread from start</a></li>
 <li class="link commentparent"><a href="43509.html?thread=123637#cmt123637">Parent</a></li>
+<li class="link thread"><a href="43509.html?thread=127221#cmt127221">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt127221_hide"><a href='43509.html?thread=127221#cmt127221' onClick="Expander.hideComments(this, '127221'); return false;">Hide 2 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt127221_unhide"><a href='43509.html?thread=127221#cmt127221' onClick="Expander.unhideComments(this, '127221'); return false;">Show 2 comments</a></li>
 </ul><div  id="ljqrt127221" data-quickreply-container="127221" style="display: none;"></div></div>
 </div>
 </div>
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
+</div><div data-comment-depth='2' style='--comment-depth: 2; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-indent-mobile comment-depth-even comment-depth-mod5-2 comment-depth-2'>
+<div id='cmt127477' class='dwexpcomment' style='margin-left: 25px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-even visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt127477">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="43509.html?thread=127477#cmt127477" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="13 days after journal entry">2026-06-08 12:13 pm (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">ну кстати да,<br />доколе принято считать экономику все-таки подверженной естественно научной методологии<br /><br />можно поставить вопрос об апиорной экономике.<br />и Мизес-Хайек этому только мешают<br /><br />тогда, если заметить,<br />что для априорной экономики нужна<br />1. физика<br />2. несколько агентов<br /><br />можно просто в лоб моделировать все эти бизнес-циклы и теоремы о невозможности экономического расчета.<br /><br />тут самое главное все-таки выделить реально быщисные вещи.</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="43509.html?thread=127477#cmt127477">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("127477", 497, "",that)}(this)' href='43509.html?replyto=127477&amp;thread=127221' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=127477">Thread from start</a></li>
+<li class="link commentparent"><a href="43509.html?thread=127221#cmt127221">Parent</a></li>
+<li class="link thread"><a href="43509.html?thread=127477#cmt127477">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt127477_hide"><a href='43509.html?thread=127221#cmt127477' onClick="Expander.hideComments(this, '127477'); return false;">Hide 1 comment</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt127477_unhide"><a href='43509.html?thread=127477#cmt127477' onClick="Expander.unhideComments(this, '127477'); return false;">Show 1 comment</a></li>
+</ul><div  id="ljqrt127477" data-quickreply-container="127477" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+</div><div data-comment-depth='3' style='--comment-depth: 3; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-indent-mobile comment-depth-odd comment-depth-mod5-3 comment-depth-3'>
+<div id='cmt127733' class='dwexpcomment' style='margin-left: 50px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-odd visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt127733">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="43509.html?thread=127733#cmt127733" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="13 days after journal entry">2026-06-08 12:21 pm (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">ну да.<br /><br />1. пусть есть физические объекты<br />2. физические процессы<br />3. агенты с ограниченной сложностью, которые этим заведуют<br />4. Про хаос, возникающий из взаимодействия агентов без физики как минимум в Потапове точно есть.<br />5. Какие же примитивы децентрализованного управления нужны,<br />чтобы избежать хаоса?<br />Основанные на физике.<br /><br />Это можно напрямую моделировать.</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="43509.html?thread=127733#cmt127733">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("127733", 498, "",that)}(this)' href='43509.html?replyto=127733&amp;thread=127221' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=127733">Thread from start</a></li>
+<li class="link commentparent"><a href="43509.html?thread=127477#cmt127477">Parent</a></li>
+</ul><div  id="ljqrt127733" data-quickreply-container="127733" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
 </div></div>
+</div>
+</div>
 <div class='bottomcomment'><ul class="entry-management-links icon-links"><li class="link link_prev first-item"> <a href="https://www.dreamwidth.org/go?dir=prev&itemid=43509&journal=transitional_writes" ><img border='0' width="16" height="16" alt="Previous Entry" title="Previous Entry" src="https://www.dreamwidth.org/img/silk/entry/previous.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=43509" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=43509" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
 <li class="link link_next"> <a href="https://www.dreamwidth.org/go?dir=next&itemid=43509&journal=transitional_writes" ><img border='0' width="16" height="16" alt="Next Entry" title="Next Entry" src="https://www.dreamwidth.org/img/silk/entry/next.png"  /></a></li>
-</ul><ul class="entry-interaction-links text-links"><li class="entry-readlink first-item"><a href="43509.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">49 comments</a></li>
+</ul><ul class="entry-interaction-links text-links"><li class="entry-readlink first-item"><a href="43509.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">51 comments</a></li>
 <li class="entry-replylink"><a onclick='return function(that) {return quickreply("bottomcomment", 0, "",that)}(this)' href='43509.html?mode=reply' >Reply</a></li>
 </ul><div  id="ljqrtbottomcomment" data-quickreply-container="bottomcomment" style="display: none;"></div></div><div class='comment-pages bottompages'><span class="view-flat"><a href="43509.html?view=flat#comments">Flat</a></span> | <span class="view-top-only"><a href="43509.html?view=top-only#comments">Top-Level Comments Only</a></span></div></div></div>
                     </div></div><!-- end primary and primary>inner -->
@@ -206,7 +270,7 @@ var LJ_cmtinfo = {"form_auth":"c0:1780887600:1965:86400:W3ySNgb91L-0-GAp8GsnCsv5
 <div class="module-pagesummary module"><h2 class="module-header">Page Summary</h2>
 <div class="module-content">
 <ul class="module-list">
-<li class="module-list-item"><span class="pagesummary-poster"><span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span> - <span class="pagesummary-subject"><a href="43509.html?thread=127221#cmt127221" title="0 responses"><em>(no subject)</em></a></span></li>
+<li class="module-list-item"><span class="pagesummary-poster"><span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span> - <span class="pagesummary-subject"><a href="43509.html?thread=127221#cmt127221" title="2 responses"><em>(no subject)</em></a></span></li>
 </ul>
 </div>
 </div>
@@ -229,7 +293,7 @@ var LJ_cmtinfo = {"form_auth":"c0:1780887600:1965:86400:W3ySNgb91L-0-GAp8GsnCsv5
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 8th, 2026 03:32 am</span></div>
+<span id="load-time">Page generated Jun. 8th, 2026 12:43 pm</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
