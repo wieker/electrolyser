@@ -13,7 +13,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"user_domain":"dreamwidth.org","inbox_update_poll":1,"cmax_comment":16000,"esn_async":1,"currentJournal":"transitional_writes","has_remote":0,"media_embed_enabled":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1,"ctx_popup":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_userhead":1,"imgprefix":"https://www.dreamwidth.org/img","iconprefix":"https://v2.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc"});
+                Site = Object.assign(Site, {"has_remote":0,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_userhead":1,"media_embed_enabled":1,"user_domain":"dreamwidth.org","ctx_popup":1,"siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","currentJournal":"transitional_writes","esn_async":1,"cmax_comment":16000,"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","inbox_update_poll":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/tropo/tropo-red.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css,css/components/foundation-icons.css?v=1756585241" />
@@ -112,7 +112,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1780923600:3079:86400:C6p0TQZhSj-0-I3SSUt1BFotlcba:634c750a57315f2340929d72e8284ea2" /><input type='hidden' name="replyto" value="199" /><input type='hidden' name="parenttalkid" value="199" /><input type='hidden' name="itemid" value="42319" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="45391" /><input type='hidden' name="chrp1" value="42319-4255543-1780923600-UvyS9IBNtRrrC7Pnxqls-7eb83de12a6413f623ffdcf1fbc53275" /><input type='hidden' name="style" value="site" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1780934400:2570:86400:e1SzNAdVDr-0-obLyOSG9qZ0LOKx:e1ecd736e0941f648d4d70b90d233306" /><input type='hidden' name="replyto" value="199" /><input type='hidden' name="parenttalkid" value="199" /><input type='hidden' name="itemid" value="42319" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="45391" /><input type='hidden' name="chrp1" value="42319-4255543-1780934400-zAV6U3OuRsQwu0GL6rsC-1a99f489c79d7ca4ab719b3b425d6b5b" /><input type='hidden' name="style" value="site" />
 
 
 <div id="talkform-from">
@@ -139,7 +139,7 @@
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" id="oidurl" maxlength="60" class="text" name="oidurl" value="" size="53" />      </div>
+        <input type="text" class="text" id="oidurl" size="53" maxlength="60" name="oidurl" value="" />      </div>
 
       <div><input type='checkbox' name="oiddo_login" class="checkbox" id="oidlogincheck" />
         <label for="oidlogincheck" class="checkboxlabel">
@@ -163,15 +163,15 @@
         <label for="username" >
             Account name
         </label>
-        <input type="text" size="13" maxlength="25" id="username" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" class="text" value="" name="userpost" />      </div>
+        <input type="text" size="13" maxlength="25" value="" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" class="text" id="username" name="userpost" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" size="18" maxlength="72" id="password" value="" name="password" class="text" />      </div>
+        <input type="password" size="18" maxlength="72" value="" class="text" id="password" name="password" />      </div>
 
-      <div><input type='checkbox' id="logincheck" class="checkbox" name="do_login" />
+      <div><input type='checkbox' name="do_login" class="checkbox" id="logincheck" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -190,7 +190,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" size="50" id="subject" maxlength="100" name="subject" value="" class="text" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" value="" maxlength="100" size="50" name="subject" placeholder="Subject" id="subject" class="text" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -228,7 +228,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea id="body" wrap="soft" cols="80" name="body" class="text" rows="10"></textarea></div>
+        <textarea rows="10" cols="80" class="text" wrap="soft" id="body" name="body"></textarea></div>
 
 
 
@@ -238,7 +238,7 @@
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Post Comment" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
+<input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
 
 </div>
 
@@ -256,7 +256,7 @@
       <div class="row"><div class="columns">
       <form action='https://www.dreamwidth.org/login?ret=1' method='post' class='lj_login_form'>
         <input type="hidden" name="returnto" value="https://transitional-writes.dreamwidth.org/42319.html?replyto=51023&amp;style=site&amp;thread=45391" />
-        <input type='hidden' name='chal' class='lj_login_chal' value='c0:1780923600:3079:300:9Ybit9bYAQzxfXgK8pEo:945f82a7f113f5d67c7c2d7e14eb335e' />
+        <input type='hidden' name='chal' class='lj_login_chal' value='c0:1780934400:2570:300:Z5f4QJiIrxJscGYCpHKq:9b8f49a0a39f06850f27a772e0f5e2f8' />
         <input type='hidden' name='response' class='lj_login_response' value='' />
         <div class="row">
           <div class="columns medium-6">
