@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup":1,"statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","inbox_update_poll":1,"cmax_comment":16000,"ctx_popup_icons":1,"user_domain":"dreamwidth.org","esn_async":1,"has_remote":0,"siteroot":"https://www.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","media_embed_enabled":1,"ctx_popup_userhead":1,"iconprefix":"https://v2.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img"});
+                Site = Object.assign(Site, {"cmax_comment":16000,"user_domain":"dreamwidth.org","currentJournal":"transitional_writes","ctx_popup":1,"imgprefix":"https://www.dreamwidth.org/img","currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","has_remote":0,"inbox_update_poll":1,"media_embed_enabled":1,"iconprefix":"https://v2.dreamwidth.org","esn_async":1,"ctx_popup_icons":1,"statprefix":"https://www.dreamwidth.org/stc"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1756585241" />
@@ -92,7 +92,7 @@ ADATE индуктивный вывод ПО</li>
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1781056800:184:86400:r7iLjqFHwY-0-eVA91A2oxdlrVnJ:dde04b27d0496b0f61ab683a93fda946" /><input type='hidden' name="replyto" value="169" /><input type='hidden' name="parenttalkid" value="169" /><input type='hidden' name="itemid" value="40774" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="22086" /><input type='hidden' name="chrp1" value="40774-4255543-1781056800-3ejgwae3yD5WuDKjZJMI-ff28d6c97b08ae44e423b090c4e64fe6" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1781067600:1448:86400:HTGAjaThp9-0-yzJ1KFJTu8yK0Rx:18dbb63249b503a21bc8e7849ea15f7b" /><input type='hidden' name="replyto" value="169" /><input type='hidden' name="parenttalkid" value="169" /><input type='hidden' name="itemid" value="40774" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="22086" /><input type='hidden' name="chrp1" value="40774-4255543-1781067600-XVM4rYwuplFIbbSCtvU1-2526a2c9cbb9070449e879475d6f5006" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -119,7 +119,7 @@ ADATE индуктивный вывод ПО</li>
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" value="" class="text" size="53" name="oidurl" maxlength="60" id="oidurl" />      </div>
+        <input type="text" maxlength="60" class="text" id="oidurl" size="53" value="" name="oidurl" />      </div>
 
       <div><input type='checkbox' name="oiddo_login" class="checkbox" id="oidlogincheck" />
         <label for="oidlogincheck" class="checkboxlabel">
@@ -143,15 +143,15 @@ ADATE индуктивный вывод ПО</li>
         <label for="username" >
             Account name
         </label>
-        <input type="text" name="userpost" id="username" value="" class="text" size="13" maxlength="25" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" />      </div>
+        <input type="text" id="username" class="text" maxlength="25" name="userpost" value="" size="13" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" name="password" id="password" class="text" value="" size="18" maxlength="72" />      </div>
+        <input type="password" id="password" class="text" maxlength="72" name="password" size="18" value="" />      </div>
 
-      <div><input type='checkbox' name="do_login" class="checkbox" id="logincheck" />
+      <div><input type='checkbox' class="checkbox" id="logincheck" name="do_login" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -170,7 +170,7 @@ ADATE индуктивный вывод ПО</li>
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" id="subject" name="subject" maxlength="100" value="" class="text" size="50" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" value="" size="50" maxlength="100" class="text" id="subject" placeholder="Subject" name="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -208,7 +208,7 @@ ADATE индуктивный вывод ПО</li>
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea name="body" id="body" class="text" rows="10" wrap="soft" cols="80"></textarea></div>
+        <textarea wrap="soft" name="body" cols="80" rows="10" id="body" class="text"></textarea></div>
 
 
 
@@ -218,7 +218,7 @@ ADATE индуктивный вывод ПО</li>
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
+<input type='submit' name="submitpost" value="Post Comment" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
 
 </div>
 
