@@ -13,7 +13,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"inbox_update_poll":1,"statprefix":"https://www.dreamwidth.org/stc","user_domain":"dreamwidth.org","ctx_popup_userhead":1,"esn_async":1,"cmax_comment":16000,"has_remote":0,"imgprefix":"https://www.dreamwidth.org/img","ctx_popup_icons":1,"ctx_popup":1,"iconprefix":"https://v2.dreamwidth.org","siteroot":"https://www.dreamwidth.org","currentJournal":"transitional_writes","media_embed_enabled":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org"});
+                Site = Object.assign(Site, {"user_domain":"dreamwidth.org","cmax_comment":16000,"iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1,"has_remote":0,"currentJournalBase":"https://transitional-writes.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","ctx_popup_icons":1,"ctx_popup":1,"inbox_update_poll":1,"currentJournal":"transitional_writes","siteroot":"https://www.dreamwidth.org","esn_async":1,"ctx_popup_userhead":1,"statprefix":"https://www.dreamwidth.org/stc"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/tropo/tropo-red.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css,css/components/foundation-icons.css?v=1756585241" />
@@ -112,7 +112,7 @@ Bitcoin, bank,Trade</p>
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1781211600:3140:86400:AjidAruqF3-0-CqcpKTUPCAxNn0w:86a7c6a67646458b582fcf36b662b71f" /><input type='hidden' name="replyto" value="210" /><input type='hidden' name="parenttalkid" value="210" /><input type='hidden' name="itemid" value="40774" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="22086" /><input type='hidden' name="chrp1" value="40774-4255543-1781211600-ToQmsFKa4jksw0oGy1f9-fbaccc64f8048602956ede7dc849a1b8" /><input type='hidden' name="style" value="site" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1781294400:2269:86400:GHh6h3sXz4-0-s5F44CDEl4UVplr:8d44013e7b677a401b8b1b54f6466150" /><input type='hidden' name="replyto" value="210" /><input type='hidden' name="parenttalkid" value="210" /><input type='hidden' name="itemid" value="40774" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="22086" /><input type='hidden' name="chrp1" value="40774-4255543-1781294400-5B7sUf55l3as5vDmaJpT-6ba59a8f39cf635eded98bc8ee29e7ae" /><input type='hidden' name="style" value="site" />
 
 
 <div id="talkform-from">
@@ -139,7 +139,7 @@ Bitcoin, bank,Trade</p>
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" maxlength="60" size="53" name="oidurl" value="" id="oidurl" class="text" />      </div>
+        <input type="text" class="text" id="oidurl" value="" name="oidurl" maxlength="60" size="53" />      </div>
 
       <div><input type='checkbox' id="oidlogincheck" class="checkbox" name="oiddo_login" />
         <label for="oidlogincheck" class="checkboxlabel">
@@ -163,15 +163,15 @@ Bitcoin, bank,Trade</p>
         <label for="username" >
             Account name
         </label>
-        <input type="text" size="13" maxlength="25" id="username" value="" name="userpost" class="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" />      </div>
+        <input type="text" class="text" value="" id="username" name="userpost" maxlength="25" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" size="13" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" value="" id="password" size="18" maxlength="72" class="text" name="password" />      </div>
+        <input type="password" class="text" value="" id="password" name="password" maxlength="72" size="18" />      </div>
 
-      <div><input type='checkbox' id="logincheck" class="checkbox" name="do_login" />
+      <div><input type='checkbox' class="checkbox" id="logincheck" name="do_login" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -190,7 +190,7 @@ Bitcoin, bank,Trade</p>
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" id="subject" value="" size="50" maxlength="100" placeholder="Subject" class="text" name="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" size="50" name="subject" placeholder="Subject" maxlength="100" class="text" value="" id="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -228,7 +228,7 @@ Bitcoin, bank,Trade</p>
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea id="body" name="body" rows="10" cols="80" wrap="soft" class="text"></textarea></div>
+        <textarea rows="10" wrap="soft" id="body" class="text" cols="80" name="body"></textarea></div>
 
 
 
@@ -256,7 +256,7 @@ Bitcoin, bank,Trade</p>
       <div class="row"><div class="columns">
       <form action='https://www.dreamwidth.org/login?ret=1' method='post' class='lj_login_form'>
         <input type="hidden" name="returnto" value="https://transitional-writes.dreamwidth.org/40774.html?replyto=53830&amp;style=site&amp;thread=22086" />
-        <input type='hidden' name='chal' class='lj_login_chal' value='c0:1781211600:3140:300:oy2vlpuCzPKbeSx3iRZu:2c362b9f5f313e676c50585d1797c4cf' />
+        <input type='hidden' name='chal' class='lj_login_chal' value='c0:1781294400:2269:300:yABOu2aYGNrqUS5VuY12:edd354a12fc667e14ddb2192cedcdb77' />
         <input type='hidden' name='response' class='lj_login_response' value='' />
         <div class="row">
           <div class="columns medium-6">
