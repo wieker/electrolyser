@@ -13,7 +13,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"currentJournal":"transitional_writes","imgprefix":"https://www.dreamwidth.org/img","statprefix":"https://www.dreamwidth.org/stc","media_embed_enabled":1,"ctx_popup":1,"ctx_popup_userhead":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","esn_async":1,"ctx_popup_icons":1,"user_domain":"dreamwidth.org","has_remote":0,"inbox_update_poll":1,"siteroot":"https://www.dreamwidth.org","cmax_comment":16000});
+                Site = Object.assign(Site, {"currentJournal":"transitional_writes","ctx_popup":1,"iconprefix":"https://v2.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","has_remote":0,"siteroot":"https://www.dreamwidth.org","esn_async":1,"cmax_comment":16000,"statprefix":"https://www.dreamwidth.org/stc","user_domain":"dreamwidth.org","ctx_popup_userhead":1,"media_embed_enabled":1,"inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_icons":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/tropo/tropo-red.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css,css/components/foundation-icons.css?v=1756585241" />
@@ -107,7 +107,7 @@ metart моделей ну т.е. гербарий пестиков и
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1781294400:1692:86400:asy9yoHPl8-0-s5F44CDEl4UVplr:7202a54c6d0f2b9237f5678a39d8d144" /><input type='hidden' name="replyto" value="185" /><input type='hidden' name="parenttalkid" value="185" /><input type='hidden' name="itemid" value="42319" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="46671" /><input type='hidden' name="chrp1" value="42319-4255543-1781294400-BIDLpsk2fS2U1EGa81eA-c5a450b36b562dcae1fad80489a8ec33" /><input type='hidden' name="style" value="site" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1781481600:2751:86400:P5XTGgCf38-0-b0OP656ZCNP01r1:c440e370af169a77b4114c87b9daf652" /><input type='hidden' name="replyto" value="185" /><input type='hidden' name="parenttalkid" value="185" /><input type='hidden' name="itemid" value="42319" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="46671" /><input type='hidden' name="chrp1" value="42319-4255543-1781481600-yABsMtNP5qFYO9Sr0Geg-01ceebaf40f767cf4edb2159bcfc7c1b" /><input type='hidden' name="style" value="site" />
 
 
 <div id="talkform-from">
@@ -134,9 +134,9 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" value="" maxlength="60" size="53" class="text" name="oidurl" id="oidurl" />      </div>
+        <input type="text" maxlength="60" size="53" class="text" value="" id="oidurl" name="oidurl" />      </div>
 
-      <div><input type='checkbox' id="oidlogincheck" name="oiddo_login" class="checkbox" />
+      <div><input type='checkbox' class="checkbox" name="oiddo_login" id="oidlogincheck" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -158,15 +158,15 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="username" >
             Account name
         </label>
-        <input type="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" id="username" class="text" size="13" maxlength="25" name="userpost" value="" />      </div>
+        <input type="text" maxlength="25" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" size="13" value="" name="userpost" id="username" class="text" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" size="18" maxlength="72" id="password" class="text" value="" name="password" />      </div>
+        <input type="password" size="18" maxlength="72" name="password" id="password" value="" class="text" />      </div>
 
-      <div><input type='checkbox' id="logincheck" name="do_login" class="checkbox" />
+      <div><input type='checkbox' class="checkbox" name="do_login" id="logincheck" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -185,7 +185,7 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" size="50" maxlength="100" id="subject" class="text" value="" name="subject" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" maxlength="100" size="50" value="" placeholder="Subject" name="subject" id="subject" class="text" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -201,13 +201,13 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select class="select" name="prop_editor" id="prop_editor">
+        <select class="select" id="prop_editor" name="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
 <option value="rte0">Rich Text Editor</option>
 </select>
-    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' style="vertical-align: middle;" title="More info about formatting" /></a>
+    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' title="More info about formatting" style="vertical-align: middle;" /></a>
   </div>
 
   <div class="qr-markup-controls">
@@ -223,7 +223,7 @@ metart моделей ну т.е. гербарий пестиков и
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea rows="10" id="body" class="text" wrap="soft" cols="80" name="body"></textarea></div>
+        <textarea class="text" rows="10" cols="80" wrap="soft" id="body" name="body"></textarea></div>
 
 
 
@@ -251,7 +251,7 @@ metart моделей ну т.е. гербарий пестиков и
       <div class="row"><div class="columns">
       <form action='https://www.dreamwidth.org/login?ret=1' method='post' class='lj_login_form'>
         <input type="hidden" name="returnto" value="https://transitional-writes.dreamwidth.org/42319.html?replyto=47439&amp;style=site&amp;thread=46671" />
-        <input type='hidden' name='chal' class='lj_login_chal' value='c0:1781294400:1692:300:CF7TcC61sGXkj886LO88:b170a0a0c6423b41119cc47b648105c9' />
+        <input type='hidden' name='chal' class='lj_login_chal' value='c0:1781481600:2751:300:exQ9R6Xe5pMg80WnJzzg:814a50d08223cf44207669e01124aaa3' />
         <input type='hidden' name='response' class='lj_login_response' value='' />
         <div class="row">
           <div class="columns medium-6">
