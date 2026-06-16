@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"media_embed_enabled":1,"currentJournal":"transitional_writes","ctx_popup":1,"cmax_comment":16000,"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_userhead":1,"imgprefix":"https://www.dreamwidth.org/img","esn_async":1,"siteroot":"https://www.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","inbox_update_poll":1,"has_remote":0,"iconprefix":"https://v2.dreamwidth.org","user_domain":"dreamwidth.org","ctx_popup_icons":1});
+                Site = Object.assign(Site, {"ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","inbox_update_poll":1,"user_domain":"dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","media_embed_enabled":1,"currentJournal":"transitional_writes","iconprefix":"https://v2.dreamwidth.org","esn_async":1,"cmax_comment":16000,"ctx_popup_icons":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup":1,"imgprefix":"https://www.dreamwidth.org/img","has_remote":0});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1756585241" />
@@ -55,7 +55,7 @@
 <div>
 <div class="contents usercontent">
 <div class="inner">
-<h4 class="comment-title"><a title="no subject" href="40774.html?thread=43590&amp;style=light#cmt43590" class=" invisible" >no subject</a></h4><div class="comment-content"><p>Гу ок.
+<h4 class="comment-title"><a title="no subject" href="https://transitional-writes.dreamwidth.org/40774.html?thread=43590&style=light#cmt43590" class=" invisible" >no subject</a></h4><div class="comment-content"><p>Гу ок.
 Добавлю шизы.
 Научно-фантастическое произведение
 "Уравнения Максвелла" Днепрова +
@@ -69,7 +69,7 @@ LTE/5G beamforming?
 </div>
 <div class="footer">
 <div class="inner">
-<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="40774.html?thread=43590&amp;style=light#cmt43590">Thread</a></li>
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="https://transitional-writes.dreamwidth.org/40774.html?thread=43590&amp;style=light#cmt43590">Thread</a></li>
 <li class="link reply first-item"><a  href='40774.html?replyto=43590&amp;style=light' >Reply to this</a></li>
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=43590&amp;style=light">Thread from start</a></li>
 <li class="link commentparent"><a href="40774.html?thread=22086&amp;style=light#cmt22086">Parent</a></li>
@@ -84,7 +84,7 @@ LTE/5G beamforming?
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1781582400:1524:86400:VyOwCJdUoY-0-4jTp5wWLBPRyetL:02bb60b87088bd3d81f6ee73ec036eb4" /><input type='hidden' name="replyto" value="170" /><input type='hidden' name="parenttalkid" value="170" /><input type='hidden' name="itemid" value="40774" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="40774-4255543-1781582400-90jtqqIkdwn32d9eLPIk-c67e2f08be51a19d75896da87b425be3" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1781625600:2419:86400:IH3RVCABXC-0-VwqsM0LHeZJFg9u:882ee1c3b9dcffc747ade53ca7336bac" /><input type='hidden' name="replyto" value="170" /><input type='hidden' name="parenttalkid" value="170" /><input type='hidden' name="itemid" value="40774" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="40774-4255543-1781625600-dA0PQ4xrLRgHfYISavTE-fe610828f97339e8b13336167bf2b1e0" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -111,9 +111,9 @@ LTE/5G beamforming?
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" name="oidurl" size="53" class="text" id="oidurl" value="" maxlength="60" />      </div>
+        <input type="text" name="oidurl" size="53" maxlength="60" id="oidurl" value="" class="text" />      </div>
 
-      <div><input type='checkbox' name="oiddo_login" class="checkbox" id="oidlogincheck" />
+      <div><input type='checkbox' name="oiddo_login" id="oidlogincheck" class="checkbox" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -135,13 +135,13 @@ LTE/5G beamforming?
         <label for="username" >
             Account name
         </label>
-        <input type="text" value="" name="userpost" maxlength="25" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" size="13" class="text" id="username" />      </div>
+        <input type="text" class="text" id="username" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" maxlength="25" name="userpost" size="13" value="" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" maxlength="72" id="password" class="text" size="18" value="" name="password" />      </div>
+        <input type="password" id="password" class="text" maxlength="72" size="18" name="password" value="" />      </div>
 
       <div><input type='checkbox' name="do_login" id="logincheck" class="checkbox" />
         <label for="logincheck" class="checkboxlabel">
@@ -162,7 +162,7 @@ LTE/5G beamforming?
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" value="" name="subject" placeholder="Subject" class="text" size="50" id="subject" maxlength="100" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" value="" size="50" name="subject" maxlength="100" class="text" placeholder="Subject" id="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -200,7 +200,7 @@ LTE/5G beamforming?
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea wrap="soft" name="body" rows="10" cols="80" id="body" class="text"></textarea></div>
+        <textarea rows="10" name="body" cols="80" wrap="soft" class="text" id="body"></textarea></div>
 
 
 
@@ -210,7 +210,7 @@ LTE/5G beamforming?
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
+<input type='submit' name="submitpost" value="Post Comment" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>    <div class='de'>Links will be displayed as unclickable URLs to help prevent spam.</div>
 
 </div>
 
