@@ -12,14 +12,14 @@
 <link rel="canonical" href="42625.html?thread=70529#cmt70529" />
 <script>
 // don't crawl this.  read http://www.livejournal.com/developer/exporting
-var LJ_cmtinfo = {"70529":{"screened":0,"u":"transitional_writes","rc":["70785"],"deleted":0,"parent":70273,"full":1},"journal":"transitional_writes","72321":{"rc":["72577"],"deleted":0,"full":1,"parent":72065,"screened":0,"u":"transitional_writes"},"70785":{"full":1,"parent":70529,"deleted":0,"rc":["71041"],"screened":0,"u":"transitional_writes"},"73089":{"parent":72833,"full":1,"deleted":0,"rc":["73345"],"u":"transitional_writes","screened":0},"canSpam":"1","71809":{"u":"transitional_writes","screened":0,"deleted":0,"rc":["72065"],"full":1,"parent":71553},"72577":{"u":"transitional_writes","screened":0,"parent":72321,"full":1,"rc":["72833"],"deleted":0},"remote":"","72065":{"u":"transitional_writes","screened":0,"deleted":0,"rc":["72321"],"parent":71809,"full":1},"canAdmin":null,"71297":{"u":"transitional_writes","screened":0,"rc":["71553"],"deleted":0,"parent":71041,"full":1},"73345":{"screened":0,"u":"transitional_writes","parent":73089,"full":1,"rc":[],"deleted":0},"71553":{"screened":0,"u":"transitional_writes","rc":["71809"],"deleted":0,"parent":71297,"full":1},"form_auth":"c0:1781618400:2775:86400:wHEU4gP6aj-0-VwqsM0LHeZJFg9u:2df1f33fae4e239c5580659f944bdf45","71041":{"screened":0,"u":"transitional_writes","full":1,"parent":70785,"rc":["71297"],"deleted":0},"72833":{"parent":72577,"full":1,"deleted":0,"rc":["73089"],"u":"transitional_writes","screened":0}}
+var LJ_cmtinfo = {"71041":{"rc":["71297"],"screened":0,"deleted":0,"u":"transitional_writes","full":1,"parent":70785},"72833":{"u":"transitional_writes","parent":72577,"full":1,"rc":["73089"],"screened":0,"deleted":0},"73089":{"deleted":0,"screened":0,"rc":["73345"],"parent":72833,"full":1,"u":"transitional_writes"},"73345":{"deleted":0,"screened":0,"rc":[],"parent":73089,"full":1,"u":"transitional_writes"},"72577":{"deleted":0,"screened":0,"rc":["72833"],"full":1,"parent":72321,"u":"transitional_writes"},"canAdmin":null,"70785":{"parent":70529,"full":1,"u":"transitional_writes","deleted":0,"screened":0,"rc":["71041"]},"remote":"","form_auth":"c0:1781629200:122:86400:N3rDt01f87-0-npUcYdiecXyxW83:b6455cb5b2e072afc1293fa4c48ad986","canSpam":"1","72065":{"u":"transitional_writes","full":1,"parent":71809,"rc":["72321"],"screened":0,"deleted":0},"72321":{"deleted":0,"screened":0,"rc":["72577"],"full":1,"parent":72065,"u":"transitional_writes"},"journal":"transitional_writes","71297":{"u":"transitional_writes","full":1,"parent":71041,"rc":["71553"],"screened":0,"deleted":0},"70529":{"rc":["70785"],"screened":0,"deleted":0,"u":"transitional_writes","parent":70273,"full":1},"71809":{"deleted":0,"screened":0,"rc":["72065"],"full":1,"parent":71553,"u":"transitional_writes"},"71553":{"rc":["71809"],"screened":0,"deleted":0,"u":"transitional_writes","parent":71297,"full":1}}
 </script>
             <script type="text/javascript">
                 var Site;
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","siteroot":"https://www.dreamwidth.org","ctx_popup":1,"iconprefix":"https://v2.dreamwidth.org","ctx_popup_icons":1,"media_embed_enabled":1,"imgprefix":"https://www.dreamwidth.org/img","user_domain":"dreamwidth.org","has_remote":0,"currentJournalBase":"https://transitional-writes.dreamwidth.org","inbox_update_poll":1,"ctx_popup_userhead":1,"currentJournal":"transitional_writes","cmax_comment":16000,"esn_async":1});
+                Site = Object.assign(Site, {"currentJournalBase":"https://transitional-writes.dreamwidth.org","user_domain":"dreamwidth.org","has_remote":0,"ctx_popup_icons":1,"statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","ctx_popup":1,"imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1,"cmax_comment":16000,"iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1,"esn_async":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_userhead":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery.commentmanage.css,controlstrip.css,controlstrip-dark.css,canary.css?v=1756585241" />
@@ -37,18 +37,18 @@ var LJ_cmtinfo = {"70529":{"screened":0,"u":"transitional_writes","rc":["70785"]
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" class="text" maxlength="27" tabindex="1" id="xc_user" placeholder="Account name:" value="" name="user" size="7" />
+        <input type="text" maxlength="27" id="xc_user" tabindex="1" value="" class="text" placeholder="Account name:" size="7" name="user" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" class="lj_login_password" tabindex="2" id="xc_password" placeholder="Password" name="password" size="7" value="" />
+        <input type="password" size="7" placeholder="Password" name="password" value="" tabindex="2" class="lj_login_password" id="xc_password" />
       <input type='submit' value="Log in" tabindex="4" class="submit" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' tabindex="3" class="checkbox" id="xc_remember" value="1" name="remember_me" />
+        <input type='checkbox' name="remember_me" tabindex="3" value="1" class="checkbox" id="xc_remember" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -60,9 +60,9 @@ var LJ_cmtinfo = {"70529":{"screened":0,"u":"transitional_writes","rc":["70785"]
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_165'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_142'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" class="text" title="Search" id="search" name="q" size="20" /> <select name="type" class="select">
+<input type="text" id="search" name="q" size="20" class="text" title="Search" /> <select name="type" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -406,7 +406,7 @@ var LJ_cmtinfo = {"70529":{"screened":0,"u":"transitional_writes","rc":["70785"]
 <div class="inner">
 <div class="header">
 <div class="inner">
-<h4 class="comment-title"><a title="no subject" href="42625.html?thread=72833#cmt72833" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="1 day after journal entry">2026-05-21 03:57 am (UTC)</span></span></div>
+<h4 class="comment-title"><a title="no subject" href="https://transitional-writes.dreamwidth.org/42625.html?thread=72833#cmt72833" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="1 day after journal entry">2026-05-21 03:57 am (UTC)</span></span></div>
 </div>
 <div class="contents">
 <div class="inner">
@@ -416,13 +416,13 @@ var LJ_cmtinfo = {"70529":{"screened":0,"u":"transitional_writes","rc":["70785"]
 </div>
 <div class="footer">
 <div class="inner">
-<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="42625.html?thread=72833#cmt72833">Link</a></li>
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="https://transitional-writes.dreamwidth.org/42625.html?thread=72833#cmt72833">Link</a></li>
 <li class="link reply first-item"><a onclick='return function(that) {return quickreply("72833", 284, "",that)}(this)' href='42625.html?replyto=72833&amp;thread=70529' >Reply</a></li>
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=72833">Thread from start</a></li>
 <li class="link commentparent"><a href="42625.html?thread=72577#cmt72577">Parent</a></li>
-<li class="link thread"><a href="42625.html?thread=72833#cmt72833">Thread</a></li>
+<li class="link thread"><a href="https://transitional-writes.dreamwidth.org/42625.html?thread=72833#cmt72833">Thread</a></li>
 <li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt72833_hide"><a href='42625.html?thread=70529#cmt72833' onClick="Expander.hideComments(this, '72833'); return false;">Hide 2 comments</a></li>
-<li class="link cmt_unhide" style="display: none;" id="cmt72833_unhide"><a href='42625.html?thread=72833#cmt72833' onClick="Expander.unhideComments(this, '72833'); return false;">Show 2 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt72833_unhide"><a href='https://transitional-writes.dreamwidth.org/42625.html?thread=72833#cmt72833' onClick="Expander.unhideComments(this, '72833'); return false;">Show 2 comments</a></li>
 </ul><div  id="ljqrt72833" data-quickreply-container="72833" style="display: none;"></div></div>
 </div>
 </div>
@@ -450,7 +450,7 @@ var LJ_cmtinfo = {"70529":{"screened":0,"u":"transitional_writes","rc":["70785"]
 <ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="42625.html?thread=73089#cmt73089">Link</a></li>
 <li class="link reply first-item"><a onclick='return function(that) {return quickreply("73089", 285, "",that)}(this)' href='42625.html?replyto=73089&amp;thread=70529' >Reply</a></li>
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=73089">Thread from start</a></li>
-<li class="link commentparent"><a href="42625.html?thread=72833#cmt72833">Parent</a></li>
+<li class="link commentparent"><a href="https://transitional-writes.dreamwidth.org/42625.html?thread=72833#cmt72833">Parent</a></li>
 <li class="link thread"><a href="42625.html?thread=73089#cmt73089">Thread</a></li>
 <li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt73089_hide"><a href='42625.html?thread=70529#cmt73089' onClick="Expander.hideComments(this, '73089'); return false;">Hide 1 comment</a></li>
 <li class="link cmt_unhide" style="display: none;" id="cmt73089_unhide"><a href='42625.html?thread=73089#cmt73089' onClick="Expander.unhideComments(this, '73089'); return false;">Show 1 comment</a></li>
@@ -580,7 +580,7 @@ var LJ_cmtinfo = {"70529":{"screened":0,"u":"transitional_writes","rc":["70785"]
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 16th, 2026 02:46 pm</span></div>
+<span id="load-time">Page generated Jun. 16th, 2026 05:02 pm</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
