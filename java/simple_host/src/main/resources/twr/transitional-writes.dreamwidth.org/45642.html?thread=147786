@@ -12,14 +12,14 @@
 <link rel="canonical" href="45642.html?thread=147786#cmt147786" />
 <script>
 // don't crawl this.  read http://www.livejournal.com/developer/exporting
-var LJ_cmtinfo = {"canSpam":"1","148298":{"deleted":0,"u":"transitional_writes","full":1,"screened":0,"rc":["148554"],"parent":148042},"canAdmin":null,"remote":"","148042":{"screened":0,"parent":147786,"rc":["148298"],"deleted":0,"u":"transitional_writes","full":1},"147786":{"screened":0,"parent":null,"rc":["148042"],"deleted":0,"full":1,"u":"transitional_writes"},"148554":{"deleted":0,"u":"transitional_writes","full":1,"screened":0,"parent":148298,"rc":[]},"journal":"transitional_writes","form_auth":"c0:1781816400:673:86400:gcmjPV7X0X-0-RALnZC0tkEWPiup:fe6abdc484e7475ffb4aa337d4b59e95"}
+var LJ_cmtinfo = {"148298":{"parent":148042,"rc":["148554"],"full":1,"deleted":0,"u":"transitional_writes","screened":0},"canSpam":"1","148042":{"full":1,"parent":147786,"rc":["148298"],"screened":0,"u":"transitional_writes","deleted":0},"form_auth":"c0:1781859600:3272:86400:VJGEiPDFXO-0-9o3sWBLuJjclrJg:856e4149fc94d205a27eb9a558edda2e","journal":"transitional_writes","148554":{"deleted":0,"u":"transitional_writes","screened":0,"rc":[],"parent":148298,"full":1},"canAdmin":null,"remote":"","147786":{"rc":["148042"],"parent":null,"full":1,"deleted":0,"u":"transitional_writes","screened":0}}
 </script>
             <script type="text/javascript">
                 var Site;
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"has_remote":0,"cmax_comment":16000,"iconprefix":"https://v2.dreamwidth.org","esn_async":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1,"statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup":1,"user_domain":"dreamwidth.org","inbox_update_poll":1,"imgprefix":"https://www.dreamwidth.org/img","ctx_popup_userhead":1,"media_embed_enabled":1});
+                Site = Object.assign(Site, {"ctx_popup":1,"inbox_update_poll":1,"cmax_comment":16000,"esn_async":1,"currentJournal":"transitional_writes","ctx_popup_userhead":1,"media_embed_enabled":1,"has_remote":0,"currentJournalBase":"https://transitional-writes.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","iconprefix":"https://v2.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1,"user_domain":"dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery.commentmanage.css,controlstrip.css,controlstrip-dark.css,canary.css?v=1756585241" />
@@ -37,18 +37,18 @@ var LJ_cmtinfo = {"canSpam":"1","148298":{"deleted":0,"u":"transitional_writes",
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" placeholder="Account name:" id="xc_user" name="user" maxlength="27" value="" class="text" size="7" tabindex="1" />
+        <input type="text" placeholder="Account name:" class="text" value="" name="user" maxlength="27" size="7" id="xc_user" tabindex="1" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" id="xc_password" placeholder="Password" name="password" value="" tabindex="2" size="7" class="lj_login_password" />
-      <input type='submit' value="Log in" tabindex="4" class="submit" />
+        <input type="password" name="password" value="" placeholder="Password" class="lj_login_password" tabindex="2" size="7" id="xc_password" />
+      <input type='submit' value="Log in" class="submit" tabindex="4" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' name="remember_me" id="xc_remember" class="checkbox" tabindex="3" value="1" />
+        <input type='checkbox' name="remember_me" value="1" class="checkbox" tabindex="3" id="xc_remember" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -60,9 +60,9 @@ var LJ_cmtinfo = {"canSpam":"1","148298":{"deleted":0,"u":"transitional_writes",
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_129'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_227'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" id="search" title="Search" class="text" size="20" name="q" /> <select name="type" class="select">
+<input type="text" id="search" size="20" title="Search" name="q" class="text" /> <select name="type" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -322,7 +322,7 @@ var LJ_cmtinfo = {"canSpam":"1","148298":{"deleted":0,"u":"transitional_writes",
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 18th, 2026 09:11 pm</span></div>
+<span id="load-time">Page generated Jun. 19th, 2026 09:54 am</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
