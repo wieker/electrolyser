@@ -12,14 +12,14 @@
 <link rel="canonical" href="45642.html?thread=144970#cmt144970" />
 <script>
 // don't crawl this.  read http://www.livejournal.com/developer/exporting
-var LJ_cmtinfo = {"remote":"","canSpam":"1","145482":{"full":1,"u":"transitional_writes","parent":145226,"deleted":0,"screened":0,"rc":["145738"]},"146506":{"screened":0,"rc":["146762"],"parent":146250,"deleted":0,"u":"transitional_writes","full":1},"145994":{"screened":0,"rc":["146250"],"parent":145738,"deleted":0,"full":1,"u":"transitional_writes"},"147274":{"deleted":0,"parent":147018,"rc":["147530"],"screened":0,"full":1,"u":"transitional_writes"},"146250":{"parent":145994,"deleted":0,"screened":0,"rc":["146506"],"full":1,"u":"transitional_writes"},"145738":{"parent":145482,"deleted":0,"screened":0,"rc":["145994","147018"],"u":"transitional_writes","full":1},"144970":{"rc":["145226"],"screened":0,"deleted":0,"parent":144714,"full":1,"u":"transitional_writes"},"form_auth":"c0:1781859600:3265:86400:CvlwVFfDIn-0-9o3sWBLuJjclrJg:8188c523f5a8a8057d790d15b76c4976","147530":{"deleted":0,"parent":147274,"screened":0,"rc":[],"u":"transitional_writes","full":1},"journal":"transitional_writes","147018":{"rc":["147274"],"screened":0,"parent":145738,"deleted":0,"u":"transitional_writes","full":1},"canAdmin":null,"146762":{"u":"transitional_writes","full":1,"parent":146506,"deleted":0,"screened":0,"rc":[]},"145226":{"parent":144970,"deleted":0,"rc":["145482"],"screened":0,"u":"transitional_writes","full":1}}
+var LJ_cmtinfo = {"147530":{"screened":0,"parent":147274,"deleted":0,"rc":[],"u":"transitional_writes","full":1},"146250":{"u":"transitional_writes","full":1,"rc":["146506"],"deleted":0,"parent":145994,"screened":0},"145482":{"rc":["145738"],"u":"transitional_writes","full":1,"parent":145226,"screened":0,"deleted":0},"remote":"","canSpam":"1","journal":"transitional_writes","146506":{"screened":0,"parent":146250,"deleted":0,"rc":["146762"],"u":"transitional_writes","full":1},"145994":{"full":1,"u":"transitional_writes","rc":["146250"],"deleted":0,"screened":0,"parent":145738},"147018":{"screened":0,"parent":145738,"deleted":0,"rc":["147274"],"u":"transitional_writes","full":1},"canAdmin":null,"147274":{"rc":["147530"],"u":"transitional_writes","full":1,"parent":147018,"screened":0,"deleted":0},"form_auth":"c0:1781946000:2131:86400:FP6EKhyBqh-0-CeNot2C3443Ri99:229b45e7afea340944ca9c14ec9398b6","145738":{"parent":145482,"screened":0,"deleted":0,"rc":["145994","147018"],"u":"transitional_writes","full":1},"145226":{"deleted":0,"parent":144970,"screened":0,"full":1,"u":"transitional_writes","rc":["145482"]},"144970":{"deleted":0,"parent":144714,"screened":0,"full":1,"u":"transitional_writes","rc":["145226"]},"146762":{"full":1,"u":"transitional_writes","rc":[],"deleted":0,"screened":0,"parent":146506}}
 </script>
             <script type="text/javascript">
                 var Site;
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup_userhead":1,"iconprefix":"https://v2.dreamwidth.org","inbox_update_poll":1,"currentJournal":"transitional_writes","ctx_popup_icons":1,"cmax_comment":16000,"ctx_popup":1,"imgprefix":"https://www.dreamwidth.org/img","user_domain":"dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","siteroot":"https://www.dreamwidth.org","esn_async":1,"has_remote":0,"media_embed_enabled":1,"statprefix":"https://www.dreamwidth.org/stc"});
+                Site = Object.assign(Site, {"media_embed_enabled":1,"siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1,"statprefix":"https://www.dreamwidth.org/stc","iconprefix":"https://v2.dreamwidth.org","user_domain":"dreamwidth.org","ctx_popup_icons":1,"ctx_popup_userhead":1,"cmax_comment":16000,"esn_async":1,"ctx_popup":1,"currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","has_remote":0});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery.commentmanage.css,controlstrip.css,controlstrip-dark.css,canary.css?v=1756585241" />
@@ -37,18 +37,18 @@ var LJ_cmtinfo = {"remote":"","canSpam":"1","145482":{"full":1,"u":"transitional
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" placeholder="Account name:" value="" tabindex="1" id="xc_user" size="7" class="text" maxlength="27" name="user" />
+        <input type="text" name="user" id="xc_user" maxlength="27" tabindex="1" placeholder="Account name:" size="7" class="text" value="" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" name="password" class="lj_login_password" tabindex="2" id="xc_password" size="7" placeholder="Password" value="" />
-      <input type='submit' value="Log in" tabindex="4" class="submit" />
+        <input type="password" class="lj_login_password" value="" size="7" placeholder="Password" tabindex="2" id="xc_password" name="password" />
+      <input type='submit' value="Log in" class="submit" tabindex="4" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' id="xc_remember" tabindex="3" value="1" name="remember_me" class="checkbox" />
+        <input type='checkbox' id="xc_remember" name="remember_me" tabindex="3" value="1" class="checkbox" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -60,9 +60,9 @@ var LJ_cmtinfo = {"remote":"","canSpam":"1","145482":{"full":1,"u":"transitional
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_329'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_247'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" name="q" size="20" id="search" title="Search" class="text" /> <select name="type" class="select">
+<input type="text" class="text" size="20" name="q" id="search" title="Search" /> <select class="select" name="type">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -545,7 +545,7 @@ var LJ_cmtinfo = {"remote":"","canSpam":"1","145482":{"full":1,"u":"transitional
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 19th, 2026 09:54 am</span></div>
+<span id="load-time">Page generated Jun. 20th, 2026 09:35 am</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>

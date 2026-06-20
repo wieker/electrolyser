@@ -12,14 +12,14 @@
 <link rel="canonical" href="46795.html?thread=165835#cmt165835" />
 <script>
 // don't crawl this.  read http://www.livejournal.com/developer/exporting
-var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes","screened":0,"full":1,"parent":166347},"167115":{"deleted":0,"rc":["167371"],"u":"transitional_writes","full":1,"screened":0,"parent":166859},"166859":{"rc":["167115"],"deleted":0,"parent":166603,"screened":0,"full":1,"u":"transitional_writes"},"canSpam":"1","journal":"transitional_writes","166347":{"u":"transitional_writes","screened":0,"full":1,"parent":166091,"deleted":0,"rc":["166603"]},"165835":{"rc":["166091"],"deleted":0,"parent":165067,"screened":0,"full":1,"u":"transitional_writes"},"167627":{"u":"transitional_writes","screened":0,"full":1,"parent":167371,"deleted":0,"rc":[]},"canAdmin":null,"167371":{"full":1,"screened":0,"parent":167115,"u":"transitional_writes","rc":["167627"],"deleted":0},"166091":{"parent":165835,"screened":0,"full":1,"u":"transitional_writes","rc":["166347"],"deleted":0},"remote":"","form_auth":"c0:1781859600:3228:86400:u3Mch3MJnd-0-9o3sWBLuJjclrJg:80ff571491a0b10efdf4859de7629d69"}
+var LJ_cmtinfo = {"journal":"transitional_writes","remote":"","166603":{"deleted":0,"full":1,"u":"transitional_writes","screened":0,"parent":166347,"rc":["166859"]},"form_auth":"c0:1781946000:2002:86400:xE3xVBrFzn-0-CeNot2C3443Ri99:6ab10dfd2fb9871fab78564878731d74","167627":{"parent":167371,"screened":0,"u":"transitional_writes","rc":["167883"],"full":1,"deleted":0},"168139":{"full":1,"deleted":0,"screened":0,"parent":167883,"u":"transitional_writes","rc":["168395"]},"169163":{"full":1,"deleted":0,"rc":["169419"],"screened":0,"parent":168907,"u":"transitional_writes"},"166091":{"parent":165835,"screened":0,"u":"transitional_writes","rc":["166347"],"deleted":0,"full":1},"canSpam":"1","168395":{"full":1,"deleted":0,"rc":["168651"],"parent":168139,"screened":0,"u":"transitional_writes"},"165835":{"full":1,"deleted":0,"screened":0,"u":"transitional_writes","parent":165067,"rc":["166091"]},"167115":{"screened":0,"u":"transitional_writes","parent":166859,"rc":["167371"],"deleted":0,"full":1},"166859":{"full":1,"deleted":0,"screened":0,"u":"transitional_writes","parent":166603,"rc":["167115"]},"167371":{"rc":["167627"],"screened":0,"parent":167115,"u":"transitional_writes","deleted":0,"full":1},"169419":{"deleted":0,"full":1,"u":"transitional_writes","screened":0,"parent":169163,"rc":[]},"168651":{"screened":0,"u":"transitional_writes","parent":168395,"rc":["168907"],"full":1,"deleted":0},"canAdmin":null,"168907":{"deleted":0,"full":1,"screened":0,"u":"transitional_writes","parent":168651,"rc":["169163"]},"167883":{"rc":["168139"],"screened":0,"parent":167627,"u":"transitional_writes","deleted":0,"full":1},"166347":{"full":1,"deleted":0,"rc":["166603"],"screened":0,"parent":166091,"u":"transitional_writes"}}
 </script>
             <script type="text/javascript">
                 var Site;
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup_userhead":1,"currentJournal":"transitional_writes","statprefix":"https://www.dreamwidth.org/stc","user_domain":"dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","has_remote":0,"ctx_popup_icons":1,"ctx_popup":1,"siteroot":"https://www.dreamwidth.org","esn_async":1,"inbox_update_poll":1,"cmax_comment":16000});
+                Site = Object.assign(Site, {"media_embed_enabled":1,"ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","ctx_popup_userhead":1,"cmax_comment":16000,"has_remote":0,"user_domain":"dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup":1,"imgprefix":"https://www.dreamwidth.org/img","statprefix":"https://www.dreamwidth.org/stc","inbox_update_poll":1,"esn_async":1,"currentJournal":"transitional_writes","siteroot":"https://www.dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery.commentmanage.css,controlstrip.css,controlstrip-dark.css,canary.css?v=1756585241" />
@@ -37,18 +37,18 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
         <label for="xc_user" class="invisible">
             Account name:
         </label>
-        <input type="text" id="xc_user" name="user" tabindex="1" maxlength="27" size="7" value="" class="text" placeholder="Account name:" />
+        <input type="text" tabindex="1" maxlength="27" placeholder="Account name:" class="text" name="user" value="" id="xc_user" size="7" />
       
         <label for="xc_password" class="invisible">
             Password
         </label>
-        <input type="password" size="7" value="" tabindex="2" id="xc_password" name="password" placeholder="Password" class="lj_login_password" />
-      <input type='submit' value="Log in" class="submit" tabindex="4" />
+        <input type="password" id="xc_password" size="7" value="" placeholder="Password" class="lj_login_password" name="password" tabindex="2" />
+      <input type='submit' value="Log in" tabindex="4" class="submit" />
 
       <div id='lj_controlstrip_login_secondary_controls'>
         <a href='https://www.dreamwidth.org/openid/' tabindex='5'>(OpenID?)</a>
         <a href='https://www.dreamwidth.org/lostinfo' tabindex='6'>(Forgot it?)</a>
-        <input type='checkbox' class="checkbox" value="1" tabindex="3" id="xc_remember" name="remember_me" />
+        <input type='checkbox' class="checkbox" name="remember_me" tabindex="3" id="xc_remember" value="1" />
         <label for="xc_remember" class="checkboxlabel">
             Remember Me
         </label>
@@ -60,9 +60,9 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
   <span id='lj_controlstrip_statustext'>You're viewing <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>'s journal</span>
   <br /><a href='https://www.dreamwidth.org/create'>Create a Dreamwidth Account</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/'>Learn More</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_185'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_387'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" title="Search" size="20" name="q" class="text" id="search" /> <select name="type" class="select">
+<input type="text" title="Search" size="20" id="search" class="text" name="q" /> <select class="select" name="type">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -111,7 +111,7 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=46795" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=46795" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
 <li class="link link_next"> <a href="https://www.dreamwidth.org/go?dir=next&itemid=46795&journal=transitional_writes" ><img border='0' width="16" height="16" alt="Next Entry" title="Next Entry" src="https://www.dreamwidth.org/img/silk/entry/next.png"  /></a></li>
-</ul><hr class="above-entry-interaction-links" /><ul class="entry-interaction-links text-links"><li class="entry-readlink first-item"><a href="46795.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">57 comments</a></li>
+</ul><hr class="above-entry-interaction-links" /><ul class="entry-interaction-links text-links"><li class="entry-readlink first-item"><a href="46795.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">64 comments</a></li>
 <li class="entry-replylink"><a onclick='return function(that) {return quickreply("topcomment", 0, "",that)}(this)' href='46795.html?mode=reply' >Reply</a></li>
 </ul><div  id="ljqrttopcomment" data-quickreply-container="topcomment" style="display: none;"></div><hr class="below-reply-container" /></div>
 </div>
@@ -142,8 +142,8 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=165835">Thread from start</a></li>
 <li class="link commentparent"><a href="46795.html?thread=165067#cmt165067">Parent</a></li>
 <li class="link thread"><a href="46795.html?thread=165835#cmt165835">Thread</a></li>
-<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt165835_hide"><a href='46795.html?thread=165835#cmt165835' onClick="Expander.hideComments(this, '165835'); return false;">Hide 7 comments</a></li>
-<li class="link cmt_unhide" style="display: none;" id="cmt165835_unhide"><a href='46795.html?thread=165835#cmt165835' onClick="Expander.unhideComments(this, '165835'); return false;">Show 7 comments</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt165835_hide"><a href='46795.html?thread=165835#cmt165835' onClick="Expander.hideComments(this, '165835'); return false;">Hide 14 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt165835_unhide"><a href='46795.html?thread=165835#cmt165835' onClick="Expander.unhideComments(this, '165835'); return false;">Show 14 comments</a></li>
 </ul><div  id="ljqrt165835" data-quickreply-container="165835" style="display: none;"></div></div>
 </div>
 </div>
@@ -173,8 +173,8 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=166091">Thread from start</a></li>
 <li class="link commentparent"><a href="46795.html?thread=165835#cmt165835">Parent</a></li>
 <li class="link thread"><a href="46795.html?thread=166091#cmt166091">Thread</a></li>
-<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt166091_hide"><a href='46795.html?thread=165835#cmt166091' onClick="Expander.hideComments(this, '166091'); return false;">Hide 6 comments</a></li>
-<li class="link cmt_unhide" style="display: none;" id="cmt166091_unhide"><a href='46795.html?thread=166091#cmt166091' onClick="Expander.unhideComments(this, '166091'); return false;">Show 6 comments</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt166091_hide"><a href='46795.html?thread=165835#cmt166091' onClick="Expander.hideComments(this, '166091'); return false;">Hide 13 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt166091_unhide"><a href='46795.html?thread=166091#cmt166091' onClick="Expander.unhideComments(this, '166091'); return false;">Show 13 comments</a></li>
 </ul><div  id="ljqrt166091" data-quickreply-container="166091" style="display: none;"></div></div>
 </div>
 </div>
@@ -204,8 +204,8 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=166347">Thread from start</a></li>
 <li class="link commentparent"><a href="46795.html?thread=166091#cmt166091">Parent</a></li>
 <li class="link thread"><a href="46795.html?thread=166347#cmt166347">Thread</a></li>
-<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt166347_hide"><a href='46795.html?thread=165835#cmt166347' onClick="Expander.hideComments(this, '166347'); return false;">Hide 5 comments</a></li>
-<li class="link cmt_unhide" style="display: none;" id="cmt166347_unhide"><a href='46795.html?thread=166347#cmt166347' onClick="Expander.unhideComments(this, '166347'); return false;">Show 5 comments</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt166347_hide"><a href='46795.html?thread=165835#cmt166347' onClick="Expander.hideComments(this, '166347'); return false;">Hide 12 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt166347_unhide"><a href='46795.html?thread=166347#cmt166347' onClick="Expander.unhideComments(this, '166347'); return false;">Show 12 comments</a></li>
 </ul><div  id="ljqrt166347" data-quickreply-container="166347" style="display: none;"></div></div>
 </div>
 </div>
@@ -235,8 +235,8 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=166603">Thread from start</a></li>
 <li class="link commentparent"><a href="46795.html?thread=166347#cmt166347">Parent</a></li>
 <li class="link thread"><a href="46795.html?thread=166603#cmt166603">Thread</a></li>
-<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt166603_hide"><a href='46795.html?thread=165835#cmt166603' onClick="Expander.hideComments(this, '166603'); return false;">Hide 4 comments</a></li>
-<li class="link cmt_unhide" style="display: none;" id="cmt166603_unhide"><a href='46795.html?thread=166603#cmt166603' onClick="Expander.unhideComments(this, '166603'); return false;">Show 4 comments</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt166603_hide"><a href='46795.html?thread=165835#cmt166603' onClick="Expander.hideComments(this, '166603'); return false;">Hide 11 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt166603_unhide"><a href='46795.html?thread=166603#cmt166603' onClick="Expander.unhideComments(this, '166603'); return false;">Show 11 comments</a></li>
 </ul><div  id="ljqrt166603" data-quickreply-container="166603" style="display: none;"></div></div>
 </div>
 </div>
@@ -266,8 +266,8 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=166859">Thread from start</a></li>
 <li class="link commentparent"><a href="46795.html?thread=166603#cmt166603">Parent</a></li>
 <li class="link thread"><a href="46795.html?thread=166859#cmt166859">Thread</a></li>
-<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt166859_hide"><a href='46795.html?thread=165835#cmt166859' onClick="Expander.hideComments(this, '166859'); return false;">Hide 3 comments</a></li>
-<li class="link cmt_unhide" style="display: none;" id="cmt166859_unhide"><a href='46795.html?thread=166859#cmt166859' onClick="Expander.unhideComments(this, '166859'); return false;">Show 3 comments</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt166859_hide"><a href='46795.html?thread=165835#cmt166859' onClick="Expander.hideComments(this, '166859'); return false;">Hide 10 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt166859_unhide"><a href='46795.html?thread=166859#cmt166859' onClick="Expander.unhideComments(this, '166859'); return false;">Show 10 comments</a></li>
 </ul><div  id="ljqrt166859" data-quickreply-container="166859" style="display: none;"></div></div>
 </div>
 </div>
@@ -297,8 +297,8 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=167115">Thread from start</a></li>
 <li class="link commentparent"><a href="46795.html?thread=166859#cmt166859">Parent</a></li>
 <li class="link thread"><a href="46795.html?thread=167115#cmt167115">Thread</a></li>
-<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt167115_hide"><a href='46795.html?thread=165835#cmt167115' onClick="Expander.hideComments(this, '167115'); return false;">Hide 2 comments</a></li>
-<li class="link cmt_unhide" style="display: none;" id="cmt167115_unhide"><a href='46795.html?thread=167115#cmt167115' onClick="Expander.unhideComments(this, '167115'); return false;">Show 2 comments</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt167115_hide"><a href='46795.html?thread=165835#cmt167115' onClick="Expander.hideComments(this, '167115'); return false;">Hide 9 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt167115_unhide"><a href='46795.html?thread=167115#cmt167115' onClick="Expander.unhideComments(this, '167115'); return false;">Show 9 comments</a></li>
 </ul><div  id="ljqrt167115" data-quickreply-container="167115" style="display: none;"></div></div>
 </div>
 </div>
@@ -328,8 +328,8 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=167371">Thread from start</a></li>
 <li class="link commentparent"><a href="46795.html?thread=167115#cmt167115">Parent</a></li>
 <li class="link thread"><a href="46795.html?thread=167371#cmt167371">Thread</a></li>
-<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt167371_hide"><a href='46795.html?thread=165835#cmt167371' onClick="Expander.hideComments(this, '167371'); return false;">Hide 1 comment</a></li>
-<li class="link cmt_unhide" style="display: none;" id="cmt167371_unhide"><a href='46795.html?thread=167371#cmt167371' onClick="Expander.unhideComments(this, '167371'); return false;">Show 1 comment</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt167371_hide"><a href='46795.html?thread=165835#cmt167371' onClick="Expander.hideComments(this, '167371'); return false;">Hide 8 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt167371_unhide"><a href='46795.html?thread=167371#cmt167371' onClick="Expander.unhideComments(this, '167371'); return false;">Show 8 comments</a></li>
 </ul><div  id="ljqrt167371" data-quickreply-container="167371" style="display: none;"></div></div>
 </div>
 </div>
@@ -358,7 +358,224 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <li class="link reply first-item"><a onclick='return function(that) {return quickreply("167627", 654, "",that)}(this)' href='46795.html?replyto=167627&amp;thread=165835' >Reply</a></li>
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=167627">Thread from start</a></li>
 <li class="link commentparent"><a href="46795.html?thread=167371#cmt167371">Parent</a></li>
+<li class="link thread"><a href="46795.html?thread=167627#cmt167627">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt167627_hide"><a href='46795.html?thread=165835#cmt167627' onClick="Expander.hideComments(this, '167627'); return false;">Hide 7 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt167627_unhide"><a href='46795.html?thread=167627#cmt167627' onClick="Expander.unhideComments(this, '167627'); return false;">Show 7 comments</a></li>
 </ul><div  id="ljqrt167627" data-quickreply-container="167627" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+</div><div data-comment-depth='9' style='--comment-depth: 9; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-odd comment-depth-mod5-4 comment-depth-9'>
+<div id='cmt167883' class='dwexpcomment' style='margin-left: 200px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-odd visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt167883">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="46795.html?thread=167883#cmt167883" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="19 hours after journal entry">2026-06-19 11:13 am (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">в конечном счете без открытого рынка нельзя узнать масштаб проблемы.<br />а это могут быть проблемы у красивых умных студенток,<br />которые бы вполне могли сниматься на воркшопах.<br /><br />тут вопрос в популяризации этого дела.<br />вопрос моды и стиля.<br />это может быть модным и стильным,<br />а может быть серьезными проблемами для<br />красивых и умных студенток.<br /><br />каков правильный подход?</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="46795.html?thread=167883#cmt167883">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("167883", 655, "",that)}(this)' href='46795.html?replyto=167883&amp;thread=165835' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=167883">Thread from start</a></li>
+<li class="link commentparent"><a href="46795.html?thread=167627#cmt167627">Parent</a></li>
+<li class="link thread"><a href="46795.html?thread=167883#cmt167883">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt167883_hide"><a href='46795.html?thread=165835#cmt167883' onClick="Expander.hideComments(this, '167883'); return false;">Hide 6 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt167883_unhide"><a href='46795.html?thread=167883#cmt167883' onClick="Expander.unhideComments(this, '167883'); return false;">Show 6 comments</a></li>
+</ul><div  id="ljqrt167883" data-quickreply-container="167883" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+</div><div data-comment-depth='10' style='--comment-depth: 10; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-even comment-depth-mod5-0 comment-depth-10'>
+<div id='cmt168139' class='dwexpcomment' style='margin-left: 225px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-even visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt168139">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="46795.html?thread=168139#cmt168139" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="19 hours after journal entry">2026-06-19 11:14 am (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">ну тут немного циклически,<br />но не вижу проблем если это станет определенным.</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="46795.html?thread=168139#cmt168139">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("168139", 656, "",that)}(this)' href='46795.html?replyto=168139&amp;thread=165835' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=168139">Thread from start</a></li>
+<li class="link commentparent"><a href="46795.html?thread=167883#cmt167883">Parent</a></li>
+<li class="link thread"><a href="46795.html?thread=168139#cmt168139">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt168139_hide"><a href='46795.html?thread=165835#cmt168139' onClick="Expander.hideComments(this, '168139'); return false;">Hide 5 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt168139_unhide"><a href='46795.html?thread=168139#cmt168139' onClick="Expander.unhideComments(this, '168139'); return false;">Show 5 comments</a></li>
+</ul><div  id="ljqrt168139" data-quickreply-container="168139" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+</div><div data-comment-depth='11' style='--comment-depth: 11; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-odd comment-depth-mod5-1 comment-depth-11'>
+<div id='cmt168395' class='dwexpcomment' style='margin-left: 250px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-odd visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt168395">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="46795.html?thread=168395#cmt168395" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="19 hours after journal entry">2026-06-19 11:19 am (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">ну и закрытость темы не прибавляет безопасности, но убавляет денег.<br /><br />а может и убавляет безопасности, в зависимости от того, кто знает тему.</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="46795.html?thread=168395#cmt168395">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("168395", 657, "",that)}(this)' href='46795.html?replyto=168395&amp;thread=165835' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=168395">Thread from start</a></li>
+<li class="link commentparent"><a href="46795.html?thread=168139#cmt168139">Parent</a></li>
+<li class="link thread"><a href="46795.html?thread=168395#cmt168395">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt168395_hide"><a href='46795.html?thread=165835#cmt168395' onClick="Expander.hideComments(this, '168395'); return false;">Hide 4 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt168395_unhide"><a href='46795.html?thread=168395#cmt168395' onClick="Expander.unhideComments(this, '168395'); return false;">Show 4 comments</a></li>
+</ul><div  id="ljqrt168395" data-quickreply-container="168395" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+</div><div data-comment-depth='12' style='--comment-depth: 12; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-even comment-depth-mod5-2 comment-depth-12'>
+<div id='cmt168651' class='dwexpcomment' style='margin-left: 275px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-even visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt168651">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="46795.html?thread=168651#cmt168651" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="19 hours after journal entry">2026-06-19 11:20 am (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">т.е. публичный воркшоп это явно не менее безопасно и благополучно.<br />бекстейдж то может быть любым.</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="46795.html?thread=168651#cmt168651">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("168651", 658, "",that)}(this)' href='46795.html?replyto=168651&amp;thread=165835' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=168651">Thread from start</a></li>
+<li class="link commentparent"><a href="46795.html?thread=168395#cmt168395">Parent</a></li>
+<li class="link thread"><a href="46795.html?thread=168651#cmt168651">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt168651_hide"><a href='46795.html?thread=165835#cmt168651' onClick="Expander.hideComments(this, '168651'); return false;">Hide 3 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt168651_unhide"><a href='46795.html?thread=168651#cmt168651' onClick="Expander.unhideComments(this, '168651'); return false;">Show 3 comments</a></li>
+</ul><div  id="ljqrt168651" data-quickreply-container="168651" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+</div><div data-comment-depth='13' style='--comment-depth: 13; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-odd comment-depth-mod5-3 comment-depth-13'>
+<div id='cmt168907' class='dwexpcomment' style='margin-left: 300px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-odd visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt168907">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="46795.html?thread=168907#cmt168907" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="21 hours after journal entry">2026-06-19 01:09 pm (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">т.е. получается безопасность барышни, попавшей в неблагоприятное<br />материальное положение зависит только<br /><br />1. от публичности - чем шире круг, тем безопаснее<br />2. от готовности платить барышне деньги.<br />барышне следует избегать тех, кто боится рынка из соображений сэкономить на барышне<br />3. и социальной близости.<br />чем ближе - тем безопаснее.</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="46795.html?thread=168907#cmt168907">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("168907", 659, "",that)}(this)' href='46795.html?replyto=168907&amp;thread=165835' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=168907">Thread from start</a></li>
+<li class="link commentparent"><a href="46795.html?thread=168651#cmt168651">Parent</a></li>
+<li class="link thread"><a href="46795.html?thread=168907#cmt168907">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt168907_hide"><a href='46795.html?thread=165835#cmt168907' onClick="Expander.hideComments(this, '168907'); return false;">Hide 2 comments</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt168907_unhide"><a href='46795.html?thread=168907#cmt168907' onClick="Expander.unhideComments(this, '168907'); return false;">Show 2 comments</a></li>
+</ul><div  id="ljqrt168907" data-quickreply-container="168907" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+</div><div data-comment-depth='14' style='--comment-depth: 14; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-even comment-depth-mod5-4 comment-depth-14'>
+<div id='cmt169163' class='dwexpcomment' style='margin-left: 325px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-even visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt169163">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="46795.html?thread=169163#cmt169163" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="21 hours after journal entry">2026-06-19 01:13 pm (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">т.е. если ставить во главу угла безопасность барышни,<br />а это реально скорее всего даже у всех людей в итоге проскальзывает.<br />несмотря даже на возможную потерю нелюбимой игрушки.<br /><br />то барышне безопаснее публичные воркшопы,<br />на которой будут присутствовать такие же студенты, как и она.<br />из базовых рабочих и инженерных специальностей.<br /><br />не из блатных.</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="46795.html?thread=169163#cmt169163">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("169163", 660, "",that)}(this)' href='46795.html?replyto=169163&amp;thread=165835' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=169163">Thread from start</a></li>
+<li class="link commentparent"><a href="46795.html?thread=168907#cmt168907">Parent</a></li>
+<li class="link thread"><a href="46795.html?thread=169163#cmt169163">Thread</a></li>
+<li class="link cmt_hide cmt_show_hide_default" style="display:none;" id="cmt169163_hide"><a href='46795.html?thread=165835#cmt169163' onClick="Expander.hideComments(this, '169163'); return false;">Hide 1 comment</a></li>
+<li class="link cmt_unhide" style="display: none;" id="cmt169163_unhide"><a href='46795.html?thread=169163#cmt169163' onClick="Expander.unhideComments(this, '169163'); return false;">Show 1 comment</a></li>
+</ul><div  id="ljqrt169163" data-quickreply-container="169163" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+</div><div data-comment-depth='15' style='--comment-depth: 15; --comment-indent-limit-mobile: 8' class='comment-thread comment-depth-indent-desktop comment-depth-odd comment-depth-mod5-0 comment-depth-15'>
+<div id='cmt169419' class='dwexpcomment' style='margin-left: 350px; margin-top: 5px;'>
+<div class="comment-wrapper comment-wrapper-odd visible    poster-transitional_writes entry-author full no-userpic  no-subject">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="comment" id="comment-cmt169419">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h4 class="comment-title"><a title="no subject" href="46795.html?thread=169419#cmt169419" class=" invisible" >no subject</a></h4><span class="datetime"><span class="comment-date-text">Date: </span> <span title="21 hours after journal entry">2026-06-19 01:17 pm (UTC)</span></span></div>
+</div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster comment-poster"><span class="comment-from-text">From:</span> <span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span>
+<div class="comment-content">серьезный аргумент за.</div></div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="46795.html?thread=169419#cmt169419">Link</a></li>
+<li class="link reply first-item"><a onclick='return function(that) {return quickreply("169419", 661, "",that)}(this)' href='46795.html?replyto=169419&amp;thread=165835' >Reply</a></li>
+<li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=169419">Thread from start</a></li>
+<li class="link commentparent"><a href="46795.html?thread=169163#cmt169163">Parent</a></li>
+</ul><div  id="ljqrt169419" data-quickreply-container="169419" style="display: none;"></div></div>
 </div>
 </div>
 </div>
@@ -372,11 +589,18 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class='bottomcomment'><ul class="entry-management-links icon-links"><li class="link link_prev first-item"> <a href="https://www.dreamwidth.org/go?dir=prev&itemid=46795&journal=transitional_writes" ><img border='0' width="16" height="16" alt="Previous Entry" title="Previous Entry" src="https://www.dreamwidth.org/img/silk/entry/previous.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=46795" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=46795" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
 <li class="link link_next"> <a href="https://www.dreamwidth.org/go?dir=next&itemid=46795&journal=transitional_writes" ><img border='0' width="16" height="16" alt="Next Entry" title="Next Entry" src="https://www.dreamwidth.org/img/silk/entry/next.png"  /></a></li>
-</ul><ul class="entry-interaction-links text-links"><li class="entry-readlink first-item"><a href="46795.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">57 comments</a></li>
+</ul><ul class="entry-interaction-links text-links"><li class="entry-readlink first-item"><a href="46795.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">64 comments</a></li>
 <li class="entry-replylink"><a onclick='return function(that) {return quickreply("bottomcomment", 0, "",that)}(this)' href='46795.html?mode=reply' >Reply</a></li>
 </ul><div  id="ljqrtbottomcomment" data-quickreply-container="bottomcomment" style="display: none;"></div></div><div class='comment-pages bottompages'><span class="view-flat"><a href="46795.html?view=flat#comments">Flat</a></span> | <span class="view-top-only"><a href="46795.html?view=top-only#comments">Top-Level Comments Only</a></span></div></div></div>
                     </div></div><!-- end primary and primary>inner -->
@@ -429,7 +653,7 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
 <div class="module-pagesummary module"><h2 class="module-header">Page Summary</h2>
 <div class="module-content">
 <ul class="module-list">
-<li class="module-list-item"><span class="pagesummary-poster"><span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span> - <span class="pagesummary-subject"><a href="46795.html?thread=165835#cmt165835" title="7 responses"><em>(no subject)</em></a></span></li>
+<li class="module-list-item"><span class="pagesummary-poster"><span lj:user="transitional_writes" style="white-space: nowrap;" class="ljuser"><a href="profile"><img src="https://www.dreamwidth.org/img/silk/identity/user.png" alt="[personal profile] " width="17" height="17" style="vertical-align: text-bottom; border: 0; padding-right: 1px;" /></a><a href="index.html"><b>transitional_writes</b></a></span></span> - <span class="pagesummary-subject"><a href="46795.html?thread=165835#cmt165835" title="14 responses"><em>(no subject)</em></a></span></li>
 </ul>
 </div>
 </div>
@@ -452,7 +676,7 @@ var LJ_cmtinfo = {"166603":{"deleted":0,"rc":["166859"],"u":"transitional_writes
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 19th, 2026 09:53 am</span></div>
+<span id="load-time">Page generated Jun. 20th, 2026 09:33 am</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
