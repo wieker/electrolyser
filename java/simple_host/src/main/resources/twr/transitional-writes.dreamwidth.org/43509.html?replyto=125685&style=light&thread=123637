@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_icons":1,"has_remote":0,"inbox_update_poll":1,"siteroot":"https://www.dreamwidth.org","cmax_comment":16000,"ctx_popup_userhead":1,"user_domain":"dreamwidth.org","media_embed_enabled":1,"ctx_popup":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","esn_async":1,"iconprefix":"https://v2.dreamwidth.org","currentJournal":"transitional_writes"});
+                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_icons":1,"ctx_popup_userhead":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","esn_async":1,"has_remote":0,"ctx_popup":1,"cmax_comment":16000,"imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1,"media_embed_enabled":1,"user_domain":"dreamwidth.org","currentJournal":"transitional_writes","iconprefix":"https://v2.dreamwidth.org","siteroot":"https://www.dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1756585240" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1756585241" />
@@ -80,7 +80,7 @@ temporal frequency of interest in the signals emitted by the brain (kHz),</p>
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782018000:998:86400:5wGDpo0aOk-0-x7r9f2A1wUb9LjP:583bd338e232d00e2991f1b1756ac928" /><input type='hidden' name="replyto" value="490" /><input type='hidden' name="parenttalkid" value="490" /><input type='hidden' name="itemid" value="43509" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="123637" /><input type='hidden' name="chrp1" value="43509-4255543-1782018000-2HIB03h5TXH6QrczAyAv-d3712deab5fe74d8372d94b41c283d36" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782036000:1538:86400:4E1G4ISg1g-0-xFwLa29EfYTOu2d:57ff71bf93c28fd3b321fcd576915559" /><input type='hidden' name="replyto" value="490" /><input type='hidden' name="parenttalkid" value="490" /><input type='hidden' name="itemid" value="43509" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="123637" /><input type='hidden' name="chrp1" value="43509-4255543-1782036000-G7CogQneYG8VaAqXanBp-b01da8f2b278f1cb5812c849ec5d93fe" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -107,9 +107,9 @@ temporal frequency of interest in the signals emitted by the brain (kHz),</p>
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" maxlength="60" value="" class="text" name="oidurl" id="oidurl" size="53" />      </div>
+        <input type="text" name="oidurl" value="" class="text" maxlength="60" id="oidurl" size="53" />      </div>
 
-      <div><input type='checkbox' class="checkbox" name="oiddo_login" id="oidlogincheck" />
+      <div><input type='checkbox' name="oiddo_login" class="checkbox" id="oidlogincheck" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -131,15 +131,15 @@ temporal frequency of interest in the signals emitted by the brain (kHz),</p>
         <label for="username" >
             Account name
         </label>
-        <input type="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" id="username" class="text" name="userpost" size="13" maxlength="25" value="" />      </div>
+        <input type="text" size="13" name="userpost" class="text" maxlength="25" id="username" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" value="" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" id="password" class="text" name="password" size="18" value="" maxlength="72" />      </div>
+        <input type="password" maxlength="72" id="password" value="" size="18" name="password" class="text" />      </div>
 
-      <div><input type='checkbox' id="logincheck" class="checkbox" name="do_login" />
+      <div><input type='checkbox' class="checkbox" name="do_login" id="logincheck" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -158,7 +158,7 @@ temporal frequency of interest in the signals emitted by the brain (kHz),</p>
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" placeholder="Subject" size="50" maxlength="100" value="" name="subject" class="text" id="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" maxlength="100" id="subject" placeholder="Subject" value="" size="50" name="subject" class="text" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -174,7 +174,7 @@ temporal frequency of interest in the signals emitted by the brain (kHz),</p>
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select id="prop_editor" name="prop_editor" class="select">
+        <select class="select" name="prop_editor" id="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -196,7 +196,7 @@ temporal frequency of interest in the signals emitted by the brain (kHz),</p>
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea rows="10" cols="80" wrap="soft" class="text" name="body" id="body"></textarea></div>
+        <textarea cols="80" rows="10" id="body" name="body" class="text" wrap="soft"></textarea></div>
 
 
 
