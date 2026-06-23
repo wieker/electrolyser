@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"currentJournalBase":"https://transitional-writes.dreamwidth.org","siteroot":"https://www.dreamwidth.org","cmax_comment":16000,"user_domain":"dreamwidth.org","ctx_popup_icons":1,"esn_async":1,"media_embed_enabled":1,"imgprefix":"https://www.dreamwidth.org/img","has_remote":1,"iconprefix":"https://v2.dreamwidth.org","inbox_update_poll":1,"currentJournal":"transitional_writes","ctx_popup_userhead":1,"ctx_popup":1,"statprefix":"https://www.dreamwidth.org/stc"});
+                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","user_domain":"dreamwidth.org","ctx_popup":1,"media_embed_enabled":1,"ctx_popup_icons":1,"imgprefix":"https://www.dreamwidth.org/img","currentJournal":"transitional_writes","has_remote":1,"cmax_comment":16000,"ctx_popup_userhead":1,"inbox_update_poll":1,"siteroot":"https://www.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","esn_async":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1782113347" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1782113346" />
@@ -55,12 +55,12 @@
 <div>
 <div class="contents usercontent">
 <div class="inner">
-<h4 class="comment-title"><a title="no subject" href="42843.html?thread=89435&amp;style=light#cmt89435" class=" invisible" >no subject</a></h4><div class="comment-content">при этом если чел реально покрутил эту теоремку,<br /><br />то из нее следует, что наверху карабкающийся не найдет ничего,<br />кроме смерти.</div></div>
+<h4 class="comment-title"><a title="no subject" href="https://transitional-writes.dreamwidth.org/42843.html?thread=89435&style=light#cmt89435" class=" invisible" >no subject</a></h4><div class="comment-content">при этом если чел реально покрутил эту теоремку,<br /><br />то из нее следует, что наверху карабкающийся не найдет ничего,<br />кроме смерти.</div></div>
 </div>
 </div>
 <div class="footer">
 <div class="inner">
-<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="42843.html?thread=89435&amp;style=light#cmt89435">Thread</a></li>
+<ul class="comment-interaction-links text-links"><li class="link commentpermalink"><a href="https://transitional-writes.dreamwidth.org/42843.html?thread=89435&amp;style=light#cmt89435">Thread</a></li>
 <li class="link reply first-item"><a  href='42843.html?replyto=89435&amp;style=light' >Reply to this</a></li>
 <li class="link threadroot"><a href="https://www.dreamwidth.org/go?redir_type=threadroot&amp;journal=transitional_writes&amp;talkid=89435&amp;style=light">Thread from start</a></li>
 <li class="link commentparent"><a href="42843.html?thread=89179&amp;style=light#cmt89179">Parent</a></li>
@@ -75,7 +75,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782158400:582:86400:Bb3WDBadTi-4255543-23:bef06a2bd02c8115d31a1d0034d4347d" /><input type='hidden' name="replyto" value="349" /><input type='hidden' name="parenttalkid" value="349" /><input type='hidden' name="itemid" value="42843" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="42843-4255543-1782158400-SSHSMx5CstExOkiW1Sph-ec25e6f2e8b81ad5fc64bf3b6e11103b" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782219600:2026:86400:LlSsuOiZW2-4255543-23:ddeb7b2224d6c4e97d6adf93211ecf23" /><input type='hidden' name="replyto" value="349" /><input type='hidden' name="parenttalkid" value="349" /><input type='hidden' name="itemid" value="42843" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="42843-4255543-1782219600-0QgxJHv9xtBzVkkdtqHU-fcaae9c9d33f67e23e52dffd9d57d246" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -102,9 +102,9 @@
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" class="text" value="" name="oidurl" id="oidurl" maxlength="60" size="53" />      </div>
+        <input type="text" value="" maxlength="60" class="text" id="oidurl" size="53" name="oidurl" />      </div>
 
-      <div><input type='checkbox' class="checkbox" name="oiddo_login" id="oidlogincheck" />
+      <div><input type='checkbox' id="oidlogincheck" name="oiddo_login" class="checkbox" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -138,15 +138,15 @@
         <label for="username" >
             Account name
         </label>
-        <input type="text" id="username" size="13" maxlength="25" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" name="userpost" class="text" value="" />      </div>
+        <input type="text" class="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" value="" maxlength="25" size="13" name="userpost" id="username" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" size="18" maxlength="72" id="password" value="" class="text" name="password" />      </div>
+        <input type="password" class="text" value="" maxlength="72" name="password" size="18" id="password" />      </div>
 
-      <div><input type='checkbox' name="do_login" class="checkbox" id="logincheck" />
+      <div><input type='checkbox' id="logincheck" class="checkbox" name="do_login" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -174,7 +174,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" maxlength="100" size="50" placeholder="Subject" id="subject" value="" class="text" name="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" name="subject" size="50" id="subject" placeholder="Subject" class="text" maxlength="100" value="" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -212,7 +212,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea cols="80" rows="10" name="body" class="text" id="body" wrap="soft"></textarea></div>
+        <textarea name="body" id="body" class="text" rows="10" cols="80" wrap="soft"></textarea></div>
 
 
 

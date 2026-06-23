@@ -25,7 +25,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1,"siteroot":"https://www.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1,"ctx_popup_userhead":1,"cmax_comment":16000,"currentJournalBase":"https://transitional-writes.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","ctx_popup":1,"esn_async":1,"user_domain":"dreamwidth.org","currentJournal":"transitional_writes","ctx_popup_icons":1,"has_remote":1});
+                Site = Object.assign(Site, {"esn_async":1,"statprefix":"https://www.dreamwidth.org/stc","inbox_update_poll":1,"ctx_popup_icons":1,"currentJournal":"transitional_writes","user_domain":"dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","has_remote":1,"siteroot":"https://www.dreamwidth.org","ctx_popup":1,"ctx_popup_userhead":1,"iconprefix":"https://v2.dreamwidth.org","cmax_comment":16000,"media_embed_enabled":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1782113346" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,jquery/jquery.ui.theme.smoothness.css,controlstrip.css,controlstrip-dark.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,canary.css?v=1782113346" />
@@ -40,18 +40,18 @@
 </div>
   <div id='lj_controlstrip_user'>
     <form id='Greeting' class='nopic' action='https://www.dreamwidth.org/logout' method='post'>
-      <div><input type='hidden' name="lj_form_auth" value="c0:1782136800:208:86400:xcWmWrqXPd-4255543-23:2f00158943f77ba54a3f45489ea7d4bf" /><input type='hidden' name="user" value="transitional_writes" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/" /><input type='hidden' name="sessid" value="23" /><input type='hidden' name="ret" value="1" />
+      <div><input type='hidden' name="lj_form_auth" value="c0:1782198000:892:86400:sVxW5vOUkc-4255543-23:bd87d3421bb11b5aca19c985ac3e4b67" /><input type='hidden' name="user" value="transitional_writes" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/" /><input type='hidden' name="sessid" value="23" /><input type='hidden' name="ret" value="1" />
         <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>
-        <input type='submit' name="logout_one" value="Log out" class="submit" id="Logout" />      </div>
+        <input type='submit' name="logout_one" value="Log out" id="Logout" class="submit" />      </div>
     </form><a href='https://www.dreamwidth.org/'>Home</a>&nbsp;&nbsp; <a href='https://www.dreamwidth.org/update'>Post</a>&nbsp;&nbsp;<a href='read'>Reading</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/manage/settings/'>Settings</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/inbox/'>Inbox (127)</a>  </div>
 <div id='lj_controlstrip_actionlinks'>
   <span id='lj_controlstrip_statustext'>You're viewing your journal</span>
   <br /><a href='https://www.dreamwidth.org/comments/recent'>View Recent Comments</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/editjournal'>Manage Entries</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/manage/circle/invite'>Invite People</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_299'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_274'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" value="" size="20" class="text" name="q" id="search" title="Search" />
-<select name="type" id="id-type-0" class="select">
+<input type="text" name="q" title="Search" size="20" class="text" value="" id="search" />
+<select class="select" id="id-type-0" name="type">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -112,7 +112,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=8107" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=8107" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=8107" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=8107" lj_newentry_etypeid="1" journal="transitional_writes" lj_arg1="8107" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&8107&3&4255543:3fd037c9cfec551839974c4918f3c0629dd62f6f" lj_etypeid="3" lj_newentry_subid="0" lj_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" js_swapname="Untrack This" lj_journalid="4255543" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=8107" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_arg1="8107" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&8107&3&4255543:8897384ccfadfcc708c06b2076e4e0087f393979" lj_subid="0" js_swapname="Untrack This" lj_journalid="4255543" class="TrackButton" lj_newentry_etypeid="1" lj_newentry_subid="0" lj_etypeid="3" journal="transitional_writes" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-8107-reply">
 <li class="entry-permalink first-item"><a href="8107.html">Link</a></li>
 <li class="entry-readlink" style="display:none"><a href="8107.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">0 comments</a></li>
@@ -120,7 +120,7 @@
 </ul><div  id="ljqrtentry-transitional_writes-8107-reply" data-quickreply-container="entry-transitional_writes-8107-reply" style="display: none;"></div>
 
 <div id='qrdiv' style="display: none;">
-<div id='qrformdiv'><form id='qrform' name='qrform' method='POST' action='https://www.dreamwidth.org/talkpost_do'><input type='hidden' name="lj_form_auth" value="c0:1782136800:208:86400:xcWmWrqXPd-4255543-23:2f00158943f77ba54a3f45489ea7d4bf" /><input type='hidden' name="replyto" value="" id="replyto" /><input type='hidden' name="parenttalkid" value="" id="parenttalkid" /><input type='hidden' name="journal" value="transitional_writes" id="journal" /><input type='hidden' name="itemid" value="8107" id="itemid" /><input type='hidden' name="usertype" value="cookieuser" id="usertype" /><input type='hidden' name="qr" value="1" id="qr" /><input type='hidden' name="cookieuser" value="transitional_writes" id="cookieuser" /><input type='hidden' name="dtid" value="" id="dtid" /><input type='hidden' name="basepath" value="https://transitional-writes.dreamwidth.org/8107.html?" id="basepath" /><input type='hidden' name="viewing_thread" value="" id="viewing_thread" /><input type='hidden' name="chrp1" value="8107-4255543-1782136800-PZowjjecRV6Kglg5HoIl-1882268870dbb172e2b94ddafd8c7176" />
+<div id='qrformdiv'><form id='qrform' name='qrform' method='POST' action='https://www.dreamwidth.org/talkpost_do'><input type='hidden' name="lj_form_auth" value="c0:1782198000:892:86400:sVxW5vOUkc-4255543-23:bd87d3421bb11b5aca19c985ac3e4b67" /><input type='hidden' name="replyto" value="" id="replyto" /><input type='hidden' name="parenttalkid" value="" id="parenttalkid" /><input type='hidden' name="journal" value="transitional_writes" id="journal" /><input type='hidden' name="itemid" value="8107" id="itemid" /><input type='hidden' name="usertype" value="cookieuser" id="usertype" /><input type='hidden' name="qr" value="1" id="qr" /><input type='hidden' name="cookieuser" value="transitional_writes" id="cookieuser" /><input type='hidden' name="dtid" value="" id="dtid" /><input type='hidden' name="basepath" value="https://transitional-writes.dreamwidth.org/8107.html?" id="basepath" /><input type='hidden' name="viewing_thread" value="" id="viewing_thread" /><input type='hidden' name="chrp1" value="8107-4255543-1782198000-lW0hD6mZ6v9IGMjhKsk8-a77f4717fbbe078c4b2c04468ac144f0" />
 <div class='qr-meta'>
 
   <input type="button" id="submitmoreopts" name="submitmoreopts" value="More Options" />
@@ -144,7 +144,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" id="subject" class="text" name="subject" placeholder="Subject" maxlength="100" value="" size="50" />
+        <input type="text" placeholder="Subject" class="text" maxlength="100" value="" id="subject" name="subject" size="50" />
 </div>
 
 
@@ -154,7 +154,7 @@
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select class="select" id="prop_editor" name="prop_editor">
+        <select name="prop_editor" id="prop_editor" class="select">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -172,11 +172,11 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea class="text" wrap="soft" rows="10" id="body" name="body" cols="80"></textarea></div>
+        <textarea id="body" class="text" wrap="soft" cols="80" rows="10" name="body"></textarea></div>
 
 <div class="qr-footer">  <input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />
 
-  <input type='submit' name="submitpview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="submitpreview" value="0" />
+  <input type='submit' name="submitpview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="submitpreview" value="0" />
 
   
     <div class='de'><strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.</div>
@@ -212,7 +212,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=23439" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=23439" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=23439" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=23439" lj_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" js_swapname="Untrack This" lj_journalid="4255543" lj_etypeid="3" lj_newentry_subid="0" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&23439&3&4255543:fea47658c2e01637162aa73c4e36c50f333534da" lj_newentry_etypeid="1" lj_arg1="23439" journal="transitional_writes" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=23439" lj_newentry_subid="0" lj_newentry_etypeid="1" lj_etypeid="3" journal="transitional_writes" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&23439&3&4255543:322ca1befe74df6d0c16e46a02fced8cf2f1ad55" lj_arg1="23439" class="TrackButton" js_swapname="Untrack This" lj_journalid="4255543" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-23439-reply">
 <li class="entry-permalink first-item"><a href="23439.html">Link</a></li>
 <li class="entry-readlink"><a href="23439.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">22 comments</a></li>
@@ -244,7 +244,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=24717" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=24717" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=24717" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=24717" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&24717&3&4255543:71d5f3e6addd4ea708d73dc52dc4a472452b6da1" class="TrackButton" lj_arg1="24717" journal="transitional_writes" lj_newentry_etypeid="1" lj_journalid="4255543" js_swapname="Untrack This" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" lj_newentry_subid="0" lj_etypeid="3" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=24717" journal="transitional_writes" lj_etypeid="3" lj_newentry_subid="0" lj_newentry_etypeid="1" class="TrackButton" lj_journalid="4255543" js_swapname="Untrack This" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&24717&3&4255543:e1d62f699ef3dfbdfb093a6cf980e26014cb9ccb" lj_arg1="24717" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-24717-reply">
 <li class="entry-permalink first-item"><a href="24717.html">Link</a></li>
 <li class="entry-readlink"><a href="24717.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">1 comment</a></li>
@@ -255,7 +255,103 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-47614">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-48183">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="entry" id="entry-48183">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h3 class="entry-title"><a title="(no subject)" href="48183.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/06/index.html">Jun</a>. <a href="2026/06/23/index.html">23rd</a>, <a href="2026/index.html">2026</a></span> <span class="time">09:17 am</span></span></div>
+</div>
+<div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster entry-poster empty"></span><div class="entry-content">Письмо железнодорожнику и танцовщице.<br />От программиста.<br />О пользе естественно-научной методологии.<br /><br />Зачем нужно знать естественно-научную методологию железнодорожнику и танцовщице<br />и как все вот это<br /><a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</a><br /><a href="https://polytechnics.ru/shop/product-details/32-potapov-a-s-raspoznavanie-obrazov-i-mashinnoe-vospriyatie-obshhij-podxod-na-osnove-principa-minimalnoj-dliny-opisaniya.html">https://polytechnics.ru/shop/product-details/32-potapov-a-s-raspoznavanie-obrazov-i-mashinnoe-vospriyatie-obshhij-podxod-na-osnove-principa-minimalnoj-dliny-opisaniya.html</a><br />, что понятно любому ученому-физику, можно объяснить по простому,<br />без зауми?<br /><br />Есть так называемое априорное распределение.<br />Это все возможные сценарии жизни, включая порнографические.<br />В них может происходить все что угодно. В них может происходить<br />какое угодно зло. Этих сценариев бесконечно много, это так называемое<br />неразрешимое множество.<br /><br />Во всех этих сценариях есть backstage, то что ты не видишь, но видят другие.<br />Людей 8 000 000 000, ты видишь лишь 1/8 000 000 000 часть общей картины,<br />7 999 999 999 что-то делают и о чем-то договариваются за твоей спиной.<br /><br />Чем проще сценарий, тем он вероятнее. Итоговые вероятности всех сценариев<br />задают априорное распределение вероятности финалов жизни всех людей.<br /><br />Давайте посмотрим жизненные сценарии рабочего, инженера, танцовщицы.<br /><br />Если есть некоторая девушка с привлекательной внешностью,<br />она много занимается эротическими танцами, тратится на косметические <br />процедуры.<br />Или некоторый инженер или рабочий, который много учится,<br />решает задачи, берется за трудные задания,<br />много работает, покупает инструмент для экспериментов<br />за свой счет и тд и тп.<br />Или колхозник. Т.е. фермер. Как это сейчас называется в<br />России?<br /><br />То как им заработать деньги и сохранить их?<br />В каких сценариях это происходит?<br /><br />Ситуации полностью симметричны для рабочего, инженера и танцовщицы.<br />Заработать и сохранить деньги можно только в следующих<br />сценариях:<br /><br />1. За свою работу всегда следует просить по максимуму.<br />И брать только в твердо обеспеченных деньгах.<br />Золото. Может быть Bitcoin. (на самом деле уже нет, но тут есть варианты).<br />2. Должно быть доступно личное огнестрельное оружие.<br />Арсеналы личного огнестрельного оружия.<br />3. Танцовщица эротических танцев находится точно в таком же положении как и<br />рабочий железнодорожник. Она много работает и хочет денег и безопасности.<br />Но и к ней это тоже относится, как и к железнодорожнику.<br /><br />Это все формальный вывод из естественно-научной методологии,<br />если просчитать и взвесить вероятности всех вариантов.<br /><br />Если одно из этих правил не соблюдается, то вылезает наиболее<br />простой и доступный сценарий: люди начинают вести себя как<br />животные.<br /><br />Если нужны доказательства эмпирические, апостериорные,<br />то вспомни<br />В УК РФ есть статья за метарт, а на торрентах<br />тысячи русских метарт моделей и нет fashion моделей,<br />что это нам говорит о влиянии УК РФ на апостериорный<br />результат? Что это нам говорит, о том как это все работает?<br />Почему при этом не найти контакты этих метарт моделей?<br />Они вообще еще живы?<br />Им бы было выгодно, если бы их могли пофотографировать<br />более широкие слои населения, они потенциально теряют<br />деньги. Большие деньги. Твои деньги. <br />Насколько все это безопасно?<br /><br />Россия богата. Но из России пылесосит девушек в<br />разные страны, ЮВА, США, ОАЭ, Европу, где они работают<br />за мелкий прайс. Зачем отсюда уезжать, если здесь безопасно?<br /><br />Они бы могли рожать детей в конце концов.<br />В конце концов вопрос оплаты за красоту и труд танцовщицы<br />и ее жизнь, здоровье и безопасность<br />полностью эквивалентен вопросу оплаты за силу, умения и труд<br />рабочих и инженеров, как и вопрос их жизни здоровья и безопасности.<br /><br />Многие рабочие крепче танцовщиц.<br />Но ничто не сравнится с огнестрельным оружием.<br />И даже студентка может справиться с пистолетом лучше любого мужика.<br /><br />Вспомните инфляцию 90-ых.<br />Это то же самое. Когда кормят фантиками.<br /><br />Вот вам примеры.</div></div>
+</div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="entry-management-links icon-links"><li class="link edit_entry first-item"><a href="https://www.dreamwidth.org/editjournal?journal=transitional_writes&amp;itemid=48183" ><img border='0' width="16" height="16" alt="Edit Entry" title="Edit Entry" src="https://www.dreamwidth.org/img/silk/entry/edit.png"  /></a></li>
+<li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=48183" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
+<li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=48183" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
+<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=48183" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=48183" lj_newentry_etypeid="1" lj_newentry_subid="0" lj_etypeid="3" journal="transitional_writes" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_arg1="48183" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&48183&3&4255543:c7400d250ba26e376d42bd3e19fcbc216fd32a46" lj_journalid="4255543" js_swapname="Untrack This" class="TrackButton" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-48183-reply">
+<li class="entry-permalink first-item"><a href="48183.html">Link</a></li>
+<li class="entry-readlink"><a href="48183.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">5 comments</a></li>
+<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-48183-reply", 0, "",that)}(this)' href='48183.html?mode=reply' >Reply</a></li>
+</ul><div  id="ljqrtentry-transitional_writes-48183-reply" data-quickreply-container="entry-transitional_writes-48183-reply" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-47906">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="entry" id="entry-47906">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h3 class="entry-title"><a title="(no subject)" href="47906.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/06/index.html">Jun</a>. <a href="2026/06/23/index.html">23rd</a>, <a href="2026/index.html">2026</a></span> <span class="time">06:36 am</span></span></div>
+</div>
+<div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster entry-poster empty"></span><div class="entry-content">Так, ну ряд базовых сценариев для приорной эротики и<br />априорной экономики.<br /><br />Если есть некоторая девушка с привлекательной внешностью,<br />она много занимается танцами, тратится на косметические процедуры.<br />Или некоторый инженер, который много учится, решает задачи,<br />много работает, покупает инструмент для экспериментов<br />за свой счет и тд и тп.<br /><br />И они хотят монетизировать свои достоинства.<br />А все сценарии будут симметричны.<br /><br />Как это правильно делать?<br /><br />Впрочем, можно сразу к выводам.<br />Этим людям нужно оружие.<br />Вот с чего надо начинать.<br /><br />Думать только об личном оружии.<br />Арсеналах личного оружия.</div></div>
+</div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="entry-management-links icon-links"><li class="link edit_entry first-item"><a href="https://www.dreamwidth.org/editjournal?journal=transitional_writes&amp;itemid=47906" ><img border='0' width="16" height="16" alt="Edit Entry" title="Edit Entry" src="https://www.dreamwidth.org/img/silk/entry/edit.png"  /></a></li>
+<li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=47906" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
+<li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=47906" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
+<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=47906" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=47906" lj_newentry_subid="0" lj_newentry_etypeid="1" lj_etypeid="3" journal="transitional_writes" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&47906&3&4255543:bbe0fffee1c66dca324786609269d13d92979832" lj_arg1="47906" class="TrackButton" lj_journalid="4255543" js_swapname="Untrack This" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-47906-reply">
+<li class="entry-permalink first-item"><a href="47906.html">Link</a></li>
+<li class="entry-readlink"><a href="47906.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">28 comments</a></li>
+<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-47906-reply", 0, "",that)}(this)' href='47906.html?mode=reply' >Reply</a></li>
+</ul><div  id="ljqrtentry-transitional_writes-47906-reply" data-quickreply-container="entry-transitional_writes-47906-reply" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-47865">
+<div class="separator separator-before"><div class="inner"></div></div>
+<div class="entry" id="entry-47865">
+<div class="inner">
+<div class="header">
+<div class="inner">
+<h3 class="entry-title"><a title="Априорное зло и что оно сделает с тобой" href="47865.html">Априорное зло и что оно сделает с тобой</a></h3><span class="datetime"><span class="date"><a href="2026/06/index.html">Jun</a>. <a href="2026/06/23/index.html">23rd</a>, <a href="2026/index.html">2026</a></span> <span class="time">05:38 am</span></span></div>
+</div>
+<div>
+<div class="contents">
+<div class="inner">
+<div class="userpic"></div>
+<span class="poster entry-poster empty"></span><div class="entry-content">Я обращаюсь в первую очередь к инженерам и программистам (и в первую очередь к <br />специалистам по информационной безопасности) так как рассчитываю, что даже псих, произнеся слова<br />1. естественно-научная методология<br />2. простейшие теоремы из нее<br />3. <a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</a><br />4. ADATE: <a href="https://fileadmin.cs.lth.se/ai/Proceedings/ECML-PKDD%202007/workshops/AAIP/olsson/olsson.pdf">https://fileadmin.cs.lth.se/ai/Proceedings/ECML-PKDD%202007/workshops/AAIP/olsson/olsson.pdf</a><br />Зацепит этих людей.<br /><br />А они, воспринимаясь более серьезно, зацепят по цепочке всех остальных.<br />В крайнем случае любой человек, который увидит эти записи может подойти к<br />знакомому программисту, инженеру, специалисту по ИБ и спросить - а это все так или нет?<br /><br />Как объяснить применение<br /><a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</a><br />в жизни и к гуманитарным наукам?<br />Что такое априорное распределение?<br /><br />Это все сценарии фильмов. Включая порнографические.<br />Этих сценариев бесконечно много самых разных. По научному<br />это называется невычислимость априорного распределения.<br />Оно перечислимо, но ты не можешь вычислить точный сценарий,<br />всегда остается неопределенность.<br /><br />Всегда существует обширный backstage. То что ты не видишь,<br />то что за кадром. Людей 8 миллиардов и ты всегда видишь<br />лишь 1/8 000 000 000 часть этого фильма. Но<br />7 999 999 999 людей всегда что-то делают у тебя<br />за спиной.<br /><br />Чем проще сценарий, тем он вероятнее. Априорная вероятность<br />тех или иных событий - это доля тех или иных сценариев,<br />где они происходят.<br /><br />Какие вопросы, важные или для общества или для собственной<br />жизни можно вывести из априорного распределения?<br /><br />1. Вопрос о социализме, инфляции.<br />Стоит ли бороться с рынком?<br />Какие могут быть априорные сценарии?<br />Это вопрос об априорной экономике.<br />Каковы сценарии планирования гвоздя для госплана?<br /><br />2. Вопрос об априорной эротике.<br />В УК РФ есть статья за метарт, а на торрентах<br />тысячи русских метарт моделей и нет fashion моделей,<br />что это нам говорит о влиянии УК РФ на апостериорный<br />результат? Что это нам говорит, о том как это все работает?<br />Почему при этом не найти контакты этих метарт моделей?<br />Им бы было выгодно, если бы их могли пофотографировать<br />более широкие слои населения, они потенциально теряют<br />деньги. Насколько все это безопасно?<br /><br />Россия богата. Но из России пылесосит девушек в<br />разные страны, ЮВА, США, ОАЭ, Европу, где они работают<br />за мелкий прайс. Зачем отсюда уезжать, если здесь безопасно?<br /><br />В конечном счете, это очень важный граничный сценарий.<br />Если есть какая-то девушка в очень затруднительном материальном<br />положении, как ей правильно его облегчить?<br />Девушка получит деньги и не потеряет в безопасности.<br />Каковы корректные сценарии?<br /><br />3. Вопрос об оружии и безопасности.<br />Выглядит так, что при любом сценарии лучше быть<br />вооруженным, чем безоружным. Но почему оружие не распространено в России?<br />Да и всем остальном мире.<br />Только в США есть развитая оружейная культура.<br />И 5 стволов на душу населения.<br /><br />Это вводная.<br /><br />Дальнейшие записи - черновики сценариев, того что может<br />происходить, происходило или происходит.<br /><br />Но есть и определенные инварианты, которые не зависят от обстоятельств<br />времени и места. Это многократно проверяемые законы физики, в<br />частности законы сохранения. Это то, на что всегда можно поожиться и<br />считать общей базой для всех людей, включая общение всех людей.<br /><br />Это то, что одинаково во всех сценариях.<br /><br />Так, ну ряд базовых сценариев для приорной эротики и<br />априорной экономики.<br /><br />Если есть некоторая девушка с привлекательной внешностью,<br />она много занимается танцами, тратится на косметические процедуры.<br />Или некоторый инженер или рабочий, который много учится, <br />решает задачи, берется за трудные заданияб<br />много работает, покупает инструмент для экспериментов<br />за свой счет и тд и тп.<br /><br />И они хотят монетизировать свои достоинства.<br />А все сценарии будут симметричны между этими людьми.<br />Можешь как синонимы заменять этих двух людей.<br /><br />Как это правильно делать?<br /><br />Впрочем, можно сразу к выводам. Этим людям нужно оружие. Вот с чего надо начинать.<br /><br />Думать только об личном оружии. Арсеналах личного оружия.<br /><br />Потому что тех, кто работает здесь ждет только дно и смерть.</div></div>
+</div>
+</div>
+<div class="footer">
+<div class="inner">
+<ul class="entry-management-links icon-links"><li class="link edit_entry first-item"><a href="https://www.dreamwidth.org/editjournal?journal=transitional_writes&amp;itemid=47865" ><img border='0' width="16" height="16" alt="Edit Entry" title="Edit Entry" src="https://www.dreamwidth.org/img/silk/entry/edit.png"  /></a></li>
+<li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=47865" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
+<li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=47865" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
+<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=47865" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=47865" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&47865&3&4255543:586e38d75e3f6dc4df40f73f777f5737d3438cfb" lj_subid="0" lj_arg1="47865" class="TrackButton" lj_journalid="4255543" js_swapname="Untrack This" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_etypeid="3" journal="transitional_writes" lj_newentry_subid="0" lj_newentry_etypeid="1" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-47865-reply">
+<li class="entry-permalink first-item"><a href="47865.html">Link</a></li>
+<li class="entry-readlink" style="display:none"><a href="47865.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">0 comments</a></li>
+<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-47865-reply", 0, "",that)}(this)' href='47865.html?mode=reply' >Reply</a></li>
+</ul><div  id="ljqrtentry-transitional_writes-47865-reply" data-quickreply-container="entry-transitional_writes-47865-reply" style="display: none;"></div></div>
+</div>
+</div>
+</div>
+<div class="separator separator-after"><div class="inner"></div></div>
+</div>
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-47614">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-47614">
 <div class="inner">
@@ -276,7 +372,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=47614" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=47614" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=47614" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=47614" lj_etypeid="3" lj_subid="0" lj_arg1="47614" lj_newentry_etypeid="1" class="TrackButton" lj_newentry_subid="0" lj_journalid="4255543" js_swapname="Untrack This" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" journal="transitional_writes" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&47614&3&4255543:9c3b86cb67a07e10b747479d94225f934a6ad4f7" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=47614" lj_newentry_etypeid="1" lj_newentry_subid="0" lj_etypeid="3" journal="transitional_writes" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_arg1="47614" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&47614&3&4255543:c0fbebf427a44f496c970ea79547a827503a3e17" lj_journalid="4255543" js_swapname="Untrack This" class="TrackButton" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-47614-reply">
 <li class="entry-permalink first-item"><a href="47614.html">Link</a></li>
 <li class="entry-readlink"><a href="47614.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">37 comments</a></li>
@@ -287,7 +383,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-47166">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-47166">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-47166">
 <div class="inner">
@@ -308,7 +404,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=47166" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=47166" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=47166" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=47166" lj_etypeid="3" lj_subid="0" lj_newentry_etypeid="1" lj_arg1="47166" class="TrackButton" lj_newentry_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" js_swapname="Untrack This" lj_journalid="4255543" journal="transitional_writes" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&47166&3&4255543:6a57b4b4169c137b3ec8b8a142f6a885292a1992" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=47166" lj_arg1="47166" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&47166&3&4255543:bfc7089fd2f2514174ede87cce3eda0f7526022d" lj_subid="0" js_swapname="Untrack This" lj_journalid="4255543" class="TrackButton" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_etypeid="3" journal="transitional_writes" lj_newentry_etypeid="1" lj_newentry_subid="0" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-47166-reply">
 <li class="entry-permalink first-item"><a href="47166.html">Link</a></li>
 <li class="entry-readlink" style="display:none"><a href="47166.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">0 comments</a></li>
@@ -319,7 +415,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-46951">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-46951">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-46951">
 <div class="inner">
@@ -340,7 +436,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=46951" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=46951" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=46951" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=46951" lj_etypeid="3" lj_newentry_subid="0" js_swapname="Untrack This" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" lj_journalid="4255543" journal="transitional_writes" lj_arg1="46951" lj_newentry_etypeid="1" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&46951&3&4255543:e00132130b39e7e862a11fb74d1831e1d911d990" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=46951" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&46951&3&4255543:0e2679ce68f340f5754669a34b14ad5ff6ff3205" class="TrackButton" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_etypeid="3" journal="transitional_writes" lj_newentry_subid="0" lj_arg1="46951" lj_subid="0" lj_journalid="4255543" js_swapname="Untrack This" lj_newentry_etypeid="1" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-46951-reply">
 <li class="entry-permalink first-item"><a href="46951.html">Link</a></li>
 <li class="entry-readlink"><a href="46951.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">16 comments</a></li>
@@ -351,7 +447,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-46795">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-46795">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-46795">
 <div class="inner">
@@ -372,7 +468,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=46795" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=46795" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=46795" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=46795" js_swapname="Untrack This" lj_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_journalid="4255543" lj_etypeid="3" lj_newentry_subid="0" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&46795&3&4255543:de33294e5521e85fe2b126628c7c28ba5c41fc7f" journal="transitional_writes" lj_arg1="46795" lj_newentry_etypeid="1" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=46795" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" js_swapname="Untrack This" lj_journalid="4255543" class="TrackButton" lj_arg1="46795" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&46795&3&4255543:36aea14c646fcb3b4d8f9c9a4cf6c932ba41e690" lj_newentry_etypeid="1" lj_newentry_subid="0" journal="transitional_writes" lj_etypeid="3" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-46795-reply">
 <li class="entry-permalink first-item"><a href="46795.html">Link</a></li>
 <li class="entry-readlink"><a href="46795.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">64 comments</a></li>
@@ -383,7 +479,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-46365">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-46365">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-46365">
 <div class="inner">
@@ -404,7 +500,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=46365" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=46365" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=46365" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=46365" lj_etypeid="3" lj_newentry_subid="0" js_swapname="Untrack This" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" lj_journalid="4255543" lj_arg1="46365" journal="transitional_writes" lj_newentry_etypeid="1" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&46365&3&4255543:28edffe708b243fc2d6777803b7525bfe3d6e05c" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=46365" js_swapname="Untrack This" lj_journalid="4255543" lj_subid="0" lj_arg1="46365" lj_newentry_etypeid="1" class="TrackButton" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&46365&3&4255543:e0b08315eb51b781b4e48218f948086fe5e11c61" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" journal="transitional_writes" lj_etypeid="3" lj_newentry_subid="0" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-46365-reply">
 <li class="entry-permalink first-item"><a href="46365.html">Link</a></li>
 <li class="entry-readlink"><a href="46365.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">8 comments</a></li>
@@ -415,7 +511,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-46262">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-46262">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-46262">
 <div class="inner">
@@ -436,7 +532,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=46262" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=46262" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=46262" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=46262" lj_arg1="46262" journal="transitional_writes" lj_newentry_etypeid="1" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&46262&3&4255543:ddb840227678056b8df858d94e3fadb316fe021a" lj_etypeid="3" lj_newentry_subid="0" js_swapname="Untrack This" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" lj_journalid="4255543" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=46262" lj_etypeid="3" journal="transitional_writes" lj_newentry_etypeid="1" lj_newentry_subid="0" lj_arg1="46262" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&46262&3&4255543:64916f6af979b323b7f6db2757501549b3a200f2" lj_subid="0" js_swapname="Untrack This" lj_journalid="4255543" class="TrackButton" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-46262-reply">
 <li class="entry-permalink first-item"><a href="46262.html">Link</a></li>
 <li class="entry-readlink"><a href="46262.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">5 comments</a></li>
@@ -447,7 +543,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-45962">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-45962">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-45962">
 <div class="inner">
@@ -468,7 +564,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=45962" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=45962" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=45962" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=45962" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&45962&3&4255543:1f67409f0990aac6c4f34211c2135fd2660dbe34" class="TrackButton" journal="transitional_writes" lj_arg1="45962" lj_newentry_etypeid="1" lj_journalid="4255543" js_swapname="Untrack This" lj_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_newentry_subid="0" lj_etypeid="3" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=45962" lj_etypeid="3" journal="transitional_writes" lj_newentry_etypeid="1" lj_newentry_subid="0" lj_arg1="45962" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&45962&3&4255543:993e9bca1b9c1291fea14737d41fc8cb9567ee02" lj_subid="0" lj_journalid="4255543" js_swapname="Untrack This" class="TrackButton" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-45962-reply">
 <li class="entry-permalink first-item"><a href="45962.html">Link</a></li>
 <li class="entry-readlink"><a href="45962.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">4 comments</a></li>
@@ -479,7 +575,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-45642">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-45642">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-45642">
 <div class="inner">
@@ -500,7 +596,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=45642" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=45642" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=45642" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=45642" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&45642&3&4255543:42517756c5590091b86b405a582c3608b08eb624" class="TrackButton" journal="transitional_writes" lj_arg1="45642" lj_newentry_etypeid="1" lj_journalid="4255543" js_swapname="Untrack This" lj_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_newentry_subid="0" lj_etypeid="3" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=45642" lj_newentry_etypeid="1" lj_newentry_subid="0" journal="transitional_writes" lj_etypeid="3" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_journalid="4255543" js_swapname="Untrack This" class="TrackButton" lj_arg1="45642" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&45642&3&4255543:0d9257732add7aaf97db3aa039a66d5913c0e595" lj_subid="0" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-45642-reply">
 <li class="entry-permalink first-item"><a href="45642.html">Link</a></li>
 <li class="entry-readlink"><a href="45642.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">25 comments</a></li>
@@ -511,7 +607,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-45360">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-45360">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-45360">
 <div class="inner">
@@ -532,7 +628,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=45360" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=45360" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=45360" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=45360" lj_newentry_etypeid="1" lj_arg1="45360" journal="transitional_writes" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&45360&3&4255543:a78590309ad7ec94d8ab64728b97ce8f3fdf8ff9" lj_etypeid="3" lj_newentry_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" js_swapname="Untrack This" lj_journalid="4255543" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=45360" lj_newentry_subid="0" lj_newentry_etypeid="1" lj_etypeid="3" journal="transitional_writes" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&45360&3&4255543:ad1ef1f006dd2e952a63e37db20ccb461540cf21" lj_subid="0" lj_arg1="45360" class="TrackButton" lj_journalid="4255543" js_swapname="Untrack This" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-45360-reply">
 <li class="entry-permalink first-item"><a href="45360.html">Link</a></li>
 <li class="entry-readlink"><a href="45360.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">10 comments</a></li>
@@ -543,7 +639,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-45241">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-45241">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-45241">
 <div class="inner">
@@ -564,7 +660,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=45241" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=45241" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=45241" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=45241" js_swapname="Untrack This" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" lj_journalid="4255543" lj_etypeid="3" lj_newentry_subid="0" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&45241&3&4255543:5f2dead5f3d259fb45b96fac4e7ce962aa747d85" lj_arg1="45241" journal="transitional_writes" lj_newentry_etypeid="1" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=45241" lj_newentry_etypeid="1" lj_newentry_subid="0" lj_etypeid="3" journal="transitional_writes" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_arg1="45241" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&45241&3&4255543:45424f48ee7a6c5ff93b40dcd26470c4176d6ab3" js_swapname="Untrack This" lj_journalid="4255543" class="TrackButton" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-45241-reply">
 <li class="entry-permalink first-item"><a href="45241.html">Link</a></li>
 <li class="entry-readlink"><a href="45241.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">5 comments</a></li>
@@ -575,7 +671,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-44972">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-44972">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-44972">
 <div class="inner">
@@ -596,7 +692,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=44972" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=44972" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=44972" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=44972" journal="transitional_writes" lj_arg1="44972" lj_newentry_etypeid="1" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&44972&3&4255543:f6d7d9c70a916f0d20f85fb0175ddf393d1fbf06" class="TrackButton" lj_newentry_subid="0" lj_etypeid="3" lj_journalid="4255543" js_swapname="Untrack This" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=44972" lj_arg1="44972" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&44972&3&4255543:4ac69a001ec17bf17d7d4dffaf16c9e693ad95da" js_swapname="Untrack This" lj_journalid="4255543" class="TrackButton" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" lj_etypeid="3" journal="transitional_writes" lj_newentry_etypeid="1" lj_newentry_subid="0" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-44972-reply">
 <li class="entry-permalink first-item"><a href="44972.html">Link</a></li>
 <li class="entry-readlink"><a href="44972.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">17 comments</a></li>
@@ -607,7 +703,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-44695">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-44695">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-44695">
 <div class="inner">
@@ -628,7 +724,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=44695" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=44695" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=44695" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=44695" lj_arg1="44695" journal="transitional_writes" lj_newentry_etypeid="1" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&44695&3&4255543:30839a712a3b84a66e85d3492b56d6f6cb166042" lj_etypeid="3" lj_newentry_subid="0" js_swapname="Untrack This" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" lj_journalid="4255543" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=44695" lj_etypeid="3" journal="transitional_writes" lj_newentry_etypeid="1" lj_newentry_subid="0" lj_arg1="44695" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&44695&3&4255543:f4472fbf20f2c6062933cd0a77fa563989215672" js_swapname="Untrack This" lj_journalid="4255543" class="TrackButton" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-44695-reply">
 <li class="entry-permalink first-item"><a href="44695.html">Link</a></li>
 <li class="entry-readlink"><a href="44695.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">20 comments</a></li>
@@ -639,7 +735,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-44308">
+<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-44308">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-44308">
 <div class="inner">
@@ -660,7 +756,7 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=44308" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=44308" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=44308" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=44308" journal="transitional_writes" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&44308&3&4255543:28733b47d43a32d25a4515b42d7147ee13515774" lj_newentry_subid="0" lj_journalid="4255543" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" js_swapname="Untrack This" lj_newentry_etypeid="1" lj_arg1="44308" class="TrackButton" lj_etypeid="3" lj_subid="0" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=44308" lj_newentry_subid="0" lj_newentry_etypeid="1" journal="transitional_writes" lj_etypeid="3" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" class="TrackButton" js_swapname="Untrack This" lj_journalid="4255543" lj_subid="0" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&44308&3&4255543:61431cb66be501aa45e610a6ae63b8a06a30c90f" lj_arg1="44308" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-44308-reply">
 <li class="entry-permalink first-item"><a href="44308.html">Link</a></li>
 <li class="entry-readlink" style="display:none"><a href="44308.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">0 comments</a></li>
@@ -671,7 +767,7 @@
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-44055">
+<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-44055">
 <div class="separator separator-before"><div class="inner"></div></div>
 <div class="entry" id="entry-44055">
 <div class="inner">
@@ -692,108 +788,12 @@
 <li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=44055" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
 <li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=44055" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
 <li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=44055" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=44055" lj_newentry_etypeid="1" lj_arg1="44055" journal="transitional_writes" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&44055&3&4255543:1992b3ff749e5b81517647465a7c7eae7b836f2d" lj_etypeid="3" lj_newentry_subid="0" lj_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" js_swapname="Untrack This" lj_journalid="4255543" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
+<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=44055" lj_etypeid="3" journal="transitional_writes" lj_newentry_subid="0" lj_newentry_etypeid="1" lj_auth_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&44055&3&4255543:8e5618301cb4d964759abe7157c918418adf7866" lj_subid="0" lj_arg1="44055" class="TrackButton" js_swapname="Untrack This" lj_journalid="4255543" lj_newentry_token="ajax:1782198000:4255543:23:/__rpc_esn_subs:addsub&1&4255543:f1268cc2325f7329091c39ba7b3e507ddada9367" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
 </ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-44055-reply">
 <li class="entry-permalink first-item"><a href="44055.html">Link</a></li>
 <li class="entry-readlink"><a href="44055.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">57 comments</a></li>
 <li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-44055-reply", 0, "",that)}(this)' href='44055.html?mode=reply' >Reply</a></li>
 </ul><div  id="ljqrtentry-transitional_writes-44055-reply" data-quickreply-container="entry-transitional_writes-44055-reply" style="display: none;"></div></div>
-</div>
-</div>
-</div>
-<div class="separator separator-after"><div class="inner"></div></div>
-</div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-43809">
-<div class="separator separator-before"><div class="inner"></div></div>
-<div class="entry" id="entry-43809">
-<div class="inner">
-<div class="header">
-<div class="inner">
-<h3 class="entry-title"><a title="(no subject)" href="43809.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/05/index.html">May</a>. <a href="2026/05/29/index.html">29th</a>, <a href="2026/index.html">2026</a></span> <span class="time">01:34 pm</span></span></div>
-</div>
-<div>
-<div class="contents">
-<div class="inner">
-<div class="userpic"></div>
-<span class="poster entry-poster empty"></span><div class="entry-content">Ну, вообще говоря, есть еще один момент, а чего я точно опасаюсь,<br />чтобы, например, еще активнее раздавать листочки или прямее говорить на эту тему?<br />Ну, во первых мне по здоровью не очень хорошо и денег у меня нет,<br />все это естественно мешает.<br /><br />Но, есть и следующие моменты.<br /><br />1. Во-первых все эти циклы бум крах.<br />Все это началось до меня, да и понятное дело, что я не волшебник и если<br />внезапно у всех деньги пропадут, то значит это они у кого-то внезапно возникнут,<br />а у меня этих денег не наблюдается.<br />А значит не я тут часовно развалил, выражаясь словами Шурика из<br />Кавказской пленницы.<br />Но, все ж таки опять же, первая реакция может быть непредсказуемой.<br /><br />2. Конкретная месть брратвы за подъем информации про 90-ые.<br />Хзя кто что точно знает, но кто-то может дернуться на этой теме.<br />Тем более реально конкретные фамилии лезут.<br />Сапов. Кузнецов. Математики, ЦЭМИ, госплан, все в теме.<br />Что это было?<br /><br />3. Тут с метартом какая-то проблема и с fashion.<br />Кто эти фотографы и куда они дернутся?<br />Что они вообще про это подумать могут?<br />Хотя смех смехом если их на пункт 2 замкнет - тоже тема.<br />По идее их наравне со всеми тут кидают на деньги.<br />А они бедные, сплоченные и точно такая же мафия.<br />Но. Точно ж не понятно, что будет.<br />Может выберут терпеть.<br /><br />4. Тут реально кучу народу задевает на уровне<br />закладок в корпоративном ПО. Ведь все эти темы<br />можно крутить через противоречия в корпоративном ПО.<br />В одном отчете на складе есть товар, в другом нет.<br />Да и куча прочего может полезть.<br /><br />5. Тут еще радиоуправление какое-то вылезло.<br />И видимо постепенно народ начинает замечать, что<br />это реально существует, а не моя шиза. Но тут в<br />оправдание могу сказать, что это они меня скорее всего<br />нашли на ЛОРе, уже сами до него додумавшись.<br />Все-таки индуктивное восстановление нейросети с<br />простым фронт-ендом - это простая задача,<br />тут АЭШ не нужна. Но вот что через меня они про АЭШ и<br />инфляцию узнали - это вполне вроятно.<br />Причем сначала, возможно, реально хотели как<br />охотники за головами вывести из игры, а потом что-то<br />стали замечать.<br /><br />Так что надеюсь ко мне претензий нет.<br /><br />6. Тут еще может вопрос обратный есть - что это меня так наградили,<br />наоборот. Что я теперь бедный и больной, ну да ладно,<br />поживем увидим. Хотя единственный, который хоть чето копал.<br /><br />Ну да ладно, поживем увидим.</div></div>
-</div>
-</div>
-<div class="footer">
-<div class="inner">
-<ul class="entry-management-links icon-links"><li class="link edit_entry first-item"><a href="https://www.dreamwidth.org/editjournal?journal=transitional_writes&amp;itemid=43809" ><img border='0' width="16" height="16" alt="Edit Entry" title="Edit Entry" src="https://www.dreamwidth.org/img/silk/entry/edit.png"  /></a></li>
-<li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=43809" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
-<li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=43809" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
-<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=43809" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=43809" class="TrackButton" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&43809&3&4255543:0f0de6a98e494f2e924f871c0a88d6d31c6e93d7" lj_newentry_etypeid="1" journal="transitional_writes" lj_arg1="43809" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" lj_subid="0" js_swapname="Untrack This" lj_journalid="4255543" lj_etypeid="3" lj_newentry_subid="0" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
-</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-43809-reply">
-<li class="entry-permalink first-item"><a href="43809.html">Link</a></li>
-<li class="entry-readlink"><a href="43809.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">2 comments</a></li>
-<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-43809-reply", 0, "",that)}(this)' href='43809.html?mode=reply' >Reply</a></li>
-</ul><div  id="ljqrtentry-transitional_writes-43809-reply" data-quickreply-container="entry-transitional_writes-43809-reply" style="display: none;"></div></div>
-</div>
-</div>
-</div>
-<div class="separator separator-after"><div class="inner"></div></div>
-</div>
-<div class="entry-wrapper entry-wrapper-odd security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-43685">
-<div class="separator separator-before"><div class="inner"></div></div>
-<div class="entry" id="entry-43685">
-<div class="inner">
-<div class="header">
-<div class="inner">
-<h3 class="entry-title"><a title="(no subject)" href="43685.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/05/index.html">May</a>. <a href="2026/05/27/index.html">27th</a>, <a href="2026/index.html">2026</a></span> <span class="time">08:55 pm</span></span></div>
-</div>
-<div>
-<div class="contents">
-<div class="inner">
-<div class="userpic"></div>
-<span class="poster entry-poster empty"></span><div class="entry-content">Так, ну набор отдельных мыслей и замечаний про эту теоремку.<br /><br />1. Ну, конечно, полный impedance match тут должен быть с биофаком + химфаком.<br />Тащишь материал по неисчерпаемому ресурсу + биотической регуляции + индукции Соломонова<br />студенту.<br />- если студент хочет остаться в биологии, то чисто нормальный научный процесс.<br />сковырнет старых мастодонтов. не должно быть проблем.<br />- если хочет уйти в медицину или курятникостроение (т.е. сельское хозяйство),<br />то тем более нет никаких проблем, тем более индустрия крупнее науки, она все<br />абсорбирует.<br />это прямо можно тащить.<br /><br />2. вообще до конца довести рассуждения про ADATE, которые я начал на кухне в mercdev<br />в 2010, это можно тащить каким-нибудь C++ Embedder'ам на железной дороге.<br />тут проблема в том, что Java Developers явно больше ембедеров, если их всех с<br />работы погонят, то они рынок просадят. ну хотя тут хз, способны ли Java<br />программисты освоить C++?<br />может быть и impedance match, в зависимости от ответа на последний вопрос.<br /><br />3. general public с электротехники и промавтоматики.<br />хм ну тащить студентам в СамГТУ.<br />если охрана не пропустит - кидать охране лист с рассказом про 90-ые и<br />просьбой найти толковых студентов, которые точно расскажу, кто деньги в<br />90-ые украл.<br />тащить в магазины типа ЧипИДип, там сидят люди в теме и с инженерной <br />подготовкой<br />можно кулибинам с flyback.org.ru оттащить.<br />они также работают в этйо сфере и я знаю, что написать для них на первой страничке.<br /><br />так, ну тут прямо большой фронт работ.<br /><br />я только вот что не пойму, а нафига было скрывать эту теоремку?<br /><br />тут же еще можно много вещей напридумывать.<br />вот я в марте 2020 как-раз конкурентный шедулер принялся писать, но<br />мне резко поплохело<br /><a href="https://github.com/wieker/simple_scheduler/commits/master/">https://github.com/wieker/simple_scheduler/commits/master/</a><br /><br />вообще интересно, а сколько простых частных случаев есть,<br />эту теоремку переоткрыть?<br /><br />по идее ADATE + корпоративщина - эквивалентно общей постановке на 100%<br /><br />остальное, что вижу, быть может более специфично,<br />типа вот этого конкурентного шедулера, но тоже должно быть на 100%<br />хотя стоп. это тоже ан 100% эквивалентно этой теоремке.<br /><br />обстоятельства времени и места, алгоритм, конкуренция для сравнения.<br /><br />правда, а кто и зачем ее скрывал?</div></div>
-</div>
-</div>
-<div class="footer">
-<div class="inner">
-<ul class="entry-management-links icon-links"><li class="link edit_entry first-item"><a href="https://www.dreamwidth.org/editjournal?journal=transitional_writes&amp;itemid=43685" ><img border='0' width="16" height="16" alt="Edit Entry" title="Edit Entry" src="https://www.dreamwidth.org/img/silk/entry/edit.png"  /></a></li>
-<li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=43685" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
-<li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=43685" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
-<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=43685" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=43685" lj_newentry_etypeid="1" lj_arg1="43685" journal="transitional_writes" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&43685&3&4255543:54f49034eff907576b30664c614a71aa3d2c997e" class="TrackButton" lj_newentry_subid="0" lj_etypeid="3" lj_journalid="4255543" lj_subid="0" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" js_swapname="Untrack This" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
-</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-43685-reply">
-<li class="entry-permalink first-item"><a href="43685.html">Link</a></li>
-<li class="entry-readlink"><a href="43685.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">29 comments</a></li>
-<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-43685-reply", 0, "",that)}(this)' href='43685.html?mode=reply' >Reply</a></li>
-</ul><div  id="ljqrtentry-transitional_writes-43685-reply" data-quickreply-container="entry-transitional_writes-43685-reply" style="display: none;"></div></div>
-</div>
-</div>
-</div>
-<div class="separator separator-after"><div class="inner"></div></div>
-</div>
-<div class="entry-wrapper entry-wrapper-even security-public restrictions-none journal-type-P poster-transitional_writes journal-transitional_writes no-userpic  has-subject" id="entry-wrapper-43509">
-<div class="separator separator-before"><div class="inner"></div></div>
-<div class="entry" id="entry-43509">
-<div class="inner">
-<div class="header">
-<div class="inner">
-<h3 class="entry-title"><a title="(no subject)" href="43509.html">(no subject)</a></h3><span class="datetime"><span class="date"><a href="2026/05/index.html">May</a>. <a href="2026/05/25/index.html">25th</a>, <a href="2026/index.html">2026</a></span> <span class="time">09:24 pm</span></span></div>
-</div>
-<div>
-<div class="contents">
-<div class="inner">
-<div class="userpic"></div>
-<span class="poster entry-poster empty"></span><div class="entry-content">Ну да, получается я заметил следующие классные применения MDL induction<br /><a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</a><br />В том или ином виде. Некоторые в очень зачаточном.<br />Но заметил и опубликовал в сети.<br /><br />1. Вывод из нее австрийской экономической школы, причин бизнес циклов, инфляции и нищеты 90-ых,<br />теоремы о невозможности экономического расчета при социализме.<br />2. Какая-то портящая жизнь, возможно сильно портящая жизнь девченкам лажа с<br />съемками met-art. Куча фоток, но аутсайдеру в эту тему не войти, а девченки по симметрии<br />теряют кучу денег и при этом несут серьезные репутационные риски.<br />Опять циркуляция произвольного бреда, срезаемая mdl induction.<br />3. Ну это уже в последнее время заметил, что пункт номер 1 распространяется и на корпоративное<br />ПО и на мессенджеры по сути. Да и на закладки в ПО и железе в целом. Любого типа.<br />4. А также на искусственные нейросети.<br />5. На биотическую регуляцию и геоэкологию. С этого в некотором роде и начал.<br />Явно есть и многое другое.<br /><br />Вот бы Луговскому или К. Панкратову это скинуть.<br />К сожалению вряд ли у меня есть связь с ними.<br />Так как<br /><br />Определенно почувствовал на себе. Хм. Радиоуправление аля "Уравнения Максвелла" Днепрова.<br />Ну конечно писать такое без доказательств не то,<br />надо бы снять хоть на FPGA дамп так как это скорее всего какие-то низкочастотные вещи.<br />Но. Может быть еще займусь. А может и нет. Но теперь понятно, почему в Таллине мне поплохело<br />6 лет назад. Может у кого-то дампы есть для реверс инжиниринга влияния низкочастотных элмаг волн<br />на человека.<br />Интересная тема.<br /><br />Зареверсинжинирил устройство физического детонатора.<br />Мало сомнений, что детонация это горения в результате гидроудара.<br />Есть у меня крайние сомнения в устойчивости крупных партий ИВВ.<br />То есть их не производят.<br />Но во всей технической и патентной лиетаратуре не упоминается, что<br />детонатор - это маленький пистолетик. Везде про ИВВ.<br />Ну я не специалист. Может есть другой секрет, почему крупные партии ИВВ<br />не взрываются на фабриках. Но может быть и нет секрета и<br />никто ИВВ не использует.<br /><br />Классная идейка про съемки метарт как простейший вообще частный случай<br />эстетики-эротики, тем и интересный, а так же теоретической возможностью<br />привлечь к вообще образованию и индукции этим людей.</div></div>
-</div>
-</div>
-<div class="footer">
-<div class="inner">
-<ul class="entry-management-links icon-links"><li class="link edit_entry first-item"><a href="https://www.dreamwidth.org/editjournal?journal=transitional_writes&amp;itemid=43509" ><img border='0' width="16" height="16" alt="Edit Entry" title="Edit Entry" src="https://www.dreamwidth.org/img/silk/entry/edit.png"  /></a></li>
-<li class="link edit_tags"><a href="https://www.dreamwidth.org/edittags?journal=transitional_writes&amp;itemid=43509" ><img border='0' width="16" height="16" alt="Edit Tags" title="Edit Tags" src="https://www.dreamwidth.org/img/silk/entry/tag_edit.png"  /></a></li>
-<li class="link mem_add"><a href="https://www.dreamwidth.org/tools/memadd?journal=transitional_writes&amp;itemid=43509" ><img border='0' width="16" height="16" alt="Add Memory" title="Add Memory" src="https://www.dreamwidth.org/img/silk/entry/memories_add.png"  /></a></li>
-<li class="link tell_friend"><a href="https://www.dreamwidth.org/tools/tellafriend?journal=transitional_writes&amp;itemid=43509" ><img border='0' width="16" height="16" alt="Share This Entry" title="Share This Entry" src="https://www.dreamwidth.org/img/silk/entry/tellafriend.png"  /></a></li>
-<li class="link watch_comments"><a href="https://www.dreamwidth.org/manage/tracking/entry?journal=transitional_writes&amp;itemid=43509" lj_journalid="4255543" lj_newentry_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&1&4255543:4cc64c6d805f762f9b365a0dd61adde8713cb45f" js_swapname="Untrack This" lj_newentry_subid="0" lj_auth_token="ajax:1782136800:4255543:23:/__rpc_esn_subs:addsub&43509&3&4255543:fe8c8e276fcc83c4ec63308fb2791925795b875e" journal="transitional_writes" lj_subid="0" lj_etypeid="3" class="TrackButton" lj_newentry_etypeid="1" lj_arg1="43509" ><img border='0' width="16" height="16" alt="Track This" title="Track This" src="https://www.dreamwidth.org/img/silk/entry/track.png"  /></a></li>
-</ul><ul class="entry-interaction-links text-links" data-quickreply-target="entry-transitional_writes-43509-reply">
-<li class="entry-permalink first-item"><a href="43509.html">Link</a></li>
-<li class="entry-readlink"><a href="43509.html#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">51 comments</a></li>
-<li class="entry-replylink"><a onclick='return function(that) {return quickreply("entry-transitional_writes-43509-reply", 0, "",that)}(this)' href='43509.html?mode=reply' >Reply</a></li>
-</ul><div  id="ljqrtentry-transitional_writes-43509-reply" data-quickreply-container="entry-transitional_writes-43509-reply" style="display: none;"></div></div>
 </div>
 </div>
 </div>
@@ -855,7 +855,7 @@
 <tr>
 <td class="empty-day">14</td><td class="entry-day"> <a href="2026/06/15/index.html" title="2 entries">15</a></td><td class="entry-day"> <a href="2026/06/16/index.html" title="1 entry">16</a></td><td class="entry-day"> <a href="2026/06/17/index.html" title="1 entry">17</a></td><td class="entry-day"> <a href="2026/06/18/index.html" title="3 entries">18</a></td><td class="empty-day">19</td><td class="empty-day">20</td></tr>
 <tr>
-<td class="empty-day">21</td><td class="entry-day"> <a href="2026/06/22/index.html" title="3 entries">22</a></td><td class="empty-day">23</td><td class="empty-day">24</td><td class="empty-day">25</td><td class="empty-day">26</td><td class="empty-day">27</td></tr>
+<td class="empty-day">21</td><td class="entry-day"> <a href="2026/06/22/index.html" title="3 entries">22</a></td><td class="entry-day"> <a href="2026/06/23/index.html" title="3 entries">23</a></td><td class="empty-day">24</td><td class="empty-day">25</td><td class="empty-day">26</td><td class="empty-day">27</td></tr>
 <tr>
 <td class="empty-day">28</td><td class="empty-day">29</td><td class="empty-day">30</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table>
@@ -879,6 +879,9 @@
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-8107" title="0 comments">Верхний пост</a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-23439" title="22 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-24717" title="1 comment">Список литературы.</a></span></li>
+<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-48183" title="5 comments"><em>(no subject)</em></a></span></li>
+<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-47906" title="28 comments"><em>(no subject)</em></a></span></li>
+<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-47865" title="0 comments">Априорное зло и что оно сделает с тобой</a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-47614" title="37 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-47166" title="0 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-46951" title="16 comments"><em>(no subject)</em></a></span></li>
@@ -893,9 +896,6 @@
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-44695" title="20 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-44308" title="0 comments"><em>(no subject)</em></a></span></li>
 <li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-44055" title="57 comments"><em>(no subject)</em></a></span></li>
-<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-43809" title="2 comments"><em>(no subject)</em></a></span></li>
-<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-43685" title="29 comments"><em>(no subject)</em></a></span></li>
-<li class="module-list-item"><span class="pagesummary-subject"><a href="index.html#entry-43509" title="51 comments"><em>(no subject)</em></a></span></li>
 </ul>
 </div>
 </div>
@@ -918,7 +918,7 @@
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 22nd, 2026 02:03 pm</span></div>
+<span id="load-time">Page generated Jun. 23rd, 2026 07:14 am</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
