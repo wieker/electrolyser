@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"siteroot":"https://www.dreamwidth.org","has_remote":1,"cmax_comment":16000,"user_domain":"dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","imgprefix":"https://www.dreamwidth.org/img","media_embed_enabled":1,"inbox_update_poll":1,"esn_async":1,"ctx_popup_userhead":1,"currentJournal":"transitional_writes","ctx_popup_icons":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","ctx_popup":1});
+                Site = Object.assign(Site, {"esn_async":1,"ctx_popup_userhead":1,"inbox_update_poll":1,"cmax_comment":16000,"currentJournal":"transitional_writes","iconprefix":"https://v2.dreamwidth.org","has_remote":1,"media_embed_enabled":1,"siteroot":"https://www.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_icons":1,"user_domain":"dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","ctx_popup":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1782113346" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.theme.smoothness.css,controlstrip.css,controlstrip-dark.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,canary.css?v=1782113346" />
@@ -30,17 +30,17 @@
 </div>
   <div id='lj_controlstrip_user'>
     <form id='Greeting' class='nopic' action='https://www.dreamwidth.org/logout' method='post'>
-      <div><input type='hidden' name="lj_form_auth" value="c0:1782349200:1370:86400:B9cydIMnOX-4255543-23:51eda27dc19796a77b2deaafb527a16a" /><input type='hidden' name="user" value="transitional_writes" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/42625.html?replyto=80769&amp;thread=77953" /><input type='hidden' name="sessid" value="23" /><input type='hidden' name="ret" value="1" />
+      <div><input type='hidden' name="lj_form_auth" value="c0:1782392400:2392:86400:kIF5XR7giP-4255543-23:fd6d7e44d3ee5aca7826635a4fbc9744" /><input type='hidden' name="user" value="transitional_writes" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/42625.html?replyto=80769&amp;thread=77953" /><input type='hidden' name="sessid" value="23" /><input type='hidden' name="ret" value="1" />
         <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>
-        <input type='submit' name="logout_one" value="Log out" id="Logout" class="submit" />      </div>
-    </form><a href='https://www.dreamwidth.org/'>Home</a>&nbsp;&nbsp; <a href='https://www.dreamwidth.org/update'>Post</a>&nbsp;&nbsp;<a href='read'>Reading</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/manage/settings/'>Settings</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/inbox/'>Inbox (127)</a>  </div>
+        <input type='submit' name="logout_one" value="Log out" class="submit" id="Logout" />      </div>
+    </form><a href='https://www.dreamwidth.org/'>Home</a>&nbsp;&nbsp; <a href='https://www.dreamwidth.org/update'>Post</a>&nbsp;&nbsp;<a href='read'>Reading</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/manage/settings/'>Settings</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/inbox/'>Inbox (128)</a>  </div>
 <div id='lj_controlstrip_actionlinks'>
   <span id='lj_controlstrip_statustext'>You're viewing your journal</span>
   <br /><a href='https://www.dreamwidth.org/comments/recent'>View Recent Comments</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/editjournal'>Manage Entries</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/manage/circle/invite'>Invite People</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_105'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_79'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" size="20" value="" id="search" title="Search" name="q" class="text" />
+<input type="text" size="20" name="q" id="search" title="Search" value="" class="text" />
 <select name="type" id="id-type-0" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
@@ -106,7 +106,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782349200:1370:86400:B9cydIMnOX-4255543-23:51eda27dc19796a77b2deaafb527a16a" /><input type='hidden' name="replyto" value="315" /><input type='hidden' name="parenttalkid" value="315" /><input type='hidden' name="itemid" value="42625" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="77953" /><input type='hidden' name="chrp1" value="42625-4255543-1782349200-B7udXLwS173F0uNXx06K-df6d098b8848d7d5efbe78f57807959d" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782392400:2392:86400:kIF5XR7giP-4255543-23:fd6d7e44d3ee5aca7826635a4fbc9744" /><input type='hidden' name="replyto" value="315" /><input type='hidden' name="parenttalkid" value="315" /><input type='hidden' name="itemid" value="42625" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="77953" /><input type='hidden' name="chrp1" value="42625-4255543-1782392400-LVhVL7Q4nxGFO1VahtrE-7695ef10d2a6a4348d1cae8d4eacff89" />
 
 
 <div id="talkform-from">
@@ -133,9 +133,9 @@
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" name="oidurl" id="oidurl" maxlength="60" class="text" size="53" value="" />      </div>
+        <input type="text" value="" name="oidurl" size="53" maxlength="60" id="oidurl" class="text" />      </div>
 
-      <div><input type='checkbox' class="checkbox" id="oidlogincheck" name="oiddo_login" />
+      <div><input type='checkbox' name="oiddo_login" class="checkbox" id="oidlogincheck" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -169,15 +169,15 @@
         <label for="username" >
             Account name
         </label>
-        <input type="text" value="" id="username" maxlength="25" class="text" size="13" name="userpost" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" />      </div>
+        <input type="text" id="username" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" class="text" size="13" name="userpost" value="" maxlength="25" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" maxlength="72" class="text" id="password" name="password" value="" size="18" />      </div>
+        <input type="password" maxlength="72" name="password" size="18" value="" class="text" id="password" />      </div>
 
-      <div><input type='checkbox' name="do_login" id="logincheck" class="checkbox" />
+      <div><input type='checkbox' class="checkbox" id="logincheck" name="do_login" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -205,7 +205,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" class="text" maxlength="100" id="subject" value="" placeholder="Subject" name="subject" size="50" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" maxlength="100" placeholder="Subject" name="subject" size="50" value="" class="text" id="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -243,7 +243,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea wrap="soft" name="body" cols="80" rows="10" class="text" id="body"></textarea></div>
+        <textarea class="text" id="body" wrap="soft" rows="10" cols="80" name="body"></textarea></div>
 
 
 
@@ -253,7 +253,7 @@
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
+<input type='submit' name="submitpost" value="Post Comment" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
 
 </div>
 
@@ -305,7 +305,7 @@
 <tr>
 <td class="empty-day">14</td><td class="entry-day"> <a href="2026/06/15/index.html" title="2 entries">15</a></td><td class="entry-day"> <a href="2026/06/16/index.html" title="1 entry">16</a></td><td class="entry-day"> <a href="2026/06/17/index.html" title="1 entry">17</a></td><td class="entry-day"> <a href="2026/06/18/index.html" title="3 entries">18</a></td><td class="empty-day">19</td><td class="empty-day">20</td></tr>
 <tr>
-<td class="empty-day">21</td><td class="entry-day"> <a href="2026/06/22/index.html" title="3 entries">22</a></td><td class="entry-day"> <a href="2026/06/23/index.html" title="4 entries">23</a></td><td class="entry-day"> <a href="2026/06/24/index.html" title="1 entry">24</a></td><td class="empty-day">25</td><td class="empty-day">26</td><td class="empty-day">27</td></tr>
+<td class="empty-day">21</td><td class="entry-day"> <a href="2026/06/22/index.html" title="3 entries">22</a></td><td class="entry-day"> <a href="2026/06/23/index.html" title="4 entries">23</a></td><td class="entry-day"> <a href="2026/06/24/index.html" title="1 entry">24</a></td><td class="entry-day"> <a href="2026/06/25/index.html" title="3 entries">25</a></td><td class="empty-day">26</td><td class="empty-day">27</td></tr>
 <tr>
 <td class="empty-day">28</td><td class="empty-day">29</td><td class="empty-day">30</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table>
@@ -338,7 +338,7 @@
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 25th, 2026 01:22 am</span></div>
+<span id="load-time">Page generated Jun. 25th, 2026 01:39 pm</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>

@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"has_remote":1,"user_domain":"dreamwidth.org","esn_async":1,"imgprefix":"https://www.dreamwidth.org/img","media_embed_enabled":1,"inbox_update_poll":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","ctx_popup_userhead":1,"ctx_popup":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","currentJournal":"transitional_writes","statprefix":"https://www.dreamwidth.org/stc","cmax_comment":16000});
+                Site = Object.assign(Site, {"ctx_popup":1,"ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","cmax_comment":16000,"esn_async":1,"media_embed_enabled":1,"has_remote":1,"statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","inbox_update_poll":1,"user_domain":"dreamwidth.org","ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","currentJournalBase":"https://transitional-writes.dreamwidth.org"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1782113347" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1782113346" />
@@ -75,7 +75,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782334800:565:86400:xlxOIYIvxq-4255543-23:b7c8d05fd9e472929a54a24f1c55f965" /><input type='hidden' name="replyto" value="579" /><input type='hidden' name="parenttalkid" value="579" /><input type='hidden' name="itemid" value="45642" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="148554" /><input type='hidden' name="viewing_thread" value="148298" /><input type='hidden' name="chrp1" value="45642-4255543-1782334800-7Cu2PwfhAIBzvbs1L84s-89d1c9e95a0f9b699e813d95178b3970" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782378000:2048:86400:mQptgxCIWo-4255543-23:141a03a16e29105f1db9e1f4a442f2bf" /><input type='hidden' name="replyto" value="579" /><input type='hidden' name="parenttalkid" value="579" /><input type='hidden' name="itemid" value="45642" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="148554" /><input type='hidden' name="viewing_thread" value="148298" /><input type='hidden' name="chrp1" value="45642-4255543-1782378000-JpSbuljmF1we0GVPAHRe-955d221e1f8996c79119f117d357ce26" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -104,7 +104,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" value="" id="subject" name="subject" size="50" maxlength="100" class="text" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" placeholder="Subject" id="subject" class="text" value="" maxlength="100" size="50" name="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -120,7 +120,7 @@
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select name="prop_editor" id="prop_editor" class="select">
+        <select id="prop_editor" class="select" name="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -142,7 +142,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea wrap="soft" class="text" cols="80" id="body" name="body" rows="10">Ну, вообще Пойа, Мизес, Соломонов, Потапов, дампы эротики с торрентов, Протопопов и прочий Дольник
+        <textarea wrap="soft" class="text" rows="10" id="body" cols="80" name="body">Ну, вообще Пойа, Мизес, Соломонов, Потапов, дампы эротики с торрентов, Протопопов и прочий Дольник
 но вот сразу и не сообразил, что все сводится реально
 к очень простым частным случаям,
 которые просто могут быть рассмотрены.</textarea></div>
@@ -154,7 +154,7 @@
         <label for="editreason" >
             Reason:
         </label>
-        <input type="text" size="75" class="text" maxlength="255" id="editreason" name="editreason" value="" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
+        <input type="text" maxlength="255" name="editreason" size="75" id="editreason" class="text" value="" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
 
 
 
