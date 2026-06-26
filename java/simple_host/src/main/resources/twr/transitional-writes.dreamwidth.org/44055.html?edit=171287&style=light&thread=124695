@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_icons":1,"user_domain":"dreamwidth.org","ctx_popup":1,"esn_async":1,"iconprefix":"https://v2.dreamwidth.org","ctx_popup_userhead":1,"media_embed_enabled":1,"inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","currentJournal":"transitional_writes","has_remote":1,"siteroot":"https://www.dreamwidth.org","cmax_comment":16000,"imgprefix":"https://www.dreamwidth.org/img"});
+                Site = Object.assign(Site, {"cmax_comment":16000,"currentJournalBase":"https://transitional-writes.dreamwidth.org","inbox_update_poll":1,"esn_async":1,"currentJournal":"transitional_writes","has_remote":1,"ctx_popup_userhead":1,"ctx_popup":1,"user_domain":"dreamwidth.org","ctx_popup_icons":1,"statprefix":"https://www.dreamwidth.org/stc","siteroot":"https://www.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1,"imgprefix":"https://www.dreamwidth.org/img"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1782113347" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1782113346" />
@@ -74,7 +74,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782435600:3568:86400:2Iqgs4GcAr-4255543-23:9e61ae46aae0be2258d23fe3c9614a43" /><input type='hidden' name="replyto" value="487" /><input type='hidden' name="parenttalkid" value="487" /><input type='hidden' name="itemid" value="44055" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="171287" /><input type='hidden' name="viewing_thread" value="124695" /><input type='hidden' name="chrp1" value="44055-4255543-1782435600-3XRXUMooZEavkC46HgOX-44cc59a0491f4878aafd5edcd92b1ba8" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782478800:1501:86400:1OZQ5t8bEO-4255543-23:27961fac3738a84d79fa9fd440b55778" /><input type='hidden' name="replyto" value="487" /><input type='hidden' name="parenttalkid" value="487" /><input type='hidden' name="itemid" value="44055" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="171287" /><input type='hidden' name="viewing_thread" value="124695" /><input type='hidden' name="chrp1" value="44055-4255543-1782478800-8TsJ5iRX5pNnfRWXDRZV-a9337878768db3117fe93702eb88ce17" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -103,7 +103,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" class="text" value="" maxlength="100" name="subject" id="subject" placeholder="Subject" size="50" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" id="subject" value="" size="50" maxlength="100" name="subject" placeholder="Subject" class="text" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -119,7 +119,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select name="prop_editor" id="prop_editor" class="select">
+        <select name="prop_editor" class="select" id="prop_editor">
 <option value="html_casual1">Casual HTML</option>
 <option value="markdown0" selected='selected'>Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -141,7 +141,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea cols="80" id="body" name="body" wrap="soft" rows="10" class="text">ну и кроме сериала killjoys тут был в 90-ые популярный анекдот.
+        <textarea rows="10" class="text" name="body" wrap="soft" id="body" cols="80">ну и кроме сериала killjoys тут был в 90-ые популярный анекдот.
 
 - устроился чел в полицию и не появляется на работе.
 - ну с ним вязались и говорят - а чо ты за зарплатой не приходишь?
@@ -172,7 +172,7 @@ white hat крутятся как знают.
         <label for="editreason" >
             Reason:
         </label>
-        <input type="text" class="text" value="" id="editreason" name="editreason" maxlength="255" size="75" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
+        <input type="text" maxlength="255" size="75" value="" id="editreason" name="editreason" class="text" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
 
 
 

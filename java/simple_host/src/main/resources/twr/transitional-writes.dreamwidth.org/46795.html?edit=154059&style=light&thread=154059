@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup_icons":1,"imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1,"has_remote":1,"ctx_popup":1,"currentJournal":"transitional_writes","currentJournalBase":"https://transitional-writes.dreamwidth.org","cmax_comment":16000,"esn_async":1,"siteroot":"https://www.dreamwidth.org","ctx_popup_userhead":1,"user_domain":"dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","iconprefix":"https://v2.dreamwidth.org","media_embed_enabled":1});
+                Site = Object.assign(Site, {"siteroot":"https://www.dreamwidth.org","user_domain":"dreamwidth.org","ctx_popup_userhead":1,"statprefix":"https://www.dreamwidth.org/stc","media_embed_enabled":1,"iconprefix":"https://v2.dreamwidth.org","has_remote":1,"ctx_popup":1,"ctx_popup_icons":1,"inbox_update_poll":1,"imgprefix":"https://www.dreamwidth.org/img","currentJournalBase":"https://transitional-writes.dreamwidth.org","currentJournal":"transitional_writes","cmax_comment":16000,"esn_async":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1782113347" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1782113346" />
@@ -74,7 +74,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782424800:2738:86400:iuHys9NvbT-4255543-23:911627c47f3d7c26b6e4c0629f89e24c" /><input type='hidden' name="replyto" value="599" /><input type='hidden' name="parenttalkid" value="599" /><input type='hidden' name="itemid" value="46795" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="154059" /><input type='hidden' name="viewing_thread" value="154059" /><input type='hidden' name="chrp1" value="46795-4255543-1782424800-otxjKoMxq4pBzn3HdCIt-a733d3c5385eaa1363214e5114f1b81b" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782468000:2157:86400:CrAn6XR2Ze-4255543-23:c512b5c38b62d2e365579f2cb01896c9" /><input type='hidden' name="replyto" value="599" /><input type='hidden' name="parenttalkid" value="599" /><input type='hidden' name="itemid" value="46795" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="154059" /><input type='hidden' name="viewing_thread" value="154059" /><input type='hidden' name="chrp1" value="46795-4255543-1782468000-bxahD2wjzkzEK324VeH3-1ea44e06dae3baa3a30ab96c3da271ab" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -119,7 +119,7 @@
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select id="prop_editor" class="select" name="prop_editor">
+        <select class="select" name="prop_editor" id="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -141,7 +141,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea wrap="soft" rows="10" class="text" cols="80" id="body" name="body">ну и пусть и для красотки, но все-таки несколько отстраненной от меня, но проводящей со мной много времени
+        <textarea wrap="soft" rows="10" class="text" id="body" cols="80" name="body">ну и пусть и для красотки, но все-таки несколько отстраненной от меня, но проводящей со мной много времени
 все-равно вопрос - зачем она так вкладывалась в косметические операции,
 довольно многочисленные?
 что за странные рассказы про всякие промывания и тд и тп?</textarea></div>
@@ -153,12 +153,12 @@
         <label for="editreason" >
             Reason:
         </label>
-        <input type="text" size="75" name="editreason" maxlength="255" class="text" id="editreason" value="" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
+        <input type="text" value="" id="editreason" maxlength="255" class="text" size="75" name="editreason" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
 
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Update Reply" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
+<input type='submit' name="submitpost" value="Update Reply" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
 
 </div>
 

@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"user_domain":"dreamwidth.org","ctx_popup_icons":1,"esn_async":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","cmax_comment":16000,"currentJournal":"transitional_writes","ctx_popup_userhead":1,"statprefix":"https://www.dreamwidth.org/stc","siteroot":"https://www.dreamwidth.org","has_remote":1,"imgprefix":"https://www.dreamwidth.org/img","media_embed_enabled":1,"ctx_popup":1,"inbox_update_poll":1});
+                Site = Object.assign(Site, {"ctx_popup_icons":1,"user_domain":"dreamwidth.org","esn_async":1,"ctx_popup_userhead":1,"iconprefix":"https://v2.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","currentJournal":"transitional_writes","cmax_comment":16000,"statprefix":"https://www.dreamwidth.org/stc","siteroot":"https://www.dreamwidth.org","has_remote":1,"imgprefix":"https://www.dreamwidth.org/img","media_embed_enabled":1,"inbox_update_poll":1,"ctx_popup":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1782113347" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1782113346" />
@@ -74,7 +74,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782421200:1690:86400:OZK35EuRDt-4255543-23:53001c95ec75a59f1e8c26c7ff50beb6" /><input type='hidden' name="replyto" value="487" /><input type='hidden' name="parenttalkid" value="487" /><input type='hidden' name="itemid" value="44055" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="172055" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="44055-4255543-1782421200-ugpda76aMiwXBluGYqql-666b3d541cafc4c579d618a585146ba0" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782464400:1207:86400:pXKaRSVHML-4255543-23:ccc15d0cc9ac3564bb94f6f0072ef4ac" /><input type='hidden' name="replyto" value="487" /><input type='hidden' name="parenttalkid" value="487" /><input type='hidden' name="itemid" value="44055" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="172055" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="44055-4255543-1782464400-Rm2LCVJ1ZbSfgMFLqpAd-7d6c69c4f18b870b5d369774a61e65fb" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -119,13 +119,13 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select name="prop_editor" class="select" id="prop_editor">
+        <select id="prop_editor" class="select" name="prop_editor">
 <option value="html_casual1">Casual HTML</option>
 <option value="markdown0" selected='selected'>Markdown</option>
 <option value="html_raw0">Raw HTML</option>
 <option value="rte0">Rich Text Editor</option>
 </select>
-    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' title="More info about formatting" style="vertical-align: middle;" /></a>
+    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' style="vertical-align: middle;" title="More info about formatting" /></a>
   </div>
 
   <div class="qr-markup-controls">
@@ -141,7 +141,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea cols="80" id="body" rows="10" class="text" name="body" wrap="soft">Единственный способ обеспечить здесь безопасность девушек это
+        <textarea wrap="soft" class="text" name="body" id="body" cols="80" rows="10">Единственный способ обеспечить здесь безопасность девушек это
 
 1. Объяснять им естественно-научную методологию
 https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference
@@ -178,12 +178,12 @@ https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference
         <label for="editreason" >
             Reason:
         </label>
-        <input type="text" size="75" value="" maxlength="255" id="editreason" name="editreason" class="text" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
+        <input type="text" maxlength="255" value="" size="75" name="editreason" class="text" id="editreason" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
 
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Update Reply" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
+<input type='submit' name="submitpost" value="Update Reply" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
 
 </div>
 
