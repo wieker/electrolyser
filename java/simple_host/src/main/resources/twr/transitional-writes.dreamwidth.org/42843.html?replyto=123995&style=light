@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"currentJournal":"transitional_writes","media_embed_enabled":1,"inbox_update_poll":1,"has_remote":1,"cmax_comment":16000,"iconprefix":"https://v2.dreamwidth.org","user_domain":"dreamwidth.org","ctx_popup":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_icons":1,"esn_async":1,"siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","statprefix":"https://www.dreamwidth.org/stc","ctx_popup_userhead":1});
+                Site = Object.assign(Site, {"ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","cmax_comment":16000,"ctx_popup":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","inbox_update_poll":1,"siteroot":"https://www.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","has_remote":1,"media_embed_enabled":1,"user_domain":"dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","ctx_popup_userhead":1,"esn_async":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1782113347" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1782113346" />
@@ -74,7 +74,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782475200:438:86400:WOW9spxWXJ-4255543-23:3c2c1e48c0704be3aab7519d0d366207" /><input type='hidden' name="replyto" value="484" /><input type='hidden' name="parenttalkid" value="484" /><input type='hidden' name="itemid" value="42843" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="42843-4255543-1782475200-6p5tcWKCtiMPLI8xMcFl-0dfbc67ba98ff247192c6afca67b3361" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782547200:1753:86400:KWoAQZai6m-4255543-23:98e570238fecd33fce5ba4404a31e840" /><input type='hidden' name="replyto" value="484" /><input type='hidden' name="parenttalkid" value="484" /><input type='hidden' name="itemid" value="42843" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="42843-4255543-1782547200-ZSEVeXSkzNUEYgCvUKEc-e5a4952b79cf530735ce41bb0859b444" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -101,7 +101,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" value="" name="oidurl" size="53" id="oidurl" maxlength="60" class="text" />      </div>
+        <input type="text" id="oidurl" name="oidurl" maxlength="60" size="53" class="text" value="" />      </div>
 
       <div><input type='checkbox' class="checkbox" id="oidlogincheck" name="oiddo_login" />
         <label for="oidlogincheck" class="checkboxlabel">
@@ -137,13 +137,13 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="username" >
             Account name
         </label>
-        <input type="text" size="13" value="" name="userpost" id="username" maxlength="25" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" class="text" />      </div>
+        <input type="text" value="" class="text" maxlength="25" size="13" name="userpost" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" id="username" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" maxlength="72" id="password" name="password" value="" size="18" class="text" />      </div>
+        <input type="password" size="18" name="password" maxlength="72" class="text" value="" id="password" />      </div>
 
       <div><input type='checkbox' name="do_login" id="logincheck" class="checkbox" />
         <label for="logincheck" class="checkboxlabel">
@@ -173,7 +173,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" maxlength="100" id="subject" value="" name="subject" size="50" class="text" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" placeholder="Subject" id="subject" name="subject" maxlength="100" size="50" class="text" value="" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -211,7 +211,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea id="body" rows="10" name="body" cols="80" class="text" wrap="soft"></textarea></div>
+        <textarea class="text" rows="10" name="body" cols="80" wrap="soft" id="body"></textarea></div>
 
 
 
@@ -221,7 +221,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Post Comment" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
+<input type='submit' name="submitpost" value="Post Comment" id="submitpost" class="submit" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
 
 </div>
 

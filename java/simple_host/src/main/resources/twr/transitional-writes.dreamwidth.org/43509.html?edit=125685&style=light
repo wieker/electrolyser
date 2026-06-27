@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup":1,"user_domain":"dreamwidth.org","inbox_update_poll":1,"currentJournal":"transitional_writes","media_embed_enabled":1,"iconprefix":"https://v2.dreamwidth.org","cmax_comment":16000,"has_remote":1,"imgprefix":"https://www.dreamwidth.org/img","siteroot":"https://www.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","ctx_popup_userhead":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_icons":1,"esn_async":1});
+                Site = Object.assign(Site, {"ctx_popup":1,"cmax_comment":16000,"inbox_update_poll":1,"siteroot":"https://www.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","ctx_popup_icons":1,"iconprefix":"https://v2.dreamwidth.org","ctx_popup_userhead":1,"imgprefix":"https://www.dreamwidth.org/img","esn_async":1,"has_remote":1,"currentJournal":"transitional_writes","statprefix":"https://www.dreamwidth.org/stc","user_domain":"dreamwidth.org","media_embed_enabled":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1782113347" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1782113346" />
@@ -74,7 +74,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782475200:3028:86400:FRtLmZBiQv-4255543-23:d9e2f3acc692fa56ff9b1970c17217d5" /><input type='hidden' name="replyto" value="482" /><input type='hidden' name="parenttalkid" value="482" /><input type='hidden' name="itemid" value="43509" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="125685" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="43509-4255543-1782475200-ZAogbvkz0d40FjlsaTjt-0a50e70d38130c49a616035fc2c89f75" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782550800:995:86400:KGKgLEtbmz-4255543-23:fa6e03327e3dd997627b88372e6ffe04" /><input type='hidden' name="replyto" value="482" /><input type='hidden' name="parenttalkid" value="482" /><input type='hidden' name="itemid" value="43509" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="125685" /><input type='hidden' name="viewing_thread" value="0" /><input type='hidden' name="chrp1" value="43509-4255543-1782550800-0icsEPNZnWN8U1Bf0ZTD-1f927ba0cfc9850e14a079e367e9637b" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -103,7 +103,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" placeholder="Subject" class="text" value="" name="subject" size="50" id="subject" maxlength="100" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" name="subject" maxlength="100" size="50" value="" class="text" id="subject" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -119,13 +119,13 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select class="select" name="prop_editor" id="prop_editor">
+        <select id="prop_editor" name="prop_editor" class="select">
 <option value="html_casual1">Casual HTML</option>
 <option value="markdown0" selected='selected'>Markdown</option>
 <option value="html_raw0">Raw HTML</option>
 <option value="rte0">Rich Text Editor</option>
 </select>
-    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' title="More info about formatting" style="vertical-align: middle;" /></a>
+    <a href="https://www.dreamwidth.org/support/faqbrowse?faqid=271" tabindex="-1" target="_blank"><img src="https://www.dreamwidth.org/img/silk/site/help.png" width="16" height="16" alt="More info about formatting" title="More info about formatting" border='0' style="vertical-align: middle;" title="More info about formatting" /></a>
   </div>
 
   <div class="qr-markup-controls">
@@ -141,7 +141,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea rows="10" id="body" name="body" wrap="soft" class="text" cols="80">extreme sensitivity of SQUIDs makes them ideal for studies in biology.
+        <textarea wrap="soft" id="body" rows="10" class="text" cols="80" name="body">extreme sensitivity of SQUIDs makes them ideal for studies in biology.
 Magnetoencephalography (MEG), for example, uses measurements from an array
 of SQUIDs to make inferences about neural activity inside brains. Because
 SQUIDs can operate at acquisition rates much higher than the highest
@@ -155,12 +155,12 @@ temporal frequency of interest in the signals emitted by the brain (kHz),
         <label for="editreason" >
             Reason:
         </label>
-        <input type="text" class="text" maxlength="255" id="editreason" name="editreason" value="" size="75" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
+        <input type="text" maxlength="255" name="editreason" size="75" class="text" value="" id="editreason" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
 
 
 
 <div class="qr-footer">
-<input type='submit' name="submitpost" value="Update Reply" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" id="submitpview" class="submit" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
+<input type='submit' name="submitpost" value="Update Reply" class="submit" id="submitpost" />  &nbsp;<input type='submit' name="submitpreview" value="Preview" class="submit" id="submitpview" /><input type='hidden' name="previewplaceholder" value="1" id="previewplaceholder" />    <div class='de'>        <strong>Notice:</strong> This account is set to log the IP addresses of everyone who comments.    </div>
 
 </div>
 
