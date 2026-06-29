@@ -15,10 +15,10 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","statprefix":"https://www.dreamwidth.org/stc","siteroot":"https://www.dreamwidth.org","inbox_update_poll":1,"cmax_comment":16000,"iconprefix":"https://v2.dreamwidth.org","esn_async":1,"imgprefix":"https://www.dreamwidth.org/img","user_domain":"dreamwidth.org","ctx_popup_icons":1,"has_remote":1,"media_embed_enabled":1,"currentJournal":"transitional_writes","ctx_popup_userhead":1});
+                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","imgprefix":"https://www.dreamwidth.org/img","ctx_popup_userhead":1,"ctx_popup":1,"currentJournal":"transitional_writes","user_domain":"dreamwidth.org","ctx_popup_icons":1,"cmax_comment":16000,"currentJournalBase":"https://transitional-writes.dreamwidth.org","inbox_update_poll":1,"esn_async":1,"media_embed_enabled":1,"iconprefix":"https://v2.dreamwidth.org","siteroot":"https://www.dreamwidth.org","has_remote":1});
            </script>
-        <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1782585804" />
-<link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.theme.smoothness.css,controlstrip.css,controlstrip-dark.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,canary.css?v=1782585803" />
+        <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/foundation/foundation_minimal.css?v=1782669528" />
+<link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.theme.smoothness.css,controlstrip.css,controlstrip-dark.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,canary.css?v=1782669527" />
 <link rel="stylesheet" href="res/4545987/stylesheet?1765491116" type="text/css" />
 <title>transitional_writes |  (Edit reply)</title>
 </head><body class="page-reply two-columns column-left any-column multiple-columns two-columns-left  logged-in my-journal not-subscribed has-access  has-navstrip">
@@ -30,7 +30,7 @@
 </div>
   <div id='lj_controlstrip_user'>
     <form id='Greeting' class='nopic' action='https://www.dreamwidth.org/logout' method='post'>
-      <div><input type='hidden' name="lj_form_auth" value="c0:1782648000:705:86400:NqvBYR7CCZ-4255543-23:0c5986459a823424bb4a17f802f083ad" /><input type='hidden' name="user" value="transitional_writes" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/42625.html?edit=73345&amp;thread=71553" /><input type='hidden' name="sessid" value="23" /><input type='hidden' name="ret" value="1" />
+      <div><input type='hidden' name="lj_form_auth" value="c0:1782698400:1115:86400:Faz3yrFfcr-4255543-23:4022ddb081f52f93447e8acca3715f5c" /><input type='hidden' name="user" value="transitional_writes" /><input type='hidden' name="returnto" value="https://transitional-writes.dreamwidth.org/42625.html?edit=73345&amp;thread=71553" /><input type='hidden' name="sessid" value="23" /><input type='hidden' name="ret" value="1" />
         <span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>
         <input type='submit' name="logout_one" value="Log out" id="Logout" class="submit" />      </div>
     </form><a href='https://www.dreamwidth.org/'>Home</a>&nbsp;&nbsp; <a href='https://www.dreamwidth.org/update'>Post</a>&nbsp;&nbsp;<a href='read'>Reading</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/manage/settings/'>Settings</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/inbox/'>Inbox (135)</a>  </div>
@@ -38,10 +38,10 @@
   <span id='lj_controlstrip_statustext'>You're viewing your journal</span>
   <br /><a href='https://www.dreamwidth.org/comments/recent'>View Recent Comments</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/editjournal'>Manage Entries</a>&nbsp;&nbsp;<a href='https://www.dreamwidth.org/manage/circle/invite'>Invite People</a></div>
 
-<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_241'>
+<div id='lj_controlstrip_search'><div class='appwidget appwidget-search' id='LJWidget_45'>
 <form action='https://www.dreamwidth.org/multisearch' method='post'>
-<input type="text" name="q" title="Search" value="" id="search" size="20" class="text" />
-<select class="select" name="type" id="id-type-0">
+<input type="text" title="Search" id="search" value="" size="20" name="q" class="text" />
+<select id="id-type-0" name="type" class="select">
 <option value="int" selected='selected'>Interest</option>
 <option value="region">Region</option>
 <option value="nav_and_user">Site and Account</option>
@@ -106,7 +106,7 @@
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782648000:705:86400:NqvBYR7CCZ-4255543-23:0c5986459a823424bb4a17f802f083ad" /><input type='hidden' name="replyto" value="285" /><input type='hidden' name="parenttalkid" value="285" /><input type='hidden' name="itemid" value="42625" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="73345" /><input type='hidden' name="viewing_thread" value="71553" /><input type='hidden' name="chrp1" value="42625-4255543-1782648000-iKSUFjwmRlCIeUj4KHZm-1a9d217ff238895e2d95d131a911bd4b" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782698400:1115:86400:Faz3yrFfcr-4255543-23:4022ddb081f52f93447e8acca3715f5c" /><input type='hidden' name="replyto" value="285" /><input type='hidden' name="parenttalkid" value="285" /><input type='hidden' name="itemid" value="42625" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="73345" /><input type='hidden' name="viewing_thread" value="71553" /><input type='hidden' name="chrp1" value="42625-4255543-1782698400-uD67etW4fYYn2JPtMDw6-cf0a47eab5193f9830079d517b9cb30d" />
 
 
 <div id="talkform-from">
@@ -135,7 +135,7 @@
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" id="subject" maxlength="100" name="subject" value="" class="text" size="50" placeholder="Subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" size="50" id="subject" value="" class="text" name="subject" placeholder="Subject" maxlength="100" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -151,7 +151,7 @@
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select name="prop_editor" id="prop_editor" class="select">
+        <select name="prop_editor" class="select" id="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -173,7 +173,7 @@
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea cols="80" wrap="soft" rows="10" class="text" id="body" name="body">я даже не представляю какие тут силы сцепились вокруг этой теоремы.
+        <textarea rows="10" cols="80" id="body" wrap="soft" name="body" class="text">я даже не представляю какие тут силы сцепились вокруг этой теоремы.
 
 только закупки США софта из Индии в свете этой теоремки начинают играть такими новыми красками.
 
@@ -186,7 +186,7 @@
         <label for="editreason" >
             Reason:
         </label>
-        <input type="text" maxlength="255" id="editreason" value="" name="editreason" class="text" size="75" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
+        <input type="text" value="" id="editreason" size="75" name="editreason" class="text" maxlength="255" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
 
 
 
@@ -276,7 +276,7 @@
                         <div class="module-wrapper"><div class="separator separator-before"><div class="inner"></div></div>
 <div class="module-section-two">
 <div class="inner"><div class="module-time module"><div class="module-content">
-<span id="load-time">Page generated Jun. 28th, 2026 12:11 pm</span></div>
+<span id="load-time">Page generated Jun. 29th, 2026 02:18 am</span></div>
 </div>
 <div class="module-powered module"><div class="module-content">
 <span id="site-branding">Powered by <a href="https://www.dreamwidth.org/">Dreamwidth Studios</a></span></div>
@@ -298,8 +298,8 @@
     </div>
 
     </div> 
-    <script type="text/javascript" src="https://www.dreamwidth.org/js/??jquery/jquery-1.8.3.js,foundation/vendor/custom.modernizr.js,foundation/foundation/foundation.js,foundation/foundation/foundation.topbar.js,dw/dw-core.js,jquery/jquery.ui.core.js,jquery/jquery.ui.widget.js,jquery/jquery.ui.tooltip.js,jquery.ajaxtip.js,jquery/jquery.ui.position.js,jquery.hoverIntent.js,jquery.contextualhover.js?v=1782526602"></script>
-<script type="text/javascript" src="https://www.dreamwidth.org/js/??jquery.esn.js,jquery.replyforms.js,jquery.poll.js,journals/jquery.tag-nav.js,jquery.mediaplaceholder.js,jquery.imageshrink.js,components/jquery.icon-select.js,jquery.talkform.js,jquery/jquery.ui.button.js,jquery/jquery.ui.dialog.js?v=1782526601"></script>
+    <script type="text/javascript" src="https://www.dreamwidth.org/js/??jquery/jquery-1.8.3.js,foundation/vendor/custom.modernizr.js,foundation/foundation/foundation.js,foundation/foundation/foundation.topbar.js,dw/dw-core.js,jquery/jquery.ui.core.js,jquery/jquery.ui.widget.js,jquery/jquery.ui.tooltip.js,jquery.ajaxtip.js,jquery/jquery.ui.position.js,jquery.hoverIntent.js,jquery.contextualhover.js?v=1782613048"></script>
+<script type="text/javascript" src="https://www.dreamwidth.org/js/??jquery.esn.js,jquery.replyforms.js,jquery.poll.js,journals/jquery.tag-nav.js,jquery.mediaplaceholder.js,jquery.imageshrink.js,components/jquery.icon-select.js,jquery.talkform.js,jquery/jquery.ui.button.js,jquery/jquery.ui.dialog.js?v=1782613048"></script>
 
 <script type='text/javascript'>
 jQuery(function(jQ){
