@@ -13,7 +13,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"ctx_popup":1,"esn_async":1,"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_userhead":1,"siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","user_domain":"dreamwidth.org","media_embed_enabled":1,"ctx_popup_icons":1,"currentJournal":"transitional_writes","iconprefix":"https://v2.dreamwidth.org","inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","cmax_comment":16000,"has_remote":1});
+                Site = Object.assign(Site, {"cmax_comment":16000,"statprefix":"https://www.dreamwidth.org/stc","iconprefix":"https://v2.dreamwidth.org","user_domain":"dreamwidth.org","siteroot":"https://www.dreamwidth.org","ctx_popup_userhead":1,"imgprefix":"https://www.dreamwidth.org/img","inbox_update_poll":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","has_remote":1,"ctx_popup":1,"media_embed_enabled":1,"ctx_popup_icons":1,"esn_async":1,"currentJournal":"transitional_writes"});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/tropo/tropo-red.css?v=1782669529" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css,css/components/foundation-icons.css?v=1782669527" />
@@ -85,12 +85,12 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<hr style="margin: 1em 0;"><div class="readlink"> (<a href="44055.html?style=site#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">63 comments</a>) </div>
+<hr style="margin: 1em 0;"><div class="readlink"> (<a href="44055.html?style=site#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">90 comments</a>) </div>
 <h1>Post a comment in response:</h1>
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782702000:2947:86400:ZtVDEAPdKp-4255543-23:72e3ad4e02feb6dd90177d138a8486dc" /><input type='hidden' name="replyto" value="487" /><input type='hidden' name="parenttalkid" value="487" /><input type='hidden' name="itemid" value="44055" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="171287" /><input type='hidden' name="viewing_thread" value="171287" /><input type='hidden' name="chrp1" value="44055-4255543-1782702000-OytJUYKZ38x4Z86g7ZE7-4b6c6c6933f4f6b469cc7bb3cbbbaeec" /><input type='hidden' name="style" value="site" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782781200:2213:86400:H058n40cpV-4255543-23:78bbcfdea026aba0a087395c92960205" /><input type='hidden' name="replyto" value="487" /><input type='hidden' name="parenttalkid" value="487" /><input type='hidden' name="itemid" value="44055" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="171287" /><input type='hidden' name="viewing_thread" value="171287" /><input type='hidden' name="chrp1" value="44055-4255543-1782781200-1Bz0WKZZIqEPV3jATlvM-acecda10de134223b84cd9c42da237c9" /><input type='hidden' name="style" value="site" />
 
 
 <div id="talkform-from">
@@ -119,7 +119,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" name="subject" maxlength="100" placeholder="Subject" class="text" id="subject" value="" size="50" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" value="" class="text" name="subject" id="subject" maxlength="100" placeholder="Subject" size="50" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -135,7 +135,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select class="select" id="prop_editor" name="prop_editor">
+        <select class="select" name="prop_editor" id="prop_editor">
 <option value="html_casual1">Casual HTML</option>
 <option value="markdown0" selected='selected'>Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -157,7 +157,7 @@ Someone wrote in <span lj:user='transitional_writes' style='white-space: nowrap;
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea rows="10" name="body" wrap="soft" cols="80" class="text" id="body">ну и кроме сериала killjoys тут был в 90-ые популярный анекдот.
+        <textarea name="body" wrap="soft" class="text" cols="80" id="body" rows="10">ну и кроме сериала killjoys тут был в 90-ые популярный анекдот.
 
 - устроился чел в полицию и не появляется на работе.
 - ну с ним вязались и говорят - а чо ты за зарплатой не приходишь?
@@ -188,7 +188,7 @@ white hat крутятся как знают.
         <label for="editreason" >
             Reason:
         </label>
-        <input type="text" class="text" size="75" value="" maxlength="255" name="editreason" id="editreason" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
+        <input type="text" name="editreason" size="75" maxlength="255" id="editreason" value="" class="text" />    <div id='nohtmledit' class='ljdeem no-js'><span style='font-size: 8pt; font-style: italic;'>No HTML allowed in reason for edit</span></div></div>
 
 
 
@@ -209,14 +209,14 @@ white hat крутятся как знают.
 <div class="columns large-12 small-12"><div id='account-links-userpic'><a href='https://www.dreamwidth.org/manage/icons'><img src="https://www.dreamwidth.org/img/nouserpic.png" width="80" height="80" alt="Manage Icons" title="Manage Icons" border='0' /></a></div>
 <div id='account-links-text' role="navigation" aria-label="Account Links" data-reveal>
 <div class='row'><div class='columns'>
-    <form action='https://www.dreamwidth.org/logout' method='post'><input type='hidden' name="lj_form_auth" value="c0:1782702000:2947:86400:ZtVDEAPdKp-4255543-23:72e3ad4e02feb6dd90177d138a8486dc" /><span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>        <input type="hidden" name="returnto" value="https://transitional-writes.dreamwidth.org/44055.html?edit=171287&amp;style=site&amp;thread=171287" />
+    <form action='https://www.dreamwidth.org/logout' method='post'><input type='hidden' name="lj_form_auth" value="c0:1782781200:2213:86400:H058n40cpV-4255543-23:78bbcfdea026aba0a087395c92960205" /><span lj:user='transitional_writes' style='white-space: nowrap;' class='ljuser'><a href='profile'><img src='https://www.dreamwidth.org/img/silk/identity/user.png' alt='[personal profile] ' width='17' height='17' style='vertical-align: text-bottom; border: 0; padding-right: 1px;' /></a><a href='index.html'><b>transitional_writes</b></a></span>        <input type="hidden" name="returnto" value="https://transitional-writes.dreamwidth.org/44055.html?edit=171287&amp;style=site&amp;thread=171287" />
         <input type="hidden" name="ret" value="1" />
         <input class="logout button secondary" type="submit" name="logout_one" value="Log out" />
     </form>
 </div></div>
 <div class='row'><div class='small-12 large-12 columns'>
 <ul><li><a href='https://www.dreamwidth.org/update'>Post</a></li><li><a href='read'>Reading Page</a></li>
-<li class="before-break"><a href='https://www.dreamwidth.org/inbox/'>Inbox <span id='Inbox_Unread_Count'>(135)</span></a></li>
+<li class="before-break"><a href='https://www.dreamwidth.org/inbox/'>Inbox <span id='Inbox_Unread_Count'>(139)</span></a></li>
 <li class="after-break"><a href='https://www.dreamwidth.org/manage/settings/'>Account Settings</a></li><li><a href='https://www.dreamwidth.org/support/'>Help/Support</a></li>
 </ul>
 </div></div>
@@ -271,7 +271,7 @@ white hat крутятся как знают.
                 <li class='subnav'><a href='https://transitional-writes.dreamwidth.org/tag'>Tags</a></li>
                 <li class='subnav'><a href='archive'>Archive</a></li>
                 <li class='subnav'><a href='https://www.dreamwidth.org/comments/recent'>Recent Comments</a></li>
-                <li class='subnav'><a href='https://www.dreamwidth.org/inbox/'>Inbox <span id='Inbox_Unread_Count_Menu'> (135)</span></a></li>
+                <li class='subnav'><a href='https://www.dreamwidth.org/inbox/'>Inbox <span id='Inbox_Unread_Count_Menu'> (139)</span></a></li>
 </ul>
 </li><li id='explore_topnav' class='topnav has-dropdown'><a href='https://www.dreamwidth.org/nav/explore'>Explore</a>
 <ul id='explore_subnav' class='subnav_container dropdown'>

@@ -15,7 +15,7 @@
                 if (!Site)
                     Site = {};
 
-                Site = Object.assign(Site, {"statprefix":"https://www.dreamwidth.org/stc","ctx_popup_icons":1,"inbox_update_poll":1,"has_remote":1,"ctx_popup":1,"media_embed_enabled":1,"ctx_popup_userhead":1,"user_domain":"dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","iconprefix":"https://v2.dreamwidth.org","currentJournal":"transitional_writes","siteroot":"https://www.dreamwidth.org","currentJournalBase":"https://transitional-writes.dreamwidth.org","esn_async":1,"cmax_comment":16000});
+                Site = Object.assign(Site, {"esn_async":1,"ctx_popup":1,"currentJournalBase":"https://transitional-writes.dreamwidth.org","siteroot":"https://www.dreamwidth.org","imgprefix":"https://www.dreamwidth.org/img","has_remote":1,"cmax_comment":16000,"ctx_popup_icons":1,"inbox_update_poll":1,"statprefix":"https://www.dreamwidth.org/stc","currentJournal":"transitional_writes","media_embed_enabled":1,"user_domain":"dreamwidth.org","iconprefix":"https://v2.dreamwidth.org","ctx_popup_userhead":1});
            </script>
         <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??lj_base.css,esn.css,jquery/jquery.ui.core.css,jquery/jquery.ui.tooltip.css,jquery.contextualhover.css,css/skins/lynx.css?v=1782669528" />
 <link rel="stylesheet" type="text/css" href="https://www.dreamwidth.org/stc/??css/components/quick-reply.css,css/components/icon-select.css,css/components/imageshrink.css,css/components/talkform.css,jquery/jquery.ui.button.css,jquery/jquery.ui.dialog.css,jquery/jquery.ui.theme.smoothness.css,canary.css?v=1782669527" />
@@ -117,12 +117,12 @@ https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</p>
 </div>
 <div class="separator separator-after"><div class="inner"></div></div>
 </div>
-<hr style="margin: 1em 0;"><div class="readlink"> (<a href="44055.html?style=light#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">63 comments</a>) </div>
+<hr style="margin: 1em 0;"><div class="readlink"> (<a href="44055.html?style=light#comments" data-sing="1 comment" data-dual="2 comments" data-plur="3 comments">90 comments</a>) </div>
 <h1>Post a comment in response:</h1>
 
 <div id='qrdiv'><div id='qrformdiv'>
 
-<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782702000:2600:86400:De0m7HfRh4-4255543-23:ae512df9b23e4e46120b7501f57cbbfd" /><input type='hidden' name="replyto" value="671" /><input type='hidden' name="parenttalkid" value="671" /><input type='hidden' name="itemid" value="44055" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="124695" /><input type='hidden' name="chrp1" value="44055-4255543-1782702000-lAMmWtqi4TtE3F5yUoLD-56354eb02961323d0ca9a8191e644bd5" /><input type='hidden' name="style" value="light" />
+<form id="postform" name="postform" method="POST" action="https://www.dreamwidth.org/talkpost_do"><input type='hidden' name="lj_form_auth" value="c0:1782781200:1768:86400:6DagG1jR2F-4255543-23:75c9edbaca48da987f1c8456d256c727" /><input type='hidden' name="replyto" value="671" /><input type='hidden' name="parenttalkid" value="671" /><input type='hidden' name="itemid" value="44055" /><input type='hidden' name="journal" value="transitional_writes" /><input type='hidden' name="editid" value="0" /><input type='hidden' name="viewing_thread" value="124695" /><input type='hidden' name="chrp1" value="44055-4255543-1782781200-NoH7ItIstBFzR6WSsRlC-ad544563432f3832717939b551630053" /><input type='hidden' name="style" value="light" />
 
 
 <div id="talkform-from">
@@ -149,9 +149,9 @@ https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</p>
         <label for="oidurl" >
             Identity URL:
         </label>
-        <input type="text" name="oidurl" class="text" maxlength="60" value="" size="53" id="oidurl" />      </div>
+        <input type="text" class="text" id="oidurl" name="oidurl" value="" maxlength="60" size="53" />      </div>
 
-      <div><input type='checkbox' class="checkbox" name="oiddo_login" id="oidlogincheck" />
+      <div><input type='checkbox' name="oiddo_login" class="checkbox" id="oidlogincheck" />
         <label for="oidlogincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -185,15 +185,15 @@ https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</p>
         <label for="username" >
             Account name
         </label>
-        <input type="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" size="13" id="username" value="" class="text" maxlength="25" name="userpost" />      </div>
+        <input type="text" style="background: url(https://transitional-writes.dreamwidth.org/&) no-repeat; background-color: #fff; background-position: 0px 50%; padding-left: 18px; color: #00C; font-weight: bold;" maxlength="25" size="13" class="text" id="username" name="userpost" value="" />      </div>
 
       <div>
         <label for="password" >
             Password
         </label>
-        <input type="password" name="password" maxlength="72" class="text" value="" id="password" size="18" />      </div>
+        <input type="password" name="password" value="" class="text" id="password" size="18" maxlength="72" />      </div>
 
-      <div><input type='checkbox' id="logincheck" name="do_login" class="checkbox" />
+      <div><input type='checkbox' name="do_login" id="logincheck" class="checkbox" />
         <label for="logincheck" class="checkboxlabel">
             Log in?
         </label>
@@ -221,7 +221,7 @@ https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</p>
         <label for="subject" class="invisible">
             Subject
         </label>
-        <input type="text" placeholder="Subject" name="subject" value="" maxlength="100" class="text" id="subject" size="50" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
+        <input type="text" maxlength="100" size="50" placeholder="Subject" id="subject" class="text" value="" name="subject" /><input type='hidden' name="subjecticon" value="none" id="subjectIconField" />
   <img src="https://www.dreamwidth.org/img/talk/none.gif" border="0" width="15" height="15" alt="No Subject Icon Selected" valign="middle" id='subjectIconImage' role='button' class='js-only' style='display: none;' title='Click to change the subject icon' /></div>
 
 <div style="display: none;" id="subjectIconList">
@@ -237,7 +237,7 @@ https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</p>
         <label for="prop_editor" class="invisible">
             Formatting type
         </label>
-        <select class="select" name="prop_editor" id="prop_editor">
+        <select class="select" id="prop_editor" name="prop_editor">
 <option value="html_casual1" selected='selected'>Casual HTML</option>
 <option value="markdown0">Markdown</option>
 <option value="html_raw0">Raw HTML</option>
@@ -259,7 +259,7 @@ https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference</p>
         <label for="body" class="invisible">
             Message
         </label>
-        <textarea class="text" rows="10" cols="80" name="body" wrap="soft" id="body"></textarea></div>
+        <textarea rows="10" wrap="soft" id="body" class="text" cols="80" name="body"></textarea></div>
 
 
 
